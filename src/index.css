@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  /* ── Brand depths ── */
+  --color-ink:        #040810;
+  --color-navy:       #070E1C;
+  --color-navy-light: #0B1728;
+  --color-navy-dark:  #040A14;
+  --color-surface:    #0A1220;
+
+  /* ── Brand accents ── */
+  --color-gold:       #C8962A;
+  --color-gold-bright:#E6B840;
+  --color-gold-light: #F5CA5A;
+  --color-teal:       #0D9488;
+  --color-cyan:       #22D3EE;
+
+  /* ── Neutrals ── */
+  --color-neutral:    #EEF2FF;
+
+  /* ── Typography ── */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-sans:    'Outfit', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+
+  /* ── Animations ── */
+  --animate-marquee:     marquee 35s linear infinite;
+  --animate-orbit-cw:    orbit-cw 36s linear infinite;
+  --animate-orbit-ccw:   orbit-ccw 24s linear infinite;
+  --animate-pulse-slow:  pulse-slow 3s ease-in-out infinite;
+  --animate-fade-up:     fade-up 0.7s ease both;
+  --animate-mesh:        mesh-drift 20s ease-in-out infinite;
+}
+
+/* ── Keyframes ──────────────────────────────── */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes orbit-cw {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes orbit-ccw {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-100% - 10px)) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, calc(-100% - 18px)) scale(1);
+  }
+}
+
+@keyframes mesh-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(40px, -25px) scale(1.05); }
+  66%  { transform: translate(-20px, 15px) scale(0.97); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes scroll-dot {
+  0%   { transform: translateY(0);    opacity: 0.8; }
+  60%  { transform: translateY(10px); opacity: 0.18; }
+  100% { transform: translateY(0);    opacity: 0.8; }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-7px); }
+}
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Base ───────────────────────────────────── */
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #040810;
+  color: #e8edf8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Scrollbar ──────────────────────────────── */
+
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: #040810; }
+::-webkit-scrollbar-thumb { background: #C8962A40; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #C8962A80; }
+
+/* ── Utility patterns ───────────────────────── */
+
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(200, 150, 42, 0.10) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.line-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.ezy-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.nav-underline {
+  position: relative;
+}
+.nav-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: #C8962A;
+  transition: width 0.22s ease;
+}
+.nav-underline:hover::after {
+  width: 100%;
+}
+
+/* ── Typography utilities ───────────────────── */
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* ── Selection color ────────────────────────── */
+
+::selection {
+  background: rgba(200, 150, 42, 0.25);
+  color: #fff;
+}
