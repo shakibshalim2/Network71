@@ -24,7 +24,7 @@ const STATS = [
         <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
       </svg>
     ),
-    value: '25+', label: 'Countries', sub: 'Global Presence',
+    value: 'Dhaka', label: 'Bangladesh', sub: 'Company base',
   },
   {
     icon: (
@@ -43,7 +43,7 @@ const STATS = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
       </svg>
     ),
-    value: '5,000+', label: 'Team Members', sub: 'Worldwide',
+    value: 'Work', label: 'Project Stories', sub: 'Scope & outcomes',
   },
   {
     icon: (
@@ -51,7 +51,7 @@ const STATS = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
     ),
-    value: '12K+', label: 'Partners & Clients', sub: 'Global Network',
+    value: 'Talk', label: 'Business Enquiries', sub: 'Discuss your brief',
   },
 ]
 
@@ -326,7 +326,7 @@ export default function Hero() {
                   color: 'var(--brand-fg)',
                   textTransform: 'uppercase',
                 }}>
-                Global Vision. Unified Impact.
+                NETWORK71 · BANGLADESH
               </span>
             </div>
 
@@ -342,9 +342,9 @@ export default function Hero() {
                 marginBottom: 'clamp(14px, 3vw, 22px)',
               }}
             >
-              A Global Enterprise
+              Connecting business.
               <br />
-              <em style={{ color: 'var(--brand-fg)' }}>Built for Tomorrow.</em>
+              <em style={{ color: 'var(--brand-fg)' }}>Building what’s next.</em>
             </h1>
 
             {/* Body */}
@@ -355,16 +355,16 @@ export default function Hero() {
               maxWidth: 460,
               marginBottom: 'clamp(24px, 5vw, 36px)',
             }}>
-              Eight distinct business divisions. One unified purpose — driving industry, innovation,
-              and sustainable growth across 25+ countries worldwide.
+              Explore our work in manufacturing, trade, technology and more.
+              Find the right division, understand our approach and speak with our team about your next project.
             </p>
 
             {/* CTAs — stack full-width on narrow screens, inline from 400px up */}
             <div
               className="flex flex-col min-[400px]:flex-row min-[400px]:flex-wrap"
               style={{ gap: 12, marginBottom: 'clamp(26px, 6vw, 40px)' }}>
-              <button
-                onClick={() => document.getElementById('divisions')?.scrollIntoView({ behavior: 'smooth' })}
+              <Link
+                to="/projects"
                 className="justify-center min-[400px]:justify-start"
                 style={{
                   display: 'flex', alignItems: 'center', gap: 10,
@@ -383,13 +383,13 @@ export default function Hero() {
                   e.currentTarget.style.boxShadow = 'var(--shadow-brand)'
                 }}
               >
-                Explore Our Divisions
+                Explore Our Work
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" style={{ width: 15, height: 15 }}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </button>
+              </Link>
               <Link
-                to="/investors"
+                to="/contact"
                 className="justify-center min-[400px]:justify-start"
                 style={{
                   display: 'flex', alignItems: 'center', gap: 8,
@@ -409,7 +409,7 @@ export default function Hero() {
                   e.currentTarget.style.background = 'transparent'
                 }}
               >
-                Investor Relations
+                Discuss Your Project
               </Link>
             </div>
 

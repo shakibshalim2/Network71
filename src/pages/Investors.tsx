@@ -4,13 +4,6 @@ import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 import { openEmailDraft } from "@/lib/mailto"
 
-const keyFinancials = [
-  { value: "$150M+", label: "Annual Revenue", sub: "FY 2024 turnover" },
-  { value: "40%", label: "YoY Growth", sub: "Year-over-year revenue growth" },
-  { value: "5,000+", label: "Team Members", sub: "Global workforce" },
-  { value: "25+", label: "Markets", sub: "Countries of operation" },
-]
-
 const thesis = [
   {
     title: "Diversified Portfolio",
@@ -42,11 +35,9 @@ const thesis = [
 ]
 
 const documents = [
-  { name: "Investment Prospectus 2024", type: "PDF", size: "2.4 MB", status: "Coming Soon" },
-  { name: "Annual Report 2023", type: "PDF", size: "5.1 MB", status: "Coming Soon" },
-  { name: "Financial Statements Q4 2024", type: "PDF", size: "1.8 MB", status: "Coming Soon" },
-  { name: "Pitch Deck", type: "PDF", size: "3.2 MB", status: "Coming Soon" },
-  { name: "Corporate Overview", type: "PDF", size: "4.5 MB", status: "Coming Soon" },
+  { name: "Company overview", subject: "Company overview request" },
+  { name: "Financial reporting", subject: "Financial reporting request" },
+  { name: "Investment information", subject: "Investment information request" },
 ]
 
 type FormState = {
@@ -89,6 +80,7 @@ export default function Investors() {
   return (
     <div className="min-h-full">
       <Header />
+      <main className="public-content">
 
       {/* ── Hero ──────────────────────────────────────────────────────────────── */}
       <section className="relative bg-navy pt-32 pb-20 overflow-hidden">
@@ -114,65 +106,9 @@ export default function Investors() {
       </section>
 
       {/* ── Key Financials ────────────────────────────────────────────────────── */}
-      <section className="bg-navy-dark border-y border-white/8 py-16">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {keyFinancials.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="font-display text-4xl sm:text-5xl text-white mb-1">{stat.value}</div>
-                <div className="text-gold text-xs font-semibold tracking-widest uppercase">{stat.label}</div>
-                <div className="text-slate-500 text-xs mt-0.5">{stat.sub}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* ── Revenue Trajectory ────────────────────────────────────────────────── */}
-      <section className="bg-navy py-20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-12 bg-gold" />
-              <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Growth Story</span>
-              <div className="h-px w-12 bg-gold" />
-            </div>
-            <h2 className="font-display text-4xl text-white mb-3 tracking-[-0.02em]">Revenue Trajectory</h2>
-            <p className="text-slate-400 max-w-md mx-auto text-sm">From startup to $150M+ in five years of disciplined, diversified growth.</p>
-          </div>
-          <div className="max-w-3xl mx-auto">
-            <div className="flex items-end justify-between gap-3 h-44 mb-3">
-              {[
-                { year: "2019", value: "$10M",   height: "10%",  labeled: true  },
-                { year: "2020", value: "",        height: "22%",  labeled: false },
-                { year: "2021", value: "",        height: "38%",  labeled: false },
-                { year: "2022", value: "",        height: "55%",  labeled: false },
-                { year: "2023", value: "",        height: "74%",  labeled: false },
-                { year: "2024", value: "$150M+",  height: "100%", labeled: true  },
-              ].map((bar) => (
-                <div key={bar.year} className="flex-1 flex flex-col items-center gap-1.5">
-                  {bar.labeled
-                    ? <span className="text-gold text-xs font-semibold whitespace-nowrap">{bar.value}</span>
-                    : <span className="text-slate-700 text-[10px]">·</span>
-                  }
-                  <div
-                    className="w-full rounded-t-lg bg-gradient-to-t from-gold/35 to-gold/75 border-t border-gold/45"
-                    style={{ height: bar.height }}
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-between gap-3">
-              {["2019", "2020", "2021", "2022", "2023", "2024"].map((y) => (
-                <div key={y} className="flex-1 text-center text-slate-500 text-xs">{y}</div>
-              ))}
-            </div>
-            <p className="text-center text-slate-600 text-xs mt-4">
-              2019 &amp; 2024 are published benchmarks. Intermediate year data will be confirmed in our Annual Report.
-            </p>
-          </div>
-        </div>
-      </section>
+
+      <section className="bg-navy section-y"><div className="container-page"><div className="public-section-heading"><div><span className="public-eyebrow">INVESTOR INFORMATION</span><h2>Start with the<br/><em>right information.</em></h2></div><p>Request current company information, financial reporting and the supporting documents relevant to your discussion.</p></div><div className="work-intro"><div className="work-intro-mark" aria-hidden="true">N71</div><div><h3>Discuss your due diligence requirements.</h3><p>Our team can clarify which documents are available and the appropriate process for sharing them.</p></div><a className="public-button" href="mailto:investors@network71.com">Request information ↗</a></div></div></section>
 
       {/* ── Investment Thesis ─────────────────────────────────────────────────── */}
       <section className="bg-navy py-24">
@@ -212,7 +148,7 @@ export default function Investors() {
           </div>
           <div className="space-y-4 max-w-3xl mx-auto">
             {documents.map((doc) => (
-              <div key={doc.name} className="flex items-center justify-between bg-navy border border-white/8 rounded-xl px-6 py-5">
+              <div key={doc.name} className="document-request-card flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 bg-navy border border-white/8 rounded-xl px-6 py-5">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 bg-gold/10 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg className="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
@@ -221,18 +157,10 @@ export default function Investors() {
                   </div>
                   <div>
                     <p className="text-white text-sm font-medium">{doc.name}</p>
-                    <p className="text-slate-500 text-xs">{doc.type} · {doc.size}</p>
+                    <p className="text-slate-500 text-xs">Ask about current availability</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-[9px] tracking-wide uppercase text-slate-500">{doc.status}</span>
-                  <button
-                    disabled
-                    className="px-4 py-1.5 border border-white/10 text-slate-600 text-xs rounded cursor-not-allowed"
-                  >
-                    Download
-                  </button>
-                </div>
+                <a className="public-text-link" href={`mailto:investors@network71.com?subject=${encodeURIComponent(doc.subject)}`}>Request details ↗</a>
               </div>
             ))}
           </div>
@@ -282,7 +210,7 @@ export default function Investors() {
             </div>
             <h2 className="font-display text-4xl text-white mb-3 tracking-[-0.02em]">Investor Enquiry</h2>
             <p className="text-slate-400 text-sm mb-2">
-              We respond to all investor inquiries within 48 hours.
+              Send your questions and the documents you would like to review.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-slate-400">
               <a href="mailto:investors@network71.com" className="flex items-center gap-1.5 hover:text-gold transition-colors">
@@ -292,7 +220,7 @@ export default function Investors() {
               <span className="hidden sm:inline text-slate-600">·</span>
               <span className="flex items-center gap-1.5">
                 <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                Response within 48 hours
+                Direct investor enquiries
               </span>
             </div>
           </div>
@@ -400,6 +328,7 @@ export default function Investors() {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   )

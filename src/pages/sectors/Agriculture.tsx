@@ -198,6 +198,7 @@ export default function Agriculture() {
   return (
     <div className="sector-page min-h-full bg-navy">
       <SectorHeader divisionName="Agriculture & Agro Products" accentClass="text-green-400" />
+      <main className="public-content">
 
       {/* ── 1. Hero ─────────────────────────────────────────────────────────── */}
       <section className="force-dark sector-hero relative min-h-screen flex items-center overflow-hidden">
@@ -563,13 +564,13 @@ export default function Agriculture() {
 
               {/* Impact callout */}
               <div
-                className="flex items-center gap-5 p-5 rounded-2xl mb-8"
+                className="flex flex-col sm:flex-row items-start gap-5 p-5 rounded-2xl mb-8"
                 style={{ background: `color-mix(in srgb, ${ACCENT} 6%, transparent)`, border: `1px solid color-mix(in srgb, ${ACCENT} 15%, transparent)` }}
               >
-                <div className="font-display text-4xl text-fg" style={{ color: ACCENT }}>37,500+</div>
+                <div className="font-display text-4xl text-fg" style={{ color: ACCENT }}>Community</div>
                 <div>
-                  <div className="text-fg font-semibold text-sm">Lives Impacted</div>
-                  <div className="text-slate-500 text-xs">Across farming families and rural communities in our supply network</div>
+                  <div className="text-fg font-semibold text-sm">Responsible sourcing</div>
+                  <div className="text-slate-500 text-xs">Discuss traceability and farming community considerations for your supply requirements</div>
                 </div>
               </div>
 
@@ -792,6 +793,7 @@ export default function Agriculture() {
       />
 
       {/* ── 15. Footer ──────────────────────────────────────────────────────── */}
+      </main>
       <Footer />
     </div>
   )

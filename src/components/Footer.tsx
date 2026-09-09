@@ -7,6 +7,7 @@ const COLUMNS = [
   {
     title: 'Network71',
     links: [
+      { label: 'Our Work & Projects', href: '/projects' },
       { label: 'About Network71',  href: '/about' },
       { label: 'Our Story',        href: '/timeline' },
       { label: 'Leadership',       href: '/leadership' },
@@ -165,7 +166,7 @@ export default function Footer() {
               color: 'var(--fg-subtle)', lineHeight: 1.7,
               maxWidth: 480, marginInline: 'auto',
             }}>
-            A diversified enterprise operating across eight industries in 25+ countries — built for scale, driven by purpose.
+            Based in Bangladesh, connecting businesses across eight divisions. Explore our work and speak directly with our team.
           </p>
 
           {/* CTA buttons — stack full width on narrow phones */}

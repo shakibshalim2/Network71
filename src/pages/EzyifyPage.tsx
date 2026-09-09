@@ -254,11 +254,12 @@ export default function EzyifyPage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: DARK, color: 'var(--fg)' }}>
       <Header />
+      <main className="public-content">
 
       {/* ── Hero ── */}
       <section
         ref={heroRef}
-        className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-[68px]"
+        className="ezyify-page-hero relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-[68px]"
         style={{ backgroundColor: DARK }}
       >
         <div
@@ -275,7 +276,7 @@ export default function EzyifyPage() {
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
           <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full mb-10" style={{ border: '1px solid rgba(168,85,247,0.3)', background: 'rgba(168,85,247,0.08)' }}>
             <span className="w-1.5 h-1.5 rounded-full bg-purple-400" style={{ animation: 'pulse-slow 3s ease-in-out infinite' }} />
-            <span className="font-mono text-[9px] tracking-[0.35em] uppercase text-purple-300/80">Network71 Flagship Innovation Brand</span>
+            <span className="font-mono text-[10px] tracking-[0.16em] uppercase" style={{ color: 'var(--accent-purple)' }}>Network71 · Product &amp; platform vision</span>
           </div>
 
           <h1
@@ -958,6 +959,7 @@ export default function EzyifyPage() {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   )

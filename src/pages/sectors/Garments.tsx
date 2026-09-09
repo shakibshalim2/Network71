@@ -295,6 +295,7 @@ export default function Garments() {
   return (
     <div className="sector-page min-h-full bg-surface-0">
       <SectorHeader divisionName="Garments & Apparel" accentClass="text-rose-400" />
+      <main className="public-content">
 
       {/* ── 1. HERO ────────────────────────────────────────── */}
       <section className="force-dark sector-hero relative min-h-screen flex items-center overflow-hidden">
@@ -1067,6 +1068,7 @@ export default function Garments() {
       />
 
       {/* ── 16. FOOTER ────────────────────────────────────── */}
+      </main>
       <Footer />
     </div>
   )

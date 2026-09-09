@@ -112,7 +112,7 @@ export default function BrandPage() {
     <div style={{ background: 'var(--s0)', minHeight: '100vh' }}>
       <Header />
 
-      <main className="brand-page pt-28 pb-32">
+      <main className="public-content brand-page pt-28 pb-32">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
 
           {/* ── Hero ─────────────────────────────────────────────────────────── */}

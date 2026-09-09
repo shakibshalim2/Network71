@@ -13,6 +13,7 @@ const DEFAULT_META: PageMeta = {
 }
 
 const PAGE_META: Record<string, PageMeta> = {
+  "/projects": { title: "Our Work & Projects | Network71", description: "Explore Network71 project stories, our role, deliverables and outcomes." },
   "/": DEFAULT_META,
   "/about": { title: "About Network71", description: "Learn about Network71, our principles, portfolio, and long-term enterprise vision." },
   "/investors": { title: "Investor Relations | Network71", description: "Investor relations and strategic enquiry information for Network71." },
@@ -54,7 +55,8 @@ export default function RouteExperience() {
 
   useEffect(() => {
     const isAdmin = pathname === '/admin' || pathname.startsWith('/admin/')
-    const meta = PAGE_META[pathname] ?? (isAdmin ? { title: 'Workspace | Network71 Admin', description: 'Network71 website administration.' } : {
+    const isProject = pathname.startsWith('/projects/')
+    const meta = PAGE_META[pathname] ?? (isProject ? { title: 'Project Story | Network71', description: 'Project scope, delivery and outcomes from Network71.' } : isAdmin ? { title: 'Workspace | Network71 Admin', description: 'Network71 website administration.' } : {
       title: "Page Not Found | Network71",
       description: "The requested Network71 page could not be found.",
     })

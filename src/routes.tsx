@@ -28,6 +28,7 @@ const Gallery = lazy(() => import("@/pages/Gallery"))
 const BrandPage = lazy(() => import("@/pages/BrandPage"))
 const NotFound = lazy(() => import("@/pages/NotFound"))
 const Admin = lazy(() => import("@/admin/Admin"))
+const Projects = lazy(() => import("@/pages/Projects"))
 
 function PageLoader() {
   return (
@@ -60,6 +61,8 @@ export const router = createBrowserRouter([
       { path: '/admin', Component: Admin },
       { path: '/admin/:section', Component: Admin },
       { path: '/', Component: Home },
+      { path: '/projects', Component: Projects },
+      { path: '/projects/:slug', Component: Projects },
       { path: '/about', Component: About },
       { path: '/investors', Component: Investors },
       { path: '/careers', Component: Careers },

@@ -67,6 +67,7 @@ export default function Press() {
   return (
     <div className="min-h-screen bg-navy text-white">
       <Header />
+      <main className="public-content">
 
       {/* Hero */}
       <section className="relative pt-[68px] overflow-hidden bg-navy-dark">
@@ -207,6 +208,7 @@ export default function Press() {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   )

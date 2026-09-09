@@ -21,6 +21,7 @@ export default function Legal() {
   return (
     <div className="min-h-screen bg-navy text-white">
       <Header />
+      <main className="public-content">
 
       {/* Hero */}
       <section className="relative pt-[68px] overflow-hidden bg-navy-dark">
@@ -41,15 +42,16 @@ export default function Legal() {
 
       {/* Body with sticky sidebar */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <div className="flex gap-12">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
 
           {/* Sticky sidebar TOC */}
-          <aside className="hidden lg:block w-56 flex-shrink-0">
-            <nav className="sticky top-24 space-y-1">
+          <aside className="w-full lg:w-56 flex-shrink-0">
+            <nav aria-label="Legal contents" className="lg:sticky lg:top-24 space-y-1">
               <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4">Contents</p>
               {sections.map((s) => (
                 <button
                   key={s.id}
+                  aria-current={active === s.id ? "location" : undefined}
                   onClick={() => scrollTo(s.id)}
                   className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-colors font-medium ${active === s.id ? 'bg-gold/10 text-gold border-l-2 border-gold' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
                 >
@@ -263,6 +265,7 @@ export default function Legal() {
         </div>
       </div>
 
+      </main>
       <Footer />
     </div>
   )

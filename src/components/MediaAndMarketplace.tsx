@@ -3,28 +3,28 @@ import { Link } from 'react-router-dom'
 const NEWS_STORIES = [
   {
     id: 1,
-    title: 'Network71 Expands Operations in Europe',
-    date: 'May 10, 2024',
+    title: 'Explore Our Business Divisions',
+    date: 'Services & sectors', href: '/about',
     img: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=120&h=80&fit=crop&auto=format',
   },
   {
     id: 2,
-    title: 'Sustainable Innovation in Agriculture for the Future',
-    date: 'May 08, 2024',
+    title: 'Responsible Agriculture & Sourcing',
+    date: 'Agriculture division', href: '/divisions/agriculture',
     img: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=120&h=80&fit=crop&auto=format',
   },
   {
     id: 3,
-    title: 'Digital Transformation Driving Global Impact',
-    date: 'May 05, 2024',
+    title: 'Software & Digital Product Development',
+    date: 'IT & software', href: '/divisions/it-software',
     img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=120&h=80&fit=crop&auto=format',
   },
 ]
 
 const ESHIP_STATS = [
-  { val: '2,500+', label: 'Ships Listed' },
-  { val: '150+',   label: 'Countries' },
-  { val: 'Active', label: 'Marketplace' },
+  { val: 'Buy', label: 'Vessel enquiries' },
+  { val: 'Sell', label: 'Discuss a vessel' },
+  { val: 'Connect', label: 'Maritime team' },
 ]
 
 export default function MediaAndMarketplace() {
@@ -106,7 +106,7 @@ export default function MediaAndMarketplace() {
                     <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 11, height: 11 }}>
                       <path d="M8 5v14l11-7z" />
                     </svg>
-                    Watch Live
+                    Explore Media
                   </Link>
                 </div>
               </div>
@@ -120,7 +120,7 @@ export default function MediaAndMarketplace() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                   <div style={{ height: 1, width: 18, background: 'var(--brand-edge)' }} />
                   <span style={{ fontFamily: 'var(--font-mono)', fontSize: 7.5, letterSpacing: '0.32em', color: 'var(--brand-fg)', textTransform: 'uppercase' }}>
-                    Latest Stories
+                    Explore Network71
                   </span>
                 </div>
 
@@ -166,7 +166,7 @@ export default function MediaAndMarketplace() {
                   onMouseEnter={e => { e.currentTarget.style.color = 'var(--brand)' }}
                   onMouseLeave={e => { e.currentTarget.style.color = 'var(--brand-edge)' }}
                 >
-                  All Stories
+                  Media Division
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" style={{ width: 10, height: 10 }}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>

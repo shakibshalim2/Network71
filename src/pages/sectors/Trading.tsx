@@ -178,6 +178,7 @@ export default function Trading() {
   return (
     <div className="sector-page min-h-full bg-navy">
       <SectorHeader divisionName="Global Trading" accentClass="text-blue-400" />
+      <main className="public-content">
 
       {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
       <section className="force-dark sector-hero relative min-h-screen flex items-center overflow-hidden">
@@ -985,6 +986,7 @@ export default function Trading() {
       />
 
       {/* ── 18. FOOTER ──────────────────────────────────────────────────────── */}
+      </main>
       <Footer />
     </div>
   )

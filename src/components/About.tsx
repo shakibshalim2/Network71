@@ -160,7 +160,7 @@ export default function About() {
             }}>
             <img
               src={BUILDING_IMG}
-              alt="Network71 corporate headquarters"
+              alt="Architectural detail of an office building — illustrative image"
               loading="lazy"
               decoding="async"
               style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}

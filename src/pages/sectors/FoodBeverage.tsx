@@ -327,6 +327,7 @@ export default function FoodBeverage() {
   return (
     <div className="sector-page min-h-full bg-navy">
       <SectorHeader divisionName="Food & Beverage Manufacturing" accentClass="text-orange-400" />
+      <main className="public-content">
 
       {/* ── 1. Hero ─────────────────────────────────────────────────────────── */}
       <section className="force-dark sector-hero relative min-h-screen flex items-center overflow-hidden">
@@ -1058,6 +1059,7 @@ export default function FoodBeverage() {
       />
 
       {/* ── 16. Footer ──────────────────────────────────────────────────────── */}
+      </main>
       <Footer />
     </div>
   )

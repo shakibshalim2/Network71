@@ -226,6 +226,7 @@ export default function OilsEnergy() {
   return (
     <div className="sector-page min-h-full bg-navy">
       <SectorHeader divisionName="Oils & Energy" accentClass="text-amber-400" />
+      <main className="public-content">
 
       {/* ── 1. SPLIT-SCREEN HERO ─────────────────────────────────── */}
       <section className="oil-hero force-dark sector-hero relative flex flex-col overflow-hidden">
@@ -245,11 +246,7 @@ export default function OilsEnergy() {
           </div>
           {/* Right — Energy & Fuel (sky blue / dark) */}
           <div className="flex-1 relative overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1546500840-ae38253aba9b?w=700&h=800&fit=crop&auto=format"
-              alt="Energy infrastructure — industrial fuel facility"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+            <div className="energy-blueprint" aria-hidden="true"><svg viewBox="0 0 400 700" fill="none"><path d="M35 650V360h100v290M150 650V270h65v380M240 650V410h125v240M163 270V95h39v175M48 360V210h28v150M90 360V250h26v110M30 590h345M30 550h345M135 450h105M75 210h75v110h90M0 680h400" stroke="currentColor" strokeWidth="2"/><path d="M0 120h400M0 220h400M0 320h400M0 420h400M0 520h400M50 0v700M150 0v700M250 0v700M350 0v700" stroke="currentColor" strokeWidth=".5" opacity=".3"/></svg></div>
             <div
               className="absolute inset-0"
               style={{ background: 'linear-gradient(to left, rgba(3,27,78,0.88) 0%, rgba(14,165,233,0.35) 60%, transparent 100%)' }}
@@ -270,7 +267,7 @@ export default function OilsEnergy() {
             <span style={{ color: AMBER }}>Oils</span>
           </h2>
           <p className="text-amber-100/70 text-xs leading-relaxed">
-            HACCP-certified refining, blending &amp; distribution
+            Edible oil sourcing, refining &amp; distribution enquiries
           </p>
         </div>
 
@@ -1021,6 +1018,7 @@ export default function OilsEnergy() {
       />
 
       {/* ── 15. FOOTER ──────────────────────────────────────────── */}
+      </main>
       <Footer />
     </div>
   )

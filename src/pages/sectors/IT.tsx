@@ -248,6 +248,7 @@ export default function IT() {
   return (
     <div className="sector-page min-h-full" style={{ background: BG_DEEP, color: 'var(--fg)' }}>
       <SectorHeader divisionName="IT & Software" accentClass="text-cyan-400" />
+      <main className="public-content">
 
       {/* ── 1. HERO ── */}
       <section className="sector-hero relative min-h-screen flex items-center overflow-hidden" style={{ background: BG_DEEP }}>
@@ -630,7 +631,7 @@ export default function IT() {
                 className="mt-5 p-4 rounded-xl"
                 style={{ background: 'rgba(168,85,247,0.07)', border: '1px solid rgba(168,85,247,0.2)', fontFamily: 'monospace', fontSize: '11px', color: PURPLE, lineHeight: 1.9 }}
               >
-                <div style={{ color: '#67e8f9' }}>{'>'} model.train(dataset=commerce_signals)</div>
+                <div style={{ color: 'var(--accent-cyan)' }}>{'>'} model.train(dataset=commerce_signals)</div>
                 <div style={{ color: 'var(--accent-emerald)' }}>epoch 1/50 — loss: 0.3412 — acc: 0.8870</div>
                 <div style={{ color: 'var(--accent-emerald)' }}>epoch 50/50 — loss: 0.0182 — acc: 0.9940</div>
                 <div>{'>'} model.deploy(env=&quot;ezyify-prod&quot;)</div>
@@ -1076,6 +1077,7 @@ export default function IT() {
       />
 
       {/* ── 16. FOOTER ── */}
+      </main>
       <Footer />
     </div>
   )

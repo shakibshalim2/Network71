@@ -197,8 +197,8 @@ function VesselCard({ vessel }: { vessel: Vessel }) {
       {/* Vessel photo */}
       <div className="relative overflow-hidden" style={{ height: 160, background: 'var(--s3)' }}>
         <img
-          src={vessel.img}
-          alt={vessel.name}
+          src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&h=400&fit=crop&auto=format"
+          alt="Illustrative cargo vessel photograph; not the vessel described"
           className="w-full h-full object-cover"
           style={{ opacity: 0.85 }}
         />
@@ -217,7 +217,7 @@ function VesselCard({ vessel }: { vessel: Vessel }) {
           {vessel.status}
         </span>
         <div className="absolute bottom-3 left-4">
-          <div className="text-white font-semibold text-sm">{vessel.name}</div>
+          <div className="text-white font-semibold text-sm">{`${vessel.type} example`}</div>
           <div className="text-slate-400 text-xs">{vessel.type}</div>
         </div>
       </div>
@@ -243,7 +243,7 @@ function VesselCard({ vessel }: { vessel: Vessel }) {
         {/* Price */}
         <div className="flex items-center justify-between mb-4">
           <span className="text-xs text-slate-500">Price</span>
-          <span className="font-display text-lg font-semibold" style={{ color: vessel.color }}>{vessel.price}</span>
+          <span className="font-display text-lg font-semibold" style={{ color: vessel.color }}>{'On enquiry'}</span>
         </div>
 
         <a
@@ -253,7 +253,7 @@ function VesselCard({ vessel }: { vessel: Vessel }) {
           onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = `color-mix(in srgb, ${vessel.color} 15%, transparent)` }}
           onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = `color-mix(in srgb, ${vessel.color} 8%, transparent)` }}
         >
-          Enquire About This Vessel
+          Discuss These Requirements
         </a>
       </div>
     </div>
@@ -380,6 +380,7 @@ export default function EShipe() {
   return (
     <div className="sector-page min-h-full" style={{ background: BG_DEEP, color: 'var(--fg)' }}>
       <SectorHeader divisionName="eSHIPe Maritime" accentClass="text-sky-400" />
+      <main className="public-content">
 
       {/* ── 1. HERO ── */}
       <section className="sector-hero relative min-h-screen flex items-center overflow-hidden" style={{ background: BG_DEEP }}>
@@ -596,9 +597,9 @@ export default function EShipe() {
             <div>
               <div className="flex items-center gap-3 mb-3">
                 <div className="h-px w-10" style={{ background: OCEAN }} />
-                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: OCEAN }}>Active Listings</span>
+                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: OCEAN }}>MARKETPLACE PREVIEW</span>
               </div>
-              <h2 className="font-display text-4xl text-white">Featured Vessels</h2>
+              <h2 className="font-display text-4xl text-white">Vessel enquiry examples</h2><p className="text-sm text-slate-400 mt-4 max-w-xl">Illustrative examples of vessel specifications only. These are not live listings or offers. Contact our maritime team for current availability and a quotation.</p>
             </div>
             <a
               href="#sector-contact"
@@ -838,6 +839,7 @@ export default function EShipe() {
         inquiryTypes={['Buy a Vessel', 'Sell a Vessel', 'Ship Recycling Inquiry', 'Inspection & Valuation', 'Join as Broker / Yard', 'General Inquiry']}
       />
 
+      </main>
       <Footer />
     </div>
   )

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 import { useInquiry } from "@/lib/inquiry"
@@ -25,13 +25,15 @@ const divisionEmails = [
 ]
 
 export default function Contact() {
+  const [params] = useSearchParams()
+  const project = params.get('project')?.slice(0, 200)
   const [form, setForm] = useState<FormState>({
     name: "",
     company: "",
     email: "",
     phone: "",
     department: "General",
-    message: "",
+    message: project ? `I would like to discuss a project similar to “${project}”.\n\nMy requirements:\n` : "",
   })
   const inquiry = useInquiry()
   const sent = Boolean(inquiry.reference)
@@ -48,6 +50,7 @@ export default function Contact() {
   return (
     <div className="min-h-full">
       <Header />
+      <main className="public-content">
 
       {/* ── Hero ──────────────────────────────────────────────────────────────── */}
       <section className="relative bg-navy pt-32 pb-20 overflow-hidden">
@@ -281,6 +284,7 @@ export default function Contact() {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   )

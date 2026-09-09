@@ -60,6 +60,7 @@ export default function Blog() {
   return (
     <div className="min-h-screen bg-navy text-white">
       <Header />
+      <main className="public-content">
 
       {/* Hero */}
       <section className="relative pt-[68px] overflow-hidden bg-navy-dark">
@@ -83,7 +84,7 @@ export default function Blog() {
           {/* Featured post background image */}
           <img
             src="https://images.unsplash.com/photo-1452457807411-4979b707c5be?w=1400&h=640&fit=crop&auto=format"
-            alt="Network71 global operations"
+            alt="Illustrative city and infrastructure photograph"
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-navy-dark via-navy-dark/80 to-transparent" />
@@ -200,6 +201,7 @@ export default function Blog() {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   )

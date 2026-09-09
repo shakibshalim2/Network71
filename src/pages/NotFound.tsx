@@ -3,7 +3,7 @@ import Logo from '@/components/brand/Logo'
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen py-12 bg-navy flex flex-col items-center justify-center relative overflow-hidden">
+    <main className="public-content min-h-screen py-12 bg-navy flex flex-col items-center justify-center relative overflow-hidden">
       {/* Dot grid background */}
       <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
 
@@ -111,6 +111,6 @@ export default function NotFound() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

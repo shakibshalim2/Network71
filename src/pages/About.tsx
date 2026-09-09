@@ -1,64 +1,7 @@
-import { useState, useEffect, useRef, type ReactNode } from "react"
+import { type ReactNode } from "react"
 import { Link } from "react-router-dom"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
-
-// ── Count-up hook (same pattern as Hero.tsx) ──────────────────────────────────
-function useCountUp(target: number, duration = 2400, enabled = false): number {
-  const [count, setCount] = useState(0)
-  useEffect(() => {
-    if (!enabled) return
-    let raf: number
-    const start = Date.now()
-    const tick = () => {
-      const progress = Math.min((Date.now() - start) / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setCount(Math.round(eased * target))
-      if (progress < 1) raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [target, duration, enabled])
-  return count
-}
-
-const statsData = [
-  { value: 25, suffix: "+", label: "Countries", sub: "Global reach" },
-  { value: 5000, suffix: "+", label: "Employees", sub: "Worldwide team" },
-  { value: 8, suffix: "", label: "Divisions", sub: "Industry sectors" },
-  { value: 150, suffix: "M+", label: "Revenue (USD)", sub: "Annual turnover" },
-]
-
-function StatItem({
-  target,
-  suffix,
-  label,
-  sub,
-  enabled,
-}: {
-  target: number
-  suffix: string
-  label: string
-  sub: string
-  enabled: boolean
-}) {
-  const count = useCountUp(target, 2400, enabled)
-  return (
-    <div className="text-center">
-      <div
-        className="font-display text-white leading-none"
-        style={{ fontSize: 'clamp(28px, 7vw, 48px)' }}
-      >
-        {count}
-        {suffix}
-      </div>
-      <div className="text-gold text-[10px] sm:text-xs font-semibold tracking-[0.16em] sm:tracking-widest uppercase mt-1.5 leading-tight">
-        {label}
-      </div>
-      <div className="text-slate-500 text-[10.5px] sm:text-xs mt-1">{sub}</div>
-    </div>
-  )
-}
 
 // SVG icon paths for Core Values — consistent with the rest of the site
 const VALUE_ICONS: Record<string, ReactNode> = {
@@ -108,28 +51,10 @@ const timeline = [
 ]
 
 export default function About() {
-  const statsRef = useRef<HTMLDivElement>(null)
-  const [started, setStarted] = useState(false)
-
-  useEffect(() => {
-    const el = statsRef.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setStarted(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.3 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <div className="min-h-full">
       <Header />
+      <main className="public-content">
 
       {/* ── Hero ──────────────────────────────────────────────────────────────── */}
       <section
@@ -165,24 +90,6 @@ export default function About() {
           <p className="text-slate-300 max-w-xl leading-relaxed" style={{ fontSize: 'clamp(15px, 3.8vw, 20px)' }}>
             {"Building tomorrow's global enterprise, today."}
           </p>
-        </div>
-      </section>
-
-      {/* ── Stats bar ─────────────────────────────────────────────────────────── */}
-      <section className="bg-navy-dark border-y border-white/8">
-        <div ref={statsRef} className="container-page py-9 sm:py-14">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-8 sm:gap-10">
-            {statsData.map((s) => (
-              <StatItem
-                key={s.label}
-                target={s.value}
-                suffix={s.suffix}
-                label={s.label}
-                sub={s.sub}
-                enabled={started}
-              />
-            ))}
-          </div>
         </div>
       </section>
 
@@ -524,6 +431,7 @@ export default function About() {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   )

@@ -109,6 +109,7 @@ export default function Media() {
   return (
     <div className="sector-page min-h-full" style={{ background: BG_DEEP, color: 'var(--fg)' }}>
       <SectorHeader divisionName="Media" accentClass="text-red-400" />
+      <main className="public-content">
 
       {/* ── 1. HERO ── */}
       <section className="sector-hero relative min-h-screen flex items-center overflow-hidden" style={{ background: BG_DEEP }}>
@@ -139,36 +140,7 @@ export default function Media() {
           style={{ background: 'radial-gradient(circle, rgba(200,150,42,0.07) 0%, transparent 70%)' }}
         />
 
-        {/* Breaking news ticker strip */}
-        <div
-          className="force-dark absolute top-0 left-0 right-0 py-2.5 flex items-center gap-0 overflow-hidden"
-          style={{ background: '#991b1b', zIndex: 5 }}
-        >
-          <div
-            className="flex-shrink-0 px-4 py-0.5 font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-white"
-            style={{ background: 'rgba(0,0,0,0.25)', whiteSpace: 'nowrap' }}
-          >
-            BREAKING
-          </div>
-          <div className="overflow-hidden flex-1">
-            <div className="flex gap-16 whitespace-nowrap" style={{ animation: 'marquee 40s linear infinite' }}>
-              {[
-                'Network71 Media launches multi-platform news service',
-                'Digital first. Broadcast quality. Editorial independence.',
-                'Live coverage · Investigative journalism · Business analysis',
-                'Network71 Media — Connecting the world to the stories that matter',
-                'Network71 Media launches multi-platform news service',
-                'Digital first. Broadcast quality. Editorial independence.',
-                'Live coverage · Investigative journalism · Business analysis',
-                'Network71 Media — Connecting the world to the stories that matter',
-              ].map((text, i) => (
-                <span key={i} className="text-white font-medium text-[11px] tracking-wider">
-                  {text}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
+        <div className="media-intro-strip">NETWORK71 MEDIA <span>Digital storytelling &amp; editorial enquiries</span></div>
 
         {/* Hero content */}
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-40">
@@ -418,7 +390,7 @@ export default function Media() {
 
             {/* Programme grid */}
             <div>
-              <div className="font-mono text-[10px] tracking-widest uppercase mb-5" style={{ color: 'rgba(255,255,255,0.3)' }}>
+              <div className="font-mono text-[10px] tracking-widest uppercase mb-5" style={{ color: 'var(--fg-muted)' }}>
                 Programme Schedule
               </div>
               <div className="space-y-2">
@@ -621,6 +593,7 @@ export default function Media() {
         inquiryTypes={['Advertising Inquiry', 'Broadcast Partnership', 'Content Partnership', 'Press Credentials', 'Editorial Contact']}
       />
 
+      </main>
       <Footer />
     </div>
   )

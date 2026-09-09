@@ -148,6 +148,7 @@ export default function Sustainability() {
   return (
     <div className="min-h-screen bg-navy text-slate-100">
       <Header />
+      <main className="public-content">
 
       {/* ── Hero ── */}
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-[68px] bg-navy-dark">
@@ -293,14 +294,14 @@ export default function Sustainability() {
               <div className="inline-block px-3 py-1 bg-amber-500/15 text-amber-400 border border-amber-500/25 mb-3 font-mono text-[9px] tracking-wide uppercase rounded-full">
                 Coming Soon
               </div>
-              <h3 className="text-white font-semibold text-lg mb-1">FY2025 Sustainability Report</h3>
+              <h3 className="text-white font-semibold text-lg mb-1">Sustainability Information</h3>
               <p className="text-slate-400 text-sm">
-                Our comprehensive annual sustainability report — including verified environmental data, community impact metrics, and governance disclosure — will be published in Q1 2026.
+                Contact our team for the latest available reporting, measurement methodology and supporting documentation.
               </p>
             </div>
-            <button disabled className="px-6 py-3 rounded-lg bg-white/5 text-slate-400 text-sm font-medium border border-white/10 cursor-not-allowed flex-shrink-0">
-              Download PDF
-            </button>
+            <a href="mailto:info@network71.com?subject=Sustainability%20information" className="public-button flex-shrink-0">
+              Request Details
+            </a>
           </div>
         </div>
       </section>
@@ -326,6 +327,7 @@ export default function Sustainability() {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   );

@@ -69,6 +69,7 @@ const DIVISIONS = [
 // ─── Search index ─────────────────────────────────────────────────────────────
 
 const SEARCH_INDEX = [
+  { label: 'Our Work & Projects', href: '/projects', group: 'Pages' },
   { label: 'Home',                href: '/',                group: 'Pages' },
   { label: 'About Us',            href: '/about',           group: 'Pages' },
   { label: 'Leadership',          href: '/leadership',      group: 'Pages' },
@@ -532,6 +533,7 @@ export default function Header() {
             </div>
 
             <NavLink href="/about"            active={pathname === '/about'}>About</NavLink>
+            <NavLink href="/projects" active={pathname.startsWith('/projects')}>Our Work</NavLink>
             <NavLink href="/global-presence"  active={pathname === '/global-presence'}>Global Presence</NavLink>
             <NavLink href="/divisions/media"  active={pathname === '/divisions/media'}>Media</NavLink>
             <NavLink href="/investors"        active={pathname === '/investors'}>Investors</NavLink>
@@ -1009,6 +1011,7 @@ export default function Header() {
           </MobileAccordion>
 
           <MobileLink href="/about"           active={pathname === '/about'}>About</MobileLink>
+          <MobileLink href="/projects" active={pathname.startsWith('/projects')}>Our Work</MobileLink>
           <MobileLink href="/global-presence" active={pathname === '/global-presence'}>Global Presence</MobileLink>
           <MobileLink href="/divisions/media" active={pathname === '/divisions/media'}>Media</MobileLink>
           <MobileLink href="/investors"       active={pathname === '/investors'}>Investor Relations</MobileLink>

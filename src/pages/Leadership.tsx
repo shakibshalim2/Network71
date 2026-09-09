@@ -58,6 +58,7 @@ export default function Leadership() {
   return (
     <div className="min-h-screen bg-navy text-slate-100">
       <Header />
+      <main className="public-content">
 
       {/* ── Hero ── */}
       <section className="relative min-h-[55vh] flex items-center justify-center overflow-hidden pt-[68px] bg-navy-dark">
@@ -265,6 +266,7 @@ export default function Leadership() {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   );
