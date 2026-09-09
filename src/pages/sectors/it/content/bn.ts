@@ -12,6 +12,11 @@ import {
   internalDivisions,
   deliveryModels,
   roadmapItems,
+  overviewPillars,
+  qualityItems,
+  ezyifyStats,
+  reachStats,
+  opportunities,
 } from "./bn/operations"
 
 const bn: ITContent = {
@@ -152,6 +157,11 @@ const bn: ITContent = {
   internalDivisions,
   deliveryModels,
   roadmapItems,
+  overviewPillars,
+  qualityItems,
+  ezyifyStats,
+  reachStats,
+  opportunities,
   processLabel: "আমাদের ডেলিভারি প্রক্রিয়া",
   inquiryTypes: [
     "কাস্টম ডেভেলপমেন্ট",

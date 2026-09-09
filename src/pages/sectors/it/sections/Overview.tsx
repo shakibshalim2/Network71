@@ -30,28 +30,7 @@ export default function Overview({ c }: { c: ITContent }) {
           </div>
           {/* right: capability pillars */}
           <div className="grid grid-cols-2 gap-4">
-            {[
-              {
-                title: "Enterprise Software",
-                desc: "ERP, HRM, CRM, inventory, and workflow automation at group level.",
-                icon: "◻",
-              },
-              {
-                title: "AI & Machine Learning",
-                desc: "Recommendation systems, NLP, computer vision, and predictive analytics.",
-                icon: "◻",
-              },
-              {
-                title: "Cloud & Infrastructure",
-                desc: "Multi-cloud architecture, DevOps, containerisation, and SRE practices.",
-                icon: "◻",
-              },
-              {
-                title: "Cybersecurity",
-                desc: "Threat modelling, pen testing, OWASP compliance, and data protection.",
-                icon: "◻",
-              },
-            ].map((p) => (
+            {c.overviewPillars.map((p) => (
               <div
                 key={p.title}
                 className="p-5 rounded-xl"

@@ -31,12 +31,7 @@ export default function GlobalReach({ c }: { c: ITContent }) {
             </p>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            {[
-              { value: "25+", label: "Countries Served", icon: "◈" },
-              { value: "Dhaka", label: "Engineering HQ", icon: "◈" },
-              { value: "Remote-First", label: "Delivery Model", icon: "◈" },
-              { value: "24 / 5", label: "Support Coverage", icon: "◈" },
-            ].map((s) => (
+            {c.reachStats.map((s) => (
               <div
                 key={s.label}
                 className="p-6 rounded-xl text-center"

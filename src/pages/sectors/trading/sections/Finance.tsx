@@ -21,12 +21,7 @@ export default function Finance({ c }: { c: TradingContent }) {
             <p className="text-slate-400 text-sm max-w-lg mx-auto">{c.copy.financeLead}</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[
-              { title: 'LC Negotiation', desc: 'Structuring and negotiating Letters of Credit with issuing and advising banks for compliant, timely payment.' },
-              { title: 'Documentary Collection', desc: 'D/P and D/A collection arrangements providing payment security for exporters on established trade lanes.' },
-              { title: 'Invoice Financing', desc: 'Early payment solutions against confirmed export invoices, improving cash flow for suppliers and producers.' },
-              { title: 'Forex Hedging', desc: 'Currency risk management strategies to protect trade transaction margins from adverse foreign exchange movements.' },
-            ].map((f) => (
+            {c.financeItems.map((f) => (
               <div
                 key={f.title}
                 className="p-7 rounded-2xl border hover:border-blue-500/40 transition-all"

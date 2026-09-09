@@ -72,6 +72,14 @@ const en = {
     lead: 'Our facilities are built around internationally recognised food safety management systems. Certification is not a box-tick — it is embedded in our daily production operations.',
     labTitle: 'Quality Laboratory',
     labLead: 'In-house laboratory capability supports pre-production, in-line, and finished goods testing across our product range.',
+    labItems: [
+      'Microbiological analysis (bacteria, yeast, mould)',
+      'Chemical composition and nutritional testing',
+      'Sensory evaluation panels',
+      'Shelf-life and stability studies',
+      'Allergen management and testing',
+      'Packaging integrity and seal testing',
+    ],
     labNote: 'Third-party laboratory verification available on request. Contact division for current testing scope.',
   },
   facilitiesCopy: {
@@ -103,8 +111,20 @@ const en = {
     lead: 'From verified raw material suppliers through certified manufacturing to domestic and export distribution — a fully integrated value chain.',
     sourcingTitle: 'Raw Material Sourcing',
     sourcingLead: 'Primary ingredient sourcing from Bangladeshi farms and manufacturers — supporting local agriculture with direct procurement relationships.',
+    sourcingItems: [
+      'Local Bangladesh raw materials (primary)',
+      'Imported specialty ingredients (supplementary)',
+      'Approved supplier audits and quality agreements',
+      'Dual-source strategy for critical ingredients',
+    ],
     distributionTitle: 'Distribution Reach',
     distributionLead: 'Products distributed through domestic retail networks and export logistics partners — covering modern trade, traditional retail, and international channels.',
+    distributionItems: [
+      'Bangladesh domestic retail (modern & traditional trade)',
+      'Export consolidation via Dhaka and Chittagong',
+      'Cold-chain distribution for temperature-sensitive products',
+      'Halal-export documentation and compliance',
+    ],
   },
   sustainabilityCopy: {
     eyebrow: 'Sustainability',

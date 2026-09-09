@@ -194,6 +194,49 @@ const en = {
     { title: 'Cargo Insurance', desc: 'All-risk marine and air cargo insurance arranged for every shipment.' },
     { title: 'Quality Inspection', desc: 'Third-party pre-shipment inspection at origin before goods are loaded.' },
   ],
+  overviewPillars: [
+    { title: 'Market Access', desc: 'Opening doors to 25+ country markets with established buyer and distributor relationships.' },
+    { title: 'Compliance Expertise', desc: 'Deep regulatory knowledge across trade corridors — HS codes, tariffs, certificates, and documentation.' },
+    { title: 'Logistics Network', desc: 'Multi-modal freight capability across sea, air, and land with vetted global forwarder partners.' },
+    { title: 'Relationship Capital', desc: 'Trusted relationships with producers, buyers, agents, and authorities across every trade corridor.' },
+  ],
+  heroBadges: [
+    { val: 'Sourcing', lab: 'Supplier & buyer matching' },
+    { val: 'Trade', lab: 'Import / export management' },
+    { val: 'Logistics', lab: 'Sea, air & land freight' },
+  ],
+  freightModes: [
+    {
+      mode: 'Sea Freight',
+      tag: 'Primary Mode',
+      specs: ['FCL — Full Container Load', 'LCL — Less than Container Load', 'Reefer containers available', 'Major global shipping lines'],
+      note: 'Cost-effective primary mode for high-volume trade.',
+    },
+    {
+      mode: 'Air Freight',
+      tag: 'Express / High-Value',
+      specs: ['Express and standard air cargo', 'Perishables and fresh goods', 'High-value and time-sensitive', 'Global airport network'],
+      note: 'Speed-critical shipments and perishable goods.',
+    },
+    {
+      mode: 'Land Transport',
+      tag: 'Regional / Last Mile',
+      specs: ['Cross-border truck transport', 'In-country distribution', 'Bonded transport', 'Regional last-mile delivery'],
+      note: 'Regional corridors and final distribution legs.',
+    },
+  ],
+  financeItems: [
+    { title: 'LC Negotiation', desc: 'Structuring and negotiating Letters of Credit with issuing and advising banks for compliant, timely payment.' },
+    { title: 'Documentary Collection', desc: 'D/P and D/A collection arrangements providing payment security for exporters on established trade lanes.' },
+    { title: 'Invoice Financing', desc: 'Early payment solutions against confirmed export invoices, improving cash flow for suppliers and producers.' },
+    { title: 'Forex Hedging', desc: 'Currency risk management strategies to protect trade transaction margins from adverse foreign exchange movements.' },
+  ],
+  sustainabilityItems: [
+    { title: 'Sustainable Sourcing', desc: 'Preference for suppliers with verifiable ethical sourcing, fair labour practices, and responsible environmental management.' },
+    { title: 'Carbon-Conscious Freight', desc: 'Optimising freight mode selection to reduce carbon intensity — consolidating shipments and prioritising sea over air where timeline permits.' },
+    { title: 'Fair Trade Support', desc: 'Supporting fair trade principles for agricultural commodities, ensuring producer communities receive equitable value for their goods.' },
+    { title: 'Supplier ESG Screening', desc: 'Environmental, Social, and Governance screening integrated into supplier qualification and onboarding processes.' },
+  ],
   inquiryTypes: ['Export Inquiry', 'Import Sourcing', 'Logistics Partnership', 'Trade Finance', 'Market Entry'],
 }
 export type TradingContent = typeof en

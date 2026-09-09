@@ -17,39 +17,27 @@ export default function Infrastructure({ c }: { c: TradingContent }) {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                mode: 'Sea Freight',
-                tag: 'Primary Mode',
                 icon: (
                   <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                   </svg>
                 ),
-                specs: ['FCL — Full Container Load', 'LCL — Less than Container Load', 'Reefer containers available', 'Major global shipping lines'],
-                note: 'Cost-effective primary mode for high-volume trade.',
               },
               {
-                mode: 'Air Freight',
-                tag: 'Express / High-Value',
                 icon: (
                   <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                   </svg>
                 ),
-                specs: ['Express and standard air cargo', 'Perishables and fresh goods', 'High-value and time-sensitive', 'Global airport network'],
-                note: 'Speed-critical shipments and perishable goods.',
               },
               {
-                mode: 'Land Transport',
-                tag: 'Regional / Last Mile',
                 icon: (
                   <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
                   </svg>
                 ),
-                specs: ['Cross-border truck transport', 'In-country distribution', 'Bonded transport', 'Regional last-mile delivery'],
-                note: 'Regional corridors and final distribution legs.',
               },
-            ].map((t) => (
+            ].map((icon, i) => ({ ...icon, ...c.freightModes[i] })).map((t) => (
               <div
                 key={t.mode}
                 className="bg-surface-2 rounded-2xl p-8 border-t-4 hover:shadow-xl transition-all"

@@ -47,11 +47,7 @@ export default function Hero({ c }: { c: TradingContent }) {
 
           {/* Floating stat badges */}
           <div className="absolute bottom-12 right-8 hidden lg:flex flex-col gap-3">
-            {[
-              { val: 'Sourcing', lab: 'Supplier & buyer matching' },
-              { val: 'Trade', lab: 'Import / export management' },
-              { val: 'Logistics', lab: 'Sea, air & land freight' },
-            ].map((s) => (
+            {c.heroBadges.map((s) => (
               <div
                 key={s.lab}
                 className="flex items-center gap-3 px-4 py-2.5 rounded-xl border"

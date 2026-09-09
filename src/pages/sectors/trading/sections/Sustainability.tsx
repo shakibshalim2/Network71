@@ -15,24 +15,7 @@ export default function Sustainability({ c }: { c: TradingContent }) {
             <p className="text-slate-500 text-sm max-w-xl mx-auto">{c.copy.sustainabilityLead}</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[
-              {
-                title: 'Sustainable Sourcing',
-                desc: 'Preference for suppliers with verifiable ethical sourcing, fair labour practices, and responsible environmental management.',
-              },
-              {
-                title: 'Carbon-Conscious Freight',
-                desc: 'Optimising freight mode selection to reduce carbon intensity — consolidating shipments and prioritising sea over air where timeline permits.',
-              },
-              {
-                title: 'Fair Trade Support',
-                desc: 'Supporting fair trade principles for agricultural commodities, ensuring producer communities receive equitable value for their goods.',
-              },
-              {
-                title: 'Supplier ESG Screening',
-                desc: 'Environmental, Social, and Governance screening integrated into supplier qualification and onboarding processes.',
-              },
-            ].map((s) => (
+            {c.sustainabilityItems.map((s) => (
               <div
                 key={s.title}
                 className="bg-surface-2 p-7 rounded-2xl border hover:shadow-lg transition-all"

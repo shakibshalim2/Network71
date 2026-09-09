@@ -44,14 +44,7 @@ export default function Standards({ c }: { c: FoodBeverageContent }) {
                 </div>
                 <p className="text-slate-400 text-sm leading-relaxed mb-6">{c.standardsCopy.labLead}</p>
                 <div className="space-y-3">
-                  {[
-                    'Microbiological analysis (bacteria, yeast, mould)',
-                    'Chemical composition and nutritional testing',
-                    'Sensory evaluation panels',
-                    'Shelf-life and stability studies',
-                    'Allergen management and testing',
-                    'Packaging integrity and seal testing',
-                  ].map((item) => (
+                  {c.standardsCopy.labItems.map((item) => (
                     <div key={item} className="flex items-start gap-2.5 text-sm text-slate-400">
                       <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ background: ORANGE, color: 'var(--s0)' }} />
                       {item}

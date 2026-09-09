@@ -17,6 +17,11 @@ const en = {
       { v: 'Multi', l: 'Platform' },
       { v: '25+', l: 'Countries' },
     ],
+    terminal: {
+      command: '$ n71-media --channel=live --stream=active',
+      checks: ['broadcast signal confirmed', 'editorial desk online', '25+ country distribution'],
+      status: 'transmitting_',
+    },
   },
   metrics: [
     { value: 'Live', label: 'Broadcasting', desc: '24/7 news & programme delivery' },

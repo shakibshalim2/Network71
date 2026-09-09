@@ -84,11 +84,7 @@ export default function Ezyify({ c }: { c: ITContent }) {
             borderBottom: "1px solid rgba(168,85,247,0.15)",
           }}
         >
-          {[
-            { v: "10M+", l: "Target Users", sub: "At full scale" },
-            { v: "$500M", l: "Market Potential", sub: "Serviceable market" },
-            { v: "50+", l: "AI Models", sub: "In development" },
-          ].map((s) => (
+          {c.ezyifyStats.map((s) => (
             <div key={s.l} className="text-center">
               <div
                 className="font-display text-4xl mb-1"

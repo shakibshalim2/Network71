@@ -11,6 +11,11 @@ import {
   internalDivisions,
   deliveryModels,
   roadmapItems,
+  overviewPillars,
+  qualityItems,
+  ezyifyStats,
+  reachStats,
+  opportunities,
 } from "./en/operations"
 
 const en = {
@@ -159,6 +164,11 @@ const en = {
   internalDivisions,
   deliveryModels,
   roadmapItems,
+  overviewPillars,
+  qualityItems,
+  ezyifyStats,
+  reachStats,
+  opportunities,
   processLabel: "Our Delivery Process",
   inquiryTypes: [
     "Custom Development",

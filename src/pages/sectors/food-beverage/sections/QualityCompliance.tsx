@@ -44,7 +44,7 @@ export default function QualityCompliance({ c }: { c: FoodBeverageContent }) {
               <h3 className="font-display text-xl text-white mb-3">{c.supplyChain.sourcingTitle}</h3>
               <p className="text-slate-400 text-sm leading-relaxed mb-4">{c.supplyChain.sourcingLead}</p>
               <div className="space-y-2">
-                {['Local Bangladesh raw materials (primary)', 'Imported specialty ingredients (supplementary)', 'Approved supplier audits and quality agreements', 'Dual-source strategy for critical ingredients'].map((item) => (
+                {c.supplyChain.sourcingItems.map((item) => (
                   <div key={item} className="flex items-start gap-2 text-xs text-slate-500">
                     <div className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0" style={{ background: ORANGE, color: 'var(--s0)' }} />
                     {item}
@@ -56,12 +56,7 @@ export default function QualityCompliance({ c }: { c: FoodBeverageContent }) {
               <h3 className="font-display text-xl text-white mb-3">{c.supplyChain.distributionTitle}</h3>
               <p className="text-slate-400 text-sm leading-relaxed mb-4">{c.supplyChain.distributionLead}</p>
               <div className="space-y-2">
-                {[
-                  'Bangladesh domestic retail (modern & traditional trade)',
-                  'Export consolidation via Dhaka and Chittagong',
-                  'Cold-chain distribution for temperature-sensitive products',
-                  'Halal-export documentation and compliance',
-                ].map((item) => (
+                {c.supplyChain.distributionItems.map((item) => (
                   <div key={item} className="flex items-start gap-2 text-xs text-slate-500">
                     <div className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0" style={{ background: ORANGE, color: 'var(--s0)' }} />
                     {item}

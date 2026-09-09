@@ -36,12 +36,7 @@ export default function Overview({
               {c.p3}
             </p>
             <div className="flex flex-wrap gap-3">
-              {[
-                "Private Label Focus",
-                "Sustainable {c.title1}",
-                "Full Package Production",
-                "Export Ready",
-              ].map((tag) => (
+              {c.tags.map((tag) => (
                 <span
                   key={tag}
                   className="px-3 py-1.5 text-xs font-medium rounded-full border"
@@ -59,28 +54,7 @@ export default function Overview({
 
           {/* Right — value pillars grid */}
           <div className="grid grid-cols-2 gap-4">
-            {[
-              {
-                icon: "⚡",
-                title: "Speed-to-Market",
-                desc: "Compressed lead times with agile production scheduling and dedicated sampling teams.",
-              },
-              {
-                icon: "✓",
-                title: "Quality Assurance",
-                desc: "AQL-based inspection at every production stage. Zero-compromise quality control protocols.",
-              },
-              {
-                icon: "🌿",
-                title: "Sustainable Practice",
-                desc: "Certified organic fibres, water recycling, and energy-efficient factory operations.",
-              },
-              {
-                icon: "🌐",
-                title: "Global Standards",
-                desc: "WRAP, BSCI, and international buyer code-of-conduct compliance across all facilities.",
-              },
-            ].map((pillar) => (
+            {c.pillars.map((pillar) => (
               <div
                 key={pillar.title}
                 className="p-6 rounded-2xl border border-slate-100 bg-surface-2 hover:border-rose-100 hover:shadow-lg transition-all group"

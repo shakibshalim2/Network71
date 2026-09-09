@@ -43,6 +43,10 @@ const en = {
     tam: "Total Addressable Market",
     markets: "Target Markets",
     timeline: "Launch Timeline",
+    regionList: ["South Asia", "Middle East", "Southeast Asia", "Western Markets (Diaspora)"],
+    quote:
+      "Social commerce is the fastest-growing retail channel globally. Ezyify positions Network71 at the intersection of AI, " +
+      "social media, and e-commerce — capturing a market that existing platforms are only beginning to address.",
     vision: "Network71 Strategic Vision",
   },
   roadmap: {
@@ -56,6 +60,7 @@ const en = {
     badges: techBadges,
     eyebrow: "Under the Hood",
     title: "Technology Architecture",
+    lead: "Built by Network71's 200+ engineer team in Dhaka — Ezyify runs on a proprietary AI stack purpose-built for social commerce at scale.",
     modelCount: "50+",
     modelTitle: "Proprietary AI Models",
     modelLead:

@@ -2,6 +2,8 @@ import { Link } from "react-router-dom"
 import type { ITContent } from "../content/en"
 import { ACCENT, PURPLE, BG_DEEP, BG_ALT } from "../theme"
 
+const OPPORTUNITY_COLORS = [ACCENT, PURPLE, "var(--accent-pink)"]
+
 export default function Opportunities({ c }: { c: ITContent }) {
   return (
     <section className="py-24" style={{ background: BG_DEEP }}>
@@ -25,32 +27,9 @@ export default function Opportunities({ c }: { c: ITContent }) {
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
-          {[
-            {
-              title: "Enterprise Software Clients",
-              desc: "Organisations looking for a reliable, experienced software partner to build custom enterprise applications, digital platforms, or AI-powered products.",
-              cta: "Start a Project",
-              href: "#sector-contact",
-              color: ACCENT,
-              tag: "Custom Development",
-            },
-            {
-              title: "Technology Partners",
-              desc: "SaaS vendors, cloud providers, and system integrators seeking reseller arrangements, white-label development capacity, or deep integration partnerships.",
-              cta: "Explore Partnership",
-              href: "#sector-contact",
-              color: PURPLE,
-              tag: "Integration &amp; Reseller",
-            },
-            {
-              title: "Ezyify Early Adopters",
-              desc: "Sellers, creators, and investors who want early access to Ezyify — whether to list products, build a creator presence, or discuss strategic investment.",
-              cta: "Join Ezyify",
-              href: "/ezyify",
-              color: "var(--accent-pink)",
-              tag: "Sellers · Creators · Investors",
-            },
-          ].map((o) => (
+          {c.opportunities
+            .map((o, i) => ({ ...o, color: OPPORTUNITY_COLORS[i] }))
+            .map((o) => (
             <div
               key={o.title}
               className="p-7 rounded-2xl flex flex-col"

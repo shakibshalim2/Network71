@@ -65,12 +65,7 @@ export default function AI({ c }: { c: EzyifyContent["segments"] }) {
               {c.markets}
             </h3>
             <div className="space-y-2">
-              {[
-                "South Asia",
-                "Middle East",
-                "Southeast Asia",
-                "Western Markets (Diaspora)",
-              ].map((m) => (
+              {c.regionList.map((m) => (
                 <div
                   key={m}
                   className="flex items-center gap-2.5 text-sm text-slate-300"
@@ -119,10 +114,7 @@ export default function AI({ c }: { c: EzyifyContent["segments"] }) {
           }}
         >
           <p className="text-white text-lg font-light leading-relaxed max-w-3xl mx-auto">
-            &ldquo;Social commerce is the fastest-growing retail channel
-            globally. Ezyify positions Network71 at the intersection of AI,
-            social media, and e-commerce — capturing a market that existing
-            platforms are only beginning to address.&rdquo;
+            &ldquo;{c.quote}&rdquo;
           </p>
           <p className="text-purple-400 text-sm font-semibold mt-4">
             {c.vision}

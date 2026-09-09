@@ -2,6 +2,15 @@ import { Link } from "react-router-dom"
 import type { ITContent } from "../content/en"
 import { ACCENT, PURPLE, BG_DEEP, BG_ALT } from "../theme"
 
+// Status colours per qualityItems index: in progress / active ×3 / planned
+const QUALITY_COLORS = [
+  "var(--accent-amber)",
+  "var(--accent-emerald)",
+  "var(--accent-emerald)",
+  "var(--accent-emerald)",
+  ACCENT,
+]
+
 export default function Quality({ c }: { c: ITContent }) {
   return (
     <section className="py-24" style={{ background: BG_DEEP }}>
@@ -48,38 +57,9 @@ export default function Quality({ c }: { c: ITContent }) {
             </a>
           </div>
           <div className="grid gap-4">
-            {[
-              {
-                title: "ISO 27001",
-                status: "In Progress",
-                desc: "Information security management standard — certification in progress.",
-                color: "var(--accent-amber)",
-              },
-              {
-                title: "OWASP Top 10 Compliance",
-                status: "Active",
-                desc: "Every application is assessed and hardened against the OWASP Top 10 vulnerabilities.",
-                color: "var(--accent-emerald)",
-              },
-              {
-                title: "Penetration Testing",
-                status: "Active",
-                desc: "Regular third-party pen testing across all customer-facing and internal platforms.",
-                color: "var(--accent-emerald)",
-              },
-              {
-                title: "Code Review Process",
-                status: "Active",
-                desc: "Mandatory peer review, static analysis, and security linting in every CI pipeline.",
-                color: "var(--accent-emerald)",
-              },
-              {
-                title: "SOC Compliance Roadmap",
-                status: "Planned",
-                desc: "SOC 2 Type II compliance roadmap aligned to Ezyify enterprise launch timeline.",
-                color: ACCENT,
-              },
-            ].map((item) => (
+            {c.qualityItems
+              .map((q, i) => ({ ...q, color: QUALITY_COLORS[i] }))
+              .map((item) => (
               <div
                 key={item.title}
                 className="flex items-start gap-4 p-5 rounded-xl"

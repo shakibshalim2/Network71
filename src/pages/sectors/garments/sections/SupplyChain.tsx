@@ -21,51 +21,20 @@ export default function SupplyChain({
             <div className="h-px w-10" style={{ background: ACCENT }} />
           </div>
           <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-4">
-            Integrated {c.eyebrow}
+            {c.title1}
             <br />
             {c.title2}
           </h2>
           <p className="text-slate-500 text-sm max-w-lg mx-auto leading-relaxed">
-            Based in Bangladesh — the world&apos;s second-largest garment
-            exporter — Network71 operates a vertically integrated supply chain
-            connecting global raw material suppliers to international buyers
-            across 15+ countries.
+            {c.lead}
           </p>
         </div>
 
         {/* Supply chain flow */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch mb-12">
-          {[
-            {
-              icon: "🌾",
-              title: "Raw Material Suppliers",
-              items: [
-                "Certified fabric mills",
-                "Trim & accessory suppliers",
-                "Sustainable fibre sources",
-              ],
-            },
-            null,
-            {
-              icon: "🏭",
-              title: "N71 Factories",
-              items: [
-                "Pattern & cutting",
-                "Sewing & assembly",
-                "Washing & finishing",
-              ],
-            },
-            null,
-            {
-              icon: "✈️",
-              title: "Export & Logistics",
-              items: [
-                "QC lab clearance",
-                "Customs documentation",
-                "Freight to buyer",
-              ],
-            },
-          ].map((col, i) => {
+          {c.columns
+            .flatMap((col, i) => (i === 0 ? [col] : [null, col]))
+            .map((col, i) => {
             if (col === null) {
               return (
                 <div key={i} className="flex items-center justify-center">
@@ -127,10 +96,7 @@ export default function SupplyChain({
               {c.bangladeshTitle}
             </h4>
             <p className="text-slate-500 text-xs leading-relaxed">
-              Bangladesh is the world&apos;s second-largest apparel exporter,
-              providing Network71 with access to one of the deepest pools of
-              skilled garment workers, established textile infrastructure, and
-              competitive production economics.
+              {c.bangladeshLead}
             </p>
           </div>
         </div>

@@ -11,9 +11,7 @@ export default function Segments({ c }: { c: EzyifyContent["ai"] }) {
           </p>
           <h2 className="font-display text-4xl text-white mb-4">{c.title}</h2>
           <p className="text-slate-400 max-w-xl mx-auto">
-            Built by Network71&apos;s 200+ engineer team in Dhaka — Ezyify runs
-            on a proprietary AI stack purpose-built for social commerce at
-            scale.
+            {c.lead}
           </p>
         </div>
 

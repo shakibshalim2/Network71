@@ -60,11 +60,11 @@ export default function Hero({ c }: { c: MediaContent['hero'] }) {
       </div>
 
       <div className="absolute bottom-12 right-8 lg:right-16 hidden lg:block opacity-25" style={{ fontFamily: 'monospace', fontSize: '11px', color: RED, lineHeight: 1.8 }}>
-        <div>$ n71-media --channel=live --stream=active</div>
-        <div style={{ color: 'var(--accent-green)' }}>&#10003; broadcast signal confirmed</div>
-        <div style={{ color: 'var(--accent-green)' }}>&#10003; editorial desk online</div>
-        <div style={{ color: 'var(--accent-green)' }}>&#10003; 25+ country distribution</div>
-        <div className="animate-pulse">&#9646; transmitting_</div>
+        <div>{c.terminal.command}</div>
+        {c.terminal.checks.map((line) => (
+          <div key={line} style={{ color: 'var(--accent-green)' }}>&#10003; {line}</div>
+        ))}
+        <div className="animate-pulse">&#9646; {c.terminal.status}</div>
       </div>
     </section>
   )

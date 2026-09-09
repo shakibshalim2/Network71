@@ -18,6 +18,11 @@ const bn: MediaContent = {
       { v: 'মাল্টি', l: 'প্ল্যাটফর্ম' },
       { v: '২৫+', l: 'দেশ' },
     ],
+    terminal: {
+      command: '$ n71-media --channel=live --stream=active',
+      checks: ['সম্প্রচার সংকেত নিশ্চিত', 'সম্পাদকীয় ডেস্ক অনলাইন', '২৫+ দেশে বিতরণ'],
+      status: 'সম্প্রচার চলছে_',
+    },
   },
   metrics: [
     { value: 'লাইভ', label: 'সম্প্রচার', desc: '২৪/৭ সংবাদ ও প্রোগ্রাম' },
