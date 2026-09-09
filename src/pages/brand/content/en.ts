@@ -1,0 +1,106 @@
+const en = {
+  hero: {
+    eyebrow: 'Brand Identity',
+    titleLine1: 'Network71',
+    titleLine2: 'Logo System',
+    p1: 'All variants are rendered directly from the original uploaded source files.',
+    p2: 'No typography substitution, no symbol redraws, no colour modification.',
+    p3: 'Exact pixel-accurate crop of the master artwork.',
+  },
+  primary: {
+    n: '01',
+    title: 'Primary Logo',
+    sub: 'The exact uploaded logo — black wordmark, red badge. Use on white or very light backgrounds.',
+    white: { label: 'Primary · White', sub: 'Standard digital / print' },
+    grey: { label: 'Primary · Light Grey', sub: 'Acceptable on surfaces ≤ 15% grey' },
+  },
+  transparent: {
+    n: '02',
+    title: 'Transparent Version',
+    sub: 'Original artwork on the genuine RGBA transparent background. No background padding — floats cleanly on any surface.',
+    checker: { label: 'Transparent · Checker', sub: 'Alpha channel confirmed — no white fill' },
+    field: { label: 'Transparent · Coloured field', sub: 'Transparent PNG floats naturally over brand gold tint' },
+  },
+  dark: {
+    n: '03',
+    title: 'Dark Background Usage',
+    sub: 'The original black+red logo placed on a white backing so its exact colours are preserved unchanged on dark surfaces. No colour alteration.',
+    labelPrefix: 'Original logo',
+    tileSub: 'White backing — unaltered logo colours',
+    tiles: [
+      { bg: '#000000', label: 'Black background' },
+      { bg: 'var(--s0)', label: 'Brand navy' },
+      { bg: '#1A1A2E', label: 'Deep surface' },
+    ],
+    note1: 'NOTE — The uploaded master is a black-wordmark logo. For permanent reproduction on dark surfaces,',
+    note2: 'request a white-wordmark variant from the brand team. The white-backing treatment above is the',
+    note3: 'approved interim standard.',
+  },
+  mono: {
+    n: '04',
+    title: 'Monochrome',
+    sub: 'Silhouette versions for letterpress, engraving, foil stamp, and single-colour reproduction. The only approved colour modification.',
+    black: { label: 'Mono Black', sub: 'Single-colour dark printing' },
+    white: { label: 'Mono White', sub: 'Single-colour reversed / foil stamp' },
+  },
+  icon: {
+    n: '05',
+    title: 'Icon Mark — The 71 Badge',
+    sub: 'Standalone badge mark from the original uploaded image. Pixel-accurate crop of the source artwork.',
+    scaleLabel: 'Scale',
+    pxSuffix: 'px',
+    tiles: [
+      { id: 'light', label: 'Full colour · Light', sub: 'Primary icon usage' },
+      { id: 'grey', label: 'Full colour · Grey', sub: 'Light tinted surface' },
+      { id: 'dark', label: 'Full colour · Dark', sub: 'Red survives on dark bg' },
+      { id: 'monoBlack', label: 'Mono Black icon', sub: 'Single-colour dark' },
+      { id: 'monoWhite', label: 'Mono White icon', sub: 'Single-colour light' },
+      { id: 'redField', label: 'White icon · Red field', sub: 'On brand primary colour' },
+    ],
+  },
+  favicon: {
+    n: '06',
+    title: 'Favicon & App Icon',
+    sub: '71 badge at standard digital icon sizes. Minimum legible size: 16×16.',
+    sizes: [
+      { s: 128, label: '128 × 128', note: 'App store / Play store' },
+      { s: 64, label: '64 × 64', note: 'Hi-DPI browser favicon' },
+      { s: 32, label: '32 × 32', note: 'Standard favicon' },
+      { s: 16, label: '16 × 16', note: 'Browser tab' },
+    ],
+  },
+  palette: {
+    n: '07',
+    title: 'Brand Colour Palette',
+    sub: 'Colours observed directly from the uploaded master artwork. Only these values are authorised.',
+    swatches: [
+      { name: 'Brand Red', hex: '#D42424', note: "71 badge — the logo's primary identity colour. Never approximate.", light: false },
+      { name: 'Wordmark Black', hex: '#0A0A0A', note: "'Network' wordmark on light backgrounds.", light: false },
+      { name: 'Numeral Dark', hex: '#0D1117', note: '71 numerals inside the red badge only.', light: false },
+      { name: 'White', hex: '#FFFFFF', note: 'Used for reversed/foil applications and the dark-bg white backing.', light: true },
+    ],
+  },
+  usage: {
+    n: '08',
+    title: 'Usage Rules',
+    clearSpaceLabel: 'Clear Space',
+    clearSpace1: 'Minimum clear space: equal to the cap-height of the "N" glyph on all four sides.',
+    clearSpace2: 'No other elements enter this exclusion zone.',
+    neverLabel: 'Never Do',
+    never: [
+      'Recolour the badge to any colour other than the original red',
+      'Stretch, skew, rotate or distort any element',
+      'Apply gradients, outlines, glows or drop-shadows to the logo',
+      'Replace the wordmark typeface',
+      'Use the icon mark below 16px rendered height',
+      'Reproduce the red badge from memory — use source files only',
+      'Place the primary logo directly on photography without a clear field or white backing',
+    ],
+  },
+  footer: {
+    text: 'Brand Identity System · Network71 Ltd · 2026',
+  },
+}
+
+export type BrandContent = typeof en
+export default en
