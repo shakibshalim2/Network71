@@ -20,7 +20,7 @@ export default function Leadership({ c }: { c: AboutContent['leadership'] }) {
             {c.viewAll}
           </Link>
         </div>
-        <div className="grid min-[420px]:grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid min-[420px]:grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-start">
           {c.people.map((person) => (
             <div key={person.title} className="bg-navy-light border border-white/8 rounded-2xl overflow-hidden group hover:border-gold/25 transition-colors duration-300">
               {/* Placeholder portrait — uses fill tokens so it reads in both themes */}
@@ -38,6 +38,9 @@ export default function Leadership({ c }: { c: AboutContent['leadership'] }) {
               </div>
             </div>
           ))}
+          <p className="min-[420px]:col-span-1 sm:col-span-2 self-center text-[13px] sm:text-sm leading-relaxed" style={{ color: 'var(--fg-subtle)' }}>
+            {c.note}
+          </p>
         </div>
       </div>
     </section>

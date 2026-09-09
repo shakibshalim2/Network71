@@ -26,10 +26,10 @@ const en = {
   },
   senior: {
     eyebrow: 'Executive Team',
-    title: 'Senior Leadership',
-    lead: "Network71's senior executive team oversees the strategic and operational functions across all divisions.",
-    functionLabel: 'Leadership function',
-    mandateLabel: 'Executive mandate',
+    title: 'Executive Mandates',
+    lead: 'The group is structured around these executive functions. Appointments are published here as they are confirmed; until then each mandate is led from the Office of the CEO.',
+    functionLabel: 'Executive function',
+    mandateLabel: 'Appointment to be announced',
     leaders: [
       {
         title: 'Chief Financial Officer',
@@ -64,22 +64,22 @@ const en = {
   },
   advisors: {
     eyebrow: 'Advisory',
-    title: 'Strategic Advisors',
-    lead: 'Our advisory panel brings deep expertise across international business, technology, and governance.',
-    capabilityLabel: 'Advisory capability',
-    mandateLabel: 'Specialist mandate',
+    title: 'Advisory Functions',
+    lead: 'Independent advisory input the group draws on for international business, technology and governance. Named advisors are published with their consent.',
+    capabilityLabel: 'Advisory scope',
+    mandateLabel: 'Advisor names published on confirmation',
     items: [
       {
         gradient: 'from-amber-500 to-orange-600',
         initials: 'ADV',
         area: 'Strategic Advisory',
-        desc: 'Senior industry advisor with expertise in international trade and multi-sector conglomerate development.',
+        desc: 'International trade, market entry and multi-sector group development.',
       },
       {
         gradient: 'from-pink-500 to-rose-600',
         initials: 'ADV',
         area: 'ESG & Governance Advisory',
-        desc: 'Independent advisor specialising in sustainability reporting, corporate governance, and stakeholder engagement.',
+        desc: 'Sustainability reporting, corporate governance and stakeholder engagement.',
       },
     ],
   },

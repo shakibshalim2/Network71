@@ -5,6 +5,13 @@ const en = {
     eyebrow: 'Our Story',
     title: 'About Network71',
     lead: "Building tomorrow's global enterprise, today.",
+    facts: [
+      { value: '2018', label: 'Founded in Dhaka' },
+      { value: '10', label: 'Business divisions' },
+      { value: 'One', label: 'Unified ecosystem' },
+    ],
+    visionLines: ['Building Businesses.', 'Connecting Markets.', 'Creating the Future.'],
+    visionLabel: 'Our vision',
   },
   story: {
     eyebrow: 'Our Origins',
@@ -13,7 +20,7 @@ const en = {
     p2: 'Our journey is rooted in a belief that emerging markets hold extraordinary potential. By combining local expertise with global networks, we build bridges between communities, businesses, and opportunity — from South Asia to the world.',
     p3: 'Today, Network71 operates ten business divisions — from garments and agriculture to technology, media and maritime — united by a shared commitment to excellence, sustainability, and long-term value creation for every stakeholder we serve.',
     imageSrc: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=700&fit=crop&auto=format',
-    imageAlt: 'Network71 global headquarters',
+    imageAlt: 'Modern office district — illustrative image',
     divisions: [
       'Garments & Apparel',
       'Agriculture & Agro',
@@ -65,10 +72,9 @@ const en = {
     eyebrow: 'Team',
     title: 'Leadership',
     viewAll: 'View Full Team →',
+    note: 'Further executive appointments are published here once confirmed.',
     people: [
       { name: 'Tanjijur Rahman Topon', title: 'Founder & CEO' },
-      { name: 'To Be Announced', title: 'Executive Director' },
-      { name: 'To Be Announced', title: 'Chief Operating Officer' },
     ],
   },
   timeline: {
