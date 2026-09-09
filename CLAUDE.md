@@ -36,8 +36,3 @@ This project uses **Tailwind CSS v4** through the `@tailwindcss/vite` plugin con
 - Use double quotes for strings containing apostrophes (`"We're here to help"`), or escape them in single-quoted strings.
 - Ensure JSX tags are closed and braces are balanced.
 - Export components as default exports.
-
-
-## GSK CLI
-
-This project uses the Genspark CLI. Follow [CONTEXT.md](CONTEXT.md) for available tools and usage rules.

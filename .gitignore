@@ -18,6 +18,9 @@ logs/
 # beside it.
 /.plugins/
 /.opencode-skills/
+/.gsk/
+/opencode.json
+/gemini-extension.json
 
 # Local backend configuration, uploads and database state
 /backend/config/local.php
