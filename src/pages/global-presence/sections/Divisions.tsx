@@ -9,7 +9,8 @@ export default function Divisions({ c }: { c: GlobalPresenceContent['divisions']
           <p className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium mb-3">{c.eyebrow}</p>
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4 tracking-[-0.02em]">{c.title}</h2>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* 10 cards in 3 columns leaves one orphan; centre it on the last row */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:[&>*:last-child:nth-child(3n+1)]:col-start-2">
           {c.items.map((d) => (
             <Link
               key={d.href}

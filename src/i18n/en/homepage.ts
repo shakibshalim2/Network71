@@ -110,7 +110,7 @@ export const enHomepage = {
   'mediaMarket.eshipEyebrow': 'eSHIPe Ship Marketplace',
   'mediaMarket.eshipTitle1': 'The Global Platform for',
   'mediaMarket.eshipTitle2': 'Ships & Vessels.',
-  'mediaMarket.eshipLead': 'Buy, sell, charter, and manage vessels — the trusted maritime trading hub connecting buyers and sellers worldwide.',
+  'mediaMarket.eshipLead': 'Buy, sell, charter, and manage vessels — a maritime marketplace connecting buyers and sellers across borders.',
   'mediaMarket.exploreMarketplace': 'Explore Marketplace',
   'mediaMarket.shipAlt': 'Maritime vessel cargo ship at sea',
   'mediaMarket.stat1.val': 'Buy',

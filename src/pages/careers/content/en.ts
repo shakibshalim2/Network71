@@ -15,7 +15,7 @@ const en = {
       {
         id: 'compensation',
         title: 'Competitive Compensation',
-        desc: 'Market-leading packages with performance bonuses and equity opportunities.',
+        desc: 'Competitive packages with performance-linked bonuses, reviewed against the local market.',
       },
       {
         id: 'global',
@@ -40,7 +40,7 @@ const en = {
       {
         id: 'impact',
         title: 'Meaningful Impact',
-        desc: 'Your work contributes to economic growth across emerging markets, creating tangible change at scale.',
+        desc: 'Your work contributes to economic growth across emerging markets, with results you can see in the businesses we build.',
       },
     ],
   },

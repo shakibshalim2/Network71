@@ -9,9 +9,9 @@ const en = {
   story: {
     eyebrow: 'Our Origins',
     title: 'From Dhaka to the World',
-    p1: "Network71 was founded in 2018 in Dhaka, Bangladesh. What began as a trading company with a clear vision quickly grew into one of the region's most ambitious diversified enterprises — spanning ten business divisions and international markets.",
-    p2: 'Our journey is rooted in a belief that emerging markets hold extraordinary potential. By combining local expertise with global networks, we have built bridges between communities, businesses, and opportunity on a scale rarely seen from South Asia.',
-    p3: 'Today, Network71 operates eight business divisions — from garments and agriculture to technology and maritime — united by a shared commitment to excellence, sustainability, and long-term value creation for every stakeholder we serve.',
+    p1: 'Network71 was founded in 2018 in Dhaka, Bangladesh. What began as a trading company with a clear vision has grown into a diversified enterprise — spanning ten business divisions and international markets.',
+    p2: 'Our journey is rooted in a belief that emerging markets hold extraordinary potential. By combining local expertise with global networks, we build bridges between communities, businesses, and opportunity — from South Asia to the world.',
+    p3: 'Today, Network71 operates ten business divisions — from garments and agriculture to technology, media and maritime — united by a shared commitment to excellence, sustainability, and long-term value creation for every stakeholder we serve.',
     imageSrc: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=700&fit=crop&auto=format',
     imageAlt: 'Network71 global headquarters',
     divisions: [
@@ -21,20 +21,22 @@ const en = {
       'Oils & Energy',
       'IT & Software',
       'Global Trading',
+      'Strategic Ventures',
       'Media',
       'eSHIPe Maritime',
+      'Ezyify',
     ],
     activeLabel: 'Active Divisions',
-    activeValue: '8 Divisions',
-    activeSub: 'Across 25+ countries globally',
+    activeValue: '10 Divisions',
+    activeSub: 'Headquartered in Dhaka, trading across three focus regions',
   },
   purpose: {
     eyebrow: 'Purpose',
     title: 'Vision & Mission',
     vision: {
       label: 'Vision',
-      title: 'Leading Multinational',
-      text: 'To be a leading multinational enterprise driving economic transformation across emerging markets.',
+      title: 'A Trusted Multinational',
+      text: 'To become a trusted multinational enterprise contributing to economic transformation across emerging markets.',
     },
     mission: {
       label: 'Mission',
@@ -55,7 +57,7 @@ const en = {
       { id: 'integrity', title: 'Integrity', desc: 'Honest dealings in every market we serve.', color: '#C8962A' },
       { id: 'innovation', title: 'Innovation', desc: 'Technology and fresh thinking at our core.', color: 'var(--accent-cyan)' },
       { id: 'collaboration', title: 'Collaboration', desc: 'Partners, teams, and communities unified.', color: 'var(--accent-teal)' },
-      { id: 'excellence', title: 'Excellence', desc: 'World-class standards across all divisions.', color: '#C8962A' },
+      { id: 'excellence', title: 'Excellence', desc: 'Consistent, high standards across all divisions.', color: '#C8962A' },
       { id: 'sustainability', title: 'Sustainability', desc: 'Building responsibly for future generations.', color: 'var(--accent-teal)' },
     ],
   },
@@ -100,7 +102,7 @@ const en = {
       {
         year: '2022',
         title: 'International Scale',
-        detail: 'Trade network extended across the Middle East, Europe, and Southeast Asia. Revenue trajectory accelerating toward global benchmarks.',
+        detail: 'Trade network extended across the Middle East, Europe, and Southeast Asia, with new export and sourcing relationships.',
         side: 'left',
       },
       {
@@ -112,7 +114,7 @@ const en = {
       {
         year: '2024',
         title: 'Today',
-        detail: 'Present operations spanning 25+ countries with $150M+ annual revenue across eight diversified sectors.',
+        detail: 'Ten business divisions — including Media, Ship Marketplace and Strategic Ventures — operating from Dhaka with trade partners across South Asia, the Middle East and Southeast Asia.',
         side: 'left',
       },
     ],

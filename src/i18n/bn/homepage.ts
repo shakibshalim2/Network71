@@ -112,7 +112,7 @@ export const bnHomepage: Record<keyof typeof enHomepage, string> = {
   'mediaMarket.eshipEyebrow': 'eSHIPe শিপ মার্কেটপ্লেস',
   'mediaMarket.eshipTitle1': 'জাহাজ ও ভেসেলের',
   'mediaMarket.eshipTitle2': 'বৈশ্বিক প্ল্যাটফর্ম।',
-  'mediaMarket.eshipLead': 'জাহাজ কেনা, বিক্রি, চার্টার ও ব্যবস্থাপনা — বিশ্বজুড়ে ক্রেতা-বিক্রেতাকে যুক্ত করা বিশ্বস্ত মেরিটাইম ট্রেডিং হাব।',
+  'mediaMarket.eshipLead': 'জাহাজ কেনা, বিক্রি, চার্টার ও ব্যবস্থাপনা — সীমান্তের ওপারে ক্রেতা-বিক্রেতাকে যুক্ত করা একটি মেরিটাইম মার্কেটপ্লেস।',
   'mediaMarket.exploreMarketplace': 'মার্কেটপ্লেস দেখুন',
   'mediaMarket.shipAlt': 'সমুদ্রে মেরিটাইম কার্গো জাহাজ',
   'mediaMarket.stat1.val': 'কিনুন',
