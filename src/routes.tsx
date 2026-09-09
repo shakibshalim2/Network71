@@ -15,6 +15,7 @@ const IT = lazy(() => import("@/pages/sectors/IT"))
 const Trading = lazy(() => import("@/pages/sectors/Trading"))
 const Media = lazy(() => import("@/pages/sectors/Media"))
 const EShipe = lazy(() => import("@/pages/sectors/EShipe"))
+const StrategicVentures = lazy(() => import("@/pages/sectors/StrategicVentures"))
 const EzyifyPage = lazy(() => import("@/pages/EzyifyPage"))
 const Sustainability = lazy(() => import("@/pages/Sustainability"))
 const GlobalPresence = lazy(() => import("@/pages/GlobalPresence"))
@@ -86,6 +87,8 @@ export const router = createBrowserRouter([
       { path: '/divisions/global-trading', Component: Trading },
       { path: '/divisions/media', Component: Media },
       { path: '/divisions/eshipe', Component: EShipe },
+      { path: '/divisions/strategic-ventures', Component: StrategicVentures },
+      { path: '/divisions/ship-marketplace', Component: EShipe },
       { path: '*', Component: NotFound },
     ],
   },

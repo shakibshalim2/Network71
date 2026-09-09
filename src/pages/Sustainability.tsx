@@ -14,7 +14,7 @@ const sdgs = [
   {
     number: "8",
     title: "Decent Work & Economic Growth",
-    desc: "Creating quality employment across all eight divisions, with fair wages, safe conditions, and career development pathways for 5,000+ employees.",
+    desc: "Creating quality employment across all ten divisions, with fair wages, safe conditions, and career development pathways for 5,000+ employees.",
     color: "bg-amber-600",
   },
   {

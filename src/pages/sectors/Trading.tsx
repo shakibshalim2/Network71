@@ -7,9 +7,9 @@ import Footer from '@/components/Footer'
 const ACCENT = 'var(--accent-blue)'
 
 const metrics = [
-  { value: '25+', label: 'Countries', desc: 'Global trade network reach' },
-  { value: '1,000+', label: 'Shipments/Month', desc: 'Monthly logistics volume' },
-  { value: '$50M+', label: 'Trade Volume', desc: 'Annual trade value' },
+  { value: 'Multi', label: 'Trade Lanes', desc: 'South Asia ↔ Middle East, Europe, Asia' },
+  { value: 'Sea · Air · Land', label: 'Logistics', desc: 'Multi-modal freight coordination' },
+  { value: 'End-to-end', label: 'Sourcing', desc: 'Supplier scouting to final delivery' },
   { value: '—', label: 'Active Partners', desc: 'Data to be published' },
 ]
 
@@ -177,7 +177,7 @@ const roadmap = [
 export default function Trading() {
   return (
     <div className="sector-page min-h-full bg-navy">
-      <SectorHeader divisionName="Global Trading" accentClass="text-blue-400" />
+      <SectorHeader divisionName="Global Trading & Logistics" accentClass="text-blue-400" />
       <main className="public-content">
 
       {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
@@ -205,12 +205,12 @@ export default function Trading() {
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-10" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>
-                Network71 — Global Trading &amp; Imports
+                Network71 — Global Trading &amp; Logistics
               </span>
             </div>
             <h1 className="font-display text-5xl lg:text-7xl text-white leading-[1.05] tracking-[-0.02em] mb-6">
               Global<br />
-              <span style={{ color: ACCENT }}>Trading &amp; Imports</span>
+              <span style={{ color: ACCENT }}>Trading &amp; Logistics</span>
             </h1>
             <p className="text-slate-300 text-lg lg:text-xl leading-relaxed mb-10 max-w-xl">
               Connecting producers and markets across 25+ countries — with speed, compliance, and scale. Network71 is your end-to-end trade partner from source to shelf.
@@ -235,9 +235,9 @@ export default function Trading() {
           {/* Floating stat badges */}
           <div className="absolute bottom-12 right-8 hidden lg:flex flex-col gap-3">
             {[
-              { val: '25+', lab: 'Countries' },
-              { val: '$50M+', lab: 'Trade Volume' },
-              { val: '1,000+', lab: 'Shipments/Month' },
+              { val: 'Sourcing', lab: 'Supplier & buyer matching' },
+              { val: 'Trade', lab: 'Import / export management' },
+              { val: 'Logistics', lab: 'Sea, air & land freight' },
             ].map((s) => (
               <div
                 key={s.lab}
@@ -269,7 +269,7 @@ export default function Trading() {
                 Bridging Producing Nations and Consuming Markets
               </h2>
               <p className="text-slate-500 leading-relaxed mb-5">
-                Network71&apos;s Global Trading &amp; Imports division operates as a strategic bridge between the world&apos;s producing economies and its consuming markets. We combine deep trade compliance expertise with logistics excellence to move goods across borders efficiently and reliably.
+                Network71&apos;s Global Trading &amp; Logistics division operates as a strategic bridge between the world&apos;s producing economies and its consuming markets. We combine deep trade compliance expertise with logistics excellence to move goods across borders efficiently and reliably.
               </p>
               <p className="text-slate-500 leading-relaxed mb-5">
                 From agricultural commodities to finished textiles, our team navigates the full complexity of international trade — regulatory compliance, documentation, freight management, and trade finance — so our partners can focus on growth.
@@ -980,7 +980,7 @@ export default function Trading() {
 
       {/* ── 17. SECTOR CONTACT ──────────────────────────────────────────────── */}
       <SectorContact
-        divisionName="Global Trading"
+        divisionName="Global Trading & Logistics"
         accentHex={ACCENT}
         inquiryTypes={['Export Inquiry', 'Import Sourcing', 'Logistics Partnership', 'Trade Finance', 'Market Entry']}
       />

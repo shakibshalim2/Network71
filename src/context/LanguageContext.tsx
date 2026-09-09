@@ -1,40 +1,34 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react'
 
-export type Language = 'en' | 'ar' | 'bn'
+export type Language = 'en' | 'bn'
 
 export const LANG_STORAGE_KEY = 'n71-lang'
 
-const SUPPORTED: Language[] = ['en', 'ar', 'bn']
+const SUPPORTED: Language[] = ['en', 'bn']
 
 interface LanguageContextType {
   language: Language
   setLanguage: (lang: Language) => void
-  isRTL: boolean
-  dir: 'ltr' | 'rtl'
   langLabel: string
 }
 
 const LanguageContext = createContext<LanguageContextType>({
   language: 'en',
   setLanguage: () => {},
-  isRTL: false,
-  dir: 'ltr',
   langLabel: 'EN',
 })
 
 function readStoredLanguage(): Language {
   if (typeof localStorage === 'undefined') return 'en'
-  let raw: Language | null = null
-  try { raw = localStorage.getItem(LANG_STORAGE_KEY) as Language | null } catch { return 'en' }
-  return raw && SUPPORTED.includes(raw) ? raw : 'en'
+  let raw: string | null = null
+  try { raw = localStorage.getItem(LANG_STORAGE_KEY) } catch { return 'en' }
+  return raw && (SUPPORTED as string[]).includes(raw) ? (raw as Language) : 'en'
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>(readStoredLanguage)
 
-  const isRTL = language === 'ar'
-  const dir: 'ltr' | 'rtl' = isRTL ? 'rtl' : 'ltr'
-  const langLabel = language === 'ar' ? 'ع' : language === 'bn' ? 'বাং' : 'EN'
+  const langLabel = language === 'bn' ? 'বাং' : 'EN'
 
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang)
@@ -42,9 +36,12 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    document.documentElement.setAttribute('dir', dir)
-    document.documentElement.setAttribute('lang', language)
-  }, [dir, language])
+    const root = document.documentElement
+    root.setAttribute('lang', language)
+    root.setAttribute('dir', 'ltr')
+    // Drives the Bengali font stack and line-height tweaks in index.css.
+    root.classList.toggle('lang-bn', language === 'bn')
+  }, [language])
 
   // Keep other open tabs in sync.
   useEffect(() => {
@@ -56,7 +53,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, [])
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, isRTL, dir, langLabel }}>
+    <LanguageContext.Provider value={{ language, setLanguage, langLabel }}>
       {children}
     </LanguageContext.Provider>
   )

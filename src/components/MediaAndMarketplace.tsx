@@ -224,7 +224,7 @@ export default function MediaAndMarketplace() {
             {/* Ship image */}
             <div className="min-h-[150px] sm:min-h-[180px]" style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
               <img
-                src="https://images.unsplash.com/photo-1591768575198-88dac53fbd0a?w=700&h=400&fit=crop&auto=format"
+                src="https://images.unsplash.com/photo-1605745341112-85968b19335b?w=700&h=400&fit=crop&auto=format"
                 alt="Maritime vessel cargo ship at sea"
                 className="w-full h-full object-cover"
                 style={{ transition: 'transform 0.7s ease' }}

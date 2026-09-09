@@ -1,70 +1,28 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useLanguage, type Language } from '@/context/LanguageContext'
+import { useT, DIVISION_IDS, DIVISION_HREF, DIVISION_COLOR, divKey, type DivisionId } from '@/i18n'
 import { ThemeToggleButton, ThemeSegmented } from '@/components/ThemeToggle'
 import Logo from '@/components/brand/Logo'
 import { useDialogFocus } from '@/lib/useDialogFocus'
 
 // ─── Division data ────────────────────────────────────────────────────────────
 
-const DIVISIONS = [
-  {
-    name: 'Garments & Apparel',
-    href: '/divisions/garments',
-    desc: 'Private-label manufacturing & ethical export',
-    color: 'var(--accent-rose)',
-    icon: 'M3 6l3-3 12 0 3 3M3 6v12l3 3h12l3-3V6M9 21V9m6 12V9M9 9H3m6 0h6m0 0h6',
-  },
-  {
-    name: 'Agriculture & Agro',
-    href: '/divisions/agriculture',
-    desc: 'Sustainable farming & global commodity export',
-    color: 'var(--accent-green)',
-    icon: 'M12 3C8 3 5 6 5 9c0 4.5 7 12 7 12s7-7.5 7-12c0-3-3-6-7-6zm0 7a2 2 0 110-4 2 2 0 010 4z',
-  },
-  {
-    name: 'Food & Beverage',
-    href: '/divisions/food-beverage',
-    desc: 'FMCG manufacturing & nutritional innovation',
-    color: 'var(--accent-orange)',
-    icon: 'M9 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2h-2M9 3a2 2 0 002 2h2a2 2 0 002-2M9 3h6m-6 8h6m-6 4h4',
-  },
-  {
-    name: 'Oils & Energy',
-    href: '/divisions/oils-energy',
-    desc: 'Edible oils, fuel & industrial energy solutions',
-    color: 'var(--accent-amber)',
-    icon: 'M13 10V3L4 14h7v7l9-11h-7z',
-  },
-  {
-    name: 'IT & Digital',
-    href: '/divisions/it-software',
-    desc: 'Enterprise software, AI & digital transformation',
-    color: 'var(--accent-cyan)',
-    icon: 'M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V8l-5-5H9zM9 3v5h8M7 13h10M7 17h5',
-  },
-  {
-    name: 'Global Trading',
-    href: '/divisions/global-trading',
-    desc: 'Cross-border import/export & supply chain',
-    color: 'var(--accent-blue)',
-    icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-  },
-  {
-    name: 'Network71 Media',
-    href: '/divisions/media',
-    desc: 'Digital newspaper & broadcast television',
-    color: 'var(--accent-red)',
-    icon: 'M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z',
-  },
-  {
-    name: 'eSHIPe Maritime',
-    href: '/divisions/eshipe',
-    desc: 'Global marketplace for vessels & marine assets',
-    color: 'var(--accent-sky)',
-    icon: 'M7 16l-4-4m0 0l4-4m-4 4h18M17 8l4 4m0 0l-4 4',
-  },
-]
+const DIVISION_ICONS: Record<DivisionId, string> = {
+  garments:    'M3 6l3-3 12 0 3 3M3 6v12l3 3h12l3-3V6M9 21V9m6 12V9M9 9H3m6 0h6m0 0h6',
+  agriculture: 'M12 3C8 3 5 6 5 9c0 4.5 7 12 7 12s7-7.5 7-12c0-3-3-6-7-6zm0 7a2 2 0 110-4 2 2 0 010 4z',
+  food:        'M9 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2h-2M9 3a2 2 0 002 2h2a2 2 0 002-2M9 3h6m-6 8h6m-6 4h4',
+  energy:      'M13 10V3L4 14h7v7l9-11h-7z',
+  it:          'M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V8l-5-5H9zM9 3v5h8M7 13h10M7 17h5',
+  trading:     'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  ventures:    'M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2l.9-5.5-4-3.9 5.5-.8L12 3zM3 21h18',
+  media:       'M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z',
+  ship:        'M3 17l1.5 3h15L21 17M3 17c3 1.5 6 1.5 9 0s6-1.5 9 0M5 17V9h14v8M9 9V5h6v4M12 3v2',
+  ezyify:      'M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6L12 2z',
+}
+
+// Mega-menu / drawer list: every division except Ezyify, which has its own flagship strip.
+const MENU_DIVISIONS = DIVISION_IDS.filter(id => id !== 'ezyify')
 
 // ─── Search index ─────────────────────────────────────────────────────────────
 
@@ -85,8 +43,6 @@ const SEARCH_INDEX = [
   { label: 'Careers',             href: '/careers',         group: 'Pages' },
   { label: 'Contact',             href: '/contact',         group: 'Pages' },
   { label: 'Legal',               href: '/legal',           group: 'Pages' },
-  { label: 'Ezyify Platform',     href: '/ezyify',          group: 'Divisions' },
-  ...DIVISIONS.map(d => ({ label: d.name, href: d.href, group: 'Divisions' })),
   { label: 'Dhaka, Bangladesh',   href: '/global-presence', group: 'Locations' },
   { label: 'Middle East',         href: '/global-presence', group: 'Locations' },
   { label: 'Europe',              href: '/global-presence', group: 'Locations' },
@@ -105,7 +61,7 @@ const SUGGESTED_SEARCHES = [
 ]
 
 const DEFAULT_RECENT = [
-  { label: 'eSHIPe Maritime',   href: '/divisions/eshipe' },
+  { label: 'Ship Marketplace',   href: '/divisions/eshipe' },
   { label: 'Investor Relations', href: '/investors' },
   { label: 'Global Presence',   href: '/global-presence' },
 ]
@@ -114,7 +70,6 @@ const DEFAULT_RECENT = [
 
 const LANG_OPTIONS: { code: Language; label: string; short: string; flag: string }[] = [
   { code: 'en', label: 'English', short: 'EN', flag: '🇬🇧' },
-  { code: 'ar', label: 'العربية', short: 'AR', flag: '🇸🇦' },
   { code: 'bn', label: 'বাংলা',  short: 'BN', flag: '🇧🇩' },
 ]
 
@@ -216,6 +171,11 @@ export default function Header() {
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const { language, setLanguage } = useLanguage()
+  const { t } = useT()
+
+  // Division entries rebuilt per language so search + menus stay translated.
+  const divisionIndex = DIVISION_IDS.map(id => ({ label: t(divKey(id, 'short')), href: DIVISION_HREF[id], group: 'Divisions' }))
+  const searchIndex = [...SEARCH_INDEX, ...divisionIndex]
 
   const [scrolled, setScrolled]         = useState(false)
   const [mobileOpen, setMobileOpen]     = useState(false)
@@ -304,13 +264,13 @@ export default function Header() {
   const curLang = LANG_OPTIONS.find(l => l.code === language)!
 
   const searchResults = searchQuery.trim()
-    ? SEARCH_INDEX.filter(i =>
+    ? searchIndex.filter(i =>
         i.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
         i.group.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : []
 
-  const byGroup = searchResults.reduce<Record<string, typeof SEARCH_INDEX>>((acc, item) => {
+  const byGroup = searchResults.reduce<Record<string, typeof searchIndex>>((acc, item) => {
     if (!acc[item.group]) acc[item.group] = []
     acc[item.group].push(item)
     return acc
@@ -399,7 +359,7 @@ export default function Header() {
                 }}
                 onMouseEnter={e => { e.currentTarget.style.color = 'var(--fg-strong)' }}
                 onMouseLeave={e => { if (!megaOpen) e.currentTarget.style.color = 'var(--fg-muted)' }}>
-                Divisions
+                {t('nav.divisions')}
                 <svg
                   viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"
                   style={{ width: 10, height: 10, opacity: 0.5, transition: 'transform 0.22s', transform: megaOpen ? 'rotate(180deg)' : 'none' }}>
@@ -443,7 +403,7 @@ export default function Header() {
                   <span style={{
                     fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.3em',
                     textTransform: 'uppercase', color: 'var(--brand-fg)',
-                  }}>Our Businesses</span>
+                  }}>{t('header.ourBusinesses')}</span>
                   <Link to="/about" style={{
                     fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.1em',
                     color: 'var(--brand-fg)', textDecoration: 'none',
@@ -451,30 +411,30 @@ export default function Header() {
                   }}
                     onMouseEnter={e => { e.currentTarget.style.color = 'var(--brand)' }}
                     onMouseLeave={e => { e.currentTarget.style.color = 'var(--brand-edge)' }}>
-                    View All →
+                    {t('header.viewAll')}
                   </Link>
                 </div>
 
                 {/* Division grid — 1 col on very narrow panels, 2 col otherwise */}
                 <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: 2, marginBottom: 8 }}>
-                  {DIVISIONS.map(d => (
-                    <Link key={d.name} to={d.href} style={{
+                  {MENU_DIVISIONS.map(id => (
+                    <Link key={id} to={DIVISION_HREF[id]} style={{
                       display: 'flex', alignItems: 'center', gap: 10,
                       padding: '8px 10px', borderRadius: 10,
                       textDecoration: 'none', transition: 'background 0.12s',
                     }}
                       onMouseEnter={e => { e.currentTarget.style.background = 'var(--line)' }}
                       onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}>
-                      <DivisionIcon path={d.icon} color={d.color} />
+                      <DivisionIcon path={DIVISION_ICONS[id]} color={DIVISION_COLOR[id]} />
                       <div style={{ minWidth: 0 }}>
                         <div style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--fg)', lineHeight: 1.3 }}>
-                          {d.name}
+                          {t(divKey(id, 'short'))}
                         </div>
                         <div style={{
                           fontSize: 10.5, color: 'var(--fg-subtle)', marginTop: 1,
                           lineHeight: 1.35, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                         }}>
-                          {d.desc}
+                          {t(divKey(id, 'desc'))}
                         </div>
                       </div>
                     </Link>
@@ -517,10 +477,10 @@ export default function Header() {
                           color: 'rgba(168,85,247,0.8)', padding: '2px 7px',
                           borderRadius: 4, background: 'rgba(168,85,247,0.12)',
                           border: '1px solid rgba(168,85,247,0.25)',
-                        }}>Flagship</span>
+                        }}>{t('header.flagship')}</span>
                       </div>
                       <div style={{ fontSize: 11, color: 'rgba(168,85,247,0.65)', lineHeight: 1.35 }}>
-                        AI-Powered Social Commerce Innovation Platform
+                        {t(divKey('ezyify', 'desc'))}
                       </div>
                     </div>
                   </div>
@@ -532,13 +492,13 @@ export default function Header() {
               </div>
             </div>
 
-            <NavLink href="/about"            active={pathname === '/about'}>About</NavLink>
-            <NavLink href="/projects" active={pathname.startsWith('/projects')}>Our Work</NavLink>
-            <NavLink href="/global-presence"  active={pathname === '/global-presence'}>Global Presence</NavLink>
-            <NavLink href="/divisions/media"  active={pathname === '/divisions/media'}>Media</NavLink>
-            <NavLink href="/investors"        active={pathname === '/investors'}>Investors</NavLink>
-            <NavLink href="/careers"          active={pathname === '/careers'}>Careers</NavLink>
-            <NavLink href="/contact"          active={pathname === '/contact'}>Contact</NavLink>
+            <NavLink href="/about"            active={pathname === '/about'}>{t('nav.about')}</NavLink>
+            <NavLink href="/projects" active={pathname.startsWith('/projects')}>{t('nav.ourWork')}</NavLink>
+            <NavLink href="/global-presence"  active={pathname === '/global-presence'}>{t('nav.globalPresence')}</NavLink>
+            <NavLink href="/divisions/media"  active={pathname === '/divisions/media'}>{t('nav.media')}</NavLink>
+            <NavLink href="/investors"        active={pathname === '/investors'}>{t('nav.investors')}</NavLink>
+            <NavLink href="/careers"          active={pathname === '/careers'}>{t('nav.careers')}</NavLink>
+            <NavLink href="/contact"          active={pathname === '/contact'}>{t('nav.contact')}</NavLink>
           </nav>
 
           {/* ══════════════════════════════════════
@@ -549,7 +509,7 @@ export default function Header() {
             style={{ alignItems: 'center', gap: 4, marginLeft: 'auto', flexShrink: 0 }}>
 
             {/* Search */}
-            <IconBtn label="Search site" onClick={() => { setMobileOpen(false); setSearchOpen(true) }}>
+            <IconBtn label={t('header.searchSite')} onClick={() => { setMobileOpen(false); setSearchOpen(true) }}>
               <IconSearch size={16} />
             </IconBtn>
 
@@ -652,7 +612,7 @@ export default function Header() {
                 e.currentTarget.style.borderColor = 'var(--brand-edge)'
                 e.currentTarget.style.boxShadow = 'none'
               }}>
-              Connect
+              {t('header.connectShort')}
               <svg fill="none" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2"
                 style={{ width: 11, height: 11 }}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8h10M8 3l5 5-5 5" />
@@ -670,7 +630,7 @@ export default function Header() {
             style={{ alignItems: 'center', gap: 2, marginLeft: 'auto' }}>
 
             {/* Search */}
-            <IconBtn label="Search site" onClick={() => setSearchOpen(true)}>
+            <IconBtn label={t('header.searchSite')} onClick={() => setSearchOpen(true)}>
               <IconSearch size={18} />
             </IconBtn>
 
@@ -757,7 +717,7 @@ export default function Header() {
                   handleResult(searchResults[0].href, searchResults[0].label)
                 }
               }}
-              placeholder="Search Network71…"
+              placeholder={t('header.searchPlaceholder')}
               style={{
                 flex: 1, minWidth: 0, background: 'none', border: 'none', outline: 'none',
                 /* 16px min prevents iOS Safari auto-zoom on focus */
@@ -817,7 +777,7 @@ export default function Header() {
                     <p style={{
                       fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.3em',
                       textTransform: 'uppercase', color: 'var(--fg-subtle)',
-                    }}>Recent</p>
+                    }}>{t('header.recent')}</p>
                     <button
                       onClick={() => setRecentSearches([])}
                       style={{
@@ -856,7 +816,7 @@ export default function Header() {
               <p style={{
                 fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.3em',
                 textTransform: 'uppercase', color: 'var(--fg-subtle)', marginBottom: 12,
-              }}>Suggested</p>
+              }}>{t('header.suggested')}</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                 {SUGGESTED_SEARCHES.map(s => (
                   <button
@@ -882,7 +842,7 @@ export default function Header() {
             <div style={{ paddingTop: 16 }}>
               {searchResults.length === 0 ? (
                 <p style={{ fontSize: 13.5, color: 'var(--fg-subtle)', paddingTop: 8 }}>
-                  No results for "<strong style={{ color: 'var(--fg-muted)' }}>{searchQuery}</strong>"
+                  {t('header.noResults')} "<strong style={{ color: 'var(--fg-muted)' }}>{searchQuery}</strong>"
                 </p>
               ) : (
                 Object.entries(byGroup).map(([group, items]) => (
@@ -973,23 +933,23 @@ export default function Header() {
         {/* Drawer nav items */}
         <div style={{ padding: '8px 10px 0', flex: 1 }}>
 
-          <MobileLink href="/" active={pathname === '/'}>Home</MobileLink>
+          <MobileLink href="/" active={pathname === '/'}>{t('nav.home')}</MobileLink>
 
           {/* Divisions accordion */}
           <MobileAccordion
-            label="Divisions"
+            label={t('nav.divisions')}
             expanded={mobileExpanded === 'divisions'}
             onToggle={() => toggleAccordion('divisions')}>
-            {DIVISIONS.map(d => (
-              <Link key={d.href} to={d.href} style={{
+            {MENU_DIVISIONS.map(id => (
+              <Link key={id} to={DIVISION_HREF[id]} style={{
                 display: 'flex', alignItems: 'center', gap: 10,
                 padding: '9px 12px', borderRadius: 8, textDecoration: 'none',
                 transition: 'background 0.12s',
               }}
                 onMouseEnter={e => { e.currentTarget.style.background = 'var(--line)' }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}>
-                <span style={{ width: 7, height: 7, borderRadius: '50%', background: d.color, flexShrink: 0 }} />
-                <span style={{ fontSize: 13.5, color: 'var(--fg-muted)' }}>{d.name}</span>
+                <span style={{ width: 7, height: 7, borderRadius: '50%', background: DIVISION_COLOR[id], flexShrink: 0 }} />
+                <span style={{ fontSize: 13.5, color: 'var(--fg-muted)' }}>{t(divKey(id, 'short'))}</span>
               </Link>
             ))}
             <Link to="/ezyify" style={{
@@ -1006,33 +966,33 @@ export default function Header() {
                 marginLeft: 'auto',
                 fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.15em',
                 textTransform: 'uppercase', color: 'rgba(168,85,247,0.5)',
-              }}>Flagship</span>
+              }}>{t('header.flagship')}</span>
             </Link>
           </MobileAccordion>
 
-          <MobileLink href="/about"           active={pathname === '/about'}>About</MobileLink>
-          <MobileLink href="/projects" active={pathname.startsWith('/projects')}>Our Work</MobileLink>
-          <MobileLink href="/global-presence" active={pathname === '/global-presence'}>Global Presence</MobileLink>
-          <MobileLink href="/divisions/media" active={pathname === '/divisions/media'}>Media</MobileLink>
-          <MobileLink href="/investors"       active={pathname === '/investors'}>Investor Relations</MobileLink>
-          <MobileLink href="/careers"         active={pathname === '/careers'}>Careers</MobileLink>
-          <MobileLink href="/contact"         active={pathname === '/contact'}>Contact</MobileLink>
+          <MobileLink href="/about"           active={pathname === '/about'}>{t('nav.about')}</MobileLink>
+          <MobileLink href="/projects" active={pathname.startsWith('/projects')}>{t('nav.ourWork')}</MobileLink>
+          <MobileLink href="/global-presence" active={pathname === '/global-presence'}>{t('nav.globalPresence')}</MobileLink>
+          <MobileLink href="/divisions/media" active={pathname === '/divisions/media'}>{t('nav.media')}</MobileLink>
+          <MobileLink href="/investors"       active={pathname === '/investors'}>{t('nav.investorRelations')}</MobileLink>
+          <MobileLink href="/careers"         active={pathname === '/careers'}>{t('nav.careers')}</MobileLink>
+          <MobileLink href="/contact"         active={pathname === '/contact'}>{t('nav.contact')}</MobileLink>
 
           {/* More pages accordion */}
           <MobileAccordion
-            label="More"
+            label={t('nav.more')}
             expanded={mobileExpanded === 'more'}
             onToggle={() => toggleAccordion('more')}>
             {[
-              { label: 'Leadership',      href: '/leadership' },
-              { label: 'Our History',     href: '/timeline' },
-              { label: 'Sustainability',  href: '/sustainability' },
-              { label: 'Governance',      href: '/governance' },
-              { label: 'Press Releases',  href: '/press' },
-              { label: 'Blog & Insights', href: '/blog' },
-              { label: 'Gallery',         href: '/gallery' },
-              { label: 'Brand Identity',  href: '/brand' },
-              { label: 'Legal',           href: '/legal' },
+              { label: t('nav.leadership'),      href: '/leadership' },
+              { label: t('nav.history'),     href: '/timeline' },
+              { label: t('nav.sustainability'),  href: '/sustainability' },
+              { label: t('nav.governance'),      href: '/governance' },
+              { label: t('nav.press'),  href: '/press' },
+              { label: t('nav.blog'), href: '/blog' },
+              { label: t('nav.gallery'),         href: '/gallery' },
+              { label: t('nav.brand'),  href: '/brand' },
+              { label: t('nav.legal'),           href: '/legal' },
             ].map(item => (
               <Link key={item.href} to={item.href} style={{
                 display: 'flex', alignItems: 'center', gap: 10,
@@ -1056,7 +1016,7 @@ export default function Header() {
             <p style={{
               fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.3em',
               textTransform: 'uppercase', color: 'var(--fg-faint)', marginBottom: 10,
-            }}>Appearance</p>
+            }}>{t('header.appearance')}</p>
             <ThemeSegmented />
           </div>
 
@@ -1069,7 +1029,7 @@ export default function Header() {
             <p style={{
               fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.3em',
               textTransform: 'uppercase', color: 'var(--fg-faint)', marginBottom: 10,
-            }}>Language</p>
+            }}>{t('header.language')}</p>
             <div style={{ display: 'flex', gap: 6 }}>
               {LANG_OPTIONS.map(l => (
                 <button
@@ -1101,7 +1061,7 @@ export default function Header() {
               }}
               onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-bright)' }}
               onMouseLeave={e => { e.currentTarget.style.background = 'var(--brand)' }}>
-              Connect With Us
+              {t('header.connect')}
               <svg fill="none" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2.5"
                 style={{ width: 12, height: 12 }}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8h10M8 3l5 5-5 5" />

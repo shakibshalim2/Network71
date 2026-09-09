@@ -379,7 +379,7 @@ function VesselListings() {
 export default function EShipe() {
   return (
     <div className="sector-page min-h-full" style={{ background: BG_DEEP, color: 'var(--fg)' }}>
-      <SectorHeader divisionName="eSHIPe Maritime" accentClass="text-sky-400" />
+      <SectorHeader divisionName="Ship Marketplace" accentClass="text-sky-400" />
       <main className="public-content">
 
       {/* ── 1. HERO ── */}
@@ -414,7 +414,7 @@ export default function EShipe() {
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-12" style={{ background: OCEAN }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: OCEAN }}>
-                Network71 — Division 08
+                Network71 — Division 10
               </span>
             </div>
 
@@ -426,13 +426,13 @@ export default function EShipe() {
               >
                 <span className="text-2xl">⚓</span>
                 <span className="font-mono text-[10px] tracking-[0.2em] uppercase font-semibold" style={{ color: OCEAN }}>
-                  eSHIPe Maritime Marketplace
+                  Ship Marketplace · eSHIPe
                 </span>
               </div>
             </div>
 
             <h1 className="font-display leading-[1.05] tracking-[-0.02em] mb-6" style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)' }}>
-              <span style={{ color: 'var(--fg)' }}>Your Global Partner in</span>
+              <span style={{ color: 'var(--fg)' }}>The Global Marketplace for</span>
               <br />
               <span
                 style={{
@@ -442,14 +442,14 @@ export default function EShipe() {
                   backgroundClip: 'text',
                 }}
               >
-                Ship Trading & Recycling.
+                Ships & Marine Assets.
               </span>
             </h1>
 
             <p className="text-slate-300 leading-relaxed mb-12 max-w-2xl" style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>
-              eSHIPe is Network71&apos;s dedicated maritime marketplace — connecting ship buyers, sellers, and
-              recycling partners across 50+ countries. We facilitate the entire vessel lifecycle: from acquisition
-              and trading to sustainable end-of-life recycling.
+              Network71&apos;s Ship Marketplace (eSHIPe) is where ships, vessels and marine assets are bought, sold,
+              leased and discovered — vessel listings with full specifications, search and filters, verified
+              buyer-seller profiles, structured inquiries and maritime services through to recycling.
             </p>
 
             <div className="flex flex-wrap gap-4 mb-20">

@@ -1,61 +1,38 @@
 import { lazy, Suspense, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import type { HotspotData } from '@/components/Globe3D'
+import { useT, DIVISION_IDS, divKey } from '@/i18n'
 
 const Globe3D = lazy(() => import('@/components/Globe3D'))
 
-const TICKER = [
-  'Garments & Apparel',
-  'Agriculture & Agro Products',
-  'Food & Beverage Manufacturing',
-  'Oils & Energy',
-  'IT & Software',
-  'Global Trading & Imports',
-  'Network71 Media',
-  'eSHIPe Maritime Marketplace',
-  'Ezyify Platform',
-]
-
-const STATS = [
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
-        <circle cx="12" cy="12" r="10" />
-        <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
-      </svg>
-    ),
-    value: 'Dhaka', label: 'Bangladesh', sub: 'Company base',
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
-        <path strokeLinecap="round" strokeLinejoin="round"
-          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-      </svg>
-    ),
-    value: '8', label: 'Business Divisions', sub: 'Diverse Sectors',
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
-      </svg>
-    ),
-    value: 'Work', label: 'Project Stories', sub: 'Scope & outcomes',
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    ),
-    value: 'Talk', label: 'Business Enquiries', sub: 'Discuss your brief',
-  },
+const STAT_ICONS = [
+  <svg key="a" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
+    <circle cx="12" cy="12" r="10" />
+    <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+  </svg>,
+  <svg key="b" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
+    <path strokeLinecap="round" strokeLinejoin="round"
+      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+  </svg>,
+  <svg key="c" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+  </svg>,
+  <svg key="d" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+  </svg>,
 ]
 
 export default function Hero() {
+  const { t } = useT()
+  const ticker = DIVISION_IDS.map(id => t(divKey(id, 'name')))
+  const stats = ([1, 2, 3, 4] as const).map((n, i) => ({
+    icon: STAT_ICONS[i],
+    value: t(`hero.stat${n}.value`),
+    label: t(`hero.stat${n}.label`),
+    sub: t(`hero.stat${n}.sub`),
+  }))
   const [hotspot, setHotspot]       = useState<HotspotData | null>(null)
   const [globeReady, setGlobeReady] = useState(false)
 
@@ -236,7 +213,7 @@ export default function Hero() {
               onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-bright)'; e.currentTarget.style.boxShadow = '0 2px 22px var(--brand-edge)' }}
               onMouseLeave={e => { e.currentTarget.style.background = 'var(--brand)'; e.currentTarget.style.boxShadow = '0 2px 14px var(--brand-edge)' }}
             >
-              Explore Division
+              {t('hero.exploreDivision')}
               <svg fill="none" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2" style={{ width: 10, height: 10 }}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8h10M9 4l4 4-4 4" />
               </svg>
@@ -326,7 +303,7 @@ export default function Hero() {
                   color: 'var(--brand-fg)',
                   textTransform: 'uppercase',
                 }}>
-                NETWORK71 · BANGLADESH
+                {t('hero.eyebrow')}
               </span>
             </div>
 
@@ -342,9 +319,9 @@ export default function Hero() {
                 marginBottom: 'clamp(14px, 3vw, 22px)',
               }}
             >
-              Connecting business.
+              {t('hero.title1')}
               <br />
-              <em style={{ color: 'var(--brand-fg)' }}>Building what’s next.</em>
+              <em style={{ color: 'var(--brand-fg)' }}>{t('hero.title2')}</em>
             </h1>
 
             {/* Body */}
@@ -355,8 +332,7 @@ export default function Hero() {
               maxWidth: 460,
               marginBottom: 'clamp(24px, 5vw, 36px)',
             }}>
-              Explore our work in manufacturing, trade, technology and more.
-              Find the right division, understand our approach and speak with our team about your next project.
+              {t('hero.lead')}
             </p>
 
             {/* CTAs — stack full-width on narrow screens, inline from 400px up */}
@@ -383,7 +359,7 @@ export default function Hero() {
                   e.currentTarget.style.boxShadow = 'var(--shadow-brand)'
                 }}
               >
-                Explore Our Work
+                {t('hero.ctaWork')}
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" style={{ width: 15, height: 15 }}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -409,7 +385,7 @@ export default function Hero() {
                   e.currentTarget.style.background = 'transparent'
                 }}
               >
-                Discuss Your Project
+                {t('hero.ctaContact')}
               </Link>
             </div>
 
@@ -420,7 +396,7 @@ export default function Hero() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225M13.684 16.6l2.224-2.51M6.228 15.228l-3.87-3.87a1.125 1.125 0 010-1.59L6.57 5.572m0 0l.943-.943M6.57 5.572L9.228 8.23" />
                 </svg>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 8.5, letterSpacing: '0.26em', color: 'var(--fg-faint)', textTransform: 'uppercase' }}>
-                  Drag to rotate
+                  {t('hero.drag')}
                 </span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
@@ -429,7 +405,7 @@ export default function Hero() {
                   <path strokeLinecap="round" d="M12 8v4l3 3" />
                 </svg>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 8.5, letterSpacing: '0.26em', color: 'var(--fg-faint)', textTransform: 'uppercase' }}>
-                  Click markers
+                  {t('hero.click')}
                 </span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
@@ -442,7 +418,7 @@ export default function Hero() {
                   }}>{k}</span>
                 ))}
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 8.5, letterSpacing: '0.26em', color: 'var(--fg-faint)', textTransform: 'uppercase', marginLeft: 3 }}>
-                  Keys
+                  {t('hero.keys')}
                 </span>
               </div>
             </div>
@@ -466,7 +442,7 @@ export default function Hero() {
                 letterSpacing: '0.3em', color: 'var(--fg-faint)',
                 textTransform: 'uppercase',
               }}>
-                Scroll to Discover
+                {t('hero.scroll')}
               </span>
             </div>
 
@@ -492,7 +468,7 @@ export default function Hero() {
             ]
             return (
           <div className="grid grid-cols-2 md:grid-cols-4">
-            {STATS.map(({ icon, value, label, sub }, i) => (
+            {stats.map(({ icon, value, label, sub }, i) => (
               <div
                 key={label}
                 className={`flex items-center gap-2.5 sm:gap-3.5 px-2 py-3.5 sm:px-4 sm:py-[18px] ${cls[i]}`}
@@ -543,7 +519,7 @@ export default function Hero() {
         position: 'relative', zIndex: 10,
       }}>
         <div style={{ display: 'flex', whiteSpace: 'nowrap', animation: 'marquee 44s linear infinite' }}>
-          {[...TICKER, ...TICKER, ...TICKER].map((name, i) => (
+          {[...ticker, ...ticker, ...ticker].map((name, i) => (
             <span
               key={i}
               className="gap-2.5 px-3.5 text-[8px] tracking-[0.2em] sm:gap-4 sm:px-6 sm:text-[9px] sm:tracking-[0.32em]"

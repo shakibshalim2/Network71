@@ -109,7 +109,7 @@ export default function About() {
                 From Dhaka to the World
               </h2>
               <p className="text-slate-400 leading-relaxed mb-4 sm:mb-5 text-[14px] sm:text-base">
-                Network71 was founded in 2018 in Dhaka, Bangladesh. What began as a trading company with a clear vision quickly grew into one of the region's most ambitious diversified enterprises — spanning eight distinct industry sectors across 25+ countries.
+                Network71 was founded in 2018 in Dhaka, Bangladesh. What began as a trading company with a clear vision quickly grew into one of the region's most ambitious diversified enterprises — spanning ten business divisions and international markets.
               </p>
               <p className="text-slate-400 leading-relaxed mb-4 sm:mb-5 text-[14px] sm:text-base">
                 Our journey is rooted in a belief that emerging markets hold extraordinary potential. By combining local expertise with global networks, we have built bridges between communities, businesses, and opportunity on a scale rarely seen from South Asia.

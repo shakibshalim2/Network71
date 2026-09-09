@@ -148,7 +148,7 @@ export default function Media() {
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-12" style={{ background: RED }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: RED }}>
-                Network71 — Division 07
+                Network71 — Division 09
               </span>
             </div>
 

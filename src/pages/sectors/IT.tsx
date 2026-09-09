@@ -276,7 +276,7 @@ export default function IT() {
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-12" style={{ background: ACCENT }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>
-                Network71 — Division 05
+                Network71 — Division 06
               </span>
             </div>
 
@@ -364,7 +364,7 @@ export default function IT() {
               </h2>
               <p className="text-slate-300 leading-relaxed mb-5 text-sm">
                 Network71&apos;s IT &amp; Software division operates on two parallel tracks. Internally, it builds and maintains the
-                enterprise technology infrastructure that powers all eight N71 business divisions — from garment production tracking
+                enterprise technology infrastructure that powers all ten N71 business divisions — from garment production tracking
                 to cross-border trade management. Externally, it develops commercial software products, most notably Ezyify, our
                 AI-powered social commerce ecosystem positioned to redefine how the world shops online.
               </p>
@@ -764,7 +764,7 @@ export default function IT() {
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-white mb-4">IT Powers Every N71 Division</h2>
             <p className="text-slate-400 max-w-xl mx-auto text-sm leading-relaxed">
-              The IT division is the connective tissue of Network71 — running enterprise systems that keep all eight business
+              The IT division is the connective tissue of Network71 — running enterprise systems that keep all ten business
               divisions operating at peak efficiency, unified through the Ezyify platform.
             </p>
           </div>

@@ -49,14 +49,14 @@ const N71: BB[] = [
 ]
 
 const LOCATIONS = [
-  { id:'dhaka',     name:'Dhaka',        country:'Bangladesh',     lat:23.81, lon:90.41,  isHQ:true,  role:'Global Headquarters', division:'All Eight Divisions',        sectionLink:'divisions' },
+  { id:'dhaka',     name:'Dhaka',        country:'Bangladesh',     lat:23.81, lon:90.41,  isHQ:true,  role:'Global Headquarters', division:'All Ten Divisions',        sectionLink:'divisions' },
   { id:'dubai',     name:'Dubai',        country:'UAE',            lat:25.20, lon:55.27,  isHQ:false, role:'Middle East Hub',     division:'Oils & Energy',              sectionLink:'divisions' },
   { id:'singapore', name:'Singapore',    country:'Singapore',      lat: 1.35, lon:103.82, isHQ:false, role:'Asia Pacific Hub',    division:'eSHIPe Maritime',            sectionLink:'divisions' },
   { id:'london',    name:'London',       country:'United Kingdom', lat:51.51, lon:-0.13,  isHQ:false, role:'Europe Office',       division:'Network71 Media',            sectionLink:'divisions' },
   { id:'istanbul',  name:'Istanbul',     country:'Turkey',         lat:41.01, lon:28.98,  isHQ:false, role:'Regional Office',     division:'Garments & Apparel',         sectionLink:'divisions' },
   { id:'mumbai',    name:'Mumbai',       country:'India',          lat:19.08, lon:72.88,  isHQ:false, role:'South Asia Office',   division:'Agriculture & Agro Products', sectionLink:'divisions' },
   { id:'kl',        name:'Kuala Lumpur', country:'Malaysia',       lat: 3.14, lon:101.69, isHQ:false, role:'SEA Office',          division:'eSHIPe Maritime',            sectionLink:'divisions' },
-  { id:'newyork',   name:'New York',     country:'USA',            lat:40.71, lon:-74.01, isHQ:false, role:'Americas Office',     division:'Global Trading & Imports',   sectionLink:'divisions' },
+  { id:'newyork',   name:'New York',     country:'USA',            lat:40.71, lon:-74.01, isHQ:false, role:'Americas Office',     division:'Global Trading & Logistics',   sectionLink:'divisions' },
 ] as const
 
 // ─── GLSL ─────────────────────────────────────────────────────────────────────

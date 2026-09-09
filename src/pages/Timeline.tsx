@@ -169,7 +169,7 @@ export default function Timeline() {
           <div>
             <h2 className="font-display text-3xl text-white mb-2 tracking-[-0.02em]">Learn More About Network71</h2>
             <p className="text-slate-400 text-sm max-w-lg">
-              Discover the values, people, and vision driving our growth across eight sectors and 25+ countries.
+              Discover the values, people, and vision driving our growth across ten divisions and 25+ countries.
             </p>
           </div>
           <Link
