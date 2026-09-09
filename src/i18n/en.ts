@@ -1,7 +1,9 @@
 // Source of truth for every translatable string on the shared shell + homepage.
 // `bn.ts` must provide the same keys; TypeScript enforces this.
 
-export const en = {
+import { enHomepage } from './en/homepage'
+
+const enCore = {
   // ── Divisions (shared by header, footer, hero ticker, homepage grid) ──
   'div.garments.name': 'Garments & Apparel',
   'div.garments.short': 'Garments & Apparel',
@@ -231,6 +233,15 @@ export const en = {
   'sector.form.send': 'Send Inquiry',
   'sector.form.privacy': 'We respect your privacy. Information shared is used solely for business correspondence.',
   'sector.process.default': 'Production Workflow',
+
+  // ── Data-loading / form errors ──
+  'lib.timeout': 'The request took too long. Please try again.',
+  'lib.unavailable': 'Content is temporarily unavailable.',
+  'lib.loadFailed': 'We could not load this content. Please try again.',
+  'lib.sendFailed': 'Unable to send your enquiry. Please try again.',
+  'lib.serviceDown': 'The enquiry service is unavailable. Please retry or email info@network71.com.',
 } as const
+
+export const en = { ...enCore, ...enHomepage } as const
 
 export type TKey = keyof typeof en

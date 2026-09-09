@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useT } from "@/i18n"
 
 export type PublishedItem = {
   id: number
@@ -19,10 +20,11 @@ export function usePublicContent<T>(path: string) {
   const [error, setError] = useState("")
   const [notFound, setNotFound] = useState(false)
   const [attempt, setAttempt] = useState(0)
+  const { t } = useT()
   useEffect(() => {
     const controller = new AbortController()
     const timeout = window.setTimeout(() => {
-      setError("The request took too long. Please try again.")
+      setError(t("lib.timeout"))
       setLoading(false)
       controller.abort()
     }, 15000)
@@ -36,7 +38,7 @@ export function usePublicContent<T>(path: string) {
           setNotFound(true)
           return null
         }
-        if (!response.ok) throw new Error("Content is temporarily unavailable.")
+        if (!response.ok) throw new Error(t("lib.unavailable"))
         return response.json() as Promise<T>
       })
       .then((result) => {
@@ -44,7 +46,7 @@ export function usePublicContent<T>(path: string) {
       })
       .catch(() => {
         if (!controller.signal.aborted)
-          setError("We could not load this content. Please try again.")
+          setError(t("lib.loadFailed"))
       })
       .finally(() => {
         window.clearTimeout(timeout)

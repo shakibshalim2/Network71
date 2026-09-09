@@ -1,6 +1,8 @@
 import type { TKey } from './en'
+import type { enHomepage } from './en/homepage'
+import { bnHomepage } from './bn/homepage'
 
-export const bn: Record<TKey, string> = {
+const bnCore: Record<Exclude<TKey, keyof typeof enHomepage>, string> = {
   // ── Divisions ──
   'div.garments.name': 'গার্মেন্টস ও অ্যাপারেল',
   'div.garments.short': 'গার্মেন্টস ও অ্যাপারেল',
@@ -230,4 +232,13 @@ export const bn: Record<TKey, string> = {
   'sector.form.send': 'অনুসন্ধান পাঠান',
   'sector.form.privacy': 'আমরা আপনার গোপনীয়তাকে সম্মান করি। প্রদত্ত তথ্য শুধুমাত্র ব্যবসায়িক যোগাযোগে ব্যবহৃত হবে।',
   'sector.process.default': 'উৎপাদন প্রক্রিয়া',
+
+  // ── Data-loading / form errors ──
+  'lib.timeout': 'অনুরোধে বেশি সময় লাগছে। অনুগ্রহ করে আবার চেষ্টা করুন।',
+  'lib.unavailable': 'কন্টেন্ট সাময়িকভাবে অনুপলব্ধ।',
+  'lib.loadFailed': 'কন্টেন্ট লোড করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।',
+  'lib.sendFailed': 'আপনার অনুসন্ধান পাঠানো যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।',
+  'lib.serviceDown': 'অনুসন্ধান সেবা এই মুহূর্তে অনুপলব্ধ। আবার চেষ্টা করুন অথবা info@network71.com-এ ইমেইল করুন।',
 }
+
+export const bn: Record<TKey, string> = { ...bnCore, ...bnHomepage }
