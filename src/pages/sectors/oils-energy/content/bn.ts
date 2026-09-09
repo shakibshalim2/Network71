@@ -17,106 +17,106 @@ import {
 } from './bn/data-b'
 
 const bn: OilsEnergyContent = {
-  divisionName: "Oils & Energy",
+  divisionName: "তেল ও জ্বালানি",
   accentClass: "text-amber-400",
   hero: {
-    edibleTitle: "Edible\nOils",
-    edibleLead: "Edible oil sourcing, refining & distribution enquiries",
-    energyTitle: "Energy",
-    fuelTitle: "& Fuel",
-    energyLead: "Petroleum distribution & commercial energy supply",
+    edibleTitle: "ভোজ্য\nতেল",
+    edibleLead: "ভোজ্যতেল সোর্সিং, পরিশোধন ও বিতরণ সংক্রান্ত অনুসন্ধান",
+    energyTitle: "এনার্জি",
+    fuelTitle: "ও জ্বালানি",
+    energyLead: "পেট্রোলিয়াম বিতরণ ও বাণিজ্যিক জ্বালানি সরবরাহ",
     brand: "N71",
-    division: "Network71 Division",
-    title: "Oils & Energy",
-    edibleBadge: "Edible Oils",
-    fuelBadge: "Energy & Fuel",
-    cta: "Partner Inquiry",
-    scroll: "Scroll",
-    edibleImageAlt: "Edible oils — golden olive oil pouring",
+    division: "নেটওয়ার্ক৭১ বিভাগ",
+    title: "তেল ও জ্বালানি",
+    edibleBadge: "ভোজ্যতেল",
+    fuelBadge: "এনার্জি ও জ্বালানি",
+    cta: "অংশীদারিত্বের অনুসন্ধান",
+    scroll: "স্ক্রল করুন",
+    edibleImageAlt: "ভোজ্যতেল — সোনালি অলিভ অয়েল ঢালা হচ্ছে",
   },
   overview: {
-    eyebrow: "Two Divisions. One Standard.",
-    title: "Essential Products. Essential Infrastructure.",
-    lead: "From the cooking oil on family tables to the fuel powering factories, Network71 Oils & Energy " +
-      "operates across two essential sectors with a shared commitment to quality, reliability, and responsible growth.",
-    oilsTitle: "Edible Oils",
+    eyebrow: "দুটি বিভাগ। এক মানদণ্ড।",
+    title: "অপরিহার্য পণ্য। অপরিহার্য অবকাঠামো।",
+    lead: "পরিবারের খাবার টেবিলের রান্নার তেল থেকে কারখানা চালু রাখার জ্বালানি — নেটওয়ার্ক৭১ তেল ও জ্বালানি " +
+      "দুটি অপরিহার্য খাতে কাজ করে গুণমান, নির্ভরযোগ্যতা ও দায়িত্বশীল প্রবৃদ্ধির অভিন্ন অঙ্গীকার নিয়ে।",
+    oilsTitle: "ভোজ্যতেল",
     oilsText:
-      "We refine and distribute a range of vegetable oils for consumer, food-service, and industrial " +
-        "markets. Our HACCP-certified facilities combine rigorous quality control with efficient, scalable production.",
-    energyTitle: "Energy & Fuel",
+      "ভোক্তা, ফুড-সার্ভিস ও শিল্প বাজারের জন্য আমরা বিভিন্ন ধরনের ভেজিটেবল অয়েল পরিশোধন ও বিতরণ করি। " +
+        "আমাদের HACCP-সার্টিফাইড স্থাপনায় কঠোর মান নিয়ন্ত্রণের সঙ্গে যুক্ত হয়েছে দক্ষ ও সম্প্রসারণযোগ্য উৎপাদন।",
+    energyTitle: "এনার্জি ও জ্বালানি",
     energyText:
-      "Our energy division supplies petroleum products and commercial fuel solutions to industrial, " +
-        "transport, construction, and institutional clients through a growing nationwide distribution network.",
+      "আমাদের এনার্জি বিভাগ ক্রমবর্ধমান দেশব্যাপী ডিস্ট্রিবিউশন নেটওয়ার্কের মাধ্যমে শিল্প, পরিবহন, নির্মাণ ও " +
+        "প্রাতিষ্ঠানিক গ্রাহকদের কাছে পেট্রোলিয়াম পণ্য ও বাণিজ্যিক জ্বালানি সমাধান সরবরাহ করে।",
   },
   edible: {
-    eyebrow: "Edible Oils",
-    title: "Refined for Every Table",
-    lead: "Our edible oil portfolio is formulated for the demands of homes, food manufacturers, and commercial kitchens — with traceable sourcing and consistent quality from refinery to shelf.",
+    eyebrow: "ভোজ্যতেল",
+    title: "প্রতিটি টেবিলের জন্য পরিশোধিত",
+    lead: "আমাদের ভোজ্যতেল পোর্টফোলিও গৃহস্থালি, খাদ্য উৎপাদক ও বাণিজ্যিক রান্নাঘরের চাহিদা মাথায় রেখে প্রস্তুত — রিফাইনারি থেকে দোকানের তাক পর্যন্ত সন্ধানযোগ্য সোর্সিং ও অভিন্ন গুণমান নিশ্চিত করে।",
     headers: [
-      "Product",
-      "Grades / Variants",
-      "Primary Uses",
-      "Packaging Options",
+      "পণ্য",
+      "গ্রেড / ভ্যারিয়েন্ট",
+      "প্রধান ব্যবহার",
+      "প্যাকেজিং অপশন",
     ],
     footnote:
-      "* Product specifications, minimum order quantities, and private-label options are available on request.",
+      "* পণ্যের স্পেসিফিকেশন, সর্বনিম্ন অর্ডার পরিমাণ ও প্রাইভেট-লেবেল সুবিধা অনুরোধে জানানো হয়।",
   },
   fuel: {
-    eyebrow: "Energy & Fuel",
-    title: "Powering Progress",
-    lead: "Reliable fuel supply is the backbone of industry, logistics, and infrastructure. Network71 provides " +
-      "coordinated petroleum distribution and commercial energy solutions built around your operational schedule.",
-    cta: "Request Fuel Supply Proposal",
+    eyebrow: "এনার্জি ও জ্বালানি",
+    title: "অগ্রগতির চালিকাশক্তি",
+    lead: "নির্ভরযোগ্য জ্বালানি সরবরাহ শিল্প, লজিস্টিকস ও অবকাঠামোর মেরুদণ্ড। নেটওয়ার্ক৭১ আপনার পরিচালন সময়সূচি " +
+      "ঘিরে সমন্বিত পেট্রোলিয়াম বিতরণ ও বাণিজ্যিক জ্বালানি সমাধান প্রদান করে।",
+    cta: "জ্বালানি সরবরাহ প্রস্তাব চান",
   },
   supply: {
-    eyebrow: "Supply Chain",
-    title: "From Source to Shelf",
-    lead: "An integrated supply chain gives us control over quality, availability, and delivery — from international commodity markets to the customers who rely on us every day.",
-    endToEnd: "End-to-end traceability",
-    imageAlt: "Oil processing facility",
+    eyebrow: "সরবরাহ শৃঙ্খল",
+    title: "উৎস থেকে দোকানের তাক",
+    lead: "একটি সমন্বিত সরবরাহ শৃঙ্খল আমাদের দেয় গুণমান, প্রাপ্যতা ও ডেলিভারির ওপর পূর্ণ নিয়ন্ত্রণ — আন্তর্জাতিক পণ্যবাজার থেকে শুরু করে প্রতিদিন আমাদের ওপর নির্ভরশীল গ্রাহক পর্যন্ত।",
+    endToEnd: "শুরু থেকে শেষ পর্যন্ত সন্ধানযোগ্যতা",
+    imageAlt: "তেল প্রক্রিয়াজাতকরণ কারখানা",
   },
   compliance: {
-    eyebrow: "Quality & Compliance",
-    title: "Standards You Can Trust",
-    lead: "Food safety and product integrity are built into every stage of our operations. Our quality " +
-      "systems are designed to meet and exceed the standards expected by regulators, partners, and consumers.",
-    badge: "Quality Commitment",
+    eyebrow: "গুণমান ও কমপ্লায়েন্স",
+    title: "যে মানদণ্ডে আপনি ভরসা রাখতে পারেন",
+    lead: "খাদ্য নিরাপত্তা ও পণ্যের অখণ্ডতা আমাদের কার্যক্রমের প্রতিটি ধাপে অন্তর্নিহিত। নিয়ন্ত্রক সংস্থা, অংশীদার ও " +
+      "ভোক্তাদের প্রত্যাশিত মানদণ্ড পূরণ ও অতিক্রম করার লক্ষ্যেই আমাদের গুণমান ব্যবস্থা পরিকল্পিত।",
+    badge: "গুণমানের অঙ্গীকার",
     badgeText:
-      "Every batch is tested before release. Our quality assurance team monitors critical parameters from raw material intake through to final dispatch.",
+      "প্রতিটি ব্যাচ বাজারজাতের আগে পরীক্ষিত। কাঁচামাল গ্রহণ থেকে চূড়ান্ত ডিসপ্যাচ পর্যন্ত আমাদের কোয়ালিটি অ্যাসিউরেন্স টিম গুরুত্বপূর্ণ সূচকগুলো পর্যবেক্ষণ করে।",
   },
   technology: {
-    eyebrow: "Technology & Operations",
-    title: "Built for Consistency",
-    lead: "Investment in modern production and logistics technology helps us deliver the same standard of quality, every time — at the scale our customers require.",
+    eyebrow: "প্রযুক্তি ও পরিচালনা",
+    title: "ধারাবাহিকতার জন্য নির্মিত",
+    lead: "আধুনিক উৎপাদন ও লজিস্টিকস প্রযুক্তিতে বিনিয়োগ আমাদের প্রতিবার একই মানের গুণমান নিশ্চিত করতে সহায়তা করে — গ্রাহকদের প্রয়োজনীয় পরিসরে।",
   },
   sustainability: {
-    eyebrow: "Sustainability",
-    title: "Responsible by Design",
-    lead: "We believe essential products should not come at the cost of the environment. Our sustainability " +
-      "programme focuses on practical, measurable improvements across sourcing, operations, and distribution.",
-    oilsTitle: "Edible Oils",
-    energyTitle: "Energy & Fuel",
-    progress: "Progress",
-    commitment: "Our Commitment",
+    eyebrow: "টেকসই উন্নয়ন",
+    title: "নকশায়ই দায়িত্বশীল",
+    lead: "আমরা বিশ্বাস করি, অপরিহার্য পণ্য পরিবেশের বিনিময়ে আসা উচিত নয়। আমাদের টেকসই উন্নয়ন কর্মসূচি " +
+      "সোর্সিং, পরিচালনা ও বিতরণ জুড়ে বাস্তবসম্মত ও পরিমাপযোগ্য উন্নতির ওপর গুরুত্ব দেয়।",
+    oilsTitle: "ভোজ্যতেল",
+    energyTitle: "এনার্জি ও জ্বালানি",
+    progress: "অগ্রগতি",
+    commitment: "আমাদের অঙ্গীকার",
     commitmentText:
-      "We publish annual sustainability progress updates as our programmes mature. Targets reflect current operational baselines and are reviewed annually.",
-    imageAlt: "Sustainable farming",
+      "কর্মসূচি পরিপক্ব হওয়ার সঙ্গে সঙ্গে আমরা বার্ষিক টেকসই উন্নয়ন অগ্রগতি প্রকাশ করি। লক্ষ্যমাত্রা বর্তমান পরিচালন ভিত্তিরেখার প্রতিফলন এবং প্রতি বছর পর্যালোচিত হয়।",
+    imageAlt: "টেকসই কৃষি",
   },
   markets: {
-    eyebrow: "Markets & Distribution",
-    title: "Serving Every Segment",
-    lead: "Our products reach customers across consumer retail, food service, industry, and institutional sectors — supported by a distribution network designed for reliability.",
+    eyebrow: "বাজার ও বিতরণ",
+    title: "প্রতিটি খাতে সেবা",
+    lead: "আমাদের পণ্য পৌঁছে যায় কনজিউমার রিটেইল, ফুড সার্ভিস, শিল্প ও প্রাতিষ্ঠানিক খাতের গ্রাহকদের কাছে — নির্ভরযোগ্যতার জন্য পরিকল্পিত ডিস্ট্রিবিউশন নেটওয়ার্কের সহায়তায়।",
   },
   opportunities: {
-    eyebrow: "Business Opportunities",
-    title: "Grow With Us",
-    lead: "Network71 Oils & Energy is actively building partnerships across the value chain. Whether you " +
-      "distribute, buy in bulk, or invest in essential infrastructure, there is a place to grow together.",
+    eyebrow: "ব্যবসায়িক সুযোগ",
+    title: "আমাদের সঙ্গে এগিয়ে যান",
+    lead: "নেটওয়ার্ক৭১ তেল ও জ্বালানি মূল্য শৃঙ্খলের প্রতিটি স্তরে সক্রিয়ভাবে অংশীদারিত্ব গড়ে তুলছে। আপনি বিতরণ করুন, " +
+      "বাল্ক ক্রয় করুন বা অপরিহার্য অবকাঠামোয় বিনিয়োগ করুন — একসঙ্গে বেড়ে ওঠার জায়গা এখানে আছে।",
   },
   roadmap: {
-    eyebrow: "Growth Roadmap",
-    title: "Where We Are Headed",
-    lead: "A four-year strategic expansion across processing capacity, product diversification, and geographic reach — anchored in operational discipline and market demand.",
+    eyebrow: "প্রবৃদ্ধির রোডম্যাপ",
+    title: "আমাদের গন্তব্য",
+    lead: "প্রসেসিং সক্ষমতা, পণ্য বৈচিত্র্য ও ভৌগোলিক পরিসর জুড়ে চার বছরের কৌশলগত সম্প্রসারণ — পরিচালন শৃঙ্খলা ও বাজার চাহিদায় প্রোথিত।",
   },
   metrics,
   oilProcessSteps,
@@ -132,78 +132,78 @@ const bn: OilsEnergyContent = {
   opportunitiesItems,
 
   sectionCopy: {
-    overviewEyebrow: "Two Core Divisions",
+    overviewEyebrow: "দুটি মূল বিভাগ",
     overviewLead:
-      "Network71's Oils & Energy division bridges two essential commodity sectors — premium food-grade oils and reliable fuel supply — under a single, integrated operational infrastructure.",
+      "নেটওয়ার্ক৭১-এর তেল ও জ্বালানি বিভাগ দুটি অপরিহার্য পণ্য খাতকে — প্রিমিয়াম ফুড-গ্রেড তেল ও নির্ভরযোগ্য জ্বালানি সরবরাহ — একটি একক, সমন্বিত পরিচালন অবকাঠামোর অধীনে যুক্ত করেছে।",
     oilsBody:
-      "From crude sourcing to consumer-ready packaging, our edible oil operations cover soybean, palm, sunflower, olive, and " +
-        "blended vegetable oils. HACCP-certified facilities serve both consumer retail and industrial food manufacturing segments.",
+      "অপরিশোধিত তেল সংগ্রহ থেকে ভোক্তা-উপযোগী প্যাকেজিং পর্যন্ত আমাদের ভোজ্যতেল কার্যক্রমে রয়েছে সয়াবিন, পাম, সূর্যমুখী, অলিভ ও " +
+        "ব্লেন্ডেড ভেজিটেবল অয়েল। HACCP-সার্টিফাইড স্থাপনা কনজিউমার রিটেইল ও শিল্প খাদ্য উৎপাদন — উভয় খাতে সেবা দেয়।",
     fuelBody:
-      "Petroleum distribution, industrial fuel supply, and commercial energy logistics spanning 8 strategically located " +
-        "distribution centres. We serve transport, manufacturing, construction, and institutional clients with compliant, reliable fuel programmes.",
+      "কৌশলগতভাবে স্থাপিত ৮টি ডিস্ট্রিবিউশন সেন্টার জুড়ে পেট্রোলিয়াম বিতরণ, শিল্প জ্বালানি সরবরাহ ও বাণিজ্যিক এনার্জি লজিস্টিকস। " +
+        "বিধিসম্মত ও নির্ভরযোগ্য জ্বালানি কর্মসূচির মাধ্যমে আমরা পরিবহন, উৎপাদন, নির্মাণ ও প্রাতিষ্ঠানিক গ্রাহকদের সেবা দিই।",
     edibleBody:
-      "Every oil variant is refined, tested, and packaged in our HACCP-certified facility. We supply in bulk " +
-        "tanker, industrial drum, and retail bottle formats — meeting the needs of food manufacturers and end consumers alike.",
+      "প্রতিটি তেলের ভ্যারিয়েন্ট আমাদের HACCP-সার্টিফাইড স্থাপনায় পরিশোধিত, পরীক্ষিত ও প্যাকেজজাত। বাল্ক ট্যাংকার, " +
+        "ইন্ডাস্ট্রিয়াল ড্রাম ও খুচরা বোতল — তিন ফরম্যাটেই আমরা সরবরাহ করি, খাদ্য উৎপাদক ও প্রান্তিক ভোক্তা উভয়ের চাহিদা পূরণ করে।",
     fuelLead:
-      "Our fuel distribution infrastructure is built for industrial-scale reliability. Petroleum products, industrial " +
-        "fuel contracts, and commercial energy solutions — all managed through a digitally connected distribution network.",
-    supplyEyebrow: "Supply Chain",
+      "আমাদের জ্বালানি বিতরণ অবকাঠামো শিল্প-মাত্রার নির্ভরযোগ্যতার জন্য নির্মিত। পেট্রোলিয়াম পণ্য, শিল্প জ্বালানি চুক্তি " +
+        "ও বাণিজ্যিক এনার্জি সমাধান — সবই ডিজিটালি সংযুক্ত ডিস্ট্রিবিউশন নেটওয়ার্কের মাধ্যমে পরিচালিত।",
+    supplyEyebrow: "সরবরাহ শৃঙ্খল",
     supplyLead:
-      "An integrated, traceable supply chain from raw material procurement through to retail and " +
-        "industrial delivery — combining imported and locally sourced inputs with domestic processing excellence.",
-    complianceEyebrow: "Quality & Compliance",
+      "কাঁচামাল সংগ্রহ থেকে খুচরা ও শিল্প ডেলিভারি পর্যন্ত একটি সমন্বিত, সন্ধানযোগ্য সরবরাহ শৃঙ্খল — " +
+        "আমদানিকৃত ও স্থানীয় উপকরণের সঙ্গে দেশীয় প্রসেসিং উৎকর্ষের সমন্বয়।",
+    complianceEyebrow: "গুণমান ও কমপ্লায়েন্স",
     complianceLead:
-      "All edible oil products meet international food safety standards. Our quality system is built on HACCP principles and " +
-        "reinforced by BSTI and Halal certification — giving buyers full confidence in product integrity from plant to delivery.",
+      "সব ভোজ্যতেল পণ্য আন্তর্জাতিক খাদ্য নিরাপত্তা মানদণ্ড পূরণ করে। আমাদের গুণমান ব্যবস্থা HACCP নীতিমালার ওপর প্রতিষ্ঠিত এবং " +
+        "BSTI ও হালাল সার্টিফিকেশনে সুদৃঢ় — কারখানা থেকে ডেলিভারি পর্যন্ত পণ্যের অখণ্ডতায় ক্রেতাদের পূর্ণ আস্থা দেয়।",
     haccpDescription:
-      "Hazard Analysis and Critical Control Points certification — the cornerstone of our edible oil food safety management system.",
-    technologyEyebrow: "Technology & Operations",
+      "হ্যাজার্ড অ্যানালাইসিস অ্যান্ড ক্রিটিক্যাল কন্ট্রোল পয়েন্টস সার্টিফিকেশন — আমাদের ভোজ্যতেল খাদ্য নিরাপত্তা ব্যবস্থাপনা পদ্ধতির মূল ভিত্তি।",
+    technologyEyebrow: "প্রযুক্তি ও পরিচালনা",
     technologyLead:
-      "Operational technology across both divisions is designed to reduce variability, increase traceability, and ensure on-time delivery at volume.",
-    sustainabilityEyebrow: "Sustainability",
+      "উভয় বিভাগের পরিচালন প্রযুক্তি তারতম্য কমাতে, সন্ধানযোগ্যতা বাড়াতে এবং বৃহৎ পরিসরে সময়মতো ডেলিভারি নিশ্চিত করতে পরিকল্পিত।",
+    sustainabilityEyebrow: "টেকসই উন্নয়ন",
     sustainabilityLead:
-      "Across both divisions, we are building measurable sustainability commitments into operations — from palm sourcing to fuel storage protocols.",
-    marketsEyebrow: "Markets & Distribution",
+      "উভয় বিভাগেই আমরা পরিমাপযোগ্য টেকসই উন্নয়নের অঙ্গীকারকে কার্যক্রমের অংশ করে তুলছি — পাম সোর্সিং থেকে জ্বালানি সংরক্ষণ প্রোটোকল পর্যন্ত।",
+    marketsEyebrow: "বাজার ও বিতরণ",
     marketsLead:
-      "Our two divisions address distinct but complementary market segments — from supermarket shelves to industrial plant rooms.",
-    opportunitiesEyebrow: "Business Opportunities",
+      "আমাদের দুটি বিভাগ স্বতন্ত্র কিন্তু পরস্পর-পরিপূরক বাজার খাতে সেবা দেয় — সুপারমার্কেটের তাক থেকে শিল্পকারখানার প্ল্যান্ট রুম পর্যন্ত।",
+    opportunitiesEyebrow: "ব্যবসায়িক সুযোগ",
     opportunitiesLead:
-      "Three entry points — whether you are a distributor, bulk buyer, or institutional investor looking to participate in Bangladesh&apos;s growing oils and energy sector.",
-    roadmapEyebrow: "Growth Roadmap",
+      "তিনটি প্রবেশপথ — আপনি ডিস্ট্রিবিউটর, বাল্ক ক্রেতা বা বাংলাদেশের ক্রমবর্ধমান তেল ও জ্বালানি খাতে অংশ নিতে আগ্রহী প্রাতিষ্ঠানিক বিনিয়োগকারী, যে-ই হোন।",
+    roadmapEyebrow: "প্রবৃদ্ধির রোডম্যাপ",
     roadmapLead:
-      "A four-year strategic expansion across processing capacity, product diversification, and geographic reach — anchored in operational discipline and market demand.",
+      "প্রসেসিং সক্ষমতা, পণ্য বৈচিত্র্য ও ভৌগোলিক পরিসর জুড়ে চার বছরের কৌশলগত সম্প্রসারণ — পরিচালন শৃঙ্খলা ও বাজার চাহিদায় প্রোথিত।",
   },
   copy: {
-    oilProcessLabel: "Oil Refining Process",
-    overviewTitle: "Our Business at a Glance",
-    divisionA: "Division A",
-    divisionB: "Division B",
-    valueChain: "Value Chain",
-    oilsTagline: "One Quality Standard.",
-    oilCertification: "All products HACCP & BSTI certified",
-    grades: "Grades",
-    uses: "Common Uses",
-    packaging: "Packaging",
-    fuelTagline: "Nationwide Reach.",
-    fuelSafety: "Safety-compliant storage & dispatch",
-    verified: "Verified at Every Step.",
-    haccpOperations: "HACCP Certified Operations",
-    supplySchematic: "Distribution Centre Network — Schematic",
-    plant: "PLANT",
-    processingPlant: "Processing Plant",
-    distributionCentres: "Distribution Centres (8)",
-    technologyTitle: "Built for Precision & Scale",
-    marketsTitle: "Who We Serve",
-    opportunitiesTitle: "Partner With Us",
-    oilsSustainability: "Edible Oils — Sustainability",
-    fuelSustainability: "Energy & Fuel — Sustainability",
+    oilProcessLabel: "তেল পরিশোধন প্রক্রিয়া",
+    overviewTitle: "এক নজরে আমাদের ব্যবসা",
+    divisionA: "বিভাগ ক",
+    divisionB: "বিভাগ খ",
+    valueChain: "মূল্য শৃঙ্খল",
+    oilsTagline: "এক গুণমান মানদণ্ড।",
+    oilCertification: "সব পণ্য HACCP ও BSTI সার্টিফাইড",
+    grades: "গ্রেড",
+    uses: "সাধারণ ব্যবহার",
+    packaging: "প্যাকেজিং",
+    fuelTagline: "দেশব্যাপী পরিসর।",
+    fuelSafety: "নিরাপত্তা-সম্মত সংরক্ষণ ও ডিসপ্যাচ",
+    verified: "প্রতিটি ধাপে যাচাইকৃত।",
+    haccpOperations: "HACCP সার্টিফাইড কার্যক্রম",
+    supplySchematic: "ডিস্ট্রিবিউশন সেন্টার নেটওয়ার্ক — পরিকল্পনাচিত্র",
+    plant: "প্ল্যান্ট",
+    processingPlant: "প্রসেসিং প্ল্যান্ট",
+    distributionCentres: "ডিস্ট্রিবিউশন সেন্টার (৮)",
+    technologyTitle: "নির্ভুলতা ও পরিসরের জন্য নির্মিত",
+    marketsTitle: "আমরা যাদের সেবা দিই",
+    opportunitiesTitle: "আমাদের অংশীদার হোন",
+    oilsSustainability: "ভোজ্যতেল — টেকসই উন্নয়ন",
+    fuelSustainability: "এনার্জি ও জ্বালানি — টেকসই উন্নয়ন",
   },
   inquiryTypes: [
-    "Edible Oil Buyer",
-    "Fuel Supply Inquiry",
-    "Distribution Partnership",
-    "Investment Inquiry",
-    "Bulk Order",
+    "ভোজ্যতেল ক্রেতা",
+    "জ্বালানি সরবরাহ অনুসন্ধান",
+    "ডিস্ট্রিবিউশন অংশীদারিত্ব",
+    "বিনিয়োগ অনুসন্ধান",
+    "বাল্ক অর্ডার",
   ],
 }
 export default bn

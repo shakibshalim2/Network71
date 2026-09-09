@@ -1,20 +1,20 @@
 export const techCards = [
   {
-    title: "Automated Refining Lines",
-    desc: "Continuous refining and bleaching systems with programmable logic controllers reduce batch variability and ensure consistent output quality across production runs.",
+    title: "স্বয়ংক্রিয় রিফাইনিং লাইন",
+    desc: "প্রোগ্রামেবল লজিক কন্ট্রোলারযুক্ত নিরবচ্ছিন্ন পরিশোধন ও ব্লিচিং সিস্টেম ব্যাচভেদে তারতম্য কমিয়ে প্রতিটি উৎপাদন চক্রে সমমানের আউটপুট নিশ্চিত করে।",
     accent: "var(--accent-amber)",
     iconId: "refining",
   },
   {
-    title: "Real-Time Quality Monitoring",
-    desc: "Inline sensors and automated sampling stations track key quality parameters continuously during production, triggering alerts before a batch can drift out of specification.",
+    title: "রিয়েল-টাইম গুণমান পর্যবেক্ষণ",
+    desc: "ইনলাইন সেন্সর ও স্বয়ংক্রিয় স্যাম্পলিং স্টেশন উৎপাদনের সময় মূল গুণমান সূচকগুলো নিরন্তর পর্যবেক্ষণ করে — কোনো ব্যাচ নির্ধারিত মান থেকে বিচ্যুত হওয়ার আগেই সতর্কবার্তা দেয়।",
     accent: "var(--accent-emerald)",
     iconId: "monitoring",
   },
   {
-    title: "Digital Distribution Management",
-    desc: "Ezyify-integrated logistics platform provides real-time dispatch tracking, route optimisation, " +
-      "and delivery confirmation across all 8 distribution centres, serving both oil and fuel operations.",
+    title: "ডিজিটাল ডিস্ট্রিবিউশন ব্যবস্থাপনা",
+    desc: "Ezyify-সংযুক্ত লজিস্টিকস প্ল্যাটফর্ম ৮টি ডিস্ট্রিবিউশন সেন্টার জুড়ে রিয়েল-টাইম ডিসপ্যাচ ট্র্যাকিং, রুট অপটিমাইজেশন " +
+      "ও ডেলিভারি নিশ্চিতকরণ প্রদান করে — তেল ও জ্বালানি উভয় কার্যক্রমের জন্য।",
     accent: "var(--accent-sky)",
     iconId: "distribution",
   },
@@ -22,105 +22,105 @@ export const techCards = [
 
 export const sustainabilityOils = [
   {
-    label: "RSPO-Aligned Palm Sourcing",
-    target: "Target: 100% certified supply by 2027",
+    label: "RSPO-সমন্বিত পাম সোর্সিং",
+    target: "লক্ষ্য: ২০২৭ সালের মধ্যে ১০০% সার্টিফাইড সরবরাহ",
     pct: 40,
   },
   {
-    label: "Reduced Plastic Packaging",
-    target: "Target: 30% recycled content in retail bottles",
+    label: "প্লাস্টিক প্যাকেজিং হ্রাস",
+    target: "লক্ষ্য: খুচরা বোতলে ৩০% পুনর্ব্যবহৃত উপাদান",
     pct: 20,
   },
   {
-    label: "Waste Oil Recycling",
-    target: "Target: Zero process waste to landfill",
+    label: "বর্জ্য তেল পুনর্ব্যবহার",
+    target: "লক্ষ্য: ল্যান্ডফিলে শূন্য প্রক্রিয়াজাত বর্জ্য",
     pct: 55,
   },
 ]
 
 export const sustainabilityEnergy = [
   {
-    label: "Responsible Fuel Storage",
-    target: "Secondary containment at all 8 centres",
+    label: "দায়িত্বশীল জ্বালানি সংরক্ষণ",
+    target: "৮টি কেন্দ্রেই সেকেন্ডারি কনটেইনমেন্ট",
     pct: 100,
   },
   {
-    label: "Spill Prevention Programme",
-    target: "Target: Zero reportable spill incidents",
+    label: "স্পিল প্রতিরোধ কর্মসূচি",
+    target: "লক্ষ্য: শূন্য রিপোর্টযোগ্য স্পিল ঘটনা",
     pct: 80,
   },
   {
-    label: "Environmental Compliance Audits",
-    target: "Annual third-party environmental audit",
+    label: "পরিবেশগত কমপ্লায়েন্স অডিট",
+    target: "বার্ষিক তৃতীয় পক্ষের পরিবেশগত অডিট",
     pct: 100,
   },
 ]
 
 export const roadmapItems = [
   {
-    year: "2025",
-    title: "Processing Capacity Expansion",
-    desc: "Increase monthly refining throughput by adding a second production line at the primary facility.",
+    year: "২০২৫",
+    title: "প্রসেসিং সক্ষমতা সম্প্রসারণ",
+    desc: "প্রধান কারখানায় দ্বিতীয় উৎপাদন লাইন যুক্ত করে মাসিক পরিশোধন সক্ষমতা বৃদ্ধি।",
   },
   {
-    year: "2026",
-    title: "Premium Organic Oil Line",
-    desc: "Launch certified organic and cold-pressed premium oil SKUs for health-conscious and export markets.",
+    year: "২০২৬",
+    title: "প্রিমিয়াম অর্গানিক অয়েল লাইন",
+    desc: "স্বাস্থ্যসচেতন ও রপ্তানি বাজারের জন্য সার্টিফাইড অর্গানিক ও কোল্ড-প্রেসড প্রিমিয়াম তেলের নতুন পণ্যসারি উন্মোচন।",
   },
   {
-    year: "2027",
-    title: "Renewable Energy Exploration",
-    desc: "Feasibility study and pilot programme for solar-powered processing operations and EV distribution fleet.",
+    year: "২০২৭",
+    title: "নবায়নযোগ্য জ্বালানি অনুসন্ধান",
+    desc: "সৌরচালিত প্রসেসিং কার্যক্রম ও ইলেকট্রিক ডিস্ট্রিবিউশন ফ্লিটের জন্য সম্ভাব্যতা সমীক্ষা ও পাইলট কর্মসূচি।",
   },
   {
-    year: "2028",
-    title: "Cross-Border Fuel Distribution",
-    desc: "Expand fuel distribution capabilities to serve regional markets pending regulatory approvals and infrastructure build-out.",
+    year: "২০২৮",
+    title: "আন্তঃসীমান্ত জ্বালানি বিতরণ",
+    desc: "নিয়ন্ত্রক অনুমোদন ও অবকাঠামো উন্নয়ন সাপেক্ষে আঞ্চলিক বাজারে জ্বালানি বিতরণ সক্ষমতা সম্প্রসারণ।",
   },
 ]
 
 export const marketsItems = [
   {
-    division: "Edible Oils",
+    division: "ভোজ্যতেল",
     accent: "var(--accent-amber)",
     segments: [
       {
-        name: "Consumer Retail",
-        desc: "Supermarkets, grocery chains, and neighbourhood retailers across Bangladesh.",
+        name: "কনজিউমার রিটেইল",
+        desc: "বাংলাদেশজুড়ে সুপারমার্কেট, গ্রোসারি চেইন ও পাড়া-মহল্লার খুচরা বিক্রেতা।",
       },
       {
-        name: "Food Service",
-        desc: "Restaurants, caterers, fast-food chains requiring bulk and semi-bulk supply.",
+        name: "ফুড সার্ভিস",
+        desc: "বাল্ক ও সেমি-বাল্ক সরবরাহ প্রয়োজন এমন রেস্টুরেন্ট, ক্যাটারার ও ফাস্ট-ফুড চেইন।",
       },
       {
-        name: "Industrial Food Manufacturers",
-        desc: "Bakeries, confectionery, snack producers, and food processing factories.",
+        name: "শিল্প খাদ্য উৎপাদক",
+        desc: "বেকারি, কনফেকশনারি, স্ন্যাকস উৎপাদক ও খাদ্য প্রক্রিয়াজাতকরণ কারখানা।",
       },
       {
-        name: "Export Markets",
-        desc: "Selective export to regional markets — data to be published as programmes formalise.",
+        name: "রপ্তানি বাজার",
+        desc: "আঞ্চলিক বাজারে নির্বাচিত রপ্তানি — কর্মসূচি চূড়ান্ত হলে তথ্য প্রকাশিত হবে।",
       },
     ],
   },
   {
-    division: "Fuel & Energy",
+    division: "জ্বালানি ও এনার্জি",
     accent: "var(--accent-sky)",
     segments: [
       {
-        name: "Commercial Transport",
-        desc: "Freight operators, logistics companies, and transport fleet operators.",
+        name: "বাণিজ্যিক পরিবহন",
+        desc: "ফ্রেইট অপারেটর, লজিস্টিকস কোম্পানি ও পরিবহন ফ্লিট পরিচালনাকারী প্রতিষ্ঠান।",
       },
       {
-        name: "Industrial Facilities",
-        desc: "Factories, power plants, and manufacturing units requiring continuous fuel supply.",
+        name: "শিল্প স্থাপনা",
+        desc: "নিরবচ্ছিন্ন জ্বালানি সরবরাহ প্রয়োজন এমন কারখানা, বিদ্যুৎকেন্দ্র ও উৎপাদন ইউনিট।",
       },
       {
-        name: "Construction Sector",
-        desc: "Heavy equipment, generators, and site operations for infrastructure projects.",
+        name: "নির্মাণ খাত",
+        desc: "অবকাঠামো প্রকল্পের ভারী যন্ত্রপাতি, জেনারেটর ও সাইট কার্যক্রম।",
       },
       {
-        name: "Institutional & Government",
-        desc: "Public sector organisations requiring compliant, documented fuel supply contracts.",
+        name: "প্রাতিষ্ঠানিক ও সরকারি",
+        desc: "বিধিসম্মত ও নথিভুক্ত জ্বালানি সরবরাহ চুক্তি প্রয়োজন এমন সরকারি খাতের প্রতিষ্ঠান।",
       },
     ],
   },
@@ -128,23 +128,23 @@ export const marketsItems = [
 
 export const opportunitiesItems = [
   {
-    title: "Edible Oil Distributors",
-    desc: "We are expanding our regional distribution partner network for edible oils across all divisions. Partners gain exclusive territory rights, competitive margins, and full marketing support.",
-    cta: "Become a Distributor",
+    title: "ভোজ্যতেল ডিস্ট্রিবিউটর",
+    desc: "সব অঞ্চলে ভোজ্যতেলের আঞ্চলিক ডিস্ট্রিবিউশন পার্টনার নেটওয়ার্ক সম্প্রসারণ করছি। অংশীদারেরা পাবেন একচেটিয়া অঞ্চলভিত্তিক অধিকার, প্রতিযোগিতামূলক মার্জিন ও পূর্ণাঙ্গ মার্কেটিং সহায়তা।",
+    cta: "ডিস্ট্রিবিউটর হোন",
     accent: "var(--accent-amber)",
     iconId: "distributor",
   },
   {
-    title: "Industrial Fuel Buyers",
-    desc: "Bulk fuel supply contracts for manufacturing facilities, logistics fleets, and construction operations. Scheduled delivery, volume pricing, and dedicated account management.",
-    cta: "Discuss Bulk Supply",
+    title: "শিল্প জ্বালানি ক্রেতা",
+    desc: "উৎপাদন কারখানা, লজিস্টিকস ফ্লিট ও নির্মাণ কার্যক্রমের জন্য বাল্ক জ্বালানি সরবরাহ চুক্তি। নির্ধারিত সময়ে ডেলিভারি, পরিমাণভিত্তিক মূল্য ও নিবেদিত অ্যাকাউন্ট ব্যবস্থাপনা।",
+    cta: "বাল্ক সরবরাহ নিয়ে আলোচনা",
     accent: "var(--accent-sky)",
     iconId: "buyer",
   },
   {
-    title: "Investment Partners",
-    desc: "Capacity expansion across both edible oil processing and fuel distribution infrastructure presents structured investment opportunities for institutional and strategic partners.",
-    cta: "Investment Inquiry",
+    title: "বিনিয়োগ অংশীদার",
+    desc: "ভোজ্যতেল প্রসেসিং ও জ্বালানি বিতরণ অবকাঠামো — উভয় ক্ষেত্রে সক্ষমতা সম্প্রসারণ প্রাতিষ্ঠানিক ও কৌশলগত অংশীদারদের জন্য সুসংগঠিত বিনিয়োগ সুযোগ তৈরি করছে।",
+    cta: "বিনিয়োগ অনুসন্ধান",
     accent: "var(--accent-emerald)",
     iconId: "investor",
   },
