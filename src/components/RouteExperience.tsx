@@ -37,7 +37,8 @@ const PAGE_META: Record<string, PageMeta> = {
   "/divisions/it-software": { title: "IT & Software | Network71", description: "Network71 software and digital technology capabilities." },
   "/divisions/global-trading": { title: "Global Trading | Network71", description: "Network71 global trade and market connection capabilities." },
   "/divisions/media": { title: "Media | Network71", description: "Network71 media, communications, and digital content capabilities." },
-  "/divisions/eshipe": { title: "eSHIPe Maritime | Network71", description: "Explore Network71's maritime marketplace experience." },
+  "/divisions/ship-marketplace": { title: "Ship Marketplace (eSHIPe) | Network71", description: "Buy, sell, lease and discover ships, vessels and marine assets on Network71's maritime marketplace." },
+  "/divisions/strategic-ventures": { title: "International Business & Strategic Ventures | Network71", description: "Joint ventures, strategic partnerships and new business development across Network71." },
 }
 
 function setMeta(name: string, content: string) {
@@ -64,6 +65,9 @@ export default function RouteExperience() {
     document.title = meta.title
     setMeta("description", meta.description)
     setMeta("robots", isAdmin ? "noindex, nofollow" : PAGE_META[pathname] ? "index, follow" : "noindex, follow")
+    // Keep the canonical URL in sync with the SPA route (legacy aliases redirect first).
+    const canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')
+    if (canonical) canonical.href = `${window.location.origin}${pathname === '/' ? '/' : pathname.replace(/\/$/, '')}`
 
     requestAnimationFrame(() => {
       document.getElementById("main-content")?.focus({ preventScroll: true })

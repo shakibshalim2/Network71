@@ -1,5 +1,10 @@
 import { lazy, Suspense } from "react"
-import { createBrowserRouter, ScrollRestoration, Outlet } from "react-router-dom"
+import {
+  createBrowserRouter,
+  ScrollRestoration,
+  Outlet,
+  Navigate,
+} from "react-router-dom"
 import RouteExperience from "@/components/RouteExperience"
 import { useT } from "@/i18n"
 
@@ -16,7 +21,9 @@ const IT = lazy(() => import("@/pages/sectors/IT"))
 const Trading = lazy(() => import("@/pages/sectors/Trading"))
 const Media = lazy(() => import("@/pages/sectors/Media"))
 const EShipe = lazy(() => import("@/pages/sectors/EShipe"))
-const StrategicVentures = lazy(() => import("@/pages/sectors/StrategicVentures"))
+const StrategicVentures = lazy(
+  () => import("@/pages/sectors/StrategicVentures"),
+)
 const EzyifyPage = lazy(() => import("@/pages/EzyifyPage"))
 const Sustainability = lazy(() => import("@/pages/Sustainability"))
 const GlobalPresence = lazy(() => import("@/pages/GlobalPresence"))
@@ -46,7 +53,9 @@ function Root() {
   const { t } = useT()
   return (
     <>
-      <a className="skip-link" href="#main-content">{t("app.skip")}</a>
+      <a className="skip-link" href="#main-content">
+        {t("app.skip")}
+      </a>
       <RouteExperience />
       <ScrollRestoration />
       <Suspense fallback={<PageLoader />}>
@@ -62,37 +71,41 @@ export const router = createBrowserRouter([
   {
     Component: Root,
     children: [
-      { path: '/admin', Component: Admin },
-      { path: '/admin/:section', Component: Admin },
-      { path: '/', Component: Home },
-      { path: '/projects', Component: Projects },
-      { path: '/projects/:slug', Component: Projects },
-      { path: '/about', Component: About },
-      { path: '/investors', Component: Investors },
-      { path: '/careers', Component: Careers },
-      { path: '/contact', Component: Contact },
-      { path: '/ezyify', Component: EzyifyPage },
-      { path: '/sustainability', Component: Sustainability },
-      { path: '/global-presence', Component: GlobalPresence },
-      { path: '/leadership', Component: Leadership },
-      { path: '/governance', Component: Governance },
-      { path: '/timeline', Component: Timeline },
-      { path: '/press', Component: Press },
-      { path: '/legal', Component: Legal },
-      { path: '/blog', Component: Blog },
-      { path: '/gallery', Component: Gallery },
-      { path: '/brand', Component: BrandPage },
-      { path: '/divisions/garments', Component: Garments },
-      { path: '/divisions/agriculture', Component: Agriculture },
-      { path: '/divisions/food-beverage', Component: FoodBeverage },
-      { path: '/divisions/oils-energy', Component: OilsEnergy },
-      { path: '/divisions/it-software', Component: IT },
-      { path: '/divisions/global-trading', Component: Trading },
-      { path: '/divisions/media', Component: Media },
-      { path: '/divisions/eshipe', Component: EShipe },
-      { path: '/divisions/strategic-ventures', Component: StrategicVentures },
-      { path: '/divisions/ship-marketplace', Component: EShipe },
-      { path: '*', Component: NotFound },
+      { path: "/admin", Component: Admin },
+      { path: "/admin/:section", Component: Admin },
+      { path: "/", Component: Home },
+      { path: "/projects", Component: Projects },
+      { path: "/projects/:slug", Component: Projects },
+      { path: "/about", Component: About },
+      { path: "/investors", Component: Investors },
+      { path: "/careers", Component: Careers },
+      { path: "/contact", Component: Contact },
+      { path: "/ezyify", Component: EzyifyPage },
+      { path: "/sustainability", Component: Sustainability },
+      { path: "/global-presence", Component: GlobalPresence },
+      { path: "/leadership", Component: Leadership },
+      { path: "/governance", Component: Governance },
+      { path: "/timeline", Component: Timeline },
+      { path: "/press", Component: Press },
+      { path: "/legal", Component: Legal },
+      { path: "/blog", Component: Blog },
+      { path: "/gallery", Component: Gallery },
+      { path: "/brand", Component: BrandPage },
+      { path: "/divisions/garments", Component: Garments },
+      { path: "/divisions/agriculture", Component: Agriculture },
+      { path: "/divisions/food-beverage", Component: FoodBeverage },
+      { path: "/divisions/oils-energy", Component: OilsEnergy },
+      { path: "/divisions/it-software", Component: IT },
+      { path: "/divisions/global-trading", Component: Trading },
+      { path: "/divisions/media", Component: Media },
+      // Legacy path kept as a redirect so old links keep working.
+      {
+        path: "/divisions/eshipe",
+        element: <Navigate to="/divisions/ship-marketplace" replace />,
+      },
+      { path: "/divisions/strategic-ventures", Component: StrategicVentures },
+      { path: "/divisions/ship-marketplace", Component: EShipe },
+      { path: "*", Component: NotFound },
     ],
   },
 ])

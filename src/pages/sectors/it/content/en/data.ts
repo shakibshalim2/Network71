@@ -49,7 +49,7 @@ export const showcaseProjects = [
       "Vessel presentation",
       "Lead generation",
     ],
-    href: "/divisions/eshipe",
+    href: "/divisions/ship-marketplace",
     color: "var(--accent-sky)",
     color2: "var(--accent-cyan)",
     preview: "maritime",

@@ -28,12 +28,12 @@ export default function EzyifyPage() {
         <Hero c={c.hero} />
         <Audience c={c.audience} />
         <Features c={c.features} />
-        <Segments c={c.ai} />
-        <Roadmap c={c.revenue} />
-        <AI c={c.segments} />
-        <Revenue c={c.ecosystem} />
-        <Ecosystem c={c.partners} />
-        <Partners c={c.roadmap} />
+        <AI c={c.ai} />
+        <Revenue c={c.revenue} />
+        <Segments c={c.segments} />
+        <Ecosystem c={c.ecosystem} />
+        <Partners c={c.partners} />
+        <Roadmap c={c.roadmap} />
         <Waitlist c={c.waitlist} />
       </main>
       <Footer />

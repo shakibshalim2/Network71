@@ -4,7 +4,7 @@ import { useT } from '@/i18n'
 const BRANDS = [
   { name: 'EZYIFY',         sub: 'partners.sub.ezyify',   color: 'var(--accent-purple)', href: '/ezyify',    font: "'Playfair Display', serif" },
   { name: 'N71 MEDIA',      sub: 'partners.sub.media',    color: 'var(--accent-cyan)', href: '/divisions/media', font: 'var(--font-sans)' },
-  { name: 'eSHIPe',         sub: 'partners.sub.eshipe',   color: 'var(--accent-blue)', href: '/divisions/eshipe', font: 'var(--font-sans)' },
+  { name: 'eSHIPe',         sub: 'partners.sub.eshipe',   color: 'var(--accent-blue)', href: '/divisions/ship-marketplace', font: 'var(--font-sans)' },
   { name: 'N71 GARMENTS',   sub: 'partners.sub.garments', color: 'var(--accent-pink)', href: '/divisions/garments', font: 'var(--font-sans)' },
   { name: 'N71 AGRO',       sub: 'partners.sub.agro',     color: 'var(--accent-green)', href: '/divisions/agriculture', font: 'var(--font-sans)' },
   { name: 'N71 FOODS',      sub: 'partners.sub.foods',    color: 'var(--accent-orange)', href: '/divisions/food-beverage', font: 'var(--font-sans)' },
