@@ -1,7 +1,7 @@
 export const metrics = [
   { value: '3', label: 'Processing Units', desc: 'Active production facilities' },
-  { value: 'ISO', label: 'Certified', desc: 'International quality standard' },
-  { value: '50+', label: 'Products', desc: 'SKUs across all categories' },
+  { value: 'Food safety', label: 'Systems in place', desc: 'HACCP and GMP-based production controls' },
+  { value: 'Multi', label: 'Product categories', desc: 'Processed foods, beverages, snacks, condiments' },
   { value: '—', label: 'Annual Output', desc: 'Data to be published' },
 ]
 
@@ -19,7 +19,7 @@ export const pillars = [
   {
     iconId: 'icon3',
     title: 'Halal Compliance',
-    desc: 'Full halal certification across eligible product lines — unlocking Middle East, South Asia, and Muslim-majority export markets.',
+    desc: 'Halal-compliant processes across eligible product lines — supporting export to Middle East, South Asia, and Muslim-majority markets.',
   },
   {
     iconId: 'icon4',
@@ -87,12 +87,12 @@ export const brandModels = [
   {
     title: 'Co-Manufacturing',
     tag: 'Brand Partners',
-    desc: 'Existing food brands looking to scale or outsource production can leverage our certified facilities and expertise — without capital investment in their own plant.',
+    desc: 'Existing food brands looking to scale or outsource production can leverage our facilities and expertise — without capital investment in their own plant.',
     points: [
-      'Certified facility access',
+      'Food-safety-controlled facility access',
       'Existing brand recipe production',
       'Scale-up capacity for growth brands',
-      'Quality parity guaranteed',
+      'Quality parity as a contractual standard',
     ],
     highlight: false,
   },
@@ -115,8 +115,8 @@ export const standards = [
     badge: 'GMP',
   },
   {
-    title: 'Halal Certification',
-    desc: 'Products eligible for halal designation are manufactured under certified halal conditions — supporting export to Muslim-majority markets worldwide.',
+    title: 'Halal Compliance',
+    desc: 'Products eligible for halal designation are manufactured under halal-compliant conditions, with certification pursued per product line — supporting export to Muslim-majority markets worldwide.',
     badge: 'Halal',
   },
 ]
@@ -125,7 +125,7 @@ export const processSteps = [
   { title: 'R&D & Recipe Development', desc: 'In-house food technologists develop and validate formulations against consumer and market requirements.' },
   { title: 'Raw Material Sourcing', desc: 'Verified ingredient procurement from approved local and international supplier networks.' },
   { title: 'Food Safety Testing', desc: 'Incoming material testing — microbiological, chemical, and sensory — before production approval.' },
-  { title: 'Production', desc: 'Controlled manufacturing in certified processing units following SOPs and batch records.' },
+  { title: 'Production', desc: 'Controlled manufacturing in processing units following SOPs and batch records.' },
   { title: 'In-Line QC', desc: 'Real-time quality checks at critical control points throughout the production run.' },
   { title: 'Packaging & Labelling', desc: 'Automated packaging with regulatory-compliant labelling for retail and export markets.' },
   { title: 'Cold / Ambient Storage', desc: 'Product-appropriate storage in temperature-controlled or ambient warehousing.' },

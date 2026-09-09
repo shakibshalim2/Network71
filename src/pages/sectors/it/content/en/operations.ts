@@ -127,7 +127,7 @@ export const qualityItems = [
   {
     title: "Penetration Testing",
     status: "Active",
-    desc: "Regular third-party pen testing across all customer-facing and internal platforms.",
+    desc: "Regular security testing across customer-facing and internal platforms.",
   },
   {
     title: "Code Review Process",
@@ -142,13 +142,13 @@ export const qualityItems = [
 ]
 
 export const ezyifyStats = [
-  { v: "10M+", l: "Target Users", sub: "At full scale" },
-  { v: "$500M", l: "Market Potential", sub: "Serviceable market" },
-  { v: "50+", l: "AI Models", sub: "In development" },
+  { v: "AI", l: "Powered commerce", sub: "Personalisation, try-on, search" },
+  { v: "Social", l: "Video & creator commerce", sub: "Discover, watch, buy" },
+  { v: "In build", l: "Platform status", sub: "Waitlist open" },
 ]
 
 export const reachStats = [
-  { value: "25+", label: "Countries Served", icon: "◈" },
+  { value: "Regional", label: "Delivery footprint", icon: "◈" },
   { value: "Dhaka", label: "Engineering HQ", icon: "◈" },
   { value: "Remote-First", label: "Delivery Model", icon: "◈" },
   { value: "24 / 5", label: "Support Coverage", icon: "◈" },
@@ -157,7 +157,7 @@ export const reachStats = [
 export const opportunities = [
   {
     title: "Enterprise Software Clients",
-    desc: "Organisations looking for a reliable, experienced software partner to build custom enterprise applications, digital platforms, or AI-powered products.",
+    desc: "Organisations looking for a software partner to build custom enterprise applications, digital platforms, or AI-powered products.",
     cta: "Start a Project",
     href: "#sector-contact",
     tag: "Custom Development",

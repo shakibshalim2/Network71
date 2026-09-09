@@ -1,19 +1,19 @@
 export const facilities = [
   {
     unit: 'Processing Unit 1',
-    capacity: 'Data TBP',
+    capacity: 'On request',
     lines: ['Beverages & Juices', 'RTD Formats'],
     certs: ['ISO 22000', 'HACCP', 'Halal'],
   },
   {
     unit: 'Processing Unit 2',
-    capacity: 'Data TBP',
+    capacity: 'On request',
     lines: ['Processed Foods', 'Condiments & Sauces'],
     certs: ['ISO 22000', 'GMP', 'BSTI'],
   },
   {
     unit: 'Processing Unit 3',
-    capacity: 'Data TBP',
+    capacity: 'On request',
     lines: ['Snacks & Confectionery', 'Baked Goods'],
     certs: ['ISO 22000', 'HACCP', 'Halal'],
   },
@@ -26,11 +26,11 @@ export const qualityMetrics = [
 ]
 
 export const certifications = [
-  { name: 'ISO 22000', body: 'Food Safety Management System' },
-  { name: 'HACCP', body: 'Hazard Analysis Critical Control Points' },
-  { name: 'Halal', body: 'Halal Certification Authority' },
-  { name: 'GMP', body: 'Good Manufacturing Practice' },
-  { name: 'BSTI', body: 'Bangladesh Standards & Testing Institution' },
+  { name: 'ISO 22000', body: 'Food safety management framework — working towards' },
+  { name: 'HACCP', body: 'Hazard analysis framework — implemented in production' },
+  { name: 'Halal', body: 'Halal-compliant processes — working towards per product line' },
+  { name: 'GMP', body: 'Good Manufacturing Practice — framework applied' },
+  { name: 'BSTI', body: 'Bangladesh Standards & Testing Institution — registration where applicable' },
 ]
 
 export const sustainability = [
@@ -38,21 +38,21 @@ export const sustainability = [
     iconId: 'icon5',
     title: 'Reducing Food Waste',
     desc: 'Production efficiency programmes targeting waste reduction at every stage — from raw material utilisation to finished goods. Yield optimisation targets data TBP.',
-    stat: 'Data TBP',
+    stat: 'On request',
     statLabel: 'Waste reduction target',
   },
   {
     iconId: 'icon6',
     title: 'Sustainable Packaging',
     desc: 'Active programme to transition applicable product lines to biodegradable or recyclable packaging formats. Rollout timelines and targets to be published.',
-    stat: 'Data TBP',
+    stat: 'On request',
     statLabel: 'Biodegradable packaging target',
   },
   {
     iconId: 'icon7',
     title: 'Local Sourcing',
     desc: 'Strategic partnerships with Bangladeshi farmers and ingredient suppliers — supporting local agricultural communities and reducing supply chain carbon footprint.',
-    stat: 'Data TBP',
+    stat: 'On request',
     statLabel: 'Local sourcing target',
   },
 ]
@@ -62,7 +62,7 @@ export const exportMarkets = [
     region: 'Middle East',
     flag: '🇸🇦',
     priority: 'Primary',
-    driver: 'Halal-certified products, large Bangladeshi diaspora, strong FMCG import demand.',
+    driver: 'Halal-compliant products, large Bangladeshi diaspora, strong FMCG import demand.',
     countries: 'UAE, Saudi Arabia, Qatar, Kuwait',
   },
   {
@@ -111,13 +111,13 @@ export const opportunities = [
   {
     title: 'Export Buyers',
     iconId: 'icon10',
-    desc: 'International distributors and importers sourcing halal-certified, FMCG products from Bangladesh for diaspora and mainstream retail placement.',
+    desc: 'International distributors and importers sourcing halal-compliant FMCG products from Bangladesh for diaspora and mainstream retail placement.',
     cta: 'Export Buyer Inquiry',
   },
   {
     title: 'Co-Manufacturing Partners',
     iconId: 'icon11',
-    desc: 'Food brands seeking certified production capacity without plant investment — leveraging our facilities, certifications, and food safety infrastructure.',
+    desc: 'Food brands seeking production capacity without plant investment — leveraging our facilities, quality systems, and food safety infrastructure.',
     cta: 'Co-Mfg Inquiry',
   },
 ]

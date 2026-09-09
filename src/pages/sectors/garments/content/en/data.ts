@@ -1,10 +1,10 @@
 export const data = {
   divisionName: "Garments & Apparel",
   metrics: [
-    { value: "5+", label: "Factories", desc: "Production facilities" },
-    { value: "2,000+", label: "Workers", desc: "Skilled workforce" },
-    { value: "15+", label: "Export Countries", desc: "Global reach" },
-    { value: "—", label: "Annual Capacity", desc: "Data to be published" },
+    { value: "Full-package", label: "Manufacturing model", desc: "Design to export under one supply chain" },
+    { value: "Export", label: "Bangladesh base", desc: "Manufacturing for international buyers" },
+    { value: "Audit-ready", label: "Buyer compliance", desc: "Code-of-conduct frameworks" },
+    { value: "On request", label: "Capacity data", desc: "Factory capability deck available" },
   ],
 
   processSteps: [
@@ -18,7 +18,7 @@ export const data = {
     },
     {
       title: "Material Sourcing",
-      desc: "Certified mill selection, swatch testing, and cost-optimised fabric procurement from trusted suppliers.",
+      desc: "Approved mill selection, swatch testing, and cost-optimised fabric procurement from vetted suppliers.",
     },
     {
       title: "Cut & Sew",
@@ -67,7 +67,7 @@ export const data = {
     {
       iconId: "product5",
       name: "Sustainable Textiles",
-      desc: "Organic cotton, recycled fibres, and eco-certified fabric lines manufactured to OEKO-TEX and sustainable standards.",
+      desc: "Organic cotton, recycled fibres, and low-impact fabric lines developed with reference to OEKO-TEX and other sustainable textile standards.",
     },
   ],
 
@@ -120,26 +120,26 @@ export const data = {
     {
       code: "WRAP",
       name: "Worldwide Responsible Accredited Production",
-      status: "active",
-      desc: "Ethical manufacturing, workplace safety, and human rights compliance certification.",
+      status: "progress",
+      desc: "Framework we work to for ethical manufacturing, workplace safety and human rights; documentation on request.",
     },
     {
       code: "ISO 9001",
       name: "Quality Management Systems",
-      status: "active",
-      desc: "International standard for consistent quality management across production processes.",
+      status: "progress",
+      desc: "Framework our quality management is aligned to for consistent control across production processes.",
     },
     {
       code: "OEKO-TEX",
       name: "Standard 100 — Textile Safety",
       status: "progress",
-      desc: "Certification in Progress — testing every component against harmful substance limits.",
+      desc: "Testing components against harmful substance limits under the Standard 100 framework.",
     },
     {
       code: "BSCI",
       name: "Business Social Compliance Initiative",
-      status: "active",
-      desc: "Social audit readiness covering labour rights, health, safety, and environmental standards.",
+      status: "progress",
+      desc: "Framework for social audit readiness covering labour rights, health, safety, and environmental standards.",
     },
   ],
 
@@ -252,7 +252,7 @@ export const data = {
     {
       year: "2026",
       title: "Sustainable Product Line",
-      desc: "Launch of dedicated sustainable garment collection using certified organic and recycled fibre inputs, targeting eco-conscious international buyers.",
+      desc: "Launch of dedicated sustainable garment collection using organic and recycled fibre inputs, targeting eco-conscious international buyers.",
     },
     {
       year: "2027",

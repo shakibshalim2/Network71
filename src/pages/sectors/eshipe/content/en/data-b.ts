@@ -11,7 +11,7 @@ export const process = [
   },
   {
     title: "Inspection & Survey",
-    desc: "Independent survey conducted by a certified marine surveyor. Full condition report issued covering hull, machinery, and class status.",
+    desc: "Independent survey conducted by a class-accredited marine surveyor. Full condition report issued covering hull, machinery, and class status.",
   },
   {
     title: "Negotiation & Agreement",
@@ -57,8 +57,8 @@ export const recyclingItems = [
 export const whyItems = [
   {
     icon: "◈",
-    title: "Global Buyer Network",
-    desc: "200+ registered buyers across 50+ countries, spanning institutional investors, shipping lines, and independent operators.",
+    title: "Cross-Border Buyer Network",
+    desc: "Registered buyers across South Asia, the Middle East, Southeast Asia and beyond — spanning institutional investors, shipping lines, and independent operators.",
     color: OCEAN,
   },
   {
@@ -76,13 +76,13 @@ export const whyItems = [
   {
     icon: "◈",
     title: "Legal Support",
-    desc: "MOA drafting, flag transfer coordination, and port agent services managed through N71’s global legal network.",
+    desc: "MOA drafting, flag transfer coordination, and port agent services managed through Network71’s legal and trading partners.",
     color: "var(--accent-amber)",
   },
   {
     icon: "◈",
-    title: "Certified Surveyors",
-    desc: "Independent survey partners available in all major ports. Class-approved, IIMS-affiliated, and industry-credentialed.",
+    title: "Independent Surveyors",
+    desc: "Independent survey partners arranged at the vessel’s port of call — class-accredited and working to recognised industry standards.",
     color: OCEAN,
   },
   {

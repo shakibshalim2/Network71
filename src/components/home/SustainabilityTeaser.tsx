@@ -5,7 +5,7 @@ import { useT } from '@/i18n'
 export const ESG_PILLARS = [
   {
     id: 'e', letter: 'E', color: 'var(--accent-teal)',
-    img: 'https://images.unsplash.com/photo-1466611653911-2b75f38f2cce?w=600&h=320&fit=crop&auto=format',
+    img: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=320&fit=crop&auto=format',
   },
   {
     id: 's', letter: 'S', color: 'var(--accent-cyan)',

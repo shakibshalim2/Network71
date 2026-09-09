@@ -32,7 +32,7 @@ export default function Segments({ c }: { c: EzyifyContent["segments"] }) {
                 backgroundClip: "text",
               }}
             >
-              $500M+
+              {c.tamValue}
             </div>
             <h3 className="font-display text-white font-semibold text-lg mb-2">
               {c.tam}

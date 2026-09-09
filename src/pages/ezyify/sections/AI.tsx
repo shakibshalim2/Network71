@@ -15,7 +15,7 @@ export default function AI({ c }: { c: EzyifyContent["ai"] }) {
           </p>
         </div>
 
-        {/* 50+ models callout */}
+        {/* AI stack callout */}
         <div className="flex justify-center mb-12">
           <div
             className="inline-flex flex-col items-center gap-2 px-10 py-6 rounded-2xl border border-white/5"
@@ -31,7 +31,7 @@ export default function AI({ c }: { c: EzyifyContent["ai"] }) {
                 backgroundClip: "text",
               }}
             >
-              50+
+              {c.modelCount}
             </span>
             <span className="text-white font-semibold text-sm">
               {c.modelTitle}

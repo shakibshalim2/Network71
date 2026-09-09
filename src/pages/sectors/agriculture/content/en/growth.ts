@@ -24,12 +24,12 @@ export const growth = {
     ],
     progressTitle: "Sustainability Progress",
     bars: [
-      { label: "Farmers on Fair Pricing Agreements", value: 87 },
-      { label: "Farms using Water-Smart Irrigation", value: 72 },
-      { label: "Packaging with Recyclable Materials", value: 90 },
+      { label: "Target: partner farmers on fair pricing agreements", value: 87 },
+      { label: "Target: partner farms using water-smart irrigation", value: 72 },
+      { label: "Target: packaging with recyclable materials", value: 90 },
     ],
     footnote:
-      "* Figures reflect current programme coverage across registered partner farms.",
+      "* Bars show programme coverage targets across registered partner farms. Measured figures to be published as reporting matures.",
     sdgLabel: "Aligned with UN SDGs",
     sdgs: [
       "SDG 1 — No Poverty",
@@ -42,10 +42,10 @@ export const growth = {
     eyebrow: "Global Reach",
     title: "Key Markets",
     description:
-      "From the origin farms of South Asia to premium retail shelves in Europe, our agricultural products reach 18+ markets across " +
-"five world regions.",
+      "From the origin farms of South Asia to retail and wholesale buyers in export markets, our agricultural products are prepared for " +
+"destinations across five world regions.",
     destinationMarketLabel: "Destination market",
-    moreMarkets: "+6 more markets",
+    moreMarkets: "Further markets on request",
     items: [
       {
         region: "South Asia",
@@ -58,14 +58,14 @@ export const growth = {
         region: "Middle East",
         role: "Primary Market",
         flag: "🌍",
-        detail: "UAE, Saudi Arabia, Qatar — largest buyer volume",
+        detail: "UAE, Saudi Arabia, Qatar — priority buyer region",
         color: GREEN,
       },
       {
         region: "Europe",
         role: "Premium Market",
         flag: "🌐",
-        detail: "UK, Netherlands, Germany — high-value organic channel",
+        detail: "UK, Netherlands, Germany — high-value organic segment",
         color: GREEN,
       },
       {
@@ -106,7 +106,7 @@ export const growth = {
     items: [
       {
         title: "International Food Processors",
-        desc: "Secure reliable, certified bulk raw commodities from South Asia — rice, pulses, spices — with consistent grading and export " +
+        desc: "Secure reliable, documented bulk raw commodities from South Asia — rice, pulses, spices — with consistent grading and export " +
 "documentation.",
         cta: "Buyer Inquiry",
       },
@@ -127,7 +127,7 @@ export const growth = {
     title: "Join the Network71 Farmer Partnership",
     description:
       "We are actively expanding our network of farming partners across Bangladesh and South Asia. Whether you manage smallholder " +
-"plots or commercial farmland, Network71 offers a structured partnership model that provides guaranteed market access, fair " +
+"plots or commercial farmland, Network71 offers a structured partnership model that provides contracted market access, fair " +
 "pricing, and on-farm support.",
     cta: "Register as Supplier",
     benefits: [
@@ -165,7 +165,7 @@ export const growth = {
       {
         year: "2026",
         milestone: "Organic Certification Expansion",
-        desc: "Scale certified organic acreage to 6,000+ acres under formal certification.",
+        desc: "Expand organic-certified acreage under formal certification.",
       },
       {
         year: "2027",

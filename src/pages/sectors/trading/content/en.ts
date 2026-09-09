@@ -71,7 +71,7 @@ const techCapabilities = [
 const opportunityCards = [
   {
     title: 'Export Partners',
-    desc: 'Producers and manufacturers seeking qualified international buyers and market access across our 25+ country network.',
+    desc: 'Producers and manufacturers seeking qualified international buyers and market access across our trade corridor network.',
     cta: 'Register as Exporter',
   },
   {
@@ -94,7 +94,7 @@ const roadmap = [
   { year: '2025', milestone: 'Expand Middle East Trade Desk', detail: 'Dedicated trade desk for GCC markets — food, garments, and consumer goods.' },
   { year: '2026', milestone: 'Enter West African Markets', detail: 'Establish trade corridors into West Africa for agricultural commodities and food products.' },
   { year: '2027', milestone: 'Launch Online B2B Trade Portal', detail: 'Ezyify-integrated B2B platform for buyer-supplier matching, document exchange, and real-time shipment tracking.' },
-  { year: '2028', milestone: '$100M+ Trade Volume Target', detail: 'Scale trade operations to exceed $100M annual volume across all active trade corridors.' },
+  { year: '2028', milestone: 'Scaled Trade Volume Target', detail: 'Scale trade operations across all active trade corridors; volume targets to be published once baseline reporting is established.' },
 ]
 const tradeCategories = [
   { iconId: 'agriculture', name: 'Agricultural Commodities', volume: 'High-volume seasonal trade', lanes: 'South Asia → Middle East, Europe' },
@@ -115,14 +115,14 @@ const en = {
     complianceLead: "International trade is built on paperwork. Network71's compliance team manages every document required to move goods legally and" +
       "smoothly across borders — from origin certificates to phytosanitary approvals and letter of credit discrepancy resolution.",
     complianceDetail: 'Our in-house trade documentation specialists ensure every shipment meets the regulatory requirements of both origin and' +
-      'destination jurisdictions, eliminating costly delays and compliance failures.',
+      'destination jurisdictions, reducing the risk of costly delays and compliance failures.',
     financeEyebrow: 'Trade Finance',
     financeTitle: 'Supply Chain Finance',
     financeLead: 'Structured finance solutions that reduce risk and unlock working capital for buyers and sellers across every trade corridor.',
     heroEyebrow: 'Network71 — Global Trading & Logistics',
     heroTitle1: 'Global',
     heroTitle2: 'Trading & Logistics',
-    heroLead: 'Connecting producers and markets across 25+ countries — with speed, compliance, and scale. Network71 is your end-to-end trade partner from source to shelf.',
+    heroLead: 'Connecting producers and markets across South Asia, the Middle East, Europe, Southeast Asia and Africa — with speed, compliance, and scale. Network71 is your end-to-end trade partner from source to shelf.',
     heroPrimaryCta: 'Trade Inquiry',
     heroSecondaryCta: 'Explore Categories',
     heroImageAlt: 'Shipping and logistics — global cargo',
@@ -133,7 +133,7 @@ const en = {
     lanesTitle: 'Key Trade Lanes',
     networkReach: 'Global Reach',
     networkEyebrow: 'Our Trade Network',
-    networkLead: 'Five regional trading hubs connected by active corridors spanning 25+ countries across three continents.',
+    networkLead: 'Five regional trading hubs connected by active corridors across three continents.',
     networkSouthAsia: 'South Asia Hub',
     networkHeadquarters: 'HQ · Origin',
     networkMiddleEast: 'Middle East',
@@ -144,7 +144,8 @@ const en = {
     networkDistribution: 'Sourcing + Distribution',
     networkAfrica: 'Africa',
     networkEmerging: 'Emerging Markets',
-    networkCountries: 'Countries Active',
+    networkCount: '5',
+    networkCountries: 'Regional Hubs',
     networkRoute: 'Trade Route',
     networkHub: 'Regional Hub',
     opportunitiesEyebrow: 'Opportunities',
@@ -156,8 +157,8 @@ const en = {
       "world's producing economies and its consuming markets. We combine deep trade compliance expertise with logistics excellence to move goods across borders efficiently and reliably.",
     overviewLead2: 'From agricultural commodities to finished textiles, our team navigates the full complexity of international trade — regulatory' +
       'compliance, documentation, freight management, and trade finance — so our partners can focus on growth.',
-    overviewLead3: 'With active trade operations spanning 25+ countries, we offer producers and buyers alike a trusted partner with established' +
-      'networks, in-market relationships, and the operational infrastructure to execute at scale.',
+    overviewLead3: 'With active trade corridors across South Asia, the Middle East, Europe, Southeast Asia and Africa, we offer producers and buyers alike a committed partner with ' +
+      'established networks, in-market relationships, and the operational infrastructure to execute at scale.',
     riskEyebrow: 'Quality & Risk',
     riskTitle: 'Due Diligence and Trade Risk Management',
     riskLead1: 'Every trade transaction begins with rigorous due diligence on counterparties. We verify supplier credentials, factory conditions,' +
@@ -165,7 +166,7 @@ const en = {
     riskLead2: 'Risk management is embedded throughout the trade cycle — from cargo insurance and pre-shipment inspection to credit risk assessment and trade dispute resolution support.',
     roadmapEyebrow: 'Strategic Vision',
     roadmapTitle: 'Growth Roadmap',
-    roadmapLead: 'A four-year trajectory towards $100M+ trade volume and deeper global market penetration.',
+    roadmapLead: 'A four-year trajectory towards scaled trade volume and deeper global market penetration.',
     servicesEyebrow: 'What We Do',
     servicesTitle: 'Trade Services',
     servicesLead: 'Four integrated service pillars that cover every dimension of international trade.',
@@ -191,14 +192,14 @@ const en = {
   riskItems: [
     { title: 'Supplier Due Diligence', desc: 'Factory audits, credential verification, and trade reference checks.' },
     { title: 'Buyer Qualification', desc: 'Creditworthiness review, reference checks, and trade history assessment.' },
-    { title: 'Cargo Insurance', desc: 'All-risk marine and air cargo insurance arranged for every shipment.' },
+    { title: 'Cargo Insurance', desc: 'Marine and air cargo insurance arranged for shipments as required.' },
     { title: 'Quality Inspection', desc: 'Third-party pre-shipment inspection at origin before goods are loaded.' },
   ],
   overviewPillars: [
-    { title: 'Market Access', desc: 'Opening doors to 25+ country markets with established buyer and distributor relationships.' },
+    { title: 'Market Access', desc: 'Opening doors to markets across five regions with established buyer and distributor relationships.' },
     { title: 'Compliance Expertise', desc: 'Deep regulatory knowledge across trade corridors — HS codes, tariffs, certificates, and documentation.' },
     { title: 'Logistics Network', desc: 'Multi-modal freight capability across sea, air, and land with vetted global forwarder partners.' },
-    { title: 'Relationship Capital', desc: 'Trusted relationships with producers, buyers, agents, and authorities across every trade corridor.' },
+    { title: 'Relationship Capital', desc: 'Working relationships with producers, buyers, agents, and authorities across every trade corridor.' },
   ],
   heroBadges: [
     { val: 'Sourcing', lab: 'Supplier & buyer matching' },

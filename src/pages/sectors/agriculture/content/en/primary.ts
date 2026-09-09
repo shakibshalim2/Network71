@@ -2,24 +2,24 @@ export const primary = {
   divisionName: "Agriculture & Agro Products",
   metrics: [
     {
-      value: "10K+",
-      label: "Acres Farmed",
-      desc: "Agricultural land under management",
+      value: "Farm-to-export",
+      label: "Value chain",
+      desc: "Sourcing, processing and export under one division",
     },
     {
-      value: "500+",
-      label: "Tons / Month",
-      desc: "Monthly processing capacity",
+      value: "Partner farms",
+      label: "Smallholder network",
+      desc: "Contracted growers across producing districts",
     },
     {
-      value: "100%",
-      label: "Organic Certified",
-      desc: "Certified organic produce",
+      value: "Traceable",
+      label: "Origin documentation",
+      desc: "Batch-level documentation from farm to shipment",
     },
     {
-      value: "18+",
-      label: "Export Markets",
-      desc: "Countries reached globally",
+      value: "Export",
+      label: "Bangladesh base",
+      desc: "Documentation prepared for destination markets",
     },
   ],
   hero: {
@@ -33,9 +33,9 @@ export const primary = {
       "From fertile fields to global markets — traceable, sustainable, premium agro products connecting South Asian farmers to the world.",
     primaryCta: "Buyer Inquiry",
     secondaryCta: "View Products",
-    stat: "18+",
-    statLabel: "Export Countries",
-    statDescription: "Active markets",
+    stat: "Export",
+    statLabel: "Destination Markets",
+    statDescription: "Documentation on request",
   },
   vision: {
     eyebrow: "Our Vision",
@@ -46,7 +46,7 @@ export const primary = {
       "By embedding directly within farming communities — building trust, providing training, and offering fair pricing before a " +
 "single crop is planted — we create supply chains that are genuinely sustainable rather than extractive.",
       "Our processing hubs, cold-chain logistics, and direct export relationships mean that when a buyer in Dubai or Rotterdam " +
-"sources from Network71, they can trace every batch back to a named district, a certified practice, and a farmer who earned a " +
+"sources from Network71, they can trace every batch back to a named district, a documented farming practice, and a farmer who earned a " +
 "fair margin.",
     ],
     values: [

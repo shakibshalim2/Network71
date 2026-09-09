@@ -12,21 +12,21 @@ export const serviceItems = [
   {
     icon: "🔄",
     title: "Selling Ships",
-    desc: "List your vessel for sale and reach 200+ qualified buyers in 50+ countries. We provide transparent pricing, market valuation, and full broker support through to contract completion.",
+    desc: "List your vessel for sale and reach qualified buyers across South Asia, the Gulf and beyond. We provide transparent pricing, market valuation, and full broker support through to contract completion.",
     color: TEAL,
   },
   {
     icon: "♻",
     title: "Ship Recycling",
     desc:
-      "Responsible end-of-life ship recycling through 25+ certified yards compliant with the Hong Kong " +
-      "Convention and EU Ship Recycling Regulation. Competitive LDT rates with full documentation.",
+      "Responsible end-of-life ship recycling through yards that operate to Hong Kong Convention and IMO " +
+      "guidelines, with EU Ship Recycling Regulation routing where required. Competitive LDT rates with full documentation.",
     color: "var(--accent-emerald)",
   },
   {
     icon: "🔍",
     title: "Inspection & Valuation",
-    desc: "Independent vessel inspection and market valuation services performed by certified marine surveyors. Full condition reports, survey documentation, and fair market value assessments.",
+    desc: "Independent vessel inspection and market valuation services performed by class-accredited marine surveyors. Full condition reports, survey documentation, and fair market value assessments.",
     color: "var(--accent-amber)",
   },
 ]

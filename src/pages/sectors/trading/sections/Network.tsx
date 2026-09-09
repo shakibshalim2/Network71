@@ -118,9 +118,9 @@ export default function Network({ c }: { c: TradingContent }) {
               <text x="471" y="219" textAnchor="middle" fill="white" fontSize="9" fontFamily="system-ui" fontWeight="600">{c.copy.networkAfrica}</text>
               <text x="471" y="227" textAnchor="middle" fill={BLUE} fontSize="7.5" fontFamily="system-ui">{c.copy.networkEmerging}</text>
 
-              {/* 25+ countries callout badge */}
+              {/* Regional hubs callout badge */}
               <rect x="30" y="360" width="115" height="50" rx="10" fill={BLUE} />
-              <text x="87" y="382" textAnchor="middle" fill="white" fontSize="18" fontFamily="system-ui" fontWeight="700">25+</text>
+              <text x="87" y="382" textAnchor="middle" fill="white" fontSize="18" fontFamily="system-ui" fontWeight="700">{c.copy.networkCount}</text>
               <text x="87" y="398" textAnchor="middle" fill="rgba(255,255,255,0.85)" fontSize="9" fontFamily="system-ui">{c.copy.networkCountries}</text>
 
               {/* Legend */}

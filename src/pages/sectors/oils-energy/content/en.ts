@@ -20,7 +20,7 @@ const en = {
     edibleImageAlt: "Edible oils — golden olive oil pouring",
   },
   overview: {
-    energyTags: ["8 Distribution Centers", "Bulk Contract Supply", "Industrial-Grade", "Regulatory Compliant"],
+    energyTags: ["Regional Distribution", "Bulk Contract Supply", "Industrial-Grade", "Regulatory Compliant"],
     eyebrow: "Two Divisions. One Standard.",
     title: "Essential Products. Essential Infrastructure.",
     lead: "From the cooking oil on family tables to the fuel powering factories, Network71 Oils & Energy " +
@@ -28,11 +28,11 @@ const en = {
     oilsTitle: "Edible Oils",
     oilsText:
       "We refine and distribute a range of vegetable oils for consumer, food-service, and industrial " +
-        "markets. Our HACCP-certified facilities combine rigorous quality control with efficient, scalable production.",
+        "markets. Our HACCP-based facilities combine rigorous quality control with efficient, scalable production.",
     energyTitle: "Energy & Fuel",
     energyText:
       "Our energy division supplies petroleum products and commercial fuel solutions to industrial, " +
-        "transport, construction, and institutional clients through a growing nationwide distribution network.",
+        "transport, construction, and institutional clients through a growing regional distribution network.",
   },
   edible: {
     heading: "Five Oil Varieties.",
@@ -64,9 +64,9 @@ const en = {
   },
   compliance: {
     eyebrow: "Quality & Compliance",
-    title: "Standards You Can Trust",
+    title: "Standards Built Into Every Batch",
     lead: "Food safety and product integrity are built into every stage of our operations. Our quality " +
-      "systems are designed to meet and exceed the standards expected by regulators, partners, and consumers.",
+      "systems are designed to meet the standards expected by regulators, partners, and consumers.",
     badge: "Quality Commitment",
     badgeText:
       "Every batch is tested before release. Our quality assurance team monitors critical parameters from raw material intake through to final dispatch.",
@@ -86,7 +86,7 @@ const en = {
     progress: "Progress",
     commitment: "Our Commitment",
     commitmentText:
-      "We publish annual sustainability progress updates as our programmes mature. Targets reflect current operational baselines and are reviewed annually.",
+      "We will publish sustainability progress updates as our programmes mature. Bars show programme targets, reviewed annually against operational baselines.",
     imageAlt: "Sustainable farming",
   },
   markets: {
@@ -122,14 +122,15 @@ const en = {
     overviewEyebrow: "Two Core Divisions",
     overviewLead:
       "Network71's Oils & Energy division bridges two essential commodity sectors — premium food-grade oils and reliable fuel supply — under a single, integrated operational infrastructure.",
+    oilsTags: ['Food-safety systems', 'Consumer + Industrial', 'Bulk & retail packs', 'Five oil varieties'],
     oilsBody:
       "From crude sourcing to consumer-ready packaging, our edible oil operations cover soybean, palm, sunflower, olive, and " +
-        "blended vegetable oils. HACCP-certified facilities serve both consumer retail and industrial food manufacturing segments.",
+        "blended vegetable oils. HACCP-based facilities serve both consumer retail and industrial food manufacturing segments.",
     fuelBody:
-      "Petroleum distribution, industrial fuel supply, and commercial energy logistics spanning 8 strategically located " +
+      "Petroleum distribution, industrial fuel supply, and commercial energy logistics through a regional network of " +
         "distribution centres. We serve transport, manufacturing, construction, and institutional clients with compliant, reliable fuel programmes.",
     edibleBody:
-      "Every oil variant is refined, tested, and packaged in our HACCP-certified facility. We supply in bulk " +
+      "Every oil variant is refined, tested, and packaged in our HACCP-based facility. We supply in bulk " +
         "tanker, industrial drum, and retail bottle formats — meeting the needs of food manufacturers and end consumers alike.",
     fuelLead:
       "Our fuel distribution infrastructure is built for industrial-scale reliability. Petroleum products, industrial " +
@@ -137,13 +138,13 @@ const en = {
     supplyEyebrow: "Supply Chain",
     supplyLead:
       "An integrated, traceable supply chain from raw material procurement through to retail and " +
-        "industrial delivery — combining imported and locally sourced inputs with domestic processing excellence.",
+        "industrial delivery — combining imported and locally sourced inputs with domestic processing.",
     complianceEyebrow: "Quality & Compliance",
     complianceLead:
-      "All edible oil products meet international food safety standards. Our quality system is built on HACCP principles and " +
-        "reinforced by BSTI and Halal certification — giving buyers full confidence in product integrity from plant to delivery.",
+      "Our edible oil products are produced to international food safety frameworks. Our quality system is built on HACCP principles, " +
+        "with BSTI registration where applicable and Halal-compliant processes — supporting product integrity from plant to delivery.",
     haccpDescription:
-      "Hazard Analysis and Critical Control Points certification — the cornerstone of our edible oil food safety management system.",
+      "Hazard Analysis and Critical Control Points — the framework our edible oil food safety management system is built on.",
     technologyEyebrow: "Technology & Operations",
     technologyLead:
       "Operational technology across both divisions is designed to reduce variability, increase traceability, and ensure on-time delivery at volume.",
@@ -167,18 +168,18 @@ const en = {
     divisionB: "Division B",
     valueChain: "Value Chain",
     oilsTagline: "One Quality Standard.",
-    oilCertification: "All products HACCP & BSTI certified",
+    oilCertification: "HACCP-based controls · BSTI registration where applicable",
     grades: "Grades",
     uses: "Common Uses",
     packaging: "Packaging",
-    fuelTagline: "Nationwide Reach.",
+    fuelTagline: "Regional Reach.",
     fuelSafety: "Safety-compliant storage & dispatch",
     verified: "Verified at Every Step.",
-    haccpOperations: "HACCP Certified Operations",
+    haccpOperations: "HACCP-Based Operations",
     supplySchematic: "Distribution Centre Network — Schematic",
     plant: "PLANT",
     processingPlant: "Processing Plant",
-    distributionCentres: "Distribution Centres (8)",
+    distributionCentres: "Distribution Centres",
     technologyTitle: "Built for Precision & Scale",
     marketsTitle: "Who We Serve",
     opportunitiesTitle: "Partner With Us",

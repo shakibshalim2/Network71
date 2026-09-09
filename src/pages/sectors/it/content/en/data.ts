@@ -5,7 +5,7 @@ export const metrics = [
     desc: "Commerce, maritime & media",
   },
   {
-    value: "8",
+    value: "Group-wide",
     label: "Connected Divisions",
     desc: "One enterprise ecosystem",
   },
@@ -23,7 +23,7 @@ export const showcaseProjects = [
     category: "AI Commerce Platform",
     eyebrow: "Flagship product",
     summary:
-      "A responsive social-commerce product experience connecting discovery, video, creators, merchant" +
+      "A responsive social-commerce product experience connecting discovery, video, creators, merchant " +
         "tools, and conversational shopping in one ecosystem.",
     capabilities: [
       "Product strategy",
@@ -41,7 +41,7 @@ export const showcaseProjects = [
     category: "Maritime Marketplace",
     eyebrow: "Vertical marketplace",
     summary:
-      "A focused digital marketplace experience for discovering vessels and connecting maritime buyers," +
+      "A focused digital marketplace experience for discovering vessels and connecting maritime buyers, " +
         "sellers, and service enquiries.",
     capabilities: [
       "Marketplace UX",
@@ -59,7 +59,7 @@ export const showcaseProjects = [
     category: "Digital Media Experience",
     eyebrow: "Media platform",
     summary:
-      "A multi-format editorial interface designed around live coverage, programmes, video, newsroom" +
+      "A multi-format editorial interface designed around live coverage, programmes, video, newsroom " +
         "presentation, and partnership opportunities.",
     capabilities: [
       "Editorial UX",
@@ -77,7 +77,7 @@ export const showcaseProjects = [
     category: "Corporate Digital Platform",
     eyebrow: "Group ecosystem",
     summary:
-      "The unified corporate platform connecting Network71 divisions, leadership, global presence, investor" +
+      "The unified corporate platform connecting Network71 divisions, leadership, global presence, investor " +
         "information, careers, and business enquiries.",
     capabilities: [
       "Design system",
@@ -96,7 +96,7 @@ export const servicePillars = [
   {
     icon: "⬡",
     title: "Enterprise Resource Planning",
-    desc: "Custom ERP, HRM, inventory, and business-process automation for organisations operating at global scale.",
+    desc: "Custom ERP, HRM, inventory, and business-process automation for organisations operating across markets.",
     color: "var(--accent-cyan)",
   },
   {
@@ -108,7 +108,7 @@ export const servicePillars = [
   {
     icon: "⬡",
     title: "AI & Data Analytics",
-    desc: "Recommendation engines, predictive analytics, NLP, and computer vision — intelligent systems that create competitive advantage.",
+    desc: "Recommendation engines, predictive analytics, NLP, and computer vision — intelligent systems built around concrete business use cases.",
     color: "var(--accent-purple)",
   },
   {
@@ -120,7 +120,7 @@ export const servicePillars = [
   {
     icon: "⬡",
     title: "Mobile & Web Applications",
-    desc: "High-performance SaaS products, cross-platform mobile apps, progressive web apps, and API ecosystems.",
+    desc: "SaaS products, cross-platform mobile apps, progressive web apps, and API ecosystems.",
     color: "var(--accent-pink)",
   },
   {
@@ -224,10 +224,10 @@ export const processSteps = [
   },
   {
     title: "Deployment",
-    desc: "Zero-downtime production release, monitoring setup, and full documentation handover.",
+    desc: "Staged production release, monitoring setup, and full documentation handover.",
   },
   {
     title: "Support & Scaling",
-    desc: "Ongoing SLA-backed maintenance, feature releases, and capacity scaling.",
+    desc: "Ongoing maintenance under agreed service levels, feature releases, and capacity scaling.",
   },
 ]
