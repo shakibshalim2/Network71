@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
+import { openEmailDraft } from "@/lib/mailto"
 
 const keyFinancials = [
   { value: "$150M+", label: "Annual Revenue", sub: "FY 2024 turnover" },
@@ -74,6 +75,14 @@ export default function Investors() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    openEmailDraft("investors@network71.com", `Investor enquiry from ${form.name}`, {
+      Name: form.name,
+      Company: form.company,
+      Email: form.email,
+      "Investment range": form.range,
+      "Inquiry type": form.inquiry,
+      Message: form.message,
+    })
     setSent(true)
   }
 
@@ -93,7 +102,7 @@ export default function Investors() {
           </div>
           <div className="flex items-center gap-3 mb-5">
             <div className="h-px w-12 bg-gold" />
-            <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Investor Relations</span>
+            <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Investor Relations</span>
           </div>
           <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.05] tracking-[-0.02em] mb-6 max-w-3xl">
             Transparent Corporate Governance
@@ -125,7 +134,7 @@ export default function Investors() {
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-12 bg-gold" />
-              <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Growth Story</span>
+              <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Growth Story</span>
               <div className="h-px w-12 bg-gold" />
             </div>
             <h2 className="font-display text-4xl text-white mb-3 tracking-[-0.02em]">Revenue Trajectory</h2>
@@ -171,7 +180,7 @@ export default function Investors() {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-12 bg-gold" />
-              <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Why Invest</span>
+              <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Why Invest</span>
               <div className="h-px w-12 bg-gold" />
             </div>
             <h2 className="font-display text-4xl sm:text-5xl text-white tracking-[-0.02em]">Investment Thesis</h2>
@@ -196,7 +205,7 @@ export default function Investors() {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-12 bg-gold" />
-              <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Resources</span>
+              <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Resources</span>
               <div className="h-px w-12 bg-gold" />
             </div>
             <h2 className="font-display text-4xl sm:text-5xl text-white tracking-[-0.02em]">Documents & Filings</h2>
@@ -237,7 +246,7 @@ export default function Investors() {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="h-px w-12 bg-gold" />
-                <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Governance</span>
+                <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Governance</span>
               </div>
               <h2 className="font-display text-4xl sm:text-5xl text-white mb-6 tracking-[-0.02em]">Board Structure</h2>
               <p className="text-slate-400 leading-relaxed mb-6">
@@ -268,7 +277,7 @@ export default function Investors() {
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-12 bg-gold" />
-              <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Contact</span>
+              <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Contact</span>
               <div className="h-px w-12 bg-gold" />
             </div>
             <h2 className="font-display text-4xl text-white mb-3 tracking-[-0.02em]">Investor Enquiry</h2>
@@ -295,18 +304,18 @@ export default function Investors() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
               </div>
-              <h3 className="font-display text-2xl text-white mb-3">Thank You</h3>
+              <h3 className="font-display text-2xl text-white mb-3">Email Draft Ready</h3>
               <p className="text-slate-400 text-sm">
-                {"Your enquiry has been received. Our investor relations team will be in touch shortly."}
+                Send the prepared draft in your email app to complete your investor enquiry.
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="bg-navy border border-white/8 rounded-2xl p-8 space-y-5">
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-xs text-slate-400 mb-2 font-medium">Full Name *</label>
+                  <label htmlFor="investor-name" className="block text-xs text-slate-400 mb-2 font-medium">Full Name *</label>
                   <input
-                    name="name"
+                    name="name" id="investor-name"
                     required
                     value={form.name}
                     onChange={handleChange}
@@ -315,9 +324,9 @@ export default function Investors() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-slate-400 mb-2 font-medium">Company *</label>
+                  <label htmlFor="investor-company" className="block text-xs text-slate-400 mb-2 font-medium">Company *</label>
                   <input
-                    name="company"
+                    name="company" id="investor-company"
                     required
                     value={form.company}
                     onChange={handleChange}
@@ -327,9 +336,9 @@ export default function Investors() {
                 </div>
               </div>
               <div>
-                <label className="block text-xs text-slate-400 mb-2 font-medium">Email *</label>
+                <label htmlFor="investor-email" className="block text-xs text-slate-400 mb-2 font-medium">Email *</label>
                 <input
-                  name="email"
+                  name="email" id="investor-email"
                   type="email"
                   required
                   value={form.email}
@@ -339,9 +348,9 @@ export default function Investors() {
                 />
               </div>
               <div>
-                <label className="block text-xs text-slate-400 mb-2 font-medium">Investment Range</label>
+                <label htmlFor="investor-range" className="block text-xs text-slate-400 mb-2 font-medium">Investment Range</label>
                 <select
-                  name="range"
+                  name="range" id="investor-range"
                   value={form.range}
                   onChange={handleChange}
                   className="w-full bg-navy-dark border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold/50 transition-colors"
@@ -354,9 +363,9 @@ export default function Investors() {
                 </select>
               </div>
               <div>
-                <label className="block text-xs text-slate-400 mb-2 font-medium">Type of Enquiry *</label>
+                <label htmlFor="investor-inquiry" className="block text-xs text-slate-400 mb-2 font-medium">Type of Enquiry *</label>
                 <select
-                  name="inquiry"
+                  name="inquiry" id="investor-inquiry"
                   required
                   value={form.inquiry}
                   onChange={handleChange}
@@ -369,9 +378,9 @@ export default function Investors() {
                 </select>
               </div>
               <div>
-                <label className="block text-xs text-slate-400 mb-2 font-medium">Message *</label>
+                <label htmlFor="investor-message" className="block text-xs text-slate-400 mb-2 font-medium">Message *</label>
                 <textarea
-                  name="message"
+                  name="message" id="investor-message"
                   required
                   rows={4}
                   value={form.message}
@@ -382,7 +391,7 @@ export default function Investors() {
               </div>
               <button
                 type="submit"
-                className="w-full py-3.5 bg-gold text-navy text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors"
+                className="w-full py-3.5 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors"
               >
                 Send Enquiry
               </button>

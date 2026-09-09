@@ -31,19 +31,23 @@ function Metric({ value, suffix, label, desc, enabled }: {
 }) {
   const count = useCountUp(value, 2800, enabled)
   return (
-    <div className="px-6 py-10">
-      <div className="font-display text-5xl lg:text-6xl text-white mb-2 leading-none" style={{ letterSpacing: '-0.025em' }}>
+    <div className="px-4 py-7 sm:px-6 sm:py-10">
+      <div
+        className="font-display mb-2 leading-none"
+        style={{ fontSize: 'clamp(30px, 7.5vw, 60px)', letterSpacing: '-0.025em', color: 'var(--fg-strong)' }}>
         {count.toLocaleString()}
-        <span style={{ color: '#C8962A' }}>{suffix}</span>
+        <span style={{ color: 'var(--brand-fg)' }}>{suffix}</span>
       </div>
-      <div style={{
-        fontFamily: 'var(--font-mono)', fontSize: 10,
-        fontWeight: 600, letterSpacing: '0.25em', textTransform: 'uppercase',
-        color: 'rgba(200,150,42,0.72)', marginBottom: 6,
-      }}>
+      <div
+        className="text-[8.5px] tracking-[0.16em] sm:text-[10px] sm:tracking-[0.25em]"
+        style={{
+          fontFamily: 'var(--font-mono)',
+          fontWeight: 600, textTransform: 'uppercase',
+          color: 'var(--brand-fg)', marginBottom: 6,
+        }}>
         {label}
       </div>
-      <div style={{ fontSize: 12, color: 'rgba(100,116,139,0.7)' }}>{desc}</div>
+      <div className="text-[11px] sm:text-[12px]" style={{ color: 'var(--fg-subtle)', lineHeight: 1.5 }}>{desc}</div>
     </div>
   )
 }
@@ -64,51 +68,54 @@ export default function Stats() {
   }, [])
 
   return (
-    <section style={{ background: '#06101E', borderTop: '1px solid rgba(255,255,255,0.04)' }} className="py-24">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section style={{ background: 'var(--s1)', borderTop: '1px solid var(--line)' }} className="section-y">
+      <div className="container-page">
 
-        <div className="flex items-center gap-3 mb-12">
-          <div className="h-px w-8" style={{ background: 'rgba(200,150,42,0.45)' }} />
-          <span style={{
-            fontFamily: 'var(--font-mono)', fontSize: 9,
-            letterSpacing: '0.35em', textTransform: 'uppercase',
-            color: 'rgba(200,150,42,0.65)',
-          }}>
+        <div className="flex items-center gap-3 mb-7 sm:mb-12">
+          <div className="h-px w-8 shrink-0" style={{ background: 'var(--brand-edge)' }} />
+          <span
+            className="text-[8px] tracking-[0.22em] sm:text-[9px] sm:tracking-[0.35em]"
+            style={{
+              fontFamily: 'var(--font-mono)',
+              textTransform: 'uppercase',
+              color: 'var(--brand-fg)',
+            }}>
             Business Impact
           </span>
         </div>
 
-        <div className="mb-12">
+        <div className="mb-8 sm:mb-12">
           <h2 className="font-display" style={{
-            fontSize: 'clamp(30px, 4vw, 48px)',
-            color: '#FFFFFF',
-            lineHeight: 1.1,
+            fontSize: 'clamp(27px, 6vw, 48px)',
+            color: 'var(--fg-strong)',
+            lineHeight: 1.12,
             letterSpacing: '-0.025em',
           }}>
             Measured in Markets.
             <br />
-            <em style={{ color: '#C8962A' }}>Counted in Countries.</em>
+            <em style={{ color: 'var(--brand-fg)' }}>Counted in Countries.</em>
           </h2>
         </div>
 
+        {/*
+          Dividers are drawn with a 1px gap + background showing through, so a
+          single rule works for every column count instead of index maths that
+          only ever matched the 3-column desktop grid.
+        */}
         <div
           ref={ref}
-          className="grid grid-cols-2 md:grid-cols-3 rounded-2xl overflow-hidden"
-          style={{ border: '1px solid rgba(255,255,255,0.05)', background: '#09111F' }}
+          className="grid grid-cols-2 md:grid-cols-3 gap-px rounded-2xl overflow-hidden"
+          style={{ border: '1px solid var(--line)', background: 'var(--line)' }}
         >
-          {metrics.map((m, i) => (
-            <div key={m.label} style={{
-              borderRight: (i + 1) % 3 !== 0 ? '1px solid rgba(255,255,255,0.05)' : 'none',
-              borderBottom: i < 3 ? '1px solid rgba(255,255,255,0.05)' : 'none',
-            }}>
+          {metrics.map((m) => (
+            <div key={m.label} style={{ background: 'var(--s2)' }}>
               <Metric {...m} enabled={enabled} />
             </div>
           ))}
         </div>
 
-        <p style={{
-          fontSize: 11,
-          color: 'rgba(71,85,105,0.65)',
+        <p className="text-[10px] sm:text-[11px] leading-relaxed" style={{
+          color: 'var(--fg-faint)',
           marginTop: 16,
           fontFamily: 'var(--font-mono)',
           letterSpacing: '0.05em',

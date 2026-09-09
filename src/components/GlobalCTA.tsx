@@ -26,7 +26,7 @@ const cards = [
     desc: 'Access investment opportunities across our diversified industrial portfolio spanning eight high-growth sectors globally.',
     cta: 'Investor Relations',
     href: '/investors',
-    accent: '#C8962A',
+    accent: 'var(--brand)',
   },
   {
     Icon: TeamIcon,
@@ -34,7 +34,7 @@ const cards = [
     desc: 'Build your career with a growing multinational enterprise. We welcome ambitious talent from every corner of the world.',
     cta: 'View Careers',
     href: '/careers',
-    accent: '#22D3EE',
+    accent: 'var(--accent-cyan)',
   },
   {
     Icon: GlobeIcon,
@@ -42,63 +42,69 @@ const cards = [
     desc: 'Explore strategic joint ventures, supply-chain partnerships, and global trade collaboration across our network.',
     cta: 'Global Partnerships',
     href: '/contact',
-    accent: '#0D9488',
+    accent: 'var(--accent-teal)',
   },
 ]
 
 export default function GlobalCTA() {
   return (
-    <section style={{ background: '#06101E', position: 'relative', overflow: 'hidden' }} className="py-24">
+    <section
+      className="section-y force-dark"
+      style={{ background: 'var(--s1)', position: 'relative', overflow: 'hidden' }}>
       {/* Cinematic background image */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
         <img
           src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&h=900&fit=crop&auto=format"
           alt=""
           aria-hidden="true"
-          style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.28) saturate(0.6)', transform: 'scale(1.02)' }}
+          loading="lazy"
+          decoding="async"
+          style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'var(--cta-img-dim)', transform: 'scale(1.02)' }}
         />
-        {/* Dark gradient overlay */}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(6,16,30,0.65) 0%, rgba(6,16,30,0.82) 40%, rgba(6,16,30,0.96) 100%)' }} />
+        {/* Scrim keeps the headline legible over the photo in both themes */}
+        <div style={{ position: 'absolute', inset: 0, background: 'var(--cta-scrim)' }} />
         {/* Subtle gold vignette */}
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 100%, rgba(200,150,42,0.06) 0%, transparent 70%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 100%, var(--brand-wash) 0%, transparent 70%)' }} />
       </div>
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8" style={{ zIndex: 1 }}>
+      <div className="relative container-page" style={{ zIndex: 1 }}>
 
         {/* Header */}
-        <div className="text-center mb-14">
-          <div className="flex items-center justify-center gap-3 mb-5">
-            <div className="h-px w-10" style={{ background: 'rgba(200,150,42,0.3)' }} />
-            <span className="font-mono text-[9px] font-semibold tracking-[0.35em] uppercase" style={{ color: 'rgba(200,150,42,0.6)' }}>
+        <div className="text-center mb-9 sm:mb-14">
+          <div className="flex items-center justify-center gap-2.5 sm:gap-3 mb-4 sm:mb-5">
+            <div className="h-px w-6 sm:w-10" style={{ background: 'var(--brand-edge)' }} />
+            <span className="font-mono text-[8px] tracking-[0.22em] sm:text-[9px] sm:tracking-[0.35em] font-semibold uppercase" style={{ color: 'var(--brand-fg)' }}>
               Work With Network71
             </span>
-            <div className="h-px w-10" style={{ background: 'rgba(200,150,42,0.3)' }} />
+            <div className="h-px w-6 sm:w-10" style={{ background: 'var(--brand-edge)' }} />
           </div>
-          <h2 className="font-display text-4xl lg:text-5xl text-white tracking-[-0.02em] mb-4">
+          <h2
+            className="font-display tracking-[-0.02em] mb-3 sm:mb-4"
+            style={{ fontSize: 'clamp(26px, 6vw, 48px)', lineHeight: 1.14, color: 'var(--fg-strong)' }}>
             Connect With Our Ecosystem
           </h2>
-          <p className="text-slate-500 max-w-lg mx-auto text-[15px] leading-relaxed">
+          <p className="max-w-lg mx-auto text-[14px] sm:text-[15px] leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
             Whether you&apos;re an investor, a talented professional, or a potential global partner — there&apos;s a place for you in the Network71 family.
           </p>
         </div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
           {cards.map(({ Icon, title, desc, cta, href, accent }) => (
             <Link
               key={title}
               to={href}
-              className="group block p-8 rounded-2xl transition-all duration-300 hover:-translate-y-1"
-              style={{ background: 'rgba(9,17,31,0.72)', border: '1px solid rgba(255,255,255,0.08)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = `${accent}35`; e.currentTarget.style.background = 'rgba(9,17,31,0.85)' }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.background = 'rgba(9,17,31,0.72)' }}
+              className="group block p-6 sm:p-7 lg:p-8 rounded-2xl transition-all duration-300 hover:-translate-y-1"
+              style={{ background: 'var(--glass)', border: '1px solid var(--line-strong)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = `color-mix(in srgb, ${accent} 21%, transparent)`; e.currentTarget.style.background = 'var(--s3)' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--line-strong)'; e.currentTarget.style.background = 'var(--glass)' }}
             >
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-colors duration-300"
-                style={{ background: `${accent}15`, color: accent }}>
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-4 sm:mb-6 transition-colors duration-300"
+                style={{ background: `color-mix(in srgb, ${accent} 8%, transparent)`, color: accent }}>
                 <Icon />
               </div>
-              <h3 className="font-display text-2xl text-white mb-3">{title}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed mb-6">{desc}</p>
-              <span className="flex items-center gap-2 text-sm font-semibold transition-all duration-200 group-hover:gap-3"
+              <h3 className="font-display text-xl sm:text-2xl mb-2.5 sm:mb-3" style={{ color: 'var(--fg-strong)' }}>{title}</h3>
+              <p className="text-[13px] sm:text-sm leading-relaxed mb-4 sm:mb-6" style={{ color: 'var(--fg-subtle)' }}>{desc}</p>
+              <span className="flex items-center gap-2 text-[13px] sm:text-sm font-semibold transition-all duration-200 group-hover:gap-3"
                 style={{ color: accent }}>
                 {cta}
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -110,10 +116,10 @@ export default function GlobalCTA() {
         </div>
 
         {/* Contact line */}
-        <div className="mt-12 text-center" style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '40px' }}>
-          <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-slate-600 mb-3">Direct inquiries</p>
+        <div className="mt-9 pt-8 sm:mt-12 sm:pt-10 text-center" style={{ borderTop: '1px solid var(--line)' }}>
+          <p className="font-mono text-[8px] tracking-[0.22em] sm:text-[9px] sm:tracking-[0.3em] uppercase mb-3" style={{ color: 'var(--fg-faint)' }}>Direct inquiries</p>
           <a href="mailto:info@network71.com"
-            className="font-semibold text-lg hover:text-gold transition-colors duration-150" style={{ color: '#C8962A' }}>
+            className="font-semibold text-base sm:text-lg wrap-anywhere transition-colors duration-150" style={{ color: 'var(--brand-fg)' }}>
             info@network71.com
           </a>
         </div>

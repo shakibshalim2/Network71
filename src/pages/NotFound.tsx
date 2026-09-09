@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
+import Logo from '@/components/brand/Logo'
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-navy flex flex-col items-center justify-center relative overflow-hidden">
+    <div className="min-h-screen py-12 bg-navy flex flex-col items-center justify-center relative overflow-hidden">
       {/* Dot grid background */}
       <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
 
@@ -51,13 +52,8 @@ export default function NotFound() {
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-xl mx-auto">
         {/* Logo */}
-        <Link to="/" className="inline-flex items-center gap-3 mb-12 group">
-          <div className="w-10 h-10 bg-gold rounded flex items-center justify-center">
-            <span className="text-navy font-bold text-[11px] tracking-tight font-display">N71</span>
-          </div>
-          <span className="text-white font-semibold tracking-[0.12em] text-sm">
-            NETWORK<span className="text-gold">71</span>
-          </span>
+        <Link to="/" className="inline-flex items-center mb-12 group" aria-label="Network71 — Home">
+          <Logo variant="auto" height={30} />
         </Link>
 
         {/* 404 */}
@@ -81,7 +77,7 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             to="/"
-            className="px-8 py-3.5 bg-gold text-navy text-sm font-semibold rounded-lg hover:bg-gold-light transition-all duration-200 shadow-lg shadow-gold/20"
+            className="px-8 py-3.5 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-all duration-200 shadow-lg shadow-gold/20"
           >
             Go Home
           </Link>

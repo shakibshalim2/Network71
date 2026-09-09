@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Network71">
+  <rect width="64" height="64" rx="14" fill="#04080E"/>
+  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="13.25" fill="none" stroke="#C8962A" stroke-opacity="0.45" stroke-width="1.5"/>
+  <!-- N -->
+  <path d="M14 45V19h5.4l12 17.1V19h5.2v26h-5.3L19.2 27.6V45z" fill="#F5F7FA"/>
+  <!-- 71 -->
+  <path d="M40.5 45l7.4-18.6h-8.6V22h14.3v4.1L46.2 45z" fill="#C8962A"/>
+  <path d="M56.2 45V27.4l-3 1.1v-3.9l3.9-2.6h3.4V45z" fill="#C8962A"/>
+</svg>

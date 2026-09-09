@@ -34,7 +34,7 @@ export default function ProcessFlow({ steps, accentHex, label = 'Production Work
                     {String(i + 1).padStart(2, '0')}
                   </div>
                   {i < steps.length - 1 && (
-                    <div className="flex-1 h-px mx-2" style={{ background: `${accentHex}40` }} />
+                    <div className="flex-1 h-px mx-2" style={{ background: `color-mix(in srgb, ${accentHex} 25%, transparent)` }} />
                   )}
                 </div>
                 <div className="pr-4">
@@ -58,7 +58,7 @@ export default function ProcessFlow({ steps, accentHex, label = 'Production Work
                   {String(i + 1).padStart(2, '0')}
                 </div>
                 {i < steps.length - 1 && (
-                  <div className="w-px flex-1 my-2" style={{ background: `${accentHex}30` }} />
+                  <div className="w-px flex-1 my-2" style={{ background: `color-mix(in srgb, ${accentHex} 19%, transparent)` }} />
                 )}
               </div>
               <div className="pb-6">

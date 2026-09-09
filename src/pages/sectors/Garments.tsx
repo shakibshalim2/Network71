@@ -5,7 +5,7 @@ import MetricsBar from '@/components/sector/MetricsBar'
 import SectorContact from '@/components/sector/SectorContact'
 import Footer from '@/components/Footer'
 
-const ACCENT = '#f43f5e'
+const ACCENT = 'var(--accent-rose)'
 
 /* ─── DATA ─────────────────────────────────────────────── */
 
@@ -293,11 +293,11 @@ export default function Garments() {
   }, [])
 
   return (
-    <div className="min-h-full bg-white">
+    <div className="sector-page min-h-full bg-surface-0">
       <SectorHeader divisionName="Garments & Apparel" accentClass="text-rose-400" />
 
       {/* ── 1. HERO ────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      <section className="force-dark sector-hero relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&h=800&fit=crop&auto=format"
@@ -305,7 +305,7 @@ export default function Garments() {
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(10,15,30,0.92) 0%, rgba(10,15,30,0.75) 50%, rgba(10,15,30,0.55) 100%)' }} />
-          <div className="absolute inset-0" style={{ background: `linear-gradient(to top, ${ACCENT}18 0%, transparent 40%)` }} />
+          <div className="absolute inset-0" style={{ background: `linear-gradient(to top, color-mix(in srgb, ${ACCENT} 9%, transparent) 0%, transparent 40%)` }} />
         </div>
 
         {/* Decorative grid overlay */}
@@ -337,7 +337,7 @@ export default function Garments() {
               <a
                 href="#sector-contact"
                 className="px-8 py-4 font-semibold text-sm text-white rounded-lg transition-all hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5"
-                style={{ background: ACCENT }}
+                style={{ background: ACCENT, color: 'var(--s0)' }}
               >
                 Request RFQ
               </a>
@@ -354,7 +354,7 @@ export default function Garments() {
           <div className="absolute bottom-10 right-8 hidden lg:flex items-center gap-8">
             {['Bangladesh Based', '15+ Export Markets', 'ISO Compliant'].map((tag) => (
               <div key={tag} className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full" style={{ background: ACCENT }} />
+                <div className="w-1.5 h-1.5 rounded-full" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="text-slate-400 text-xs tracking-wide">{tag}</span>
               </div>
             ))}
@@ -366,7 +366,7 @@ export default function Garments() {
       <MetricsBar metrics={metrics} accentHex={ACCENT} dark />
 
       {/* ── 3. DIVISION OVERVIEW / VISION ─────────────────── */}
-      <section id="overview" className="py-24 bg-white">
+      <section id="overview" className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             {/* Left — rich text */}
@@ -377,7 +377,7 @@ export default function Garments() {
                   Division Overview
                 </span>
               </div>
-              <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight mb-6">
+              <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-6">
                 Manufacturing<br />Leadership at Scale
               </h2>
               <p className="text-slate-600 leading-relaxed mb-5">
@@ -394,7 +394,7 @@ export default function Garments() {
                   <span
                     key={tag}
                     className="px-3 py-1.5 text-xs font-medium rounded-full border"
-                    style={{ color: ACCENT, borderColor: `${ACCENT}40`, background: `${ACCENT}08` }}
+                    style={{ color: ACCENT, borderColor: `color-mix(in srgb, ${ACCENT} 25%, transparent)`, background: `color-mix(in srgb, ${ACCENT} 3%, transparent)` }}
                   >
                     {tag}
                   </span>
@@ -412,15 +412,15 @@ export default function Garments() {
               ].map((pillar) => (
                 <div
                   key={pillar.title}
-                  className="p-6 rounded-2xl border border-slate-100 bg-white hover:border-rose-100 hover:shadow-lg transition-all group"
+                  className="p-6 rounded-2xl border border-slate-100 bg-surface-2 hover:border-rose-100 hover:shadow-lg transition-all group"
                 >
                   <div
                     className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:scale-105 transition-transform"
-                    style={{ background: `${ACCENT}10` }}
+                    style={{ background: `color-mix(in srgb, ${ACCENT} 6%, transparent)` }}
                   >
                     {pillar.icon}
                   </div>
-                  <h3 className="font-display text-base text-navy mb-2">{pillar.title}</h3>
+                  <h3 className="font-display text-base text-fg mb-2">{pillar.title}</h3>
                   <p className="text-slate-500 text-xs leading-relaxed">{pillar.desc}</p>
                 </div>
               ))}
@@ -430,7 +430,7 @@ export default function Garments() {
       </section>
 
       {/* ── 4. PRODUCT CATEGORIES ─────────────────────────── */}
-      <section className="py-24 bg-neutral">
+      <section className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14">
             <div>
@@ -440,7 +440,7 @@ export default function Garments() {
                   Product Portfolio
                 </span>
               </div>
-              <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight">
+              <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight">
                 Six Core<br />Category Verticals
               </h2>
             </div>
@@ -454,17 +454,17 @@ export default function Garments() {
               <div
                 key={cat.name}
                 className="group p-7 rounded-2xl border transition-all hover:shadow-xl hover:-translate-y-1 cursor-default"
-                style={{ background: `${ACCENT}06`, borderColor: `${ACCENT}20` }}
+                style={{ background: `color-mix(in srgb, ${ACCENT} 2%, transparent)`, borderColor: `color-mix(in srgb, ${ACCENT} 13%, transparent)` }}
               >
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform"
-                  style={{ color: ACCENT, background: `${ACCENT}12` }}
+                  style={{ color: ACCENT, background: `color-mix(in srgb, ${ACCENT} 7%, transparent)` }}
                 >
                   {cat.icon}
                 </div>
-                <h3 className="font-display text-lg text-navy mb-2">{cat.name}</h3>
+                <h3 className="font-display text-lg text-fg mb-2">{cat.name}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{cat.desc}</p>
-                <div className="mt-5 h-px" style={{ background: `${ACCENT}25` }} />
+                <div className="mt-5 h-px" style={{ background: `color-mix(in srgb, ${ACCENT} 15%, transparent)` }} />
               </div>
             ))}
           </div>
@@ -494,11 +494,11 @@ export default function Garments() {
               <div
                 key={pillar.title}
                 className="p-7 rounded-2xl group hover:-translate-y-1 transition-all"
-                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+                style={{ background: 'var(--fill-2)', border: 'var(--border-subtle)' }}
               >
                 <div
                   className="w-14 h-14 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform"
-                  style={{ color: ACCENT, background: `${ACCENT}15`, border: `1px solid ${ACCENT}25` }}
+                  style={{ color: ACCENT, background: `color-mix(in srgb, ${ACCENT} 8%, transparent)`, border: `1px solid color-mix(in srgb, ${ACCENT} 15%, transparent)` }}
                 >
                   {pillar.icon}
                 </div>
@@ -517,7 +517,7 @@ export default function Garments() {
                 <div key={stage} className="flex items-center">
                   <div
                     className="px-4 py-2.5 rounded-lg text-[11px] font-semibold text-white"
-                    style={{ background: i === 0 || i === arr.length - 1 ? ACCENT : 'rgba(255,255,255,0.06)', border: `1px solid ${i === 0 || i === arr.length - 1 ? ACCENT : 'rgba(255,255,255,0.1)'}` }}
+                    style={{ color: i === 0 || i === arr.length - 1 ? 'var(--s0)' : 'var(--fg)', background: i === 0 || i === arr.length - 1 ? ACCENT : 'rgba(255,255,255,0.06)', border: `1px solid ${i === 0 || i === arr.length - 1 ? ACCENT : 'rgba(255,255,255,0.1)'}` }}
                   >
                     {stage}
                   </div>
@@ -567,11 +567,11 @@ export default function Garments() {
               <div
                 key={card.title}
                 className="p-8 rounded-2xl group hover:-translate-y-1 transition-all"
-                style={{ background: 'rgba(255,255,255,0.04)', border: `1px solid ${ACCENT}20` }}
+                style={{ background: 'var(--fill-2)', border: `1px solid color-mix(in srgb, ${ACCENT} 13%, transparent)` }}
               >
                 <div
                   className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
-                  style={{ color: ACCENT, background: `${ACCENT}15` }}
+                  style={{ color: ACCENT, background: `color-mix(in srgb, ${ACCENT} 8%, transparent)` }}
                 >
                   {card.icon}
                 </div>
@@ -584,11 +584,11 @@ export default function Garments() {
           {/* Ezyify integration mention */}
           <div
             className="p-6 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center gap-4"
-            style={{ background: `${ACCENT}10`, border: `1px solid ${ACCENT}25` }}
+            style={{ background: `color-mix(in srgb, ${ACCENT} 6%, transparent)`, border: `1px solid color-mix(in srgb, ${ACCENT} 15%, transparent)` }}
           >
             <div
               className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 font-display font-bold text-sm"
-              style={{ background: ACCENT, color: 'white' }}
+              style={{ background: ACCENT, color: 'var(--s0)' }}
             >
               Ez
             </div>
@@ -603,7 +603,7 @@ export default function Garments() {
       </section>
 
       {/* ── 8. FACILITIES ─────────────────────────────────── */}
-      <section className="py-24 bg-white overflow-hidden">
+      <section className="py-24 bg-surface-2 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-14 items-center">
             <div>
@@ -613,7 +613,7 @@ export default function Garments() {
                   Our Facilities
                 </span>
               </div>
-              <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight mb-6">
+              <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-6">
                 Industrial-Scale<br />Production Floors
               </h2>
               <p className="text-slate-600 leading-relaxed mb-8">
@@ -627,9 +627,9 @@ export default function Garments() {
                   { value: 'TBP', label: 'Cutting Lines', sub: 'To be published' },
                   { value: '2,000+', label: 'Sewing Stations', sub: 'Skilled operators' },
                 ].map((stat) => (
-                  <div key={stat.label} className="p-4 rounded-xl border border-slate-100 text-center bg-neutral">
-                    <div className="font-display text-xl text-navy mb-1" style={{ color: ACCENT }}>{stat.value}</div>
-                    <div className="text-navy text-[11px] font-semibold mb-0.5">{stat.label}</div>
+                  <div key={stat.label} className="p-4 rounded-xl border border-slate-100 text-center bg-surface-1">
+                    <div className="font-display text-xl text-fg mb-1" style={{ color: ACCENT }}>{stat.value}</div>
+                    <div className="text-fg text-[11px] font-semibold mb-0.5">{stat.label}</div>
                     <div className="text-slate-400 text-[10px]">{stat.sub}</div>
                   </div>
                 ))}
@@ -669,7 +669,7 @@ export default function Garments() {
       </section>
 
       {/* ── 9. QUALITY & COMPLIANCE ───────────────────────── */}
-      <section className="py-24 bg-neutral">
+      <section className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-5">
@@ -679,7 +679,7 @@ export default function Garments() {
               </span>
               <div className="h-px w-10" style={{ background: ACCENT }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight mb-4">
+            <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-4">
               Certified. Audited. Compliant.
             </h2>
             <p className="text-slate-500 text-sm max-w-xl mx-auto leading-relaxed">
@@ -691,12 +691,12 @@ export default function Garments() {
             {certifications.map((cert) => (
               <div
                 key={cert.code}
-                className="p-7 rounded-2xl bg-white border border-slate-100 hover:shadow-lg hover:border-rose-100 transition-all"
+                className="p-7 rounded-2xl bg-surface-2 border border-slate-100 hover:shadow-lg hover:border-rose-100 transition-all"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div
                     className="px-3 py-1 rounded-lg text-xs font-bold tracking-wider"
-                    style={{ background: cert.status === 'active' ? `${ACCENT}12` : 'rgba(251,191,36,0.12)', color: cert.status === 'active' ? ACCENT : '#d97706' }}
+                    style={{ background: cert.status === 'active' ? `color-mix(in srgb, ${ACCENT} 7%, transparent)` : 'rgba(251,191,36,0.12)', color: cert.status === 'active' ? ACCENT : 'var(--accent-amber)' }}
                   >
                     {cert.code}
                   </div>
@@ -710,7 +710,7 @@ export default function Garments() {
                     </svg>
                   )}
                 </div>
-                <h3 className="font-semibold text-navy text-sm mb-2">{cert.name}</h3>
+                <h3 className="font-semibold text-fg text-sm mb-2">{cert.name}</h3>
                 <p className="text-slate-500 text-xs leading-relaxed">{cert.desc}</p>
                 {cert.status === 'progress' && (
                   <div className="mt-3 text-[10px] text-amber-600 font-medium">Certification in Progress</div>
@@ -720,10 +720,10 @@ export default function Garments() {
           </div>
 
           {/* Audit compliance bar */}
-          <div className="p-8 rounded-2xl bg-white border border-slate-100">
+          <div className="p-8 rounded-2xl bg-surface-2 border border-slate-100">
             <div className="grid md:grid-cols-3 gap-6">
               <div>
-                <h3 className="font-display text-xl text-navy mb-2">Factory Audit Ready</h3>
+                <h3 className="font-display text-xl text-fg mb-2">Factory Audit Ready</h3>
                 <p className="text-slate-500 text-xs leading-relaxed">
                   All Network71 facilities maintain continuous audit readiness for BSCI, amfori, and buyer-commissioned third-party social compliance audits.
                 </p>
@@ -735,7 +735,7 @@ export default function Garments() {
                 <div key={item.label} className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style={{ background: ACCENT }} />
                   <div>
-                    <div className="text-navy font-semibold text-sm mb-1">{item.label}</div>
+                    <div className="text-fg font-semibold text-sm mb-1">{item.label}</div>
                     <div className="text-slate-400 text-xs">{item.note}</div>
                   </div>
                 </div>
@@ -769,7 +769,7 @@ export default function Garments() {
               <a
                 href="#sector-contact"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold text-white transition-all hover:opacity-90"
-                style={{ background: ACCENT }}
+                style={{ background: ACCENT, color: 'var(--s0)' }}
               >
                 Sustainability Partnership Inquiry
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -792,7 +792,7 @@ export default function Garments() {
                     <div
                       className="h-full rounded-full transition-all duration-1000"
                       style={{
-                        background: `linear-gradient(90deg, ${ACCENT}, ${ACCENT}cc)`,
+                        background: `linear-gradient(90deg, ${ACCENT}, color-mix(in srgb, ${ACCENT} 80%, transparent))`,
                         width: sustainVisible ? `${item.target}%` : '0%',
                         transitionDelay: `${i * 150}ms`,
                       }}
@@ -809,7 +809,7 @@ export default function Garments() {
       </section>
 
       {/* ── 11. SUPPLY CHAIN ──────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-5">
@@ -819,7 +819,7 @@ export default function Garments() {
               </span>
               <div className="h-px w-10" style={{ background: ACCENT }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight mb-4">
+            <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-4">
               Integrated Supply Chain<br />From Source to Buyer
             </h2>
             <p className="text-slate-500 text-sm max-w-lg mx-auto leading-relaxed">
@@ -860,10 +860,10 @@ export default function Garments() {
               return (
                 <div
                   key={col.title}
-                  className="p-6 rounded-2xl border border-slate-100 bg-white hover:border-rose-100 hover:shadow-lg transition-all text-center"
+                  className="p-6 rounded-2xl border border-slate-100 bg-surface-2 hover:border-rose-100 hover:shadow-lg transition-all text-center"
                 >
                   <div className="text-3xl mb-4">{col.icon}</div>
-                  <h3 className="font-display text-base text-navy mb-3">{col.title}</h3>
+                  <h3 className="font-display text-base text-fg mb-3">{col.title}</h3>
                   <ul className="space-y-1.5">
                     {col.items.map((item) => (
                       <li key={item} className="text-xs text-slate-500 flex items-center gap-2 justify-center">
@@ -880,11 +880,11 @@ export default function Garments() {
           {/* Bangladesh context */}
           <div
             className="p-6 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center gap-5"
-            style={{ background: `${ACCENT}06`, border: `1px solid ${ACCENT}15` }}
+            style={{ background: `color-mix(in srgb, ${ACCENT} 2%, transparent)`, border: `1px solid color-mix(in srgb, ${ACCENT} 8%, transparent)` }}
           >
             <div className="text-4xl">🇧🇩</div>
             <div className="flex-1">
-              <h4 className="font-semibold text-navy text-sm mb-1">Bangladesh — World&apos;s Premier Garment Export Hub</h4>
+              <h4 className="font-semibold text-fg text-sm mb-1">Bangladesh — World&apos;s Premier Garment Export Hub</h4>
               <p className="text-slate-500 text-xs leading-relaxed">
                 Bangladesh is the world&apos;s second-largest apparel exporter, providing Network71 with access to one of the deepest pools of skilled garment workers, established textile infrastructure, and competitive production economics.
               </p>
@@ -894,7 +894,7 @@ export default function Garments() {
       </section>
 
       {/* ── 12. KEY EXPORT MARKETS ────────────────────────── */}
-      <section className="py-24 bg-neutral">
+      <section className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row lg:items-end gap-8 mb-14">
             <div className="flex-1">
@@ -904,7 +904,7 @@ export default function Garments() {
                   Export Markets
                 </span>
               </div>
-              <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight">
+              <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight">
                 15+ Countries.<br />One Supply Chain.
               </h2>
             </div>
@@ -917,15 +917,15 @@ export default function Garments() {
             {exportMarkets.map((market) => (
               <div
                 key={market.region}
-                className="p-5 rounded-2xl bg-white border border-slate-100 hover:border-rose-100 hover:shadow-md transition-all text-center group"
+                className="p-5 rounded-2xl bg-surface-2 border border-slate-100 hover:border-rose-100 hover:shadow-md transition-all text-center group"
               >
                 <div className="text-3xl mb-3">{market.flag}</div>
-                <h3 className="font-semibold text-navy text-sm mb-1">{market.region}</h3>
+                <h3 className="font-semibold text-fg text-sm mb-1">{market.region}</h3>
                 <p className="text-slate-400 text-xs">{market.note}</p>
                 {market.tier === 'primary' && (
                   <div
                     className="mt-2.5 px-2 py-0.5 rounded-full text-[10px] font-semibold inline-block"
-                    style={{ background: `${ACCENT}12`, color: ACCENT }}
+                    style={{ background: `color-mix(in srgb, ${ACCENT} 7%, transparent)`, color: ACCENT }}
                   >
                     Primary
                   </div>
@@ -934,9 +934,9 @@ export default function Garments() {
             ))}
           </div>
 
-          <div className="p-5 rounded-xl bg-white border border-slate-100 text-center">
+          <div className="p-5 rounded-xl bg-surface-2 border border-slate-100 text-center">
             <p className="text-slate-400 text-sm">
-              Additional export markets: <span className="text-navy font-medium">Data to be published</span> — Contact the division for full market coverage details.
+              Additional export markets: <span className="text-fg font-medium">Data to be published</span> — Contact the division for full market coverage details.
             </p>
           </div>
         </div>
@@ -966,7 +966,7 @@ export default function Garments() {
               <div
                 key={buyer.title}
                 className="p-8 rounded-2xl group hover:-translate-y-1 transition-all"
-                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)' }}
+                style={{ background: 'var(--fill-2)', border: 'var(--border-subtle)' }}
               >
                 <div className="text-3xl mb-5">{buyer.icon}</div>
                 <div className="text-[10px] font-semibold tracking-widest uppercase mb-2" style={{ color: ACCENT }}>
@@ -1001,17 +1001,17 @@ export default function Garments() {
       </section>
 
       {/* ── 14. GROWTH ROADMAP ────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-start mb-14">
             <div>
               <div className="flex items-center gap-3 mb-5">
-                <div className="h-px w-10" style={{ background: ACCENT }} />
+                <div className="h-px w-10" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>
                   Growth Strategy
                 </span>
               </div>
-              <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight">
+              <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight">
                 Division Roadmap<br />2025 — 2027
               </h2>
             </div>
@@ -1024,7 +1024,7 @@ export default function Garments() {
           <div className="relative">
             {/* Connecting line */}
             <div className="hidden lg:block absolute top-8 left-[calc(1/6*100%)] right-[calc(1/6*100%)] h-px bg-slate-100" />
-            <div className="hidden lg:block absolute top-8 left-[calc(1/6*100%)] w-[calc(4/6*100%)] h-px" style={{ background: `linear-gradient(90deg, ${ACCENT}60, ${ACCENT}60)` }} />
+            <div className="hidden lg:block absolute top-8 left-[calc(1/6*100%)] w-[calc(4/6*100%)] h-px" style={{ background: `linear-gradient(90deg, color-mix(in srgb, ${ACCENT} 38%, transparent), color-mix(in srgb, ${ACCENT} 38%, transparent))` }} />
 
             <div className="grid lg:grid-cols-3 gap-8">
               {roadmap.map((item, i) => (
@@ -1033,13 +1033,13 @@ export default function Garments() {
                   <div className="flex items-center gap-4 mb-6">
                     <div
                       className="w-16 h-16 rounded-full flex items-center justify-center font-display text-xl font-bold relative z-10 flex-shrink-0"
-                      style={{ background: ACCENT, color: 'white', boxShadow: `0 0 0 4px ${ACCENT}20` }}
+                      style={{ background: ACCENT, color: 'var(--s0)', boxShadow: `0 0 0 4px color-mix(in srgb, ${ACCENT} 13%, transparent)` }}
                     >
                       {item.year.slice(2)}
                     </div>
                     <div>
                       <div className="text-slate-400 text-[10px] tracking-widest uppercase">{item.year}</div>
-                      <h3 className="font-display text-lg text-navy">{item.title}</h3>
+                      <h3 className="font-display text-lg text-fg">{item.title}</h3>
                     </div>
                   </div>
                   <p className="text-slate-500 text-sm leading-relaxed pl-0">{item.desc}</p>

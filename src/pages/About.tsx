@@ -45,12 +45,17 @@ function StatItem({
   const count = useCountUp(target, 2400, enabled)
   return (
     <div className="text-center">
-      <div className="font-display text-4xl sm:text-5xl text-white">
+      <div
+        className="font-display text-white leading-none"
+        style={{ fontSize: 'clamp(28px, 7vw, 48px)' }}
+      >
         {count}
         {suffix}
       </div>
-      <div className="text-gold text-xs font-semibold tracking-widest uppercase mt-1">{label}</div>
-      <div className="text-slate-500 text-xs mt-0.5">{sub}</div>
+      <div className="text-gold text-[10px] sm:text-xs font-semibold tracking-[0.16em] sm:tracking-widest uppercase mt-1.5 leading-tight">
+        {label}
+      </div>
+      <div className="text-slate-500 text-[10.5px] sm:text-xs mt-1">{sub}</div>
     </div>
   )
 }
@@ -86,10 +91,10 @@ const VALUE_ICONS: Record<string, ReactNode> = {
 
 const values = [
   { title: "Integrity",      desc: "Honest dealings in every market we serve.",       color: '#C8962A' },
-  { title: "Innovation",     desc: "Technology and fresh thinking at our core.",       color: '#22D3EE' },
-  { title: "Collaboration",  desc: "Partners, teams, and communities unified.",        color: '#0D9488' },
+  { title: "Innovation",     desc: "Technology and fresh thinking at our core.",       color: 'var(--accent-cyan)' },
+  { title: "Collaboration",  desc: "Partners, teams, and communities unified.",        color: 'var(--accent-teal)' },
   { title: "Excellence",     desc: "World-class standards across all divisions.",      color: '#C8962A' },
-  { title: "Sustainability", desc: "Building responsibly for future generations.",     color: '#0D9488' },
+  { title: "Sustainability", desc: "Building responsibly for future generations.",     color: 'var(--accent-teal)' },
 ]
 
 const timeline = [
@@ -127,24 +132,37 @@ export default function About() {
       <Header />
 
       {/* ── Hero ──────────────────────────────────────────────────────────────── */}
-      <section className="relative bg-navy pt-32 pb-20 overflow-hidden">
+      <section
+        className="relative bg-navy overflow-hidden"
+        style={{
+          /* Clear the fixed header on every device rather than a flat pt-32 */
+          paddingTop: 'calc(var(--header-h) + clamp(36px, 8vw, 72px))',
+          paddingBottom: 'clamp(44px, 9vw, 80px)',
+        }}
+      >
         <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
-        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-gold/5 blur-3xl pointer-events-none" />
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+        <div
+          className="absolute -top-24 -right-24 rounded-full bg-gold/5 blur-3xl pointer-events-none"
+          style={{ width: 'min(384px, 80vw)', aspectRatio: '1' }}
+        />
+        <div className="relative container-page">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs text-slate-500 mb-8">
-            <Link to="/" className="hover:text-gold transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-slate-400">About</span>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-500 mb-6 sm:mb-8">
+            <Link to="/" className="tap-inline hover:text-gold transition-colors">Home</Link>
+            <span aria-hidden="true">/</span>
+            <span className="text-slate-400" aria-current="page">About</span>
+          </nav>
+          <div className="flex items-center gap-3 mb-4 sm:mb-5">
+            <div className="h-px w-8 sm:w-12 bg-gold shrink-0" />
+            <span className="font-mono text-[8px] tracking-[0.22em] sm:text-[9px] sm:tracking-[0.35em] text-gold uppercase font-medium">Our Story</span>
           </div>
-          <div className="flex items-center gap-3 mb-5">
-            <div className="h-px w-12 bg-gold" />
-            <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Our Story</span>
-          </div>
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.05] tracking-[-0.02em] mb-6">
+          <h1
+            className="font-display text-white leading-[1.06] tracking-[-0.02em] mb-4 sm:mb-6"
+            style={{ fontSize: 'clamp(34px, 8.5vw, 72px)' }}
+          >
             About Network71
           </h1>
-          <p className="text-slate-300 text-xl max-w-xl leading-relaxed">
+          <p className="text-slate-300 max-w-xl leading-relaxed" style={{ fontSize: 'clamp(15px, 3.8vw, 20px)' }}>
             {"Building tomorrow's global enterprise, today."}
           </p>
         </div>
@@ -152,8 +170,8 @@ export default function About() {
 
       {/* ── Stats bar ─────────────────────────────────────────────────────────── */}
       <section className="bg-navy-dark border-y border-white/8">
-        <div ref={statsRef} className="max-w-7xl mx-auto px-6 lg:px-8 py-14">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
+        <div ref={statsRef} className="container-page py-9 sm:py-14">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-8 sm:gap-10">
             {statsData.map((s) => (
               <StatItem
                 key={s.label}
@@ -169,50 +187,63 @@ export default function About() {
       </section>
 
       {/* ── Company story ─────────────────────────────────────────────────────── */}
-      <section className="bg-navy py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <section className="bg-navy section-y">
+        <div className="container-page">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div>
-              <div className="flex items-center gap-3 mb-5">
-                <div className="h-px w-12 bg-gold" />
-                <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Our Origins</span>
+              <div className="flex items-center gap-3 mb-4 sm:mb-5">
+                <div className="h-px w-8 sm:w-12 bg-gold shrink-0" />
+                <span className="font-mono text-[8px] tracking-[0.22em] sm:text-[9px] sm:tracking-[0.35em] text-gold uppercase font-medium">Our Origins</span>
               </div>
-              <h2 className="font-display text-4xl sm:text-5xl text-white mb-6 leading-tight tracking-[-0.02em]">
+              <h2
+                className="font-display text-white mb-5 sm:mb-6 leading-tight tracking-[-0.02em]"
+                style={{ fontSize: 'clamp(26px, 6vw, 48px)' }}
+              >
                 From Dhaka to the World
               </h2>
-              <p className="text-slate-400 leading-relaxed mb-5">
+              <p className="text-slate-400 leading-relaxed mb-4 sm:mb-5 text-[14px] sm:text-base">
                 Network71 was founded in 2018 in Dhaka, Bangladesh. What began as a trading company with a clear vision quickly grew into one of the region's most ambitious diversified enterprises — spanning eight distinct industry sectors across 25+ countries.
               </p>
-              <p className="text-slate-400 leading-relaxed mb-5">
+              <p className="text-slate-400 leading-relaxed mb-4 sm:mb-5 text-[14px] sm:text-base">
                 Our journey is rooted in a belief that emerging markets hold extraordinary potential. By combining local expertise with global networks, we have built bridges between communities, businesses, and opportunity on a scale rarely seen from South Asia.
               </p>
-              <p className="text-slate-400 leading-relaxed">
+              <p className="text-slate-400 leading-relaxed text-[14px] sm:text-base">
                 Today, Network71 operates eight business divisions — from garments and agriculture to technology and maritime — united by a shared commitment to excellence, sustainability, and long-term value creation for every stakeholder we serve.
               </p>
             </div>
+            {/*
+              Photo panel with the division list laid over it. Kept as a
+              permanently dark card in both themes so the white list text and
+              the photograph stay legible — hence `force-dark`.
+            */}
             <div className="relative">
-              <div className="relative overflow-hidden rounded-2xl" style={{ minHeight: 420 }}>
+              <div className="relative overflow-hidden rounded-2xl force-dark min-h-[340px] sm:min-h-[400px] lg:min-h-[420px]">
                 {/* Background image */}
                 <img
                   src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=700&fit=crop&auto=format"
                   alt="Network71 global headquarters"
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(4,8,14,0.88) 0%, rgba(4,8,14,0.75) 60%, rgba(4,8,14,0.55) 100%)' }} />
+                <div
+                  className="absolute inset-0"
+                  style={{ background: 'linear-gradient(135deg, rgb(4 8 14 / 0.90) 0%, rgb(4 8 14 / 0.78) 60%, rgb(4 8 14 / 0.58) 100%)' }}
+                />
                 {/* Content overlay */}
-                <div className="relative p-10">
-                  <div className="grid grid-cols-2 gap-4">
+                <div className="relative p-6 sm:p-8 lg:p-10">
+                  <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-x-4 gap-y-3 sm:gap-4">
                     {["Garments & Apparel", "Agriculture & Agro", "Food & Beverage", "Oils & Energy", "IT & Software", "Global Trading", "Media", "eSHIPe Maritime"].map((div) => (
-                      <div key={div} className="flex items-center gap-3">
+                      <div key={div} className="flex items-center gap-2.5 sm:gap-3">
                         <div className="w-2 h-2 rounded-full bg-gold flex-shrink-0" />
-                        <span className="text-slate-200 text-sm">{div}</span>
+                        <span className="text-slate-200 text-[13px] sm:text-sm">{div}</span>
                       </div>
                     ))}
                   </div>
-                  <div className="mt-8 pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.12)' }}>
-                    <p className="text-xs text-slate-400 uppercase tracking-widest">Active Divisions</p>
-                    <p className="font-display text-4xl text-gold mt-1">8 Divisions</p>
-                    <p className="text-slate-400 text-xs mt-1">Across 25+ countries globally</p>
+                  <div className="mt-6 pt-5 sm:mt-8 sm:pt-6 border-t border-white/12">
+                    <p className="text-[10.5px] sm:text-xs text-slate-400 uppercase tracking-widest">Active Divisions</p>
+                    <p className="font-display text-3xl sm:text-4xl text-gold mt-1">8 Divisions</p>
+                    <p className="text-slate-400 text-[10.5px] sm:text-xs mt-1">Across 25+ countries globally</p>
                   </div>
                 </div>
               </div>
@@ -222,41 +253,43 @@ export default function About() {
       </section>
 
       {/* ── Vision / Mission ──────────────────────────────────────────────────── */}
-      <section className="bg-navy-dark py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-12 bg-gold" />
-              <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Purpose</span>
-              <div className="h-px w-12 bg-gold" />
+      <section className="bg-navy-dark section-y">
+        <div className="container-page">
+          <div className="text-center mb-9 sm:mb-14">
+            <div className="flex items-center justify-center gap-2.5 sm:gap-3 mb-4">
+              <div className="h-px w-8 sm:w-12 bg-gold" />
+              <span className="font-mono text-[8px] tracking-[0.22em] sm:text-[9px] sm:tracking-[0.35em] text-gold uppercase font-medium">Purpose</span>
+              <div className="h-px w-8 sm:w-12 bg-gold" />
             </div>
-            <h2 className="font-display text-4xl sm:text-5xl text-white tracking-[-0.02em]">Vision & Mission</h2>
+            <h2 className="font-display text-white tracking-[-0.02em]" style={{ fontSize: 'clamp(26px, 6vw, 48px)' }}>
+              Vision &amp; Mission
+            </h2>
           </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-navy border border-white/8 rounded-2xl p-10 relative overflow-hidden group hover:border-gold/30 transition-colors duration-300">
-              <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-gold/5 blur-2xl pointer-events-none group-hover:bg-gold/8 transition-colors duration-300" />
-              <div className="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+          <div className="grid md:grid-cols-2 gap-5 sm:gap-8">
+            <div className="bg-navy border border-white/8 rounded-2xl p-6 sm:p-8 lg:p-10 relative overflow-hidden group hover:border-gold/30 transition-colors duration-300">
+              <div className="absolute -top-10 -right-10 w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gold/5 blur-2xl pointer-events-none group-hover:bg-gold/8 transition-colors duration-300" />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 bg-gold/10 rounded-xl flex items-center justify-center mb-5 sm:mb-6">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178z" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
-              <p className="text-gold text-xs font-semibold tracking-widest uppercase mb-3">Vision</p>
-              <h3 className="font-display text-2xl text-white mb-4">Leading Multinational</h3>
-              <p className="text-slate-400 leading-relaxed">
+              <p className="text-gold text-[10.5px] sm:text-xs font-semibold tracking-[0.16em] sm:tracking-widest uppercase mb-3">Vision</p>
+              <h3 className="font-display text-xl sm:text-2xl text-white mb-3 sm:mb-4">Leading Multinational</h3>
+              <p className="text-slate-400 leading-relaxed text-[14px] sm:text-base">
                 To be a leading multinational enterprise driving economic transformation across emerging markets.
               </p>
             </div>
-            <div className="bg-navy border border-white/8 rounded-2xl p-10 relative overflow-hidden group hover:border-gold/30 transition-colors duration-300">
-              <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-teal/5 blur-2xl pointer-events-none group-hover:bg-teal/8 transition-colors duration-300" />
-              <div className="w-12 h-12 bg-teal/10 rounded-xl flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+            <div className="bg-navy border border-white/8 rounded-2xl p-6 sm:p-8 lg:p-10 relative overflow-hidden group hover:border-gold/30 transition-colors duration-300">
+              <div className="absolute -top-10 -right-10 w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-teal/5 blur-2xl pointer-events-none group-hover:bg-teal/8 transition-colors duration-300" />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 bg-teal/10 rounded-xl flex items-center justify-center mb-5 sm:mb-6">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
                 </svg>
               </div>
-              <p className="text-gold text-xs font-semibold tracking-widest uppercase mb-3">Mission</p>
-              <h3 className="font-display text-2xl text-white mb-4">Sustainable Value</h3>
-              <p className="text-slate-400 leading-relaxed">
+              <p className="text-gold text-[10.5px] sm:text-xs font-semibold tracking-[0.16em] sm:tracking-widest uppercase mb-3">Mission</p>
+              <h3 className="font-display text-xl sm:text-2xl text-white mb-3 sm:mb-4">Sustainable Value</h3>
+              <p className="text-slate-400 leading-relaxed text-[14px] sm:text-base">
                 To create sustainable value through diversified industry leadership, innovation, and global connectivity.
               </p>
             </div>
@@ -265,59 +298,82 @@ export default function About() {
       </section>
 
       {/* ── CEO Quote ─────────────────────────────────────────────────────────── */}
-      <section className="bg-navy py-24 relative overflow-hidden">
+      <section className="bg-navy section-y relative overflow-hidden">
         <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gold/4 blur-3xl pointer-events-none" />
-        <div className="relative max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <div className="font-display text-[120px] leading-none text-gold/15 select-none mb-[-2rem]">"</div>
-          <blockquote className="font-display text-2xl sm:text-3xl lg:text-4xl text-white leading-snug mb-10">
+        <div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/4 blur-3xl pointer-events-none"
+          style={{ width: 'min(600px, 110vw)', aspectRatio: '1' }}
+        />
+        <div className="relative container-page max-w-4xl text-center">
+          <div
+            className="font-display leading-none text-gold select-none"
+            style={{ fontSize: 'clamp(72px, 16vw, 120px)', marginBottom: 'clamp(-2rem, -3vw, -1rem)' }}
+            aria-hidden="true"
+          >
+            &ldquo;
+          </div>
+          <blockquote
+            className="font-display text-white leading-snug mb-7 sm:mb-10 text-balance"
+            style={{ fontSize: 'clamp(19px, 5vw, 36px)' }}
+          >
             We are building more than a company — we are building a bridge between emerging markets and global opportunity.
           </blockquote>
-          <div className="flex items-center justify-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center flex-shrink-0">
-              <span className="text-gold font-display text-lg">T</span>
+          <div className="flex items-center justify-center gap-3 sm:gap-4">
+            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center flex-shrink-0">
+              <span className="text-gold font-display text-base sm:text-lg">T</span>
             </div>
             <div className="text-left">
-              <p className="text-white font-semibold text-sm">Tanjijur Rahman Topon</p>
-              <p className="text-gold text-xs tracking-wide">Founder & CEO, Network71</p>
+              <p className="text-white font-semibold text-[13px] sm:text-sm">Tanjijur Rahman Topon</p>
+              <p className="text-gold text-[11px] sm:text-xs tracking-wide">Founder &amp; CEO, Network71</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ── Core Values ───────────────────────────────────────────────────────── */}
-      <section className="bg-navy-dark py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-12 bg-gold" />
-              <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Principles</span>
-              <div className="h-px w-12 bg-gold" />
+      <section className="bg-navy-dark section-y">
+        <div className="container-page">
+          <div className="text-center mb-9 sm:mb-14">
+            <div className="flex items-center justify-center gap-2.5 sm:gap-3 mb-4">
+              <div className="h-px w-8 sm:w-12 bg-gold" />
+              <span className="font-mono text-[8px] tracking-[0.22em] sm:text-[9px] sm:tracking-[0.35em] text-gold uppercase font-medium">Principles</span>
+              <div className="h-px w-8 sm:w-12 bg-gold" />
             </div>
-            <h2 className="font-display text-4xl sm:text-5xl text-white tracking-[-0.02em]">Core Values</h2>
+            <h2 className="font-display text-white tracking-[-0.02em]" style={{ fontSize: 'clamp(26px, 6vw, 48px)' }}>
+              Core Values
+            </h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
-            {values.map((v) => (
+          {/*
+            Five items never divide evenly. At sm/md the last card would sit
+            alone, so it is centred across both columns; from lg the row of 5
+            works as designed.
+          */}
+          <div className="grid grid-cols-1 min-[420px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-5">
+            {values.map((v, i) => (
               <div
                 key={v.title}
-                className="rounded-xl p-6 text-center group transition-all duration-300"
+                className={`rounded-xl p-5 sm:p-6 text-center group transition-all duration-300 ${
+                  i === values.length - 1
+                    ? 'min-[420px]:col-span-2 min-[420px]:max-w-sm min-[420px]:mx-auto min-[420px]:w-full md:col-span-1 md:max-w-none'
+                    : ''
+                }`}
                 style={{
-                  background: 'rgba(255,255,255,0.028)',
-                  border: '1px solid rgba(255,255,255,0.07)',
+                  background: 'var(--fill-1)',
+                  border: '1px solid var(--line-strong)',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = `${v.color}30`; e.currentTarget.style.background = 'rgba(255,255,255,0.042)' }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'; e.currentTarget.style.background = 'rgba(255,255,255,0.028)' }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = `color-mix(in srgb, ${v.color} 19%, transparent)`; e.currentTarget.style.background = 'var(--fill-2)' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--line-strong)'; e.currentTarget.style.background = 'var(--fill-1)' }}
               >
                 <div style={{
-                  width: 44, height: 44, borderRadius: 11,
-                  background: `${v.color}14`, border: `1px solid ${v.color}28`,
+                  width: 42, height: 42, borderRadius: 11,
+                  background: `color-mix(in srgb, ${v.color} 8%, transparent)`, border: `1px solid color-mix(in srgb, ${v.color} 16%, transparent)`,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   margin: '0 auto 14px', color: v.color,
                 }}>
                   {VALUE_ICONS[v.title]}
                 </div>
-                <h3 className="font-display text-base text-white mb-2" style={{ letterSpacing: '-0.01em' }}>{v.title}</h3>
-                <p className="text-slate-500 text-xs leading-relaxed">{v.desc}</p>
+                <h3 className="font-display text-[15px] sm:text-base text-white mb-2" style={{ letterSpacing: '-0.01em' }}>{v.title}</h3>
+                <p className="text-slate-500 text-[11.5px] sm:text-xs leading-relaxed">{v.desc}</p>
               </div>
             ))}
           </div>
@@ -325,38 +381,44 @@ export default function About() {
       </section>
 
       {/* ── Leadership teaser ─────────────────────────────────────────────────── */}
-      <section className="bg-navy py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
+      <section className="bg-navy section-y">
+        <div className="container-page">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-8 sm:mb-12 gap-5 sm:gap-4">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="h-px w-12 bg-gold" />
-                <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Team</span>
+                <div className="h-px w-8 sm:w-12 bg-gold shrink-0" />
+                <span className="font-mono text-[8px] tracking-[0.22em] sm:text-[9px] sm:tracking-[0.35em] text-gold uppercase font-medium">Team</span>
               </div>
-              <h2 className="font-display text-4xl sm:text-5xl text-white tracking-[-0.02em]">Leadership</h2>
+              <h2 className="font-display text-white tracking-[-0.02em]" style={{ fontSize: 'clamp(26px, 6vw, 48px)' }}>
+                Leadership
+              </h2>
             </div>
             <Link
               to="/leadership"
-              className="text-sm text-gold border border-gold/30 px-5 py-2.5 rounded hover:bg-gold/10 transition-colors"
+              className="inline-flex items-center justify-center text-[13px] sm:text-sm text-gold border border-gold/30 px-5 py-2.5 rounded-lg hover:bg-gold/10 transition-colors self-start sm:self-auto shrink-0"
             >
               View Full Team →
             </Link>
           </div>
-          <div className="grid sm:grid-cols-3 gap-8">
+          <div className="grid min-[420px]:grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {[
               { name: "Tanjijur Rahman Topon", title: "Founder & CEO" },
               { name: "To Be Announced", title: "Executive Director" },
               { name: "To Be Announced", title: "Chief Operating Officer" },
             ].map((person) => (
               <div key={person.title} className="bg-navy-light border border-white/8 rounded-2xl overflow-hidden group hover:border-gold/25 transition-colors duration-300">
-                <div className="w-full h-52 bg-slate-800/60 flex items-center justify-center">
-                  <svg className="w-16 h-16 text-slate-700" fill="currentColor" viewBox="0 0 24 24">
+                {/* Placeholder portrait — uses fill tokens so it reads in both themes */}
+                <div
+                  className="w-full h-40 sm:h-48 lg:h-52 flex items-center justify-center"
+                  style={{ background: 'var(--fill-2)' }}
+                >
+                  <svg className="w-12 h-12 sm:w-16 sm:h-16" fill="currentColor" viewBox="0 0 24 24" style={{ color: 'var(--fg-faint)' }}>
                     <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
                   </svg>
                 </div>
-                <div className="p-6">
-                  <h3 className="font-display text-lg text-white mb-1 group-hover:text-gold transition-colors">{person.name}</h3>
-                  <p className="text-gold text-xs tracking-wide">{person.title}</p>
+                <div className="p-4 sm:p-5 lg:p-6">
+                  <h3 className="font-display text-base sm:text-lg text-white mb-1 group-hover:text-gold transition-colors">{person.name}</h3>
+                  <p className="text-gold text-[11px] sm:text-xs tracking-wide">{person.title}</p>
                 </div>
               </div>
             ))}
@@ -365,65 +427,96 @@ export default function About() {
       </section>
 
       {/* ── Timeline ──────────────────────────────────────────────────────────── */}
-      <section className="bg-navy-dark py-24">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-12 bg-gold" />
-              <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">History</span>
-              <div className="h-px w-12 bg-gold" />
+      <section className="bg-navy-dark section-y">
+        <div className="container-page max-w-5xl">
+          <div className="text-center mb-9 sm:mb-16">
+            <div className="flex items-center justify-center gap-2.5 sm:gap-3 mb-4">
+              <div className="h-px w-8 sm:w-12 bg-gold" />
+              <span className="font-mono text-[8px] tracking-[0.22em] sm:text-[9px] sm:tracking-[0.35em] text-gold uppercase font-medium">History</span>
+              <div className="h-px w-8 sm:w-12 bg-gold" />
             </div>
-            <h2 className="font-display text-4xl sm:text-5xl text-white tracking-[-0.02em]">Our Journey</h2>
+            <h2 className="font-display text-white tracking-[-0.02em]" style={{ fontSize: 'clamp(26px, 6vw, 48px)' }}>
+              Our Journey
+            </h2>
           </div>
 
+          {/*
+            Two timeline treatments:
+              < md  → single left-hand spine with inline markers, so entries
+                      stay visually connected (previously the spine and the
+                      numbered dots were simply hidden on mobile).
+              ≥ md  → original alternating left/right layout.
+          */}
           <div className="relative">
-            {/* Center line */}
-            <div className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-px bg-white/10 hidden md:block" />
+            {/* Spine — left on mobile, centred on desktop */}
+            <div className="absolute top-0 bottom-0 w-px bg-white/10 left-[15px] md:left-1/2 md:-translate-x-px" />
 
-            <div className="space-y-12">
+            <ol className="space-y-7 sm:space-y-10 md:space-y-12 list-none m-0 p-0">
               {timeline.map((entry, i) => (
-                <div key={entry.year} className={`relative flex flex-col md:flex-row items-center gap-6 ${entry.side === "right" ? "md:flex-row-reverse" : ""}`}>
+                <li
+                  key={entry.year}
+                  className={`relative flex items-start gap-4 md:items-center md:gap-6 ${
+                    entry.side === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'
+                  }`}
+                >
+                  {/* Mobile marker — sits on the left spine */}
+                  <div
+                    className="md:hidden relative z-10 flex w-8 h-8 shrink-0 items-center justify-center rounded-full border-2 border-gold bg-navy-dark"
+                    aria-hidden="true"
+                  >
+                    <span className="font-display text-gold text-[10px]">{i + 1}</span>
+                  </div>
+
                   {/* Content box */}
-                  <div className="md:w-[45%]">
-                    <div className={`bg-navy border border-white/8 rounded-xl p-6 hover:border-gold/25 transition-colors duration-300 ${entry.side === "right" ? "md:text-right" : ""}`}>
-                      <p className="text-gold text-xs font-semibold tracking-widest uppercase mb-2">{entry.year}</p>
-                      <h3 className="font-display text-xl text-white mb-2">{entry.title}</h3>
-                      <p className="text-slate-500 text-sm">{entry.detail}</p>
+                  <div className="min-w-0 flex-1 md:flex-none md:w-[45%]">
+                    <div className={`bg-navy border border-white/8 rounded-xl p-4 sm:p-5 md:p-6 hover:border-gold/25 transition-colors duration-300 ${entry.side === 'right' ? 'md:text-right' : ''}`}>
+                      <p className="text-gold text-[10.5px] sm:text-xs font-semibold tracking-[0.16em] sm:tracking-widest uppercase mb-2">{entry.year}</p>
+                      <h3 className="font-display text-lg sm:text-xl text-white mb-2">{entry.title}</h3>
+                      <p className="text-slate-500 text-[13px] sm:text-sm leading-relaxed">{entry.detail}</p>
                     </div>
                   </div>
 
-                  {/* Center dot */}
-                  <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-navy-dark border-2 border-gold items-center justify-center z-10">
+                  {/* Desktop centre dot */}
+                  <div
+                    className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-navy-dark border-2 border-gold items-center justify-center z-10"
+                    aria-hidden="true"
+                  >
                     <span className="font-display text-gold text-xs">{i + 1}</span>
                   </div>
 
-                  {/* Spacer */}
+                  {/* Spacer keeps the alternating columns balanced */}
                   <div className="hidden md:block md:w-[45%]" />
-                </div>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
         </div>
       </section>
 
       {/* ── CTA Banner ────────────────────────────────────────────────────────── */}
-      <section className="bg-navy py-20 relative overflow-hidden">
+      <section className="bg-navy section-y relative overflow-hidden">
         <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
-        <div className="relative max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="font-display text-4xl sm:text-5xl text-white mb-4 tracking-[-0.02em]">Join Our Global Team</h2>
-          <p className="text-slate-400 text-lg mb-10">
+        <div className="relative container-page max-w-4xl text-center">
+          <h2
+            className="font-display text-white mb-3 sm:mb-4 tracking-[-0.02em]"
+            style={{ fontSize: 'clamp(26px, 6vw, 48px)' }}
+          >
+            Join Our Global Team
+          </h2>
+          <p className="text-slate-400 mb-7 sm:mb-10" style={{ fontSize: 'clamp(14.5px, 3.6vw, 18px)' }}>
             {"Be part of the team that's shaping the future of emerging markets."}
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-col min-[400px]:flex-row min-[400px]:flex-wrap justify-center gap-3 sm:gap-4">
             <Link
               to="/careers"
-              className="px-8 py-3.5 bg-gold text-navy text-sm font-semibold rounded hover:bg-gold-light transition-colors shadow-lg shadow-gold/20"
+              className="inline-flex items-center justify-center px-7 sm:px-8 py-3.5 bg-gold text-[13px] sm:text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors shadow-lg shadow-gold/20"
+              style={{ color: 'var(--fg-onbrand)' }}
             >
               Explore Careers
             </Link>
             <Link
               to="/contact"
-              className="px-8 py-3.5 border border-white/20 text-white text-sm font-medium rounded hover:bg-white/5 hover:border-white/40 transition-colors"
+              className="inline-flex items-center justify-center px-7 sm:px-8 py-3.5 border border-white/20 text-white text-[13px] sm:text-sm font-medium rounded-lg hover:bg-white/5 hover:border-white/40 transition-colors"
             >
               Get in Touch
             </Link>

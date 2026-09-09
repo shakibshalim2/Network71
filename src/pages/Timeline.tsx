@@ -66,7 +66,7 @@ export default function Timeline() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-24 relative">
           <div className="flex items-center gap-3 mb-6">
             <div className="h-px w-10 bg-gold" />
-            <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Our Story</span>
+            <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Our Story</span>
           </div>
           <h1 className="font-display text-5xl lg:text-6xl text-white mb-5 tracking-[-0.02em]">Our Journey</h1>
           <p className="text-slate-300 text-lg max-w-xl leading-relaxed">
@@ -89,7 +89,7 @@ export default function Timeline() {
                   {/* Year badge */}
                   <div className="flex flex-col items-center gap-0">
                     <div className="w-14 h-14 rounded-full bg-gold flex items-center justify-center flex-shrink-0 shadow-lg shadow-gold/20">
-                      <span className="text-navy font-display font-bold text-xs leading-tight text-center">{entry.year}</span>
+                      <span className="text-on-brand font-display font-bold text-xs leading-tight text-center">{entry.year}</span>
                     </div>
                     {i < entries.length - 1 && <div className="flex-1 w-px bg-white/10 mt-2 min-h-[40px]" />}
                   </div>
@@ -125,7 +125,7 @@ export default function Timeline() {
                     {/* Year badge centred */}
                     <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 z-10 pb-12">
                       <div className="w-16 h-16 rounded-full bg-gold border-4 border-navy flex items-center justify-center shadow-lg shadow-gold/25">
-                        <span className="text-navy font-display font-bold text-xs leading-tight text-center">{entry.year}</span>
+                        <span className="text-on-brand font-display font-bold text-xs leading-tight text-center">{entry.year}</span>
                       </div>
                     </div>
                     {/* Right spacer */}
@@ -138,7 +138,7 @@ export default function Timeline() {
                     {/* Year badge centred */}
                     <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 z-10 pb-12">
                       <div className="w-16 h-16 rounded-full bg-gold border-4 border-navy flex items-center justify-center shadow-lg shadow-gold/25">
-                        <span className="text-navy font-display font-bold text-xs leading-tight text-center">{entry.year}</span>
+                        <span className="text-on-brand font-display font-bold text-xs leading-tight text-center">{entry.year}</span>
                       </div>
                     </div>
                     {/* Right content */}
@@ -173,7 +173,7 @@ export default function Timeline() {
           </div>
           <Link
             to="/about"
-            className="flex-shrink-0 px-8 py-3.5 bg-gold text-navy text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors shadow-lg shadow-gold/20"
+            className="flex-shrink-0 px-8 py-3.5 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors shadow-lg shadow-gold/20"
           >
             About Network71
           </Link>

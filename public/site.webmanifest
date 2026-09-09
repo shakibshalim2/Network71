@@ -1,0 +1,18 @@
+{
+  "name": "Network71 Global Group",
+  "short_name": "Network71",
+  "description": "A diversified global enterprise operating across eight industries in 25+ countries.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#04080E",
+  "theme_color": "#04080E",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -4,7 +4,7 @@ import MetricsBar from '@/components/sector/MetricsBar'
 import SectorContact from '@/components/sector/SectorContact'
 import Footer from '@/components/Footer'
 
-const ACCENT = '#3b82f6'
+const ACCENT = 'var(--accent-blue)'
 
 const metrics = [
   { value: '25+', label: 'Countries', desc: 'Global trade network reach' },
@@ -176,11 +176,11 @@ const roadmap = [
 
 export default function Trading() {
   return (
-    <div className="min-h-full bg-navy">
+    <div className="sector-page min-h-full bg-navy">
       <SectorHeader divisionName="Global Trading" accentClass="text-blue-400" />
 
       {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      <section className="force-dark sector-hero relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1400&h=800&fit=crop&auto=format"
@@ -193,16 +193,16 @@ export default function Trading() {
           <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 50% at 30% 60%, rgba(59,130,246,0.12) 0%, transparent 70%)' }} />
           {/* Dashed trade route lines decorative */}
           <svg className="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 1400 800" fill="none" preserveAspectRatio="xMidYMid slice">
-            <line x1="0" y1="600" x2="1400" y2="200" stroke="#3b82f6" strokeWidth="1" strokeDasharray="8 6" />
-            <line x1="0" y1="400" x2="1400" y2="500" stroke="#3b82f6" strokeWidth="1" strokeDasharray="6 8" />
-            <line x1="200" y1="0" x2="800" y2="800" stroke="#3b82f6" strokeWidth="0.5" strokeDasharray="4 10" />
+            <line x1="0" y1="600" x2="1400" y2="200" stroke="var(--accent-blue)" strokeWidth="1" strokeDasharray="8 6" />
+            <line x1="0" y1="400" x2="1400" y2="500" stroke="var(--accent-blue)" strokeWidth="1" strokeDasharray="6 8" />
+            <line x1="200" y1="0" x2="800" y2="800" stroke="var(--accent-blue)" strokeWidth="0.5" strokeDasharray="4 10" />
           </svg>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-32">
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-10" style={{ background: ACCENT }} />
+              <div className="h-px w-10" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>
                 Network71 — Global Trading &amp; Imports
               </span>
@@ -218,7 +218,7 @@ export default function Trading() {
               <a
                 href="#sector-contact"
                 className="px-8 py-3.5 font-semibold text-sm text-white rounded-lg transition-all hover:opacity-90"
-                style={{ background: ACCENT }}
+                style={{ background: ACCENT, color: 'var(--s0)' }}
               >
                 Trade Inquiry
               </a>
@@ -241,7 +241,7 @@ export default function Trading() {
               <div
                 key={s.lab}
                 className="flex items-center gap-3 px-4 py-2.5 rounded-xl border"
-                style={{ background: 'rgba(10,20,45,0.8)', borderColor: `${ACCENT}30`, backdropFilter: 'blur(8px)' }}
+                style={{ background: 'rgba(10,20,45,0.8)', borderColor: `color-mix(in srgb, ${ACCENT} 19%, transparent)`, backdropFilter: 'blur(8px)' }}
               >
                 <span className="font-display text-lg font-bold" style={{ color: ACCENT }}>{s.val}</span>
                 <span className="text-slate-300 text-xs">{s.lab}</span>
@@ -255,16 +255,16 @@ export default function Trading() {
       <MetricsBar metrics={metrics} accentHex={ACCENT} dark />
 
       {/* ── 3. DIVISION OVERVIEW ────────────────────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             {/* Left: Vision text */}
             <div>
               <div className="flex items-center gap-3 mb-5">
-                <div className="h-px w-8" style={{ background: ACCENT }} />
+                <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Division Overview</span>
               </div>
-              <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight mb-6">
+              <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-6">
                 Bridging Producing Nations and Consuming Markets
               </h2>
               <p className="text-slate-500 leading-relaxed mb-5">
@@ -321,15 +321,15 @@ export default function Trading() {
                 <div
                   key={pillar.title}
                   className="p-6 rounded-2xl border"
-                  style={{ borderColor: `${ACCENT}20`, background: `${ACCENT}04` }}
+                  style={{ borderColor: `color-mix(in srgb, ${ACCENT} 13%, transparent)`, background: `color-mix(in srgb, ${ACCENT} 2%, transparent)` }}
                 >
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                    style={{ background: `${ACCENT}15`, color: ACCENT }}
+                    style={{ background: `color-mix(in srgb, ${ACCENT} 8%, transparent)`, color: ACCENT }}
                   >
                     {pillar.icon}
                   </div>
-                  <h3 className="font-display text-base text-navy mb-2">{pillar.title}</h3>
+                  <h3 className="font-display text-base text-fg mb-2">{pillar.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed">{pillar.desc}</p>
                 </div>
               ))}
@@ -339,15 +339,15 @@ export default function Trading() {
       </section>
 
       {/* ── 4. TRADE CATEGORIES ─────────────────────────────────────────────── */}
-      <section id="trade-categories" className="py-24 bg-neutral">
+      <section id="trade-categories" className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>What We Trade</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy mb-4">Trade Categories</h2>
+            <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">Trade Categories</h2>
             <p className="text-slate-500 text-sm max-w-xl mx-auto">
               Six core commodity and product categories across our active global trade corridors.
             </p>
@@ -356,16 +356,16 @@ export default function Trading() {
             {tradeCategories.map((cat) => (
               <div
                 key={cat.name}
-                className="bg-white p-7 rounded-2xl border-l-4 hover:shadow-xl transition-all group cursor-default"
+                className="bg-surface-2 p-7 rounded-2xl border-l-4 hover:shadow-xl transition-all group cursor-default"
                 style={{ borderColor: ACCENT }}
               >
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                  style={{ background: `${ACCENT}12`, color: ACCENT }}
+                  style={{ background: `color-mix(in srgb, ${ACCENT} 7%, transparent)`, color: ACCENT }}
                 >
                   {cat.icon}
                 </div>
-                <h3 className="font-display text-lg text-navy mb-1.5">{cat.name}</h3>
+                <h3 className="font-display text-lg text-fg mb-1.5">{cat.name}</h3>
                 <p className="text-xs font-medium mb-3" style={{ color: ACCENT }}>{cat.volume}</p>
                 <p className="text-slate-400 text-xs">Trade lanes: {cat.lanes}</p>
               </div>
@@ -387,9 +387,9 @@ export default function Trading() {
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Global Reach</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-white mb-4">
               Our Trade Network
@@ -402,7 +402,7 @@ export default function Trading() {
           {/* SVG World Map */}
           <div
             className="relative rounded-3xl overflow-hidden border"
-            style={{ borderColor: `${ACCENT}25`, background: 'rgba(255,255,255,0.03)' }}
+            style={{ borderColor: `color-mix(in srgb, ${ACCENT} 15%, transparent)`, background: 'var(--fill-1)' }}
           >
             <svg
               viewBox="0 0 900 480"
@@ -510,15 +510,15 @@ export default function Trading() {
       </section>
 
       {/* ── 6. TRADE SERVICES ───────────────────────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>What We Do</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy mb-4">Trade Services</h2>
+            <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">Trade Services</h2>
             <p className="text-slate-500 text-sm max-w-lg mx-auto">
               Four integrated service pillars that cover every dimension of international trade.
             </p>
@@ -528,18 +528,18 @@ export default function Trading() {
               <div
                 key={svc.title}
                 className="p-8 rounded-2xl border hover:shadow-lg transition-all"
-                style={{ borderColor: `${ACCENT}18` }}
+                style={{ borderColor: `color-mix(in srgb, ${ACCENT} 9%, transparent)` }}
               >
                 <div
                   className="inline-block h-0.5 w-10 mb-5 rounded-full"
-                  style={{ background: ACCENT }}
+                  style={{ background: ACCENT, color: 'var(--s0)' }}
                 />
-                <h3 className="font-display text-xl text-navy mb-3">{svc.title}</h3>
+                <h3 className="font-display text-xl text-fg mb-3">{svc.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed mb-5">{svc.desc}</p>
                 <ul className="grid grid-cols-2 gap-y-2 gap-x-4">
                   {svc.items.map((item) => (
                     <li key={item} className="flex items-center gap-2 text-xs text-slate-500">
-                      <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT }} />
+                      <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT, color: 'var(--s0)' }} />
                       {item}
                     </li>
                   ))}
@@ -565,7 +565,7 @@ export default function Trading() {
           <div className="grid lg:grid-cols-2 gap-14 items-center">
             <div>
               <div className="flex items-center gap-3 mb-5">
-                <div className="h-px w-8" style={{ background: ACCENT }} />
+                <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Trade Compliance</span>
               </div>
               <h2 className="font-display text-4xl lg:text-5xl text-white leading-tight mb-6">
@@ -585,7 +585,7 @@ export default function Trading() {
                   <div
                     key={doc}
                     className="flex items-center gap-3 px-4 py-3 rounded-xl border"
-                    style={{ borderColor: `${ACCENT}25`, background: `${ACCENT}08` }}
+                    style={{ borderColor: `color-mix(in srgb, ${ACCENT} 15%, transparent)`, background: `color-mix(in srgb, ${ACCENT} 3%, transparent)` }}
                   >
                     <svg className="w-4 h-4 flex-shrink-0" style={{ color: ACCENT }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -600,15 +600,15 @@ export default function Trading() {
       </section>
 
       {/* ── 9. LOGISTICS INFRASTRUCTURE ─────────────────────────────────────── */}
-      <section className="py-24 bg-neutral">
+      <section className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Logistics</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy mb-4">Logistics Infrastructure</h2>
+            <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">Logistics Infrastructure</h2>
             <p className="text-slate-500 text-sm max-w-lg mx-auto">
               Multi-modal freight capability with vetted partner networks across all major trade corridors.
             </p>
@@ -651,23 +651,23 @@ export default function Trading() {
             ].map((t) => (
               <div
                 key={t.mode}
-                className="bg-white rounded-2xl p-8 border-t-4 hover:shadow-xl transition-all"
+                className="bg-surface-2 rounded-2xl p-8 border-t-4 hover:shadow-xl transition-all"
                 style={{ borderColor: ACCENT }}
               >
                 <div
                   className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"
-                  style={{ background: `${ACCENT}12`, color: ACCENT }}
+                  style={{ background: `color-mix(in srgb, ${ACCENT} 7%, transparent)`, color: ACCENT }}
                 >
                   {t.icon}
                 </div>
                 <div className="mb-1">
                   <span className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: ACCENT }}>{t.tag}</span>
                 </div>
-                <h3 className="font-display text-2xl text-navy mb-4">{t.mode}</h3>
+                <h3 className="font-display text-2xl text-fg mb-4">{t.mode}</h3>
                 <ul className="space-y-2.5 mb-5">
                   {t.specs.map((s) => (
                     <li key={s} className="flex items-start gap-2.5 text-sm text-slate-500">
-                      <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ background: ACCENT }} />
+                      <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ background: ACCENT, color: 'var(--s0)' }} />
                       {s}
                     </li>
                   ))}
@@ -680,15 +680,15 @@ export default function Trading() {
       </section>
 
       {/* ── 10. TECHNOLOGY ──────────────────────────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <div className="flex items-center gap-3 mb-5">
-                <div className="h-px w-8" style={{ background: ACCENT }} />
+                <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Technology</span>
               </div>
-              <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight mb-6">
+              <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-6">
                 Powered by Ezyify
               </h2>
               <p className="text-slate-500 leading-relaxed mb-5">
@@ -703,16 +703,16 @@ export default function Trading() {
                 <div
                   key={t.title}
                   className="flex gap-5 p-6 rounded-2xl border hover:shadow-md transition-all"
-                  style={{ borderColor: `${ACCENT}18` }}
+                  style={{ borderColor: `color-mix(in srgb, ${ACCENT} 9%, transparent)` }}
                 >
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 font-display font-bold text-sm"
-                    style={{ background: `${ACCENT}12`, color: ACCENT }}
+                    style={{ background: `color-mix(in srgb, ${ACCENT} 7%, transparent)`, color: ACCENT }}
                   >
                     {String(i + 1).padStart(2, '0')}
                   </div>
                   <div>
-                    <h3 className="font-semibold text-navy mb-1.5">{t.title}</h3>
+                    <h3 className="font-semibold text-fg mb-1.5">{t.title}</h3>
                     <p className="text-slate-500 text-sm leading-relaxed">{t.desc}</p>
                   </div>
                 </div>
@@ -733,9 +733,9 @@ export default function Trading() {
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Trade Finance</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-white mb-4">Supply Chain Finance</h2>
             <p className="text-slate-400 text-sm max-w-lg mx-auto">
@@ -752,9 +752,9 @@ export default function Trading() {
               <div
                 key={f.title}
                 className="p-7 rounded-2xl border hover:border-blue-500/40 transition-all"
-                style={{ borderColor: `${ACCENT}20`, background: 'rgba(255,255,255,0.04)' }}
+                style={{ borderColor: `color-mix(in srgb, ${ACCENT} 13%, transparent)`, background: 'var(--fill-2)' }}
               >
-                <div className="h-0.5 w-8 mb-4 rounded-full" style={{ background: ACCENT }} />
+                <div className="h-0.5 w-8 mb-4 rounded-full" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <h3 className="font-display text-lg text-white mb-3">{f.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">{f.desc}</p>
               </div>
@@ -764,37 +764,37 @@ export default function Trading() {
       </section>
 
       {/* ── 12. KEY TRADE LANES ─────────────────────────────────────────────── */}
-      <section className="py-24 bg-neutral">
+      <section className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Active Corridors</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy mb-4">Key Trade Lanes</h2>
+            <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">Key Trade Lanes</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-5">
             {tradeLanes.map((lane) => (
               <div
                 key={`${lane.origin}-${lane.dest}`}
-                className="bg-white rounded-2xl p-7 border hover:shadow-lg transition-all"
-                style={{ borderColor: `${ACCENT}15` }}
+                className="bg-surface-2 rounded-2xl p-7 border hover:shadow-lg transition-all"
+                style={{ borderColor: `color-mix(in srgb, ${ACCENT} 8%, transparent)` }}
               >
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-2xl">{lane.flag1}</span>
                   <div className="flex-1 flex items-center gap-2">
-                    <div className="flex-1 h-px" style={{ background: `${ACCENT}40`, borderTop: `1px dashed ${ACCENT}` }} />
+                    <div className="flex-1 h-px" style={{ background: `color-mix(in srgb, ${ACCENT} 25%, transparent)`, borderTop: `1px dashed ${ACCENT}` }} />
                     <svg className="w-4 h-4" style={{ color: ACCENT }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                     </svg>
-                    <div className="flex-1 h-px" style={{ background: `${ACCENT}40`, borderTop: `1px dashed ${ACCENT}` }} />
+                    <div className="flex-1 h-px" style={{ background: `color-mix(in srgb, ${ACCENT} 25%, transparent)`, borderTop: `1px dashed ${ACCENT}` }} />
                   </div>
                   <span className="text-2xl">{lane.flag2}</span>
                 </div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="font-display text-navy text-lg">{lane.origin}</span>
-                  <span className="font-display text-navy text-lg">{lane.dest}</span>
+                  <span className="font-display text-fg text-lg">{lane.origin}</span>
+                  <span className="font-display text-fg text-lg">{lane.dest}</span>
                 </div>
                 <p className="text-slate-500 text-sm">{lane.goods}</p>
               </div>
@@ -804,15 +804,15 @@ export default function Trading() {
       </section>
 
       {/* ── 13. QUALITY & RISK ──────────────────────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <div className="flex items-center gap-3 mb-5">
-                <div className="h-px w-8" style={{ background: ACCENT }} />
+                <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Quality &amp; Risk</span>
               </div>
-              <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight mb-6">
+              <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-6">
                 Due Diligence and Trade Risk Management
               </h2>
               <p className="text-slate-500 leading-relaxed mb-5">
@@ -832,9 +832,9 @@ export default function Trading() {
                 <div
                   key={r.title}
                   className="p-5 rounded-xl border"
-                  style={{ borderColor: `${ACCENT}18`, background: `${ACCENT}04` }}
+                  style={{ borderColor: `color-mix(in srgb, ${ACCENT} 9%, transparent)`, background: `color-mix(in srgb, ${ACCENT} 2%, transparent)` }}
                 >
-                  <h4 className="font-semibold text-navy text-sm mb-2">{r.title}</h4>
+                  <h4 className="font-semibold text-fg text-sm mb-2">{r.title}</h4>
                   <p className="text-slate-500 text-xs leading-relaxed">{r.desc}</p>
                 </div>
               ))}
@@ -844,15 +844,15 @@ export default function Trading() {
       </section>
 
       {/* ── 14. SUSTAINABILITY IN TRADE ─────────────────────────────────────── */}
-      <section className="py-24 bg-neutral">
+      <section className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Responsible Trade</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy mb-4">Sustainability in Trade</h2>
+            <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">Sustainability in Trade</h2>
             <p className="text-slate-500 text-sm max-w-xl mx-auto">
               Trade that is good for business must also be good for people and the planet. Network71 embeds sustainability considerations throughout our trading operations.
             </p>
@@ -878,11 +878,11 @@ export default function Trading() {
             ].map((s) => (
               <div
                 key={s.title}
-                className="bg-white p-7 rounded-2xl border hover:shadow-lg transition-all"
-                style={{ borderColor: `${ACCENT}15` }}
+                className="bg-surface-2 p-7 rounded-2xl border hover:shadow-lg transition-all"
+                style={{ borderColor: `color-mix(in srgb, ${ACCENT} 8%, transparent)` }}
               >
-                <div className="w-2 h-2 rounded-full mb-4" style={{ background: '#22c55e' }} />
-                <h3 className="font-semibold text-navy mb-3">{s.title}</h3>
+                <div className="w-2 h-2 rounded-full mb-4" style={{ background: 'var(--accent-green)' }} />
+                <h3 className="font-semibold text-fg mb-3">{s.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{s.desc}</p>
               </div>
             ))}
@@ -895,9 +895,9 @@ export default function Trading() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Opportunities</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-white mb-4">Work With Our Trading Division</h2>
             <p className="text-slate-400 text-sm max-w-lg mx-auto">
@@ -909,7 +909,7 @@ export default function Trading() {
               <div
                 key={o.title}
                 className="p-7 rounded-2xl border hover:border-blue-500/40 transition-all group"
-                style={{ borderColor: `${ACCENT}18`, background: 'rgba(255,255,255,0.035)' }}
+                style={{ borderColor: `color-mix(in srgb, ${ACCENT} 9%, transparent)`, background: 'var(--fill-2)' }}
               >
                 <h3 className="font-display text-xl text-white mb-3">{o.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed mb-6">{o.desc}</p>
@@ -930,15 +930,15 @@ export default function Trading() {
       </section>
 
       {/* ── 16. GROWTH ROADMAP ──────────────────────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Strategic Vision</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy mb-4">Growth Roadmap</h2>
+            <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">Growth Roadmap</h2>
             <p className="text-slate-500 text-sm max-w-lg mx-auto">
               A four-year trajectory towards $100M+ trade volume and deeper global market penetration.
             </p>
@@ -947,7 +947,7 @@ export default function Trading() {
             {/* Connecting line */}
             <div
               className="absolute top-8 left-0 right-0 h-px hidden lg:block"
-              style={{ background: `linear-gradient(90deg, transparent 5%, ${ACCENT}40 20%, ${ACCENT}40 80%, transparent 95%)` }}
+              style={{ background: `linear-gradient(90deg, transparent 5%, color-mix(in srgb, ${ACCENT} 25%, transparent) 20%, color-mix(in srgb, ${ACCENT} 25%, transparent) 80%, transparent 95%)` }}
             />
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {roadmap.map((r, i) => (
@@ -956,7 +956,7 @@ export default function Trading() {
                   <div className="flex justify-center mb-6">
                     <div
                       className="w-16 h-16 rounded-full flex items-center justify-center font-display font-bold text-lg text-white relative z-10"
-                      style={{ background: ACCENT }}
+                      style={{ background: ACCENT, color: 'var(--s0)' }}
                     >
                       {r.year.slice(2)}
                       <span className="sr-only">{r.year}</span>
@@ -964,10 +964,10 @@ export default function Trading() {
                   </div>
                   <div
                     className="p-6 rounded-2xl border text-center"
-                    style={{ borderColor: `${ACCENT}18`, background: i === 3 ? `${ACCENT}06` : 'transparent' }}
+                    style={{ borderColor: `color-mix(in srgb, ${ACCENT} 9%, transparent)`, background: i === 3 ? `color-mix(in srgb, ${ACCENT} 2%, transparent)` : 'transparent' }}
                   >
                     <div className="text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: ACCENT }}>{r.year}</div>
-                    <h3 className="font-display text-base text-navy mb-3">{r.milestone}</h3>
+                    <h3 className="font-display text-base text-fg mb-3">{r.milestone}</h3>
                     <p className="text-slate-500 text-xs leading-relaxed">{r.detail}</p>
                   </div>
                 </div>

@@ -81,7 +81,7 @@ export default function Leadership() {
       <section className="py-24 px-6 bg-navy">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <p className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium mb-3">Founder & CEO</p>
+            <p className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium mb-3">Founder & CEO</p>
             <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4 tracking-[-0.02em]">Chief Executive</h2>
           </div>
 
@@ -111,12 +111,11 @@ export default function Leadership() {
                 </h3>
                 <p className="text-slate-400 text-sm mb-6">Founder &amp; Chief Executive Officer &nbsp;&bull;&nbsp; Dhaka, Bangladesh</p>
 
-                {/* Quote */}
-                <blockquote className="border-l-2 border-gold pl-5 mb-6">
-                  <p className="text-slate-300 italic leading-relaxed text-lg">
-                    "We are building more than a company — we are building an institution. One that creates value across borders, empowers communities, and stands for something beyond profit."
+                <div className="border-l-2 border-gold pl-5 mb-6">
+                  <p className="text-slate-300 leading-relaxed text-lg">
+                    The founder&apos;s mandate is to build a connected, responsible enterprise that creates durable value across sectors and markets.
                   </p>
-                </blockquote>
+                </div>
 
                 <div className="bg-white/4 rounded-xl p-5 border border-white/8">
                   <div className="flex items-center gap-2 mb-3">
@@ -126,7 +125,7 @@ export default function Leadership() {
                     <span className="text-white text-sm font-semibold">Executive Profile</span>
                   </div>
                   <p className="text-slate-400 text-sm leading-relaxed">
-                    Full biography and executive profile to be published. Tanjijur Rahman Topon founded Network71 with a vision to build a world-class multi-sector conglomerate headquartered in Bangladesh and operating globally across eight core industries.
+                    Tanjijur Rahman Topon leads Network71&apos;s group strategy, business portfolio, technology direction, and long-term development from Dhaka, Bangladesh.
                   </p>
                 </div>
 
@@ -145,7 +144,7 @@ export default function Leadership() {
       <section className="py-24 px-6 bg-navy-dark">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <p className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium mb-3">Executive Team</p>
+            <p className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium mb-3">Executive Team</p>
             <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4 tracking-[-0.02em]">Senior Leadership</h2>
             <p className="text-slate-400 max-w-xl mx-auto">
               Network71&apos;s senior executive team oversees the strategic and operational functions across all divisions.
@@ -162,12 +161,12 @@ export default function Leadership() {
                       {leader.abbr}
                     </div>
                     <h3 className="text-white font-semibold">{leader.title}</h3>
-                    <p className="text-gold/80 text-xs mt-1 font-medium">Name: To be published</p>
+                    <p className="text-gold text-xs mt-1 font-medium">Leadership function</p>
                   </div>
                   <div className="w-full h-px bg-white/8 my-4" />
                   <p className="text-slate-400 text-xs leading-relaxed">{leader.responsibilities}</p>
                   <div className="mt-4 w-full py-2.5 rounded-lg bg-white/4 border border-white/8 text-slate-500 font-mono text-[9px] tracking-wide uppercase">
-                    Profile: Coming Soon
+                    Executive mandate
                   </div>
                 </div>
               </div>
@@ -180,7 +179,7 @@ export default function Leadership() {
       <section className="py-24 px-6 bg-navy">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium mb-3">Governance</p>
+            <p className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium mb-3">Governance</p>
             <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4 tracking-[-0.02em]">Board of Directors</h2>
             <p className="text-slate-400 max-w-xl mx-auto">
               The Board provides strategic oversight, fiduciary responsibility, and governance guidance for Network71 globally.
@@ -194,11 +193,11 @@ export default function Leadership() {
               </svg>
             </div>
             <div className="inline-block px-4 py-1.5 bg-amber-500/15 text-amber-400 border border-amber-500/25 mb-5 font-mono text-[9px] tracking-wide uppercase rounded-full">
-              To Be Published
+              Governance framework
             </div>
-            <h3 className="text-white font-semibold text-xl mb-3">Board Composition</h3>
+            <h3 className="text-white font-semibold text-xl mb-3">Board Oversight Mandate</h3>
             <p className="text-slate-400 text-sm max-w-md mx-auto leading-relaxed">
-              The full composition of Network71&apos;s Board of Directors — including independent directors, committee assignments, and governance charter — will be published in the upcoming Corporate Governance Report.
+              Board-level oversight covers group strategy, risk, financial stewardship, leadership accountability, and responsible long-term growth across Network71&apos;s business portfolio.
             </p>
           </div>
         </div>
@@ -208,7 +207,7 @@ export default function Leadership() {
       <section className="py-24 px-6 bg-navy-dark">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium mb-3">Advisory</p>
+            <p className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium mb-3">Advisory</p>
             <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4 tracking-[-0.02em]">Strategic Advisors</h2>
             <p className="text-slate-400 max-w-xl mx-auto">
               Our advisory panel brings deep expertise across international business, technology, and governance.
@@ -222,10 +221,10 @@ export default function Leadership() {
                   <Avatar initials={a.initials} gradient={a.gradient} size="sm" />
                   <div className="flex-1">
                     <div className="text-xs text-slate-500 font-semibold uppercase tracking-widest mb-2">{a.area}</div>
-                    <h3 className="text-white font-semibold mb-1">Name: To be published</h3>
+                    <h3 className="text-white font-semibold mb-1">Advisory capability</h3>
                     <p className="text-slate-400 text-sm leading-relaxed">{a.desc}</p>
                     <div className="mt-4 inline-block px-3 py-1 bg-white/4 border border-white/10 rounded-full text-slate-500 font-mono text-[9px] tracking-wide uppercase">
-                      Profile: Coming Soon
+                      Specialist mandate
                     </div>
                   </div>
                 </div>
@@ -254,7 +253,7 @@ export default function Leadership() {
               </p>
               <Link
                 to="/careers"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-gold text-navy font-semibold hover:bg-gold-light transition-colors"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-gold text-on-brand font-semibold hover:bg-gold-light transition-colors"
               >
                 Explore Opportunities
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

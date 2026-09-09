@@ -253,7 +253,7 @@ export default function Legal() {
               </div>
               <a
                 href="mailto:legal@network71.com"
-                className="flex-shrink-0 px-6 py-3 bg-gold text-navy text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors"
+                className="flex-shrink-0 px-6 py-3 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors"
               >
                 legal@network71.com
               </a>

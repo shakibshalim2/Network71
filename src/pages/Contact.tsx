@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
+import { useInquiry } from "@/lib/inquiry"
 
 type FormState = {
   name: string
@@ -13,14 +14,14 @@ type FormState = {
 }
 
 const divisionEmails = [
-  { division: "Garments & Apparel", email: "garments@network71.com" },
-  { division: "Agriculture & Agro", email: "agriculture@network71.com" },
-  { division: "Food & Beverage", email: "food@network71.com" },
-  { division: "Oils & Energy", email: "energy@network71.com" },
-  { division: "IT & Software", email: "it@network71.com" },
-  { division: "Global Trading", email: "trading@network71.com" },
-  { division: "Media", email: "media@network71.com" },
-  { division: "eSHIPe Maritime", email: "eshipe@network71.com" },
+  "Garments & Apparel",
+  "Agriculture & Agro",
+  "Food & Beverage",
+  "Oils & Energy",
+  "IT & Software",
+  "Global Trading",
+  "Media",
+  "eSHIPe Maritime",
 ]
 
 export default function Contact() {
@@ -32,7 +33,8 @@ export default function Contact() {
     department: "General",
     message: "",
   })
-  const [sent, setSent] = useState(false)
+  const inquiry = useInquiry()
+  const sent = Boolean(inquiry.reference)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -40,7 +42,7 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    setSent(true)
+    void inquiry.submit({ ...form, subject: `${form.department} enquiry` })
   }
 
   return (
@@ -59,7 +61,7 @@ export default function Contact() {
           </div>
           <div className="flex items-center gap-3 mb-5">
             <div className="h-px w-12 bg-gold" />
-            <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Contact Us</span>
+            <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Contact Us</span>
           </div>
           <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.05] tracking-[-0.02em] mb-6">
             Get in Touch
@@ -109,14 +111,8 @@ export default function Contact() {
                 </svg>
               </div>
               <h3 className="font-display text-xl text-white mb-2">Social</h3>
-              <div className="flex justify-center gap-4 mt-1">
-                {["LinkedIn", "Twitter", "Facebook"].map((s) => (
-                  <a key={s} href="#" className="text-slate-400 text-xs hover:text-gold transition-colors">
-                    {s}
-                  </a>
-                ))}
-              </div>
-              <p className="text-slate-500 text-xs mt-2">Follow our updates</p>
+              <p className="text-slate-400 text-sm">Official channels will be published here.</p>
+              <p className="text-slate-500 text-xs mt-2">For updates, contact our media team.</p>
             </div>
           </div>
         </div>
@@ -131,30 +127,31 @@ export default function Contact() {
               <div className="mb-10">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="h-px w-12 bg-gold" />
-                  <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Send a Message</span>
+                  <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Send a Message</span>
                 </div>
                 <h2 className="font-display text-4xl text-white tracking-[-0.02em]">Contact Form</h2>
               </div>
 
               {sent ? (
-                <div className="bg-navy-dark border border-gold/20 rounded-2xl p-12 text-center">
+                <div role="status" className="bg-navy-dark border border-gold/20 rounded-2xl p-12 text-center">
                   <div className="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-5">
                     <svg className="w-7 h-7 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                     </svg>
                   </div>
-                  <h3 className="font-display text-2xl text-white mb-3">Message Sent</h3>
+                  <h3 className="font-display text-2xl text-white mb-3">Enquiry Received</h3>
                   <p className="text-slate-400 text-sm">
-                    {"Thank you for reaching out. We'll get back to you within 2–3 business days."}
+                    Thank you for contacting us. Your reference is {inquiry.reference}.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  {inquiry.error && <p role="alert" className="text-sm" style={{ color: 'var(--accent-red)' }}>{inquiry.error}</p>}
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-xs text-slate-400 mb-2 font-medium">Full Name *</label>
+                      <label htmlFor="contact-name" className="block text-xs text-slate-400 mb-2 font-medium">Full Name *</label>
                       <input
-                        name="name"
+                        name="name" id="contact-name"
                         required
                         value={form.name}
                         onChange={handleChange}
@@ -163,9 +160,9 @@ export default function Contact() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-slate-400 mb-2 font-medium">Company (optional)</label>
+                      <label htmlFor="contact-company" className="block text-xs text-slate-400 mb-2 font-medium">Company (optional)</label>
                       <input
-                        name="company"
+                        name="company" id="contact-company"
                         value={form.company}
                         onChange={handleChange}
                         className="w-full bg-navy-dark border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-gold/50 transition-colors"
@@ -175,9 +172,9 @@ export default function Contact() {
                   </div>
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-xs text-slate-400 mb-2 font-medium">Email *</label>
+                      <label htmlFor="contact-email" className="block text-xs text-slate-400 mb-2 font-medium">Email *</label>
                       <input
-                        name="email"
+                        name="email" id="contact-email"
                         type="email"
                         required
                         value={form.email}
@@ -187,9 +184,9 @@ export default function Contact() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-slate-400 mb-2 font-medium">Phone (optional)</label>
+                      <label htmlFor="contact-phone" className="block text-xs text-slate-400 mb-2 font-medium">Phone (optional)</label>
                       <input
-                        name="phone"
+                        name="phone" id="contact-phone"
                         type="tel"
                         value={form.phone}
                         onChange={handleChange}
@@ -199,9 +196,9 @@ export default function Contact() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs text-slate-400 mb-2 font-medium">Department *</label>
+                    <label htmlFor="contact-department" className="block text-xs text-slate-400 mb-2 font-medium">Department *</label>
                     <select
-                      name="department"
+                      name="department" id="contact-department"
                       required
                       value={form.department}
                       onChange={handleChange}
@@ -215,9 +212,9 @@ export default function Contact() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs text-slate-400 mb-2 font-medium">Message *</label>
+                    <label htmlFor="contact-message" className="block text-xs text-slate-400 mb-2 font-medium">Message *</label>
                     <textarea
-                      name="message"
+                      name="message" id="contact-message"
                       required
                       rows={5}
                       value={form.message}
@@ -228,9 +225,10 @@ export default function Contact() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full py-3.5 bg-gold text-navy text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors"
+                    disabled={inquiry.busy}
+                    className="w-full py-3.5 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors"
                   >
-                    Send Message
+                    {inquiry.busy ? 'Sending…' : 'Send Message'}
                   </button>
                 </form>
               )}
@@ -242,7 +240,7 @@ export default function Contact() {
               <div>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="h-px w-12 bg-gold" />
-                  <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Offices</span>
+                  <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Offices</span>
                 </div>
                 <div className="space-y-4">
                   <div className="bg-navy-dark border border-white/8 rounded-xl p-6">
@@ -255,13 +253,6 @@ export default function Contact() {
                       info@network71.com
                     </a>
                   </div>
-                  <div className="bg-navy-dark border border-white/8 rounded-xl p-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="w-2 h-2 rounded-full bg-slate-600" />
-                      <span className="text-slate-400 text-sm font-semibold">Additional Offices</span>
-                    </div>
-                    <p className="text-slate-500 text-sm italic">To be published.</p>
-                  </div>
                 </div>
               </div>
 
@@ -269,23 +260,20 @@ export default function Contact() {
               <div>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="h-px w-12 bg-gold" />
-                  <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">By Division</span>
+                  <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">By Division</span>
                 </div>
                 <div className="space-y-3">
-                  {divisionEmails.map((d) => (
-                    <div key={d.division} className="flex items-center justify-between py-3 border-b border-white/6 last:border-0">
-                      <span className="text-slate-400 text-sm">{d.division}</span>
+                  {divisionEmails.map((division) => (
+                    <div key={division} className="flex items-center justify-between py-3 border-b border-white/6 last:border-0">
+                      <span className="text-slate-400 text-sm">{division}</span>
                       <a
-                        href={`mailto:${d.email}`}
+                        href={`mailto:info@network71.com?subject=${encodeURIComponent(`${division} enquiry`)}`}
                         className="text-gold text-xs hover:underline flex-shrink-0 ml-3"
                       >
-                        {d.email}
+                        Enquire
                       </a>
                     </div>
                   ))}
-                  <p className="text-slate-600 text-xs italic pt-2">
-                    Placeholder addresses — final contacts to be confirmed.
-                  </p>
                 </div>
               </div>
             </div>

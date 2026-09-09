@@ -5,7 +5,7 @@ import MetricsBar from '@/components/sector/MetricsBar'
 import SectorContact from '@/components/sector/SectorContact'
 import Footer from '@/components/Footer'
 
-const ACCENT = '#f97316'
+const ACCENT = 'var(--accent-orange)'
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -325,11 +325,11 @@ export default function FoodBeverage() {
   const activeProduct = productCategories.find((c) => c.id === activeCategory)!
 
   return (
-    <div className="min-h-full bg-navy">
+    <div className="sector-page min-h-full bg-navy">
       <SectorHeader divisionName="Food & Beverage Manufacturing" accentClass="text-orange-400" />
 
       {/* ── 1. Hero ─────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      <section className="force-dark sector-hero relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1556909211-36987daf7b4d?w=1400&h=800&fit=crop&auto=format"
@@ -341,7 +341,7 @@ export default function FoodBeverage() {
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-32">
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-px w-12" style={{ background: ACCENT }} />
+              <div className="h-px w-12" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>
                 Network71 — Food &amp; Beverage Division
               </span>
@@ -357,7 +357,7 @@ export default function FoodBeverage() {
               <a
                 href="#sector-contact"
                 className="px-8 py-4 font-semibold text-sm text-white rounded-lg transition-all hover:opacity-90 active:scale-95"
-                style={{ background: ACCENT }}
+                style={{ background: ACCENT, color: 'var(--s0)' }}
               >
                 Partner With Us
               </a>
@@ -372,8 +372,8 @@ export default function FoodBeverage() {
         </div>
         {/* Scroll cue */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-          <div className="w-px h-12" style={{ background: ACCENT }} />
-          <div className="w-1.5 h-1.5 rounded-full" style={{ background: ACCENT }} />
+          <div className="w-px h-12" style={{ background: ACCENT, color: 'var(--s0)' }} />
+          <div className="w-1.5 h-1.5 rounded-full" style={{ background: ACCENT, color: 'var(--s0)' }} />
         </div>
       </section>
 
@@ -381,18 +381,18 @@ export default function FoodBeverage() {
       <MetricsBar metrics={metrics} accentHex={ACCENT} dark />
 
       {/* ── 3. Overview & Vision ────────────────────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             {/* Left: vision */}
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-8" style={{ background: ACCENT }} />
+                <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>
                   Our Vision
                 </span>
               </div>
-              <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight mb-6">
+              <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-6">
                 Manufacturing Excellence,<br />From Bangladesh to<br />Global Shelves
               </h2>
               <p className="text-slate-500 leading-relaxed mb-5">
@@ -401,14 +401,14 @@ export default function FoodBeverage() {
               <p className="text-slate-500 leading-relaxed mb-8">
                 Our ambition is to establish Network71 as a leading FMCG manufacturer from Bangladesh: supplying domestic retail, developing proprietary brands, and placing products on international shelves across the Middle East, Europe, and beyond.
               </p>
-              <div className="p-5 rounded-xl text-sm text-slate-600" style={{ background: `${ACCENT}0a`, border: `1px solid ${ACCENT}20` }}>
+              <div className="p-5 rounded-xl text-sm text-slate-600" style={{ background: `color-mix(in srgb, ${ACCENT} 4%, transparent)`, border: `1px solid color-mix(in srgb, ${ACCENT} 13%, transparent)` }}>
                 <span className="font-semibold" style={{ color: ACCENT }}>Key positioning:</span> Halal-certified, ISO-standard, export-ready — competitive on quality, not just price.
               </div>
             </div>
             {/* Right: brand pillars */}
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-8" style={{ background: ACCENT }} />
+                <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>
                   Brand Pillars
                 </span>
@@ -418,12 +418,12 @@ export default function FoodBeverage() {
                   <div key={p.title} className="flex gap-5 p-5 rounded-xl border border-slate-100 hover:border-orange-200 hover:shadow-sm transition-all group">
                     <div
                       className="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"
-                      style={{ background: `${ACCENT}12`, color: ACCENT }}
+                      style={{ background: `color-mix(in srgb, ${ACCENT} 7%, transparent)`, color: ACCENT }}
                     >
                       {p.icon}
                     </div>
                     <div>
-                      <h3 className="font-display text-base text-navy mb-1 font-semibold">{p.title}</h3>
+                      <h3 className="font-display text-base text-fg mb-1 font-semibold">{p.title}</h3>
                       <p className="text-slate-500 text-sm leading-relaxed">{p.desc}</p>
                     </div>
                   </div>
@@ -435,15 +435,15 @@ export default function FoodBeverage() {
       </section>
 
       {/* ── 4. Product Portfolio ────────────────────────────────────────────── */}
-      <section id="product-portfolio" className="py-24 bg-neutral">
+      <section id="product-portfolio" className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Product Portfolio</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy mb-4">What We Manufacture</h2>
+            <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">What We Manufacture</h2>
             <p className="text-slate-500 max-w-xl mx-auto text-sm leading-relaxed">
               A comprehensive food and beverage range designed for multiple consumer segments, retail channels, and export markets.
             </p>
@@ -458,8 +458,8 @@ export default function FoodBeverage() {
                 className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all"
                 style={
                   activeCategory === cat.id
-                    ? { background: ACCENT, color: '#fff' }
-                    : { background: '#fff', color: '#64748b', border: '1px solid #e2e8f0' }
+                    ? { background: ACCENT, color: 'var(--s0)' }
+                    : { background: 'var(--s2)', color: 'var(--fg-muted)', border: '1px solid #e2e8f0' }
                 }
               >
                 <span>{cat.icon}</span>
@@ -470,10 +470,10 @@ export default function FoodBeverage() {
 
           {/* Active category panel */}
           <div className="grid lg:grid-cols-2 gap-8 items-stretch">
-            <div className="bg-white rounded-2xl p-8 border border-slate-100">
+            <div className="bg-surface-2 rounded-2xl p-8 border border-slate-100">
               <div className="flex items-center gap-3 mb-5">
                 <span className="text-3xl">{activeProduct.icon}</span>
-                <h3 className="font-display text-2xl text-navy">{activeProduct.label}</h3>
+                <h3 className="font-display text-2xl text-fg">{activeProduct.label}</h3>
               </div>
               <p className="text-slate-500 text-sm leading-relaxed mb-6">{activeProduct.desc}</p>
               <div className="space-y-3">
@@ -481,7 +481,7 @@ export default function FoodBeverage() {
                   <div key={item} className="flex items-center gap-3 py-3 border-b border-slate-100">
                     <div
                       className="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0"
-                      style={{ background: `${ACCENT}15` }}
+                      style={{ background: `color-mix(in srgb, ${ACCENT} 8%, transparent)` }}
                     >
                       <svg className="w-3.5 h-3.5" style={{ color: ACCENT }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -502,12 +502,12 @@ export default function FoodBeverage() {
                   className="p-5 rounded-xl text-left transition-all border"
                   style={
                     activeCategory === cat.id
-                      ? { background: `${ACCENT}10`, borderColor: ACCENT }
-                      : { background: '#fff', borderColor: '#f1f5f9' }
+                      ? { background: `color-mix(in srgb, ${ACCENT} 6%, transparent)`, borderColor: ACCENT }
+                      : { background: 'var(--s2)', borderColor: '#f1f5f9' }
                   }
                 >
                   <div className="text-2xl mb-2">{cat.icon}</div>
-                  <div className="font-semibold text-sm text-navy mb-1">{cat.label}</div>
+                  <div className="font-semibold text-sm text-fg mb-1">{cat.label}</div>
                   <div className="text-[11px] text-slate-400">{cat.items.length} product lines</div>
                 </button>
               ))}
@@ -521,9 +521,9 @@ export default function FoodBeverage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Brand Development</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-white mb-4">Three Brand Models,<br />One Manufacturing Partner</h2>
             <p className="text-slate-400 max-w-xl mx-auto text-sm leading-relaxed">
@@ -537,34 +537,34 @@ export default function FoodBeverage() {
                 className="relative rounded-2xl p-8 transition-all"
                 style={
                   model.highlight
-                    ? { background: ACCENT, color: '#fff' }
-                    : { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }
+                    ? { background: ACCENT, color: 'var(--s0)' }
+                    : { background: 'var(--fill-2)', border: 'var(--border-subtle)' }
                 }
               >
                 {model.highlight && (
-                  <div className="absolute top-5 right-5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/20 text-white tracking-wider uppercase">
+                  <div className="inline-block mb-4 px-2.5 py-1 rounded-full text-[10px] font-bold bg-black/10 text-inherit tracking-wider uppercase">
                     Key Differentiator
                   </div>
                 )}
                 <div
                   className="inline-block px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase mb-4"
-                  style={model.highlight ? { background: 'rgba(0,0,0,0.15)', color: '#fff' } : { background: `${ACCENT}18`, color: ACCENT }}
+                  style={model.highlight ? { background: 'rgba(0,0,0,0.08)', color: 'inherit' } : { background: `color-mix(in srgb, ${ACCENT} 9%, transparent)`, color: ACCENT }}
                 >
                   {model.tag}
                 </div>
-                <h3 className={`font-display text-2xl mb-3 ${model.highlight ? 'text-white' : 'text-white'}`}>{model.title}</h3>
-                <p className={`text-sm leading-relaxed mb-6 ${model.highlight ? 'text-white/80' : 'text-slate-400'}`}>{model.desc}</p>
+                <h3 className={`font-display text-2xl mb-3 ${model.highlight ? 'text-inherit' : 'text-white'}`}>{model.title}</h3>
+                <p className={`text-sm leading-relaxed mb-6 ${model.highlight ? 'text-inherit' : 'text-slate-400'}`}>{model.desc}</p>
                 <ul className="space-y-2.5">
                   {model.points.map((pt) => (
                     <li key={pt} className="flex items-start gap-2.5 text-sm">
                       <svg
                         className="w-4 h-4 flex-shrink-0 mt-0.5"
-                        style={{ color: model.highlight ? 'rgba(255,255,255,0.9)' : ACCENT }}
+                        style={{ color: model.highlight ? 'inherit' : ACCENT }}
                         fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
-                      <span className={model.highlight ? 'text-white/85' : 'text-slate-400'}>{pt}</span>
+                      <span className={model.highlight ? 'text-inherit' : 'text-slate-400'}>{pt}</span>
                     </li>
                   ))}
                 </ul>
@@ -580,7 +580,7 @@ export default function FoodBeverage() {
           <div className="grid lg:grid-cols-2 gap-16">
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-8" style={{ background: ACCENT }} />
+                <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Manufacturing Standards</span>
               </div>
               <h2 className="font-display text-4xl lg:text-5xl text-white leading-tight mb-6">
@@ -594,7 +594,7 @@ export default function FoodBeverage() {
                   <div key={s.title} className="flex gap-5 p-5 rounded-xl border border-white/6 hover:border-orange-500/20 transition-all">
                     <div
                       className="w-14 h-14 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-bold text-white text-center leading-tight"
-                      style={{ background: `${ACCENT}25`, border: `1px solid ${ACCENT}30` }}
+                      style={{ background: `color-mix(in srgb, ${ACCENT} 15%, transparent)`, border: `1px solid color-mix(in srgb, ${ACCENT} 19%, transparent)` }}
                     >
                       <span style={{ color: ACCENT }} className="text-[10px] font-bold tracking-wide">{s.badge}</span>
                     </div>
@@ -609,9 +609,9 @@ export default function FoodBeverage() {
 
             {/* Quality Lab */}
             <div className="flex flex-col justify-center">
-              <div className="p-8 rounded-2xl border border-white/6" style={{ background: 'rgba(255,255,255,0.03)' }}>
+              <div className="p-8 rounded-2xl border border-white/6" style={{ background: 'var(--fill-1)' }}>
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `${ACCENT}20` }}>
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `color-mix(in srgb, ${ACCENT} 13%, transparent)` }}>
                     <svg className="w-5 h-5" style={{ color: ACCENT }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1 1 .03 2.7-1.27 2.4l-7.5-1.87a2.75 2.75 0 00-1.34 0L4.87 18.7c-1.3.3-2.27-1.4-1.27-2.4l1.402-1.402M5 14.5l-.75-.75" />
                     </svg>
@@ -631,7 +631,7 @@ export default function FoodBeverage() {
                     'Packaging integrity and seal testing',
                   ].map((item) => (
                     <div key={item} className="flex items-start gap-2.5 text-sm text-slate-400">
-                      <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ background: ACCENT }} />
+                      <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ background: ACCENT, color: 'var(--s0)' }} />
                       {item}
                     </div>
                   ))}
@@ -649,15 +649,15 @@ export default function FoodBeverage() {
       <ProcessFlow steps={processSteps} accentHex={ACCENT} label="From Concept to Consumer" />
 
       {/* ── 8. Facilities ───────────────────────────────────────────────────── */}
-      <section className="py-24 bg-neutral">
+      <section className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Facilities</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy mb-4">Three Processing Units</h2>
+            <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">Three Processing Units</h2>
             <p className="text-slate-500 max-w-lg mx-auto text-sm leading-relaxed">
               Each unit is configured for a specific product category cluster, with dedicated certification and quality systems.
             </p>
@@ -665,10 +665,10 @@ export default function FoodBeverage() {
 
           <div className="grid md:grid-cols-3 gap-6 mb-10">
             {facilities.map((f) => (
-              <div key={f.unit} className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
-                <div className="px-6 pt-6 pb-4 border-b border-slate-100" style={{ background: `${ACCENT}06` }}>
+              <div key={f.unit} className="bg-surface-2 rounded-2xl border border-slate-100 overflow-hidden">
+                <div className="px-6 pt-6 pb-4 border-b border-slate-100" style={{ background: `color-mix(in srgb, ${ACCENT} 2%, transparent)` }}>
                   <div className="text-[10px] font-bold tracking-[0.25em] uppercase mb-1" style={{ color: ACCENT }}>Processing Unit</div>
-                  <h3 className="font-display text-xl text-navy">{f.unit.replace('Processing Unit ', '')}</h3>
+                  <h3 className="font-display text-xl text-fg">{f.unit.replace('Processing Unit ', '')}</h3>
                 </div>
                 <div className="p-6 space-y-5">
                   <div>
@@ -680,7 +680,7 @@ export default function FoodBeverage() {
                     <div className="space-y-1">
                       {f.lines.map((line) => (
                         <div key={line} className="flex items-center gap-2 text-sm text-slate-600">
-                          <div className="w-1 h-1 rounded-full" style={{ background: ACCENT }} />
+                          <div className="w-1 h-1 rounded-full" style={{ background: ACCENT, color: 'var(--s0)' }} />
                           {line}
                         </div>
                       ))}
@@ -693,7 +693,7 @@ export default function FoodBeverage() {
                         <span
                           key={cert}
                           className="px-2.5 py-1 rounded text-[10px] font-bold tracking-wide"
-                          style={{ background: `${ACCENT}10`, color: ACCENT }}
+                          style={{ background: `color-mix(in srgb, ${ACCENT} 6%, transparent)`, color: ACCENT }}
                         >
                           {cert}
                         </span>
@@ -706,25 +706,25 @@ export default function FoodBeverage() {
           </div>
 
           {/* Lab & QC panel */}
-          <div className="bg-white rounded-2xl border border-slate-100 p-8">
+          <div className="bg-surface-2 rounded-2xl border border-slate-100 p-8">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="h-px w-6" style={{ background: ACCENT }} />
+                  <div className="h-px w-6" style={{ background: ACCENT, color: 'var(--s0)' }} />
                   <span className="text-[10px] font-semibold tracking-[0.25em] uppercase" style={{ color: ACCENT }}>On-Site Laboratory & QC</span>
                 </div>
-                <h3 className="font-display text-2xl text-navy mb-3">Integrated Quality Control</h3>
+                <h3 className="font-display text-2xl text-fg mb-3">Integrated Quality Control</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">
                   Each processing unit is supported by on-site quality control infrastructure. Lab results directly gate production release — no batch leaves without QC sign-off.
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 {['Incoming QC', 'In-Process QC', 'Finished Goods QC', 'Environmental Monitoring'].map((item) => (
-                  <div key={item} className="p-4 rounded-xl text-center border border-slate-100" style={{ background: `${ACCENT}05` }}>
-                    <div className="w-8 h-8 rounded-full mx-auto mb-2 flex items-center justify-center" style={{ background: `${ACCENT}15` }}>
-                      <div className="w-2.5 h-2.5 rounded-full" style={{ background: ACCENT }} />
+                  <div key={item} className="p-4 rounded-xl text-center border border-slate-100" style={{ background: `color-mix(in srgb, ${ACCENT} 2%, transparent)` }}>
+                    <div className="w-8 h-8 rounded-full mx-auto mb-2 flex items-center justify-center" style={{ background: `color-mix(in srgb, ${ACCENT} 8%, transparent)` }}>
+                      <div className="w-2.5 h-2.5 rounded-full" style={{ background: ACCENT, color: 'var(--s0)' }} />
                     </div>
-                    <div className="text-xs font-semibold text-navy">{item}</div>
+                    <div className="text-xs font-semibold text-fg">{item}</div>
                   </div>
                 ))}
               </div>
@@ -734,16 +734,16 @@ export default function FoodBeverage() {
       </section>
 
       {/* ── 9. Quality & Compliance ─────────────────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16">
             {/* Certification grid */}
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-8" style={{ background: ACCENT }} />
+                <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Certifications</span>
               </div>
-              <h2 className="font-display text-4xl text-navy mb-6">Quality &amp; Compliance</h2>
+              <h2 className="font-display text-4xl text-fg mb-6">Quality &amp; Compliance</h2>
               <p className="text-slate-500 text-sm leading-relaxed mb-8">
                 Our manufacturing operations are subject to multiple certification frameworks — ensuring confidence for retail buyers, export partners, and regulators worldwide.
               </p>
@@ -752,16 +752,16 @@ export default function FoodBeverage() {
                   <div key={cert.name} className="flex items-center gap-4 p-4 rounded-xl border border-slate-100 hover:border-orange-200 transition-all">
                     <div
                       className="w-14 h-10 rounded-lg flex items-center justify-center flex-shrink-0 text-[10px] font-bold tracking-wide text-center"
-                      style={{ background: `${ACCENT}12`, color: ACCENT }}
+                      style={{ background: `color-mix(in srgb, ${ACCENT} 7%, transparent)`, color: ACCENT }}
                     >
                       {cert.name}
                     </div>
                     <div>
-                      <div className="font-semibold text-sm text-navy">{cert.name}</div>
+                      <div className="font-semibold text-sm text-fg">{cert.name}</div>
                       <div className="text-xs text-slate-400">{cert.body}</div>
                     </div>
                     <div className="ml-auto">
-                      <div className="w-2 h-2 rounded-full" style={{ background: ACCENT }} />
+                      <div className="w-2 h-2 rounded-full" style={{ background: ACCENT, color: 'var(--s0)' }} />
                     </div>
                   </div>
                 ))}
@@ -774,16 +774,16 @@ export default function FoodBeverage() {
             {/* Performance targets */}
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-8" style={{ background: ACCENT }} />
+                <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Performance Targets</span>
               </div>
-              <h2 className="font-display text-4xl text-navy mb-6">Measurable Quality<br />Standards</h2>
+              <h2 className="font-display text-4xl text-fg mb-6">Measurable Quality<br />Standards</h2>
               <div className="space-y-8">
                 {qualityMetrics.map((m) => (
                   <div key={m.label}>
                     <div className="flex items-end justify-between mb-2">
                       <div>
-                        <div className="font-semibold text-sm text-navy">{m.label}</div>
+                        <div className="font-semibold text-sm text-fg">{m.label}</div>
                         <div className="text-[11px] text-slate-400">{m.note}</div>
                       </div>
                       <div className="font-display text-2xl" style={{ color: ACCENT }}>{m.value}</div>
@@ -797,8 +797,8 @@ export default function FoodBeverage() {
                   </div>
                 ))}
               </div>
-              <div className="mt-10 p-5 rounded-xl" style={{ background: `${ACCENT}08`, border: `1px solid ${ACCENT}18` }}>
-                <h4 className="font-semibold text-sm text-navy mb-2">Continuous Improvement Culture</h4>
+              <div className="mt-10 p-5 rounded-xl" style={{ background: `color-mix(in srgb, ${ACCENT} 3%, transparent)`, border: `1px solid color-mix(in srgb, ${ACCENT} 9%, transparent)` }}>
+                <h4 className="font-semibold text-sm text-fg mb-2">Continuous Improvement Culture</h4>
                 <p className="text-xs text-slate-500 leading-relaxed">
                   Performance metrics are reviewed monthly against targets. Non-conformances trigger root-cause analysis and corrective action within defined SLAs. Third-party audits are welcomed as validation of our internal quality management posture.
                 </p>
@@ -813,9 +813,9 @@ export default function FoodBeverage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Supply Chain</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-white mb-4">End-to-End Supply Chain</h2>
             <p className="text-slate-400 max-w-lg mx-auto text-sm leading-relaxed">
@@ -827,10 +827,10 @@ export default function FoodBeverage() {
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
             {['Supplier', 'Manufacturing', 'QC & Testing', 'Packing', 'Distribution'].map((stage, i) => (
               <div key={stage} className="relative">
-                <div className="p-5 rounded-xl text-center border border-white/8" style={{ background: 'rgba(255,255,255,0.04)' }}>
+                <div className="p-5 rounded-xl text-center border border-white/8" style={{ background: 'var(--fill-2)' }}>
                   <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-xs font-bold text-navy"
-                    style={{ background: ACCENT }}
+                    className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-xs font-bold text-fg"
+                    style={{ background: ACCENT, color: 'var(--s0)' }}
                   >
                     {String(i + 1).padStart(2, '0')}
                   </div>
@@ -848,7 +848,7 @@ export default function FoodBeverage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="p-7 rounded-2xl border border-white/6" style={{ background: 'rgba(255,255,255,0.03)' }}>
+            <div className="p-7 rounded-2xl border border-white/6" style={{ background: 'var(--fill-1)' }}>
               <h3 className="font-display text-xl text-white mb-3">Raw Material Sourcing</h3>
               <p className="text-slate-400 text-sm leading-relaxed mb-4">
                 Primary ingredient sourcing from Bangladeshi farms and manufacturers — supporting local agriculture with direct procurement relationships.
@@ -856,13 +856,13 @@ export default function FoodBeverage() {
               <div className="space-y-2">
                 {['Local Bangladesh raw materials (primary)', 'Imported specialty ingredients (supplementary)', 'Approved supplier audits and quality agreements', 'Dual-source strategy for critical ingredients'].map((item) => (
                   <div key={item} className="flex items-start gap-2 text-xs text-slate-500">
-                    <div className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0" style={{ background: ACCENT }} />
+                    <div className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0" style={{ background: ACCENT, color: 'var(--s0)' }} />
                     {item}
                   </div>
                 ))}
               </div>
             </div>
-            <div className="p-7 rounded-2xl border border-white/6" style={{ background: 'rgba(255,255,255,0.03)' }}>
+            <div className="p-7 rounded-2xl border border-white/6" style={{ background: 'var(--fill-1)' }}>
               <h3 className="font-display text-xl text-white mb-3">Distribution Reach</h3>
               <p className="text-slate-400 text-sm leading-relaxed mb-4">
                 Products distributed through domestic retail networks and export logistics partners — covering modern trade, traditional retail, and international channels.
@@ -875,7 +875,7 @@ export default function FoodBeverage() {
                   'Halal-export documentation and compliance',
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-2 text-xs text-slate-500">
-                    <div className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0" style={{ background: ACCENT }} />
+                    <div className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0" style={{ background: ACCENT, color: 'var(--s0)' }} />
                     {item}
                   </div>
                 ))}
@@ -886,31 +886,31 @@ export default function FoodBeverage() {
       </section>
 
       {/* ── 11. Sustainability ──────────────────────────────────────────────── */}
-      <section className="py-24 bg-neutral">
+      <section className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Sustainability</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy mb-4">Responsible Manufacturing</h2>
+            <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">Responsible Manufacturing</h2>
             <p className="text-slate-500 max-w-lg mx-auto text-sm leading-relaxed">
               Building a food manufacturing division that is commercially excellent and environmentally responsible — for people, planet, and future consumers.
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {sustainability.map((s) => (
-              <div key={s.title} className="bg-white rounded-2xl p-8 border border-slate-100 hover:border-orange-200 hover:shadow-md transition-all">
+              <div key={s.title} className="bg-surface-2 rounded-2xl p-8 border border-slate-100 hover:border-orange-200 hover:shadow-md transition-all">
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-6"
-                  style={{ background: `${ACCENT}12`, color: ACCENT }}
+                  style={{ background: `color-mix(in srgb, ${ACCENT} 7%, transparent)`, color: ACCENT }}
                 >
                   {s.icon}
                 </div>
-                <h3 className="font-display text-xl text-navy mb-3">{s.title}</h3>
+                <h3 className="font-display text-xl text-fg mb-3">{s.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed mb-6">{s.desc}</p>
-                <div className="p-4 rounded-xl" style={{ background: `${ACCENT}08`, border: `1px solid ${ACCENT}15` }}>
+                <div className="p-4 rounded-xl" style={{ background: `color-mix(in srgb, ${ACCENT} 3%, transparent)`, border: `1px solid color-mix(in srgb, ${ACCENT} 8%, transparent)` }}>
                   <div className="font-display text-xl mb-0.5" style={{ color: ACCENT }}>{s.stat}</div>
                   <div className="text-xs text-slate-400">{s.statLabel}</div>
                 </div>
@@ -926,7 +926,7 @@ export default function FoodBeverage() {
           <div className="grid lg:grid-cols-5 gap-12 items-start">
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-8" style={{ background: ACCENT }} />
+                <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Export Markets</span>
               </div>
               <h2 className="font-display text-4xl lg:text-5xl text-white mb-6 leading-tight">
@@ -938,7 +938,7 @@ export default function FoodBeverage() {
               <a
                 href="#sector-contact"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold text-white transition-all hover:opacity-90"
-                style={{ background: ACCENT }}
+                style={{ background: ACCENT, color: 'var(--s0)' }}
               >
                 Export Buyer Inquiry
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -948,14 +948,14 @@ export default function FoodBeverage() {
             </div>
             <div className="lg:col-span-3 space-y-3">
               {exportMarkets.map((market) => (
-                <div key={market.region} className="flex items-start gap-5 p-5 rounded-xl border border-white/6 hover:border-orange-500/20 transition-all" style={{ background: 'rgba(255,255,255,0.03)' }}>
+                <div key={market.region} className="flex items-start gap-5 p-5 rounded-xl border border-white/6 hover:border-orange-500/20 transition-all" style={{ background: 'var(--fill-1)' }}>
                   <div className="text-3xl flex-shrink-0">{market.flag}</div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3 mb-1">
                       <h3 className="font-semibold text-white text-sm">{market.region}</h3>
                       <span
                         className="px-2 py-0.5 rounded text-[9px] font-bold tracking-wider uppercase"
-                        style={{ background: `${ACCENT}20`, color: ACCENT }}
+                        style={{ background: `color-mix(in srgb, ${ACCENT} 13%, transparent)`, color: ACCENT }}
                       >
                         {market.priority}
                       </span>
@@ -971,15 +971,15 @@ export default function FoodBeverage() {
       </section>
 
       {/* ── 13. Business Opportunities ──────────────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Business Opportunities</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy mb-4">Partner With Our<br />Food Division</h2>
+            <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">Partner With Our<br />Food Division</h2>
             <p className="text-slate-500 max-w-lg mx-auto text-sm leading-relaxed">
               We are actively seeking partners across four business models. If your business aligns with any of these, we want to hear from you.
             </p>
@@ -992,11 +992,11 @@ export default function FoodBeverage() {
               >
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-colors"
-                  style={{ background: `${ACCENT}10`, color: ACCENT }}
+                  style={{ background: `color-mix(in srgb, ${ACCENT} 6%, transparent)`, color: ACCENT }}
                 >
                   {opp.icon}
                 </div>
-                <h3 className="font-display text-lg text-navy mb-3">{opp.title}</h3>
+                <h3 className="font-display text-lg text-fg mb-3">{opp.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-1">{opp.desc}</p>
                 <a
                   href="#sector-contact"
@@ -1019,9 +1019,9 @@ export default function FoodBeverage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Growth Roadmap</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-white mb-4">The Path to Global Shelves</h2>
             <p className="text-slate-400 max-w-lg mx-auto text-sm leading-relaxed">
@@ -1030,14 +1030,14 @@ export default function FoodBeverage() {
           </div>
           <div className="relative">
             {/* Timeline line */}
-            <div className="hidden lg:block absolute top-7 left-0 right-0 h-px" style={{ background: `${ACCENT}25` }} />
+            <div className="hidden lg:block absolute top-7 left-0 right-0 h-px" style={{ background: `color-mix(in srgb, ${ACCENT} 15%, transparent)` }} />
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
               {roadmap.map((item, i) => (
                 <div key={item.year} className="relative">
-                  <div className="hidden lg:flex w-14 h-14 rounded-full items-center justify-center mx-auto mb-6 font-display text-navy font-bold text-sm z-10 relative" style={{ background: ACCENT }}>
+                  <div className="hidden lg:flex w-14 h-14 rounded-full items-center justify-center mx-auto mb-6 font-display text-fg font-bold text-sm z-10 relative" style={{ background: ACCENT, color: 'var(--s0)' }}>
                     {item.year}
                   </div>
-                  <div className="p-6 rounded-2xl border border-white/6 hover:border-orange-500/20 transition-all" style={{ background: 'rgba(255,255,255,0.04)' }}>
+                  <div className="p-6 rounded-2xl border border-white/6 hover:border-orange-500/20 transition-all" style={{ background: 'var(--fill-2)' }}>
                     <div className="lg:hidden font-display text-2xl mb-3" style={{ color: ACCENT }}>{item.year}</div>
                     <div className="text-[10px] font-bold tracking-[0.2em] uppercase mb-2 text-slate-500">Phase {i + 1}</div>
                     <h3 className="font-display text-lg text-white mb-3">{item.milestone}</h3>

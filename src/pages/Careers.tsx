@@ -113,7 +113,7 @@ export default function Careers() {
           </div>
           <div className="flex items-center gap-3 mb-5">
             <div className="h-px w-12 bg-gold" />
-            <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Careers</span>
+            <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Careers</span>
           </div>
           <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.05] tracking-[-0.02em] mb-6 max-w-3xl">
             Build Your Career at Network71
@@ -124,7 +124,7 @@ export default function Careers() {
           <div className="mt-10">
             <a
               href="mailto:careers@network71.com"
-              className="inline-flex items-center px-8 py-3.5 bg-gold text-navy text-sm font-semibold rounded hover:bg-gold-light transition-colors shadow-lg shadow-gold/20"
+              className="inline-flex items-center px-8 py-3.5 bg-gold text-on-brand text-sm font-semibold rounded hover:bg-gold-light transition-colors shadow-lg shadow-gold/20"
             >
               Send Your CV
             </a>
@@ -138,7 +138,7 @@ export default function Careers() {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-12 bg-gold" />
-              <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Culture</span>
+              <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Culture</span>
               <div className="h-px w-12 bg-gold" />
             </div>
             <h2 className="font-display text-4xl sm:text-5xl text-white tracking-[-0.02em]">Why Network71?</h2>
@@ -163,7 +163,7 @@ export default function Careers() {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-12 bg-gold" />
-              <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Open Positions</span>
+              <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Open Positions</span>
               <div className="h-px w-12 bg-gold" />
             </div>
             <h2 className="font-display text-4xl sm:text-5xl text-white tracking-[-0.02em]">Current Openings</h2>
@@ -191,7 +191,7 @@ export default function Careers() {
                 </div>
                 <a
                   href={`mailto:careers@network71.com?subject=Application: ${encodeURIComponent(job.title)}`}
-                  className="flex-shrink-0 px-5 py-2.5 bg-gold text-navy text-xs font-semibold rounded hover:bg-gold-light transition-colors"
+                  className="flex-shrink-0 px-5 py-2.5 bg-gold text-on-brand text-xs font-semibold rounded hover:bg-gold-light transition-colors"
                 >
                   Apply
                 </a>
@@ -207,7 +207,7 @@ export default function Careers() {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-12 bg-gold" />
-              <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Process</span>
+              <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Process</span>
               <div className="h-px w-12 bg-gold" />
             </div>
             <h2 className="font-display text-4xl sm:text-5xl text-white tracking-[-0.02em]">How We Hire</h2>
@@ -218,7 +218,7 @@ export default function Careers() {
                 {i < hiringSteps.length - 1 && (
                   <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-px bg-white/20 z-10" />
                 )}
-                <div className="font-display text-5xl text-gold/15 leading-none mb-4">{s.step}</div>
+                <div className="font-display text-5xl text-gold leading-none mb-4">{s.step}</div>
                 <h3 className="font-display text-lg text-white mb-2">{s.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">{s.desc}</p>
               </div>
@@ -233,7 +233,7 @@ export default function Careers() {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-12 bg-gold" />
-              <span className="font-mono text-[9px] tracking-[0.35em] text-gold/70 uppercase font-medium">Voices</span>
+              <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">Voices</span>
               <div className="h-px w-12 bg-gold" />
             </div>
             <h2 className="font-display text-4xl sm:text-5xl text-white tracking-[-0.02em]">From Our Team</h2>
@@ -241,11 +241,11 @@ export default function Careers() {
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((t, i) => (
               <div key={i} className="bg-navy-dark border border-white/8 rounded-2xl p-8 relative overflow-hidden">
-                <div className="font-display text-6xl text-gold/15 leading-none absolute top-4 left-6 select-none">"</div>
+                <div className="font-display text-6xl text-gold leading-none absolute top-4 left-6 select-none">"</div>
                 <p className="text-slate-300 text-sm leading-relaxed mb-6 relative pt-6">{t.quote}</p>
                 <div className="flex items-center gap-3 pt-4 border-t border-white/8">
                   <div className="w-9 h-9 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center flex-shrink-0">
-                    <svg className="w-5 h-5 text-gold/60" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-gold" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
                     </svg>
                   </div>
@@ -272,7 +272,7 @@ export default function Careers() {
           </p>
           <a
             href="mailto:careers@network71.com?subject=Speculative CV Submission"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-gold text-navy text-sm font-semibold rounded hover:bg-gold-light transition-colors shadow-lg shadow-gold/20"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-gold text-on-brand text-sm font-semibold rounded hover:bg-gold-light transition-colors shadow-lg shadow-gold/20"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />

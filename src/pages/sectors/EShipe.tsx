@@ -6,10 +6,10 @@ import ProcessFlow from '@/components/sector/ProcessFlow'
 import SectorContact from '@/components/sector/SectorContact'
 import Footer from '@/components/Footer'
 
-const OCEAN = '#0EA5E9'
-const TEAL = '#0D9488'
-const BG_DEEP = '#030810'
-const BG_ALT = '#06101C'
+const OCEAN = 'var(--accent-sky)'
+const TEAL = 'var(--accent-teal)'
+const BG_DEEP = 'var(--s0)'
+const BG_ALT = 'var(--s1)'
 
 /* ─── data ─────────────────────────────────────────────────────────────── */
 
@@ -37,25 +37,25 @@ const services = [
     icon: '♻',
     title: 'Ship Recycling',
     desc: 'Responsible end-of-life ship recycling through 25+ certified yards compliant with the Hong Kong Convention and EU Ship Recycling Regulation. Competitive LDT rates with full documentation.',
-    color: '#34D399',
+    color: 'var(--accent-emerald)',
   },
   {
     icon: '🔍',
     title: 'Inspection & Valuation',
     desc: 'Independent vessel inspection and market valuation services performed by certified marine surveyors. Full condition reports, survey documentation, and fair market value assessments.',
-    color: '#F59E0B',
+    color: 'var(--accent-amber)',
   },
 ]
 
 const vesselCategories = [
   { name: 'Cargo Vessels', desc: 'General cargo, multipurpose, break-bulk', count: 'Available', color: OCEAN, icon: '⬡' },
   { name: 'Bulk Carriers', desc: 'Handysize, Supramax, Capesize', count: 'Available', color: TEAL, icon: '⬡' },
-  { name: 'Tankers', desc: 'Chemical, product, crude oil tankers', count: 'Available', color: '#0D9488', icon: '⬡' },
-  { name: 'Container Ships', desc: 'Feeder, sub-Panamax, Panamax', count: 'Available', color: '#22D3EE', icon: '⬡' },
-  { name: 'Tugboats', desc: 'Harbour, offshore, ocean-going tugs', count: 'Available', color: '#F59E0B', icon: '⬡' },
-  { name: 'Fishing Vessels', desc: 'Trawlers, purse seiners, longliners', count: 'Available', color: '#34D399', icon: '⬡' },
-  { name: 'Offshore Vessels', desc: 'PSVs, AHTS, DSVs, survey vessels', count: 'Available', color: '#A855F7', icon: '⬡' },
-  { name: 'Scrap / Demolition', desc: 'Vessels at end-of-life for recycling', count: 'Available', color: '#EF4444', icon: '⬡' },
+  { name: 'Tankers', desc: 'Chemical, product, crude oil tankers', count: 'Available', color: 'var(--accent-teal)', icon: '⬡' },
+  { name: 'Container Ships', desc: 'Feeder, sub-Panamax, Panamax', count: 'Available', color: 'var(--accent-cyan)', icon: '⬡' },
+  { name: 'Tugboats', desc: 'Harbour, offshore, ocean-going tugs', count: 'Available', color: 'var(--accent-amber)', icon: '⬡' },
+  { name: 'Fishing Vessels', desc: 'Trawlers, purse seiners, longliners', count: 'Available', color: 'var(--accent-emerald)', icon: '⬡' },
+  { name: 'Offshore Vessels', desc: 'PSVs, AHTS, DSVs, survey vessels', count: 'Available', color: 'var(--accent-purple)', icon: '⬡' },
+  { name: 'Scrap / Demolition', desc: 'Vessels at end-of-life for recycling', count: 'Available', color: 'var(--accent-red)', icon: '⬡' },
 ]
 
 const listings = [
@@ -92,7 +92,7 @@ const listings = [
     price: '$580 / LDT',
     status: 'For Recycling',
     condition: 'Scrap',
-    color: '#EF4444',
+    color: 'var(--accent-red)',
     img: 'https://images.unsplash.com/photo-1635851801927-44c4d1c555af?w=600&h=320&fit=crop&auto=format',
   },
   {
@@ -104,7 +104,7 @@ const listings = [
     price: '$620 / LDT',
     status: 'For Recycling',
     condition: 'Scrap',
-    color: '#EF4444',
+    color: 'var(--accent-red)',
     img: 'https://images.unsplash.com/photo-1598625802173-8ff2d54dde02?w=600&h=320&fit=crop&auto=format',
   },
   {
@@ -116,7 +116,7 @@ const listings = [
     price: '$450K',
     status: 'For Sale',
     condition: 'Trading',
-    color: '#F59E0B',
+    color: 'var(--accent-amber)',
     img: 'https://images.unsplash.com/photo-1658966005677-aeab72abcb52?w=600&h=320&fit=crop&auto=format',
   },
   {
@@ -128,7 +128,7 @@ const listings = [
     price: '€380K',
     status: 'For Sale',
     condition: 'Trading',
-    color: '#34D399',
+    color: 'var(--accent-emerald)',
     img: 'https://images.unsplash.com/photo-1598408745613-178751e2ccde?w=600&h=320&fit=crop&auto=format',
   },
 ]
@@ -148,21 +148,21 @@ const compliance = [
     title: 'Hong Kong Convention',
     body: 'International Maritime Organization',
     status: 'Aligned',
-    statusColor: '#34D399',
+    statusColor: 'var(--accent-emerald)',
     desc: 'All recycling partners are aligned with the Hong Kong International Convention for Safe and Environmentally Sound Recycling of Ships.',
   },
   {
     title: 'EU Ship Recycling Regulation',
     body: 'European Commission',
     status: 'Compliant',
-    statusColor: '#34D399',
+    statusColor: 'var(--accent-emerald)',
     desc: 'EU-flag and EU-owned vessels are handled through yards approved under the EU Ship Recycling Regulation (EUSRR) list.',
   },
   {
     title: 'Basel Convention',
     body: 'United Nations Environment Programme',
     status: 'Compliant',
-    statusColor: '#34D399',
+    statusColor: 'var(--accent-emerald)',
     desc: 'Hazardous waste generated during recycling is managed in accordance with the Basel Convention on transboundary movement of hazardous waste.',
   },
   {
@@ -182,12 +182,12 @@ function VesselCard({ vessel }: { vessel: Vessel }) {
     <div
       className="rounded-2xl flex flex-col overflow-hidden transition-all duration-300 cursor-default"
       style={{
-        background: 'rgba(255,255,255,0.025)',
+        background: 'var(--fill-1)',
         border: `1px solid rgba(255,255,255,0.07)`,
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLDivElement).style.borderColor = `${vessel.color}40`
-        ;(e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 28px ${vessel.color}14`
+        (e.currentTarget as HTMLDivElement).style.borderColor = `color-mix(in srgb, ${vessel.color} 25%, transparent)`
+        ;(e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 28px color-mix(in srgb, ${vessel.color} 8%, transparent)`
       }}
       onMouseLeave={(e) => {
         (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(255,255,255,0.07)'
@@ -195,7 +195,7 @@ function VesselCard({ vessel }: { vessel: Vessel }) {
       }}
     >
       {/* Vessel photo */}
-      <div className="relative overflow-hidden" style={{ height: 160, background: '#0a1628' }}>
+      <div className="relative overflow-hidden" style={{ height: 160, background: 'var(--s3)' }}>
         <img
           src={vessel.img}
           alt={vessel.name}
@@ -210,7 +210,7 @@ function VesselCard({ vessel }: { vessel: Vessel }) {
           className="absolute top-3 right-3 px-2.5 py-0.5 rounded-full text-[10px] font-semibold"
           style={{
             background: isScrap ? 'rgba(239,68,68,0.85)' : 'rgba(52,211,153,0.85)',
-            color: 'white',
+            color: 'var(--fg)',
             backdropFilter: 'blur(4px)',
           }}
         >
@@ -238,7 +238,7 @@ function VesselCard({ vessel }: { vessel: Vessel }) {
           ))}
         </div>
 
-        <div className="h-px mb-4" style={{ background: 'rgba(255,255,255,0.05)' }} />
+        <div className="h-px mb-4" style={{ background: 'var(--fill-2)' }} />
 
         {/* Price */}
         <div className="flex items-center justify-between mb-4">
@@ -249,9 +249,9 @@ function VesselCard({ vessel }: { vessel: Vessel }) {
         <a
           href="#sector-contact"
           className="block text-center py-2 rounded-lg text-xs font-semibold transition-all duration-200"
-          style={{ background: `${vessel.color}14`, color: vessel.color, border: `1px solid ${vessel.color}25` }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = `${vessel.color}26` }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = `${vessel.color}14` }}
+          style={{ background: `color-mix(in srgb, ${vessel.color} 8%, transparent)`, color: vessel.color, border: `1px solid color-mix(in srgb, ${vessel.color} 15%, transparent)` }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = `color-mix(in srgb, ${vessel.color} 15%, transparent)` }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = `color-mix(in srgb, ${vessel.color} 8%, transparent)` }}
         >
           Enquire About This Vessel
         </a>
@@ -293,7 +293,7 @@ function VesselListings() {
       {/* Search bar */}
       <div
         className="rounded-2xl p-5 mb-10"
-        style={{ background: `${OCEAN}08`, border: `1px solid ${OCEAN}20` }}
+        style={{ background: `color-mix(in srgb, ${OCEAN} 3%, transparent)`, border: `1px solid color-mix(in srgb, ${OCEAN} 13%, transparent)` }}
       >
         <div className="font-mono text-[10px] tracking-widest uppercase mb-4" style={{ color: OCEAN }}>
           Search Vessel Listings
@@ -306,32 +306,34 @@ function VesselListings() {
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search by vessel name, type, or flag..."
               className="w-full px-4 py-2.5 rounded-lg text-sm text-white placeholder:text-slate-600 outline-none"
-              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
-              onFocus={(e) => { e.currentTarget.style.borderColor = `${OCEAN}50` }}
+              style={{ background: 'var(--fill-2)', border: 'var(--border-subtle)' }}
+              onFocus={(e) => { e.currentTarget.style.borderColor = `color-mix(in srgb, ${OCEAN} 31%, transparent)` }}
               onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)' }}
             />
           </div>
           <select
+            aria-label="Vessel type"
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
             className="px-4 py-2.5 rounded-lg text-sm text-slate-300 outline-none"
-            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
+            style={{ background: 'var(--fill-2)', border: 'var(--border-subtle)' }}
           >
-            {VESSEL_TYPES.map((t) => <option key={t} style={{ background: '#06101C' }}>{t}</option>)}
+            {VESSEL_TYPES.map((t) => <option key={t} style={{ background: 'var(--s1)' }}>{t}</option>)}
           </select>
           <select
+            aria-label="Vessel activity"
             value={activityFilter}
             onChange={(e) => setActivityFilter(e.target.value)}
             className="px-4 py-2.5 rounded-lg text-sm text-slate-300 outline-none"
-            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
+            style={{ background: 'var(--fill-2)', border: 'var(--border-subtle)' }}
           >
-            {VESSEL_ACTIVITIES.map((a) => <option key={a} style={{ background: '#06101C' }}>{a}</option>)}
+            {VESSEL_ACTIVITIES.map((a) => <option key={a} style={{ background: 'var(--s1)' }}>{a}</option>)}
           </select>
           {(query || typeFilter !== 'All Types' || activityFilter !== 'All') && (
             <button
               onClick={() => { setQuery(''); setTypeFilter('All Types'); setActivityFilter('All') }}
               className="px-4 py-2.5 rounded-lg text-sm text-slate-400 hover:text-white transition-colors"
-              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
+              style={{ background: 'var(--fill-2)', border: 'var(--border-subtle)' }}
             >
               Clear
             </button>
@@ -354,7 +356,7 @@ function VesselListings() {
       ) : (
         <div
           className="py-20 text-center rounded-2xl"
-          style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
+          style={{ background: 'var(--fill-1)', border: 'var(--border-subtle)' }}
         >
           <div className="text-3xl mb-4">⚓</div>
           <div className="text-white font-semibold text-sm mb-2">No vessels match your search</div>
@@ -362,7 +364,7 @@ function VesselListings() {
           <button
             onClick={() => { setQuery(''); setTypeFilter('All Types'); setActivityFilter('All') }}
             className="px-5 py-2 rounded-lg text-xs font-semibold transition-opacity hover:opacity-80"
-            style={{ background: OCEAN, color: 'white' }}
+            style={{ background: OCEAN, color: 'var(--s0)' }}
           >
             Clear Filters
           </button>
@@ -376,11 +378,11 @@ function VesselListings() {
 
 export default function EShipe() {
   return (
-    <div className="min-h-full" style={{ background: BG_DEEP, color: 'white' }}>
+    <div className="sector-page min-h-full" style={{ background: BG_DEEP, color: 'var(--fg)' }}>
       <SectorHeader divisionName="eSHIPe Maritime" accentClass="text-sky-400" />
 
       {/* ── 1. HERO ── */}
-      <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: BG_DEEP }}>
+      <section className="sector-hero relative min-h-screen flex items-center overflow-hidden" style={{ background: BG_DEEP }}>
         {/* Ocean grid */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -403,7 +405,7 @@ export default function EShipe() {
         {/* Horizon line */}
         <div
           className="absolute left-0 right-0 pointer-events-none"
-          style={{ top: '55%', height: '1px', background: `linear-gradient(to right, transparent, ${OCEAN}30, transparent)` }}
+          style={{ top: '55%', height: '1px', background: `linear-gradient(to right, transparent, color-mix(in srgb, ${OCEAN} 19%, transparent), transparent)` }}
         />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-32">
@@ -419,7 +421,7 @@ export default function EShipe() {
             <div className="mb-8 inline-flex">
               <div
                 className="flex items-center gap-3 px-4 py-2 rounded-full"
-                style={{ border: `1px solid ${OCEAN}35`, background: `${OCEAN}0E` }}
+                style={{ border: `1px solid color-mix(in srgb, ${OCEAN} 21%, transparent)`, background: `color-mix(in srgb, ${OCEAN} 5%, transparent)` }}
               >
                 <span className="text-2xl">⚓</span>
                 <span className="font-mono text-[10px] tracking-[0.2em] uppercase font-semibold" style={{ color: OCEAN }}>
@@ -429,7 +431,7 @@ export default function EShipe() {
             </div>
 
             <h1 className="font-display leading-[1.05] tracking-[-0.02em] mb-6" style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)' }}>
-              <span style={{ color: 'white' }}>Your Global Partner in</span>
+              <span style={{ color: 'var(--fg)' }}>Your Global Partner in</span>
               <br />
               <span
                 style={{
@@ -453,14 +455,14 @@ export default function EShipe() {
               <a
                 href="#listings"
                 className="px-8 py-3.5 font-semibold text-sm rounded-lg transition-all hover:opacity-90"
-                style={{ background: OCEAN, color: 'white' }}
+                style={{ background: OCEAN, color: 'var(--s0)' }}
               >
                 Browse Listings
               </a>
               <a
                 href="#sector-contact"
                 className="px-8 py-3.5 border text-sm font-medium text-white rounded-lg hover:bg-white/5 transition-colors"
-                style={{ borderColor: `${OCEAN}50` }}
+                style={{ borderColor: `color-mix(in srgb, ${OCEAN} 31%, transparent)` }}
               >
                 List Your Vessel
               </a>
@@ -489,9 +491,9 @@ export default function EShipe() {
           style={{ fontFamily: 'monospace', fontSize: '11px', color: OCEAN, lineHeight: 1.9 }}
         >
           <div>$ eshipe --network=global --status=online</div>
-          <div style={{ color: '#4ade80' }}>&#10003; marketplace active — 50+ countries</div>
-          <div style={{ color: '#4ade80' }}>&#10003; 200+ buyers registered</div>
-          <div style={{ color: '#4ade80' }}>&#10003; recycling yards verified</div>
+          <div style={{ color: 'var(--accent-green)' }}>&#10003; marketplace active — 50+ countries</div>
+          <div style={{ color: 'var(--accent-green)' }}>&#10003; 200+ buyers registered</div>
+          <div style={{ color: 'var(--accent-green)' }}>&#10003; recycling yards verified</div>
           <div className="animate-pulse">&#9646; awaiting vessel enquiry_</div>
         </div>
       </section>
@@ -504,7 +506,7 @@ export default function EShipe() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="flex items-center justify-center gap-3 mb-5">
-              <div className="h-px w-8" style={{ background: OCEAN }} />
+              <div className="h-px w-8" style={{ background: OCEAN, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: OCEAN }}>Our Services</span>
               <div className="h-px w-8" style={{ background: OCEAN }} />
             </div>
@@ -521,10 +523,10 @@ export default function EShipe() {
               <div
                 key={svc.title}
                 className="group p-8 rounded-2xl cursor-default transition-all duration-300"
-                style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)' }}
+                style={{ background: 'var(--fill-1)', border: 'var(--border-subtle)' }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.borderColor = `${svc.color}40`
-                  ;(e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 30px ${svc.color}12`
+                  (e.currentTarget as HTMLDivElement).style.borderColor = `color-mix(in srgb, ${svc.color} 25%, transparent)`
+                  ;(e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 30px color-mix(in srgb, ${svc.color} 7%, transparent)`
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(255,255,255,0.07)'
@@ -533,7 +535,7 @@ export default function EShipe() {
               >
                 <div
                   className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-2xl"
-                  style={{ background: `${svc.color}14`, border: `1px solid ${svc.color}30` }}
+                  style={{ background: `color-mix(in srgb, ${svc.color} 8%, transparent)`, border: `1px solid color-mix(in srgb, ${svc.color} 19%, transparent)` }}
                 >
                   {svc.icon}
                 </div>
@@ -564,16 +566,16 @@ export default function EShipe() {
               <div
                 key={cat.name}
                 className="p-6 rounded-xl transition-all duration-200 cursor-default"
-                style={{ background: `${cat.color}06`, border: `1px solid ${cat.color}18` }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = `${cat.color}40` }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = `${cat.color}18` }}
+                style={{ background: `color-mix(in srgb, ${cat.color} 2%, transparent)`, border: `1px solid color-mix(in srgb, ${cat.color} 9%, transparent)` }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = `color-mix(in srgb, ${cat.color} 25%, transparent)` }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = `color-mix(in srgb, ${cat.color} 9%, transparent)` }}
               >
                 <div className="text-xl mb-4" style={{ color: cat.color }}>{cat.icon}</div>
                 <div className="text-white font-semibold text-sm mb-1.5">{cat.name}</div>
                 <div className="text-slate-500 text-xs mb-4 leading-relaxed">{cat.desc}</div>
                 <div
                   className="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold"
-                  style={{ background: `${cat.color}14`, color: cat.color }}
+                  style={{ background: `color-mix(in srgb, ${cat.color} 8%, transparent)`, color: cat.color }}
                 >
                   {cat.count}
                 </div>
@@ -614,7 +616,7 @@ export default function EShipe() {
 
           <div
             className="mt-10 p-5 rounded-xl text-center"
-            style={{ background: `${OCEAN}08`, border: `1px solid ${OCEAN}20` }}
+            style={{ background: `color-mix(in srgb, ${OCEAN} 3%, transparent)`, border: `1px solid color-mix(in srgb, ${OCEAN} 13%, transparent)` }}
           >
             <p className="text-slate-400 text-sm mb-3">
               These featured listings are representative samples. Contact our team for the full live inventory and off-market opportunities.
@@ -622,7 +624,7 @@ export default function EShipe() {
             <a
               href="#sector-contact"
               className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold text-sm transition-all hover:opacity-90"
-              style={{ background: OCEAN, color: 'white' }}
+              style={{ background: OCEAN, color: 'var(--s0)' }}
             >
               Request Full Vessel Inventory
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -648,8 +650,8 @@ export default function EShipe() {
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-10" style={{ background: '#34D399' }} />
-                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: '#34D399' }}>Sustainable Recycling</span>
+                <div className="h-px w-10" style={{ background: 'var(--accent-emerald)' }} />
+                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: 'var(--accent-emerald)' }}>Sustainable Recycling</span>
               </div>
               <h2 className="font-display text-4xl lg:text-5xl text-white mb-6 leading-tight">
                 Responsible Ship Recycling
@@ -684,7 +686,7 @@ export default function EShipe() {
                 <div
                   key={item.title}
                   className="p-5 rounded-xl"
-                  style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}
+                  style={{ background: 'var(--fill-1)', border: 'var(--border-subtle)' }}
                 >
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <div>
@@ -693,7 +695,7 @@ export default function EShipe() {
                     </div>
                     <span
                       className="flex-shrink-0 px-2.5 py-0.5 rounded-full text-[10px] font-semibold"
-                      style={{ background: `${item.statusColor}15`, color: item.statusColor }}
+                      style={{ background: `color-mix(in srgb, ${item.statusColor} 8%, transparent)`, color: item.statusColor }}
                     >
                       {item.status}
                     </span>
@@ -741,13 +743,13 @@ export default function EShipe() {
                 icon: '◈',
                 title: 'Neutral Brokerage',
                 desc: 'Our brokers represent the transaction — not one side. Transparent fee structure, no hidden commissions.',
-                color: '#34D399',
+                color: 'var(--accent-emerald)',
               },
               {
                 icon: '◈',
                 title: 'Legal Support',
                 desc: 'MOA drafting, flag transfer coordination, and port agent services managed through N71\'s global legal network.',
-                color: '#F59E0B',
+                color: 'var(--accent-amber)',
               },
               {
                 icon: '◈',
@@ -765,9 +767,9 @@ export default function EShipe() {
               <div
                 key={item.title}
                 className="group p-7 rounded-2xl cursor-default transition-all duration-300"
-                style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)' }}
+                style={{ background: 'var(--fill-1)', border: 'var(--border-subtle)' }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.borderColor = `${item.color}35`
+                  (e.currentTarget as HTMLDivElement).style.borderColor = `color-mix(in srgb, ${item.color} 21%, transparent)`
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(255,255,255,0.07)'
@@ -809,15 +811,15 @@ export default function EShipe() {
               {[
                 { region: 'South Asia', detail: 'Bangladesh · India · Pakistan · Sri Lanka', color: OCEAN },
                 { region: 'Middle East', detail: 'UAE · Saudi Arabia · Kuwait · Oman', color: TEAL },
-                { region: 'East Asia', detail: 'China · Japan · South Korea · Taiwan', color: '#22D3EE' },
-                { region: 'Europe', detail: 'Greece · Turkey · Germany · Norway', color: '#A855F7' },
+                { region: 'East Asia', detail: 'China · Japan · South Korea · Taiwan', color: 'var(--accent-cyan)' },
+                { region: 'Europe', detail: 'Greece · Turkey · Germany · Norway', color: 'var(--accent-purple)' },
                 { region: 'Southeast Asia', detail: 'Singapore · Malaysia · Philippines', color: OCEAN },
-                { region: 'Americas', detail: 'USA · Panama · Brazil · Canada', color: '#34D399' },
+                { region: 'Americas', detail: 'USA · Panama · Brazil · Canada', color: 'var(--accent-emerald)' },
               ].map((r) => (
                 <div
                   key={r.region}
                   className="p-5 rounded-xl"
-                  style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}
+                  style={{ background: 'var(--fill-1)', border: 'var(--border-subtle)' }}
                 >
                   <div className="w-2 h-2 rounded-full mb-3" style={{ background: r.color }} />
                   <div className="text-white font-semibold text-sm mb-1.5">{r.region}</div>

@@ -13,6 +13,7 @@
 import logoTransparent from '@/imports/network7_logo_highres_transparent.png'
 import badgeImg        from '@/imports/image.jpg'
 import logoDarkBg      from '@/imports/IMG_20260828_050407.png'
+import { useTheme }    from '@/context/ThemeContext'
 
 // ── Content bounds (fractions of the source canvas) ─────────────────────────
 
@@ -46,7 +47,11 @@ export type LogoVariant =
   | 'icon-white'    // 71 badge — white silhouette
 
 export interface LogoProps {
-  variant?: LogoVariant
+  /**
+   * Explicit artwork variant. Omit (or pass 'auto') to follow the active
+   * colour theme — white-on-dark in dark mode, black-on-light in light mode.
+   */
+  variant?: LogoVariant | 'auto'
   height?: number
   className?: string
   style?: React.CSSProperties
@@ -87,16 +92,15 @@ function Cropped({ src, alt, bounds, height, filter }: CropProps) {
   const canvasH = height / H
   const canvasW = canvasH * sourceAR   // handles both square and wide sources
   const containerW = W * canvasW
-  const offsetX = L * canvasW
-  const offsetY = T * canvasH
 
   return (
     <div style={{
       width: Math.round(containerW),
-      height: Math.round(height),
+      maxWidth: '100%',
+      aspectRatio: `${containerW} / ${height}`,
       overflow: 'hidden',
       position: 'relative',
-      flexShrink: 0,
+      flexShrink: 1,
       display: 'inline-block',
       lineHeight: 0,
     }}>
@@ -106,10 +110,10 @@ function Cropped({ src, alt, bounds, height, filter }: CropProps) {
         draggable={false}
         style={{
           position: 'absolute',
-          width:  Math.round(canvasW),
-          height: Math.round(canvasH),
-          top:  -Math.round(offsetY),
-          left: -Math.round(offsetX),
+          width: `${100 / W}%`,
+          height: `${100 / H}%`,
+          top: `${-T / H * 100}%`,
+          left: `${-L / W * 100}%`,
           filter,
           display: 'block',
           maxWidth: 'none',
@@ -130,14 +134,21 @@ export default function Logo({
   style,
   'aria-label': ariaLabel = 'Network71',
 }: LogoProps) {
-  const filter = FILTER[variant]
-  const isIcon = variant.startsWith('icon')
-  const isDark = variant === 'primary-dark'
+  const { theme } = useTheme()
+
+  // 'auto' resolves against the live theme so the mark never disappears
+  // against its background when the user flips modes.
+  const resolved: LogoVariant =
+    variant === 'auto' ? (theme === 'light' ? 'primary' : 'primary-dark') : variant
+
+  const filter = FILTER[resolved]
+  const isIcon = resolved.startsWith('icon')
+  const isDark = resolved === 'primary-dark'
 
   return (
     <span
       className={className}
-      style={{ display: 'inline-flex', alignItems: 'center', lineHeight: 0, ...style }}
+      style={{ display: 'inline-flex', maxWidth: '100%', alignItems: 'center', lineHeight: 0, ...style }}
       role="img"
       aria-label={ariaLabel}
     >

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
+import { openEmailDraft } from "@/lib/mailto"
 
 const stats = [
   { value: "10M+", label: "Target Users", sub: "Global addressable audience" },
@@ -154,7 +155,7 @@ const revenueStreams = [
     desc: "A percentage fee applied to every completed transaction on the platform. Scales directly with GMV as the seller base grows.",
     tag: "% TBP",
     gradient: "from-purple-500 to-indigo-600",
-    donutColor: "#A855F7",
+    donutColor: "var(--accent-purple)",
     share: 40,
   },
   {
@@ -163,7 +164,7 @@ const revenueStreams = [
     desc: "Premium seller plans unlocking advanced analytics, brand tools, priority placement, and dedicated account management.",
     tag: "Monthly / Annual",
     gradient: "from-pink-500 to-rose-600",
-    donutColor: "#EC4899",
+    donutColor: "var(--accent-pink)",
     share: 30,
   },
   {
@@ -181,7 +182,7 @@ const revenueStreams = [
     desc: "Enterprise-grade market insight reports and anonymised consumer trend data sold to brands and manufacturers.",
     tag: "Coming Soon",
     gradient: "from-amber-500 to-orange-600",
-    donutColor: "#F59E0B",
+    donutColor: "var(--accent-amber)",
     share: 10,
   },
 ]
@@ -247,11 +248,11 @@ export default function EzyifyPage() {
     return () => el.removeEventListener("mousemove", handler)
   }, [])
 
-  const DARK = "#05081A"
-  const DARK2 = "#0A0F1E"
+  const DARK = "var(--s0)"
+  const DARK2 = "var(--s1)"
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: DARK, color: "#e2e8f0" }}>
+    <div className="min-h-screen" style={{ backgroundColor: DARK, color: 'var(--fg)' }}>
       <Header />
 
       {/* ── Hero ── */}
@@ -481,7 +482,7 @@ export default function EzyifyPage() {
       </section>
 
       {/* ── B. Business Model ── */}
-      <section className="py-24 px-6" style={{ backgroundColor: "#0D1425" }}>
+      <section className="py-24 px-6" style={{ backgroundColor: "var(--s2)" }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <p className="text-pink-400 text-xs font-semibold tracking-widest uppercase mb-4">Monetisation</p>
@@ -522,16 +523,16 @@ export default function EzyifyPage() {
                   {/* Background ring */}
                   <circle cx="80" cy="80" r="60" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="24" />
                   {/* Purple — 40% */}
-                  <circle cx="80" cy="80" r="60" fill="none" stroke="#A855F7" strokeWidth="24"
+                  <circle cx="80" cy="80" r="60" fill="none" stroke="var(--accent-purple)" strokeWidth="24"
                     strokeDasharray={`${40 * 3.77} ${100 * 3.77}`} strokeDashoffset="0" strokeLinecap="butt" />
                   {/* Pink — 30% */}
-                  <circle cx="80" cy="80" r="60" fill="none" stroke="#EC4899" strokeWidth="24"
+                  <circle cx="80" cy="80" r="60" fill="none" stroke="var(--accent-pink)" strokeWidth="24"
                     strokeDasharray={`${30 * 3.77} ${100 * 3.77}`} strokeDashoffset={`${-(40 * 3.77)}`} strokeLinecap="butt" />
                   {/* Cyan — 20% */}
                   <circle cx="80" cy="80" r="60" fill="none" stroke="#06B6D4" strokeWidth="24"
                     strokeDasharray={`${20 * 3.77} ${100 * 3.77}`} strokeDashoffset={`${-(70 * 3.77)}`} strokeLinecap="butt" />
                   {/* Amber — 10% */}
-                  <circle cx="80" cy="80" r="60" fill="none" stroke="#F59E0B" strokeWidth="24"
+                  <circle cx="80" cy="80" r="60" fill="none" stroke="var(--accent-amber)" strokeWidth="24"
                     strokeDasharray={`${10 * 3.77} ${100 * 3.77}`} strokeDashoffset={`${-(90 * 3.77)}`} strokeLinecap="butt" />
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -707,7 +708,7 @@ export default function EzyifyPage() {
                     <circle
                       key={spoke.label + "-circle"}
                       cx={cx} cy={cy} r="36"
-                      fill="#0A0F1E"
+                      fill="var(--s1)"
                       stroke="rgba(168,85,247,0.3)"
                       strokeWidth="1"
                     />
@@ -715,8 +716,8 @@ export default function EzyifyPage() {
                 })}
                 <defs>
                   <radialGradient id="centreGrad" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stopColor="#A855F7" />
-                    <stop offset="100%" stopColor="#EC4899" stopOpacity="0" />
+                    <stop offset="0%" stopColor="var(--accent-purple)" />
+                    <stop offset="100%" stopColor="var(--accent-pink)" stopOpacity="0" />
                   </radialGradient>
                 </defs>
               </svg>
@@ -900,15 +901,20 @@ export default function EzyifyPage() {
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
-              {"You're on the list — we'll be in touch!"}
+              Your email draft is ready — send it to request early access.
             </div>
           ) : (
             <form
-              onSubmit={(e) => { e.preventDefault(); if (email) setSubmitted(true) }}
+              onSubmit={(e) => {
+                e.preventDefault()
+                openEmailDraft("info@network71.com", "Ezyify early-access request", { Email: email })
+                setSubmitted(true)
+              }}
               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
             >
               <input
                 type="email"
+                aria-label="Email address for Ezyify early access"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

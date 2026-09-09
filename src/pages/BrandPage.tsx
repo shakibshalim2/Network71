@@ -36,11 +36,11 @@ function Tile({
 }) {
   return (
     <div className="rounded-xl overflow-hidden flex flex-col" style={{ border: border || '1px solid rgba(255,255,255,0.06)' }}>
-      <div className="flex items-center justify-center px-8 flex-1"
+      <div className="brand-preview flex items-center justify-center px-8 flex-1"
         style={{ background: bg, paddingTop: padY, paddingBottom: padY, minHeight: 120 }}>
         {children}
       </div>
-      <div className="px-5 py-3" style={{ background: '#0C1422', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+      <div className="px-5 py-3" style={{ background: 'var(--s2)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <p className="text-white text-[13px] font-medium">{label}</p>
         {sub && <p className="font-mono text-[9px] tracking-[0.18em] text-slate-600 uppercase mt-0.5">{sub}</p>}
       </div>
@@ -93,11 +93,11 @@ function Swatch({ name, hex, note, light }: { name: string; hex: string; note: s
       <div className="h-24 flex items-end p-3"
         style={{ background: hex, border: light ? '1px solid rgba(0,0,0,0.08)' : undefined }}>
         <span className="font-mono text-[9px] tracking-[0.18em]"
-          style={{ color: light ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.55)' }}>
+          style={{ color: light ? '#334155' : '#FFFFFF' }}>
           {hex}
         </span>
       </div>
-      <div className="px-4 py-3" style={{ background: '#0C1422' }}>
+      <div className="px-4 py-3" style={{ background: 'var(--s2)' }}>
         <p className="text-white text-sm font-medium mb-0.5">{name}</p>
         <p className="text-slate-500 text-[11px] leading-relaxed">{note}</p>
       </div>
@@ -109,10 +109,10 @@ function Swatch({ name, hex, note, light }: { name: string; hex: string; note: s
 
 export default function BrandPage() {
   return (
-    <div style={{ background: '#040810', minHeight: '100vh' }}>
+    <div style={{ background: 'var(--s0)', minHeight: '100vh' }}>
       <Header />
 
-      <main className="pt-28 pb-32">
+      <main className="brand-page pt-28 pb-32">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
 
           {/* ── Hero ─────────────────────────────────────────────────────────── */}
@@ -120,7 +120,7 @@ export default function BrandPage() {
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-8" style={{ background: '#D42424', opacity: 0.5 }} />
               <span className="font-mono text-[9px] tracking-[0.4em] uppercase"
-                style={{ color: '#D42424', opacity: 0.8 }}>Brand Identity</span>
+                style={{ color: 'var(--accent-red)' }}>Brand Identity</span>
             </div>
             <h1 className="font-display text-5xl lg:text-6xl text-white tracking-[-0.02em] mb-5 leading-[1.05]">
               Network71<br />
@@ -181,7 +181,7 @@ export default function BrandPage() {
             <div className="grid md:grid-cols-3 gap-4">
               {[
                 { bg: '#000000', label: 'Black background' },
-                { bg: '#040810', label: 'Brand navy' },
+                { bg: 'var(--s0)', label: 'Brand navy' },
                 { bg: '#1A1A2E', label: 'Deep surface' },
               ].map(({ bg, label }) => (
                 <Tile key={label} bg={bg} label={`Original logo · ${label}`}
@@ -242,7 +242,7 @@ export default function BrandPage() {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               <VariantTile variant="icon" bg="#FFFFFF" label="Full colour · Light" sub="Primary icon usage" h={64} border="1px solid rgba(0,0,0,0.07)" />
               <VariantTile variant="icon" bg="#F5F5F5" label="Full colour · Grey" sub="Light tinted surface" h={64} border="1px solid rgba(0,0,0,0.05)" />
-              <VariantTile variant="icon" bg="#040810" label="Full colour · Dark" sub="Red survives on dark bg" h={64} />
+              <VariantTile variant="icon" bg="var(--s0)" label="Full colour · Dark" sub="Red survives on dark bg" h={64} />
               <VariantTile variant="icon-black" bg="#FFFFFF" label="Mono Black icon" sub="Single-colour dark" h={64} border="1px solid rgba(0,0,0,0.07)" />
               <VariantTile variant="icon-white" bg="#111111" label="Mono White icon" sub="Single-colour light" h={64} />
               <VariantTile variant="icon-white" bg="#D42424" label="White icon · Red field" sub="On brand primary colour" h={64} />
@@ -290,7 +290,7 @@ export default function BrandPage() {
           <section className="mb-20">
             <SectionHead n="08" title="Usage Rules" />
             <div className="grid md:grid-cols-2 gap-5">
-              <div className="rounded-xl p-6" style={{ background: '#070F1C', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <div className="rounded-xl p-6" style={{ background: 'var(--s2)', border: '1px solid rgba(255,255,255,0.05)' }}>
                 <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-slate-600 mb-5">Clear Space</p>
                 <div className="flex items-center justify-center py-6">
                   <div className="relative p-8" style={{ border: '1px dashed rgba(212,36,36,0.35)', borderRadius: 2 }}>
@@ -302,7 +302,7 @@ export default function BrandPage() {
                   No other elements enter this exclusion zone.
                 </p>
               </div>
-              <div className="rounded-xl p-6" style={{ background: '#070F1C', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <div className="rounded-xl p-6" style={{ background: 'var(--s2)', border: '1px solid rgba(255,255,255,0.05)' }}>
                 <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-slate-600 mb-5">Never Do</p>
                 <ul className="space-y-2.5">
                   {[

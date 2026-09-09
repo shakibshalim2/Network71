@@ -4,10 +4,10 @@ import MetricsBar from '@/components/sector/MetricsBar'
 import SectorContact from '@/components/sector/SectorContact'
 import Footer from '@/components/Footer'
 
-const RED = '#EF4444'
-const GOLD = '#C8962A'
-const BG_DEEP = '#030608'
-const BG_ALT = '#080D12'
+const RED = 'var(--accent-red)'
+const GOLD = 'var(--brand-fg)'
+const BG_DEEP = 'var(--s0)'
+const BG_ALT = 'var(--s1)'
 
 /* ─── data ─────────────────────────────────────────────────────────────── */
 
@@ -35,37 +35,37 @@ const newsCategories = [
     icon: '◈',
     title: 'International Affairs',
     desc: 'Comprehensive international news coverage including geopolitics, diplomacy, and cross-border developments.',
-    color: '#22D3EE',
+    color: 'var(--accent-cyan)',
   },
   {
     icon: '◈',
     title: 'Technology',
     desc: 'Innovation, AI, startups, digital transformation, and the technology forces reshaping industries worldwide.',
-    color: '#A855F7',
+    color: 'var(--accent-purple)',
   },
   {
     icon: '◈',
     title: 'Culture & Society',
     desc: 'Arts, heritage, social movements, sports, and the stories that define communities across every continent.',
-    color: '#34D399',
+    color: 'var(--accent-emerald)',
   },
   {
     icon: '◈',
     title: 'Investigative Reporting',
     desc: 'Long-form investigative journalism — uncovering stories that matter with evidence, rigour, and independence.',
-    color: '#F97316',
+    color: 'var(--accent-orange)',
   },
 ]
 
 const tvProgrammes = [
   { title: 'The Daily Brief', time: 'Mon – Fri  |  07:00', format: 'Morning news programme', color: RED },
   { title: 'Markets Watch', time: 'Daily  |  09:30', format: 'Business & financial markets', color: GOLD },
-  { title: 'World Report', time: 'Daily  |  12:00', format: 'Midday international news', color: '#22D3EE' },
+  { title: 'World Report', time: 'Daily  |  12:00', format: 'Midday international news', color: 'var(--accent-cyan)' },
   { title: 'Evening Edition', time: 'Daily  |  18:30', format: 'Evening flagship bulletin', color: RED },
-  { title: 'The Insight', time: 'Weekly', format: 'Long-form investigative feature', color: '#A855F7' },
+  { title: 'The Insight', time: 'Weekly', format: 'Long-form investigative feature', color: 'var(--accent-purple)' },
   { title: 'Economy Plus', time: 'Weekly', format: 'Global trade & economic affairs', color: GOLD },
-  { title: 'Tech Horizon', time: 'Weekly', format: 'Technology & innovation desk', color: '#34D399' },
-  { title: 'Press Review', time: 'Daily  |  22:00', format: 'Media analysis & review', color: '#64748B' },
+  { title: 'Tech Horizon', time: 'Weekly', format: 'Technology & innovation desk', color: 'var(--accent-emerald)' },
+  { title: 'Press Review', time: 'Daily  |  22:00', format: 'Media analysis & review', color: 'var(--fg-muted)' },
 ]
 
 const editorialStandards = [
@@ -77,9 +77,9 @@ const editorialStandards = [
 
 const platforms = [
   { name: 'Digital News Portal', desc: 'Web-first news platform with real-time updates, multimedia content, and personalised feeds.', icon: '◻', color: RED },
-  { name: 'Mobile App', desc: 'Native iOS and Android app delivering breaking alerts, live streams, and saved articles.', icon: '◻', color: '#22D3EE' },
+  { name: 'Mobile App', desc: 'Native iOS and Android app delivering breaking alerts, live streams, and saved articles.', icon: '◻', color: 'var(--accent-cyan)' },
   { name: 'TV Channel', desc: '24/7 live broadcast channel with rolling news, scheduled programmes, and live specials.', icon: '◻', color: GOLD },
-  { name: 'Video & VOD', desc: 'Full video-on-demand library, including long-form documentaries and archived broadcasts.', icon: '◻', color: '#A855F7' },
+  { name: 'Video & VOD', desc: 'Full video-on-demand library, including long-form documentaries and archived broadcasts.', icon: '◻', color: 'var(--accent-purple)' },
 ]
 
 const advertisingOptions = [
@@ -99,7 +99,7 @@ const advertisingOptions = [
     title: 'Strategic Content Partnership',
     tag: 'Branded Content',
     desc: 'Custom editorial content, advertorials, and co-produced features that integrate brand messaging within trusted editorial context.',
-    color: '#22D3EE',
+    color: 'var(--accent-cyan)',
   },
 ]
 
@@ -107,11 +107,11 @@ const advertisingOptions = [
 
 export default function Media() {
   return (
-    <div className="min-h-full" style={{ background: BG_DEEP, color: 'white' }}>
+    <div className="sector-page min-h-full" style={{ background: BG_DEEP, color: 'var(--fg)' }}>
       <SectorHeader divisionName="Media" accentClass="text-red-400" />
 
       {/* ── 1. HERO ── */}
-      <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: BG_DEEP }}>
+      <section className="sector-hero relative min-h-screen flex items-center overflow-hidden" style={{ background: BG_DEEP }}>
         {/* Scanline texture */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -141,8 +141,8 @@ export default function Media() {
 
         {/* Breaking news ticker strip */}
         <div
-          className="absolute top-[60px] left-0 right-0 py-2.5 flex items-center gap-0 overflow-hidden"
-          style={{ background: RED, zIndex: 5 }}
+          className="force-dark absolute top-0 left-0 right-0 py-2.5 flex items-center gap-0 overflow-hidden"
+          style={{ background: '#991b1b', zIndex: 5 }}
         >
           <div
             className="flex-shrink-0 px-4 py-0.5 font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-white"
@@ -181,7 +181,7 @@ export default function Media() {
             </div>
 
             <h1 className="font-display leading-[1.05] tracking-[-0.02em] mb-6" style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)' }}>
-              <span style={{ color: 'white' }}>Where News Meets</span>
+              <span style={{ color: 'var(--fg)' }}>Where News Meets</span>
               <br />
               <span
                 style={{
@@ -205,14 +205,14 @@ export default function Media() {
               <a
                 href="#sector-contact"
                 className="px-8 py-3.5 font-semibold text-sm rounded-lg transition-all hover:opacity-90"
-                style={{ background: RED, color: 'white' }}
+                style={{ background: RED, color: 'var(--s0)' }}
               >
                 Media Partnerships
               </a>
               <a
                 href="#programmes"
                 className="px-8 py-3.5 border text-sm font-medium text-white rounded-lg hover:bg-white/5 transition-colors"
-                style={{ borderColor: `${RED}50` }}
+                style={{ borderColor: `color-mix(in srgb, ${RED} 31%, transparent)` }}
               >
                 View Programmes
               </a>
@@ -224,7 +224,7 @@ export default function Media() {
               <div className="flex items-center gap-2.5">
                 <span
                   className="w-2.5 h-2.5 rounded-full"
-                  style={{ background: RED, boxShadow: `0 0 10px ${RED}, 0 0 20px ${RED}60`, animation: 'pulse-slow 2s ease-in-out infinite' }}
+                  style={{ background: RED, color: 'var(--s0)', boxShadow: `0 0 10px ${RED}, 0 0 20px color-mix(in srgb, ${RED} 38%, transparent)`, animation: 'pulse-slow 2s ease-in-out infinite' }}
                 />
                 <span className="font-mono text-[10px] text-white tracking-[0.2em] uppercase font-semibold">Live Now</span>
               </div>
@@ -249,9 +249,9 @@ export default function Media() {
           style={{ fontFamily: 'monospace', fontSize: '11px', color: RED, lineHeight: 1.8 }}
         >
           <div>$ n71-media --channel=live --stream=active</div>
-          <div style={{ color: '#4ade80' }}>&#10003; broadcast signal confirmed</div>
-          <div style={{ color: '#4ade80' }}>&#10003; editorial desk online</div>
-          <div style={{ color: '#4ade80' }}>&#10003; 25+ country distribution</div>
+          <div style={{ color: 'var(--accent-green)' }}>&#10003; broadcast signal confirmed</div>
+          <div style={{ color: 'var(--accent-green)' }}>&#10003; editorial desk online</div>
+          <div style={{ color: 'var(--accent-green)' }}>&#10003; 25+ country distribution</div>
           <div className="animate-pulse">&#9646; transmitting_</div>
         </div>
       </section>
@@ -288,7 +288,7 @@ export default function Media() {
                 <div
                   key={p.name}
                   className="p-5 rounded-xl"
-                  style={{ background: `${p.color}06`, border: `1px solid ${p.color}18` }}
+                  style={{ background: `color-mix(in srgb, ${p.color} 2%, transparent)`, border: `1px solid color-mix(in srgb, ${p.color} 9%, transparent)` }}
                 >
                   <div className="text-xs font-bold mb-3" style={{ color: p.color }}>{p.icon} {p.name}</div>
                   <p className="text-slate-400 text-xs leading-relaxed">{p.desc}</p>
@@ -319,10 +319,10 @@ export default function Media() {
               <div
                 key={cat.title}
                 className="group p-7 rounded-2xl cursor-default transition-all duration-300"
-                style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)' }}
+                style={{ background: 'var(--fill-1)', border: 'var(--border-subtle)' }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 20px ${cat.color}20`
-                  ;(e.currentTarget as HTMLDivElement).style.borderColor = `${cat.color}40`
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 20px color-mix(in srgb, ${cat.color} 13%, transparent)`
+                  ;(e.currentTarget as HTMLDivElement).style.borderColor = `color-mix(in srgb, ${cat.color} 25%, transparent)`
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLDivElement).style.boxShadow = 'none'
@@ -331,7 +331,7 @@ export default function Media() {
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 text-lg font-bold"
-                  style={{ background: `${cat.color}14`, border: `1px solid ${cat.color}30`, color: cat.color }}
+                  style={{ background: `color-mix(in srgb, ${cat.color} 8%, transparent)`, border: `1px solid color-mix(in srgb, ${cat.color} 19%, transparent)`, color: cat.color }}
                 >
                   {cat.icon}
                 </div>
@@ -345,7 +345,7 @@ export default function Media() {
       </section>
 
       {/* ── 5. TV CHANNEL & PROGRAMMES ── */}
-      <section id="programmes" className="py-28 relative overflow-hidden" style={{ background: '#040810' }}>
+      <section id="programmes" className="py-28 relative overflow-hidden" style={{ background: 'var(--s0)' }}>
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[350px] rounded-full blur-[200px] pointer-events-none"
           style={{ background: 'radial-gradient(ellipse, rgba(239,68,68,0.12) 0%, transparent 70%)' }}
@@ -355,7 +355,7 @@ export default function Media() {
           <div className="flex items-center gap-4 mb-14">
             <div
               className="flex items-center gap-3 px-5 py-2.5 rounded-full"
-              style={{ border: `1px solid ${RED}40`, background: `${RED}12` }}
+              style={{ border: `1px solid color-mix(in srgb, ${RED} 25%, transparent)`, background: `color-mix(in srgb, ${RED} 7%, transparent)` }}
             >
               <span className="w-2 h-2 rounded-full" style={{ background: RED, boxShadow: `0 0 8px ${RED}`, animation: 'pulse-slow 2s ease-in-out infinite' }} />
               <span className="text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ color: RED }}>Network71 TV — Live 24/7</span>
@@ -390,23 +390,23 @@ export default function Media() {
               </p>
               <div
                 className="mt-8 p-5 rounded-xl"
-                style={{ background: `${RED}08`, border: `1px solid ${RED}20` }}
+                style={{ background: `color-mix(in srgb, ${RED} 3%, transparent)`, border: `1px solid color-mix(in srgb, ${RED} 13%, transparent)` }}
               >
                 <div className="font-mono text-[10px] tracking-widest uppercase mb-3" style={{ color: RED }}>
                   Broadcast Signal Status
                 </div>
                 <div className="space-y-2">
                   {[
-                    { label: 'Digital Streaming', status: 'Active', color: '#4ade80' },
+                    { label: 'Digital Streaming', status: 'Active', color: 'var(--accent-green)' },
                     { label: 'Cable Distribution', status: 'In Negotiation', color: GOLD },
                     { label: 'Satellite Coverage', status: 'In Progress', color: GOLD },
-                    { label: 'Mobile Live', status: 'Active', color: '#4ade80' },
+                    { label: 'Mobile Live', status: 'Active', color: 'var(--accent-green)' },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center justify-between">
                       <span className="text-slate-400 text-xs">{item.label}</span>
                       <span
                         className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-                        style={{ color: item.color, background: `${item.color}15` }}
+                        style={{ color: item.color, background: `color-mix(in srgb, ${item.color} 8%, transparent)` }}
                       >
                         {item.status}
                       </span>
@@ -426,8 +426,8 @@ export default function Media() {
                   <div
                     key={prog.title}
                     className="flex items-center gap-4 p-4 rounded-xl transition-all duration-200 cursor-default group"
-                    style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.05)' }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = `${prog.color}30` }}
+                    style={{ background: 'var(--fill-1)', border: 'var(--border-subtle)' }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = `color-mix(in srgb, ${prog.color} 19%, transparent)` }}
                     onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(255,255,255,0.05)' }}
                   >
                     <div
@@ -458,8 +458,8 @@ export default function Media() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-10" style={{ background: '#4ade80' }} />
-                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: '#4ade80' }}>Editorial Charter</span>
+                <div className="h-px w-10" style={{ background: 'var(--accent-green)' }} />
+                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: 'var(--accent-green)' }}>Editorial Charter</span>
               </div>
               <h2 className="font-display text-4xl lg:text-5xl text-white mb-6 leading-tight">
                 Journalism Built on Trust
@@ -478,7 +478,7 @@ export default function Media() {
                   className="flex items-start gap-4 p-5 rounded-xl"
                   style={{ background: 'rgba(74,222,128,0.04)', border: '1px solid rgba(74,222,128,0.12)' }}
                 >
-                  <div className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0" style={{ background: '#4ade80' }} />
+                  <div className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0" style={{ background: 'var(--accent-green)' }} />
                   <div>
                     <div className="text-white font-semibold text-sm mb-1">{item.title}</div>
                     <p className="text-slate-400 text-xs leading-relaxed">{item.desc}</p>
@@ -512,11 +512,11 @@ export default function Media() {
               <div
                 key={opt.title}
                 className="p-7 rounded-2xl flex flex-col"
-                style={{ background: 'rgba(255,255,255,0.025)', border: `1px solid ${opt.color}25` }}
+                style={{ background: 'var(--fill-1)', border: `1px solid color-mix(in srgb, ${opt.color} 15%, transparent)` }}
               >
                 <div
                   className="inline-block px-3 py-1 rounded-full text-[10px] font-semibold mb-5"
-                  style={{ background: `${opt.color}15`, color: opt.color }}
+                  style={{ background: `color-mix(in srgb, ${opt.color} 8%, transparent)`, color: opt.color }}
                 >
                   {opt.tag}
                 </div>
@@ -544,7 +544,7 @@ export default function Media() {
           <div className="flex items-center justify-between mb-10 flex-wrap gap-4">
             <div>
               <div className="flex items-center gap-3 mb-3">
-                <div className="h-px w-10" style={{ background: RED }} />
+                <div className="h-px w-10" style={{ background: RED, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: RED }}>Media Gallery</span>
               </div>
               <h2 className="font-display text-4xl text-white">From the Newsroom</h2>

@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react'
+import { lazy, Suspense, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import Globe3D, { type HotspotData } from '@/components/Globe3D'
+import type { HotspotData } from '@/components/Globe3D'
+
+const Globe3D = lazy(() => import('@/components/Globe3D'))
 
 const TICKER = [
   'Garments & Apparel',
@@ -68,10 +70,11 @@ export default function Hero() {
     <section
       id="home"
       style={{
-        minHeight: '100vh',
+        /* dvh avoids the iOS/Android URL-bar height jump that 100vh causes */
+        minHeight: '100dvh',
         display: 'flex',
         flexDirection: 'column',
-        background: '#04080E',
+        background: 'var(--s0)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -80,12 +83,14 @@ export default function Hero() {
       {/* ── Interactive 3D Globe — single instance, positioned right on desktop ── */}
       {/* On lg+: right 65% of viewport (sphere center ≈ 68% from left).
           On mobile: full viewport with heavy gradient overlay for readability. */}
-      <Globe3D
-        className="absolute top-0 bottom-0 right-0 left-0 lg:left-[35%]"
-        style={{ zIndex: 1 }}
-        onHotspot={setHotspot}
-        onReady={() => setGlobeReady(true)}
-      />
+      <Suspense fallback={null}>
+        <Globe3D
+          className="hero-globe absolute top-0 bottom-0 right-0 left-0 lg:left-[35%]"
+          style={{ zIndex: 1 }}
+          onHotspot={setHotspot}
+          onReady={() => setGlobeReady(true)}
+        />
+      </Suspense>
 
       {/* ── Globe loading shimmer — fades out once canvas is ready ── */}
       <div
@@ -117,10 +122,10 @@ export default function Hero() {
           <div style={{
             position: 'absolute', inset: '40%',
             borderRadius: '50%',
-            background: '#C8962A',
+            background: 'var(--brand)',
             opacity: 0.5,
             animation: 'pulse-slow 1.8s ease-in-out infinite',
-            boxShadow: '0 0 12px #C8962A',
+            boxShadow: '0 0 12px var(--brand)',
           }} />
         </div>
       </div>
@@ -132,8 +137,9 @@ export default function Hero() {
           key={hotspot.id}
           style={{
             position: 'fixed',
-            left: hotspot.screenX,
-            top:  hotspot.screenY,
+            /* Clamp so the panel never renders past either screen edge on mobile */
+            left: `clamp(130px, ${hotspot.screenX}px, calc(100vw - 130px))`,
+            top:  `max(${hotspot.screenY}px, calc(var(--header-h) + 190px))`,
             transform: 'translate(-50%, calc(-100% - 20px))',
             zIndex: 60,
             pointerEvents: 'auto',
@@ -144,31 +150,31 @@ export default function Hero() {
           <div style={{
             position: 'absolute', bottom: -11, left: '50%', transform: 'translateX(-50%)',
             width: 1, height: 11,
-            background: 'linear-gradient(to bottom, rgba(200,150,42,0.65), transparent)',
+            background: 'linear-gradient(to bottom, var(--brand-edge), transparent)',
           }} />
           {/* Panel */}
           <div style={{
-            background: 'rgba(4,8,16,0.96)',
-            border: '1px solid rgba(200,150,42,0.32)',
+            background: 'var(--panel-bg)',
+            border: '1px solid var(--brand-edge)',
             borderRadius: 12,
             padding: '14px 18px 15px',
             backdropFilter: 'blur(22px)',
             WebkitBackdropFilter: 'blur(22px)',
-            boxShadow: '0 12px 48px rgba(0,0,0,0.65), 0 0 0 0.5px rgba(200,150,42,0.10)',
-            minWidth: 200, maxWidth: 252,
+            boxShadow: 'var(--shadow-pop)',
+            width: 'min(252px, calc(100vw - var(--gutter) * 2))',
             textAlign: 'center',
           }}>
 
             {/* Role badge */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7, marginBottom: 9 }}>
               <span style={{
-                width: 5, height: 5, borderRadius: '50%', background: '#C8962A',
-                flexShrink: 0, boxShadow: '0 0 9px #C8962A',
+                width: 5, height: 5, borderRadius: '50%', background: 'var(--brand)',
+                flexShrink: 0, boxShadow: '0 0 9px var(--brand)',
                 animation: 'pulse-slow 2.2s ease-in-out infinite',
               }} />
               <span style={{
                 fontFamily: 'var(--font-mono)', fontSize: 8,
-                letterSpacing: '0.30em', color: 'rgba(200,150,42,0.70)',
+                letterSpacing: '0.30em', color: 'var(--brand-fg)',
                 textTransform: 'uppercase',
               }}>
                 {hotspot.role}
@@ -177,7 +183,7 @@ export default function Hero() {
 
             {/* City name */}
             <div className="font-display" style={{
-              fontSize: 21, color: '#FFFFFF',
+              fontSize: 21, color: 'var(--fg-strong)',
               lineHeight: 1.12, letterSpacing: '-0.022em', marginBottom: 3,
             }}>
               {hotspot.name}
@@ -185,7 +191,7 @@ export default function Hero() {
 
             {/* Country */}
             <div style={{
-              fontSize: 11.5, color: 'rgba(148,163,184,0.58)', letterSpacing: '0.02em', marginBottom: 11,
+              fontSize: 11.5, color: 'var(--fg-muted)', letterSpacing: '0.02em', marginBottom: 11,
             }}>
               {hotspot.country}
             </div>
@@ -193,19 +199,19 @@ export default function Hero() {
             {/* Division indicator */}
             <div style={{
               display: 'flex', alignItems: 'center', gap: 7,
-              background: 'rgba(200,150,42,0.08)',
-              border: '1px solid rgba(200,150,42,0.15)',
+              background: 'var(--brand-wash)',
+              border: '1px solid var(--brand-edge)',
               borderRadius: 6, padding: '6px 10px', marginBottom: 11,
               justifyContent: 'center',
             }}>
               <svg viewBox="0 0 16 16" fill="none" style={{ width: 10, height: 10, flexShrink: 0 }}>
-                <circle cx="8" cy="8" r="2.5" fill="#C8962A" />
-                <path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke="#C8962A" strokeWidth="1.5" strokeLinecap="round" />
-                <path d="M3.5 3.5l1.5 1.5M11 11l1.5 1.5M3.5 12.5l1.5-1.5M11 5l1.5-1.5" stroke="#C8962A" strokeWidth="1" strokeLinecap="round" opacity="0.5" />
+                <circle cx="8" cy="8" r="2.5" fill="var(--brand)" />
+                <path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke="var(--brand)" strokeWidth="1.5" strokeLinecap="round" />
+                <path d="M3.5 3.5l1.5 1.5M11 11l1.5 1.5M3.5 12.5l1.5-1.5M11 5l1.5-1.5" stroke="var(--brand)" strokeWidth="1" strokeLinecap="round" opacity="0.5" />
               </svg>
               <span style={{
                 fontFamily: 'var(--font-mono)', fontSize: 8.5,
-                color: 'rgba(200,150,42,0.80)', letterSpacing: '0.12em', textTransform: 'uppercase',
+                color: 'var(--brand-fg)', letterSpacing: '0.12em', textTransform: 'uppercase',
               }}>
                 {hotspot.division}
               </span>
@@ -220,15 +226,15 @@ export default function Hero() {
               style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
                 width: '100%', padding: '8px 12px',
-                background: '#C8962A', color: '#04080E',
+                background: 'var(--brand)', color: 'var(--fg-onbrand)',
                 border: 'none', borderRadius: 7, cursor: 'pointer',
                 fontFamily: 'var(--font-sans)', fontSize: 11.5, fontWeight: 700,
                 letterSpacing: '0.03em', textTransform: 'uppercase',
-                boxShadow: '0 2px 14px rgba(200,150,42,0.30)',
+                boxShadow: '0 2px 14px var(--brand-edge)',
                 transition: 'background 0.15s, box-shadow 0.15s',
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#E0A82E'; e.currentTarget.style.boxShadow = '0 2px 22px rgba(200,150,42,0.50)' }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#C8962A'; e.currentTarget.style.boxShadow = '0 2px 14px rgba(200,150,42,0.30)' }}
+              onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-bright)'; e.currentTarget.style.boxShadow = '0 2px 22px var(--brand-edge)' }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'var(--brand)'; e.currentTarget.style.boxShadow = '0 2px 14px var(--brand-edge)' }}
             >
               Explore Division
               <svg fill="none" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2" style={{ width: 10, height: 10 }}>
@@ -243,11 +249,11 @@ export default function Hero() {
               style={{
                 position: 'absolute', top: 8, right: 10,
                 background: 'none', border: 'none', cursor: 'pointer',
-                color: 'rgba(100,116,139,0.5)', fontSize: 16, lineHeight: 1,
+                color: 'var(--fg-subtle)', fontSize: 16, lineHeight: 1,
                 padding: 2, transition: 'color 0.15s',
               }}
-              onMouseEnter={e => { e.currentTarget.style.color = 'rgba(148,163,184,0.9)' }}
-              onMouseLeave={e => { e.currentTarget.style.color = 'rgba(100,116,139,0.5)' }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'var(--fg-muted)' }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'var(--fg-subtle)' }}
             >
               ×
             </button>
@@ -263,7 +269,7 @@ export default function Hero() {
         className="hidden lg:block absolute inset-0 pointer-events-none"
         style={{
           zIndex: 2,
-          background: 'linear-gradient(90deg, #04080E 0%, #04080E 30%, rgba(4,8,14,0.96) 42%, rgba(4,8,14,0.78) 55%, rgba(4,8,14,0.32) 72%, rgba(4,8,14,0.08) 88%, transparent 100%)',
+          background: 'var(--hero-fade-x)',
         }}
       />
       {/* Desktop: subtle top/bottom vignette */}
@@ -271,7 +277,7 @@ export default function Hero() {
         className="hidden lg:block absolute inset-0 pointer-events-none"
         style={{
           zIndex: 2,
-          background: 'linear-gradient(180deg, rgba(4,8,14,0.55) 0%, transparent 18%, transparent 78%, rgba(4,8,14,0.65) 100%)',
+          background: 'var(--hero-vignette)',
         }}
       />
 
@@ -280,7 +286,7 @@ export default function Hero() {
         className="lg:hidden absolute inset-0 pointer-events-none"
         style={{
           zIndex: 2,
-          background: 'linear-gradient(180deg, rgba(4,8,14,0.97) 0%, rgba(4,8,14,0.93) 55%, rgba(4,8,14,0.75) 80%, rgba(4,8,14,0.55) 100%)',
+          background: 'var(--hero-fade-y)',
         }}
       />
 
@@ -290,7 +296,7 @@ export default function Hero() {
         style={{
           zIndex: 2,
           inset: 0,
-          backgroundImage: 'radial-gradient(circle, rgba(200,150,42,0.07) 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle, var(--brand-wash) 1px, transparent 1px)',
           backgroundSize: '38px 38px',
           maskImage: 'linear-gradient(90deg, black 0%, black 30%, transparent 55%)',
           WebkitMaskImage: 'linear-gradient(90deg, black 0%, black 30%, transparent 55%)',
@@ -298,21 +304,28 @@ export default function Hero() {
       />
 
       {/* ── Main text content ── */}
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', position: 'relative', zIndex: 10 }}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full" style={{ paddingTop: 120, paddingBottom: 52 }}>
+      <div className="hero-content" style={{ flex: 1, display: 'flex', alignItems: 'center', position: 'relative', zIndex: 10 }}>
+        <div
+          className="container-page w-full"
+          style={{
+            paddingTop: 'calc(var(--header-h) + clamp(36px, 8vw, 60px))',
+            paddingBottom: 'clamp(36px, 7vw, 52px)',
+          }}>
           <div style={{ maxWidth: 560 }}>
 
             {/* Eyebrow */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 30 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 'clamp(18px, 4vw, 30px)' }}>
               <span style={{
-                width: 6, height: 6, borderRadius: '50%', background: '#C8962A',
+                width: 6, height: 6, borderRadius: '50%', background: 'var(--brand)',
                 animation: 'pulse-slow 2.8s ease-in-out infinite', flexShrink: 0,
               }} />
-              <span style={{
-                fontFamily: 'var(--font-mono)', fontSize: 9,
-                letterSpacing: '0.38em', color: 'rgba(200,150,42,0.72)',
-                textTransform: 'uppercase',
-              }}>
+              <span
+                className="text-[8px] tracking-[0.22em] sm:text-[9px] sm:tracking-[0.38em]"
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  color: 'var(--brand-fg)',
+                  textTransform: 'uppercase',
+                }}>
                 Global Vision. Unified Impact.
               </span>
             </div>
@@ -321,49 +334,53 @@ export default function Hero() {
             <h1
               className="font-display"
               style={{
-                fontSize: 'clamp(40px, 6vw, 84px)',
-                color: '#FFFFFF',
-                lineHeight: 1.04,
+                /* 8.5vw lets the two lines fill small screens without overflowing */
+                fontSize: 'clamp(33px, 8.5vw, 84px)',
+                color: 'var(--fg-strong)',
+                lineHeight: 1.06,
                 letterSpacing: '-0.03em',
-                marginBottom: 22,
+                marginBottom: 'clamp(14px, 3vw, 22px)',
               }}
             >
               A Global Enterprise
               <br />
-              <em style={{ color: '#C8962A' }}>Built for Tomorrow.</em>
+              <em style={{ color: 'var(--brand-fg)' }}>Built for Tomorrow.</em>
             </h1>
 
             {/* Body */}
             <p style={{
-              color: 'rgba(226,232,240,0.7)',
-              fontSize: 16.5,
-              lineHeight: 1.72,
+              color: 'var(--fg)',
+              fontSize: 'clamp(14.5px, 3.6vw, 16.5px)',
+              lineHeight: 1.7,
               maxWidth: 460,
-              marginBottom: 36,
+              marginBottom: 'clamp(24px, 5vw, 36px)',
             }}>
               Eight distinct business divisions. One unified purpose — driving industry, innovation,
               and sustainable growth across 25+ countries worldwide.
             </p>
 
-            {/* CTAs */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 40 }}>
+            {/* CTAs — stack full-width on narrow screens, inline from 400px up */}
+            <div
+              className="flex flex-col min-[400px]:flex-row min-[400px]:flex-wrap"
+              style={{ gap: 12, marginBottom: 'clamp(26px, 6vw, 40px)' }}>
               <button
                 onClick={() => document.getElementById('divisions')?.scrollIntoView({ behavior: 'smooth' })}
+                className="justify-center min-[400px]:justify-start"
                 style={{
                   display: 'flex', alignItems: 'center', gap: 10,
                   padding: '14px 28px', fontSize: 13.5, fontWeight: 600, borderRadius: 8,
-                  background: '#C8962A', color: '#04080E', border: 'none', cursor: 'pointer',
-                  boxShadow: '0 0 44px rgba(200,150,42,0.3)',
+                  background: 'var(--brand-bright)', color: 'var(--fg-onbrand)', border: 'none', cursor: 'pointer',
+                  boxShadow: 'var(--shadow-brand)',
                   transition: 'all 0.18s',
                   letterSpacing: '0.01em',
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.background = '#E0A82E'
-                  e.currentTarget.style.boxShadow = '0 0 60px rgba(200,150,42,0.5)'
+                  e.currentTarget.style.background = 'var(--brand-bright)'
+                  e.currentTarget.style.boxShadow = 'var(--shadow-brand)'
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.background = '#C8962A'
-                  e.currentTarget.style.boxShadow = '0 0 44px rgba(200,150,42,0.3)'
+                  e.currentTarget.style.background = 'var(--brand)'
+                  e.currentTarget.style.boxShadow = 'var(--shadow-brand)'
                 }}
               >
                 Explore Our Divisions
@@ -373,18 +390,19 @@ export default function Hero() {
               </button>
               <Link
                 to="/investors"
+                className="justify-center min-[400px]:justify-start"
                 style={{
                   display: 'flex', alignItems: 'center', gap: 8,
                   padding: '14px 26px', fontSize: 13.5, fontWeight: 500, borderRadius: 8,
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  color: '#F1F5F9',
+                  border: '1px solid var(--line-strong)',
+                  color: 'var(--fg)',
                   textDecoration: 'none',
                   transition: 'all 0.18s',
                   letterSpacing: '0.01em',
                 }}
                 onMouseEnter={e => {
                   e.currentTarget.style.borderColor = 'rgba(255,255,255,0.38)'
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
+                  e.currentTarget.style.background = 'var(--line)'
                 }}
                 onMouseLeave={e => {
                   e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'
@@ -398,19 +416,19 @@ export default function Hero() {
             {/* Interaction hints — desktop only */}
             <div className="hidden lg:flex" style={{ alignItems: 'center', gap: 20, marginBottom: 28 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 13, height: 13, color: 'rgba(71,85,105,0.50)' }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 13, height: 13, color: 'var(--fg-faint)' }}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225M13.684 16.6l2.224-2.51M6.228 15.228l-3.87-3.87a1.125 1.125 0 010-1.59L6.57 5.572m0 0l.943-.943M6.57 5.572L9.228 8.23" />
                 </svg>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 8.5, letterSpacing: '0.26em', color: 'rgba(71,85,105,0.50)', textTransform: 'uppercase' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 8.5, letterSpacing: '0.26em', color: 'var(--fg-faint)', textTransform: 'uppercase' }}>
                   Drag to rotate
                 </span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 13, height: 13, color: 'rgba(71,85,105,0.50)' }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 13, height: 13, color: 'var(--fg-faint)' }}>
                   <circle cx="12" cy="12" r="9" />
                   <path strokeLinecap="round" d="M12 8v4l3 3" />
                 </svg>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 8.5, letterSpacing: '0.26em', color: 'rgba(71,85,105,0.50)', textTransform: 'uppercase' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 8.5, letterSpacing: '0.26em', color: 'var(--fg-faint)', textTransform: 'uppercase' }}>
                   Click markers
                 </span>
               </div>
@@ -419,11 +437,11 @@ export default function Hero() {
                   <span key={k} style={{
                     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
                     width: 14, height: 14, borderRadius: 3,
-                    border: '1px solid rgba(71,85,105,0.30)',
-                    fontSize: 8, color: 'rgba(71,85,105,0.50)',
+                    border: '1px solid var(--fg-faint)',
+                    fontSize: 8, color: 'var(--fg-faint)',
                   }}>{k}</span>
                 ))}
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 8.5, letterSpacing: '0.26em', color: 'rgba(71,85,105,0.50)', textTransform: 'uppercase', marginLeft: 3 }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 8.5, letterSpacing: '0.26em', color: 'var(--fg-faint)', textTransform: 'uppercase', marginLeft: 3 }}>
                   Keys
                 </span>
               </div>
@@ -433,7 +451,7 @@ export default function Hero() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <div style={{
                 width: 20, height: 32, borderRadius: 10,
-                border: '1px solid rgba(255,255,255,0.18)',
+                border: '1px solid var(--line-strong)',
                 display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
                 paddingTop: 5,
               }}>
@@ -445,7 +463,7 @@ export default function Hero() {
               </div>
               <span style={{
                 fontFamily: 'var(--font-mono)', fontSize: 9,
-                letterSpacing: '0.3em', color: 'rgba(71,85,105,0.7)',
+                letterSpacing: '0.3em', color: 'var(--fg-faint)',
                 textTransform: 'uppercase',
               }}>
                 Scroll to Discover
@@ -458,18 +476,18 @@ export default function Hero() {
 
       {/* ── Stats strip ── */}
       <div style={{
-        background: 'rgba(3,6,14,0.97)',
-        borderTop: '1px solid rgba(255,255,255,0.06)',
+        background: 'var(--header-bg)',
+        borderTop: '1px solid var(--line)',
         position: 'relative', zIndex: 10,
         backdropFilter: 'blur(20px)',
       }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container-page">
           {/* Border classes per cell: handles 2-col (mobile) and 4-col (desktop) correctly */}
           {(() => {
             const cls = [
-              'border-r border-b border-white/[0.05] md:border-b-0',
-              'border-b border-white/[0.05] md:border-r md:border-b-0',
-              'border-r border-white/[0.05]',
+              'border-r border-b border-[var(--line)] md:border-b-0',
+              'border-b border-[var(--line)] md:border-r md:border-b-0',
+              'border-r border-[var(--line)]',
               '',
             ]
             return (
@@ -477,31 +495,36 @@ export default function Hero() {
             {STATS.map(({ icon, value, label, sub }, i) => (
               <div
                 key={label}
-                style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '18px 16px' }}
-                className={cls[i]}
+                className={`flex items-center gap-2.5 sm:gap-3.5 px-2 py-3.5 sm:px-4 sm:py-[18px] ${cls[i]}`}
               >
-                <div style={{
-                  width: 38, height: 38, borderRadius: 10,
-                  background: 'rgba(200,150,42,0.1)',
-                  border: '1px solid rgba(200,150,42,0.15)',
-                  color: '#C8962A',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  flexShrink: 0,
-                }}>
+                <div
+                  className="w-8 h-8 sm:w-[38px] sm:h-[38px] rounded-lg sm:rounded-[10px]"
+                  style={{
+                    background: 'rgba(200,150,42,0.1)',
+                    border: '1px solid var(--brand-edge)',
+                    color: 'var(--brand-fg)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0,
+                  }}>
                   {icon}
                 </div>
-                <div>
-                  <div className="font-display" style={{ fontSize: 23, color: '#FFFFFF', lineHeight: 1, letterSpacing: '-0.02em' }}>
+                <div style={{ minWidth: 0 }}>
+                  <div
+                    className="font-display text-[19px] sm:text-[23px]"
+                    style={{ color: 'var(--fg-strong)', lineHeight: 1, letterSpacing: '-0.02em' }}>
                     {value}
                   </div>
-                  <div style={{
-                    fontFamily: 'var(--font-mono)', fontSize: 8.5,
-                    letterSpacing: '0.22em', textTransform: 'uppercase',
-                    color: 'rgba(200,150,42,0.62)', marginTop: 3,
-                  }}>
+                  <div
+                    className="text-[7.5px] tracking-[0.14em] sm:text-[8.5px] sm:tracking-[0.22em]"
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      textTransform: 'uppercase',
+                      color: 'var(--brand-fg)', marginTop: 3,
+                    }}>
                     {label}
                   </div>
-                  <div style={{ fontSize: 10.5, color: 'rgba(100,116,139,0.6)', marginTop: 2 }}>{sub}</div>
+                  {/* Sub-caption is noise at phone widths */}
+                  <div className="hidden sm:block" style={{ fontSize: 10.5, color: 'var(--fg-subtle)', marginTop: 2 }}>{sub}</div>
                 </div>
               </div>
             ))}
@@ -513,8 +536,8 @@ export default function Hero() {
 
       {/* ── Marquee ticker ── */}
       <div style={{
-        background: '#020508',
-        borderTop: '1px solid rgba(255,255,255,0.03)',
+        background: 'var(--s-inset)',
+        borderTop: '1px solid var(--fill-1)',
         padding: '10px 0',
         overflow: 'hidden',
         position: 'relative', zIndex: 10,
@@ -523,16 +546,16 @@ export default function Hero() {
           {[...TICKER, ...TICKER, ...TICKER].map((name, i) => (
             <span
               key={i}
+              className="gap-2.5 px-3.5 text-[8px] tracking-[0.2em] sm:gap-4 sm:px-6 sm:text-[9px] sm:tracking-[0.32em]"
               style={{
-                display: 'inline-flex', alignItems: 'center', gap: 16,
-                padding: '0 24px',
-                fontFamily: 'var(--font-mono)', fontSize: 9,
-                letterSpacing: '0.32em', color: 'rgba(71,85,105,0.42)',
+                display: 'inline-flex', alignItems: 'center',
+                fontFamily: 'var(--font-mono)',
+                color: 'var(--fg-faint)',
                 textTransform: 'uppercase',
               }}
             >
               {name}
-              <span style={{ display: 'inline-block', width: 3.5, height: 3.5, borderRadius: '50%', background: 'rgba(200,150,42,0.22)', flexShrink: 0 }} />
+              <span style={{ display: 'inline-block', width: 3.5, height: 3.5, borderRadius: '50%', background: 'var(--brand-edge)', flexShrink: 0 }} />
             </span>
           ))}
         </div>

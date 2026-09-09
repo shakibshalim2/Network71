@@ -1,16 +1,21 @@
 {
-  "name": "figma-make-app",
+  "name": "network71",
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "packageManager": "pnpm@10.34.3",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
+    "dev:api": "php -S 127.0.0.1:8787 -t backend/public backend/public/router.php",
+    "backend:setup": "php backend/bin/setup.php",
+    "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "format": "oxfmt"
   },
   "dependencies": {
-    "@types/three": "^0.185.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.18.2",
@@ -21,6 +26,7 @@
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "@types/three": "^0.185.4",
     "@vitejs/plugin-react": "^6.0.0",
     "oxfmt": "^0.2.0",
     "tailwindcss": "^4.0.0",

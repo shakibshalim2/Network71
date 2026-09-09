@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { useDialogFocus } from '@/lib/useDialogFocus'
 import { Link } from 'react-router-dom'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -117,6 +118,16 @@ export default function Gallery() {
   const [activeTab, setActiveTab] = useState('All')
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null)
 
+  const dialogRef = useRef<HTMLDivElement>(null)
+  useDialogFocus(Boolean(lightbox), dialogRef)
+  useEffect(() => {
+    if (!lightbox) return
+    const overflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const key = (e: KeyboardEvent) => { if (e.key === 'Escape') setLightbox(null) }
+    window.addEventListener('keydown', key)
+    return () => { document.body.style.overflow = overflow; window.removeEventListener('keydown', key) }
+  }, [Boolean(lightbox)])
   const visible = activeTab === 'All' ? galleryItems : galleryItems.filter((g) => g.tab === activeTab)
 
   return (
@@ -147,9 +158,10 @@ export default function Gallery() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
+                aria-pressed={activeTab === tab}
                 className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-colors ${
                   activeTab === tab
-                    ? 'bg-gold text-navy'
+                    ? 'bg-gold text-on-brand'
                     : 'text-slate-400 hover:text-white hover:bg-white/5'
                 }`}
               >
@@ -162,11 +174,13 @@ export default function Gallery() {
 
       {/* Masonry grid */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-        <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+        <div className="columns-1 min-[400px]:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
           {visible.map((item, i) => (
-            <div
+            <button
+              type="button"
+              aria-label={`View ${item.label}`}
               key={i}
-              className="break-inside-avoid rounded-xl overflow-hidden relative group cursor-pointer"
+              className="gallery-card break-inside-avoid rounded-xl overflow-hidden relative group cursor-pointer"
               onClick={() => setLightbox({ src: item.src, alt: item.alt })}
             >
               <img
@@ -175,14 +189,11 @@ export default function Gallery() {
                 className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
               />
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/60 transition-colors duration-300 flex items-end p-4">
-                <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                  <p className="text-white font-semibold text-sm">{item.label}</p>
-                  <p className="text-slate-300 text-xs mt-0.5">{item.tab}</p>
-                </div>
+              <div className="gallery-caption">
+                <p className="text-fg font-semibold text-sm">{item.label}</p>
+                <p className="text-fg-subtle text-xs mt-1">{item.tab}</p>
               </div>
-            </div>
+            </button>
           ))}
         </div>
 
@@ -196,11 +207,18 @@ export default function Gallery() {
       {/* Lightbox */}
       {lightbox && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-6"
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={lightbox.alt}
+          tabIndex={-1}
+          className="gallery-dialog force-dark fixed inset-0 z-[100] bg-black/90 flex items-center justify-center"
           onClick={() => setLightbox(null)}
         >
           <button
-            className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+            aria-label="Close image preview"
+            type="button"
+            className="absolute top-5 right-5 w-11 h-11 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
             onClick={() => setLightbox(null)}
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -210,7 +228,7 @@ export default function Gallery() {
           <img
             src={lightbox.src.replace('w=400', 'w=1200')}
             alt={lightbox.alt}
-            className="max-w-full max-h-[85vh] rounded-xl object-contain"
+            className="max-w-full max-h-[calc(100dvh-120px)] rounded-xl object-contain"
             onClick={(e) => e.stopPropagation()}
           />
         </div>

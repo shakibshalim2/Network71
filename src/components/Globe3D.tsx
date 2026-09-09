@@ -12,6 +12,8 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import * as THREE from 'three'
+import { useTheme } from '@/context/ThemeContext'
+import landRings from '@/lib/world-land.json'
 
 // ─── Public types ─────────────────────────────────────────────────────────────
 
@@ -37,18 +39,6 @@ interface Props {
 
 type BB = [number, number, number, number]  // [minLat, maxLat, minLon, maxLon]
 
-const LAND: BB[] = [
-  [-35,15,-18,15],[-35,37,15,52],[15,37,-18,35],[35,72,-25,42],
-  [50,78,40,180],[50,75,-180,-168],[37,50,40,85],[5,38,25,55],
-  [8,38,55,82],[5,37,68,97],[18,53,98,148],[-10,22,95,145],
-  [30,46,128,147],[15,75,-168,-52],[-55,13,-82,-34],[-45,-10,113,154],
-  [60,85,-75,-10],[-26,-12,43,51],[-47,-34,166,179],[-10,5,-52,-34],
-  [55,72,4,32],
-]
-const WATER: BB[] = [
-  [30,47,-6,42],[18,31,-98,-80],[8,24,-88,-60],[51,63,-92,-78],
-  [8,22,80,92],[37,47,50,54],[12,30,32,44],[10,27,44,60],
-]
 const N71: BB[] = [
   [20,27,88,93],[8,36,68,97],[22,27,52,57],[16,32,37,56],
   [24,26.5,50,52],[28,30,46,49],[49,59,-8,2],[47,55,5,15],
@@ -91,6 +81,7 @@ uniform sampler2D uMask;
 uniform sampler2D uDay;
 uniform sampler2D uNight;
 uniform float uTexBlend;
+uniform float uLightMode;
 uniform vec3  uSunDir;
 
 varying vec2 vUv;
@@ -163,7 +154,14 @@ void main() {
   float grid = max(1.0-smoothstep(0.0,0.012,latW), 1.0-smoothstep(0.0,0.012,lonW));
   color += vec3(0.028, 0.090, 0.220) * grid * (0.045 + 0.065 * dayBlend);
 
-  gl_FragColor = vec4(color, 1.0);
+  // A daylight atlas palette keeps the globe readable on a light canvas.
+  vec3 atlasOcean = vec3(0.58, 0.74, 0.85);
+  vec3 atlasLand = vec3(0.81, 0.85, 0.76);
+  vec3 atlas = mix(atlasOcean, atlasLand, land);
+  atlas *= 0.72 + 0.28 * max(0.0, dot(N, normalize(vec3(-2.0, 3.0, 5.0))));
+  atlas = mix(atlas, vec3(0.95, 0.97, 0.98), polarFac * 0.8);
+  atlas -= vec3(0.08, 0.10, 0.11) * grid * 0.28;
+  gl_FragColor = vec4(mix(color, atlas, uLightMode), 1.0);
 }
 `
 
@@ -238,12 +236,22 @@ function buildLandMask(W: number, H: number): HTMLCanvasElement {
     w: Math.max(1, Math.round((d - c) / 360 * W)), h: Math.max(1, Math.round((b - a) / 180 * H)),
   })
   ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H)
-  ctx.fillStyle = 'rgb(200,0,0)'
-  for (const [a,b,c,d] of LAND)  { const r=px(a,b,c,d); ctx.fillRect(r.x,r.y,r.w,r.h) }
-  ctx.fillStyle = '#000'
-  for (const [a,b,c,d] of WATER) { const r=px(a,b,c,d); ctx.fillRect(r.x,r.y,r.w,r.h) }
-  ctx.fillStyle = 'rgb(200,200,0)'
+  const coastline = new Path2D()
+  for (const ring of landRings) {
+    ring.forEach(([lon, lat], i) => {
+      const x = (lon + 180) / 360 * W, y = (90 - lat) / 180 * H
+      if (i === 0) coastline.moveTo(x, y)
+      else coastline.lineTo(x, y)
+    })
+    coastline.closePath()
+  }
+  ctx.fillStyle = 'rgb(255,0,0)'
+  ctx.fill(coastline, 'evenodd')
+  ctx.save()
+  ctx.clip(coastline, 'evenodd')
+  ctx.fillStyle = 'rgb(255,200,0)'
   for (const [a,b,c,d] of N71)   { const r=px(a,b,c,d); ctx.fillRect(r.x,r.y,r.w,r.h) }
+  ctx.restore()
   return cv
 }
 
@@ -264,7 +272,7 @@ function GlobeFallback({ className, style }: { className?: string; style?: CSSPr
       <div style={{
         position: 'absolute', inset: 0,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        background: 'radial-gradient(ellipse at 62% 50%, #0B1728 0%, #040810 100%)',
+        background: 'radial-gradient(ellipse at 62% 50%, var(--s3) 0%, var(--s0) 100%)',
       }}>
         {[1.0, 0.78, 0.58, 0.40].map((s, i) => (
           <div key={i} style={{
@@ -276,7 +284,7 @@ function GlobeFallback({ className, style }: { className?: string; style?: CSSPr
         ))}
         <div style={{
           width: '42%', aspectRatio: '1', borderRadius: '50%', position: 'relative',
-          background: 'radial-gradient(ellipse at 35% 38%, #122444 0%, #071120 55%, #030810 100%)',
+          background: 'radial-gradient(ellipse at 35% 38%, var(--s3) 0%, var(--s2) 55%, var(--s-inset) 100%)',
           border: '1px solid rgba(34,211,238,0.16)', boxShadow: '0 0 80px rgba(13,148,136,0.16)',
         }}>
           {[{ top:'22%',left:'28%',w:'22%',h:'28%' },{ top:'38%',left:'55%',w:'18%',h:'20%' },{ top:'58%',left:'18%',w:'15%',h:'18%' }].map((s, i) => (
@@ -288,7 +296,7 @@ function GlobeFallback({ className, style }: { className?: string; style?: CSSPr
         </div>
         <div style={{
           position: 'absolute', width: 8, height: 8, borderRadius: '50%',
-          background: '#C8962A', boxShadow: '0 0 16px #C8962A',
+          background: 'var(--brand)', boxShadow: '0 0 16px var(--brand)',
           top: '42%', left: '61%', animation: 'pulse-slow 2.8s ease-in-out infinite',
         }} />
       </div>
@@ -299,6 +307,9 @@ function GlobeFallback({ className, style }: { className?: string; style?: CSSPr
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export default function Globe3D({ className, style, onHotspot, onReady }: Props) {
+  const { theme } = useTheme()
+  const themeRef = useRef(theme)
+  useEffect(() => { themeRef.current = theme }, [theme])
   const containerRef = useRef<HTMLDivElement>(null)
   const [webGLOk]    = useState(isWebGLAvailable)
   const [error, setError] = useState(false)
@@ -314,6 +325,7 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
       const vw      = window.innerWidth
       const mobile  = vw < 768
       const tablet  = vw >= 768 && vw < 1200
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
       // Quality settings per tier
       const SEGS       = mobile ? 40  : tablet ? 56  : 72
@@ -338,10 +350,9 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
       canvas.setAttribute('tabindex', '0')
       canvas.setAttribute('role', 'application')
       canvas.setAttribute('aria-label',
-        "Interactive 3D globe showing Network71's global presence. " +
-        "8 office locations across 25+ countries. " +
+        "Interactive 3D globe showing Network71's international market connections. " +
         "Use arrow keys to rotate, + and - to zoom, or drag with mouse/touch. " +
-        "Press Tab then Enter to cycle through location markers."
+        "Use the bracket keys to cycle through location markers and Enter to select."
       )
       container.appendChild(canvas)
 
@@ -351,24 +362,24 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
 
       const ttCard = document.createElement('div')
       ttCard.style.cssText = [
-        'background:rgba(4,8,20,0.92)',
+        'background:var(--panel-bg)',
         'border:1px solid rgba(200,150,42,0.28)',
         'border-radius:8px',
         'padding:7px 14px',
         'backdrop-filter:blur(18px)',
         '-webkit-backdrop-filter:blur(18px)',
         'white-space:nowrap',
-        'box-shadow:0 4px 28px rgba(0,0,0,0.55)',
+        'box-shadow:var(--shadow-card)',
       ].join(';')
 
       const ttRole = document.createElement('div')
-      ttRole.style.cssText = 'font-size:9px;color:rgba(200,150,42,0.72);font-family:"JetBrains Mono",monospace;letter-spacing:0.24em;text-transform:uppercase;margin-bottom:3px;'
+      ttRole.style.cssText = 'font-size:9px;color:var(--brand-fg);font-family:"JetBrains Mono",monospace;letter-spacing:0.24em;text-transform:uppercase;margin-bottom:3px;'
 
       const ttName = document.createElement('div')
-      ttName.style.cssText = 'font-size:14px;color:#fff;font-weight:500;letter-spacing:-0.01em;line-height:1.1;'
+      ttName.style.cssText = 'font-size:14px;color:var(--fg-strong);font-weight:500;letter-spacing:-0.01em;line-height:1.1;'
 
       const ttCountry = document.createElement('div')
-      ttCountry.style.cssText = 'font-size:10px;color:rgba(148,163,184,0.6);margin-top:2px;'
+      ttCountry.style.cssText = 'font-size:10px;color:var(--fg-muted);margin-top:2px;'
 
       // Connector stem
       const ttStem = document.createElement('div')
@@ -409,8 +420,10 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
         geo.setAttribute('position', new THREE.BufferAttribute(pos, 3))
         return new THREE.Points(geo, new THREE.PointsMaterial({ color, size, sizeAttenuation: true, transparent: true, opacity }))
       }
-      scene.add(mkStars(STAR_COUNT,      11, 14, 0.013, 0xFFFFFF, 0.78))
-      scene.add(mkStars(Math.round(STAR_COUNT * 0.11), 12, 15, 0.028, 0xAABBFF, 0.32))
+      const stars = new THREE.Group()
+      stars.add(mkStars(STAR_COUNT, 11, 14, 0.013, 0xFFFFFF, 0.78))
+      stars.add(mkStars(Math.round(STAR_COUNT * 0.11), 12, 15, 0.028, 0xAABBFF, 0.32))
+      scene.add(stars)
 
       // ── Land mask ─────────────────────────────────────────────────────────────
       const maskTex  = new THREE.CanvasTexture(buildLandMask(MASK_W, MASK_H))
@@ -430,6 +443,7 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
         uDay:      { value: blackTex as THREE.Texture },
         uNight:    { value: blackTex as THREE.Texture },
         uTexBlend: { value: 0.0 },
+        uLightMode: { value: themeRef.current === 'light' ? 1 : 0 },
         uSunDir:   { value: sunDir.clone() },
       }
       const earthMat = new THREE.ShaderMaterial({ uniforms, vertexShader: EARTH_VERT, fragmentShader: EARTH_FRAG })
@@ -440,10 +454,12 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
         vertexShader: ATMO_VERT, fragmentShader: ATMO_FRAG,
         blending: THREE.AdditiveBlending, transparent: true, depthWrite: false, side: THREE.FrontSide,
       })
-      scene.add(new THREE.Mesh(new THREE.SphereGeometry(1.20, 48, 48), atmoMat))
+      const atmosphere = new THREE.Group()
+      atmosphere.add(new THREE.Mesh(new THREE.SphereGeometry(1.20, 48, 48), atmoMat))
+      scene.add(atmosphere)
 
       if (!mobile) {
-        scene.add(new THREE.Mesh(
+        atmosphere.add(new THREE.Mesh(
           new THREE.SphereGeometry(1.42, 48, 48),
           new THREE.ShaderMaterial({
             vertexShader: ATMO_VERT, fragmentShader: OUTER_ATMO_FRAG,
@@ -646,7 +662,7 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
       earthGroup.rotation.x = S.rx
 
       // Intro animation
-      const INTRO_FRAMES = 180  // ~3 s at 60 fps
+      const INTRO_FRAMES = reducedMotion ? 1 : 180
       let introFrame = 0, firstRender = true
 
       // FPS monitoring
@@ -724,7 +740,7 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
         }
       }
 
-      // Keyboard navigation: arrows rotate, +/- zoom, Tab cycles markers, Enter selects
+      // Keyboard navigation: arrows rotate, +/- zoom, brackets cycle markers, Enter selects
       const handleKeyDown = (e: KeyboardEvent) => {
         switch (e.key) {
           case 'ArrowLeft':  S.vry -= 0.030; e.preventDefault(); break
@@ -733,9 +749,9 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
           case 'ArrowDown':  S.vrx += 0.020; e.preventDefault(); break
           case '+': case '=': S.zoomTarget = Math.max(1.8, S.zoomTarget - 0.15); break
           case '-': case '_': S.zoomTarget = Math.min(4.2, S.zoomTarget + 0.15); break
-          case 'Tab': {
+          case '[': case ']': {
             e.preventDefault()
-            kbMarkerIdx = (kbMarkerIdx + (e.shiftKey ? -1 : 1) + markerObjs.length) % markerObjs.length
+            kbMarkerIdx = (kbMarkerIdx + (e.key === '[' ? -1 : 1) + markerObjs.length) % markerObjs.length
             hoveredId = markerObjs[kbMarkerIdx].loc.id
             break
           }
@@ -815,13 +831,17 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
       ro.observe(container)
 
       // ── Animation loop ────────────────────────────────────────────────────────
-      let rafId = 0, frame = 0
+      let rafId = 0, frame = 0, previousDaylight = -1
+      let inView = true
+      const visibilityObserver = new IntersectionObserver(([entry]) => { inView = entry.isIntersecting })
+      visibilityObserver.observe(container)
 
       const draw = () => {
         if (disposed) return
         rafId = requestAnimationFrame(draw)
+        if (!inView || document.hidden) return
         frame++
-        const t = frame * 0.016
+        const t = reducedMotion ? 0 : frame * 0.016
 
         // ── FPS monitoring (every 60 frames) ───────────────────────────────
         fpsCount++
@@ -835,8 +855,23 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
 
         // ── Sun orbit (slow time-of-day simulation) ─────────────────────────
         // Very subtle: completes one full orbit roughly every ~6 hours of viewing
-        sunDir.applyQuaternion(sunOrbitQ)
+        if (!reducedMotion) sunDir.applyQuaternion(sunOrbitQ)
         uniforms.uSunDir.value.copy(sunDir)
+        const daylight = themeRef.current === 'light' ? 1 : 0
+        uniforms.uLightMode.value = reducedMotion ? daylight : THREE.MathUtils.lerp(uniforms.uLightMode.value, daylight, 0.12)
+        stars.visible = !daylight
+        atmosphere.visible = !daylight
+        if (daylight !== previousDaylight) {
+          markerObjs.forEach(marker => {
+            const color = daylight
+              ? (marker.loc.isHQ ? 0x855C16 : 0x086580)
+              : (marker.loc.isHQ ? 0xC8962A : 0x22D3EE)
+            for (const mesh of [marker.dot, marker.ring, marker.outerRing]) {
+              if (mesh) (mesh.material as THREE.MeshBasicMaterial).color.setHex(color)
+            }
+          })
+          previousDaylight = daylight
+        }
 
         // Interactive lighting response: drag speed slightly brightens the scene
         const dragIntensity = Math.min(1, Math.abs(S.vry) * 18)
@@ -858,10 +893,12 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
           camera.position.z = S.zoom
         }
 
+        camera.position.z += uniforms.uLightMode.value * 0.8
+
         // ── Rotation physics ────────────────────────────────────────────────
         if (!S.dragging) {
           S.vry *= 0.93; S.vrx *= 0.90
-          S.vry += (0.0011 - S.vry) * 0.018  // gentle auto-spin
+          S.vry += ((reducedMotion ? 0 : 0.0011) - S.vry) * 0.018
         }
         S.ry += S.vry
         S.rx  = Math.max(-0.62, Math.min(0.62, S.rx + S.vrx))
@@ -869,12 +906,12 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
         earthGroup.rotation.x = S.rx
 
         // ── Camera micro-drift ──────────────────────────────────────────────
-        camera.position.x = Math.sin(t * 0.052) * 0.022
-        camera.position.y = Math.cos(t * 0.038) * 0.016
+        camera.position.x = reducedMotion ? 0 : Math.sin(t * 0.052) * 0.022
+        camera.position.y = reducedMotion ? 0 : Math.cos(t * 0.038) * 0.016
         camera.lookAt(0, 0, 0)
 
         // ── Clouds ──────────────────────────────────────────────────────────
-        if (cloudsMesh) cloudsMesh.rotation.y += 0.00019
+        if (cloudsMesh && !reducedMotion) cloudsMesh.rotation.y += 0.00019
 
         // ── Marker animation ────────────────────────────────────────────────
         markerObjs.forEach((m) => {
@@ -929,8 +966,10 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
           r.mesh.scale.setScalar(1 + phase * 9)
           r.mat.opacity = (1 - phase) * 0.55
         }
-        animRadar(radar1, (frame % RADAR_P) / RADAR_P)
-        animRadar(radar2, ((frame + RADAR_P / 2) % RADAR_P) / RADAR_P)
+        if (!reducedMotion) {
+          animRadar(radar1, (frame % RADAR_P) / RADAR_P)
+          animRadar(radar2, ((frame + RADAR_P / 2) % RADAR_P) / RADAR_P)
+        }
 
         // ── Click ripple ────────────────────────────────────────────────────
         if (clickRipplePhase < 1.0) {
@@ -944,7 +983,7 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
         // Skip particle updates in low-FPS mode to recover performance
         const skipParticles = lowFPS && frame % 2 !== 0
         routeStates.forEach((route) => {
-          route.localT = (route.localT + route.speed) % 1
+          route.localT = (route.localT + (reducedMotion ? 0 : route.speed)) % 1
           ;(route.dashMat as unknown as { dashOffset: number }).dashOffset -= route.speed * 0.6
 
           if (!skipParticles) {
@@ -959,7 +998,7 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
 
         // ── Orbital satellite dots ──────────────────────────────────────────
         satDots.forEach((sd) => {
-          sd.t += sd.speed
+          if (!reducedMotion) sd.t += sd.speed
           sd.mesh.position.set(sd.a * Math.cos(sd.t), 0, sd.b * Math.sin(sd.t)).applyEuler(sd.euler)
         })
 
@@ -981,6 +1020,7 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
         disposed = true
         cancelAnimationFrame(rafId)
         ro.disconnect()
+        visibilityObserver.disconnect()
         canvas.removeEventListener('mousedown',  hDown)
         window.removeEventListener('mousemove',  hMove)
         window.removeEventListener('mouseup',    endDrag)
@@ -990,6 +1030,18 @@ export default function Globe3D({ className, style, onHotspot, onReady }: Props)
         canvas.removeEventListener('touchmove',  onTouchMove)
         canvas.removeEventListener('touchend',   onTouchEnd)
         canvas.removeEventListener('wheel',      onWheel)
+        const resources = new Set<{ dispose: () => void }>()
+        scene.traverse(obj => {
+          const mesh = obj as THREE.Mesh
+          if (mesh.geometry) resources.add(mesh.geometry)
+          const materials = mesh.material ? (Array.isArray(mesh.material) ? mesh.material : [mesh.material]) : []
+          materials.forEach(material => {
+            resources.add(material)
+            Object.values(material).forEach(value => { if (value instanceof THREE.Texture) resources.add(value) })
+          })
+        })
+        Object.values(uniforms).forEach(uniform => { if (uniform.value instanceof THREE.Texture) resources.add(uniform.value) })
+        resources.forEach(resource => resource.dispose())
         renderer.dispose()
         if (container.contains(canvas)) container.removeChild(canvas)
         if (container.contains(ttEl)) container.removeChild(ttEl)

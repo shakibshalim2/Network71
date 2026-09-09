@@ -1,0 +1,143 @@
+<?php
+declare(strict_types=1);
+
+final class Api
+{
+    private Database $db;
+    private Content $content;
+    private Media $media;
+    public function __construct(private array $config)
+    {
+        $this->db = new Database($config);
+        $this->content = new Content($this->db, require __DIR__ . '/modules.php');
+        $this->media = new Media($this->db, $config);
+    }
+
+    public function run(): never
+    {
+        $method = $_SERVER['REQUEST_METHOD'];
+        $path = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+        if ($method === 'GET' && $path === '/api/v1/health') Http::json(['status' => 'ok']);
+        if ($method === 'GET' && preg_match('~^/api/v1/media/([^/]+)$~', $path, $match)) $this->media->serve($match[1]);
+        if ($method === 'GET' && preg_match('~^/api/v1/content/([a-z-]+)(?:/([a-z0-9-]+))?$~', $path, $match)) {
+            $this->content->schema($match[1]);
+            if (!isset($match[2])) Http::json($this->content->list($match[1], true));
+            $row = $this->db->query("SELECT slug, published_json, published_at FROM content_records WHERE module = ? AND slug = ? AND status = 'published' AND published_json IS NOT NULL", [$match[1], $match[2]])->fetch();
+            if (!$row) Http::fail(404, 'Content not found.');
+            Http::json(['slug' => $row['slug'], 'data' => json_decode($row['published_json'], true, 32, JSON_THROW_ON_ERROR), 'published_at' => $row['published_at']]);
+        }
+        if ($method === 'POST' && $path === '/api/v1/inquiries') {
+            $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+            if ($origin !== '' && $origin !== $this->config['origin']) Http::fail(403, 'Origin is not allowed.');
+            $this->db->throttle('inquiry:' . ($_SERVER['REMOTE_ADDR'] ?? ''), 5, 600);
+            $input = Http::body();
+            if (($input['website'] ?? '') !== '') Http::fail(422, 'Unable to accept this submission.');
+            $name = Http::string($input, 'name', 120, true);
+            $email = Http::string($input, 'email', 190, true);
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) Http::fail(422, 'Enter a valid email address.');
+            $reference = 'N71-' . strtoupper(bin2hex(random_bytes(8)));
+            $key = Http::string($input, 'request_key', 64, true);
+            if (!preg_match('/^[a-zA-Z0-9-]{20,64}$/', $key)) Http::fail(422, 'Invalid submission identifier. Refresh and try again.');
+            $values = [$name, $email, Http::string($input, 'phone', 40), Http::string($input, 'company', 190), Http::string($input, 'subject', 200, true), Http::string($input, 'message', 10000, true), Http::string($input, 'source', 200)];
+            $hash = hash('sha256', json_encode($values, JSON_THROW_ON_ERROR));
+            try {
+                $this->db->query('INSERT INTO inquiries (reference, name, email, phone, company, subject, message, source, request_key, request_hash, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())', [$reference, ...$values, $key, $hash]);
+            } catch (PDOException $error) {
+                if ($error->getCode() !== '23000') throw $error;
+                $existing = $this->db->query('SELECT reference, request_hash FROM inquiries WHERE request_key = ?', [$key])->fetch();
+                if (!$existing || !hash_equals($existing['request_hash'], $hash)) Http::fail(409, 'This submission identifier has already been used.');
+                Http::json(['reference' => $existing['reference'], 'message' => 'Your enquiry has been received.']);
+            }
+            Http::json(['reference' => $reference, 'message' => 'Your enquiry has been received.'], 201);
+        }
+
+        $auth = new Auth($this->db, $this->config);
+        if ($method !== 'GET') $auth->checkWrite();
+        if ($method === 'GET' && $path === '/api/v1/auth/session') Http::json(['user' => $auth->user(false), 'csrf' => $auth->csrf()]);
+        if ($method === 'POST' && $path === '/api/v1/auth/login') Http::json($auth->login(Http::body()));
+        if ($method === 'POST' && $path === '/api/v1/auth/logout') { $auth->logout(); Http::json(['ok' => true]); }
+        $user = $auth->user();
+        if ($method === 'GET' && $path === '/api/v1/admin/modules') Http::json($this->content->modules);
+        if ($method === 'GET' && $path === '/api/v1/admin/dashboard') {
+            Http::json([
+                'total' => (int)$this->db->query('SELECT COUNT(*) FROM content_records')->fetchColumn(),
+                'published' => (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE status = 'published'")->fetchColumn(),
+                'drafts' => (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE status = 'draft' OR (status = 'published' AND draft_json <> published_json)")->fetchColumn(),
+                'inquiries' => (int)$this->db->query("SELECT COUNT(*) FROM inquiries WHERE status = 'new'")->fetchColumn(),
+                'activity' => $this->db->query('SELECT a.id, a.action, a.entity, a.created_at, u.name FROM audit_logs a LEFT JOIN admin_users u ON u.id = a.actor_id ORDER BY a.id DESC LIMIT 12')->fetchAll(),
+            ]);
+        }
+        if (preg_match('~^/api/v1/admin/content/([a-z-]+)(?:/([0-9]+))?(?:/(state))?$~', $path, $match)) {
+            $module = $match[1];
+            $id = isset($match[2]) && $match[2] !== '' ? (int)$match[2] : null;
+            if ($method === 'GET' && !$id) Http::json($this->content->list($module));
+            if ($method === 'POST' && isset($match[3])) {
+                $owner = $auth->owner();
+                $this->content->transition($module, $id, Http::body(), $owner);
+                Http::json(['ok' => true]);
+            }
+            if (($method === 'POST' && !$id) || ($method === 'PUT' && $id && !isset($match[3]))) Http::json($this->content->save($module, $id, Http::body(), $user), $id ? 200 : 201);
+        }
+        if ($path === '/api/v1/admin/media') {
+            if ($method === 'POST') Http::json($this->media->upload($user), 201);
+            if ($method === 'GET') {
+                $page = max(1, min(100000, (int)($_GET['page'] ?? 1)));
+                $total = (int)$this->db->query('SELECT COUNT(*) FROM media_assets')->fetchColumn();
+                Http::json(['items' => $this->db->query('SELECT id, filename, alt, width, height, bytes, created_at FROM media_assets ORDER BY id DESC LIMIT 24 OFFSET ' . (($page - 1) * 24))->fetchAll(), 'page' => $page, 'pages' => max(1, (int)ceil($total / 24)), 'total' => $total]);
+            }
+        }
+        if ($method === 'GET' && $path === '/api/v1/admin/inquiries') {
+            $page = max(1, min(100000, (int)($_GET['page'] ?? 1)));
+            $total = (int)$this->db->query('SELECT COUNT(*) FROM inquiries')->fetchColumn();
+            Http::json(['items' => $this->db->query('SELECT * FROM inquiries ORDER BY id DESC LIMIT 30 OFFSET ' . (($page - 1) * 30))->fetchAll(), 'total' => $total, 'page' => $page, 'pages' => max(1, (int)ceil($total / 30))]);
+        }
+        if ($method === 'PATCH' && preg_match('~^/api/v1/admin/inquiries/([0-9]+)$~', $path, $match)) {
+            $status = Http::body()['status'] ?? '';
+            if (!in_array($status, ['new', 'in_progress', 'closed'], true)) Http::fail(422, 'Invalid enquiry status.');
+            $this->db->transaction(function () use ($status, $match, $user) {
+                if (!$this->db->query('SELECT id FROM inquiries WHERE id = ? FOR UPDATE', [$match[1]])->fetch()) Http::fail(404, 'Enquiry not found.');
+                $this->db->query('UPDATE inquiries SET status = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$status, $match[1]]);
+                $this->db->audit((int)$user['id'], 'update_status', 'inquiries', (int)$match[1]);
+            });
+            Http::json(['ok' => true]);
+        }
+        if ($path === '/api/v1/admin/users') {
+            $auth->owner();
+            if ($method === 'GET') Http::json(['items' => $this->db->query('SELECT id, name, email, role, active FROM admin_users ORDER BY id')->fetchAll()]);
+            if ($method === 'POST') {
+                $data = Http::body();
+                $name = Http::string($data, 'name', 120, true);
+                $email = strtolower(Http::string($data, 'email', 190, true));
+                $password = Http::password($data);
+                $role = $data['role'] ?? 'editor';
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($password) < 12 || !in_array($role, ['owner', 'editor'], true)) Http::fail(422, 'Enter a valid email, role and password of at least 12 characters.');
+                // Bcrypt has a 72-byte input limit; reject instead of silently truncating.
+                if (strlen($password) > 72) Http::fail(422, 'Password must be at most 72 bytes.');
+                try {
+                    $this->db->transaction(function () use ($name, $email, $password, $role, $user) {
+                        $this->db->query('INSERT INTO admin_users (name, email, password_hash, role, created_at, updated_at) VALUES (?, ?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())', [$name, $email, password_hash($password, PASSWORD_DEFAULT), $role]);
+                        $this->db->audit((int)$user['id'], 'create_user', 'users', (int)$this->db->pdo->lastInsertId());
+                    });
+                } catch (PDOException $error) { if ($error->getCode() === '23000') Http::fail(409, 'An account with this email already exists.'); throw $error; }
+                Http::json(['ok' => true], 201);
+            }
+        }
+        if ($method === 'PATCH' && preg_match('~^/api/v1/admin/users/([0-9]+)$~', $path, $match)) {
+            $auth->owner();
+            $data = Http::body();
+            $id = (int)$match[1];
+            if ($id === (int)$user['id']) Http::fail(422, 'You cannot deactivate your own account.');
+            if (!is_bool($data['active'] ?? null)) Http::fail(422, 'Choose the account access state.');
+            $this->db->transaction(function () use ($id, $data, $user) {
+                $owners = $this->db->query("SELECT id FROM admin_users WHERE role = 'owner' AND active = 1 ORDER BY id FOR UPDATE")->fetchAll();
+                $account = $this->db->query('SELECT id, role, active FROM admin_users WHERE id = ? FOR UPDATE', [$id])->fetch();
+                if (!$account) Http::fail(404, 'Account not found.');
+                if (!$data['active'] && $account['role'] === 'owner' && (int)$account['active'] && count($owners) <= 1) Http::fail(422, 'At least one active owner is required.');
+                $this->db->query('UPDATE admin_users SET active = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$data['active'] ? 1 : 0, $id]);
+                $this->db->audit((int)$user['id'], $data['active'] ? 'activate_user' : 'deactivate_user', 'users', $id);
+            });
+            Http::json(['ok' => true]);
+        }
+        Http::fail(404, 'API endpoint not found.');
+    }
+}

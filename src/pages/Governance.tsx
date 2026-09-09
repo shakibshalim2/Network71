@@ -117,10 +117,10 @@ export default function Governance() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
               </svg>
             </div>
-            <span className="inline-block px-3 py-1 rounded-full bg-gold/10 text-gold text-xs font-semibold tracking-wider uppercase mb-4">Coming Soon</span>
-            <p className="text-white font-display text-2xl mb-2">Board composition to be published</p>
+            <span className="inline-block px-3 py-1 rounded-full bg-gold/10 text-gold text-xs font-semibold tracking-wider uppercase mb-4">Oversight model</span>
+            <p className="text-white font-display text-2xl mb-2">Governance at Group Level</p>
             <p className="text-slate-400 text-sm max-w-sm text-center">
-              Board member profiles and biographies will be available here upon official announcement.
+              The board&apos;s mandate covers strategy, financial stewardship, risk, ethics, executive accountability, and the long-term interests of the enterprise and its stakeholders.
             </p>
           </div>
         </div>
@@ -149,16 +149,12 @@ export default function Governance() {
                 </div>
               </div>
               <div className="flex items-center gap-3 pt-2 border-t border-white/8">
-                <button
-                  disabled
-                  className="flex items-center gap-2 px-4 py-2 bg-white/5 text-slate-500 text-sm rounded-lg cursor-not-allowed"
-                >
+                <a href={`mailto:governance@network71.com?subject=${encodeURIComponent(`Policy request: ${policy.title}`)}`} className="flex items-center gap-2 px-4 py-2 bg-white/5 text-slate-300 hover:text-gold text-sm rounded-lg transition-colors">
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                   </svg>
-                  Download
-                </button>
-                <span className="text-xs text-gold/70 font-medium">Coming Soon</span>
+                  Request policy
+                </a>
               </div>
             </div>
           ))}
@@ -185,8 +181,8 @@ export default function Governance() {
                 <h3 className="text-white font-semibold text-lg mb-2">{c.name}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed mb-5">{c.desc}</p>
                 <div className="pt-4 border-t border-white/8">
-                  <span className="text-xs text-slate-500 font-medium">Composition:</span>
-                  <p className="text-slate-400 text-sm mt-1">To be published</p>
+                  <span className="text-xs text-slate-500 font-medium">Committee mandate:</span>
+                  <p className="text-slate-400 text-sm mt-1">Independent review, documented recommendations, and escalation to board oversight.</p>
                 </div>
               </div>
             ))}
@@ -203,7 +199,7 @@ export default function Governance() {
           </div>
           <a
             href="mailto:governance@network71.com"
-            className="flex-shrink-0 px-6 py-3 bg-gold text-navy text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors"
+            className="flex-shrink-0 px-6 py-3 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors"
           >
             governance@network71.com
           </a>

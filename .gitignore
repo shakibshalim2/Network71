@@ -18,3 +18,8 @@ logs/
 # beside it.
 /.plugins/
 /.opencode-skills/
+
+# Local backend configuration, uploads and database state
+/backend/config/local.php
+/backend/storage/*
+!/backend/storage/.gitkeep

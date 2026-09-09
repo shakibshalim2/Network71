@@ -5,56 +5,150 @@ import MetricsBar from '@/components/sector/MetricsBar'
 import SectorContact from '@/components/sector/SectorContact'
 import Footer from '@/components/Footer'
 
-const ACCENT = '#22d3ee'
-const PURPLE = '#a855f7'
-const BG_DEEP = '#030B14'
-const BG_ALT = '#060F1C'
+const ACCENT = 'var(--accent-cyan)'
+const PURPLE = 'var(--accent-purple)'
+const BG_DEEP = 'var(--s0)'
+const BG_ALT = 'var(--s1)'
 
 /* ─── data ─────────────────────────────────────────────────────────────── */
 
 const metrics = [
-  { value: '200+', label: 'Engineers', desc: 'Full-stack & AI specialists' },
-  { value: '50+', label: 'Projects Delivered', desc: 'Enterprise-grade software' },
-  { value: '99%', label: 'Client Satisfaction', desc: 'Across all engagements' },
+  { value: '3', label: 'Product Platforms', desc: 'Commerce, maritime & media' },
+  { value: '8', label: 'Connected Divisions', desc: 'One enterprise ecosystem' },
+  { value: 'Full Stack', label: 'Delivery Scope', desc: 'Strategy through deployment' },
   { value: 'Ezyify', label: 'Flagship Product', desc: 'AI commerce ecosystem' },
 ]
+
+const showcaseProjects = [
+  {
+    title: 'Ezyify',
+    category: 'AI Commerce Platform',
+    eyebrow: 'Flagship product',
+    summary: 'A responsive social-commerce product experience connecting discovery, video, creators, merchant tools, and conversational shopping in one ecosystem.',
+    capabilities: ['Product strategy', 'Commerce UX', 'AI-assisted discovery', 'Responsive application'],
+    href: '/ezyify',
+    color: 'var(--accent-purple)',
+    color2: 'var(--accent-pink)',
+    preview: 'commerce',
+  },
+  {
+    title: 'eSHIPe',
+    category: 'Maritime Marketplace',
+    eyebrow: 'Vertical marketplace',
+    summary: 'A focused digital marketplace experience for discovering vessels and connecting maritime buyers, sellers, and service enquiries.',
+    capabilities: ['Marketplace UX', 'Search & filtering', 'Vessel presentation', 'Lead generation'],
+    href: '/divisions/eshipe',
+    color: 'var(--accent-sky)',
+    color2: 'var(--accent-cyan)',
+    preview: 'maritime',
+  },
+  {
+    title: 'Network71 Media',
+    category: 'Digital Media Experience',
+    eyebrow: 'Media platform',
+    summary: 'A multi-format editorial interface designed around live coverage, programmes, video, newsroom presentation, and partnership opportunities.',
+    capabilities: ['Editorial UX', 'Content architecture', 'Video-ready UI', 'Advertising journeys'],
+    href: '/divisions/media',
+    color: 'var(--accent-red)',
+    color2: 'var(--accent-orange)',
+    preview: 'media',
+  },
+  {
+    title: 'Network71 Enterprise Web',
+    category: 'Corporate Digital Platform',
+    eyebrow: 'Group ecosystem',
+    summary: 'The unified corporate platform connecting Network71 divisions, leadership, global presence, investor information, careers, and business enquiries.',
+    capabilities: ['Design system', '3D WebGL', 'Multi-sector architecture', 'Production deployment'],
+    href: '/',
+    color: 'var(--brand-fg)',
+    color2: 'var(--accent-cyan)',
+    preview: 'enterprise',
+  },
+] as const
+
+function ProjectPreview({ project }: { project: typeof showcaseProjects[number] }) {
+  const rows = project.preview === 'media' ? [82, 58, 72] : project.preview === 'maritime' ? [68, 86, 54] : [76, 62, 88]
+
+  return (
+    <div className="relative h-64 sm:h-72 overflow-hidden" style={{ background: `radial-gradient(circle at 85% 0%, color-mix(in srgb, ${project.color} 19%, transparent), transparent 48%), #050d18` }}>
+      <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
+      <div className="absolute left-6 right-6 top-8 rounded-xl overflow-hidden shadow-2xl" style={{ border: 'var(--border-strong)', background: 'rgba(3,8,18,.94)', transform: 'perspective(900px) rotateX(2deg) rotateY(-3deg)' }}>
+        <div className="h-8 flex items-center gap-1.5 px-3" style={{ borderBottom: '1px solid rgba(255,255,255,.07)' }}>
+          {[0, 1, 2].map((dot) => <span key={dot} className="w-1.5 h-1.5 rounded-full" style={{ background: dot === 0 ? project.color : 'rgba(148,163,184,.28)' }} />)}
+          <div className="ml-3 h-3 flex-1 max-w-40 rounded-full" style={{ background: 'rgba(148,163,184,.08)' }} />
+        </div>
+        <div className="grid grid-cols-[64px_1fr] min-h-44">
+          <div className="p-3 space-y-3" style={{ borderRight: '1px solid rgba(255,255,255,.06)' }}>
+            <div className="w-7 h-7 rounded-lg" style={{ background: `linear-gradient(135deg, ${project.color}, ${project.color2})` }} />
+            {[70, 52, 62, 45].map((width) => <div key={width} className="h-1 rounded-full" style={{ width: `${width}%`, background: 'rgba(148,163,184,.16)' }} />)}
+          </div>
+          <div className="p-4">
+            <div className="flex items-start justify-between gap-3 mb-4">
+              <div>
+                <div className="h-2 w-20 rounded-full mb-2" style={{ background: project.color }} />
+                <div className="h-1.5 w-28 rounded-full" style={{ background: 'rgba(148,163,184,.18)' }} />
+              </div>
+              <div className="w-14 h-5 rounded-md" style={{ background: `color-mix(in srgb, ${project.color} 15%, transparent)`, border: `1px solid color-mix(in srgb, ${project.color} 27%, transparent)` }} />
+            </div>
+            <div className="grid grid-cols-3 gap-2 mb-3">
+              {rows.map((height, index) => (
+                <div key={height} className="rounded-lg p-2" style={{ height, background: index === 0 ? `color-mix(in srgb, ${project.color} 9%, transparent)` : 'rgba(255,255,255,.035)', border: 'var(--border-subtle)' }}>
+                  <div className="h-1.5 w-2/3 rounded-full mb-2" style={{ background: index === 0 ? project.color : 'rgba(148,163,184,.18)' }} />
+                  <div className="h-1 w-full rounded-full mb-1" style={{ background: 'rgba(148,163,184,.10)' }} />
+                  <div className="h-1 w-3/4 rounded-full" style={{ background: 'rgba(148,163,184,.08)' }} />
+                </div>
+              ))}
+            </div>
+            <div className="h-7 rounded-lg flex items-center px-2 gap-2" style={{ background: 'var(--fill-1)', border: 'var(--border-subtle)' }}>
+              <div className="w-3 h-3 rounded-full" style={{ background: `color-mix(in srgb, ${project.color} 38%, transparent)` }} />
+              <div className="h-1 w-1/2 rounded-full" style={{ background: 'rgba(148,163,184,.14)' }} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="absolute bottom-4 right-5 px-3 py-1.5 rounded-full text-[9px] uppercase tracking-[0.18em] font-semibold backdrop-blur-md" style={{ color: project.color, background: 'rgba(3,8,18,.78)', border: `1px solid color-mix(in srgb, ${project.color} 21%, transparent)` }}>
+        Product interface
+      </div>
+    </div>
+  )
+}
 
 const servicePillars = [
   {
     icon: '⬡',
     title: 'Enterprise Resource Planning',
     desc: 'Custom ERP, HRM, inventory, and business-process automation for organisations operating at global scale.',
-    color: '#22d3ee',
+    color: 'var(--accent-cyan)',
   },
   {
     icon: '⬡',
     title: 'Custom Software Development',
     desc: 'Bespoke web and desktop applications built to spec — from scoping through to production deployment.',
-    color: '#6366f1',
+    color: 'var(--accent-indigo)',
   },
   {
     icon: '⬡',
     title: 'AI & Data Analytics',
     desc: 'Recommendation engines, predictive analytics, NLP, and computer vision — intelligent systems that create competitive advantage.',
-    color: '#a855f7',
+    color: 'var(--accent-purple)',
   },
   {
     icon: '⬡',
     title: 'Cloud Solutions & DevOps',
     desc: 'Scalable cloud architecture on AWS, automated CI/CD pipelines, and containerised infrastructure built for reliability.',
-    color: '#22d3ee',
+    color: 'var(--accent-cyan)',
   },
   {
     icon: '⬡',
     title: 'Mobile & Web Applications',
     desc: 'High-performance SaaS products, cross-platform mobile apps, progressive web apps, and API ecosystems.',
-    color: '#f472b6',
+    color: 'var(--accent-pink)',
   },
   {
     icon: '⬡',
     title: 'Cybersecurity & Compliance',
     desc: 'Penetration testing, application security reviews, threat monitoring, and data-protection strategy aligned to OWASP standards.',
-    color: '#34d399',
+    color: 'var(--accent-emerald)',
   },
 ]
 
@@ -70,11 +164,11 @@ const ezyifyFeatures = [
 const aiModels = [
   { name: 'Recommendation Engine', type: 'Commerce AI', color: ACCENT },
   { name: 'Computer Vision', type: 'Try-On AI', color: PURPLE },
-  { name: 'NLP Chat Model', type: 'Conversational', color: '#f472b6' },
-  { name: 'Demand Forecasting', type: 'Predictive', color: '#34d399' },
-  { name: 'Image Recognition', type: 'Vision', color: '#f59e0b' },
-  { name: 'Pricing Intelligence', type: 'Optimisation', color: '#6366f1' },
-  { name: 'Fraud Detection', type: 'Security AI', color: '#ef4444' },
+  { name: 'NLP Chat Model', type: 'Conversational', color: 'var(--accent-pink)' },
+  { name: 'Demand Forecasting', type: 'Predictive', color: 'var(--accent-emerald)' },
+  { name: 'Image Recognition', type: 'Vision', color: 'var(--accent-amber)' },
+  { name: 'Pricing Intelligence', type: 'Optimisation', color: 'var(--accent-indigo)' },
+  { name: 'Fraud Detection', type: 'Security AI', color: 'var(--accent-red)' },
   { name: 'Sentiment Analysis', type: 'NLP', color: ACCENT },
   { name: 'Content Generation', type: 'Generative', color: PURPLE },
 ]
@@ -118,45 +212,45 @@ const deliveryModels = [
   {
     title: 'Fixed-Price Projects',
     icon: '◈',
-    timeline: '4 – 24 weeks',
-    teamSize: '3 – 12 engineers',
+    timeline: 'Scope-based',
+    teamSize: 'Right-sized team',
     bestFor: 'Well-defined products, MVPs, feature builds, and discrete integrations with clear scope.',
     color: ACCENT,
   },
   {
     title: 'Dedicated Team',
     icon: '◈',
-    timeline: 'Ongoing (min 3 months)',
-    teamSize: '5 – 30 engineers',
+    timeline: 'Ongoing',
+    teamSize: 'Cross-functional pod',
     bestFor: 'Long-term product development where clients need full team extension at speed and quality.',
     color: PURPLE,
   },
   {
     title: 'Managed Services',
     icon: '◈',
-    timeline: 'Ongoing SLA',
-    teamSize: '2 – 8 engineers',
+    timeline: 'Service-based',
+    teamSize: 'Dedicated support team',
     bestFor: 'Maintenance, monitoring, performance optimisation, and incident response for live platforms.',
-    color: '#34d399',
+    color: 'var(--accent-emerald)',
   },
 ]
 
 const roadmapItems = [
-  { year: '2025', title: 'Scale Engineering Capacity', desc: 'Grow to 500+ engineers across full-stack, AI, mobile, and cloud disciplines.' },
-  { year: '2026', title: 'Ezyify Public Launch', desc: 'Global rollout of the Ezyify commerce ecosystem across South Asia, MENA, and Europe.' },
-  { year: '2027', title: 'AI Product Suite Release', desc: 'Launch standalone AI products: commerce intelligence, computer vision APIs, and NLP toolkits.' },
-  { year: '2028', title: 'SaaS Revenue Scale', desc: 'Target recurring SaaS revenue from Ezyify and enterprise software products — figures to be published.' },
+  { year: '01', title: 'Strengthen the Product Foundation', desc: 'Build reusable product systems, delivery standards, and shared infrastructure across Network71 platforms.' },
+  { year: '02', title: 'Validate with Real Users', desc: 'Use focused releases, feedback loops, and measurable product goals before expanding scope.' },
+  { year: '03', title: 'Expand Platform Capabilities', desc: 'Add commerce, data, automation, and integration capabilities where they solve verified user needs.' },
+  { year: '04', title: 'Scale Responsibly', desc: 'Improve reliability, security, observability, and operational readiness as products and audiences grow.' },
 ]
 
 /* ─── page ──────────────────────────────────────────────────────────────── */
 
 export default function IT() {
   return (
-    <div className="min-h-full" style={{ background: BG_DEEP, color: 'white' }}>
+    <div className="sector-page min-h-full" style={{ background: BG_DEEP, color: 'var(--fg)' }}>
       <SectorHeader divisionName="IT & Software" accentClass="text-cyan-400" />
 
       {/* ── 1. HERO ── */}
-      <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: BG_DEEP }}>
+      <section className="sector-hero relative min-h-screen flex items-center overflow-hidden" style={{ background: BG_DEEP }}>
         {/* dot grid */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -186,7 +280,7 @@ export default function IT() {
             </div>
 
             <h1 className="font-display leading-[1.05] tracking-[-0.02em] mb-6" style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)' }}>
-              <span style={{ color: 'white' }}>IT &amp; </span>
+              <span style={{ color: 'var(--fg)' }}>IT &amp; </span>
               <span
                 style={{
                   background: `linear-gradient(135deg, ${ACCENT} 0%, #67e8f9 50%, ${ACCENT} 100%)`,
@@ -209,14 +303,14 @@ export default function IT() {
               <a
                 href="#sector-contact"
                 className="px-8 py-3.5 font-semibold text-sm rounded-lg transition-all hover:opacity-90"
-                style={{ background: ACCENT, color: '#030B14' }}
+                style={{ background: ACCENT, color: 'var(--s0)' }}
               >
                 Start a Project
               </a>
               <Link
                 to="/ezyify"
                 className="px-8 py-3.5 border text-sm font-medium text-white rounded-lg hover:bg-white/5 transition-colors"
-                style={{ borderColor: `${ACCENT}50` }}
+                style={{ borderColor: `color-mix(in srgb, ${ACCENT} 31%, transparent)` }}
               >
                 Explore Ezyify
               </Link>
@@ -225,9 +319,9 @@ export default function IT() {
             {/* hero stats */}
             <div className="flex flex-wrap gap-12 pt-10" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
               {[
-                { v: '200+', l: 'Engineers' },
-                { v: '50+', l: 'Projects Delivered' },
-                { v: '99%', l: 'Client Satisfaction' },
+                { v: '3', l: 'Product Platforms' },
+                { v: '8', l: 'Connected Divisions' },
+                { v: 'A–Z', l: 'Product Delivery' },
               ].map((m) => (
                 <div key={m.l}>
                   <div className="font-display text-4xl mb-1" style={{ color: ACCENT }}>{m.v}</div>
@@ -244,9 +338,9 @@ export default function IT() {
           style={{ fontFamily: 'monospace', fontSize: '11px', color: ACCENT, lineHeight: 1.8 }}
         >
           <div>$ n71 deploy --division=it --env=production</div>
-          <div style={{ color: '#34d399' }}>&#10003; 200 engineers online</div>
-          <div style={{ color: '#34d399' }}>&#10003; AI cluster ready</div>
-          <div style={{ color: '#34d399' }}>&#10003; Ezyify pipeline active</div>
+          <div style={{ color: 'var(--accent-emerald)' }}>&#10003; product systems connected</div>
+          <div style={{ color: 'var(--accent-emerald)' }}>&#10003; delivery pipeline ready</div>
+          <div style={{ color: 'var(--accent-emerald)' }}>&#10003; quality checks passed</div>
           <div className="animate-pulse">&#9646; awaiting instructions_</div>
         </div>
       </section>
@@ -274,9 +368,9 @@ export default function IT() {
                 AI-powered social commerce ecosystem positioned to redefine how the world shops online.
               </p>
               <p className="text-slate-400 leading-relaxed text-sm">
-                With a team of 200+ engineers spanning full-stack development, AI/ML, mobile, cloud infrastructure, and
-                cybersecurity, the division operates as a world-class software house embedded within a diversified global conglomerate.
-                Every system we build is production-grade, security-first, and designed to scale.
+                The division brings together full-stack development, product design, mobile, cloud infrastructure, data, and
+                security capabilities inside a single delivery practice. Every engagement is structured around clear business
+                outcomes, maintainable systems, and a reliable path from discovery to production.
               </p>
             </div>
             {/* right: capability pillars */}
@@ -321,12 +415,12 @@ export default function IT() {
                 key={s.title}
                 className="group p-7 rounded-2xl cursor-default transition-all duration-300"
                 style={{
-                  background: 'rgba(255,255,255,0.025)',
-                  border: '1px solid rgba(255,255,255,0.07)',
+                  background: 'var(--fill-1)',
+                  border: 'var(--border-subtle)',
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 20px rgba(34,211,238,0.15)`;
-                  (e.currentTarget as HTMLDivElement).style.borderColor = `${s.color}40`;
+                  (e.currentTarget as HTMLDivElement).style.borderColor = `color-mix(in srgb, ${s.color} 25%, transparent)`;
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLDivElement).style.boxShadow = 'none';
@@ -335,7 +429,7 @@ export default function IT() {
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 text-lg font-bold"
-                  style={{ background: `${s.color}14`, border: `1px solid ${s.color}30`, color: s.color }}
+                  style={{ background: `color-mix(in srgb, ${s.color} 8%, transparent)`, border: `1px solid color-mix(in srgb, ${s.color} 19%, transparent)`, color: s.color }}
                 >
                   {s.icon}
                 </div>
@@ -349,7 +443,7 @@ export default function IT() {
       </section>
 
       {/* ── 5. EZYIFY — THE CROWN JEWEL ── */}
-      <section className="py-28 relative overflow-hidden" style={{ background: '#040813' }}>
+      <section className="py-28 relative overflow-hidden" style={{ background: 'var(--s0)' }}>
         {/* strong glows */}
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] rounded-full blur-[200px] pointer-events-none"
@@ -520,7 +614,7 @@ export default function IT() {
                   <div
                     key={m.name}
                     className="p-3.5 rounded-xl text-center"
-                    style={{ background: 'rgba(168,85,247,0.05)', border: `1px solid ${m.color}25` }}
+                    style={{ background: 'rgba(168,85,247,0.05)', border: `1px solid color-mix(in srgb, ${m.color} 15%, transparent)` }}
                   >
                     <div
                       className="text-[10px] font-bold tracking-wider mb-1.5 uppercase"
@@ -537,10 +631,10 @@ export default function IT() {
                 style={{ background: 'rgba(168,85,247,0.07)', border: '1px solid rgba(168,85,247,0.2)', fontFamily: 'monospace', fontSize: '11px', color: PURPLE, lineHeight: 1.9 }}
               >
                 <div style={{ color: '#67e8f9' }}>{'>'} model.train(dataset=commerce_signals)</div>
-                <div style={{ color: '#34d399' }}>epoch 1/50 — loss: 0.3412 — acc: 0.8870</div>
-                <div style={{ color: '#34d399' }}>epoch 50/50 — loss: 0.0182 — acc: 0.9940</div>
+                <div style={{ color: 'var(--accent-emerald)' }}>epoch 1/50 — loss: 0.3412 — acc: 0.8870</div>
+                <div style={{ color: 'var(--accent-emerald)' }}>epoch 50/50 — loss: 0.0182 — acc: 0.9940</div>
                 <div>{'>'} model.deploy(env=&quot;ezyify-prod&quot;)</div>
-                <div style={{ color: '#34d399' }}>&#10003; deployed — latency 18ms p99</div>
+                <div style={{ color: 'var(--accent-emerald)' }}>&#10003; deployed — latency 18ms p99</div>
               </div>
             </div>
           </div>
@@ -552,7 +646,7 @@ export default function IT() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-5">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Technology Ecosystem</span>
               <div className="h-px w-8" style={{ background: ACCENT }} />
             </div>
@@ -564,19 +658,19 @@ export default function IT() {
               <div
                 key={t.name}
                 className="group flex items-center gap-4 p-4 rounded-xl transition-all duration-200 cursor-default"
-                style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = `${ACCENT}30`; }}
+                style={{ background: 'var(--fill-1)', border: 'var(--border-subtle)' }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = `color-mix(in srgb, ${ACCENT} 19%, transparent)`; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(255,255,255,0.06)'; }}
               >
                 <div
                   className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 font-bold text-xs"
-                  style={{ background: `${ACCENT}14`, color: ACCENT, border: `1px solid ${ACCENT}25` }}
+                  style={{ background: `color-mix(in srgb, ${ACCENT} 8%, transparent)`, color: ACCENT, border: `1px solid color-mix(in srgb, ${ACCENT} 15%, transparent)` }}
                 >
                   {t.init}
                 </div>
                 <div>
                   <div className="text-white text-sm font-semibold">{t.name}</div>
-                  <div className="text-[10px] font-medium uppercase tracking-wider mt-0.5" style={{ color: `${ACCENT}80` }}>{t.cat}</div>
+                  <div className="text-[10px] font-medium uppercase tracking-wider mt-0.5" style={{ color: ACCENT }}>{t.cat}</div>
                 </div>
               </div>
             ))}
@@ -584,7 +678,72 @@ export default function IT() {
         </div>
       </section>
 
-      {/* ── 8. PROCESS FLOW ── */}
+      {/* ── 8. SELECTED WORK ── */}
+      <section id="selected-work" className="py-24 lg:py-32 relative overflow-hidden" style={{ background: BG_ALT }}>
+        <div className="absolute -top-48 left-1/2 -translate-x-1/2 w-[760px] h-[420px] rounded-full blur-[160px] pointer-events-none" style={{ background: 'rgba(34,211,238,.055)' }} />
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid lg:grid-cols-[1fr_.75fr] gap-8 items-end mb-14">
+            <div>
+              <div className="flex items-center gap-3 mb-5">
+                <div className="h-px w-10" style={{ background: ACCENT }} />
+                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Selected Work</span>
+              </div>
+              <h2 className="font-display text-4xl lg:text-6xl text-white leading-[1.08] mb-5">
+                Products We Have<br />Designed to Work.
+              </h2>
+              <p className="text-slate-400 text-sm sm:text-base leading-relaxed max-w-2xl">
+                A selection of Network71-owned platforms and digital experiences. Each project demonstrates how we turn a complex sector into a clear, responsive product journey.
+              </p>
+            </div>
+            <div className="lg:text-right">
+              <a href="#sector-contact" className="inline-flex items-center gap-3 px-6 py-3.5 rounded-lg text-sm font-semibold transition-all hover:-translate-y-0.5" style={{ background: ACCENT, color: 'var(--s0)', boxShadow: '0 12px 35px rgba(34,211,238,.16)' }}>
+                Build a Project Like These
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-6-6 6 6-6 6" /></svg>
+              </a>
+              <p className="text-slate-600 text-xs mt-3">Web · Mobile · Marketplace · Enterprise</p>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-6">
+            {showcaseProjects.map((project, index) => (
+              <article key={project.title} className="group rounded-2xl overflow-hidden transition-transform duration-300 hover:-translate-y-1" style={{ background: 'var(--fill-1)', border: 'var(--border-subtle)' }}>
+                <ProjectPreview project={project} />
+                <div className="p-6 sm:p-8">
+                  <div className="flex items-center justify-between gap-4 mb-5">
+                    <span className="font-mono text-[9px] uppercase tracking-[0.25em]" style={{ color: project.color }}>{project.eyebrow}</span>
+                    <span className="font-mono text-[9px] text-slate-600">0{index + 1}</span>
+                  </div>
+                  <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-4">
+                    <div>
+                      <h3 className="font-display text-2xl sm:text-3xl text-white mb-1">{project.title}</h3>
+                      <p className="text-xs font-medium" style={{ color: project.color }}>{project.category}</p>
+                    </div>
+                    <Link to={project.href} aria-label={`View ${project.title} project`} className="w-11 h-11 rounded-full flex items-center justify-center transition-transform group-hover:translate-x-1" style={{ border: `1px solid color-mix(in srgb, ${project.color} 25%, transparent)`, color: project.color }}>
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-6-6 6 6-6 6" /></svg>
+                    </Link>
+                  </div>
+                  <p className="text-slate-400 text-sm leading-relaxed mb-6">{project.summary}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.capabilities.map((capability) => (
+                      <span key={capability} className="px-3 py-1.5 rounded-full text-[10px] text-slate-400" style={{ background: 'var(--fill-2)', border: 'var(--border-subtle)' }}>{capability}</span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-8 p-6 sm:p-8 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between gap-6" style={{ background: `linear-gradient(120deg, color-mix(in srgb, ${ACCENT} 5%, transparent), color-mix(in srgb, ${PURPLE} 5%, transparent))`, border: '1px solid rgba(34,211,238,.14)' }}>
+            <div>
+              <div className="text-white font-semibold mb-1">Have a product idea or an existing system that needs improvement?</div>
+              <p className="text-slate-400 text-sm">Share the goal, current challenge, and expected launch window. We will help define the next practical step.</p>
+            </div>
+            <a href="#sector-contact" className="inline-flex items-center justify-center px-5 py-3 rounded-lg text-sm font-semibold whitespace-nowrap" style={{ color: ACCENT, border: `1px solid color-mix(in srgb, ${ACCENT} 27%, transparent)` }}>Discuss Your Project</a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 9. PROCESS FLOW ── */}
       <div style={{ background: BG_ALT }}>
         <ProcessFlow
           steps={processSteps}
@@ -598,7 +757,7 @@ export default function IT() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="flex items-center justify-center gap-3 mb-5">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Internal Enterprise Backbone</span>
               <div className="h-px w-8" style={{ background: ACCENT }} />
             </div>
@@ -671,7 +830,7 @@ export default function IT() {
               <div
                 key={m.title}
                 className="p-7 rounded-2xl"
-                style={{ background: 'rgba(255,255,255,0.025)', border: `1px solid ${m.color}25` }}
+                style={{ background: 'var(--fill-1)', border: `1px solid color-mix(in srgb, ${m.color} 15%, transparent)` }}
               >
                 <div className="text-2xl mb-5" style={{ color: m.color }}>{m.icon}</div>
                 <h3 className="font-display text-xl text-white mb-5">{m.title}</h3>
@@ -685,7 +844,7 @@ export default function IT() {
                     <span className="text-white text-xs font-semibold">{m.teamSize}</span>
                   </div>
                 </div>
-                <div className="h-px mb-5" style={{ background: `${m.color}20` }} />
+                <div className="h-px mb-5" style={{ background: `color-mix(in srgb, ${m.color} 13%, transparent)` }} />
                 <p className="text-slate-400 text-xs leading-relaxed">{m.bestFor}</p>
               </div>
             ))}
@@ -699,8 +858,8 @@ export default function IT() {
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-10" style={{ background: '#34d399' }} />
-                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: '#34d399' }}>Quality &amp; Security</span>
+                <div className="h-px w-10" style={{ background: 'var(--accent-emerald)' }} />
+                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: 'var(--accent-emerald)' }}>Quality &amp; Security</span>
               </div>
               <h2 className="font-display text-4xl lg:text-5xl text-white mb-6 leading-tight">
                 Built to the Highest Standards
@@ -713,7 +872,7 @@ export default function IT() {
               <a
                 href="#sector-contact"
                 className="inline-flex items-center gap-2 text-sm font-semibold"
-                style={{ color: '#34d399' }}
+                style={{ color: 'var(--accent-emerald)' }}
               >
                 Request a Security Briefing
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
@@ -721,16 +880,16 @@ export default function IT() {
             </div>
             <div className="grid gap-4">
               {[
-                { title: 'ISO 27001', status: 'In Progress', desc: 'Information security management standard — certification in progress.', color: '#f59e0b' },
-                { title: 'OWASP Top 10 Compliance', status: 'Active', desc: 'Every application is assessed and hardened against the OWASP Top 10 vulnerabilities.', color: '#34d399' },
-                { title: 'Penetration Testing', status: 'Active', desc: 'Regular third-party pen testing across all customer-facing and internal platforms.', color: '#34d399' },
-                { title: 'Code Review Process', status: 'Active', desc: 'Mandatory peer review, static analysis, and security linting in every CI pipeline.', color: '#34d399' },
+                { title: 'ISO 27001', status: 'In Progress', desc: 'Information security management standard — certification in progress.', color: 'var(--accent-amber)' },
+                { title: 'OWASP Top 10 Compliance', status: 'Active', desc: 'Every application is assessed and hardened against the OWASP Top 10 vulnerabilities.', color: 'var(--accent-emerald)' },
+                { title: 'Penetration Testing', status: 'Active', desc: 'Regular third-party pen testing across all customer-facing and internal platforms.', color: 'var(--accent-emerald)' },
+                { title: 'Code Review Process', status: 'Active', desc: 'Mandatory peer review, static analysis, and security linting in every CI pipeline.', color: 'var(--accent-emerald)' },
                 { title: 'SOC Compliance Roadmap', status: 'Planned', desc: 'SOC 2 Type II compliance roadmap aligned to Ezyify enterprise launch timeline.', color: ACCENT },
               ].map((item) => (
                 <div
                   key={item.title}
                   className="flex items-start gap-4 p-5 rounded-xl"
-                  style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}
+                  style={{ background: 'var(--fill-1)', border: 'var(--border-subtle)' }}
                 >
                   <div className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0" style={{ background: item.color }} />
                   <div className="flex-1 min-w-0">
@@ -738,7 +897,7 @@ export default function IT() {
                       <span className="text-white font-semibold text-sm">{item.title}</span>
                       <span
                         className="px-2 py-0.5 rounded-full text-[10px] font-semibold"
-                        style={{ background: `${item.color}18`, color: item.color }}
+                        style={{ background: `color-mix(in srgb, ${item.color} 9%, transparent)`, color: item.color }}
                       >
                         {item.status}
                       </span>
@@ -758,7 +917,7 @@ export default function IT() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-10" style={{ background: ACCENT }} />
+                <div className="h-px w-10" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Global Reach</span>
               </div>
               <h2 className="font-display text-4xl lg:text-5xl text-white mb-6 leading-tight">
@@ -833,18 +992,18 @@ export default function IT() {
                 desc: 'Sellers, creators, and investors who want early access to Ezyify — whether to list products, build a creator presence, or discuss strategic investment.',
                 cta: 'Join Ezyify',
                 href: '/ezyify',
-                color: '#f472b6',
+                color: 'var(--accent-pink)',
                 tag: 'Sellers · Creators · Investors',
               },
             ].map((o) => (
               <div
                 key={o.title}
                 className="p-7 rounded-2xl flex flex-col"
-                style={{ background: 'rgba(255,255,255,0.025)', border: `1px solid ${o.color}25` }}
+                style={{ background: 'var(--fill-1)', border: `1px solid color-mix(in srgb, ${o.color} 15%, transparent)` }}
               >
                 <div
                   className="inline-block px-3 py-1 rounded-full text-[10px] font-semibold mb-5"
-                  style={{ background: `${o.color}15`, color: o.color }}
+                  style={{ background: `color-mix(in srgb, ${o.color} 8%, transparent)`, color: o.color }}
                   dangerouslySetInnerHTML={{ __html: o.tag }}
                 />
                 <h3 className="font-display text-xl text-white mb-4">{o.title}</h3>
@@ -878,7 +1037,7 @@ export default function IT() {
             {/* connector line */}
             <div
               className="absolute left-8 top-0 bottom-0 w-px hidden lg:block"
-              style={{ background: `linear-gradient(to bottom, ${ACCENT}60, ${PURPLE}40, transparent)` }}
+              style={{ background: `linear-gradient(to bottom, color-mix(in srgb, ${ACCENT} 38%, transparent), color-mix(in srgb, ${PURPLE} 25%, transparent), transparent)` }}
             />
             <div className="space-y-6">
               {roadmapItems.map((item, i) => (
@@ -887,8 +1046,8 @@ export default function IT() {
                     <div
                       className="w-16 h-16 rounded-2xl flex flex-col items-center justify-center text-center flex-shrink-0 relative z-10"
                       style={{
-                        background: i === 0 ? ACCENT : `${ACCENT}14`,
-                        border: `1px solid ${ACCENT}40`,
+                        background: i === 0 ? ACCENT : `color-mix(in srgb, ${ACCENT} 8%, transparent)`,
+                        border: `1px solid color-mix(in srgb, ${ACCENT} 25%, transparent)`,
                         color: i === 0 ? BG_DEEP : ACCENT,
                       }}
                     >
@@ -897,7 +1056,7 @@ export default function IT() {
                   </div>
                   <div
                     className="p-6 rounded-2xl"
-                    style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)' }}
+                    style={{ background: 'var(--fill-1)', border: 'var(--border-subtle)' }}
                   >
                     <h3 className="font-semibold text-white mb-2">{item.title}</h3>
                     <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>

@@ -1,31 +1,30 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 const pressReleases = [
   {
-    date: 'August 2026',
+    date: 'Company briefing',
     tag: 'Corporate',
     tagColor: 'bg-gold/10 text-gold',
-    title: 'Network71 Expands Global Trading Operations to 25+ Countries',
-    excerpt: 'Network71 announces a significant milestone in its international expansion, with active trade operations now spanning 25+ countries across South Asia, the Middle East, Europe, Southeast Asia, and Africa.',
+    title: 'Network71 Corporate and Business Portfolio',
+    excerpt: 'Background information on the Network71 group, its operating divisions, strategic direction, and approach to connecting markets through a unified enterprise.',
     img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=340&fit=crop&auto=format',
   },
   {
-    date: 'July 2026',
+    date: 'Product briefing',
     tag: 'Technology',
     tagColor: 'bg-cyan-400/10 text-cyan-400',
-    title: 'Ezyify AI Commerce Platform Reaches New Scale Milestone',
-    excerpt: 'The Network71 flagship technology product Ezyify, an AI-powered social commerce and digital ecosystem, reports accelerating adoption across emerging market segments globally.',
+    title: 'Ezyify Product and Technology Overview',
+    excerpt: 'A briefing on the vision, product experience, and ecosystem behind Network71’s Ezyify social-commerce platform.',
     img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=340&fit=crop&auto=format',
   },
   {
-    date: 'June 2026',
+    date: 'Sustainability briefing',
     tag: 'ESG',
     tagColor: 'bg-emerald-400/10 text-emerald-400',
-    title: 'Network71 Commits to Net Zero Emissions Target by 2040',
-    excerpt: 'As part of its long-term sustainability roadmap, Network71 formalises its commitment to achieving net-zero operational carbon emissions across all eight business divisions by 2040.',
+    title: 'Responsible Growth and ESG Approach',
+    excerpt: 'Background on the environmental, social, and governance principles guiding Network71’s long-term operating approach.',
     img: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=600&h=340&fit=crop&auto=format',
   },
 ]
@@ -39,6 +38,7 @@ const mediaKitItems = [
     ),
     title: 'Logo Files',
     desc: 'High-resolution PNG, SVG, and EPS formats in all colour variants.',
+    href: '/brand',
   },
   {
     icon: (
@@ -48,6 +48,7 @@ const mediaKitItems = [
     ),
     title: 'Brand Guidelines',
     desc: 'Complete guide to our visual identity, typography, and usage rules.',
+    href: '/brand',
   },
   {
     icon: (
@@ -57,6 +58,7 @@ const mediaKitItems = [
     ),
     title: 'Executive Photos',
     desc: 'Official headshots and photography of Network71 leadership.',
+    href: '/leadership',
   },
 ]
 
@@ -87,7 +89,7 @@ export default function Press() {
         <div className="mb-12">
           <h2 className="font-display text-3xl lg:text-4xl text-white mb-3">Media Kit</h2>
           <p className="text-slate-400 max-w-2xl">
-            Download our official brand assets for media and press use. All resources will be available upon official release.
+            Access current identity guidance and request approved media materials directly from our communications team.
           </p>
         </div>
         <div className="grid sm:grid-cols-3 gap-6">
@@ -99,29 +101,25 @@ export default function Press() {
               <h3 className="text-white font-semibold text-lg mb-2">{item.title}</h3>
               <p className="text-slate-400 text-sm leading-relaxed mb-5">{item.desc}</p>
               <div className="flex items-center gap-3">
-                <button
-                  disabled
-                  className="flex items-center gap-2 px-4 py-2 bg-white/5 text-slate-500 text-sm rounded-lg cursor-not-allowed"
-                >
+                <Link to={item.href} className="flex items-center gap-2 px-4 py-2 bg-white/5 text-slate-300 hover:text-gold text-sm rounded-lg transition-colors">
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                   </svg>
-                  Download
-                </button>
-                <span className="text-xs text-gold/70 font-medium">Coming Soon</span>
+                  View resource
+                </Link>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Press Releases */}
+      {/* Media briefing areas */}
       <section className="bg-navy-dark border-y border-white/8">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
           <div className="flex items-center justify-between mb-12 flex-wrap gap-4">
             <div>
-              <h2 className="font-display text-3xl lg:text-4xl text-white mb-2">Press Releases</h2>
-              <p className="text-slate-400 text-sm">Official announcements and news from Network71.</p>
+              <h2 className="font-display text-3xl lg:text-4xl text-white mb-2">Media Briefing Areas</h2>
+              <p className="text-slate-400 text-sm">Verified background material available for journalists and partners.</p>
             </div>
             <a
               href="mailto:press@network71.com"
@@ -147,11 +145,11 @@ export default function Press() {
                       <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${pr.tagColor}`}>{pr.tag}</span>
                       <span className="text-slate-500 text-xs">{pr.date}</span>
                     </div>
-                    <h3 className="font-display text-xl text-white mb-3 leading-snug group-hover:text-gold/90 transition-colors">{pr.title}</h3>
+                    <h3 className="font-display text-xl text-white mb-3 leading-snug group-hover:text-gold transition-colors">{pr.title}</h3>
                     <p className="text-slate-400 text-sm leading-relaxed">{pr.excerpt}</p>
                   </div>
                   <div className="mt-5 flex items-center gap-2 text-gold text-sm font-medium">
-                    <span>Read more</span>
+                    <a href={`mailto:press@network71.com?subject=${encodeURIComponent(`Briefing request: ${pr.title}`)}`}>Request briefing</a>
                     <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
@@ -161,28 +159,22 @@ export default function Press() {
             ))}
           </div>
 
-          <div className="mt-10 text-center">
-            <div className="inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-navy border border-white/8">
-              <span className="text-slate-500 text-sm">Additional press releases in preparation</span>
-              <span className="px-2.5 py-0.5 rounded-full bg-gold/10 text-gold text-xs font-semibold">Coming Soon</span>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Awards & Recognition */}
+      {/* Verification standard */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-        <h2 className="font-display text-3xl lg:text-4xl text-white mb-12">Awards & Recognition</h2>
+        <h2 className="font-display text-3xl lg:text-4xl text-white mb-12">Information & Verification</h2>
         <div className="flex flex-col items-center justify-center py-20 border border-dashed border-white/15 rounded-2xl bg-navy-light/40">
           <div className="w-20 h-20 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center mb-6">
             <svg className="w-9 h-9 text-gold opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0" />
             </svg>
           </div>
-          <span className="inline-block px-3 py-1 rounded-full bg-gold/10 text-gold text-xs font-semibold tracking-wider uppercase mb-4">To be published</span>
-          <p className="text-white font-display text-2xl mb-2">Awards & Recognition</p>
+          <span className="inline-block px-3 py-1 rounded-full bg-gold/10 text-gold text-xs font-semibold tracking-wider uppercase mb-4">Press standard</span>
+          <p className="text-white font-display text-2xl mb-2">Verified Information Only</p>
           <p className="text-slate-400 text-sm max-w-sm text-center">
-            Our awards and industry recognitions will be listed here upon confirmation.
+            Contact the communications team for approved company facts, executive attribution, imagery, and publication-ready background material.
           </p>
         </div>
       </section>
@@ -207,7 +199,7 @@ export default function Press() {
             </div>
             <a
               href="mailto:press@network71.com"
-              className="flex-shrink-0 px-8 py-3.5 bg-gold text-navy text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors shadow-lg shadow-gold/20"
+              className="flex-shrink-0 px-8 py-3.5 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors shadow-lg shadow-gold/20"
             >
               press@network71.com
             </a>

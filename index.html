@@ -1,16 +1,86 @@
 <!doctype html>
-<html lang="<!-- figma:lang -->">
+<html lang="en">
   <head>
-    <!-- figma:head-start -->
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><!-- figma:title --></title>
-    <!-- figma:head-end -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#04080E" />
+    <meta name="description" content="Network71 is a diversified enterprise connecting technology, trade, manufacturing, media, agriculture, energy, and maritime markets across 25+ countries." />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Network71 Global Group" />
+    <link rel="canonical" href="https://network71.com/" />
+
+    <!-- Icons & PWA -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Preconnect to the font CDN before the CSS import discovers it -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <title>Network71 | Global Enterprise</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Network71" />
+    <meta property="og:url" content="https://network71.com/" />
+    <meta property="og:title" content="Network71 | A Global Enterprise Built for Tomorrow" />
+    <meta property="og:description" content="Eight distinct business divisions. One unified purpose — driving industry, innovation, and sustainable growth across 25+ countries worldwide." />
+    <meta property="og:image" content="https://network71.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Network71 — Global Vision. Unified Impact." />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Network71 | A Global Enterprise Built for Tomorrow" />
+    <meta name="twitter:description" content="Eight distinct business divisions. One unified purpose — driving industry, innovation, and sustainable growth across 25+ countries worldwide." />
+    <meta name="twitter:image" content="https://network71.com/og-image.png" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Network71 Global Group",
+        "alternateName": "Network71",
+        "url": "https://network71.com/",
+        "logo": "https://network71.com/favicon.svg",
+        "email": "info@network71.com",
+        "foundingDate": "2018",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Dhaka",
+          "addressCountry": "BD"
+        }
+      }
+    </script>
+
+    <!--
+      Resolve and apply the theme before first paint.
+      Runs synchronously in <head> so there is no flash of the wrong theme
+      while the React bundle is still downloading.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('n71-theme');
+          var mode = (stored === 'light' || stored === 'dark' || stored === 'system') ? stored : 'dark';
+          var resolved = mode === 'system'
+            ? (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
+            : mode;
+          document.documentElement.setAttribute('data-theme', resolved);
+          var m = document.querySelector('meta[name="theme-color"]');
+          if (m) m.setAttribute('content', resolved === 'light' ? '#FAFBFD' : '#04080E');
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
   </head>
   <body>
-    <!-- figma:body-start -->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- figma:body-end -->
   </body>
 </html>

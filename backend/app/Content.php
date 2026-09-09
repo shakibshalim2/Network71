@@ -1,0 +1,118 @@
+<?php
+declare(strict_types=1);
+
+final class Content
+{
+    public function __construct(private Database $db, public array $modules) {}
+
+    public function schema(string $module): array
+    {
+        return $this->modules[$module] ?? Http::fail(404, 'Content module not found.');
+    }
+
+    public function validate(string $module, array $data): array
+    {
+        $clean = [];
+        foreach ($this->schema($module)['fields'] as $field) {
+            $key = $field['key'];
+            if ($field['type'] === 'checkbox') {
+                $clean[$key] = ($data[$key] ?? false) === true;
+                // Permissions are required for publication, but incomplete drafts can be saved.
+                continue;
+            }
+            $value = Http::string($data, $key, $field['type'] === 'textarea' ? 20000 : 1000, $key === 'title');
+            if ($value !== '') {
+                if ($field['type'] === 'select' && !in_array($value, $field['options'], true)) Http::fail(422, "Invalid {$field['label']}.");
+                if ($field['type'] === 'email' && !filter_var($value, FILTER_VALIDATE_EMAIL)) Http::fail(422, "Invalid {$field['label']}.");
+                if (in_array($field['type'], ['url', 'image', 'link'], true)) {
+                    $local = str_starts_with($value, '/') && !str_starts_with($value, '//') && !str_contains($value, '\\') && !preg_match('/[\x00-\x20]/', $value);
+                    $web = filter_var($value, FILTER_VALIDATE_URL) && in_array(strtolower(parse_url($value, PHP_URL_SCHEME) ?? ''), ['https', 'http'], true);
+                    if (!$web && !($field['type'] !== 'url' && $local)) Http::fail(422, "Use a valid web URL for {$field['label']}.");
+                }
+                if ($field['type'] === 'path' && !preg_match('~^/(?:[a-z0-9-]+/?)*$~', $value)) Http::fail(422, 'Use a valid website path.');
+                if ($field['type'] === 'date') {
+                    $date = DateTimeImmutable::createFromFormat('!Y-m-d', $value);
+                    if (!$date || $date->format('Y-m-d') !== $value) Http::fail(422, 'Use a valid date.');
+                }
+            }
+            $clean[$key] = $value;
+        }
+        return $clean;
+    }
+
+    public function list(string $module, bool $public = false): array
+    {
+        $this->schema($module);
+        $page = max(1, min(100000, (int)($_GET['page'] ?? 1)));
+        $limit = 30;
+        $where = 'module = ?' . ($public ? " AND status = 'published' AND published_json IS NOT NULL" : '');
+        $params = [$module];
+        $q = trim(is_string($_GET['q'] ?? null) ? $_GET['q'] : '');
+        if (strlen($q) > 150) Http::fail(422, 'Search is too long.');
+        if ($q !== '') { $where .= $public ? ' AND (published_json LIKE ? OR slug LIKE ?)' : ' AND (draft_json LIKE ? OR slug LIKE ?)'; $params[] = '%' . $q . '%'; $params[] = '%' . $q . '%'; }
+        $count = (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE $where", $params)->fetchColumn();
+        $column = $public ? 'published_json' : 'draft_json';
+        $order = $public ? 'published_sort_order' : 'sort_order';
+        $rows = $this->db->query("SELECT id, module, slug, $column AS payload, status, version, $order AS sort_order, updated_at, published_at FROM content_records WHERE $where ORDER BY $order, id DESC LIMIT $limit OFFSET " . (($page - 1) * $limit), $params)->fetchAll();
+        foreach ($rows as &$row) {
+            $row['data'] = json_decode($row['payload'], true, 32, JSON_THROW_ON_ERROR);
+            unset($row['payload']);
+            if ($public) unset($row['version'], $row['updated_at']);
+        }
+        return ['items' => $rows, 'total' => $count, 'page' => $page, 'pages' => max(1, (int)ceil($count / $limit))];
+    }
+
+    public function save(string $module, ?int $id, array $input, array $user): array
+    {
+        $this->schema($module);
+        if (in_array($module, ['settings', 'navigation'], true) && $user['role'] !== 'owner') Http::fail(403, 'Only an owner can edit website settings and navigation.');
+        $slug = Http::string($input, 'slug', 160, true);
+        if (!preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $slug)) Http::fail(422, 'Slug must use lowercase letters, numbers and hyphens.');
+        if (!is_array($input['data'] ?? null)) Http::fail(422, 'Content fields are missing.');
+        $data = $this->validate($module, $input['data']);
+        $order = filter_var($input['sort_order'] ?? 0, FILTER_VALIDATE_INT);
+        if ($order === false || abs($order) > 100000) Http::fail(422, 'Invalid display order.');
+        try {
+            return $this->db->transaction(function () use ($module, $id, $input, $user, $slug, $data, $order) {
+                $json = json_encode($data, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE);
+                if ($id) {
+                    $old = $this->db->query('SELECT * FROM content_records WHERE id = ? AND module = ? FOR UPDATE', [$id, $module])->fetch();
+                    if (!$old) Http::fail(404, 'Record not found.');
+                    if ((int)$old['version'] !== (int)($input['version'] ?? 0)) Http::fail(409, 'Someone updated this item. Reload before saving.');
+                    if ($old['published_at'] && $old['slug'] !== $slug) Http::fail(422, 'Published slugs are locked to preserve public links.');
+                    $this->db->query('UPDATE content_records SET slug = ?, draft_json = ?, version = version + 1, sort_order = ?, updated_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$slug, $json, $order, $user['id'], $id]);
+                } else {
+                    $this->db->query('INSERT INTO content_records (module, slug, draft_json, sort_order, updated_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())', [$module, $slug, $json, $order, $user['id']]);
+                    $id = (int)$this->db->pdo->lastInsertId();
+                }
+                $this->db->audit((int)$user['id'], 'save_draft', $module, $id);
+                return ['id' => $id];
+            });
+        } catch (PDOException $error) {
+            if ($error->getCode() === '23000') Http::fail(409, 'This slug already exists in this module.');
+            throw $error;
+        }
+    }
+
+    public function transition(string $module, int $id, array $input, array $user): void
+    {
+        $this->schema($module);
+        $action = $input['action'] ?? '';
+        if (!in_array($action, ['publish', 'archive', 'unpublish'], true)) Http::fail(422, 'Unknown publishing action.');
+        $this->db->transaction(function () use ($module, $id, $input, $user, $action) {
+            $row = $this->db->query('SELECT * FROM content_records WHERE id = ? AND module = ? FOR UPDATE', [$id, $module])->fetch();
+            if (!$row) Http::fail(404, 'Record not found.');
+            if ((int)$row['version'] !== (int)($input['version'] ?? 0)) Http::fail(409, 'Record changed. Reload before continuing.');
+            if ($action === 'publish') {
+                $data = json_decode($row['draft_json'], true, 32, JSON_THROW_ON_ERROR);
+                foreach ($this->schema($module)['fields'] as $field) {
+                    if ($field['required'] && empty($data[$field['key']])) Http::fail(422, "Complete {$field['label']} before publishing.");
+                }
+                $this->db->query("UPDATE content_records SET published_json = draft_json, published_sort_order = sort_order, status = 'published', version = version + 1, published_at = UTC_TIMESTAMP(), updated_at = UTC_TIMESTAMP(), updated_by = ? WHERE id = ?", [$user['id'], $id]);
+            } else {
+                $this->db->query('UPDATE content_records SET status = ?, version = version + 1, updated_at = UTC_TIMESTAMP(), updated_by = ? WHERE id = ?', [$action === 'archive' ? 'archived' : 'draft', $user['id'], $id]);
+            }
+            $this->db->audit((int)$user['id'], $action, $module, $id);
+        });
+    }
+}

@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useLanguage, type Language } from '@/context/LanguageContext'
+import { ThemeToggleButton, ThemeSegmented } from '@/components/ThemeToggle'
 import Logo from '@/components/brand/Logo'
+import { useDialogFocus } from '@/lib/useDialogFocus'
 
 // ─── Division data ────────────────────────────────────────────────────────────
 
@@ -10,56 +12,56 @@ const DIVISIONS = [
     name: 'Garments & Apparel',
     href: '/divisions/garments',
     desc: 'Private-label manufacturing & ethical export',
-    color: '#f43f5e',
+    color: 'var(--accent-rose)',
     icon: 'M3 6l3-3 12 0 3 3M3 6v12l3 3h12l3-3V6M9 21V9m6 12V9M9 9H3m6 0h6m0 0h6',
   },
   {
     name: 'Agriculture & Agro',
     href: '/divisions/agriculture',
     desc: 'Sustainable farming & global commodity export',
-    color: '#22c55e',
+    color: 'var(--accent-green)',
     icon: 'M12 3C8 3 5 6 5 9c0 4.5 7 12 7 12s7-7.5 7-12c0-3-3-6-7-6zm0 7a2 2 0 110-4 2 2 0 010 4z',
   },
   {
     name: 'Food & Beverage',
     href: '/divisions/food-beverage',
     desc: 'FMCG manufacturing & nutritional innovation',
-    color: '#f97316',
+    color: 'var(--accent-orange)',
     icon: 'M9 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2h-2M9 3a2 2 0 002 2h2a2 2 0 002-2M9 3h6m-6 8h6m-6 4h4',
   },
   {
     name: 'Oils & Energy',
     href: '/divisions/oils-energy',
     desc: 'Edible oils, fuel & industrial energy solutions',
-    color: '#f59e0b',
+    color: 'var(--accent-amber)',
     icon: 'M13 10V3L4 14h7v7l9-11h-7z',
   },
   {
     name: 'IT & Digital',
     href: '/divisions/it-software',
     desc: 'Enterprise software, AI & digital transformation',
-    color: '#22D3EE',
+    color: 'var(--accent-cyan)',
     icon: 'M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V8l-5-5H9zM9 3v5h8M7 13h10M7 17h5',
   },
   {
     name: 'Global Trading',
     href: '/divisions/global-trading',
     desc: 'Cross-border import/export & supply chain',
-    color: '#3b82f6',
+    color: 'var(--accent-blue)',
     icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
   },
   {
     name: 'Network71 Media',
     href: '/divisions/media',
     desc: 'Digital newspaper & broadcast television',
-    color: '#EF4444',
+    color: 'var(--accent-red)',
     icon: 'M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z',
   },
   {
     name: 'eSHIPe Maritime',
     href: '/divisions/eshipe',
     desc: 'Global marketplace for vessels & marine assets',
-    color: '#0EA5E9',
+    color: 'var(--accent-sky)',
     icon: 'M7 16l-4-4m0 0l4-4m-4 4h18M17 8l4 4m0 0l-4 4',
   },
 ]
@@ -94,11 +96,11 @@ const SEARCH_INDEX = [
 ]
 
 const SUGGESTED_SEARCHES = [
-  'Ezyify social commerce',
+  'Ezyify',
   'Investor Relations',
   'Global Presence',
-  'Sustainability / ESG',
-  'Careers at Network71',
+  'Sustainability',
+  'Careers',
 ]
 
 const DEFAULT_RECENT = [
@@ -149,7 +151,7 @@ function DivisionIcon({ path, color }: { path: string; color: string }) {
   return (
     <span style={{
       width: 34, height: 34, borderRadius: 8, flexShrink: 0,
-      background: `${color}14`, border: `1px solid ${color}28`,
+      background: `color-mix(in srgb, ${color} 8%, transparent)`, border: `1px solid color-mix(in srgb, ${color} 16%, transparent)`,
       display: 'flex', alignItems: 'center', justifyContent: 'center',
     }}>
       <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.6"
@@ -165,19 +167,19 @@ function DivisionIcon({ path, color }: { path: string; color: string }) {
 
 function NavLink({ href, children, active }: { href: string; children: React.ReactNode; active: boolean }) {
   return (
-    <Link to={href} style={{
-      fontSize: 13, fontWeight: 500, letterSpacing: '0.01em',
-      color: active ? '#C8962A' : 'rgba(203,213,225,0.72)',
+    <Link to={href} aria-current={active ? 'page' : undefined} style={{
+      fontSize: 13, fontWeight: 500, letterSpacing: '0.01em', minHeight: 44, display: 'inline-flex', alignItems: 'center',
+      color: active ? 'var(--brand)' : 'var(--fg-muted)',
       textDecoration: 'none', position: 'relative', paddingBottom: 2,
       transition: 'color 0.15s', whiteSpace: 'nowrap',
     }}
-      onMouseEnter={e => { if (!active) e.currentTarget.style.color = '#FFFFFF' }}
-      onMouseLeave={e => { if (!active) e.currentTarget.style.color = 'rgba(203,213,225,0.72)' }}>
+      onMouseEnter={e => { if (!active) e.currentTarget.style.color = 'var(--fg-strong)' }}
+      onMouseLeave={e => { if (!active) e.currentTarget.style.color = 'var(--fg-muted)' }}>
       {children}
       {active && (
         <span style={{
           position: 'absolute', bottom: -2, left: 0, right: 0, height: 1.5,
-          background: 'linear-gradient(90deg,#C8962A,#E6B840 60%,transparent)',
+          background: 'linear-gradient(90deg,var(--brand),var(--brand-bright) 60%,transparent)',
           borderRadius: 1,
         }} />
       )}
@@ -196,12 +198,12 @@ function IconBtn({
       aria-label={label}
       style={{
         width: 40, height: 40, borderRadius: 10, border: 'none',
-        background: 'transparent', color: 'rgba(148,163,184,0.65)',
+        background: 'transparent', color: 'var(--fg-muted)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         cursor: 'pointer', transition: 'color 0.15s, background 0.15s', flexShrink: 0,
       }}
-      onMouseEnter={e => { e.currentTarget.style.color = '#FFFFFF'; e.currentTarget.style.background = 'rgba(255,255,255,0.07)' }}
-      onMouseLeave={e => { e.currentTarget.style.color = 'rgba(148,163,184,0.65)'; e.currentTarget.style.background = 'transparent' }}>
+      onMouseEnter={e => { e.currentTarget.style.color = 'var(--fg-strong)'; e.currentTarget.style.background = 'var(--line-strong)' }}
+      onMouseLeave={e => { e.currentTarget.style.color = 'var(--fg-muted)'; e.currentTarget.style.background = 'transparent' }}>
       {children}
     </button>
   )
@@ -226,6 +228,27 @@ export default function Header() {
   const megaTimer  = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const langTimer  = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const searchRef  = useRef<HTMLInputElement>(null)
+  const searchPanelRef = useRef<HTMLDivElement>(null)
+  const drawerRef = useRef<HTMLDivElement>(null)
+  const megaRef = useRef<HTMLDivElement>(null)
+  const langRef = useRef<HTMLDivElement>(null)
+  useDialogFocus(searchOpen, searchPanelRef)
+  useDialogFocus(mobileOpen && !searchOpen, drawerRef)
+  useEffect(() => {
+    const onPointer = (event: PointerEvent) => {
+      if (!megaRef.current?.contains(event.target as Node)) setMegaOpen(false)
+      if (!langRef.current?.contains(event.target as Node)) setLangOpen(false)
+    }
+    const breakpoint = window.matchMedia('(min-width: 1280px)')
+    const onResize = () => { setMobileOpen(false); setMegaOpen(false); setLangOpen(false) }
+    document.addEventListener('pointerdown', onPointer)
+    breakpoint.addEventListener('change', onResize)
+    return () => {
+      document.removeEventListener('pointerdown', onPointer)
+      breakpoint.removeEventListener('change', onResize)
+      clearTimeout(megaTimer.current); clearTimeout(langTimer.current)
+    }
+  }, [])
 
   // Scroll listener
   useEffect(() => {
@@ -259,6 +282,7 @@ export default function Header() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
+        setMegaOpen(false); setLangOpen(false)
         if (searchOpen) { setSearchOpen(false); setSearchQuery('') }
         if (mobileOpen) setMobileOpen(false)
       }
@@ -314,56 +338,66 @@ export default function Header() {
         role="banner"
         style={{
           position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-          height: 68,
-          background: glassy ? 'rgba(3,6,14,0.96)' : 'transparent',
+          height: 'var(--header-h)',
+          background: glassy ? 'var(--header-bg)' : 'var(--header-idle-bg)',
           backdropFilter: glassy ? 'blur(20px) saturate(180%)' : 'none',
           WebkitBackdropFilter: glassy ? 'blur(20px) saturate(180%)' : 'none',
-          borderBottom: glassy ? '1px solid rgba(255,255,255,0.055)' : '1px solid transparent',
-          boxShadow: glassy ? '0 1px 32px rgba(0,0,0,0.45)' : 'none',
+          borderBottom: glassy ? '1px solid var(--line)' : '1px solid transparent',
+          boxShadow: glassy ? 'var(--shadow-card)' : 'none',
           transition: 'background 0.35s, backdrop-filter 0.35s, border-color 0.35s, box-shadow 0.35s',
         }}>
 
-        <div style={{
-          maxWidth: 1360, margin: '0 auto',
-          padding: '0 20px',
-          height: '100%',
-          display: 'flex', alignItems: 'center',
-        }}>
+        <div
+          className="container-page"
+          style={{
+            height: '100%',
+            display: 'flex', alignItems: 'center',
+          }}>
 
           {/* ── Logo (always visible, exactly one) ─── */}
           <Link
             to="/"
             aria-label="Network71 — Home"
-            style={{ display: 'flex', alignItems: 'center', flexShrink: 0, marginRight: 28 }}>
-            <Logo variant="primary-dark" height={26} />
+            className="mr-auto xl:mr-7"
+            style={{ display: 'flex', alignItems: 'center', flexShrink: 0, minWidth: 0 }}>
+            <span className="flex items-center sm:hidden">
+              <Logo variant="auto" height={21} />
+            </span>
+            <span className="hidden sm:flex items-center">
+              <Logo variant="auto" height={26} />
+            </span>
           </Link>
 
           {/* ══════════════════════════════════════
               DESKTOP NAV  (hidden on < lg)
           ══════════════════════════════════════ */}
           <nav
-            className="hidden lg:flex"
+            className="hidden xl:flex gap-3.5 xl:gap-5 2xl:gap-[22px]"
             aria-label="Main navigation"
-            style={{ alignItems: 'center', gap: 22, flex: 1 }}>
+            style={{ alignItems: 'center', flex: 1, minWidth: 0 }}>
 
             {/* Divisions mega-menu */}
             <div
+              ref={megaRef}
+              onBlur={e => { if (!e.currentTarget.contains(e.relatedTarget)) setMegaOpen(false) }}
               style={{ position: 'relative' }}
               onMouseEnter={openMega}
               onMouseLeave={closeMega}>
 
               <button
                 aria-haspopup="true"
+                aria-controls="division-menu"
+                onClick={() => setMegaOpen(v => !v)}
                 aria-expanded={megaOpen}
                 style={{
                   display: 'flex', alignItems: 'center', gap: 4,
                   fontSize: 13, fontWeight: 500, letterSpacing: '0.01em',
-                  color: megaOpen ? '#C8962A' : 'rgba(203,213,225,0.72)',
+                  color: megaOpen ? 'var(--brand)' : 'var(--fg-muted)',
                   background: 'none', border: 'none', cursor: 'pointer',
                   padding: '2px 0', transition: 'color 0.15s', whiteSpace: 'nowrap',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.color = '#FFFFFF' }}
-                onMouseLeave={e => { if (!megaOpen) e.currentTarget.style.color = 'rgba(203,213,225,0.72)' }}>
+                onMouseEnter={e => { e.currentTarget.style.color = 'var(--fg-strong)' }}
+                onMouseLeave={e => { if (!megaOpen) e.currentTarget.style.color = 'var(--fg-muted)' }}>
                 Divisions
                 <svg
                   viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"
@@ -374,17 +408,22 @@ export default function Header() {
 
               {/* Mega panel — positioned from trigger's left edge */}
               <div
+                id="division-menu"
+                inert={!megaOpen}
+                aria-hidden={!megaOpen}
                 onMouseEnter={openMega}
                 onMouseLeave={closeMega}
                 style={{
                   position: 'absolute',
                   top: 'calc(100% + 14px)',
                   left: 0,
-                  width: 'min(620px, calc(100vw - 40px))',
-                  background: 'rgba(4,8,20,0.99)',
-                  border: '1px solid rgba(255,255,255,0.07)',
+                  width: 'min(620px, calc(100vw - var(--gutter) * 2))',
+                  maxHeight: 'calc(100dvh - var(--header-h) - 28px)',
+                  overflowY: 'auto',
+                  background: 'var(--panel-bg)',
+                  border: '1px solid var(--line-strong)',
                   borderRadius: 16,
-                  boxShadow: '0 24px 72px rgba(0,0,0,0.82)',
+                  boxShadow: 'var(--shadow-pop)',
                   padding: 10,
                   opacity: megaOpen ? 1 : 0,
                   transform: `translateY(${megaOpen ? 0 : -8}px)`,
@@ -397,41 +436,41 @@ export default function Header() {
                 <div style={{
                   display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                   padding: '4px 10px 10px',
-                  borderBottom: '1px solid rgba(255,255,255,0.05)',
+                  borderBottom: '1px solid var(--line)',
                   marginBottom: 6,
                 }}>
                   <span style={{
                     fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.3em',
-                    textTransform: 'uppercase', color: 'rgba(200,150,42,0.45)',
+                    textTransform: 'uppercase', color: 'var(--brand-fg)',
                   }}>Our Businesses</span>
                   <Link to="/about" style={{
                     fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.1em',
-                    color: 'rgba(200,150,42,0.5)', textDecoration: 'none',
+                    color: 'var(--brand-fg)', textDecoration: 'none',
                     transition: 'color 0.14s',
                   }}
-                    onMouseEnter={e => { e.currentTarget.style.color = '#C8962A' }}
-                    onMouseLeave={e => { e.currentTarget.style.color = 'rgba(200,150,42,0.5)' }}>
+                    onMouseEnter={e => { e.currentTarget.style.color = 'var(--brand)' }}
+                    onMouseLeave={e => { e.currentTarget.style.color = 'var(--brand-edge)' }}>
                     View All →
                   </Link>
                 </div>
 
-                {/* 2-column division grid */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, marginBottom: 8 }}>
+                {/* Division grid — 1 col on very narrow panels, 2 col otherwise */}
+                <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: 2, marginBottom: 8 }}>
                   {DIVISIONS.map(d => (
                     <Link key={d.name} to={d.href} style={{
                       display: 'flex', alignItems: 'center', gap: 10,
                       padding: '8px 10px', borderRadius: 10,
                       textDecoration: 'none', transition: 'background 0.12s',
                     }}
-                      onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)' }}
+                      onMouseEnter={e => { e.currentTarget.style.background = 'var(--line)' }}
                       onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}>
                       <DivisionIcon path={d.icon} color={d.color} />
                       <div style={{ minWidth: 0 }}>
-                        <div style={{ fontSize: 12.5, fontWeight: 600, color: '#E2E8F0', lineHeight: 1.3 }}>
+                        <div style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--fg)', lineHeight: 1.3 }}>
                           {d.name}
                         </div>
                         <div style={{
-                          fontSize: 10.5, color: 'rgba(100,116,139,0.6)', marginTop: 1,
+                          fontSize: 10.5, color: 'var(--fg-subtle)', marginTop: 1,
                           lineHeight: 1.35, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                         }}>
                           {d.desc}
@@ -463,14 +502,14 @@ export default function Header() {
                       background: 'rgba(168,85,247,0.12)', border: '1px solid rgba(168,85,247,0.25)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                     }}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="#A855F7" strokeWidth="1.6"
+                      <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" strokeWidth="1.6"
                         strokeLinecap="round" strokeLinejoin="round" style={{ width: 14, height: 14 }}>
                         <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6L12 2z" />
                       </svg>
                     </span>
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 2 }}>
-                        <span style={{ fontSize: 13, fontWeight: 700, color: '#E2E8F0' }}>Ezyify</span>
+                        <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--fg)' }}>Ezyify</span>
                         <span style={{
                           fontFamily: 'var(--font-mono)', fontSize: 6.5, fontWeight: 700,
                           letterSpacing: '0.2em', textTransform: 'uppercase',
@@ -504,28 +543,34 @@ export default function Header() {
               DESKTOP RIGHT CONTROLS  (hidden on < lg)
           ══════════════════════════════════════ */}
           <div
-            className="hidden lg:flex"
-            style={{ alignItems: 'center', gap: 4, marginLeft: 'auto' }}>
+            className="hidden xl:flex"
+            style={{ alignItems: 'center', gap: 4, marginLeft: 'auto', flexShrink: 0 }}>
 
             {/* Search */}
-            <IconBtn label="Search site" onClick={() => setSearchOpen(true)}>
+            <IconBtn label="Search site" onClick={() => { setMobileOpen(false); setSearchOpen(true) }}>
               <IconSearch size={16} />
             </IconBtn>
 
+            {/* Theme */}
+            <ThemeToggleButton size={40} />
+
             {/* Language */}
-            <div style={{ position: 'relative' }} onMouseEnter={openLang} onMouseLeave={closeLang}>
+            <div ref={langRef} onBlur={e => { if (!e.currentTarget.contains(e.relatedTarget)) setLangOpen(false) }} style={{ position: 'relative' }} onMouseEnter={openLang} onMouseLeave={closeLang}>
               <button
                 aria-label={`Language: ${curLang.label}`}
+                aria-expanded={langOpen}
+                aria-controls="language-menu"
+                onClick={() => setLangOpen(v => !v)}
                 style={{
                   display: 'flex', alignItems: 'center', gap: 5,
                   padding: '6px 11px', borderRadius: 8,
-                  background: 'transparent', border: '1px solid rgba(255,255,255,0.09)',
-                  color: 'rgba(148,163,184,0.65)', fontSize: 12, fontWeight: 600,
+                  background: 'transparent', border: '1px solid var(--line-strong)',
+                  color: 'var(--fg-muted)', fontSize: 12, fontWeight: 600,
                   cursor: 'pointer', transition: 'all 0.15s', whiteSpace: 'nowrap',
                   letterSpacing: '0.04em',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; e.currentTarget.style.color = '#FFFFFF' }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.09)'; e.currentTarget.style.color = 'rgba(148,163,184,0.65)' }}>
+                onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; e.currentTarget.style.color = 'var(--fg-strong)' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--line-strong)'; e.currentTarget.style.color = 'var(--fg-muted)' }}>
                 <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"
                   style={{ width: 11, height: 11, opacity: 0.55, flexShrink: 0 }}>
                   <circle cx="10" cy="10" r="8" />
@@ -540,12 +585,15 @@ export default function Header() {
 
               {/* Language dropdown */}
               <div
+                id="language-menu"
+                inert={!langOpen}
+                aria-hidden={!langOpen}
                 onMouseEnter={openLang}
                 onMouseLeave={closeLang}
                 style={{
                   position: 'absolute', top: 'calc(100% + 8px)', right: 0, width: 150,
-                  background: 'rgba(4,8,20,0.99)', border: '1px solid rgba(255,255,255,0.07)',
-                  borderRadius: 10, boxShadow: '0 12px 36px rgba(0,0,0,0.7)',
+                  background: 'var(--panel-bg)', border: '1px solid var(--line-strong)',
+                  borderRadius: 10, boxShadow: 'var(--shadow-pop)',
                   padding: 5,
                   opacity: langOpen ? 1 : 0,
                   transform: `translateY(${langOpen ? 0 : -5}px)`,
@@ -561,11 +609,11 @@ export default function Header() {
                       width: '100%', display: 'flex', alignItems: 'center', gap: 9,
                       padding: '8px 11px', borderRadius: 7, border: 'none',
                       background: language === l.code ? 'rgba(200,150,42,0.1)' : 'transparent',
-                      color: language === l.code ? '#C8962A' : 'rgba(148,163,184,0.72)',
+                      color: language === l.code ? 'var(--brand)' : 'var(--fg-muted)',
                       fontSize: 12.5, fontWeight: 500, cursor: 'pointer', transition: 'all 0.12s',
                     }}
-                    onMouseEnter={e => { if (language !== l.code) { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = '#FFFFFF' } }}
-                    onMouseLeave={e => { if (language !== l.code) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'rgba(148,163,184,0.72)' } }}>
+                    onMouseEnter={e => { if (language !== l.code) { e.currentTarget.style.background = 'var(--line)'; e.currentTarget.style.color = 'var(--fg-strong)' } }}
+                    onMouseLeave={e => { if (language !== l.code) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--fg-muted)' } }}>
                     <span style={{ fontSize: 14 }}>{l.flag}</span>
                     {l.label}
                     {language === l.code && (
@@ -586,20 +634,20 @@ export default function Header() {
                 display: 'flex', alignItems: 'center', gap: 6,
                 padding: '9px 18px', borderRadius: 8, marginLeft: 4,
                 fontSize: 12.5, fontWeight: 600, letterSpacing: '0.02em',
-                border: '1px solid rgba(200,150,42,0.45)', color: '#C8962A',
-                background: 'rgba(200,150,42,0.06)', textDecoration: 'none',
+                border: '1px solid var(--brand-edge)', color: 'var(--brand-fg)',
+                background: 'var(--brand-wash)', textDecoration: 'none',
                 transition: 'all 0.18s', whiteSpace: 'nowrap',
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = '#C8962A'
-                e.currentTarget.style.color = '#04080E'
-                e.currentTarget.style.borderColor = '#C8962A'
-                e.currentTarget.style.boxShadow = '0 0 22px rgba(200,150,42,0.22)'
+                e.currentTarget.style.background = 'var(--brand)'
+                e.currentTarget.style.color = 'var(--s0)'
+                e.currentTarget.style.borderColor = 'var(--brand)'
+                e.currentTarget.style.boxShadow = '0 0 22px var(--brand-edge)'
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.background = 'rgba(200,150,42,0.06)'
-                e.currentTarget.style.color = '#C8962A'
-                e.currentTarget.style.borderColor = 'rgba(200,150,42,0.45)'
+                e.currentTarget.style.background = 'var(--brand-wash)'
+                e.currentTarget.style.color = 'var(--brand)'
+                e.currentTarget.style.borderColor = 'var(--brand-edge)'
                 e.currentTarget.style.boxShadow = 'none'
               }}>
               Connect
@@ -612,11 +660,11 @@ export default function Header() {
 
           {/* ══════════════════════════════════════
               MOBILE RIGHT CONTROLS  (hidden on lg+)
-              NOTE: use Tailwind class "flex lg:hidden" — NO inline display property —
+              NOTE: use Tailwind class "flex xl:hidden" — NO inline display property —
               so Tailwind can correctly hide this at the lg breakpoint.
           ══════════════════════════════════════ */}
           <div
-            className="flex lg:hidden"
+            className="flex xl:hidden"
             style={{ alignItems: 'center', gap: 2, marginLeft: 'auto' }}>
 
             {/* Search */}
@@ -624,15 +672,18 @@ export default function Header() {
               <IconSearch size={18} />
             </IconBtn>
 
+            {/* Theme — one tap, no need to open the drawer */}
+            <ThemeToggleButton size={40} />
+
             {/* Hamburger / Close — single button, icon swaps */}
             <button
-              onClick={() => setMobileOpen(v => !v)}
+              onClick={() => { setSearchOpen(false); setMobileOpen(v => !v) }}
               aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobileOpen}
               style={{
                 width: 40, height: 40, borderRadius: 10, border: 'none', flexShrink: 0,
-                background: mobileOpen ? 'rgba(255,255,255,0.08)' : 'transparent',
-                color: 'rgba(226,232,240,0.85)',
+                background: mobileOpen ? 'var(--line-strong)' : 'transparent',
+                color: 'var(--fg)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 cursor: 'pointer', transition: 'background 0.15s',
               }}>
@@ -658,7 +709,7 @@ export default function Header() {
         aria-hidden="true"
         style={{
           position: 'fixed', inset: 0, zIndex: 80,
-          background: 'rgba(1,3,9,0.82)', backdropFilter: 'blur(8px)',
+          background: 'var(--scrim)', backdropFilter: 'blur(8px)',
           WebkitBackdropFilter: 'blur(8px)',
           opacity: searchOpen ? 1 : 0,
           pointerEvents: searchOpen ? 'auto' : 'none',
@@ -671,23 +722,27 @@ export default function Header() {
         role="dialog"
         aria-modal="true"
         aria-label="Site search"
+        ref={searchPanelRef}
+        tabIndex={-1}
+        inert={!searchOpen}
+        aria-hidden={!searchOpen}
         onClick={e => e.stopPropagation()}
         style={{
           position: 'fixed', top: 0, left: 0, right: 0, zIndex: 81,
-          background: 'rgba(4,8,18,0.98)',
-          borderBottom: '1px solid rgba(255,255,255,0.07)',
+          background: 'var(--overlay-bg)',
+          borderBottom: '1px solid var(--line-strong)',
           backdropFilter: 'blur(24px)',
           WebkitBackdropFilter: 'blur(24px)',
-          boxShadow: '0 8px 48px rgba(0,0,0,0.8)',
+          boxShadow: 'var(--shadow-pop)',
           transform: `translateY(${searchOpen ? 0 : '-100%'})`,
           transition: 'transform 0.26s cubic-bezier(0.4,0,0.2,1)',
         }}>
 
         {/* Input row */}
-        <div style={{ maxWidth: 760, margin: '0 auto', padding: '20px 24px 0' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div className="px-4 sm:px-6" style={{ maxWidth: 760, margin: '0 auto', paddingTop: 18 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
-              style={{ width: 20, height: 20, color: 'rgba(200,150,42,0.55)', flexShrink: 0 }}>
+              style={{ width: 20, height: 20, color: 'var(--brand-fg)', flexShrink: 0 }}>
               <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
             </svg>
             <input
@@ -700,32 +755,56 @@ export default function Header() {
                   handleResult(searchResults[0].href, searchResults[0].label)
                 }
               }}
-              placeholder="Search Network71 — pages, divisions, locations…"
+              placeholder="Search Network71…"
               style={{
-                flex: 1, background: 'none', border: 'none', outline: 'none',
-                fontSize: 18, fontWeight: 400, color: '#F1F5F9',
-                caretColor: '#C8962A',
+                flex: 1, minWidth: 0, background: 'none', border: 'none', outline: 'none',
+                /* 16px min prevents iOS Safari auto-zoom on focus */
+                fontSize: 16, fontWeight: 400, color: 'var(--fg)',
+                caretColor: 'var(--brand)',
               }}
             />
             <button
               onClick={closeSearch}
               aria-label="Close search"
+              className="hidden sm:flex"
               style={{
-                display: 'flex', alignItems: 'center', gap: 5,
+                alignItems: 'center', gap: 5,
                 padding: '5px 10px', borderRadius: 6,
-                border: '1px solid rgba(255,255,255,0.1)',
-                background: 'transparent', color: 'rgba(148,163,184,0.55)',
+                border: '1px solid var(--line-strong)',
+                background: 'transparent', color: 'var(--fg-muted)',
                 fontSize: 11, fontFamily: 'var(--font-mono)',
                 cursor: 'pointer', letterSpacing: '0.06em', transition: 'all 0.14s',
               }}>
               ESC
             </button>
+            {/* Mobile: icon close button instead of ESC pill */}
+            <button
+              onClick={closeSearch}
+              aria-label="Close search"
+              className="flex sm:hidden"
+              style={{
+                width: 36, height: 36, flexShrink: 0, borderRadius: 8,
+                alignItems: 'center', justifyContent: 'center',
+                border: '1px solid var(--line-strong)',
+                background: 'transparent', color: 'var(--fg-muted)',
+                cursor: 'pointer',
+              }}>
+              <IconClose size={15} />
+            </button>
           </div>
-          <div style={{ height: 1, background: 'rgba(255,255,255,0.07)', marginTop: 18 }} />
+          <div style={{ height: 1, background: 'var(--line-strong)', marginTop: 16 }} />
         </div>
 
-        {/* Results / suggestions */}
-        <div style={{ maxWidth: 760, margin: '0 auto', padding: '0 24px 24px', maxHeight: '70vh', overflowY: 'auto' }}>
+        {/* Results / suggestions — dvh so mobile browser chrome can't clip it */}
+        <div
+          className="px-4 sm:px-6 no-scrollbar"
+          style={{
+            maxWidth: 760, margin: '0 auto',
+            paddingBottom: 'calc(20px + var(--safe-b))',
+            maxHeight: 'calc(100dvh - var(--header-h) - 60px)',
+            overflowY: 'auto',
+            WebkitOverflowScrolling: 'touch',
+          }}>
 
           {/* Empty query: recent + suggestions */}
           {!searchQuery && (
@@ -735,17 +814,17 @@ export default function Header() {
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
                     <p style={{
                       fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.3em',
-                      textTransform: 'uppercase', color: 'rgba(100,116,139,0.45)',
+                      textTransform: 'uppercase', color: 'var(--fg-subtle)',
                     }}>Recent</p>
                     <button
                       onClick={() => setRecentSearches([])}
                       style={{
                         fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.1em',
-                        color: 'rgba(100,116,139,0.35)', background: 'none', border: 'none',
+                        color: 'var(--fg-subtle)', background: 'none', border: 'none',
                         cursor: 'pointer', transition: 'color 0.14s',
                       }}
-                      onMouseEnter={e => { e.currentTarget.style.color = 'rgba(200,150,42,0.65)' }}
-                      onMouseLeave={e => { e.currentTarget.style.color = 'rgba(100,116,139,0.35)' }}>
+                      onMouseEnter={e => { e.currentTarget.style.color = 'var(--brand-edge)' }}
+                      onMouseLeave={e => { e.currentTarget.style.color = 'var(--fg-subtle)' }}>
                       Clear
                     </button>
                   </div>
@@ -760,13 +839,13 @@ export default function Header() {
                           background: 'transparent', cursor: 'pointer', textAlign: 'left',
                           transition: 'background 0.12s',
                         }}
-                        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)' }}
+                        onMouseEnter={e => { e.currentTarget.style.background = 'var(--line)' }}
                         onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}>
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"
-                          style={{ width: 13, height: 13, color: 'rgba(100,116,139,0.35)', flexShrink: 0 }}>
+                          style={{ width: 13, height: 13, color: 'var(--fg-subtle)', flexShrink: 0 }}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        <span style={{ fontSize: 13, color: 'rgba(148,163,184,0.7)' }}>{r.label}</span>
+                        <span style={{ fontSize: 13, color: 'var(--fg-muted)' }}>{r.label}</span>
                       </button>
                     ))}
                   </div>
@@ -774,7 +853,7 @@ export default function Header() {
               )}
               <p style={{
                 fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.3em',
-                textTransform: 'uppercase', color: 'rgba(100,116,139,0.45)', marginBottom: 12,
+                textTransform: 'uppercase', color: 'var(--fg-subtle)', marginBottom: 12,
               }}>Suggested</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                 {SUGGESTED_SEARCHES.map(s => (
@@ -783,12 +862,12 @@ export default function Header() {
                     onClick={() => setSearchQuery(s)}
                     style={{
                       padding: '7px 14px', borderRadius: 20,
-                      background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
-                      color: 'rgba(148,163,184,0.7)', fontSize: 12.5,
+                      background: 'var(--line)', border: '1px solid var(--line-strong)',
+                      color: 'var(--fg-muted)', fontSize: 12.5,
                       cursor: 'pointer', transition: 'all 0.14s',
                     }}
-                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(200,150,42,0.3)'; e.currentTarget.style.color = '#C8962A'; e.currentTarget.style.background = 'rgba(200,150,42,0.05)' }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = 'rgba(148,163,184,0.7)'; e.currentTarget.style.background = 'rgba(255,255,255,0.04)' }}>
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--brand-edge)'; e.currentTarget.style.color = 'var(--brand)'; e.currentTarget.style.background = 'var(--brand-wash)' }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--line-strong)'; e.currentTarget.style.color = 'var(--fg-muted)'; e.currentTarget.style.background = 'var(--line)' }}>
                     {s}
                   </button>
                 ))}
@@ -800,15 +879,15 @@ export default function Header() {
           {searchQuery && (
             <div style={{ paddingTop: 16 }}>
               {searchResults.length === 0 ? (
-                <p style={{ fontSize: 13.5, color: 'rgba(100,116,139,0.5)', paddingTop: 8 }}>
-                  No results for "<strong style={{ color: 'rgba(148,163,184,0.7)' }}>{searchQuery}</strong>"
+                <p style={{ fontSize: 13.5, color: 'var(--fg-subtle)', paddingTop: 8 }}>
+                  No results for "<strong style={{ color: 'var(--fg-muted)' }}>{searchQuery}</strong>"
                 </p>
               ) : (
                 Object.entries(byGroup).map(([group, items]) => (
                   <div key={group} style={{ marginBottom: 18 }}>
                     <p style={{
                       fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.3em',
-                      textTransform: 'uppercase', color: 'rgba(100,116,139,0.45)', marginBottom: 6,
+                      textTransform: 'uppercase', color: 'var(--fg-subtle)', marginBottom: 6,
                     }}>{group}</p>
                     {items.map(item => (
                       <button
@@ -820,17 +899,21 @@ export default function Header() {
                           background: 'transparent', cursor: 'pointer', textAlign: 'left',
                           transition: 'background 0.12s',
                         }}
-                        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)' }}
+                        onMouseEnter={e => { e.currentTarget.style.background = 'var(--line)' }}
                         onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}>
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8"
-                          style={{ width: 14, height: 14, color: 'rgba(100,116,139,0.4)', flexShrink: 0 }}>
+                          style={{ width: 14, height: 14, color: 'var(--fg-subtle)', flexShrink: 0 }}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                         </svg>
-                        <span style={{ fontSize: 13.5, color: '#CBD5E1' }}>{item.label}</span>
-                        <span style={{
-                          marginLeft: 'auto', fontFamily: 'var(--font-mono)', fontSize: 9,
-                          color: 'rgba(100,116,139,0.4)', letterSpacing: '0.1em',
-                        }}>{item.href}</span>
+                        <span style={{ fontSize: 13.5, color: 'var(--fg)', minWidth: 0, flex: 1 }}>{item.label}</span>
+                        {/* Path hint is desktop-only — it overflows narrow screens */}
+                        <span
+                          className="hidden sm:inline"
+                          style={{
+                            marginLeft: 'auto', fontFamily: 'var(--font-mono)', fontSize: 9,
+                            color: 'var(--fg-subtle)', letterSpacing: '0.1em',
+                            whiteSpace: 'nowrap', flexShrink: 0,
+                          }}>{item.href}</span>
                       </button>
                     ))}
                   </div>
@@ -848,8 +931,8 @@ export default function Header() {
         onClick={() => setMobileOpen(false)}
         aria-hidden="true"
         style={{
-          position: 'fixed', top: 68, left: 0, right: 0, bottom: 0, zIndex: 48,
-          background: 'rgba(1,3,9,0.72)', backdropFilter: 'blur(5px)',
+          position: 'fixed', top: 'var(--header-h)', left: 0, right: 0, bottom: 0, zIndex: 48,
+          background: 'var(--scrim)', backdropFilter: 'blur(5px)',
           WebkitBackdropFilter: 'blur(5px)',
           opacity: mobileOpen ? 1 : 0,
           pointerEvents: mobileOpen ? 'auto' : 'none',
@@ -864,18 +947,25 @@ export default function Header() {
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
+        ref={drawerRef}
+        tabIndex={-1}
+        inert={!mobileOpen || searchOpen}
+        aria-hidden={!mobileOpen || searchOpen}
+        className="no-scrollbar"
         style={{
-          position: 'fixed', top: 68, right: 0, bottom: 0, zIndex: 49,
-          width: 'min(320px, 88vw)',
-          background: '#040A1A',
-          borderLeft: '1px solid rgba(255,255,255,0.06)',
-          boxShadow: '-24px 0 60px rgba(0,0,0,0.7)',
+          position: 'fixed', top: 'var(--header-h)', right: 0, bottom: 0, zIndex: 49,
+          width: 'min(340px, 90vw)',
+          background: 'var(--s2)',
+          borderLeft: '1px solid var(--line)',
+          boxShadow: 'var(--shadow-pop)',
           transform: mobileOpen ? 'translateX(0)' : 'translateX(100%)',
-          transition: 'transform 0.28s cubic-bezier(0.4,0,0.2,1)',
+          transition: 'transform 0.28s cubic-bezier(0.4,0,0.2,1), visibility 0.28s',
           display: 'flex', flexDirection: 'column',
           overflowY: 'auto',
-          scrollbarWidth: 'none',
-          paddingBottom: 'max(24px, env(safe-area-inset-bottom))',
+          WebkitOverflowScrolling: 'touch',
+          overscrollBehavior: 'contain',
+          visibility: mobileOpen ? 'visible' : 'hidden',
+          paddingBottom: 'calc(24px + var(--safe-b))',
         }}>
 
         {/* Drawer nav items */}
@@ -894,10 +984,10 @@ export default function Header() {
                 padding: '9px 12px', borderRadius: 8, textDecoration: 'none',
                 transition: 'background 0.12s',
               }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)' }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'var(--line)' }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}>
                 <span style={{ width: 7, height: 7, borderRadius: '50%', background: d.color, flexShrink: 0 }} />
-                <span style={{ fontSize: 13.5, color: 'rgba(203,213,225,0.75)' }}>{d.name}</span>
+                <span style={{ fontSize: 13.5, color: 'var(--fg-muted)' }}>{d.name}</span>
               </Link>
             ))}
             <Link to="/ezyify" style={{
@@ -908,8 +998,8 @@ export default function Header() {
             }}
               onMouseEnter={e => { e.currentTarget.style.background = 'rgba(88,28,220,0.14)' }}
               onMouseLeave={e => { e.currentTarget.style.background = 'rgba(88,28,220,0.08)' }}>
-              <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#A855F7', flexShrink: 0 }} />
-              <span style={{ fontSize: 13.5, color: '#A855F7', fontWeight: 600 }}>Ezyify</span>
+              <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--accent-purple)', flexShrink: 0 }} />
+              <span style={{ fontSize: 13.5, color: 'var(--accent-purple)', fontWeight: 600 }}>Ezyify</span>
               <span style={{
                 marginLeft: 'auto',
                 fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.15em',
@@ -946,23 +1036,36 @@ export default function Header() {
                 padding: '9px 12px', borderRadius: 8, textDecoration: 'none',
                 transition: 'background 0.12s',
               }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)' }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'var(--line)' }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}>
-                <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(200,150,42,0.5)', flexShrink: 0 }} />
-                <span style={{ fontSize: 13.5, color: 'rgba(203,213,225,0.68)' }}>{item.label}</span>
+                <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--brand-edge)', flexShrink: 0 }} />
+                <span style={{ fontSize: 13.5, color: 'var(--fg-muted)' }}>{item.label}</span>
               </Link>
             ))}
           </MobileAccordion>
+
+          {/* Appearance — Light / Dark / Auto */}
+          <div style={{
+            margin: '14px 0 0',
+            padding: '14px 12px 0',
+            borderTop: '1px solid var(--line)',
+          }}>
+            <p style={{
+              fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.3em',
+              textTransform: 'uppercase', color: 'var(--fg-faint)', marginBottom: 10,
+            }}>Appearance</p>
+            <ThemeSegmented />
+          </div>
 
           {/* Language switcher */}
           <div style={{
             margin: '14px 0 0',
             padding: '14px 12px 0',
-            borderTop: '1px solid rgba(255,255,255,0.06)',
+            borderTop: '1px solid var(--line)',
           }}>
             <p style={{
               fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.3em',
-              textTransform: 'uppercase', color: 'rgba(100,116,139,0.42)', marginBottom: 10,
+              textTransform: 'uppercase', color: 'var(--fg-faint)', marginBottom: 10,
             }}>Language</p>
             <div style={{ display: 'flex', gap: 6 }}>
               {LANG_OPTIONS.map(l => (
@@ -972,8 +1075,8 @@ export default function Header() {
                   style={{
                     flex: 1, padding: '9px 0', borderRadius: 8, border: 'none',
                     fontSize: 12.5, fontWeight: 600, cursor: 'pointer',
-                    background: language === l.code ? '#C8962A' : 'rgba(255,255,255,0.05)',
-                    color: language === l.code ? '#04080E' : 'rgba(148,163,184,0.65)',
+                    background: language === l.code ? 'var(--brand)' : 'var(--line)',
+                    color: language === l.code ? 'var(--s0)' : 'var(--fg-muted)',
                     transition: 'all 0.15s',
                   }}>
                   {l.short}
@@ -989,12 +1092,12 @@ export default function Header() {
               style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                 padding: '14px 0', borderRadius: 10,
-                background: '#C8962A', color: '#04080E',
+                background: 'var(--brand)', color: 'var(--fg-onbrand)',
                 fontSize: 13.5, fontWeight: 700, textDecoration: 'none',
                 transition: 'background 0.15s',
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#E6B840' }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#C8962A' }}>
+              onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-bright)' }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'var(--brand)' }}>
               Connect With Us
               <svg fill="none" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2.5"
                 style={{ width: 12, height: 12 }}>
@@ -1019,15 +1122,15 @@ function MobileLink({ href, active, children }: { href: string; active: boolean;
         display: 'flex', alignItems: 'center',
         padding: '12px 12px', borderRadius: 9,
         fontSize: 14.5, fontWeight: 500, textDecoration: 'none',
-        color: active ? '#C8962A' : 'rgba(203,213,225,0.82)',
-        background: active ? 'rgba(200,150,42,0.08)' : 'transparent',
+        color: active ? 'var(--brand)' : 'var(--fg-muted)',
+        background: active ? 'var(--brand-wash)' : 'transparent',
         transition: 'all 0.14s',
       }}>
       {children}
       {active && (
         <span style={{
           marginLeft: 'auto', width: 5, height: 5,
-          borderRadius: '50%', background: '#C8962A', flexShrink: 0,
+          borderRadius: '50%', background: 'var(--brand)', flexShrink: 0,
         }} />
       )}
     </Link>
@@ -1048,8 +1151,8 @@ function MobileAccordion({ label, expanded, onToggle, children }: {
         style={{
           width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           padding: '12px 12px', borderRadius: 9, border: 'none',
-          fontSize: 14.5, fontWeight: 500, color: 'rgba(203,213,225,0.82)',
-          background: expanded ? 'rgba(255,255,255,0.03)' : 'transparent',
+          fontSize: 14.5, fontWeight: 500, color: 'var(--fg-muted)',
+          background: expanded ? 'var(--fill-1)' : 'transparent',
           cursor: 'pointer', transition: 'all 0.14s',
         }}>
         {label}
@@ -1057,7 +1160,7 @@ function MobileAccordion({ label, expanded, onToggle, children }: {
       </button>
 
       {/* Animated accordion body */}
-      <div style={{
+      <div inert={!expanded} style={{
         overflow: 'hidden',
         maxHeight: expanded ? 600 : 0,
         opacity: expanded ? 1 : 0,

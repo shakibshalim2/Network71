@@ -4,8 +4,8 @@ import MetricsBar from '@/components/sector/MetricsBar'
 import SectorContact from '@/components/sector/SectorContact'
 import Footer from '@/components/Footer'
 
-const AMBER = '#f59e0b'
-const SKY = '#0ea5e9'
+const AMBER = 'var(--accent-amber)'
+const SKY = 'var(--accent-sky)'
 
 const metrics = [
   { value: '1M+', label: 'Liters / Month', desc: 'Monthly production volume' },
@@ -96,7 +96,7 @@ const fuelCapabilities = [
 const supplyChainNodes = [
   { label: 'Raw Material Sourcing', sub: 'Imported + Local', color: AMBER },
   { label: 'Processing Facility', sub: 'HACCP-certified plant', color: AMBER },
-  { label: 'Quality Lab', sub: 'In-house testing', color: '#10b981' },
+  { label: 'Quality Lab', sub: 'In-house testing', color: 'var(--accent-emerald)' },
   { label: '8 Distribution Centers', sub: 'Nationwide network', color: SKY },
   { label: 'Retail / Industrial', sub: 'End buyers', color: SKY },
 ]
@@ -125,7 +125,7 @@ const techCards = [
   {
     title: 'Real-Time Quality Monitoring',
     desc: 'Inline sensors and automated sampling stations track key quality parameters continuously during production, triggering alerts before a batch can drift out of specification.',
-    accent: '#10b981',
+    accent: 'var(--accent-emerald)',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -213,7 +213,7 @@ const opportunities = [
     title: 'Investment Partners',
     desc: 'Capacity expansion across both edible oil processing and fuel distribution infrastructure presents structured investment opportunities for institutional and strategic partners.',
     cta: 'Investment Inquiry',
-    accent: '#10b981',
+    accent: 'var(--accent-emerald)',
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -224,11 +224,11 @@ const opportunities = [
 
 export default function OilsEnergy() {
   return (
-    <div className="min-h-full bg-navy">
+    <div className="sector-page min-h-full bg-navy">
       <SectorHeader divisionName="Oils & Energy" accentClass="text-amber-400" />
 
       {/* ── 1. SPLIT-SCREEN HERO ─────────────────────────────────── */}
-      <section className="relative h-screen min-h-[640px] flex flex-col overflow-hidden">
+      <section className="oil-hero force-dark sector-hero relative flex flex-col overflow-hidden">
         {/* Two half backgrounds */}
         <div className="absolute inset-0 flex">
           {/* Left — Edible Oils (amber) */}
@@ -258,10 +258,10 @@ export default function OilsEnergy() {
         </div>
 
         {/* Left label — Edible Oils */}
-        <div className="absolute left-6 lg:left-12 top-1/2 -translate-y-1/2 z-10 max-w-[220px]">
+        <div className="oil-side absolute left-6 lg:left-12 top-1/2 -translate-y-1/2 z-10 max-w-[220px]">
           <div
             className="inline-flex items-center gap-2 font-mono text-[9px] tracking-[0.35em] uppercase mb-3 px-3 py-1 rounded-full"
-            style={{ background: `${AMBER}22`, color: AMBER, border: `1px solid ${AMBER}44` }}
+            style={{ background: `color-mix(in srgb, ${AMBER} 13%, transparent)`, color: AMBER, border: `1px solid color-mix(in srgb, ${AMBER} 27%, transparent)` }}
           >
             Division A
           </div>
@@ -275,10 +275,10 @@ export default function OilsEnergy() {
         </div>
 
         {/* Right label — Energy & Fuel */}
-        <div className="absolute right-6 lg:right-12 top-1/2 -translate-y-1/2 z-10 max-w-[220px] text-right">
+        <div className="oil-side absolute right-6 lg:right-12 top-1/2 -translate-y-1/2 z-10 max-w-[220px] text-right">
           <div
             className="inline-flex items-center gap-2 font-mono text-[9px] tracking-[0.35em] uppercase mb-3 px-3 py-1 rounded-full"
-            style={{ background: `${SKY}22`, color: SKY, border: `1px solid ${SKY}44` }}
+            style={{ background: `color-mix(in srgb, ${SKY} 13%, transparent)`, color: SKY, border: `1px solid color-mix(in srgb, ${SKY} 27%, transparent)` }}
           >
             Division B
           </div>
@@ -292,18 +292,18 @@ export default function OilsEnergy() {
         </div>
 
         {/* Center badge */}
-        <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+        <div className="oil-intro absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
           <div
             className="flex flex-col items-center text-center px-8 py-7 rounded-2xl"
             style={{
               background: 'rgba(10,20,50,0.82)',
-              border: '1px solid rgba(255,255,255,0.12)',
+              border: 'var(--border-strong)',
               backdropFilter: 'blur(18px)',
             }}
           >
             {/* N71 badge */}
             <div className="w-14 h-14 bg-gold rounded-xl flex items-center justify-center mb-4 shadow-lg">
-              <span className="text-navy font-bold text-base font-display tracking-tight">N71</span>
+              <span className="text-on-brand font-bold text-base font-display tracking-tight">N71</span>
             </div>
             <div
               className="font-mono text-[9px] tracking-[0.35em] uppercase mb-2"
@@ -317,22 +317,22 @@ export default function OilsEnergy() {
             <div className="flex items-center gap-3 mb-5">
               <span
                 className="text-[10px] font-semibold px-2.5 py-1 rounded-full"
-                style={{ background: `${AMBER}20`, color: AMBER, border: `1px solid ${AMBER}40` }}
+                style={{ background: `color-mix(in srgb, ${AMBER} 13%, transparent)`, color: AMBER, border: `1px solid color-mix(in srgb, ${AMBER} 25%, transparent)` }}
               >
                 Edible Oils
               </span>
               <span className="text-white/30 text-xs">·</span>
               <span
                 className="text-[10px] font-semibold px-2.5 py-1 rounded-full"
-                style={{ background: `${SKY}20`, color: SKY, border: `1px solid ${SKY}40` }}
+                style={{ background: `color-mix(in srgb, ${SKY} 13%, transparent)`, color: SKY, border: `1px solid color-mix(in srgb, ${SKY} 25%, transparent)` }}
               >
                 Energy &amp; Fuel
               </span>
             </div>
             <a
               href="#sector-contact"
-              className="pointer-events-auto px-6 py-2.5 text-navy text-xs font-bold rounded-lg transition-all hover:opacity-90"
-              style={{ background: AMBER }}
+              className="pointer-events-auto px-6 py-2.5 text-fg text-xs font-bold rounded-lg transition-all hover:opacity-90"
+              style={{ background: AMBER, color: 'var(--s0)' }}
             >
               Partner Inquiry
             </a>
@@ -350,17 +350,17 @@ export default function OilsEnergy() {
       <MetricsBar metrics={metrics} accentHex={AMBER} dark />
 
       {/* ── 3. TWO-DIVISION OVERVIEW ────────────────────────────── */}
-      <section className="py-24 bg-neutral">
+      <section className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: AMBER }} />
+              <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: AMBER }}>
                 Two Core Divisions
               </span>
-              <div className="h-px w-8" style={{ background: AMBER }} />
+              <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl text-navy mb-3">Our Business at a Glance</h2>
+            <h2 className="font-display text-4xl text-fg mb-3">Our Business at a Glance</h2>
             <p className="text-slate-500 text-sm max-w-xl mx-auto leading-relaxed">
               Network71&apos;s Oils &amp; Energy division bridges two essential commodity sectors — premium food-grade oils and reliable fuel supply — under a single, integrated operational infrastructure.
             </p>
@@ -369,13 +369,13 @@ export default function OilsEnergy() {
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Edible Oils card */}
             <div
-              className="rounded-2xl p-8 bg-white border hover:shadow-2xl transition-all duration-300 group"
-              style={{ borderColor: `${AMBER}25` }}
+              className="rounded-2xl p-8 bg-surface-2 border hover:shadow-2xl transition-all duration-300 group"
+              style={{ borderColor: `color-mix(in srgb, ${AMBER} 15%, transparent)` }}
             >
               <div className="flex items-start gap-4 mb-6">
                 <div
                   className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: `${AMBER}15`, border: `1px solid ${AMBER}25` }}
+                  style={{ background: `color-mix(in srgb, ${AMBER} 8%, transparent)`, border: `1px solid color-mix(in srgb, ${AMBER} 15%, transparent)` }}
                 >
                   <svg className="w-7 h-7" style={{ color: AMBER }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
@@ -383,7 +383,7 @@ export default function OilsEnergy() {
                 </div>
                 <div>
                   <div className="text-[10px] font-bold tracking-[0.25em] uppercase mb-1" style={{ color: AMBER }}>Division A</div>
-                  <h3 className="font-display text-2xl text-navy">Edible Oils</h3>
+                  <h3 className="font-display text-2xl text-fg">Edible Oils</h3>
                 </div>
               </div>
 
@@ -396,14 +396,14 @@ export default function OilsEnergy() {
                   <div
                     key={tag}
                     className="text-xs font-medium px-3 py-1.5 rounded-lg"
-                    style={{ background: `${AMBER}10`, color: '#92400e' }}
+                    style={{ background: `color-mix(in srgb, ${AMBER} 6%, transparent)`, color: 'var(--accent-amber)' }}
                   >
                     {tag}
                   </div>
                 ))}
               </div>
 
-              <div className="border-t pt-5" style={{ borderColor: `${AMBER}18` }}>
+              <div className="border-t pt-5" style={{ borderColor: `color-mix(in srgb, ${AMBER} 9%, transparent)` }}>
                 <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">Value Chain</div>
                 <div className="flex items-center gap-1.5 text-xs text-slate-500 flex-wrap">
                   {['Sourcing', 'Refining', 'Blending', 'Packaging', 'Distribution'].map((s, i, arr) => (
@@ -418,13 +418,13 @@ export default function OilsEnergy() {
 
             {/* Energy & Fuel card */}
             <div
-              className="rounded-2xl p-8 bg-white border hover:shadow-2xl transition-all duration-300 group"
-              style={{ borderColor: `${SKY}25` }}
+              className="rounded-2xl p-8 bg-surface-2 border hover:shadow-2xl transition-all duration-300 group"
+              style={{ borderColor: `color-mix(in srgb, ${SKY} 15%, transparent)` }}
             >
               <div className="flex items-start gap-4 mb-6">
                 <div
                   className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: `${SKY}15`, border: `1px solid ${SKY}25` }}
+                  style={{ background: `color-mix(in srgb, ${SKY} 8%, transparent)`, border: `1px solid color-mix(in srgb, ${SKY} 15%, transparent)` }}
                 >
                   <svg className="w-7 h-7" style={{ color: SKY }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />
@@ -432,7 +432,7 @@ export default function OilsEnergy() {
                 </div>
                 <div>
                   <div className="text-[10px] font-bold tracking-[0.25em] uppercase mb-1" style={{ color: SKY }}>Division B</div>
-                  <h3 className="font-display text-2xl text-navy">Energy &amp; Fuel</h3>
+                  <h3 className="font-display text-2xl text-fg">Energy &amp; Fuel</h3>
                 </div>
               </div>
 
@@ -445,14 +445,14 @@ export default function OilsEnergy() {
                   <div
                     key={tag}
                     className="text-xs font-medium px-3 py-1.5 rounded-lg"
-                    style={{ background: `${SKY}10`, color: '#075985' }}
+                    style={{ background: `color-mix(in srgb, ${SKY} 6%, transparent)`, color: 'var(--accent-sky)' }}
                   >
                     {tag}
                   </div>
                 ))}
               </div>
 
-              <div className="border-t pt-5" style={{ borderColor: `${SKY}18` }}>
+              <div className="border-t pt-5" style={{ borderColor: `color-mix(in srgb, ${SKY} 9%, transparent)` }}>
                 <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">Value Chain</div>
                 <div className="flex items-center gap-1.5 text-xs text-slate-500 flex-wrap">
                   {['Procurement', 'Storage', 'Distribution', 'Logistics', 'Client Delivery'].map((s, i, arr) => (
@@ -469,18 +469,18 @@ export default function OilsEnergy() {
       </section>
 
       {/* ── 4. EDIBLE OILS DEEP DIVE ────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mb-14">
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: AMBER }} />
+              <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: AMBER }}>
                 Edible Oils — Product Range
               </span>
             </div>
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
               <div>
-                <h2 className="font-display text-4xl text-navy mb-3">
+                <h2 className="font-display text-4xl text-fg mb-3">
                   Five Oil Varieties.<br />
                   <span style={{ color: AMBER }}>One Quality Standard.</span>
                 </h2>
@@ -490,9 +490,9 @@ export default function OilsEnergy() {
               </div>
               <div
                 className="flex items-center gap-3 px-5 py-3 rounded-xl flex-shrink-0"
-                style={{ background: `${AMBER}10`, border: `1px solid ${AMBER}30` }}
+                style={{ background: `color-mix(in srgb, ${AMBER} 6%, transparent)`, border: `1px solid color-mix(in srgb, ${AMBER} 19%, transparent)` }}
               >
-                <div className="w-2 h-2 rounded-full" style={{ background: AMBER }} />
+                <div className="w-2 h-2 rounded-full" style={{ background: AMBER, color: 'var(--s0)' }} />
                 <span className="text-xs font-semibold text-amber-800">All products HACCP &amp; BSTI certified</span>
               </div>
             </div>
@@ -503,17 +503,17 @@ export default function OilsEnergy() {
               <div
                 key={oil.name}
                 className={`rounded-2xl p-6 border transition-all hover:shadow-lg ${i === 0 ? 'lg:col-span-1' : ''}`}
-                style={{ borderColor: `${AMBER}20`, background: i % 2 === 0 ? `${AMBER}05` : 'white' }}
+                style={{ borderColor: `color-mix(in srgb, ${AMBER} 13%, transparent)`, background: i % 2 === 0 ? `color-mix(in srgb, ${AMBER} 2%, transparent)` : 'var(--s2)' }}
               >
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                  style={{ background: `${AMBER}15` }}
+                  style={{ background: `color-mix(in srgb, ${AMBER} 8%, transparent)` }}
                 >
                   <svg className="w-5 h-5" style={{ color: AMBER }} fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <h3 className="font-display text-lg text-navy mb-3">{oil.name}</h3>
+                <h3 className="font-display text-lg text-fg mb-3">{oil.name}</h3>
                 <div className="space-y-2.5">
                   <div>
                     <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">Grades</div>
@@ -539,7 +539,7 @@ export default function OilsEnergy() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mb-14">
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: SKY }} />
+              <div className="h-px w-8" style={{ background: SKY, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: SKY }}>
                 Energy &amp; Fuel — Distribution Capabilities
               </span>
@@ -556,9 +556,9 @@ export default function OilsEnergy() {
               </div>
               <div
                 className="flex items-center gap-3 px-5 py-3 rounded-xl flex-shrink-0"
-                style={{ background: `${SKY}12`, border: `1px solid ${SKY}30` }}
+                style={{ background: `color-mix(in srgb, ${SKY} 7%, transparent)`, border: `1px solid color-mix(in srgb, ${SKY} 19%, transparent)` }}
               >
-                <div className="w-2 h-2 rounded-full" style={{ background: SKY }} />
+                <div className="w-2 h-2 rounded-full" style={{ background: SKY, color: 'var(--s0)' }} />
                 <span className="text-xs font-semibold" style={{ color: SKY }}>Safety-compliant storage &amp; dispatch</span>
               </div>
             </div>
@@ -569,11 +569,11 @@ export default function OilsEnergy() {
               <div
                 key={cap.title}
                 className="rounded-2xl p-7"
-                style={{ background: 'rgba(255,255,255,0.04)', border: `1px solid ${SKY}20` }}
+                style={{ background: 'var(--fill-2)', border: `1px solid color-mix(in srgb, ${SKY} 13%, transparent)` }}
               >
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                  style={{ background: `${SKY}15`, color: SKY }}
+                  style={{ background: `color-mix(in srgb, ${SKY} 8%, transparent)`, color: SKY }}
                 >
                   {cap.icon}
                 </div>
@@ -581,14 +581,14 @@ export default function OilsEnergy() {
                 <ul className="space-y-2 mb-6">
                   {cap.items.map((item) => (
                     <li key={item} className="flex items-center gap-2.5 text-xs text-slate-400">
-                      <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: SKY }} />
+                      <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: SKY, color: 'var(--s0)' }} />
                       {item}
                     </li>
                   ))}
                 </ul>
                 <div
                   className="flex items-center justify-between pt-4 border-t"
-                  style={{ borderColor: `${SKY}18` }}
+                  style={{ borderColor: `color-mix(in srgb, ${SKY} 9%, transparent)` }}
                 >
                   <div>
                     <div className="font-display text-2xl" style={{ color: SKY }}>{cap.stat}</div>
@@ -609,17 +609,17 @@ export default function OilsEnergy() {
       />
 
       {/* ── 7. SUPPLY CHAIN NETWORK ─────────────────────────────── */}
-      <section className="py-24 bg-neutral">
+      <section className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: AMBER }} />
+              <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: AMBER }}>
                 Supply Chain
               </span>
-              <div className="h-px w-8" style={{ background: AMBER }} />
+              <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl text-navy mb-3">From Source to Shelf</h2>
+            <h2 className="font-display text-4xl text-fg mb-3">From Source to Shelf</h2>
             <p className="text-slate-500 text-sm max-w-xl mx-auto leading-relaxed">
               An integrated, traceable supply chain from raw material procurement through to retail and industrial delivery — combining imported and locally sourced inputs with domestic processing excellence.
             </p>
@@ -636,11 +636,11 @@ export default function OilsEnergy() {
                   {/* Node circle */}
                   <div
                     className="w-20 h-20 rounded-full flex items-center justify-center mb-4 z-10 text-white font-bold text-lg font-display shadow-lg"
-                    style={{ background: node.color, border: '4px solid white' }}
+                    style={{ background: node.color, color: 'var(--s0)', border: '4px solid var(--s2)' }}
                   >
                     {String(i + 1).padStart(2, '0')}
                   </div>
-                  <div className="font-semibold text-navy text-sm mb-1">{node.label}</div>
+                  <div className="font-semibold text-fg text-sm mb-1">{node.label}</div>
                   <div className="text-slate-500 text-xs">{node.sub}</div>
                 </div>
               ))}
@@ -648,7 +648,7 @@ export default function OilsEnergy() {
           </div>
 
           {/* SVG decorative network map */}
-          <div className="mt-14 rounded-2xl overflow-hidden border border-slate-200 bg-white p-6">
+          <div className="mt-14 rounded-2xl overflow-hidden border border-slate-200 bg-surface-2 p-6">
             <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4">Distribution Centre Network — Schematic</div>
             <svg viewBox="0 0 800 260" className="w-full" style={{ maxHeight: 260 }}>
               {/* Background */}
@@ -689,17 +689,17 @@ export default function OilsEnergy() {
       </section>
 
       {/* ── 8. QUALITY & COMPLIANCE ─────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-14 items-start">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="h-px w-8" style={{ background: AMBER }} />
+                <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: AMBER }}>
                   Quality &amp; Compliance
                 </span>
               </div>
-              <h2 className="font-display text-4xl text-navy mb-4">
+              <h2 className="font-display text-4xl text-fg mb-4">
                 International Standards.<br />
                 <span style={{ color: AMBER }}>Verified at Every Step.</span>
               </h2>
@@ -710,16 +710,16 @@ export default function OilsEnergy() {
               {/* HACCP prominent badge */}
               <div
                 className="flex items-center gap-5 p-5 rounded-2xl mb-6"
-                style={{ background: `${AMBER}10`, border: `2px solid ${AMBER}30` }}
+                style={{ background: `color-mix(in srgb, ${AMBER} 6%, transparent)`, border: `2px solid color-mix(in srgb, ${AMBER} 19%, transparent)` }}
               >
                 <div
-                  className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 font-display font-bold text-navy text-sm"
-                  style={{ background: AMBER }}
+                  className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 font-display font-bold text-fg text-sm"
+                  style={{ background: AMBER, color: 'var(--s0)' }}
                 >
                   HACCP
                 </div>
                 <div>
-                  <div className="font-semibold text-navy text-sm mb-1">HACCP Certified Operations</div>
+                  <div className="font-semibold text-fg text-sm mb-1">HACCP Certified Operations</div>
                   <div className="text-slate-500 text-xs leading-relaxed">
                     Hazard Analysis and Critical Control Points certification — the cornerstone of our edible oil food safety management system.
                   </div>
@@ -732,11 +732,11 @@ export default function OilsEnergy() {
                 <div
                   key={cert.name}
                   className="p-5 rounded-xl border hover:shadow-md transition-all"
-                  style={{ borderColor: `${AMBER}18` }}
+                  style={{ borderColor: `color-mix(in srgb, ${AMBER} 9%, transparent)` }}
                 >
                   <div
                     className="text-[10px] font-bold uppercase tracking-widest mb-2 px-2 py-0.5 rounded inline-block"
-                    style={{ background: `${AMBER}12`, color: '#92400e' }}
+                    style={{ background: `color-mix(in srgb, ${AMBER} 7%, transparent)`, color: 'var(--accent-amber)' }}
                   >
                     {cert.name}
                   </div>
@@ -753,11 +753,11 @@ export default function OilsEnergy() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: SKY }} />
+              <div className="h-px w-8" style={{ background: SKY, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: SKY }}>
                 Technology &amp; Operations
               </span>
-              <div className="h-px w-8" style={{ background: SKY }} />
+              <div className="h-px w-8" style={{ background: SKY, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl text-white mb-3">Built for Precision &amp; Scale</h2>
             <p className="text-slate-400 text-sm max-w-xl mx-auto leading-relaxed">
@@ -770,11 +770,11 @@ export default function OilsEnergy() {
               <div
                 key={card.title}
                 className="rounded-2xl p-7 transition-all hover:scale-[1.01] duration-300"
-                style={{ background: 'rgba(255,255,255,0.04)', border: `1px solid ${card.accent}25` }}
+                style={{ background: 'var(--fill-2)', border: `1px solid color-mix(in srgb, ${card.accent} 15%, transparent)` }}
               >
                 <div
                   className="w-13 h-13 w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                  style={{ background: `${card.accent}18`, color: card.accent }}
+                  style={{ background: `color-mix(in srgb, ${card.accent} 9%, transparent)`, color: card.accent }}
                 >
                   {card.icon}
                 </div>
@@ -788,17 +788,17 @@ export default function OilsEnergy() {
       </section>
 
       {/* ── 10. SUSTAINABILITY ──────────────────────────────────── */}
-      <section className="py-24 bg-neutral">
+      <section className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: '#10b981' }} />
+              <div className="h-px w-8" style={{ background: 'var(--accent-emerald)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase text-emerald-600">
                 Sustainability
               </span>
-              <div className="h-px w-8" style={{ background: '#10b981' }} />
+              <div className="h-px w-8" style={{ background: 'var(--accent-emerald)' }} />
             </div>
-            <h2 className="font-display text-4xl text-navy mb-3">Responsible by Design</h2>
+            <h2 className="font-display text-4xl text-fg mb-3">Responsible by Design</h2>
             <p className="text-slate-500 text-sm max-w-xl mx-auto leading-relaxed">
               Across both divisions, we are building measurable sustainability commitments into operations — from palm sourcing to fuel storage protocols.
             </p>
@@ -806,20 +806,20 @@ export default function OilsEnergy() {
 
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Oils sustainability */}
-            <div className="bg-white rounded-2xl p-8 border" style={{ borderColor: `${AMBER}20` }}>
+            <div className="bg-surface-2 rounded-2xl p-8 border" style={{ borderColor: `color-mix(in srgb, ${AMBER} 13%, transparent)` }}>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: `${AMBER}15` }}>
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: `color-mix(in srgb, ${AMBER} 8%, transparent)` }}>
                   <svg className="w-5 h-5" style={{ color: AMBER }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <h3 className="font-display text-xl text-navy">Edible Oils — Sustainability</h3>
+                <h3 className="font-display text-xl text-fg">Edible Oils — Sustainability</h3>
               </div>
               <div className="space-y-5">
                 {sustainabilityOils.map((item) => (
                   <div key={item.label}>
                     <div className="flex items-center justify-between mb-1.5">
-                      <div className="text-sm font-medium text-navy">{item.label}</div>
+                      <div className="text-sm font-medium text-fg">{item.label}</div>
                       <div className="text-xs text-slate-500">{item.pct}%</div>
                     </div>
                     <div className="h-2 bg-amber-100 rounded-full overflow-hidden mb-1.5">
@@ -835,20 +835,20 @@ export default function OilsEnergy() {
             </div>
 
             {/* Energy sustainability */}
-            <div className="bg-white rounded-2xl p-8 border" style={{ borderColor: `${SKY}20` }}>
+            <div className="bg-surface-2 rounded-2xl p-8 border" style={{ borderColor: `color-mix(in srgb, ${SKY} 13%, transparent)` }}>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: `${SKY}15` }}>
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: `color-mix(in srgb, ${SKY} 8%, transparent)` }}>
                   <svg className="w-5 h-5" style={{ color: SKY }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 </div>
-                <h3 className="font-display text-xl text-navy">Energy &amp; Fuel — Sustainability</h3>
+                <h3 className="font-display text-xl text-fg">Energy &amp; Fuel — Sustainability</h3>
               </div>
               <div className="space-y-5">
                 {sustainabilityEnergy.map((item) => (
                   <div key={item.label}>
                     <div className="flex items-center justify-between mb-1.5">
-                      <div className="text-sm font-medium text-navy">{item.label}</div>
+                      <div className="text-sm font-medium text-fg">{item.label}</div>
                       <div className="text-xs text-slate-500">{item.pct}%</div>
                     </div>
                     <div className="h-2 bg-sky-100 rounded-full overflow-hidden mb-1.5">
@@ -871,11 +871,11 @@ export default function OilsEnergy() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: AMBER }} />
+              <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: AMBER }}>
                 Markets &amp; Distribution
               </span>
-              <div className="h-px w-8" style={{ background: AMBER }} />
+              <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl text-white mb-3">Who We Serve</h2>
             <p className="text-slate-400 text-sm max-w-xl mx-auto leading-relaxed">
@@ -888,7 +888,7 @@ export default function OilsEnergy() {
               <div
                 key={mkt.division}
                 className="rounded-2xl p-8"
-                style={{ background: 'rgba(255,255,255,0.04)', border: `1px solid ${mkt.accent}25` }}
+                style={{ background: 'var(--fill-2)', border: `1px solid color-mix(in srgb, ${mkt.accent} 15%, transparent)` }}
               >
                 <div
                   className="text-[10px] font-bold uppercase tracking-widest mb-3"
@@ -901,7 +901,7 @@ export default function OilsEnergy() {
                     <div key={seg.name} className="flex gap-3">
                       <div
                         className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                        style={{ background: `${mkt.accent}20` }}
+                        style={{ background: `color-mix(in srgb, ${mkt.accent} 13%, transparent)` }}
                       >
                         <div className="w-1.5 h-1.5 rounded-full" style={{ background: mkt.accent }} />
                       </div>
@@ -919,17 +919,17 @@ export default function OilsEnergy() {
       </section>
 
       {/* ── 12. BUSINESS OPPORTUNITIES ──────────────────────────── */}
-      <section className="py-24 bg-neutral">
+      <section className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: AMBER }} />
+              <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: AMBER }}>
                 Business Opportunities
               </span>
-              <div className="h-px w-8" style={{ background: AMBER }} />
+              <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl text-navy mb-3">Partner With Us</h2>
+            <h2 className="font-display text-4xl text-fg mb-3">Partner With Us</h2>
             <p className="text-slate-500 text-sm max-w-xl mx-auto leading-relaxed">
               Three entry points — whether you are a distributor, bulk buyer, or institutional investor looking to participate in Bangladesh&apos;s growing oils and energy sector.
             </p>
@@ -939,16 +939,16 @@ export default function OilsEnergy() {
             {opportunities.map((opp) => (
               <div
                 key={opp.title}
-                className="bg-white rounded-2xl p-7 border hover:shadow-xl transition-all group"
-                style={{ borderColor: `${opp.accent}20` }}
+                className="bg-surface-2 rounded-2xl p-7 border hover:shadow-xl transition-all group"
+                style={{ borderColor: `color-mix(in srgb, ${opp.accent} 13%, transparent)` }}
               >
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                  style={{ background: `${opp.accent}15`, color: opp.accent }}
+                  style={{ background: `color-mix(in srgb, ${opp.accent} 8%, transparent)`, color: opp.accent }}
                 >
                   {opp.icon}
                 </div>
-                <h3 className="font-display text-xl text-navy mb-3">{opp.title}</h3>
+                <h3 className="font-display text-xl text-fg mb-3">{opp.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed mb-6">{opp.desc}</p>
                 <a
                   href="#sector-contact"
@@ -971,7 +971,7 @@ export default function OilsEnergy() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mb-14">
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: SKY }} />
+              <div className="h-px w-8" style={{ background: SKY, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: SKY }}>
                 Growth Roadmap
               </span>
@@ -995,13 +995,13 @@ export default function OilsEnergy() {
                   {/* Year bubble */}
                   <div
                     className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 font-display font-bold text-white text-sm sm:absolute sm:-left-20"
-                    style={{ background: i < 2 ? AMBER : SKY }}
+                    style={{ color: 'var(--s0)', background: i < 2 ? AMBER : SKY }}
                   >
                     {item.year}
                   </div>
                   <div
                     className="flex-1 rounded-xl p-5"
-                    style={{ background: 'rgba(255,255,255,0.04)', border: `1px solid ${i < 2 ? AMBER : SKY}20` }}
+                    style={{ background: 'var(--fill-2)', border: `1px solid color-mix(in srgb, ${i < 2 ? AMBER : SKY} 13%, transparent)` }}
                   >
                     <h3 className="font-semibold text-white mb-2">{item.title}</h3>
                     <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>

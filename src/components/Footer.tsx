@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '@/components/brand/Logo'
 
@@ -87,23 +86,25 @@ const LEGAL = [
 function Col({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
     <div>
-      <h4 style={{
-        fontFamily: 'var(--font-mono)', fontSize: 8.5, fontWeight: 700,
-        letterSpacing: '0.28em', textTransform: 'uppercase',
-        color: 'rgba(200,150,42,0.45)', marginBottom: 20,
-      }}>
+      <h4
+        className="text-[8px] tracking-[0.2em] sm:text-[8.5px] sm:tracking-[0.28em] mb-4 sm:mb-5"
+        style={{
+          fontFamily: 'var(--font-mono)', fontWeight: 700,
+          textTransform: 'uppercase',
+          color: 'var(--brand-fg)',
+        }}>
         {title}
       </h4>
-      <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 11 }}>
+      <ul className="gap-2.5 sm:gap-[11px]" style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column' }}>
         {links.map(({ label, href }) => (
           <li key={label}>
-            <Link to={href} style={{
-              fontSize: 12.5, lineHeight: 1.45,
-              color: 'rgba(100,116,139,0.58)', textDecoration: 'none',
+            <Link to={href} className="tap-inline text-[12px] sm:text-[12.5px]" style={{
+              lineHeight: 1.45,
+              color: 'var(--fg-subtle)', textDecoration: 'none',
               transition: 'color 0.14s', display: 'inline-block',
             }}
-              onMouseEnter={e => { e.currentTarget.style.color = 'rgba(226,232,240,0.85)' }}
-              onMouseLeave={e => { e.currentTarget.style.color = 'rgba(100,116,139,0.58)' }}>
+              onMouseEnter={e => { e.currentTarget.style.color = 'var(--fg)' }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'var(--fg-subtle)' }}>
               {label}
             </Link>
           </li>
@@ -116,88 +117,83 @@ function Col({ title, links }: { title: string; links: { label: string; href: st
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 export default function Footer() {
-  const [email, setEmail] = useState('')
-  const [subscribed, setSubscribed] = useState(false)
-
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (email.trim()) { setSubscribed(true); setEmail('') }
-  }
-
   return (
-    <footer style={{ background: '#020810' }}>
+    <footer style={{ background: 'var(--s-inset)' }}>
 
       {/* ── Closing CTA section ────────────────────────────────────────────── */}
       <div style={{
-        borderTop: '1px solid rgba(255,255,255,0.05)',
-        borderBottom: '1px solid rgba(255,255,255,0.04)',
+        borderTop: '1px solid var(--line)',
+        borderBottom: '1px solid var(--line)',
         position: 'relative', overflow: 'hidden',
       }}>
         {/* Subtle radial glow */}
         <div style={{
           position: 'absolute', top: '50%', left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: 600, height: 300,
+          width: 'min(600px, 100%)', height: 300,
           background: 'radial-gradient(ellipse, rgba(200,150,42,0.055) 0%, transparent 70%)',
           pointerEvents: 'none',
         }} />
 
-        <div style={{
-          maxWidth: 1360, margin: '0 auto', padding: '80px 28px 72px',
-          textAlign: 'center', position: 'relative',
-        }}>
-          <p style={{
-            fontFamily: 'var(--font-mono)', fontSize: 9, letterSpacing: '0.36em',
-            textTransform: 'uppercase', color: 'rgba(200,150,42,0.45)', marginBottom: 24,
-          }}>
+        <div
+          className="container-page py-14 sm:py-[72px] lg:pt-20 lg:pb-[72px]"
+          style={{ textAlign: 'center', position: 'relative' }}>
+          <p
+            className="text-[8px] tracking-[0.24em] sm:text-[9px] sm:tracking-[0.36em]"
+            style={{
+              fontFamily: 'var(--font-mono)',
+              textTransform: 'uppercase', color: 'var(--brand-fg)', marginBottom: 20,
+            }}>
             Network71 Global Group
           </p>
 
           <h2 className="font-display" style={{
-            fontSize: 'clamp(28px, 5vw, 56px)',
-            lineHeight: 1.1, letterSpacing: '-0.025em',
-            color: '#FFFFFF', marginBottom: 0,
+            fontSize: 'clamp(25px, 6.4vw, 56px)',
+            lineHeight: 1.14, letterSpacing: '-0.025em',
+            color: 'var(--fg-strong)', marginBottom: 0,
           }}>
             Building Businesses.
             <br />
-            <span style={{ color: '#C8962A' }}>Connecting Markets.</span>
+            <span style={{ color: 'var(--brand-fg)' }}>Connecting Markets.</span>
             <br />
-            <span style={{ color: 'rgba(255,255,255,0.55)' }}>Creating the Future.</span>
+            <span style={{ color: 'var(--fg-subtle)' }}>Creating the Future.</span>
           </h2>
 
-          <p style={{
-            fontSize: 15, color: 'rgba(100,116,139,0.62)', lineHeight: 1.7,
-            maxWidth: 480, margin: '24px auto 36px',
-          }}>
+          <p
+            className="text-[14px] sm:text-[15px] mt-5 mb-7 sm:mt-6 sm:mb-9"
+            style={{
+              color: 'var(--fg-subtle)', lineHeight: 1.7,
+              maxWidth: 480, marginInline: 'auto',
+            }}>
             A diversified enterprise operating across eight industries in 25+ countries — built for scale, driven by purpose.
           </p>
 
-          {/* CTA buttons */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, flexWrap: 'wrap' }}>
-            <Link to="/about" style={{
+          {/* CTA buttons — stack full width on narrow phones */}
+          <div className="flex flex-col min-[400px]:flex-row min-[400px]:flex-wrap items-stretch min-[400px]:items-center justify-center gap-3">
+            <Link to="/about" className="justify-center" style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
               padding: '13px 28px', borderRadius: 9,
-              background: '#C8962A', color: '#04080E',
+              background: 'var(--brand)', color: 'var(--fg-onbrand)',
               fontSize: 13.5, fontWeight: 700, textDecoration: 'none',
               transition: 'background 0.17s, box-shadow 0.17s',
             }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#E6B840'; e.currentTarget.style.boxShadow = '0 0 28px rgba(200,150,42,0.3)' }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#C8962A'; e.currentTarget.style.boxShadow = 'none' }}>
+              onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-bright)'; e.currentTarget.style.boxShadow = '0 0 28px var(--brand-edge)' }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'var(--brand)'; e.currentTarget.style.boxShadow = 'none' }}>
               Explore Our Divisions
               <svg fill="none" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2.2"
                 style={{ width: 12, height: 12 }}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8h10M8 3l5 5-5 5" />
               </svg>
             </Link>
-            <Link to="/contact" style={{
+            <Link to="/contact" className="justify-center" style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
               padding: '13px 28px', borderRadius: 9,
-              border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(203,213,225,0.8)',
+              border: '1px solid var(--line-strong)', color: 'var(--fg-muted)',
               fontSize: 13.5, fontWeight: 600, textDecoration: 'none',
               background: 'transparent', transition: 'all 0.17s',
             }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.28)'; e.currentTarget.style.color = '#FFFFFF'; e.currentTarget.style.background = 'rgba(255,255,255,0.04)' }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = 'rgba(203,213,225,0.8)'; e.currentTarget.style.background = 'transparent' }}>
+              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.28)'; e.currentTarget.style.color = 'var(--fg-strong)'; e.currentTarget.style.background = 'var(--line)' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--line-strong)'; e.currentTarget.style.color = 'var(--fg-muted)'; e.currentTarget.style.background = 'transparent' }}>
               Contact Network71
             </Link>
           </div>
@@ -205,76 +201,53 @@ export default function Footer() {
       </div>
 
       {/* ── Main footer grid ──────────────────────────────────────────────────── */}
-      <div style={{ maxWidth: 1360, margin: '0 auto', padding: '56px 28px 0' }}>
+      <div className="container-page pt-10 sm:pt-14">
         <div
-          className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-[1fr_1fr_1fr_1fr_1fr]"
-          style={{ gap: '40px 32px', paddingBottom: 52, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+          className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-x-6 gap-y-8 sm:gap-x-8 sm:gap-y-10 pb-9 sm:pb-[52px]"
+          style={{ borderBottom: '1px solid var(--line)' }}>
           {COLUMNS.map(col => (
             <Col key={col.title} title={col.title} links={col.links} />
           ))}
         </div>
 
         {/* ── Bottom bar ─────────────────────────────────────────────────────── */}
-        <div style={{
-          padding: '22px 0 28px',
-          display: 'flex', flexWrap: 'wrap', alignItems: 'center',
-          gap: '14px 28px', justifyContent: 'space-between',
-        }}>
+        <div
+          className="flex flex-col lg:flex-row lg:flex-wrap lg:items-center lg:justify-between gap-4 lg:gap-x-7 pt-5 sm:pt-[22px]"
+          style={{ paddingBottom: 'calc(28px + var(--safe-b))' }}>
 
           {/* Logo + copyright */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
             <Link to="/" aria-label="Network71 Home" style={{ display: 'inline-flex', opacity: 0.55, transition: 'opacity 0.15s' }}
               onMouseEnter={e => { e.currentTarget.style.opacity = '0.85' }}
               onMouseLeave={e => { e.currentTarget.style.opacity = '0.55' }}>
-              <Logo variant="primary-dark" height={19} />
+              <Logo variant="auto" height={19} />
             </Link>
             <span style={{
               fontFamily: 'var(--font-mono)', fontSize: 9.5,
-              color: 'rgba(71,85,105,0.42)',
+              color: 'var(--fg-faint)',
             }}>
               © {new Date().getFullYear()} Network71 Group. All rights reserved.
             </span>
           </div>
 
           {/* Legal links */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0 20px' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 16px' }}>
             {LEGAL.map(({ label, href }) => (
-              <Link key={label} to={href} style={{
+              <Link key={label} to={href} className="tap-inline" style={{
                 fontFamily: 'var(--font-mono)', fontSize: 9.5,
-                color: 'rgba(71,85,105,0.4)', textDecoration: 'none', transition: 'color 0.14s',
+                color: 'var(--fg-faint)', textDecoration: 'none', transition: 'color 0.14s',
               }}
-                onMouseEnter={e => { e.currentTarget.style.color = 'rgba(100,116,139,0.72)' }}
-                onMouseLeave={e => { e.currentTarget.style.color = 'rgba(71,85,105,0.4)' }}>
+                onMouseEnter={e => { e.currentTarget.style.color = 'var(--fg-subtle)' }}
+                onMouseLeave={e => { e.currentTarget.style.color = 'var(--fg-faint)' }}>
                 {label}
               </Link>
             ))}
           </div>
 
-          {/* Socials */}
-          <div style={{ display: 'flex', gap: 6 }}>
-            {SOCIALS.map(s => (
-              <a key={s} href="#" aria-label={`Network71 on ${s}`} style={{
-                width: 30, height: 30, borderRadius: 7, flexShrink: 0,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                border: '1px solid rgba(255,255,255,0.07)',
-                color: 'rgba(100,116,139,0.38)', transition: 'all 0.16s',
-              }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = 'rgba(200,150,42,0.32)'
-                  e.currentTarget.style.color = '#C8962A'
-                  e.currentTarget.style.background = 'rgba(200,150,42,0.06)'
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'
-                  e.currentTarget.style.color = 'rgba(100,116,139,0.38)'
-                  e.currentTarget.style.background = 'transparent'
-                }}>
-                <svg style={{ width: 11, height: 11 }} fill="currentColor" viewBox="0 0 24 24">
-                  <path d={SOCIAL_PATHS[s]} />
-                </svg>
-              </a>
-            ))}
-          </div>
+          <a href="mailto:info@network71.com" className="wrap-anywhere tap-inline" style={{
+            fontFamily: 'var(--font-mono)', fontSize: 9.5,
+            color: 'var(--fg-subtle)', textDecoration: 'none',
+          }}>info@network71.com</a>
         </div>
       </div>
     </footer>

@@ -5,7 +5,7 @@ import MetricsBar from '@/components/sector/MetricsBar'
 import SectorContact from '@/components/sector/SectorContact'
 import Footer from '@/components/Footer'
 
-const ACCENT = '#22c55e'
+const ACCENT = 'var(--accent-green)'
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -109,11 +109,11 @@ const sustainBars = [
 ]
 
 const markets = [
-  { region: 'South Asia', role: 'Origin', flag: '🌱', detail: 'Bangladesh, India — primary sourcing heartland', color: '#16a34a' },
+  { region: 'South Asia', role: 'Origin', flag: '🌱', detail: 'Bangladesh, India — primary sourcing heartland', color: 'var(--accent-green)' },
   { region: 'Middle East', role: 'Primary Market', flag: '🌍', detail: 'UAE, Saudi Arabia, Qatar — largest buyer volume', color: ACCENT },
-  { region: 'Europe', role: 'Premium Market', flag: '🌐', detail: 'UK, Netherlands, Germany — high-value organic channel', color: '#4ade80' },
-  { region: 'Southeast Asia', role: 'Growing Market', flag: '🌏', detail: 'Malaysia, Singapore — growing middle-class demand', color: '#86efac' },
-  { region: 'Africa', role: 'Emerging Market', flag: '🌍', detail: 'East & West Africa — early-stage channel expansion', color: '#bbf7d0' },
+  { region: 'Europe', role: 'Premium Market', flag: '🌐', detail: 'UK, Netherlands, Germany — high-value organic channel', color: 'var(--accent-green)' },
+  { region: 'Southeast Asia', role: 'Growing Market', flag: '🌏', detail: 'Malaysia, Singapore — growing middle-class demand', color: 'var(--accent-green)' },
+  { region: 'Africa', role: 'Emerging Market', flag: '🌍', detail: 'East & West Africa — early-stage channel expansion', color: 'var(--accent-green)' },
 ]
 
 const opportunities = [
@@ -196,11 +196,11 @@ export default function Agriculture() {
   const sustainRef = useInView()
 
   return (
-    <div className="min-h-full bg-navy">
+    <div className="sector-page min-h-full bg-navy">
       <SectorHeader divisionName="Agriculture & Agro Products" accentClass="text-green-400" />
 
       {/* ── 1. Hero ─────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      <section className="force-dark sector-hero relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=1400&h=800&fit=crop&auto=format"
@@ -217,7 +217,7 @@ export default function Agriculture() {
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-32">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-10" style={{ background: ACCENT }} />
+              <div className="h-px w-10" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>
                 Network71 &mdash; Division 02
               </span>
@@ -232,8 +232,8 @@ export default function Agriculture() {
             <div className="flex flex-wrap gap-4">
               <a
                 href="#sector-contact"
-                className="px-8 py-3.5 font-bold text-sm text-navy rounded-lg transition-all hover:opacity-90 shadow-lg"
-                style={{ background: ACCENT }}
+                className="px-8 py-3.5 font-bold text-sm text-fg rounded-lg transition-all hover:opacity-90 shadow-lg"
+                style={{ background: ACCENT, color: 'var(--s0)' }}
               >
                 Buyer Inquiry
               </a>
@@ -250,7 +250,7 @@ export default function Agriculture() {
         {/* Floating stat badge */}
         <div
           className="absolute bottom-16 right-8 lg:right-16 hidden lg:flex flex-col items-center gap-1 px-6 py-4 rounded-2xl border backdrop-blur-md"
-          style={{ borderColor: `${ACCENT}40`, background: 'rgba(10,18,35,0.75)' }}
+          style={{ borderColor: `color-mix(in srgb, ${ACCENT} 25%, transparent)`, background: 'rgba(10,18,35,0.75)' }}
         >
           <span className="font-display text-3xl" style={{ color: ACCENT }}>18+</span>
           <span className="text-white text-xs font-semibold tracking-wide">Export Countries</span>
@@ -262,16 +262,16 @@ export default function Agriculture() {
       <MetricsBar metrics={metrics} accentHex={ACCENT} dark />
 
       {/* ── 3. Vision & Mission ─────────────────────────────────────────────── */}
-      <section className="py-24 bg-neutral">
+      <section className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             {/* Left — rich text */}
             <div>
               <div className="flex items-center gap-3 mb-5">
-                <div className="h-px w-8" style={{ background: ACCENT }} />
+                <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Our Vision</span>
               </div>
-              <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight mb-6">
+              <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-6">
                 Connecting South Asian Growers to the World
               </h2>
               <p className="text-slate-500 leading-relaxed mb-5 text-sm">
@@ -290,14 +290,14 @@ export default function Agriculture() {
               {values.map((v) => (
                 <div
                   key={v.label}
-                  className="flex gap-5 items-start p-5 bg-white rounded-xl border border-slate-100 hover:border-green-200 transition-colors"
+                  className="flex gap-5 items-start p-5 bg-surface-2 rounded-xl border border-slate-100 hover:border-green-200 transition-colors"
                 >
                   <div
                     className="w-2 h-2 rounded-full flex-shrink-0 mt-1.5"
-                    style={{ background: ACCENT }}
+                    style={{ background: ACCENT, color: 'var(--s0)' }}
                   />
                   <div>
-                    <h3 className="font-display text-lg text-navy mb-1">{v.label}</h3>
+                    <h3 className="font-display text-lg text-fg mb-1">{v.label}</h3>
                     <p className="text-slate-500 text-sm leading-relaxed">{v.desc}</p>
                   </div>
                 </div>
@@ -308,15 +308,15 @@ export default function Agriculture() {
       </section>
 
       {/* ── 4. Crop Portfolio ───────────────────────────────────────────────── */}
-      <section id="crop-portfolio" className="py-24 bg-white">
+      <section id="crop-portfolio" className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Product Range</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight mb-4">Crop Portfolio</h2>
+            <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-4">Crop Portfolio</h2>
             <p className="text-slate-500 text-sm max-w-lg mx-auto leading-relaxed">
               Six commodity categories — each processed, graded, and documented to meet the requirements of international buyers across food retail, food service, and industrial processing.
             </p>
@@ -326,21 +326,21 @@ export default function Agriculture() {
             {crops.map((c) => (
               <div
                 key={c.name}
-                className="group p-7 rounded-2xl border border-slate-100 hover:border-green-300 bg-white hover:shadow-xl transition-all duration-300"
+                className="group p-7 rounded-2xl border border-slate-100 hover:border-green-300 bg-surface-2 hover:shadow-xl transition-all duration-300"
               >
                 <div className="flex items-start gap-4 mb-4">
                   <div
                     className="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
-                    style={{ background: `${ACCENT}12` }}
+                    style={{ background: `color-mix(in srgb, ${ACCENT} 7%, transparent)` }}
                   >
                     {c.emoji}
                   </div>
                   <div
                     className="mt-2 w-2 h-2 rounded-full flex-shrink-0"
-                    style={{ background: ACCENT }}
+                    style={{ background: ACCENT, color: 'var(--s0)' }}
                   />
                 </div>
-                <h3 className="font-display text-xl text-navy mb-2 leading-tight">{c.name}</h3>
+                <h3 className="font-display text-xl text-fg mb-2 leading-tight">{c.name}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{c.desc}</p>
               </div>
             ))}
@@ -353,9 +353,9 @@ export default function Agriculture() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>AgriTechnology</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-white leading-tight mb-4">Smart Farming &amp; Technology</h2>
             <p className="text-slate-400 text-sm max-w-xl mx-auto leading-relaxed">
@@ -368,11 +368,11 @@ export default function Agriculture() {
               <div
                 key={t.title}
                 className="p-7 rounded-2xl border transition-all duration-300 hover:border-green-500/30 group"
-                style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(255,255,255,0.07)' }}
+                style={{ background: 'var(--fill-1)', borderColor: 'rgba(255,255,255,0.07)' }}
               >
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5"
-                  style={{ background: `${ACCENT}18`, border: `1px solid ${ACCENT}30` }}
+                  style={{ background: `color-mix(in srgb, ${ACCENT} 9%, transparent)`, border: `1px solid color-mix(in srgb, ${ACCENT} 19%, transparent)` }}
                 >
                   {t.icon}
                 </div>
@@ -385,12 +385,12 @@ export default function Agriculture() {
           {/* Data dashboard mockup */}
           <div
             className="rounded-2xl p-8 border"
-            style={{ background: 'rgba(255,255,255,0.02)', borderColor: 'rgba(255,255,255,0.06)' }}
+            style={{ background: 'var(--fill-1)', borderColor: 'rgba(255,255,255,0.06)' }}
           >
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-3 h-3 rounded-full" style={{ background: ACCENT }} />
+              <div className="w-3 h-3 rounded-full" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="text-white text-sm font-semibold">N71 AgriOps Dashboard</span>
-              <span className="ml-auto text-[10px] font-medium px-2 py-0.5 rounded-full" style={{ background: `${ACCENT}20`, color: ACCENT }}>Live</span>
+              <span className="ml-auto text-[10px] font-medium px-2 py-0.5 rounded-full" style={{ background: `color-mix(in srgb, ${ACCENT} 13%, transparent)`, color: ACCENT }}>Live</span>
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {[
@@ -399,7 +399,7 @@ export default function Agriculture() {
                 { label: 'Cold Chain Uptime', val: '99.1%' },
                 { label: 'Pending Shipments', val: '23' },
               ].map((d) => (
-                <div key={d.label} className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)' }}>
+                <div key={d.label} className="p-4 rounded-xl" style={{ background: 'var(--fill-2)' }}>
                   <div className="font-display text-2xl text-white mb-1">{d.val}</div>
                   <div className="text-slate-500 text-[11px]">{d.label}</div>
                 </div>
@@ -413,84 +413,84 @@ export default function Agriculture() {
       <ProcessFlow steps={processSteps} accentHex={ACCENT} label="Farm-to-Market Journey" />
 
       {/* ── 7. Supply Chain ─────────────────────────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Supply Chain</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight">End-to-End Value Chain</h2>
+            <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight">End-to-End Value Chain</h2>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-0 items-stretch">
             {/* LEFT */}
-            <div className="relative p-8 rounded-2xl lg:rounded-r-none border border-slate-100 bg-neutral">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 text-xl" style={{ background: `${ACCENT}15` }}>🌱</div>
-              <h3 className="font-display text-xl text-navy mb-3">Farmer Network</h3>
+            <div className="relative p-8 rounded-2xl lg:rounded-r-none border border-slate-100 bg-surface-1">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 text-xl" style={{ background: `color-mix(in srgb, ${ACCENT} 8%, transparent)` }}>🌱</div>
+              <h3 className="font-display text-xl text-fg mb-3">Farmer Network</h3>
               <ul className="space-y-2 text-sm text-slate-500">
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT }} />
+                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT, color: 'var(--s0)' }} />
                   500+ farming partners
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT }} />
+                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT, color: 'var(--s0)' }} />
                   10,000+ acres under management
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT }} />
+                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT, color: 'var(--s0)' }} />
                   Multiple producing districts
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT }} />
+                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT, color: 'var(--s0)' }} />
                   Organic &amp; conventional lots
                 </li>
               </ul>
               {/* Arrow right — hidden on mobile */}
-              <div className="hidden lg:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full items-center justify-center border-2 border-white" style={{ background: ACCENT }}>
-                <svg className="w-4 h-4 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+              <div className="hidden lg:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full items-center justify-center border-2 border-white" style={{ background: ACCENT, color: 'var(--s0)' }}>
+                <svg className="w-4 h-4 text-fg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
               </div>
             </div>
 
             {/* CENTER */}
-            <div className="relative p-8 border border-slate-100 lg:border-x-0 text-center" style={{ background: '#f0fdf4' }}>
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-5 text-2xl" style={{ background: ACCENT }}>🏭</div>
-              <h3 className="font-display text-xl text-navy mb-3">N71 Processing Hub</h3>
+            <div className="relative p-8 border border-slate-100 lg:border-x-0 text-center" style={{ background: 'color-mix(in srgb, var(--accent-green) 6%, var(--s2))' }}>
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-5 text-2xl" style={{ background: ACCENT, color: 'var(--s0)' }}>🏭</div>
+              <h3 className="font-display text-xl text-fg mb-3">N71 Processing Hub</h3>
               <div className="grid grid-cols-2 gap-2 text-xs text-slate-600">
                 {['Sorting & Grading', 'Cleaning & Milling', 'Quality Lab Testing', 'Cold Chain Storage', 'Value-Add Processing', 'Export Packaging'].map((item) => (
-                  <div key={item} className="px-2 py-1.5 rounded-lg bg-white border border-slate-100">{item}</div>
+                  <div key={item} className="px-2 py-1.5 rounded-lg bg-surface-2 border border-slate-100">{item}</div>
                 ))}
               </div>
               {/* Arrow right — hidden on mobile */}
-              <div className="hidden lg:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full items-center justify-center border-2 border-white" style={{ background: ACCENT }}>
-                <svg className="w-4 h-4 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+              <div className="hidden lg:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full items-center justify-center border-2 border-white" style={{ background: ACCENT, color: 'var(--s0)' }}>
+                <svg className="w-4 h-4 text-fg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
               </div>
             </div>
 
             {/* RIGHT */}
-            <div className="p-8 rounded-2xl lg:rounded-l-none border border-slate-100 bg-neutral">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 text-xl" style={{ background: `${ACCENT}15` }}>🌍</div>
-              <h3 className="font-display text-xl text-navy mb-3">Global Markets</h3>
+            <div className="p-8 rounded-2xl lg:rounded-l-none border border-slate-100 bg-surface-1">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 text-xl" style={{ background: `color-mix(in srgb, ${ACCENT} 8%, transparent)` }}>🌍</div>
+              <h3 className="font-display text-xl text-fg mb-3">Global Markets</h3>
               <ul className="space-y-2 text-sm text-slate-500">
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT }} />
+                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT, color: 'var(--s0)' }} />
                   18+ destination countries
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT }} />
+                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT, color: 'var(--s0)' }} />
                   Retail supermarket chains
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT }} />
+                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT, color: 'var(--s0)' }} />
                   Industrial food processors
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT }} />
+                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: ACCENT, color: 'var(--s0)' }} />
                   Institutional bulk buyers
                 </li>
               </ul>
@@ -500,15 +500,15 @@ export default function Agriculture() {
       </section>
 
       {/* ── 8. Quality & Compliance ─────────────────────────────────────────── */}
-      <section className="py-24 bg-neutral" ref={qualityRef.ref}>
+      <section className="py-24 bg-surface-1" ref={qualityRef.ref}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Standards</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight mb-4">Quality &amp; Compliance</h2>
+            <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-4">Quality &amp; Compliance</h2>
             <p className="text-slate-500 text-sm max-w-lg mx-auto leading-relaxed">
               Every shipment leaves our facility backed by rigorous laboratory verification and internationally recognised certifications.
             </p>
@@ -518,17 +518,17 @@ export default function Agriculture() {
             {/* Certifications */}
             <div className="space-y-4">
               {certifications.map((cert) => (
-                <div key={cert.name} className="flex gap-5 p-5 bg-white rounded-xl border border-slate-100">
+                <div key={cert.name} className="flex gap-5 p-5 bg-surface-2 rounded-xl border border-slate-100">
                   <div
                     className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{ background: `${ACCENT}15`, border: `1px solid ${ACCENT}25` }}
+                    style={{ background: `color-mix(in srgb, ${ACCENT} 8%, transparent)`, border: `1px solid color-mix(in srgb, ${ACCENT} 15%, transparent)` }}
                   >
                     <svg className="w-4 h-4" style={{ color: ACCENT }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-navy text-sm mb-1">{cert.name}</h3>
+                    <h3 className="font-semibold text-fg text-sm mb-1">{cert.name}</h3>
                     <p className="text-slate-500 text-xs leading-relaxed">{cert.desc}</p>
                   </div>
                 </div>
@@ -536,8 +536,8 @@ export default function Agriculture() {
             </div>
 
             {/* Progress bars */}
-            <div className="bg-white p-8 rounded-2xl border border-slate-100">
-              <h3 className="font-display text-xl text-navy mb-6">Performance Metrics</h3>
+            <div className="bg-surface-2 p-8 rounded-2xl border border-slate-100">
+              <h3 className="font-display text-xl text-fg mb-6">Performance Metrics</h3>
               {qualityBars.map((bar) => (
                 <AnimatedBar key={bar.label} label={bar.label} value={bar.value} accentHex={ACCENT} triggered={qualityRef.inView} />
               ))}
@@ -548,27 +548,27 @@ export default function Agriculture() {
       </section>
 
       {/* ── 9. Sustainability ───────────────────────────────────────────────── */}
-      <section className="py-24 bg-white" ref={sustainRef.ref}>
+      <section className="py-24 bg-surface-2" ref={sustainRef.ref}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             {/* Left — story */}
             <div>
               <div className="flex items-center gap-3 mb-5">
-                <div className="h-px w-8" style={{ background: ACCENT }} />
+                <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Sustainability</span>
               </div>
-              <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight mb-6">
+              <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-6">
                 Responsible Agriculture, Real Impact
               </h2>
 
               {/* Impact callout */}
               <div
                 className="flex items-center gap-5 p-5 rounded-2xl mb-8"
-                style={{ background: `${ACCENT}10`, border: `1px solid ${ACCENT}25` }}
+                style={{ background: `color-mix(in srgb, ${ACCENT} 6%, transparent)`, border: `1px solid color-mix(in srgb, ${ACCENT} 15%, transparent)` }}
               >
-                <div className="font-display text-4xl text-navy" style={{ color: ACCENT }}>37,500+</div>
+                <div className="font-display text-4xl text-fg" style={{ color: ACCENT }}>37,500+</div>
                 <div>
-                  <div className="text-navy font-semibold text-sm">Lives Impacted</div>
+                  <div className="text-fg font-semibold text-sm">Lives Impacted</div>
                   <div className="text-slate-500 text-xs">Across farming families and rural communities in our supply network</div>
                 </div>
               </div>
@@ -581,9 +581,9 @@ export default function Agriculture() {
                   { title: 'Community Development', desc: 'Investment in rural infrastructure, school programmes, and women-led agricultural micro-enterprises.' },
                 ].map((p) => (
                   <div key={p.title} className="flex gap-4 items-start">
-                    <div className="w-1 h-16 rounded-full flex-shrink-0" style={{ background: ACCENT }} />
+                    <div className="w-1 h-16 rounded-full flex-shrink-0" style={{ background: ACCENT, color: 'var(--s0)' }} />
                     <div>
-                      <h3 className="font-semibold text-navy text-sm mb-1">{p.title}</h3>
+                      <h3 className="font-semibold text-fg text-sm mb-1">{p.title}</h3>
                       <p className="text-slate-500 text-sm leading-relaxed">{p.desc}</p>
                     </div>
                   </div>
@@ -593,21 +593,21 @@ export default function Agriculture() {
 
             {/* Right — progress bars */}
             <div>
-              <h3 className="font-display text-xl text-navy mb-6">Sustainability Progress</h3>
+              <h3 className="font-display text-xl text-fg mb-6">Sustainability Progress</h3>
               {sustainBars.map((bar) => (
                 <AnimatedBar key={bar.label} label={bar.label} value={bar.value} accentHex={ACCENT} triggered={sustainRef.inView} />
               ))}
               <p className="text-slate-400 text-xs mt-2 mb-8">* Figures reflect current programme coverage across registered partner farms.</p>
 
               {/* UN SDG callout */}
-              <div className="p-5 rounded-xl border border-slate-100 bg-neutral">
+              <div className="p-5 rounded-xl border border-slate-100 bg-surface-1">
                 <div className="text-xs font-semibold text-slate-500 mb-3 tracking-wide uppercase">Aligned with UN SDGs</div>
                 <div className="flex flex-wrap gap-2">
                   {['SDG 1 — No Poverty', 'SDG 2 — Zero Hunger', 'SDG 8 — Decent Work', 'SDG 12 — Responsible Consumption'].map((sdg) => (
                     <span
                       key={sdg}
                       className="px-2.5 py-1 text-[10px] font-semibold rounded-full"
-                      style={{ background: `${ACCENT}15`, color: '#15803d' }}
+                      style={{ background: `color-mix(in srgb, ${ACCENT} 8%, transparent)`, color: 'var(--accent-green)' }}
                     >
                       {sdg}
                     </span>
@@ -624,9 +624,9 @@ export default function Agriculture() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Global Reach</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-white leading-tight mb-4">Key Markets</h2>
             <p className="text-slate-400 text-sm max-w-lg mx-auto">
@@ -640,7 +640,7 @@ export default function Agriculture() {
               <div
                 key={m.region}
                 className="p-5 rounded-2xl border transition-all hover:scale-[1.02] duration-200"
-                style={{ background: 'rgba(255,255,255,0.03)', borderColor: `${m.color}30` }}
+                style={{ background: 'var(--fill-1)', borderColor: `color-mix(in srgb, ${m.color} 19%, transparent)` }}
               >
                 <div className="text-3xl mb-3">{m.flag}</div>
                 <div className="text-[10px] font-bold tracking-[0.2em] uppercase mb-1" style={{ color: m.color }}>{m.role}</div>
@@ -661,15 +661,15 @@ export default function Agriculture() {
       </section>
 
       {/* ── 11. Business Opportunities ──────────────────────────────────────── */}
-      <section className="py-24 bg-neutral">
+      <section className="py-24 bg-surface-1">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Opportunities</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight mb-4">Work With Our Agriculture Division</h2>
+            <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-4">Work With Our Agriculture Division</h2>
             <p className="text-slate-500 text-sm max-w-lg mx-auto">Three pathways for businesses looking to access South Asian agricultural supply.</p>
           </div>
 
@@ -677,13 +677,13 @@ export default function Agriculture() {
             {opportunities.map((o) => (
               <div
                 key={o.title}
-                className="group relative flex flex-col p-8 rounded-2xl bg-white border border-slate-100 hover:border-green-300 hover:shadow-xl transition-all duration-300"
+                className="group relative flex flex-col p-8 rounded-2xl bg-surface-2 border border-slate-100 hover:border-green-300 hover:shadow-xl transition-all duration-300"
               >
                 <div
                   className="absolute top-0 left-8 w-16 h-0.5 rounded-full"
-                  style={{ background: ACCENT }}
+                  style={{ background: ACCENT, color: 'var(--s0)' }}
                 />
-                <h3 className="font-display text-xl text-navy mt-4 mb-3 leading-tight">{o.title}</h3>
+                <h3 className="font-display text-xl text-fg mt-4 mb-3 leading-tight">{o.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed mb-8 flex-1">{o.desc}</p>
                 <a
                   href="#sector-contact"
@@ -702,16 +702,16 @@ export default function Agriculture() {
       </section>
 
       {/* ── 12. Farmer Partnership Program ──────────────────────────────────── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left — content */}
             <div>
               <div className="flex items-center gap-3 mb-5">
-                <div className="h-px w-8" style={{ background: ACCENT }} />
+                <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
                 <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Farmer Program</span>
               </div>
-              <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight mb-5">
+              <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-5">
                 Join the Network71 Farmer Partnership
               </h2>
               <p className="text-slate-500 text-sm leading-relaxed mb-8">
@@ -719,8 +719,8 @@ export default function Agriculture() {
               </p>
               <a
                 href="#sector-contact"
-                className="inline-flex items-center gap-2 px-7 py-3.5 font-bold text-sm text-navy rounded-lg transition-all hover:opacity-90"
-                style={{ background: ACCENT }}
+                className="inline-flex items-center gap-2 px-7 py-3.5 font-bold text-sm text-fg rounded-lg transition-all hover:opacity-90"
+                style={{ background: ACCENT, color: 'var(--s0)' }}
               >
                 Register as Supplier
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -732,9 +732,9 @@ export default function Agriculture() {
             {/* Right — benefit cards */}
             <div className="grid sm:grid-cols-2 gap-4">
               {farmerBenefits.map((b) => (
-                <div key={b.title} className="p-6 rounded-xl border border-slate-100 bg-neutral hover:border-green-200 transition-colors">
+                <div key={b.title} className="p-6 rounded-xl border border-slate-100 bg-surface-1 hover:border-green-200 transition-colors">
                   <div className="text-2xl mb-3">{b.icon}</div>
-                  <h3 className="font-semibold text-navy text-sm mb-2">{b.title}</h3>
+                  <h3 className="font-semibold text-fg text-sm mb-2">{b.title}</h3>
                   <p className="text-slate-500 text-xs leading-relaxed">{b.desc}</p>
                 </div>
               ))}
@@ -744,21 +744,21 @@ export default function Agriculture() {
       </section>
 
       {/* ── 13. Growth Roadmap ──────────────────────────────────────────────── */}
-      <section className="py-24 bg-neutral overflow-hidden">
+      <section className="py-24 bg-surface-1 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
               <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ACCENT }}>Roadmap</span>
-              <div className="h-px w-8" style={{ background: ACCENT }} />
+              <div className="h-px w-8" style={{ background: ACCENT, color: 'var(--s0)' }} />
             </div>
-            <h2 className="font-display text-4xl lg:text-5xl text-navy leading-tight">Growth Roadmap</h2>
+            <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight">Growth Roadmap</h2>
           </div>
 
           {/* Horizontal timeline */}
           <div className="relative">
             {/* Connector line */}
-            <div className="hidden lg:block absolute top-6 left-0 right-0 h-px" style={{ background: `${ACCENT}30` }} />
+            <div className="hidden lg:block absolute top-6 left-0 right-0 h-px" style={{ background: `color-mix(in srgb, ${ACCENT} 19%, transparent)` }} />
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {roadmap.map((r, i) => (
@@ -766,14 +766,14 @@ export default function Agriculture() {
                   <div className="flex lg:flex-col items-start gap-4 lg:gap-0">
                     {/* Year bubble */}
                     <div
-                      className="w-12 h-12 rounded-full flex items-center justify-center font-display text-sm font-bold text-navy flex-shrink-0 lg:mb-6 relative z-10"
-                      style={{ background: ACCENT }}
+                      className="w-12 h-12 rounded-full flex items-center justify-center font-display text-sm font-bold text-fg flex-shrink-0 lg:mb-6 relative z-10"
+                      style={{ background: ACCENT, color: 'var(--s0)' }}
                     >
                       {r.year.slice(2)}
                     </div>
                     <div>
-                      <div className="font-bold text-navy text-sm mb-1" style={{ color: ACCENT }}>{r.year}</div>
-                      <h3 className="font-display text-lg text-navy mb-2 leading-tight">{r.milestone}</h3>
+                      <div className="font-bold text-fg text-sm mb-1" style={{ color: ACCENT }}>{r.year}</div>
+                      <h3 className="font-display text-lg text-fg mb-2 leading-tight">{r.milestone}</h3>
                       <p className="text-slate-500 text-xs leading-relaxed">{r.desc}</p>
                     </div>
                   </div>
