@@ -1,0 +1,119 @@
+import { ACCENT } from "../theme"
+import type { GarmentsContent } from "../content/en"
+import { icons } from "../icons"
+
+export default function Manufacturing({
+  c,
+}: {
+  c: GarmentsContent['manufacturing']
+}) {
+  return (
+    <section className="py-24 bg-navy">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="h-px w-10" style={{ background: ACCENT }} />
+          <span
+            className="font-mono text-[9px] tracking-[0.35em] uppercase"
+            style={{ color: ACCENT }}
+          >
+            {c.eyebrow}
+          </span>
+        </div>
+        <div className="grid lg:grid-cols-2 gap-10 mb-16">
+          <h2 className="font-display text-4xl lg:text-5xl text-white leading-tight">
+            {c.title1}
+            <br />
+            {c.title2}
+          </h2>
+          <p className="text-slate-400 text-sm leading-relaxed lg:pt-2">
+            {c.lead}
+          </p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {c.pillars.map((pillar) => (
+            <div
+              key={pillar.title}
+              className="p-7 rounded-2xl group hover:-translate-y-1 transition-all"
+              style={{
+                background: "var(--fill-2)",
+                border: "var(--border-subtle)",
+              }}
+            >
+              <div
+                className="w-14 h-14 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform"
+                style={{
+                  color: ACCENT,
+                  background: `color-mix(in srgb, ${ACCENT} 8%, transparent)`,
+                  border: `1px solid color-mix(in srgb, ${ACCENT} 15%, transparent)`,
+                }}
+              >
+                {icons[pillar.iconId]}
+              </div>
+              <div
+                className="text-[10px] font-bold tracking-[0.25em] mb-2"
+                style={{ color: ACCENT }}
+              >
+                {pillar.abbr}
+              </div>
+              <h3 className="font-display text-lg text-white mb-3">
+                {pillar.title}
+              </h3>
+              <p className="text-slate-400 text-xs leading-relaxed">
+                {pillar.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Production process visual diagram */}
+        <div className="mt-16 pt-12 border-t border-white/8">
+          <p className="text-slate-500 text-[10px] tracking-[0.2em] uppercase mb-8">
+            {c.flowLabel}
+          </p>
+          <div className="flex flex-wrap items-center gap-0">
+            {c.stages.map((stage, i, arr) => (
+              <div key={stage} className="flex items-center">
+                <div
+                  className="px-4 py-2.5 rounded-lg text-[11px] font-semibold text-white"
+                  style={{
+                    color:
+                      i === 0 || i === arr.length - 1
+                        ? "var(--s0)"
+                        : "var(--fg)",
+                    background:
+                      i === 0 || i === arr.length - 1
+                        ? ACCENT
+                        : "rgba(255,255,255,0.06)",
+                    border: `1px solid ${
+                      i === 0 || i === arr.length - 1
+                        ? ACCENT
+                        : "rgba(255,255,255,0.1)"
+                    }`,
+                  }}
+                >
+                  {stage}
+                </div>
+                {i < arr.length - 1 && (
+                  <svg
+                    className="w-5 h-5 mx-1 flex-shrink-0 text-slate-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
