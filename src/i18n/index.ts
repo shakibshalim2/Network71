@@ -7,14 +7,15 @@ const DICTIONARIES: Record<Language, Record<TKey, string>> = { en, bn }
 
 export type { TKey }
 
-export function translate(lang: Language, key: TKey): string {
-  return DICTIONARIES[lang][key] ?? en[key]
+export function translate(lang: Language, key: TKey, vars?: Record<string, string | number>): string {
+  const raw = DICTIONARIES[lang][key] ?? en[key]
+  return vars ? raw.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? `{${k}}`)) : raw
 }
 
-/** Returns `t(key)` bound to the active language. */
+/** Returns `t(key, vars?)` bound to the active language. */
 export function useT() {
   const { language } = useLanguage()
-  const t = useCallback((key: TKey) => translate(language, key), [language])
+  const t = useCallback((key: TKey, vars?: Record<string, string | number>) => translate(language, key, vars), [language])
   return { t, language }
 }
 

@@ -1,3 +1,5 @@
+import { useT } from '@/i18n'
+
 interface Step {
   title: string
   desc: string
@@ -9,14 +11,16 @@ interface ProcessFlowProps {
   label?: string
 }
 
-export default function ProcessFlow({ steps, accentHex, label = 'Production Workflow' }: ProcessFlowProps) {
+export default function ProcessFlow({ steps, accentHex, label }: ProcessFlowProps) {
+  const { t } = useT()
+  const heading = label ?? t('sector.process.default')
   return (
     <section className="py-20 bg-navy">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center gap-3 mb-12">
           <div className="h-px w-8" style={{ background: accentHex }} />
           <span className="text-[10px] font-semibold tracking-[0.3em] uppercase" style={{ color: accentHex }}>
-            {label}
+            {heading}
           </span>
         </div>
 
