@@ -15,7 +15,7 @@ export default function EdibleOils({ c }: { c: OilsEnergyContent }) {
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
               <div>
                 <h2 className="font-display text-4xl text-fg mb-3">
-                  Five Oil Varieties.<br />
+                  {c.edible.heading}<br />
                   <span style={{ color: AMBER }}>{c.copy.oilsTagline}</span>
                 </h2>
                 <p className="text-slate-500 text-sm leading-relaxed max-w-xl">

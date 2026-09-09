@@ -59,7 +59,7 @@ export default function Markets({
 
         <div className="p-5 rounded-xl bg-surface-2 border border-slate-100 text-center">
           <p className="text-slate-400 text-sm">
-            Additional export markets:{" "}
+            {c.additionalLabel}{" "}
             <span className="text-fg font-medium">{c.dataNote}</span> —
             {c.note}
           </p>

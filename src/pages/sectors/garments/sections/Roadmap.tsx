@@ -30,10 +30,7 @@ export default function Roadmap({
             </h2>
           </div>
           <p className="text-slate-500 text-sm leading-relaxed lg:pt-2">
-            Network71&apos;s Garments division is executing a phased growth
-            strategy — expanding physical capacity, launching sustainable
-            product lines, and integrating advanced production technologies over
-            the next three years.
+            {c.lead}
           </p>
         </div>
 

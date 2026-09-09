@@ -94,7 +94,7 @@ export default function Overview({ c }: { c: OilsEnergyContent }) {
               </p>
 
               <div className="grid grid-cols-2 gap-2 mb-6">
-                {['8 Distribution Centers', 'Bulk Contract Supply', 'Industrial-Grade', 'Regulatory Compliant'].map((tag) => (
+                {c.overview.energyTags.map((tag) => (
                   <div
                     key={tag}
                     className="text-xs font-medium px-3 py-1.5 rounded-lg"

@@ -69,7 +69,7 @@ export default function QualityLab({ c }: { c: FoodBeverageContent }) {
                 <p className="text-slate-500 text-sm leading-relaxed">{c.facilitiesCopy.qcLead}</p>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                {['Incoming QC', 'In-Process QC', 'Finished Goods QC', 'Environmental Monitoring'].map((item) => (
+                {c.facilitiesCopy.qcItems.map((item) => (
                   <div key={item} className="p-4 rounded-xl text-center border border-slate-100" style={{ background: `color-mix(in srgb, ${ORANGE} 2%, transparent)` }}>
                     <div className="w-8 h-8 rounded-full mx-auto mb-2 flex items-center justify-center" style={{ background: `color-mix(in srgb, ${ORANGE} 8%, transparent)` }}>
                       <div className="w-2.5 h-2.5 rounded-full" style={{ background: ORANGE, color: 'var(--s0)' }} />

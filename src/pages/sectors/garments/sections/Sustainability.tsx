@@ -44,10 +44,7 @@ export default function Sustainability({
               {c.title2}
             </h2>
             <p className="text-slate-400 leading-relaxed mb-5">
-              Network71&apos;s Garments division is actively building one of the
-              most responsible apparel supply chains in Bangladesh — embedding
-              sustainability into sourcing decisions, production processes, and
-              workforce development.
+              {c.p1}
             </p>
             <p className="text-slate-400 leading-relaxed mb-8">
               {c.p2}

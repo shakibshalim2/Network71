@@ -92,6 +92,7 @@ const en = {
     colCerts: 'Certifications',
     qcEyebrow: 'On-Site Laboratory & QC',
     qcTitle: 'Integrated Quality Control',
+    qcItems: ['Incoming QC', 'In-Process QC', 'Finished Goods QC', 'Environmental Monitoring'],
     qcLead: 'Each processing unit is supported by on-site quality control infrastructure. Lab results directly gate production release — no batch leaves without QC sign-off.',
   },
   quality: {

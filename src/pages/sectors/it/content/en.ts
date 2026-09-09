@@ -136,6 +136,12 @@ const en = {
       lead: "The trajectory of Network71's technology division over the next four years.",
     },
     AILab: {
+      areas: [
+        { title: "Commerce AI", desc: "Behavioural recommendation, personalisation, and conversion optimisation." },
+        { title: "Computer Vision", desc: "Image recognition and 3D modelling for virtual product try-on." },
+        { title: "NLP & Chat AI", desc: "Conversational assistants for commerce, support, and content creation." },
+        { title: "Predictive Systems", desc: "Demand forecasting, pricing intelligence, and inventory prediction." },
+      ],
       eyebrow: "AI Research & Development",
       title:
         "Network71's AI Lab is the engine behind Ezyify's intelligence and the research arm of our software" +

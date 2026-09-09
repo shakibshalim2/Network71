@@ -35,24 +35,7 @@ export default function AILab({ c }: { c: ITContent }) {
               {c.copy.AILab.title}
             </p>
             <div className="space-y-5">
-              {[
-                {
-                  title: "Commerce AI",
-                  desc: "Behavioural recommendation, personalisation, and conversion optimisation.",
-                },
-                {
-                  title: "Computer Vision",
-                  desc: "Image recognition and 3D modelling for virtual product try-on.",
-                },
-                {
-                  title: "NLP &amp; Chat AI",
-                  desc: "Conversational assistants for commerce, support, and content creation.",
-                },
-                {
-                  title: "Predictive Systems",
-                  desc: "Demand forecasting, pricing intelligence, and inventory prediction.",
-                },
-              ].map((a) => (
+              {c.copy.AILab.areas.map((a) => (
                 <div key={a.title} className="flex gap-4">
                   <div
                     className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0"

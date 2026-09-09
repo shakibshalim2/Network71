@@ -20,6 +20,7 @@ const en = {
     edibleImageAlt: "Edible oils — golden olive oil pouring",
   },
   overview: {
+    energyTags: ["8 Distribution Centers", "Bulk Contract Supply", "Industrial-Grade", "Regulatory Compliant"],
     eyebrow: "Two Divisions. One Standard.",
     title: "Essential Products. Essential Infrastructure.",
     lead: "From the cooking oil on family tables to the fuel powering factories, Network71 Oils & Energy " +
@@ -34,6 +35,7 @@ const en = {
         "transport, construction, and institutional clients through a growing nationwide distribution network.",
   },
   edible: {
+    heading: "Five Oil Varieties.",
     eyebrow: "Edible Oils",
     title: "Refined for Every Table",
     lead: "Our edible oil portfolio is formulated for the demands of homes, food manufacturers, and commercial kitchens — with traceable sourcing and consistent quality from refinery to shelf.",
