@@ -1,7 +1,17 @@
 import { Link } from 'react-router-dom'
 import Logo from '@/components/brand/Logo'
+import { useT } from '@/i18n'
+
+const LINKS = [
+  { key: 'notFound.link.about', href: '/about' },
+  { key: 'notFound.link.divisions', href: '/divisions/garments' },
+  { key: 'notFound.link.ezyify', href: '/ezyify' },
+  { key: 'notFound.link.investors', href: '/investors' },
+  { key: 'notFound.link.careers', href: '/careers' },
+] as const
 
 export default function NotFound() {
+  const { t } = useT()
   return (
     <main className="public-content min-h-screen py-12 bg-navy flex flex-col items-center justify-center relative overflow-hidden">
       {/* Dot grid background */}
@@ -52,7 +62,7 @@ export default function NotFound() {
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-xl mx-auto">
         {/* Logo */}
-        <Link to="/" className="inline-flex items-center mb-12 group" aria-label="Network71 — Home">
+        <Link to="/" className="inline-flex items-center mb-12 group" aria-label={t('notFound.homeAria')}>
           <Logo variant="auto" height={30} />
         </Link>
 
@@ -68,9 +78,9 @@ export default function NotFound() {
           <div className="h-px w-12 bg-white/15" />
         </div>
 
-        <h1 className="font-display text-3xl sm:text-4xl text-white mb-4">Page Not Found</h1>
+        <h1 className="font-display text-3xl sm:text-4xl text-white mb-4">{t('notFound.title')}</h1>
         <p className="text-slate-400 text-base leading-relaxed mb-10">
-          The page you&apos;re looking for doesn&apos;t exist or has been moved. Let&apos;s get you back on track.
+          {t('notFound.lead')}
         </p>
 
         {/* CTAs */}
@@ -79,33 +89,27 @@ export default function NotFound() {
             to="/"
             className="px-8 py-3.5 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-all duration-200 shadow-lg shadow-gold/20"
           >
-            Go Home
+            {t('notFound.goHome')}
           </Link>
           <Link
             to="/contact"
             className="px-8 py-3.5 border border-white/20 text-white text-sm font-medium rounded-lg hover:bg-white/5 hover:border-white/40 transition-all duration-200"
           >
-            Contact Us
+            {t('notFound.contact')}
           </Link>
         </div>
 
         {/* Helpful links */}
         <div className="mt-14 pt-8 border-t border-white/8">
-          <p className="text-slate-500 text-xs mb-5 uppercase tracking-widest font-semibold">You might be looking for</p>
+          <p className="text-slate-500 text-xs mb-5 uppercase tracking-widest font-semibold">{t('notFound.hint')}</p>
           <div className="flex flex-wrap gap-2 justify-center">
-            {[
-              { label: 'About', href: '/about' },
-              { label: 'Divisions', href: '/divisions/garments' },
-              { label: 'Ezyify', href: '/ezyify' },
-              { label: 'Investors', href: '/investors' },
-              { label: 'Careers', href: '/careers' },
-            ].map((l) => (
+            {LINKS.map((l) => (
               <Link
                 key={l.href}
                 to={l.href}
                 className="px-4 py-1.5 rounded-full bg-white/5 text-slate-400 hover:text-gold hover:bg-white/10 text-sm transition-colors border border-white/8 hover:border-gold/20"
               >
-                {l.label}
+                {t(l.key)}
               </Link>
             ))}
           </div>

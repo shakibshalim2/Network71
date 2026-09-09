@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { useT } from "@/i18n"
 import {
   safeContentUrl,
   textField,
@@ -9,6 +10,7 @@ import {
 } from "@/lib/publicContent"
 
 export function WorkImage({ src, alt }: { src: string; alt: string }) {
+  const { t } = useT()
   const [failed, setFailed] = useState("")
   const url = safeContentUrl(src)
   return url && failed !== url ? (
@@ -23,15 +25,16 @@ export function WorkImage({ src, alt }: { src: string; alt: string }) {
     <div
       className="work-image-placeholder"
       role="img"
-      aria-label={`Image unavailable: ${alt}`}
+      aria-label={t("work.imageUnavailable", { alt })}
     >
       <span>N71</span>
-      <small>IMAGE UNAVAILABLE</small>
+      <small>{t("work.imageUnavailableShort")}</small>
     </div>
   )
 }
 
 export function WorkCard({ item }: { item: PublishedItem }) {
+  const { t } = useT()
   return (
     <Link className="work-card" to={`/projects/${item.slug}`}>
       <div className="work-card-image">
@@ -49,7 +52,7 @@ export function WorkCard({ item }: { item: PublishedItem }) {
         <h3>{textField(item, "title")}</h3>
         <p>{textField(item, "summary") || textField(item, "role")}</p>
         <span className="work-card-link">
-          Read the project story <span aria-hidden="true">↗</span>
+          {t("work.readStory")} <span aria-hidden="true">↗</span>
         </span>
       </div>
     </Link>
@@ -57,6 +60,7 @@ export function WorkCard({ item }: { item: PublishedItem }) {
 }
 
 export default function WorkShowcase() {
+  const { t } = useT()
   const { data } = usePublicContent<PublishedPage>("projects")
   const items = (data?.items || [])
     .filter((item) => item.data.permission === true)
@@ -66,20 +70,17 @@ export default function WorkShowcase() {
       <div className="container-page">
         <div className="public-section-heading">
           <div>
-            <span className="public-eyebrow">OUR WORK</span>
+            <span className="public-eyebrow">{t("work.eyebrow")}</span>
             <h2>
-              Look closer at
+              {t("work.title1")}
               <br />
-              <em>what we do.</em>
+              <em>{t("work.title2")}</em>
             </h2>
           </div>
           <div>
-            <p>
-              Explore the scope, our role and the outcomes behind our projects.
-              Find the right experience for your next brief.
-            </p>
+            <p>{t("work.lead")}</p>
             <Link className="public-text-link" to="/projects">
-              Explore projects <span aria-hidden="true">↗</span>
+              {t("work.exploreProjects")} <span aria-hidden="true">↗</span>
             </Link>
           </div>
         </div>
@@ -99,15 +100,11 @@ export default function WorkShowcase() {
               <span>03</span>
             </div>
             <div>
-              <h3>Start with a relevant conversation.</h3>
-              <p>
-                Tell us what you need to build, source or deliver. Ask our team
-                about relevant experience, the proposed scope and the people
-                involved.
-              </p>
+              <h3>{t("work.intro.title")}</h3>
+              <p>{t("work.intro.body")}</p>
             </div>
             <Link className="public-button" to="/contact">
-              Discuss your project <span aria-hidden="true">↗</span>
+              {t("work.intro.cta")} <span aria-hidden="true">↗</span>
             </Link>
           </div>
         )}
@@ -116,50 +113,35 @@ export default function WorkShowcase() {
   )
 }
 
+const STEPS = ["s1", "s2", "s3", "s4"] as const
+
 export function WorkingTogether() {
-  const steps = [
-    ["Your brief", "Tell us your goals, requirements, location and timeline."],
-    [
-      "A clear scope",
-      "Discuss deliverables, responsibilities and a written proposal.",
-    ],
-    [
-      "Agreed milestones",
-      "Agree how progress, reviews and changes will be handled.",
-    ],
-    [
-      "Delivery & next steps",
-      "Define acceptance, handover and any ongoing support in the scope.",
-    ],
-  ]
+  const { t } = useT()
   return (
     <section className="working-together section-y">
       <div className="container-page">
         <div className="public-section-heading">
           <div>
-            <span className="public-eyebrow">WORKING WITH NETWORK71</span>
+            <span className="public-eyebrow">{t("work.together.eyebrow")}</span>
             <h2>
-              Clarity from the
+              {t("work.together.title1")}
               <br />
-              <em>first conversation.</em>
+              <em>{t("work.together.title2")}</em>
             </h2>
           </div>
-          <p>
-            A useful partnership starts with clear expectations. Here is what to
-            discuss with our team before a project begins.
-          </p>
+          <p>{t("work.together.lead")}</p>
         </div>
         <ol className="working-steps">
-          {steps.map(([title, body], index) => (
-            <li key={title}>
+          {STEPS.map((step, index) => (
+            <li key={step}>
               <span className="working-number">0{index + 1}</span>
-              <h3>{title}</h3>
-              <p>{body}</p>
+              <h3>{t(`work.together.${step}.title`)}</h3>
+              <p>{t(`work.together.${step}.body`)}</p>
             </li>
           ))}
         </ol>
         <div className="working-contact">
-          <p>Have a brief ready? Let us know what you have in mind.</p>
+          <p>{t("work.together.brief")}</p>
           <a href="mailto:info@network71.com">
             info@network71.com <span aria-hidden="true">↗</span>
           </a>

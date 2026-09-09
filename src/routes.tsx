@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react"
 import { createBrowserRouter, ScrollRestoration, Outlet } from "react-router-dom"
 import RouteExperience from "@/components/RouteExperience"
+import { useT } from "@/i18n"
 
 const Home = lazy(() => import("@/pages/Home"))
 const About = lazy(() => import("@/pages/About"))
@@ -32,18 +33,20 @@ const Admin = lazy(() => import("@/admin/Admin"))
 const Projects = lazy(() => import("@/pages/Projects"))
 
 function PageLoader() {
+  const { t } = useT()
   return (
     <div className="page-loader" role="status" aria-live="polite">
       <span className="page-loader__mark" aria-hidden="true" />
-      <span>Loading Network71</span>
+      <span>{t("app.loading")}</span>
     </div>
   )
 }
 
 function Root() {
+  const { t } = useT()
   return (
     <>
-      <a className="skip-link" href="#main-content">Skip to page content</a>
+      <a className="skip-link" href="#main-content">{t("app.skip")}</a>
       <RouteExperience />
       <ScrollRestoration />
       <Suspense fallback={<PageLoader />}>
