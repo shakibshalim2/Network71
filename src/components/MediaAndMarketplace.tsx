@@ -1,33 +1,9 @@
 import { Link } from 'react-router-dom'
-
-const NEWS_STORIES = [
-  {
-    id: 1,
-    title: 'Explore Our Business Divisions',
-    date: 'Services & sectors', href: '/about',
-    img: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=120&h=80&fit=crop&auto=format',
-  },
-  {
-    id: 2,
-    title: 'Responsible Agriculture & Sourcing',
-    date: 'Agriculture division', href: '/divisions/agriculture',
-    img: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=120&h=80&fit=crop&auto=format',
-  },
-  {
-    id: 3,
-    title: 'Software & Digital Product Development',
-    date: 'IT & software', href: '/divisions/it-software',
-    img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=120&h=80&fit=crop&auto=format',
-  },
-]
-
-const ESHIP_STATS = [
-  { val: 'Buy', label: 'Vessel enquiries' },
-  { val: 'Sell', label: 'Discuss a vessel' },
-  { val: 'Connect', label: 'Maritime team' },
-]
+import { useT } from '@/i18n'
+import { NEWS_STORIES, ESHIP_STATS } from './media-marketplace/data'
 
 export default function MediaAndMarketplace() {
+  const { t } = useT()
   return (
     <section
       style={{ background: 'var(--s0)', borderTop: '1px solid var(--line)' }}
@@ -47,7 +23,7 @@ export default function MediaAndMarketplace() {
               <div className="force-dark relative overflow-hidden min-h-[260px] sm:min-h-[340px]">
                 <img
                   src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&h=700&fit=crop&auto=format"
-                  alt="Network71 Media – global journalism and broadcast"
+                  alt={t('mediaMarket.mediaAlt')}
                   className="absolute inset-0 w-full h-full object-cover"
                   style={{ transition: 'transform 0.7s ease', transform: 'scale(1.02)' }}
                   onMouseEnter={e => { (e.target as HTMLImageElement).style.transform = 'scale(1.06)' }}
@@ -71,7 +47,7 @@ export default function MediaAndMarketplace() {
                         width: 5, height: 5, borderRadius: '50%', background: 'var(--accent-red)',
                         animation: 'pulse-slow 1.8s ease-in-out infinite', flexShrink: 0,
                       }} />
-                      Network71 Media
+                      {t('mediaMarket.badge')}
                     </span>
                   </div>
 
@@ -80,15 +56,15 @@ export default function MediaAndMarketplace() {
                     color: 'var(--fg-strong)', lineHeight: 1.1,
                     letterSpacing: '-0.02em', marginBottom: 8,
                   }}>
-                    Global Stories.
+                    {t('mediaMarket.title1')}
                     <br />
-                    <em style={{ color: 'var(--brand-fg)' }}>Real Impact.</em>
+                    <em style={{ color: 'var(--brand-fg)' }}>{t('mediaMarket.title2')}</em>
                   </h3>
 
                   <p
                     className="max-w-[280px] sm:max-w-[220px]"
                     style={{ color: 'var(--fg-muted)', fontSize: 12, lineHeight: 1.6, marginBottom: 16 }}>
-                    Stay updated with our latest news, stories and insights from around the world.
+                    {t('mediaMarket.lead')}
                   </p>
 
                   <Link
@@ -106,7 +82,7 @@ export default function MediaAndMarketplace() {
                     <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 11, height: 11 }}>
                       <path d="M8 5v14l11-7z" />
                     </svg>
-                    Explore Media
+                    {t('mediaMarket.exploreMedia')}
                   </Link>
                 </div>
               </div>
@@ -120,7 +96,7 @@ export default function MediaAndMarketplace() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                   <div style={{ height: 1, width: 18, background: 'var(--brand-edge)' }} />
                   <span style={{ fontFamily: 'var(--font-mono)', fontSize: 7.5, letterSpacing: '0.32em', color: 'var(--brand-fg)', textTransform: 'uppercase' }}>
-                    Explore Network71
+                    {t('mediaMarket.eyebrow')}
                   </span>
                 </div>
 
@@ -139,15 +115,15 @@ export default function MediaAndMarketplace() {
                     >
                       <img
                         src={story.img}
-                        alt={story.title}
+                        alt={t(story.title)}
                         style={{ width: 54, height: 38, objectFit: 'cover', borderRadius: 5, flexShrink: 0 }}
                       />
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <div style={{ fontSize: 11.5, fontWeight: 600, color: 'var(--fg)', lineHeight: 1.35, marginBottom: 4 }}>
-                          {story.title}
+                          {t(story.title)}
                         </div>
                         <div style={{ fontFamily: 'var(--font-mono)', fontSize: 8.5, color: 'var(--fg-subtle)', letterSpacing: '0.06em' }}>
-                          {story.date}
+                          {t(story.date)}
                         </div>
                       </div>
                     </Link>
@@ -166,7 +142,7 @@ export default function MediaAndMarketplace() {
                   onMouseEnter={e => { e.currentTarget.style.color = 'var(--brand)' }}
                   onMouseLeave={e => { e.currentTarget.style.color = 'var(--brand-edge)' }}
                 >
-                  Media Division
+                  {t('mediaMarket.mediaDivision')}
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" style={{ width: 10, height: 10 }}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
@@ -186,7 +162,7 @@ export default function MediaAndMarketplace() {
                 <span
                   className="text-[7px] tracking-[0.2em] sm:text-[7.5px] sm:tracking-[0.32em]"
                   style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent-sky)', textTransform: 'uppercase' }}>
-                  eSHIPe Ship Marketplace
+                  {t('mediaMarket.eshipEyebrow')}
                 </span>
               </div>
 
@@ -194,12 +170,12 @@ export default function MediaAndMarketplace() {
                 fontSize: 'clamp(19px, 2.2vw, 25px)',
                 color: 'var(--fg-strong)', lineHeight: 1.12, letterSpacing: '-0.02em', marginBottom: 8,
               }}>
-                The Global Platform for{' '}
-                <em style={{ color: 'var(--accent-sky)' }}>Ships & Vessels.</em>
+                {t('mediaMarket.eshipTitle1')}{' '}
+                <em style={{ color: 'var(--accent-sky)' }}>{t('mediaMarket.eshipTitle2')}</em>
               </h3>
 
               <p style={{ color: 'var(--fg-muted)', fontSize: 12.5, lineHeight: 1.65, marginBottom: 16 }}>
-                Buy, sell, charter, and manage vessels — the trusted maritime trading hub connecting buyers and sellers worldwide.
+                {t('mediaMarket.eshipLead')}
               </p>
 
               <Link
@@ -214,7 +190,7 @@ export default function MediaAndMarketplace() {
                 onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-bright)' }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'var(--brand)' }}
               >
-                Explore Marketplace
+                {t('mediaMarket.exploreMarketplace')}
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" style={{ width: 13, height: 13 }}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
@@ -224,8 +200,8 @@ export default function MediaAndMarketplace() {
             {/* Ship image */}
             <div className="min-h-[150px] sm:min-h-[180px]" style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
               <img
-                src="https://images.unsplash.com/photo-1591768575198-88dac53fbd0a?w=700&h=400&fit=crop&auto=format"
-                alt="Maritime vessel cargo ship at sea"
+                src="https://images.unsplash.com/photo-1605745341112-85968b19335b?w=700&h=400&fit=crop&auto=format"
+                alt={t('mediaMarket.shipAlt')}
                 className="w-full h-full object-cover"
                 style={{ transition: 'transform 0.7s ease' }}
                 onMouseEnter={e => { (e.target as HTMLImageElement).style.transform = 'scale(1.04)' }}
@@ -248,12 +224,12 @@ export default function MediaAndMarketplace() {
                   }}
                 >
                   <div className="font-display text-[17px] sm:text-[20px]" style={{ color: 'var(--accent-sky)', letterSpacing: '-0.02em', lineHeight: 1 }}>
-                    {val}
+                    {t(val)}
                   </div>
                   <div
                     className="text-[7px] tracking-[0.1em] sm:text-[8px] sm:tracking-[0.18em]"
                     style={{ fontFamily: 'var(--font-mono)', color: 'var(--fg-subtle)', textTransform: 'uppercase', marginTop: 4 }}>
-                    {label}
+                    {t(label)}
                   </div>
                 </div>
               ))}

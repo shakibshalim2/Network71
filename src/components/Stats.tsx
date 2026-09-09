@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { useT } from '@/i18n'
 
 function useCountUp(target: number, duration: number, enabled: boolean): number {
   const [count, setCount] = useState(0)
@@ -18,24 +19,29 @@ function useCountUp(target: number, duration: number, enabled: boolean): number 
 }
 
 const metrics = [
-  { value: 25,   suffix: '+', label: 'Countries',          desc: 'Active trade presence worldwide' },
-  { value: 8,    suffix: '',  label: 'Business Divisions',  desc: 'Fully diversified industrial sectors' },
-  { value: 5000, suffix: '+', label: 'Team Members',        desc: 'Across all divisions globally' },
-  { value: 12,   suffix: 'K+', label: 'Partners & Clients',  desc: 'Global network of trusted partners' },
-  { value: 6,    suffix: '',  label: 'Operating Regions',   desc: 'Strategic presence worldwide' },
-  { value: 2018, suffix: '',  label: 'Est.',                 desc: 'Dhaka, Bangladesh — Global vision' },
-]
+  { value: 25,   suffix: '+', id: 'm1' },
+  { value: 8,    suffix: '',  id: 'm2' },
+  { value: 5000, suffix: '+', id: 'm3' },
+  { value: 12,   suffix: 'K+', id: 'm4' },
+  { value: 6,    suffix: '',  id: 'm5' },
+  { value: 2018, suffix: '',  id: 'm6' },
+] as const
 
-function Metric({ value, suffix, label, desc, enabled }: {
-  value: number; suffix: string; label: string; desc: string; enabled: boolean
+const LOCALE = { en: 'en-US', bn: 'bn-BD' } as const
+
+function Metric({ value, suffix, id, enabled }: {
+  value: number; suffix: string; id: typeof metrics[number]['id']; enabled: boolean
 }) {
+  const { t, language } = useT()
   const count = useCountUp(value, 2800, enabled)
+  const label = t(`stats.${id}.label`)
+  const desc = t(`stats.${id}.desc`)
   return (
     <div className="px-4 py-7 sm:px-6 sm:py-10">
       <div
         className="font-display mb-2 leading-none"
         style={{ fontSize: 'clamp(30px, 7.5vw, 60px)', letterSpacing: '-0.025em', color: 'var(--fg-strong)' }}>
-        {count.toLocaleString()}
+        {count.toLocaleString(LOCALE[language])}
         <span style={{ color: 'var(--brand-fg)' }}>{suffix}</span>
       </div>
       <div
@@ -53,6 +59,7 @@ function Metric({ value, suffix, label, desc, enabled }: {
 }
 
 export default function Stats() {
+  const { t } = useT()
   const ref = useRef<HTMLDivElement>(null)
   const [enabled, setEnabled] = useState(false)
 
@@ -80,7 +87,7 @@ export default function Stats() {
               textTransform: 'uppercase',
               color: 'var(--brand-fg)',
             }}>
-            Business Impact
+            {t('stats.eyebrow')}
           </span>
         </div>
 
@@ -91,24 +98,20 @@ export default function Stats() {
             lineHeight: 1.12,
             letterSpacing: '-0.025em',
           }}>
-            Measured in Markets.
+            {t('stats.title1')}
             <br />
-            <em style={{ color: 'var(--brand-fg)' }}>Counted in Countries.</em>
+            <em style={{ color: 'var(--brand-fg)' }}>{t('stats.title2')}</em>
           </h2>
         </div>
 
-        {/*
-          Dividers are drawn with a 1px gap + background showing through, so a
-          single rule works for every column count instead of index maths that
-          only ever matched the 3-column desktop grid.
-        */}
+        {/* Dividers = 1px gap with the wrapper background showing through, so one rule fits every column count. */}
         <div
           ref={ref}
           className="grid grid-cols-2 md:grid-cols-3 gap-px rounded-2xl overflow-hidden"
           style={{ border: '1px solid var(--line)', background: 'var(--line)' }}
         >
           {metrics.map((m) => (
-            <div key={m.label} style={{ background: 'var(--s2)' }}>
+            <div key={m.id} style={{ background: 'var(--s2)' }}>
               <Metric {...m} enabled={enabled} />
             </div>
           ))}
@@ -120,7 +123,7 @@ export default function Stats() {
           fontFamily: 'var(--font-mono)',
           letterSpacing: '0.05em',
         }}>
-          * Figures represent verified operational data across Network71 Group divisions and regional offices.
+          {t('stats.note')}
         </p>
       </div>
     </section>

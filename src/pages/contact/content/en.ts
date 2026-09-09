@@ -1,0 +1,75 @@
+const en = {
+  hero: {
+    breadcrumbHome: 'Home',
+    breadcrumbCurrent: 'Contact',
+    eyebrow: 'Contact Us',
+    title: 'Get in Touch',
+    lead: 'Whether you are a partner, investor, or job seeker — we would love to hear from you.',
+  },
+  methods: {
+    email: {
+      title: 'Email',
+      value: 'info@network71.com',
+      note: 'General enquiries',
+    },
+    location: {
+      title: 'Location',
+      value: 'Dhaka, Bangladesh',
+      note: 'Global headquarters',
+    },
+    social: {
+      title: 'Social',
+      value: 'Official channels will be published here.',
+      note: 'For updates, contact our media team.',
+    },
+  },
+  form: {
+    eyebrow: 'Send a Message',
+    title: 'Contact Form',
+    successTitle: 'Enquiry Received',
+    successText: 'Thank you for contacting us. Your reference is {ref}.',
+    projectPrefill: 'I would like to discuss a project similar to “{project}”.\n\nMy requirements:\n',
+    subjectSuffix: 'enquiry',
+    name: 'Full Name *',
+    namePh: 'Ahmed Hassan',
+    company: 'Company (optional)',
+    companyPh: 'Your Company',
+    email: 'Email *',
+    emailPh: 'you@example.com',
+    phone: 'Phone (optional)',
+    phonePh: '+880 1XXXXXXXXX',
+    department: 'Department *',
+    departments: [
+      { value: 'General', label: 'General' },
+      { value: 'Investors', label: 'Investors' },
+      { value: 'Careers', label: 'Careers' },
+      { value: 'Partnerships', label: 'Partnerships' },
+      { value: 'Media', label: 'Media' },
+    ],
+    message: 'Message *',
+    messagePh: 'How can we help you?',
+    sending: 'Sending…',
+    send: 'Send Message',
+  },
+  sidebar: {
+    officesEyebrow: 'Offices',
+    hqLabel: 'Headquarters',
+    hqCity: 'Dhaka, Bangladesh',
+    hqEmail: 'info@network71.com',
+    divisionsEyebrow: 'By Division',
+    enquire: 'Enquire',
+    divisions: [
+      'Garments & Apparel',
+      'Agriculture & Agro',
+      'Food & Beverage',
+      'Oils & Energy',
+      'IT & Software',
+      'Global Trading',
+      'Media',
+      'eSHIPe Maritime',
+    ],
+  },
+}
+
+export type ContactContent = typeof en
+export default en

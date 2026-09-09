@@ -1,66 +1,68 @@
 import { Link } from 'react-router-dom'
 import Logo from '@/components/brand/Logo'
+import { useT, type TKey } from '@/i18n'
 
 // ─── Footer columns ───────────────────────────────────────────────────────────
 
-const COLUMNS = [
+const COLUMNS: { title: TKey; links: { label: TKey; href: string }[] }[] = [
   {
-    title: 'Network71',
+    title: 'footer.col.network71',
     links: [
-      { label: 'Our Work & Projects', href: '/projects' },
-      { label: 'About Network71',  href: '/about' },
-      { label: 'Our Story',        href: '/timeline' },
-      { label: 'Leadership',       href: '/leadership' },
-      { label: 'Global Presence',  href: '/global-presence' },
-      { label: 'Sustainability / ESG', href: '/sustainability' },
-      { label: 'Gallery',              href: '/gallery' },
-      { label: 'Brand Identity',       href: '/brand' },
+      { label: 'footer.link.projects',   href: '/projects' },
+      { label: 'footer.link.about',      href: '/about' },
+      { label: 'footer.link.story',      href: '/timeline' },
+      { label: 'footer.link.leadership', href: '/leadership' },
+      { label: 'footer.link.presence',   href: '/global-presence' },
+      { label: 'footer.link.esg',        href: '/sustainability' },
+      { label: 'footer.link.gallery',    href: '/gallery' },
+      { label: 'footer.link.brand',      href: '/brand' },
     ],
   },
   {
-    title: 'Our Divisions',
+    title: 'footer.col.divisions',
     links: [
-      { label: 'Ezyify Platform',     href: '/ezyify' },
-      { label: 'Network71 Media',     href: '/divisions/media' },
-      { label: 'eSHIPe Maritime',     href: '/divisions/eshipe' },
-      { label: 'Garments & Apparel',  href: '/divisions/garments' },
-      { label: 'Agriculture & Agro',  href: '/divisions/agriculture' },
-      { label: 'Food & Beverage',     href: '/divisions/food-beverage' },
-      { label: 'Oils & Energy',       href: '/divisions/oils-energy' },
-      { label: 'IT & Digital',        href: '/divisions/it-software' },
-      { label: 'Global Trading',      href: '/divisions/global-trading' },
+      { label: 'div.ezyify.short',      href: '/ezyify' },
+      { label: 'div.media.short',       href: '/divisions/media' },
+      { label: 'div.ship.short',        href: '/divisions/eshipe' },
+      { label: 'div.garments.short',    href: '/divisions/garments' },
+      { label: 'div.agriculture.short', href: '/divisions/agriculture' },
+      { label: 'div.food.short',        href: '/divisions/food-beverage' },
+      { label: 'div.energy.short',      href: '/divisions/oils-energy' },
+      { label: 'div.it.short',          href: '/divisions/it-software' },
+      { label: 'div.trading.short',     href: '/divisions/global-trading' },
+      { label: 'div.ventures.short',    href: '/divisions/strategic-ventures' },
     ],
   },
   {
-    title: 'Business',
+    title: 'footer.col.business',
     links: [
-      { label: 'Investor Relations',      href: '/investors' },
-      { label: 'Corporate Governance',    href: '/governance' },
-      { label: 'Partnerships',            href: '/contact' },
-      { label: 'Careers',                 href: '/careers' },
-      { label: 'Business Enquiries',      href: '/contact' },
-      { label: 'Supplier Enquiries',      href: '/contact' },
+      { label: 'footer.link.investors',    href: '/investors' },
+      { label: 'footer.link.governance',   href: '/governance' },
+      { label: 'footer.link.partnerships', href: '/divisions/strategic-ventures' },
+      { label: 'footer.link.careers',      href: '/careers' },
+      { label: 'footer.link.enquiries',    href: '/contact' },
+      { label: 'footer.link.supplier',     href: '/contact' },
     ],
   },
   {
-    title: 'Media',
+    title: 'footer.col.media',
     links: [
-      { label: 'Latest News',         href: '/press' },
-      { label: 'Newspaper',           href: '/divisions/media' },
-      { label: 'Television / TV',     href: '/divisions/media' },
-      { label: 'Video',               href: '/divisions/media' },
-      { label: 'Programs',            href: '/divisions/media' },
-      { label: 'Media Partnerships',  href: '/contact' },
+      { label: 'footer.link.news',          href: '/press' },
+      { label: 'footer.link.newspaper',     href: '/divisions/media' },
+      { label: 'footer.link.tv',            href: '/divisions/media' },
+      { label: 'footer.link.video',         href: '/divisions/media' },
+      { label: 'footer.link.programs',      href: '/divisions/media' },
+      { label: 'footer.link.mediaPartners', href: '/contact' },
     ],
   },
   {
-    title: 'Global',
+    title: 'footer.col.global',
     links: [
-      { label: 'Global Presence',  href: '/global-presence' },
-      { label: 'Our Regions',      href: '/global-presence' },
-      { label: 'Countries',        href: '/global-presence' },
-      { label: 'Contact Us',       href: '/contact' },
-      { label: 'Legal',            href: '/legal' },
+      { label: 'footer.link.presence',  href: '/global-presence' },
+      { label: 'footer.link.regions',   href: '/global-presence' },
+      { label: 'footer.link.countries', href: '/global-presence' },
+      { label: 'footer.link.contact',   href: '/contact' },
+      { label: 'footer.link.legal',     href: '/legal' },
     ],
   },
 ]
@@ -75,16 +77,17 @@ const SOCIAL_PATHS: Record<string, string> = {
 
 const SOCIALS = ['linkedin', 'twitter', 'facebook', 'instagram', 'youtube'] as const
 
-const LEGAL = [
-  { label: 'Privacy Policy', href: '/legal' },
-  { label: 'Terms of Use',   href: '/legal' },
-  { label: 'Cookie Policy',  href: '/legal' },
-  { label: 'Accessibility',  href: '/legal' },
+const LEGAL: { label: TKey; href: string }[] = [
+  { label: 'footer.legal.privacy',       href: '/legal' },
+  { label: 'footer.legal.terms',         href: '/legal' },
+  { label: 'footer.legal.cookies',       href: '/legal' },
+  { label: 'footer.legal.accessibility', href: '/legal' },
 ]
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-function Col({ title, links }: { title: string; links: { label: string; href: string }[] }) {
+function Col({ title, links }: { title: TKey; links: { label: TKey; href: string }[] }) {
+  const { t } = useT()
   return (
     <div>
       <h4
@@ -94,7 +97,7 @@ function Col({ title, links }: { title: string; links: { label: string; href: st
           textTransform: 'uppercase',
           color: 'var(--brand-fg)',
         }}>
-        {title}
+        {t(title)}
       </h4>
       <ul className="gap-2.5 sm:gap-[11px]" style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column' }}>
         {links.map(({ label, href }) => (
@@ -106,7 +109,7 @@ function Col({ title, links }: { title: string; links: { label: string; href: st
             }}
               onMouseEnter={e => { e.currentTarget.style.color = 'var(--fg)' }}
               onMouseLeave={e => { e.currentTarget.style.color = 'var(--fg-subtle)' }}>
-              {label}
+              {t(label)}
             </Link>
           </li>
         ))}
@@ -118,6 +121,7 @@ function Col({ title, links }: { title: string; links: { label: string; href: st
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 export default function Footer() {
+  const { t } = useT()
   return (
     <footer style={{ background: 'var(--s-inset)' }}>
 
@@ -145,7 +149,7 @@ export default function Footer() {
               fontFamily: 'var(--font-mono)',
               textTransform: 'uppercase', color: 'var(--brand-fg)', marginBottom: 20,
             }}>
-            Network71 Global Group
+            {t('footer.eyebrow')}
           </p>
 
           <h2 className="font-display" style={{
@@ -153,11 +157,11 @@ export default function Footer() {
             lineHeight: 1.14, letterSpacing: '-0.025em',
             color: 'var(--fg-strong)', marginBottom: 0,
           }}>
-            Building Businesses.
+            {t('about.title1')}
             <br />
-            <span style={{ color: 'var(--brand-fg)' }}>Connecting Markets.</span>
+            <span style={{ color: 'var(--brand-fg)' }}>{t('about.title2')}</span>
             <br />
-            <span style={{ color: 'var(--fg-subtle)' }}>Creating the Future.</span>
+            <span style={{ color: 'var(--fg-subtle)' }}>{t('about.title3')}</span>
           </h2>
 
           <p
@@ -166,7 +170,7 @@ export default function Footer() {
               color: 'var(--fg-subtle)', lineHeight: 1.7,
               maxWidth: 480, marginInline: 'auto',
             }}>
-            Based in Bangladesh, connecting businesses across eight divisions. Explore our work and speak directly with our team.
+            {t('footer.lead')}
           </p>
 
           {/* CTA buttons — stack full width on narrow phones */}
@@ -180,7 +184,7 @@ export default function Footer() {
             }}
               onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-bright)'; e.currentTarget.style.boxShadow = '0 0 28px var(--brand-edge)' }}
               onMouseLeave={e => { e.currentTarget.style.background = 'var(--brand)'; e.currentTarget.style.boxShadow = 'none' }}>
-              Explore Our Divisions
+              {t('footer.ctaAbout')}
               <svg fill="none" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2.2"
                 style={{ width: 12, height: 12 }}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8h10M8 3l5 5-5 5" />
@@ -195,7 +199,7 @@ export default function Footer() {
             }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.28)'; e.currentTarget.style.color = 'var(--fg-strong)'; e.currentTarget.style.background = 'var(--line)' }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--line-strong)'; e.currentTarget.style.color = 'var(--fg-muted)'; e.currentTarget.style.background = 'transparent' }}>
-              Contact Network71
+              {t('footer.ctaContact')}
             </Link>
           </div>
         </div>
@@ -227,7 +231,7 @@ export default function Footer() {
               fontFamily: 'var(--font-mono)', fontSize: 9.5,
               color: 'var(--fg-faint)',
             }}>
-              © {new Date().getFullYear()} Network71 Group. All rights reserved.
+              © {new Date().getFullYear()} Network71 Group. {t('footer.rights')}
             </span>
           </div>
 
@@ -240,7 +244,7 @@ export default function Footer() {
               }}
                 onMouseEnter={e => { e.currentTarget.style.color = 'var(--fg-subtle)' }}
                 onMouseLeave={e => { e.currentTarget.style.color = 'var(--fg-faint)' }}>
-                {label}
+                {t(label)}
               </Link>
             ))}
           </div>

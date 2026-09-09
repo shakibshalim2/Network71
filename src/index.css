@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@300;400;500;600;700&display=swap');
 @import 'tailwindcss';
 @import './styles/public-refinements.css';
 
@@ -778,6 +779,7 @@ a.group:focus-visible {
 .text-pink-400, .text-pink-300 { color: var(--accent-pink); }
 .text-rose-400 { color: var(--accent-rose); }
 .text-red-400 { color: var(--accent-red); }
+.text-indigo-300, .text-indigo-400 { color: var(--accent-indigo); }
 .text-orange-400 { color: var(--accent-orange); }
 .text-blue-400, .text-blue-300 { color: var(--accent-blue); }
 .text-emerald-400, .text-emerald-300, .text-emerald-600 { color: var(--accent-emerald); }
@@ -854,3 +856,25 @@ form label { display: block; }
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ── Bengali typography ─────────────────────────────────────────────────────
+   Bengali glyphs are taller than Latin; when the UI language is Bangla we
+   swap in Noto fonts and relax tracking/line-height so display type stays
+   legible instead of clipping. */
+html.lang-bn {
+  --font-display: 'Noto Serif Bengali', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Noto Sans Bengali', 'Outfit', system-ui, sans-serif;
+  --font-mono: 'Noto Sans Bengali', 'JetBrains Mono', monospace;
+}
+html.lang-bn body { font-family: var(--font-sans); }
+html.lang-bn .font-display,
+html.lang-bn h1, html.lang-bn h2, html.lang-bn h3 { font-family: var(--font-display); letter-spacing: 0 !important; line-height: 1.22 !important; }
+html.lang-bn .font-mono { font-family: var(--font-mono); }
+html.lang-bn .font-mono,
+html.lang-bn .public-content [style*="--font-mono"], html.lang-bn header [style*="--font-mono"], html.lang-bn footer [style*="--font-mono"] { letter-spacing: 0.02em !important; text-transform: none !important; font-size: 11px !important; }
+html.lang-bn p, html.lang-bn li, html.lang-bn a, html.lang-bn button { line-height: 1.7; }
+html.lang-bn .hero-content h1 { font-size: clamp(34px, 7.5vw, 68px) !important; }
+/* Bengali script needs more pixels than Latin small-caps labels. */
+html.lang-bn :is(.text-\[7px\], .text-\[7\.5px\], .text-\[8px\], .text-\[8\.5px\], .text-\[9px\], .text-\[9\.5px\]) { font-size: 11px !important; letter-spacing: 0.02em !important; }
+html.lang-bn :is(.text-\[10px\], .text-\[10\.5px\], .text-\[11px\], .text-\[11\.5px\]) { font-size: 12.5px !important; }
+html.lang-bn :is(.text-\[12px\], .text-\[12\.5px\], .text-xs) { font-size: 13.5px !important; }

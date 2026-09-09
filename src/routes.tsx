@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react"
 import { createBrowserRouter, ScrollRestoration, Outlet } from "react-router-dom"
 import RouteExperience from "@/components/RouteExperience"
+import { useT } from "@/i18n"
 
 const Home = lazy(() => import("@/pages/Home"))
 const About = lazy(() => import("@/pages/About"))
@@ -15,6 +16,7 @@ const IT = lazy(() => import("@/pages/sectors/IT"))
 const Trading = lazy(() => import("@/pages/sectors/Trading"))
 const Media = lazy(() => import("@/pages/sectors/Media"))
 const EShipe = lazy(() => import("@/pages/sectors/EShipe"))
+const StrategicVentures = lazy(() => import("@/pages/sectors/StrategicVentures"))
 const EzyifyPage = lazy(() => import("@/pages/EzyifyPage"))
 const Sustainability = lazy(() => import("@/pages/Sustainability"))
 const GlobalPresence = lazy(() => import("@/pages/GlobalPresence"))
@@ -31,18 +33,20 @@ const Admin = lazy(() => import("@/admin/Admin"))
 const Projects = lazy(() => import("@/pages/Projects"))
 
 function PageLoader() {
+  const { t } = useT()
   return (
     <div className="page-loader" role="status" aria-live="polite">
       <span className="page-loader__mark" aria-hidden="true" />
-      <span>Loading Network71</span>
+      <span>{t("app.loading")}</span>
     </div>
   )
 }
 
 function Root() {
+  const { t } = useT()
   return (
     <>
-      <a className="skip-link" href="#main-content">Skip to page content</a>
+      <a className="skip-link" href="#main-content">{t("app.skip")}</a>
       <RouteExperience />
       <ScrollRestoration />
       <Suspense fallback={<PageLoader />}>
@@ -86,6 +90,8 @@ export const router = createBrowserRouter([
       { path: '/divisions/global-trading', Component: Trading },
       { path: '/divisions/media', Component: Media },
       { path: '/divisions/eshipe', Component: EShipe },
+      { path: '/divisions/strategic-ventures', Component: StrategicVentures },
+      { path: '/divisions/ship-marketplace', Component: EShipe },
       { path: '*', Component: NotFound },
     ],
   },

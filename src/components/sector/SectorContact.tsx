@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useInquiry } from '@/lib/inquiry'
+import { useT } from '@/i18n'
 
 interface SectorContactProps {
   divisionName: string
@@ -12,6 +13,7 @@ export default function SectorContact({
   accentHex,
   inquiryTypes = ['General Inquiry', 'Partnership', 'Buyer Inquiry', 'Investment', 'Supplier Inquiry'],
 }: SectorContactProps) {
+  const { t } = useT()
   const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', type: '', message: '' })
   const inquiry = useInquiry()
   const sent = Boolean(inquiry.reference)
@@ -37,14 +39,14 @@ export default function SectorContact({
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-8" style={{ background: accentHex }} />
               <span className="text-[10px] font-semibold tracking-[0.3em] uppercase" style={{ color: accentHex }}>
-                Get In Touch
+                {t('sector.contact.eyebrow')}
               </span>
             </div>
             <h2 className="font-display text-3xl lg:text-4xl text-white mb-5">
-              Connect With the {divisionName} Division
+              {t('sector.contact.title', { division: divisionName })}
             </h2>
             <p className="text-slate-400 leading-relaxed mb-10 text-sm">
-              Whether you are a buyer, investor, distributor, or potential partner — our {divisionName} team is ready to explore opportunities with you.
+              {t('sector.contact.lead', { division: divisionName })}
             </p>
 
             <div className="space-y-5">
@@ -55,7 +57,7 @@ export default function SectorContact({
                   </svg>
                 </div>
                 <div>
-                  <div className="text-white font-medium text-sm">Email</div>
+                  <div className="text-white font-medium text-sm">{t('sector.contact.email')}</div>
                   <a href="mailto:info@network71.com" className="text-slate-400 text-sm hover:text-white transition-colors">info@network71.com</a>
                 </div>
               </div>
@@ -67,8 +69,8 @@ export default function SectorContact({
                   </svg>
                 </div>
                 <div>
-                  <div className="text-white font-medium text-sm">Headquarters</div>
-                  <div className="text-slate-400 text-sm">Dhaka, Bangladesh</div>
+                  <div className="text-white font-medium text-sm">{t('sector.contact.hq')}</div>
+                  <div className="text-slate-400 text-sm">{t('sector.contact.hqValue')}</div>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -79,7 +81,7 @@ export default function SectorContact({
                   </svg>
                 </div>
                 <div>
-                  <div className="text-white font-medium text-sm">Web</div>
+                  <div className="text-white font-medium text-sm">{t('sector.contact.web')}</div>
                   <a href="https://network71.com" className="text-slate-400 text-sm hover:text-white transition-colors">network71.com</a>
                 </div>
               </div>
@@ -95,32 +97,32 @@ export default function SectorContact({
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="text-white font-display text-2xl mb-3">Enquiry Received</h3>
-                <p className="text-slate-400 text-sm max-w-xs">Thank you for your {divisionName} enquiry. Your reference is {inquiry.reference}.</p>
+                <h3 className="text-white font-display text-2xl mb-3">{t('sector.contact.received')}</h3>
+                <p className="text-slate-400 text-sm max-w-xs">{t('sector.contact.thanks', { division: divisionName, ref: inquiry.reference })}</p>
               </div>
             ) : (
               <form onSubmit={submit} className="space-y-4">
                 {inquiry.error && <p role="alert" className="text-sm" style={{ color: 'var(--accent-red)' }}>{inquiry.error}</p>}
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <label className="text-sm text-slate-400"><span className="block mb-2">Full name *</span><input className={inputCls} aria-label="Full name" name="name" placeholder="Full Name" value={form.name} onChange={handle} required /></label>
-                  <label className="text-sm text-slate-400"><span className="block mb-2">Company or organisation</span><input className={inputCls} aria-label="Company or organisation" name="company" placeholder="Company / Organisation" value={form.company} onChange={handle} /></label>
+                  <label className="text-sm text-slate-400"><span className="block mb-2">{t('sector.form.name')}</span><input className={inputCls} aria-label={t('sector.form.namePh')} name="name" placeholder={t('sector.form.namePh')} value={form.name} onChange={handle} required /></label>
+                  <label className="text-sm text-slate-400"><span className="block mb-2">{t('sector.form.company')}</span><input className={inputCls} aria-label={t('sector.form.company')} name="company" placeholder={t('sector.form.companyPh')} value={form.company} onChange={handle} /></label>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <label className="text-sm text-slate-400"><span className="block mb-2">Email address *</span><input className={inputCls} aria-label="Email address" type="email" name="email" placeholder="Email Address" value={form.email} onChange={handle} required /></label>
-                  <label className="text-sm text-slate-400"><span className="block mb-2">Phone number</span><input className={inputCls} aria-label="Phone number" type="tel" name="phone" placeholder="Phone (optional)" value={form.phone} onChange={handle} /></label>
+                  <label className="text-sm text-slate-400"><span className="block mb-2">{t('sector.form.email')}</span><input className={inputCls} aria-label={t('sector.form.emailPh')} type="email" name="email" placeholder={t('sector.form.emailPh')} value={form.email} onChange={handle} required /></label>
+                  <label className="text-sm text-slate-400"><span className="block mb-2">{t('sector.form.phone')}</span><input className={inputCls} aria-label={t('sector.form.phone')} type="tel" name="phone" placeholder={t('sector.form.phonePh')} value={form.phone} onChange={handle} /></label>
                 </div>
-                <label className="text-sm text-slate-400"><span className="block mb-2">Type of inquiry</span>
-                <select className={inputCls} aria-label="Type of inquiry" name="type" value={form.type} onChange={handle}>
-                  <option value="" disabled>Type of Inquiry</option>
+                <label className="text-sm text-slate-400"><span className="block mb-2">{t('sector.form.type')}</span>
+                <select className={inputCls} aria-label={t('sector.form.type')} name="type" value={form.type} onChange={handle}>
+                  <option value="" disabled>{t('sector.form.type')}</option>
                   {inquiryTypes.map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
                 </label>
-                <label className="text-sm text-slate-400"><span className="block mb-2">Inquiry details *</span>
+                <label className="text-sm text-slate-400"><span className="block mb-2">{t('sector.form.details')}</span>
                 <textarea
                   className={`${inputCls} resize-none`}
-                  aria-label="Inquiry details"
+                  aria-label={t('sector.form.details')}
                   name="message"
-                  placeholder="Tell us about your requirements..."
+                  placeholder={t('sector.form.detailsPh')}
                   rows={5}
                   value={form.message}
                   onChange={handle}
@@ -133,10 +135,10 @@ export default function SectorContact({
                   className="w-full py-3.5 font-semibold text-sm text-navy rounded-lg transition-all duration-200 hover:opacity-90"
                   style={{ background: accentHex }}
                 >
-                  {inquiry.busy ? 'Sending…' : 'Send Inquiry'}
+                  {inquiry.busy ? t('sector.form.sending') : t('sector.form.send')}
                 </button>
                 <p className="text-slate-600 text-xs text-center">
-                  We respect your privacy. Information shared is used solely for business correspondence.
+                  {t('sector.form.privacy')}
                 </p>
               </form>
             )}

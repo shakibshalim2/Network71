@@ -1,10 +1,12 @@
 import { useRef, useState } from "react"
+import { useT } from "@/i18n"
 
 export function useInquiry() {
   const [reference, setReference] = useState("")
   const [error, setError] = useState("")
   const [busy, setBusy] = useState(false)
   const pending = useRef(false)
+  const { t } = useT()
   const request = useRef({ key: "", payload: "" })
   async function submit(values: Record<string, string>) {
     if (pending.current) return
@@ -32,13 +34,13 @@ export function useInquiry() {
       const data = await response.json()
       if (!response.ok)
         throw new Error(
-          data.error || "Unable to send your enquiry. Please try again.",
+          data.error || t("lib.sendFailed"),
         )
       setReference(data.reference)
     } catch (error) {
       setError(
         error instanceof SyntaxError || error instanceof TypeError
-          ? "The enquiry service is unavailable. Please retry or email info@network71.com."
+          ? t("lib.serviceDown")
           : (error as Error).message,
       )
     } finally {

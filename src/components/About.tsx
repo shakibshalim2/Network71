@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
+import { useT } from '@/i18n'
 
 const BUILDING_IMG =
   'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&h=880&fit=crop&auto=format'
 
 const values = [
   {
-    title: 'Innovation',
-    desc: 'Future-ready solutions driving progress.',
+    key: 'v1' as const,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
         <path strokeLinecap="round" strokeLinejoin="round"
@@ -15,8 +15,7 @@ const values = [
     ),
   },
   {
-    title: 'Integrity',
-    desc: 'Building trust through ethics and transparency.',
+    key: 'v2' as const,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
         <path strokeLinecap="round" strokeLinejoin="round"
@@ -25,8 +24,7 @@ const values = [
     ),
   },
   {
-    title: 'Sustainability',
-    desc: 'Responsible today for a better tomorrow.',
+    key: 'v3' as const,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
         <path strokeLinecap="round" strokeLinejoin="round"
@@ -35,8 +33,7 @@ const values = [
     ),
   },
   {
-    title: 'Excellence',
-    desc: 'Delivering quality that creates lasting value.',
+    key: 'v4' as const,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
         <path strokeLinecap="round" strokeLinejoin="round"
@@ -69,6 +66,7 @@ function CompassIcon() {
 }
 
 export default function About() {
+  const { t } = useT()
   return (
     <section
       id="about"
@@ -90,11 +88,11 @@ export default function About() {
               letterSpacing: '-0.02em',
               marginBottom: 14,
             }}>
-              Building Businesses.
+              {t('about.title1')}
               <br />
-              Connecting Markets.
+              {t('about.title2')}
               <br />
-              <em style={{ color: 'var(--brand-fg)' }}>Creating the Future.</em>
+              <em style={{ color: 'var(--brand-fg)' }}>{t('about.title3')}</em>
             </h2>
             <p className="text-[13.5px] sm:text-[13px]" style={{
               color: 'var(--fg-muted)',
@@ -102,8 +100,7 @@ export default function About() {
               maxWidth: 320,
               marginBottom: 20,
             }}>
-              Network71 is committed to innovation, sustainability and creating lasting impact
-              worldwide — connecting markets through one unified enterprise.
+              {t('about.lead')}
             </p>
             <Link
               to="/about"
@@ -116,7 +113,7 @@ export default function About() {
               onMouseEnter={e => { e.currentTarget.style.opacity = '0.75' }}
               onMouseLeave={e => { e.currentTarget.style.opacity = '1' }}
             >
-              Learn More About Us
+              {t('about.learnMore')}
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" style={{ width: 12, height: 12 }}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
               </svg>
@@ -125,9 +122,9 @@ export default function About() {
 
           {/* ── Centre: 4 values in 2×2 grid ── */}
           <div className="grid grid-cols-2 gap-2.5 sm:gap-3 content-center">
-            {values.map(({ title, desc, icon }) => (
+            {values.map(({ key, icon }) => (
               <div
-                key={title}
+                key={key}
                 className="p-3.5 sm:p-[18px_16px]"
                 style={{
                   background: 'var(--fill-1)',
@@ -145,8 +142,8 @@ export default function About() {
                   }}>
                   {icon}
                 </div>
-                <div className="text-[12.5px] sm:text-[13px]" style={{ fontWeight: 700, color: 'var(--fg)', marginBottom: 5 }}>{title}</div>
-                <div className="text-[10.5px] sm:text-[11px]" style={{ color: 'var(--fg-subtle)', lineHeight: 1.55 }}>{desc}</div>
+                <div className="text-[12.5px] sm:text-[13px]" style={{ fontWeight: 700, color: 'var(--fg)', marginBottom: 5 }}>{t(`about.${key}.title`)}</div>
+                <div className="text-[10.5px] sm:text-[11px]" style={{ color: 'var(--fg-subtle)', lineHeight: 1.55 }}>{t(`about.${key}.desc`)}</div>
               </div>
             ))}
           </div>
@@ -160,7 +157,7 @@ export default function About() {
             }}>
             <img
               src={BUILDING_IMG}
-              alt="Architectural detail of an office building — illustrative image"
+              alt={t('about.imgAlt')}
               loading="lazy"
               decoding="async"
               style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
@@ -200,7 +197,7 @@ export default function About() {
                 onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-bright)' }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'var(--brand)' }}
               >
-                Partner With Us
+                {t('about.partner')}
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" style={{ width: 16, height: 16 }}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>

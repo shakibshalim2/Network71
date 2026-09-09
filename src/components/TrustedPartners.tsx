@@ -1,20 +1,22 @@
 import { Link } from 'react-router-dom'
+import { useT } from '@/i18n'
 
 const BRANDS = [
-  { name: 'EZYIFY',         sub: 'Social Commerce',          color: 'var(--accent-purple)', href: '/ezyify',    font: "'Playfair Display', serif" },
-  { name: 'N71 MEDIA',      sub: 'Broadcasting & News',      color: 'var(--accent-cyan)', href: '/divisions/media', font: 'var(--font-sans)' },
-  { name: 'eSHIPe',         sub: 'Maritime Marketplace',     color: 'var(--accent-blue)', href: '/divisions/eshipe', font: 'var(--font-sans)' },
-  { name: 'N71 GARMENTS',   sub: 'Apparel Manufacturing',    color: 'var(--accent-pink)', href: '/divisions/garments', font: 'var(--font-sans)' },
-  { name: 'N71 AGRO',       sub: 'Agricultural Products',    color: 'var(--accent-green)', href: '/divisions/agriculture', font: 'var(--font-sans)' },
-  { name: 'N71 FOODS',      sub: 'Food & Beverage',          color: 'var(--accent-orange)', href: '/divisions/food-beverage', font: 'var(--font-sans)' },
-  { name: 'N71 ENERGY',     sub: 'Oils & Renewables',        color: 'var(--accent-amber)', href: '/divisions/oils-energy', font: 'var(--font-sans)' },
-  { name: 'N71 TECH',       sub: 'IT & Digital Services',    color: 'var(--accent-teal)', href: '/divisions/it-software', font: 'var(--font-sans)' },
-  { name: 'N71 TRADING',    sub: 'Global Trade',             color: 'var(--brand-fg)', href: '/divisions/global-trading', font: 'var(--font-sans)' },
-]
+  { name: 'EZYIFY',         sub: 'partners.sub.ezyify',   color: 'var(--accent-purple)', href: '/ezyify',    font: "'Playfair Display', serif" },
+  { name: 'N71 MEDIA',      sub: 'partners.sub.media',    color: 'var(--accent-cyan)', href: '/divisions/media', font: 'var(--font-sans)' },
+  { name: 'eSHIPe',         sub: 'partners.sub.eshipe',   color: 'var(--accent-blue)', href: '/divisions/eshipe', font: 'var(--font-sans)' },
+  { name: 'N71 GARMENTS',   sub: 'partners.sub.garments', color: 'var(--accent-pink)', href: '/divisions/garments', font: 'var(--font-sans)' },
+  { name: 'N71 AGRO',       sub: 'partners.sub.agro',     color: 'var(--accent-green)', href: '/divisions/agriculture', font: 'var(--font-sans)' },
+  { name: 'N71 FOODS',      sub: 'partners.sub.foods',    color: 'var(--accent-orange)', href: '/divisions/food-beverage', font: 'var(--font-sans)' },
+  { name: 'N71 ENERGY',     sub: 'partners.sub.energy',   color: 'var(--accent-amber)', href: '/divisions/oils-energy', font: 'var(--font-sans)' },
+  { name: 'N71 TECH',       sub: 'partners.sub.tech',     color: 'var(--accent-teal)', href: '/divisions/it-software', font: 'var(--font-sans)' },
+  { name: 'N71 TRADING',    sub: 'partners.sub.trading',  color: 'var(--brand-fg)', href: '/divisions/global-trading', font: 'var(--font-sans)' },
+] as const
 
 const doubled = [...BRANDS, ...BRANDS]
 
 function BrandMark({ name, sub, color, href, font }: typeof BRANDS[number]) {
+  const { t } = useT()
   return (
     <Link
       to={href}
@@ -64,13 +66,14 @@ function BrandMark({ name, sub, color, href, font }: typeof BRANDS[number]) {
           transition: 'color 0.22s',
         }}
       >
-        {sub}
+        {t(sub)}
       </span>
     </Link>
   )
 }
 
 export default function TrustedPartners() {
+  const { t } = useT()
   return (
     <section
       style={{ background: 'var(--s0)', borderTop: '1px solid var(--line)' }}
@@ -87,7 +90,7 @@ export default function TrustedPartners() {
               textTransform: 'uppercase',
               color: 'var(--fg-subtle)', marginBottom: 4,
             }}>
-            The Network71 Ecosystem
+            {t('partners.eyebrow')}
           </div>
           <div
             className="text-[11px] sm:text-[12px]"
@@ -95,7 +98,7 @@ export default function TrustedPartners() {
               fontFamily: 'var(--font-sans)',
               color: 'var(--fg-muted)', letterSpacing: '0.08em',
             }}>
-            Our Businesses &amp; Brands
+            {t('partners.title')}
           </div>
         </div>
         <div className="hidden min-[420px]:block" style={{ height: 1, flex: 1, maxWidth: 80, background: 'rgba(200,150,42,0.1)' }} />
