@@ -47,7 +47,7 @@ function VesselCard({ vessel, c }: VesselCardProps) {
             color: "var(--fg)",
           }}
         >
-          {vessel.status}
+          {c.activityOptions.find((o) => o.value === vessel.status)?.label ?? vessel.status}
         </span>
         <div className="absolute bottom-3 left-4">
           <div className="text-white font-semibold text-sm">
