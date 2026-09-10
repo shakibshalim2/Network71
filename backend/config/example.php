@@ -10,4 +10,10 @@ return [
     'origin' => 'https://example.com',
     'secure_cookie' => true,
     'storage' => dirname(__DIR__) . '/storage',
+    'smtp' => [
+        'enabled' => false,
+        'host' => 'smtp.example.com', 'port' => 587, 'encryption' => 'tls',
+        'username' => '', 'password' => '',
+        'from' => 'website@example.com', 'to' => 'inbox@example.com',
+    ],
 ];

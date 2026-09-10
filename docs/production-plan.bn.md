@@ -149,3 +149,5 @@ Still pending: page/section admin editor and locale tabs; admin refactor; media 
 - Added cPanel readiness checker, deployment/restore checklist and scoped admin manifest.
 - Verified: 13 real HTTP/MySQL checks for sections/reset; 508 schema templates; Chrome admin login and EN/BN nested editor at 375/768/1440 widths; production build passed.
 - Remaining: SMTP/outbox, full section/SEO/preview coverage, complete route matrix and actual hosting/offsite restore verification. Earlier checkpoint remains historical.
+
+- SMTP phase: locked PHPMailer 7.1.1, atomic inquiry/outbox insert, CLI worker with overlap lock and bounded retries. Simulated provider failure retained the enquiry, scheduled retry, recovered and avoided normal resend. Composer audit passed. Actual SMTP remains disabled until owner configuration and delivery test.

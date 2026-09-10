@@ -44,7 +44,10 @@ final class Api
             $values = [$name, $email, Http::string($input, 'phone', 40), Http::string($input, 'company', 190), Http::string($input, 'subject', 200, true), Http::string($input, 'message', 10000, true), Http::string($input, 'source', 200)];
             $hash = hash('sha256', json_encode($values, JSON_THROW_ON_ERROR));
             try {
+                $this->db->transaction(function () use ($reference,$values,$key,$hash) {
                 $this->db->query('INSERT INTO inquiries (reference, name, email, phone, company, subject, message, source, request_key, request_hash, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())', [$reference, ...$values, $key, $hash]);
+                    $this->db->query('INSERT INTO email_outbox (inquiry_id,next_attempt_at,created_at) VALUES (?,UTC_TIMESTAMP(),UTC_TIMESTAMP())',[(int)$this->db->pdo->lastInsertId()]);
+                });
             } catch (PDOException $error) {
                 if ($error->getCode() !== '23000') throw $error;
                 $existing = $this->db->query('SELECT reference, request_hash FROM inquiries WHERE request_key = ?', [$key])->fetch();

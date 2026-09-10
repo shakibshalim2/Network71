@@ -91,3 +91,11 @@ Run `node scripts/export-content-schema.mjs` to regenerate packaged EN/BN schema
 Public `GET /api/v1/page/{page_key}?locale=en|bn` returns published sections and visibility/order metadata. Authenticated `GET /api/v1/admin/sections` returns the catalog; `GET /api/v1/admin/sections/{page_key}?locale=en|bn` returns schemas/defaults/drafts. `PUT` on the latter saves `{section,locale,data,visible,order,version}` (version 0 for a new draft); owner-only `POST` takes `{section,locale,action,version}` for publish/unpublish.
 
 Collection lists/details support `locale=en|bn`; writes include locale. Existing rows are English. The page editor and admin language tabs are still pending, as are reset/media deletion endpoints despite their reserved schema. This is an implementation checkpoint, not a completed CMS or production deployment.
+
+## Email notification outbox
+
+Install locked PHP dependencies with `composer install --no-dev --working-dir=backend` (or run Composer in the private backend directory), and deploy vendor with the backend. Migration 004 atomically stores an outbox notification with every new enquiry; retried submissions do not enqueue another notification.
+
+Configure the private `smtp` array from config/example.php, then run `php backend/bin/send-outbox.php` every minute through cPanel cron. SMTP is disabled by default. The worker uses authenticated TLS via PHPMailer, a non-overlapping file lock, batches of 20, exponential retry and a maximum of 10 attempts. Failed messages remain recorded with the enquiry. SMTP acceptance followed by a process/database failure can result in duplicate delivery on retry; a stable Message-ID is used, but exactly-once delivery is not claimed.
+
+`php backend/tests/outbox.php` simulates provider failure and recovery on one isolated development fixture; actual SMTP and external delivery must be checked on staging. The implementation follows the [PHPMailer SMTP documentation](https://github.com/PHPMailer/PHPMailer). No real email was sent during development checks.

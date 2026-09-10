@@ -26,3 +26,5 @@ logs/
 /backend/config/local.php
 /backend/storage/*
 !/backend/storage/.gitkeep
+
+/backend/vendor/
