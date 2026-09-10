@@ -27,6 +27,7 @@ export function ContentEditor({
   const [busy, setBusy] = useState(false)
   const [actionError, setActionError] = useState("")
   const [notice, setNotice] = useState("")
+  const [history, setHistory] = useState<{ recordId: number; items: { id: number; version: number; event: string; created_at: string; author_name: string }[] } | null>(null)
   const writable =
     user.role === "owner" || !["settings", "navigation"].includes(moduleKey)
   const markDirty = (value: boolean) => {
@@ -90,6 +91,8 @@ export function ContentEditor({
         `${
           action === "publish"
             ? "Publish the saved draft of"
+            : action === "request_review"
+              ? "Request owner review for"
             : action === "archive"
               ? "Archive"
               : "Unpublish"
@@ -109,6 +112,8 @@ export function ContentEditor({
         `Content ${
           action === "publish"
             ? "published"
+            : action === "request_review"
+              ? "submitted for review"
             : action === "archive"
               ? "archived"
               : "unpublished"
@@ -120,6 +125,13 @@ export function ContentEditor({
     } finally {
       setBusy(false)
     }
+  }
+  async function loadHistory(record: ContentRecord) {
+    setActionError("")
+    try {
+      const result = await api<{ items: { id: number; version: number; event: string; created_at: string; author_name: string }[] }>(`admin/content/${moduleKey}/${record.id}/history`)
+      setHistory({ recordId: record.id, items: result.items })
+    } catch (error) { setActionError((error as Error).message) }
   }
   return (
     <>
@@ -184,7 +196,7 @@ export function ContentEditor({
                           </p>
                         </div>
                         <span className={`adm-tag ${record.status}`}>
-                          {record.status}
+                          {record.review_requested_at ? "review requested" : record.status}
                         </span>
                         <div className="adm-record-actions">
                           {writable && (
@@ -195,6 +207,8 @@ export function ContentEditor({
                               Edit
                             </button>
                           )}
+                          <button disabled={busy} onClick={() => transition(record, "request_review")}>Request review</button>
+                          <button disabled={busy} onClick={() => loadHistory(record)}>History</button>
                           {user.role === "owner" && (
                             <>
                               <button
@@ -226,6 +240,14 @@ export function ContentEditor({
                             </>
                           )}
                         </div>
+                        {history?.recordId === record.id && (
+                          <div className="adm-revision-list">
+                            <strong>Revision history</strong>
+                            {history.items.length ? history.items.map((revision) => (
+                              <span key={revision.id}>v{revision.version} · {revision.event.replace(/_/g, " ")} · {revision.author_name} · {time(revision.created_at)}</span>
+                            )) : <span>No recorded revisions yet.</span>}
+                          </div>
+                        )}
                       </article>
                     ))}
                   </div>

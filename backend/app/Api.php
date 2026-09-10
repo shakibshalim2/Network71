@@ -74,13 +74,16 @@ final class Api
         if (str_starts_with($path, '/api/v1/admin/sections')) {
             $sections = new Sections($this->db);
             if ($method === 'GET' && $path === '/api/v1/admin/sections') Http::json($sections->catalog());
+            if ($method === 'GET' && preg_match('~^/api/v1/admin/sections/([a-z0-9/-]+)/history$~', $path, $match)) {
+                Http::json(['items'=>$sections->history($match[1],Http::string($_GET,'section',100,true),Sections::locale())]);
+            }
             if (preg_match('~^/api/v1/admin/sections/([a-z0-9/-]+)$~', $path, $match)) {
                 $page = $match[1];
                 if ($method === 'GET') Http::json($sections->read($page,Sections::locale(),false));
                 $input = Http::body();
                 $section = Http::string($input,'section',100,true);
                 if ($method === 'PUT') Http::json($sections->save($page,$section,$input,$user));
-                if ($method === 'POST') { $sections->transition($page,$section,$input,$auth->owner()); Http::json(['ok'=>true]); }
+                if ($method === 'POST') { $sections->transition($page,$section,$input,$user); Http::json(['ok'=>true]); }
             }
         }
         if ($method === 'GET' && $path === '/api/v1/admin/modules') Http::json($this->content->modules);
@@ -101,11 +104,13 @@ final class Api
             $id = isset($match[2]) && $match[2] !== '' ? (int)$match[2] : null;
             if ($method === 'GET' && !$id) Http::json($this->content->list($module));
             if ($method === 'POST' && isset($match[3])) {
-                $owner = $auth->owner();
-                $this->content->transition($module, $id, Http::body(), $owner);
+                $this->content->transition($module, $id, Http::body(), $user);
                 Http::json(['ok' => true]);
             }
             if (($method === 'POST' && !$id) || ($method === 'PUT' && $id && !isset($match[3]))) Http::json($this->content->save($module, $id, Http::body(), $user), $id ? 200 : 201);
+        }
+        if ($method === 'GET' && preg_match('~^/api/v1/admin/content/([a-z-]+)/([0-9]+)/history$~', $path, $match)) {
+            Http::json(['items' => $this->content->history($match[1], (int)$match[2])]);
         }
         if ($method === 'DELETE' && preg_match('~^/api/v1/admin/media/([0-9]+)$~',$path,$match)) {
             $this->media->archive((int)$match[1],$auth->owner()); Http::json(['ok'=>true]);

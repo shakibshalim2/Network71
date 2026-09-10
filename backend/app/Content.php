@@ -53,7 +53,7 @@ final class Content
         $count = (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE $where", $params)->fetchColumn();
         $column = $public ? 'published_json' : 'draft_json';
         $order = $public ? 'published_sort_order' : 'sort_order';
-        $rows = $this->db->query("SELECT id, module, slug, locale, $column AS payload, status, version, $order AS sort_order, updated_at, published_at FROM content_records WHERE $where ORDER BY $order, id DESC LIMIT $limit OFFSET " . (($page - 1) * $limit), $params)->fetchAll();
+        $rows = $this->db->query("SELECT id, module, slug, locale, $column AS payload, status, version, $order AS sort_order, updated_at, published_at, review_requested_at FROM content_records WHERE $where ORDER BY $order, id DESC LIMIT $limit OFFSET " . (($page - 1) * $limit), $params)->fetchAll();
         foreach ($rows as &$row) {
             $row['data'] = json_decode($row['payload'], true, 32, JSON_THROW_ON_ERROR);
             unset($row['payload']);
@@ -82,11 +82,13 @@ final class Content
                     if ($old['locale'] !== $locale) Http::fail(422, 'A record cannot change language. Create a separate translation.');
                     if ((int)$old['version'] !== (int)($input['version'] ?? 0)) Http::fail(409, 'Someone updated this item. Reload before saving.');
                     if ($old['published_at'] && $old['slug'] !== $slug) Http::fail(422, 'Published slugs are locked to preserve public links.');
-                    $this->db->query('UPDATE content_records SET slug = ?, draft_json = ?, version = version + 1, sort_order = ?, updated_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$slug, $json, $order, $user['id'], $id]);
+                    $this->db->query('UPDATE content_records SET slug = ?, draft_json = ?, version = version + 1, sort_order = ?, review_requested_at = NULL, review_requested_by = NULL, updated_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$slug, $json, $order, $user['id'], $id]);
                 } else {
                     $this->db->query('INSERT INTO content_records (module, slug, draft_json, sort_order, updated_by, locale, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())', [$module, $slug, $json, $order, $user['id'], $locale]);
                     $id = (int)$this->db->pdo->lastInsertId();
                 }
+                $version = (int)$this->db->query('SELECT version FROM content_records WHERE id = ?', [$id])->fetchColumn();
+                $this->db->query('INSERT INTO content_revisions (record_id, version, event, snapshot_json, sort_order, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, UTC_TIMESTAMP())', [$id, $version, 'save_draft', $json, $order, $user['id']]);
                 $this->db->audit((int)$user['id'], 'save_draft', $module, $id);
                 return ['id' => $id];
             });
@@ -100,21 +102,33 @@ final class Content
     {
         $this->schema($module);
         $action = $input['action'] ?? '';
-        if (!in_array($action, ['publish', 'archive', 'unpublish'], true)) Http::fail(422, 'Unknown publishing action.');
+        if (!in_array($action, ['request_review', 'publish', 'archive', 'unpublish'], true)) Http::fail(422, 'Unknown publishing action.');
+        if ($action !== 'request_review' && $user['role'] !== 'owner') Http::fail(403, 'Only an owner can publish or archive content.');
         $this->db->transaction(function () use ($module, $id, $input, $user, $action) {
             $row = $this->db->query('SELECT * FROM content_records WHERE id = ? AND module = ? FOR UPDATE', [$id, $module])->fetch();
             if (!$row) Http::fail(404, 'Record not found.');
             if ((int)$row['version'] !== (int)($input['version'] ?? 0)) Http::fail(409, 'Record changed. Reload before continuing.');
-            if ($action === 'publish') {
+            if ($action === 'request_review') {
+                $this->db->query('UPDATE content_records SET review_requested_at = UTC_TIMESTAMP(), review_requested_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$user['id'], $id]);
+            } elseif ($action === 'publish') {
                 $data = json_decode($row['draft_json'], true, 32, JSON_THROW_ON_ERROR);
                 foreach ($this->schema($module)['fields'] as $field) {
                     if ($field['required'] && empty($data[$field['key']])) Http::fail(422, "Complete {$field['label']} before publishing.");
                 }
-                $this->db->query("UPDATE content_records SET published_json = draft_json, published_sort_order = sort_order, status = 'published', version = version + 1, published_at = UTC_TIMESTAMP(), updated_at = UTC_TIMESTAMP(), updated_by = ? WHERE id = ?", [$user['id'], $id]);
+                $this->db->query("UPDATE content_records SET published_json = draft_json, published_sort_order = sort_order, status = 'published', version = version + 1, published_at = UTC_TIMESTAMP(), review_requested_at = NULL, review_requested_by = NULL, updated_at = UTC_TIMESTAMP(), updated_by = ? WHERE id = ?", [$user['id'], $id]);
             } else {
                 $this->db->query('UPDATE content_records SET status = ?, version = version + 1, updated_at = UTC_TIMESTAMP(), updated_by = ? WHERE id = ?', [$action === 'archive' ? 'archived' : 'draft', $user['id'], $id]);
             }
+            $version = (int)$this->db->query('SELECT version FROM content_records WHERE id = ?', [$id])->fetchColumn();
+            $this->db->query('INSERT INTO content_revisions (record_id, version, event, snapshot_json, sort_order, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, UTC_TIMESTAMP())', [$id, $version, $action, $row['draft_json'], $row['sort_order'], $user['id']]);
             $this->db->audit((int)$user['id'], $action, $module, $id);
         });
+    }
+
+    public function history(string $module, int $id): array
+    {
+        $this->schema($module);
+        if (!$this->db->query('SELECT id FROM content_records WHERE id = ? AND module = ?', [$id, $module])->fetch()) Http::fail(404, 'Record not found.');
+        return $this->db->query('SELECT r.id, r.version, r.event, r.sort_order, r.created_at, u.name AS author_name FROM content_revisions r JOIN admin_users u ON u.id = r.created_by WHERE r.record_id = ? ORDER BY r.id DESC LIMIT 50', [$id])->fetchAll();
     }
 }

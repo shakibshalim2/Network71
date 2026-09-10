@@ -74,6 +74,9 @@ try {
     $userId = (int)$db->query('SELECT id FROM admin_users WHERE email = ?', [$email])->fetchColumn();
     $editor->login($email, $password);
     check($editor->send('GET', 'admin/users')['status'] === 403, 'Editor accessed accounts.');
+    check($editor->send('POST', "admin/content/projects/$id/state", ['action' => 'request_review', 'version' => 3])['status'] === 200, 'Editor could not request review.');
+    $history = $editor->send('GET', "admin/content/projects/$id/history");
+    check($history['status'] === 200 && count($history['data']['items']) >= 3 && $history['data']['items'][0]['event'] === 'request_review', 'Content revision history missing.');
     check($editor->send('POST', "admin/content/projects/$id/state", ['action' => 'publish', 'version' => 3])['status'] === 403, 'Editor published content.');
     check($editor->send('POST', 'admin/content/settings', ['slug' => $prefix, 'data' => ['title' => 'Test settings']])['status'] === 403, 'Editor changed settings.');
     $editorDraft = ['slug' => $prefix . '-editor', 'data' => ['title' => 'Editor draft']];

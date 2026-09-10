@@ -17,7 +17,7 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 
 ## Still to implement
 
-- Full revision history/review approval UI, private project evidence, media replacement/removal workflow and richer field types.
+- Private project evidence, media replacement workflow and richer field types.
 - Verified offsite backups and cPanel production deployment. SMTP delivery exists but remains disabled until a real provider and cron are configured and tested.
 - Actual company content review and publishing. Existing public marketing claims were not verified by building this backend.
 
@@ -113,5 +113,7 @@ Set `inquiry_retention_days` in the private configuration (default 365, allowed 
 Media archive is owner-only and rejects referenced assets. Replace an image by uploading a new asset, updating/publishing its references, then archiving the old unused asset. Owner-generated password reset links expire after 30 minutes and can be consumed once; they are shown for private sharing, not automatically emailed.
 
 The Inbox supports status changes, assignment to an active admin account and timestamped internal notes. Notes are available only through authenticated admin endpoints and are never included in public enquiry responses.
+
+Collection records and page sections record draft/publishing revisions with author and time. Editors can request owner review; owners retain publish/unpublish authority. Saving another draft clears the pending review marker so changed content must be submitted again.
 
 For project social metadata, deploy the project.php example and its matching rewrite rule as documented in `docs/deployment-checklist.md`. Local rendering tests do not establish actual cPanel compatibility.

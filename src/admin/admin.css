@@ -156,6 +156,8 @@
 .adm-inquiry-notes form { display: grid; gap: 10px; margin-top: 12px; }
 .adm-inquiry-notes form label { max-width: none; }
 .adm-inquiry-notes form .adm-button { justify-self: end; }
+.adm-revision-list { grid-column: 2/-1; display: grid; gap: 5px; padding: 12px; background: #f5f8fa; border-radius: 8px; font-size: 11px; }
+.adm-revision-list span { color: var(--adm-muted); }
 .adm-footer { display: flex; justify-content: space-between; padding: 22px 38px; font-size: 10px; color: var(--adm-muted); border-top: 1px solid var(--adm-line); }
 .adm-bottom-nav { display: none; }
 .adm-signout { margin-top: 25px; }

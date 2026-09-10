@@ -28,6 +28,9 @@ try {
     verify(request('POST',"admin/sections/$page",['section'=>$section,'locale'=>$locale,'version'=>$version,'action'=>'publish'])[0]===200,'Publish');
     verify(request('GET',"page/$page?locale=$locale")[1]['sections'][$section]['title']==='CMS integration check','Published content');
     $db->query("UPDATE admin_users SET role='editor' WHERE id=?",[$id]);
+    verify(request('POST',"admin/sections/$page",['section'=>$section,'locale'=>$locale,'version'=>$version+1,'action'=>'request_review'])[0]===200,'Editor review request');
+    $history=request('GET',"admin/sections/$page/history?locale=$locale&section=$section");
+    verify($history[0]===200&&count($history[1]['items'])>=3&&$history[1]['items'][0]['event']==='request_review','Section revision history');
     verify(request('POST',"admin/sections/$page",['section'=>$section,'locale'=>$locale,'version'=>$version+1,'action'=>'unpublish'])[0]===403,'Editor cannot publish');
     $db->query("UPDATE admin_users SET role='owner' WHERE id=?",[$id]);
     verify(request('POST',"admin/sections/$page",['section'=>$section,'locale'=>$locale,'version'=>$version+1,'action'=>'unpublish'])[0]===200,'Unpublish');

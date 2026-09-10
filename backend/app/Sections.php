@@ -33,7 +33,7 @@ final class Sections
             $key = $row['section_key'];
             $sections[$key] = json_decode($row[$public ? 'published_json' : 'draft_json'], true, 64, JSON_THROW_ON_ERROR);
             $meta[$key] = ['visible' => (bool)$row[$public ? 'published_visible' : 'draft_visible'], 'order' => (int)$row[$public ? 'published_sort_order' : 'sort_order']];
-            if (!$public) $meta[$key] += ['version' => (int)$row['version'], 'status' => $row['status']];
+            if (!$public) $meta[$key] += ['version' => (int)$row['version'], 'status' => $row['status'], 'review_requested_at' => $row['review_requested_at']];
         }
         $result = ['sections' => (object)$sections, 'meta' => (object)$meta];
         if (!$public) $result += ['schema' => $schema, 'defaults' => $this->defaults($page,$locale)];
@@ -55,13 +55,15 @@ final class Sections
                 $old = $this->db->query('SELECT id, version FROM page_sections WHERE page_key = ? AND section_key = ? AND locale = ? FOR UPDATE',[$page,$section,$locale])->fetch();
                 if ((int)($old['version'] ?? 0) !== (int)($input['version'] ?? -1)) Http::fail(409, 'Section changed. Reload before saving.');
                 if ($old) {
-                    $this->db->query('UPDATE page_sections SET draft_json = ?, draft_visible = ?, sort_order = ?, version = version + 1, updated_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?',[$json,(int)$input['visible'],$order,$user['id'],$old['id']]);
+                    $this->db->query('UPDATE page_sections SET draft_json = ?, draft_visible = ?, sort_order = ?, version = version + 1, review_requested_at = NULL, review_requested_by = NULL, updated_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?',[$json,(int)$input['visible'],$order,$user['id'],$old['id']]);
                 } else {
                     $this->db->query('INSERT INTO page_sections (page_key,section_key,locale,draft_json,draft_visible,sort_order,updated_by,updated_at) VALUES (?,?,?,?,?,?,?,UTC_TIMESTAMP())',[$page,$section,$locale,$json,(int)$input['visible'],$order,$user['id']]);
                 }
                 $id = $old ? (int)$old['id'] : (int)$this->db->pdo->lastInsertId();
+                $version = (int)($old['version'] ?? 0) + 1;
+                $this->db->query('INSERT INTO section_revisions (section_id, version, event, snapshot_json, visible, sort_order, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, UTC_TIMESTAMP())',[$id,$version,'save_draft',$json,(int)$input['visible'],$order,$user['id']]);
                 $this->db->audit((int)$user['id'],'save_section','page_sections',$id);
-                return ['version' => (int)($old['version'] ?? 0)+1];
+                return ['version' => $version];
             });
         } catch (PDOException $error) { if ($error->getCode()==='23000') Http::fail(409,'Section changed. Reload before saving.'); throw $error; }
     }
@@ -70,15 +72,28 @@ final class Sections
         $this->schema($page);
         $locale=self::locale($input['locale'] ?? 'en');
         $action=$input['action'] ?? '';
-        if (!in_array($action,['publish','unpublish'],true)) Http::fail(422,'Unknown section action.');
+        if (!in_array($action,['request_review','publish','unpublish'],true)) Http::fail(422,'Unknown section action.');
+        if ($action !== 'request_review' && $user['role'] !== 'owner') Http::fail(403,'Only an owner can publish sections.');
         $this->db->transaction(function () use ($page,$section,$locale,$action,$input,$user) {
             $row=$this->db->query('SELECT * FROM page_sections WHERE page_key=? AND section_key=? AND locale=? FOR UPDATE',[$page,$section,$locale])->fetch();
             if (!$row) Http::fail(404,'Save a draft first.');
             if ((int)$row['version'] !== (int)($input['version'] ?? 0)) Http::fail(409,'Section changed. Reload first.');
-            if ($action==='publish') {
-                $this->db->query("UPDATE page_sections SET published_json=draft_json,published_visible=draft_visible,published_sort_order=sort_order,status='published',version=version+1,published_at=UTC_TIMESTAMP(),updated_at=UTC_TIMESTAMP() WHERE id=?",[$row['id']]);
+            if ($action==='request_review') {
+                $this->db->query('UPDATE page_sections SET review_requested_at=UTC_TIMESTAMP(),review_requested_by=?,updated_at=UTC_TIMESTAMP() WHERE id=?',[$user['id'],$row['id']]);
+            } elseif ($action==='publish') {
+                $this->db->query("UPDATE page_sections SET published_json=draft_json,published_visible=draft_visible,published_sort_order=sort_order,status='published',version=version+1,published_at=UTC_TIMESTAMP(),review_requested_at=NULL,review_requested_by=NULL,updated_at=UTC_TIMESTAMP() WHERE id=?",[$row['id']]);
             } else $this->db->query("UPDATE page_sections SET status='draft',version=version+1,updated_at=UTC_TIMESTAMP() WHERE id=?",[$row['id']]);
+            $version=(int)$this->db->query('SELECT version FROM page_sections WHERE id=?',[$row['id']])->fetchColumn();
+            $this->db->query('INSERT INTO section_revisions (section_id, version, event, snapshot_json, visible, sort_order, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, UTC_TIMESTAMP())',[$row['id'],$version,$action,$row['draft_json'],$row['draft_visible'],$row['sort_order'],$user['id']]);
             $this->db->audit((int)$user['id'],$action.'_section','page_sections',(int)$row['id']);
         });
+    }
+
+    public function history(string $page,string $section,string $locale): array
+    {
+        $this->schema($page)['sections'][$section] ?? Http::fail(404,'Section not found.');
+        $id=$this->db->query('SELECT id FROM page_sections WHERE page_key=? AND section_key=? AND locale=?',[$page,$section,$locale])->fetchColumn();
+        if(!$id) return [];
+        return $this->db->query('SELECT r.id,r.version,r.event,r.visible,r.sort_order,r.created_at,u.name AS author_name FROM section_revisions r JOIN admin_users u ON u.id=r.created_by WHERE r.section_id=? ORDER BY r.id DESC LIMIT 50',[$id])->fetchAll();
     }
 }

@@ -28,6 +28,7 @@ export type ContentRecord = {
   version: number
   sort_order: number
   updated_at: string
+  review_requested_at: string | null
 }
 export type Page<T> = {
   items: T[]
