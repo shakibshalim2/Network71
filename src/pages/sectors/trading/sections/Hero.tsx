@@ -6,7 +6,7 @@ export default function Hero({ c }: { c: TradingContent }) {
       <section className="force-dark sector-hero relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img decoding="async"
-            src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1400&h=800&fit=crop&auto=format"
+            src={c.copy.heroImage}
             alt={c.copy.heroImageAlt}
             className="w-full h-full object-cover"
           />

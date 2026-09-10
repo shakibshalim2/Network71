@@ -23,7 +23,7 @@ export default function VesselCard({ vessel, c, onOpen }: VesselCardProps) {
         style={{ height: 160, background: "var(--s3)" }}
       >
         <img
-          src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&h=400&fit=crop&auto=format"
+          src={c.illustrativeImage}
           alt={c.illustrativeAlt} loading="lazy" decoding="async" width="800" height="400"
           className="w-full h-full object-cover"
           style={{ opacity: 0.85 }}
@@ -87,4 +87,3 @@ export default function VesselCard({ vessel, c, onOpen }: VesselCardProps) {
     </div>
   )
 }
-

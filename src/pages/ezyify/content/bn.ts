@@ -13,6 +13,7 @@ import {
 
 const bn: EzyifyContent = {
   hero: {
+    websiteUrl: "https://ezyify.com",
     stats,
     eyebrow: "Network71 · পণ্য ও প্ল্যাটফর্ম ভিশন",
     title: "Ezyify",
@@ -96,6 +97,7 @@ const bn: EzyifyContent = {
     lead: "আপনি বিস্তারে প্রস্তুত বিক্রেতা, উচ্চ-প্রবৃদ্ধির সুযোগ খোঁজা বিনিয়োগকারী, বা ইন্টিগ্রেশনে আগ্রহী প্রযুক্তি প্রতিষ্ঠান — যেই হোন, Ezyify ইকোসিস্টেমে আপনার জায়গা আছে।",
   },
   waitlist: {
+    websiteUrl: "https://ezyify.com",
     eyebrow: "শিগগিরই আসছে",
     title: "Ezyify-এর অভিজ্ঞতা নিন সবার আগে",
     lead: "ওয়েটলিস্টে যোগ দিন, গড়ে তুলুন সোশ্যাল কমার্সের ভবিষ্যৎ।",

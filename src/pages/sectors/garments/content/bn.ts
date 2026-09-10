@@ -19,6 +19,7 @@ const bn: GarmentsContent = {
     "টেকসই উন্নয়ন অংশীদারিত্ব",
   ],
   hero: {
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&h=800&fit=crop&auto=format",
     alt: "পোশাক উৎপাদন",
     eyebrow: "নেটওয়ার্ক৭১ — বিভাগ ০১",
     title1: "গার্মেন্টস",
@@ -75,6 +76,11 @@ const bn: GarmentsContent = {
       "ক্রেতা যোগাযোগ ও উৎপাদন মাইলফলক ট্র্যাকিং সহজ করে।",
   },
   facilities: {
+    images: [
+      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=500&fit=crop&auto=format",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=350&fit=crop&auto=format",
+      "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=350&fit=crop&auto=format",
+    ],
     eyebrow: "আমাদের কারখানা",
     title1: "শিল্প-পরিসরের",
     title2: "উৎপাদন ফ্লোর",

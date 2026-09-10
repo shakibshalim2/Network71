@@ -6,7 +6,7 @@ export default function Hero({ c }: { c: FoodBeverageContent }) {
       <section className="force-dark sector-hero relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img decoding="async"
-            src="https://images.unsplash.com/photo-1556909211-36987daf7b4d?w=1400&h=800&fit=crop&auto=format"
+            src={c.hero.image}
             alt={c.hero.imgAlt}
             className="w-full h-full object-cover"
           />

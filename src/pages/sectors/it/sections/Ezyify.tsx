@@ -151,7 +151,7 @@ export default function Ezyify({ c }: { c: ITContent }) {
             </svg>
           </Link>
           <a
-            href="https://ezyify.com"
+            href={c.copy.Ezyify.websiteUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-sm transition-all hover:bg-white/5"

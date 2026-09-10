@@ -9,6 +9,7 @@ import {
 
 const en = {
   hero: {
+    websiteUrl: "https://ezyify.com",
     stats,
     eyebrow: "Network71 · Product & platform vision",
     title: "Ezyify",
@@ -92,6 +93,7 @@ const en = {
     lead: "Whether you are a seller ready to scale, an investor seeking high-growth exposure, or a technology company looking to integrate — there is a place for you in the Ezyify ecosystem.",
   },
   waitlist: {
+    websiteUrl: "https://ezyify.com",
     eyebrow: "Coming Soon",
     title: "Be First to Experience Ezyify",
     lead: "Join the waitlist and shape the future of social commerce.",

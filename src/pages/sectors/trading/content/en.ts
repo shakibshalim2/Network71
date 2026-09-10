@@ -126,6 +126,7 @@ const en = {
     heroPrimaryCta: 'Trade Inquiry',
     heroSecondaryCta: 'Explore Categories',
     heroImageAlt: 'Shipping and logistics — global cargo',
+    heroImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1400&h=800&fit=crop&auto=format',
     infrastructureEyebrow: 'Logistics',
     infrastructureTitle: 'Logistics Infrastructure',
     infrastructureLead: 'Multi-modal freight capability with vetted partner networks across all major trade corridors.',

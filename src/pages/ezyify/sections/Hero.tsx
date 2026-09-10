@@ -93,7 +93,7 @@ export default function Hero({ c }: { c: EzyifyContent["hero"] }) {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20">
           <a
-            href="https://ezyify.com"
+            href={c.websiteUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="px-9 py-4 rounded-xl font-semibold text-white transition-opacity hover:opacity-90 shadow-2xl"

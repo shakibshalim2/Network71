@@ -56,6 +56,7 @@ const en = {
       lead: "From enterprise back-office systems to consumer-facing AI products \u2014 our practice spans the full digital stack.",
     },
     Ezyify: {
+      websiteUrl: "https://ezyify.com",
       eyebrow: "Flagship Innovation Product",
       title: "Ezyify",
       lead: "N71's flagship AI-powered social commerce ecosystem",

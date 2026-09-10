@@ -143,6 +143,7 @@ const bn: EShipeContent = {
     ],
   },
   listings: {
+    illustrativeImage: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&h=400&fit=crop&auto=format",
     details: "বিস্তারিত দেখুন",
     detailTitle: "জাহাজের বিবরণ (উদাহরণ)",
     sellerTitle: "বিক্রেতার তথ্য",

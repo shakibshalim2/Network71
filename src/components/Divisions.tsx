@@ -1,18 +1,8 @@
 import { Link } from 'react-router-dom'
-import { useT, DIVISION_IDS, DIVISION_HREF, DIVISION_COLOR, divKey, type DivisionId } from '@/i18n'
+import { useT, DIVISION_IDS, DIVISION_COLOR, divKey, type DivisionId, type TKey } from '@/i18n'
 
-const IMAGES: Record<DivisionId, string> = {
-  garments:    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=800&fit=crop&auto=format',
-  agriculture: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=600&h=800&fit=crop&auto=format',
-  food:        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=800&fit=crop&auto=format',
-  energy:      'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=800&fit=crop&auto=format',
-  it:          'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=800&fit=crop&auto=format',
-  trading:     'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=600&h=800&fit=crop&auto=format',
-  ventures:    'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&h=800&fit=crop&auto=format',
-  media:       'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&h=800&fit=crop&auto=format',
-  ship:        'https://images.unsplash.com/photo-1605745341112-85968b19335b?w=600&h=800&fit=crop&auto=format',
-  ezyify:      'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=800&fit=crop&auto=format',
-}
+const IMAGE_KEYS = Object.fromEntries(DIVISION_IDS.map(id => [id, `home.divisions.${id}.image`])) as Record<DivisionId, TKey>
+const HREF_KEYS = Object.fromEntries(DIVISION_IDS.map(id => [id, `home.divisions.${id}.href`])) as Record<DivisionId, TKey>
 
 const HOVER: Record<DivisionId, string> = {
   garments: 'rgba(244,63,94,0.48)',
@@ -38,8 +28,8 @@ export default function Divisions() {
     tag: t(divKey(id, 'tag')),
     desc: t(divKey(id, 'card')),
     tagColor: DIVISION_COLOR[id],
-    href: DIVISION_HREF[id],
-    img: IMAGES[id],
+    href: t(HREF_KEYS[id]),
+    img: t(IMAGE_KEYS[id]),
     overlay: id === 'ezyify'
       ? 'linear-gradient(175deg, rgba(88,28,220,0.35) 0%, rgba(5,8,26,0.92) 100%)'
       : 'var(--img-scrim-strong)',

@@ -57,6 +57,7 @@ const bn: ITContent = {
         "স্ট্যাকজুড়ে বিস্তৃত।",
     },
     Ezyify: {
+      websiteUrl: "https://ezyify.com",
       eyebrow: "প্রধান উদ্ভাবনী পণ্য",
       title: "Ezyify",
       lead: "N71-এর প্রধান AI-চালিত সোশ্যাল কমার্স ইকোসিস্টেম",

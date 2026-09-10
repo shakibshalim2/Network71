@@ -2,20 +2,17 @@ export const NEWS_STORIES = [
   {
     id: 1,
     title: 'mediaMarket.story1.title',
-    date: 'mediaMarket.story1.date', href: '/about',
-    img: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=120&h=80&fit=crop&auto=format',
+    date: 'mediaMarket.story1.date', href: 'mediaMarket.story1.href', image: 'mediaMarket.story1.image',
   },
   {
     id: 2,
     title: 'mediaMarket.story2.title',
-    date: 'mediaMarket.story2.date', href: '/divisions/agriculture',
-    img: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=120&h=80&fit=crop&auto=format',
+    date: 'mediaMarket.story2.date', href: 'mediaMarket.story2.href', image: 'mediaMarket.story2.image',
   },
   {
     id: 3,
     title: 'mediaMarket.story3.title',
-    date: 'mediaMarket.story3.date', href: '/divisions/it-software',
-    img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=120&h=80&fit=crop&auto=format',
+    date: 'mediaMarket.story3.date', href: 'mediaMarket.story3.href', image: 'mediaMarket.story3.image',
   },
 ] as const
 

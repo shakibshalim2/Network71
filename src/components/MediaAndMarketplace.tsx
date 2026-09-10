@@ -22,7 +22,7 @@ export default function MediaAndMarketplace() {
               {/* Left: editorial hero image */}
               <div className="force-dark relative overflow-hidden min-h-[260px] sm:min-h-[340px]">
                 <img decoding="async" loading="lazy"
-                  src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&h=700&fit=crop&auto=format"
+                  src={t('mediaMarket.mediaImage')}
                   alt={t('mediaMarket.mediaAlt')}
                   className="absolute inset-0 w-full h-full object-cover"
                   style={{ transition: 'transform 0.7s ease', transform: 'scale(1.02)' }}
@@ -68,7 +68,7 @@ export default function MediaAndMarketplace() {
                   </p>
 
                   <Link
-                    to="/divisions/media"
+                    to={t('mediaMarket.mediaHref')}
                     style={{
                       display: 'inline-flex', alignItems: 'center', gap: 8,
                       padding: '8px 16px', borderRadius: 7, fontSize: 12, fontWeight: 700,
@@ -104,7 +104,7 @@ export default function MediaAndMarketplace() {
                   {NEWS_STORIES.map((story) => (
                     <Link
                       key={story.id}
-                      to="/divisions/media"
+                      to={t(story.href)}
                       style={{
                         display: 'flex', alignItems: 'flex-start', gap: 10,
                         padding: '10px 8px', borderRadius: 8,
@@ -114,7 +114,7 @@ export default function MediaAndMarketplace() {
                       onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
                     >
                       <img decoding="async" loading="lazy"
-                        src={story.img}
+                        src={t(story.image)}
                         alt={t(story.title)}
                         style={{ width: 54, height: 38, objectFit: 'cover', borderRadius: 5, flexShrink: 0 }}
                       />
@@ -131,7 +131,7 @@ export default function MediaAndMarketplace() {
                 </div>
 
                 <Link
-                  to="/divisions/media"
+                  to={t('mediaMarket.mediaHref')}
                   style={{
                     display: 'inline-flex', alignItems: 'center', gap: 5,
                     marginTop: 14, fontSize: 10.5, fontWeight: 600,
@@ -179,7 +179,7 @@ export default function MediaAndMarketplace() {
               </p>
 
               <Link
-                to="/divisions/ship-marketplace"
+                to={t('mediaMarket.shipHref')}
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: 8,
                   padding: '10px 20px', borderRadius: 8, fontSize: 12.5, fontWeight: 700,
@@ -200,7 +200,7 @@ export default function MediaAndMarketplace() {
             {/* Ship image */}
             <div className="min-h-[150px] sm:min-h-[180px]" style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
               <img decoding="async" loading="lazy"
-                src="https://images.unsplash.com/photo-1605745341112-85968b19335b?w=700&h=400&fit=crop&auto=format"
+                src={t('mediaMarket.shipImage')}
                 alt={t('mediaMarket.shipAlt')}
                 className="w-full h-full object-cover"
                 style={{ transition: 'transform 0.7s ease' }}

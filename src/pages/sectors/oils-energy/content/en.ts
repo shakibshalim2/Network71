@@ -5,6 +5,7 @@ const en = {
   divisionName: "Oils & Energy",
   accentClass: "text-amber-400",
   hero: {
+    edibleImage: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=700&h=800&fit=crop&auto=format",
     edibleTitle: "Edible\nOils",
     edibleLead: "Edible oil sourcing, refining & distribution enquiries",
     energyTitle: "Energy",

@@ -84,7 +84,7 @@ export default function Waitlist({ c }: { c: EzyifyContent["waitlist"] }) {
 
         <div className="mt-10 flex flex-wrap gap-x-4 gap-y-3 justify-center">
           <a
-            href="https://ezyify.com"
+            href={c.websiteUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="text-slate-400 hover:text-white text-sm transition-colors flex items-center gap-2"

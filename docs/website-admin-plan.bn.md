@@ -35,7 +35,7 @@ Bottom navigation শুধু `/admin/*`-এ থাকবে। Public website-
 ## বাস্তবায়নের ধাপ
 
 1. **এই কাজের প্রথম ধাপ:** PHP/PDO MySQL schema ও setup tools, secure session login, Owner/Editor permissions, schema-driven content editor, draft/published snapshots, media upload, inquiry API/inbox, account management, audit log এবং responsive admin shell। Public collection APIs থাকবে; existing page content migration আলাদা কাজ হিসেবে দৃশ্যমান থাকবে।
-2. **Public content migration:** বর্তমান প্রতিটি page/component থেকে hardcoded content structured data-তে আনা; admin field-এর সাথে renderer mapping; homepage section ordering/visibility, header/footer/settings, sector pages, articles/jobs/team/gallery। প্রতিটি migrated section edit/publish করে public site-এ যাচাই করতে হবে। Generic CMS record তৈরি হলেই পুরোনো page CMS-controlled হয়েছে বলা যাবে না।
+2. **Public content migration:** বর্তমান প্রতিটি page/component থেকে business content structured data-তে আনা; admin field-এর সাথে renderer mapping; homepage section ordering/visibility/images/destinations, header/footer/settings, sector pages, articles/jobs/team/gallery। প্রতিটি migrated section edit/publish করে public site-এ যাচাই করতে হবে। Layout/route implementation code-managed থাকবে।
 3. **Project showcase:** Featured work, project list/detail, actual client material, approved evidence, share metadata এবং related inquiry।
 4. **Operations:** Authenticated SMTP/outbox retry, password reset, private documents, image derivatives, backup/restore, cPanel staging, production hardening ও deployment।
 

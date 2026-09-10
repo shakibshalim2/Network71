@@ -5,15 +5,15 @@ import { useT } from '@/i18n'
 export const ESG_PILLARS = [
   {
     id: 'e', letter: 'E', color: 'var(--accent-teal)',
-    img: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=320&fit=crop&auto=format',
+    image: 'home.esg.e.image',
   },
   {
     id: 's', letter: 'S', color: 'var(--accent-cyan)',
-    img: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&h=320&fit=crop&auto=format',
+    image: 'home.esg.s.image',
   },
   {
     id: 'g', letter: 'G', color: 'var(--brand-fg)',
-    img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=320&fit=crop&auto=format',
+    image: 'home.esg.g.image',
   },
 ] as const
 
@@ -44,7 +44,7 @@ export default function SustainabilityTeaser() {
               {t('home.esg.lead')}
             </p>
             <Link
-              to="/sustainability"
+              to={t('home.esg.href')}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8,
                 padding: '11px 24px', fontSize: 13, fontWeight: 600, borderRadius: 8,
@@ -63,7 +63,7 @@ export default function SustainabilityTeaser() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-          {ESG_PILLARS.map(({ id, letter, color, img }) => (
+          {ESG_PILLARS.map(({ id, letter, color, image }) => (
             <div
               key={id}
               style={{
@@ -78,7 +78,7 @@ export default function SustainabilityTeaser() {
               {/* Image with overlay */}
               <div className="h-[140px] sm:h-[160px]" style={{ position: 'relative', overflow: 'hidden', background: '#0a1a10' }}>
                 <img decoding="async" loading="lazy"
-                  src={img}
+                  src={t(image)}
                   alt={t(`home.esg.${id}.imgAlt`)}
                   style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.45) saturate(0.75)', display: 'block', transition: 'filter 0.3s, transform 0.5s' }}
                   onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.filter = 'brightness(0.55) saturate(0.9)'; (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.04)' }}

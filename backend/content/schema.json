@@ -1362,6 +1362,10 @@
       "hero": {
         "type": "object",
         "fields": {
+          "websiteUrl": {
+            "type": "string",
+            "format": "url"
+          },
           "stats": {
             "type": "array",
             "item": {
@@ -1910,6 +1914,10 @@
       "waitlist": {
         "type": "object",
         "fields": {
+          "websiteUrl": {
+            "type": "string",
+            "format": "url"
+          },
           "eyebrow": {
             "type": "string",
             "format": "text"
@@ -4684,6 +4692,10 @@
       "listings": {
         "type": "object",
         "fields": {
+          "illustrativeImage": {
+            "type": "string",
+            "format": "url"
+          },
           "details": {
             "type": "string",
             "format": "text"
@@ -5426,6 +5438,10 @@
       "hero": {
         "type": "object",
         "fields": {
+          "image": {
+            "type": "string",
+            "format": "url"
+          },
           "eyebrow": {
             "type": "string",
             "format": "text"
@@ -5879,6 +5895,10 @@
       "hero": {
         "type": "object",
         "fields": {
+          "image": {
+            "type": "string",
+            "format": "url"
+          },
           "alt": {
             "type": "string",
             "format": "text"
@@ -6137,6 +6157,14 @@
       "facilities": {
         "type": "object",
         "fields": {
+          "images": {
+            "type": "array",
+            "item": {
+              "type": "string",
+              "format": "url"
+            },
+            "max": 100
+          },
           "eyebrow": {
             "type": "string",
             "format": "text"
@@ -6652,6 +6680,10 @@
           "Ezyify": {
             "type": "object",
             "fields": {
+              "websiteUrl": {
+                "type": "string",
+                "format": "url"
+              },
               "eyebrow": {
                 "type": "string",
                 "format": "text"
@@ -7801,6 +7833,10 @@
       "hero": {
         "type": "object",
         "fields": {
+          "edibleImage": {
+            "type": "string",
+            "format": "url"
+          },
           "edibleTitle": {
             "type": "string",
             "format": "text"
@@ -8706,6 +8742,10 @@
           "heroImageAlt": {
             "type": "string",
             "format": "text"
+          },
+          "heroImage": {
+            "type": "string",
+            "format": "url"
           },
           "infrastructureEyebrow": {
             "type": "string",
@@ -10741,6 +10781,110 @@
             "type": "string",
             "format": "text"
           },
+          "home.about.image": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.about.href": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.cta.image": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.cta.c1.href": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.cta.c2.href": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.cta.c3.href": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.garments.image": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.agriculture.image": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.food.image": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.energy.image": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.it.image": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.trading.image": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.ventures.image": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.media.image": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.ship.image": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.ezyify.image": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.garments.href": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.agriculture.href": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.food.href": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.energy.href": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.it.href": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.trading.href": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.ventures.href": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.media.href": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.ship.href": {
+            "type": "string",
+            "format": "url"
+          },
+          "home.divisions.ezyify.href": {
+            "type": "string",
+            "format": "url"
+          },
           "ezyify.badge": {
             "type": "string",
             "format": "text"
@@ -11085,6 +11229,22 @@
             "type": "string",
             "format": "text"
           },
+          "mediaMarket.mediaImage": {
+            "type": "string",
+            "format": "url"
+          },
+          "mediaMarket.shipImage": {
+            "type": "string",
+            "format": "url"
+          },
+          "mediaMarket.mediaHref": {
+            "type": "string",
+            "format": "url"
+          },
+          "mediaMarket.shipHref": {
+            "type": "string",
+            "format": "url"
+          },
           "mediaMarket.badge": {
             "type": "string",
             "format": "text"
@@ -11117,6 +11277,14 @@
             "type": "string",
             "format": "text"
           },
+          "mediaMarket.story1.image": {
+            "type": "string",
+            "format": "url"
+          },
+          "mediaMarket.story1.href": {
+            "type": "string",
+            "format": "url"
+          },
           "mediaMarket.story2.title": {
             "type": "string",
             "format": "text"
@@ -11125,6 +11293,14 @@
             "type": "string",
             "format": "text"
           },
+          "mediaMarket.story2.image": {
+            "type": "string",
+            "format": "url"
+          },
+          "mediaMarket.story2.href": {
+            "type": "string",
+            "format": "url"
+          },
           "mediaMarket.story3.title": {
             "type": "string",
             "format": "text"
@@ -11132,6 +11308,14 @@
           "mediaMarket.story3.date": {
             "type": "string",
             "format": "text"
+          },
+          "mediaMarket.story3.image": {
+            "type": "string",
+            "format": "url"
+          },
+          "mediaMarket.story3.href": {
+            "type": "string",
+            "format": "url"
           },
           "mediaMarket.mediaDivision": {
             "type": "string",
@@ -11397,9 +11581,17 @@
             "type": "string",
             "format": "text"
           },
+          "home.esg.href": {
+            "type": "string",
+            "format": "url"
+          },
           "home.esg.e.label": {
             "type": "string",
             "format": "text"
+          },
+          "home.esg.e.image": {
+            "type": "string",
+            "format": "url"
           },
           "home.esg.e.imgAlt": {
             "type": "string",
@@ -11421,6 +11613,10 @@
             "type": "string",
             "format": "text"
           },
+          "home.esg.s.image": {
+            "type": "string",
+            "format": "url"
+          },
           "home.esg.s.imgAlt": {
             "type": "string",
             "format": "text"
@@ -11440,6 +11636,10 @@
           "home.esg.g.label": {
             "type": "string",
             "format": "text"
+          },
+          "home.esg.g.image": {
+            "type": "string",
+            "format": "url"
           },
           "home.esg.g.imgAlt": {
             "type": "string",

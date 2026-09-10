@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useT } from '@/i18n'
 
-const BUILDING_IMG =
-  'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&h=880&fit=crop&auto=format'
-
 const values = [
   {
     key: 'v1' as const,
@@ -103,7 +100,7 @@ export default function About() {
               {t('about.lead')}
             </p>
             <Link
-              to="/about"
+              to={t('home.about.href')}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 6,
                 fontSize: 12, fontWeight: 600, color: 'var(--brand-fg)',
@@ -156,7 +153,7 @@ export default function About() {
               position: 'relative',
             }}>
             <img
-              src={BUILDING_IMG}
+              src={t('home.about.image')}
               alt={t('about.imgAlt')}
               loading="lazy"
               decoding="async"

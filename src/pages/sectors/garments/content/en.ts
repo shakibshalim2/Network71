@@ -18,6 +18,7 @@ const en = {
     "Sustainability Partnership",
   ],
   hero: {
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&h=800&fit=crop&auto=format",
     alt: "Garment manufacturing",
     eyebrow: "Network71 — Division 01",
     title1: "Garments",
@@ -74,6 +75,11 @@ const en = {
       "buyer communication, and production milestone tracking in a single digital environment.",
   },
   facilities: {
+    images: [
+      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=500&fit=crop&auto=format",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=350&fit=crop&auto=format",
+      "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=350&fit=crop&auto=format",
+    ],
     eyebrow: "Our Facilities",
     title1: "Industrial-Scale",
     title2: "Production Floors",

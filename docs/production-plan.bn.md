@@ -171,6 +171,7 @@ Completed in this resumed session:
 - cPanel readiness checker, admin manifest, deployment checklist and project HTML/social metadata renderer example.
 
 Global contact endpoints and company profile fields are centrally controlled by a published Settings record; packaged values remain only as outage/unpublished fallbacks.
+Homepage cards/CTA destinations and previously hardcoded homepage/division image URLs are now validated page-section fields editable through admin.
 
 Verified: 558 locale template validations; 15 section/reset/review HTTP checks; 43 HTTP/MySQL integration checks; outbox failure/retry simulation; media archive protection; project renderer escaping/metadata; authenticated browser save/preview/publish; EN/BN editor at 375/768/1440; 156 public route/locale/viewport structural checks. The original About test section was restored.
 

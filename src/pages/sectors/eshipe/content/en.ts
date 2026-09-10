@@ -75,6 +75,7 @@ const en = {
     items: categoryItems,
   },
   listings: {
+    illustrativeImage: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&h=400&fit=crop&auto=format",
     details: "View specifications",
     detailTitle: "Vessel specifications (illustrative)",
     sellerTitle: "Seller information",

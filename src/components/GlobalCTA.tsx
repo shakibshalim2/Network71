@@ -22,9 +22,9 @@ const GlobeIcon = () => (
 )
 
 const CARDS = [
-  { key: 'c1', Icon: InvestIcon, href: '/investors', accent: 'var(--brand)' },
-  { key: 'c2', Icon: TeamIcon,   href: '/careers',   accent: 'var(--accent-cyan)' },
-  { key: 'c3', Icon: GlobeIcon,  href: '/contact',   accent: 'var(--accent-teal)' },
+  { key: 'c1', Icon: InvestIcon, hrefKey: 'home.cta.c1.href', accent: 'var(--brand)' },
+  { key: 'c2', Icon: TeamIcon, hrefKey: 'home.cta.c2.href', accent: 'var(--accent-cyan)' },
+  { key: 'c3', Icon: GlobeIcon, hrefKey: 'home.cta.c3.href', accent: 'var(--accent-teal)' },
 ] as const
 
 export default function GlobalCTA() {
@@ -37,7 +37,7 @@ export default function GlobalCTA() {
       {/* Cinematic background image */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
         <img
-          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&h=900&fit=crop&auto=format"
+          src={t('home.cta.image')}
           alt=""
           aria-hidden="true"
           loading="lazy"
@@ -72,10 +72,10 @@ export default function GlobalCTA() {
 
         {/* Cards */}
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
-          {CARDS.map(({ key, Icon, href, accent }) => (
+          {CARDS.map(({ key, Icon, hrefKey, accent }) => (
             <Link
               key={key}
-              to={href}
+              to={t(hrefKey)}
               className="group block p-6 sm:p-7 lg:p-8 rounded-2xl transition-all duration-300 hover:-translate-y-1"
               style={{ background: 'var(--glass)', border: '1px solid var(--line-strong)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = `color-mix(in srgb, ${accent} 21%, transparent)`; e.currentTarget.style.background = 'var(--s3)' }}

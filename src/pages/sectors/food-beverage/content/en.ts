@@ -34,6 +34,7 @@ const en = {
   opportunities,
   roadmap,
   hero: {
+    image: 'https://images.unsplash.com/photo-1556909211-36987daf7b4d?w=1400&h=800&fit=crop&auto=format',
     eyebrow: 'Network71 — Food & Beverage Division',
     title1: 'Food & Beverage',
     title2: 'Manufacturing',

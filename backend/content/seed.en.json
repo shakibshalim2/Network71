@@ -654,6 +654,7 @@
   },
   "ezyify": {
     "hero": {
+      "websiteUrl": "https://ezyify.com",
       "stats": [
         {
           "value": "AI",
@@ -1015,6 +1016,7 @@
       "lead": "Whether you are a seller ready to scale, an investor seeking high-growth exposure, or a technology company looking to integrate — there is a place for you in the Ezyify ecosystem."
     },
     "waitlist": {
+      "websiteUrl": "https://ezyify.com",
       "eyebrow": "Coming Soon",
       "title": "Be First to Experience Ezyify",
       "lead": "Join the waitlist and shape the future of social commerce.",
@@ -2558,6 +2560,7 @@
       ]
     },
     "listings": {
+      "illustrativeImage": "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&h=400&fit=crop&auto=format",
       "details": "View specifications",
       "detailTitle": "Vessel specifications (illustrative)",
       "sellerTitle": "Seller information",
@@ -3250,6 +3253,7 @@
       }
     ],
     "hero": {
+      "image": "https://images.unsplash.com/photo-1556909211-36987daf7b4d?w=1400&h=800&fit=crop&auto=format",
       "eyebrow": "Network71 — Food & Beverage Division",
       "title1": "Food & Beverage",
       "title2": "Manufacturing",
@@ -3439,6 +3443,7 @@
       "Sustainability Partnership"
     ],
     "hero": {
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&h=800&fit=crop&auto=format",
       "alt": "Garment manufacturing",
       "eyebrow": "Network71 — Division 01",
       "title1": "Garments",
@@ -3595,6 +3600,11 @@
       "integrationLead": "Network71's Garments division integrates with the Ezyify platform — enabling streamlined order management, buyer communication, and production milestone tracking in a single digital environment."
     },
     "facilities": {
+      "images": [
+        "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=500&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=350&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=350&fit=crop&auto=format"
+      ],
       "eyebrow": "Our Facilities",
       "title1": "Industrial-Scale",
       "title2": "Production Floors",
@@ -3898,6 +3908,7 @@
         "lead": "From enterprise back-office systems to consumer-facing AI products — our practice spans the full digital stack."
       },
       "Ezyify": {
+        "websiteUrl": "https://ezyify.com",
         "eyebrow": "Flagship Innovation Product",
         "title": "Ezyify",
         "lead": "N71's flagship AI-powered social commerce ecosystem",
@@ -4793,6 +4804,7 @@
     "divisionName": "Oils & Energy",
     "accentClass": "text-amber-400",
     "hero": {
+      "edibleImage": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=700&h=800&fit=crop&auto=format",
       "edibleTitle": "Edible\nOils",
       "edibleLead": "Edible oil sourcing, refining & distribution enquiries",
       "energyTitle": "Energy",
@@ -5289,6 +5301,7 @@
       "heroPrimaryCta": "Trade Inquiry",
       "heroSecondaryCta": "Explore Categories",
       "heroImageAlt": "Shipping and logistics — global cargo",
+      "heroImage": "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1400&h=800&fit=crop&auto=format",
       "infrastructureEyebrow": "Logistics",
       "infrastructureTitle": "Logistics Infrastructure",
       "infrastructureLead": "Multi-modal freight capability with vetted partner networks across all major trade corridors.",
@@ -6321,6 +6334,32 @@
       "lib.serviceDown": "The enquiry service is unavailable. Please retry or email info@network71.com.",
       "app.loading": "Loading Network71",
       "app.skip": "Skip to page content",
+      "home.about.image": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&h=880&fit=crop&auto=format",
+      "home.about.href": "/about",
+      "home.cta.image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&h=900&fit=crop&auto=format",
+      "home.cta.c1.href": "/investors",
+      "home.cta.c2.href": "/careers",
+      "home.cta.c3.href": "/contact",
+      "home.divisions.garments.image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=800&fit=crop&auto=format",
+      "home.divisions.agriculture.image": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=600&h=800&fit=crop&auto=format",
+      "home.divisions.food.image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=800&fit=crop&auto=format",
+      "home.divisions.energy.image": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=800&fit=crop&auto=format",
+      "home.divisions.it.image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=800&fit=crop&auto=format",
+      "home.divisions.trading.image": "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=600&h=800&fit=crop&auto=format",
+      "home.divisions.ventures.image": "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&h=800&fit=crop&auto=format",
+      "home.divisions.media.image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&h=800&fit=crop&auto=format",
+      "home.divisions.ship.image": "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=600&h=800&fit=crop&auto=format",
+      "home.divisions.ezyify.image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=800&fit=crop&auto=format",
+      "home.divisions.garments.href": "/divisions/garments",
+      "home.divisions.agriculture.href": "/divisions/agriculture",
+      "home.divisions.food.href": "/divisions/food-beverage",
+      "home.divisions.energy.href": "/divisions/oils-energy",
+      "home.divisions.it.href": "/divisions/it-software",
+      "home.divisions.trading.href": "/divisions/global-trading",
+      "home.divisions.ventures.href": "/divisions/strategic-ventures",
+      "home.divisions.media.href": "/divisions/media",
+      "home.divisions.ship.href": "/divisions/ship-marketplace",
+      "home.divisions.ezyify.href": "/ezyify",
       "ezyify.badge": "A Network71 Flagship Innovation Brand",
       "ezyify.tagline": "AI-Powered Global E-commerce & Social Commerce Ecosystem",
       "ezyify.cta": "Explore Ezyify Platform",
@@ -6407,6 +6446,10 @@
       "ezyify.phone.salesThisWeek": "{n} sales this week",
       "ezyify.phone.growth": "+24%",
       "mediaMarket.mediaAlt": "Network71 Media – global journalism and broadcast",
+      "mediaMarket.mediaImage": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&h=700&fit=crop&auto=format",
+      "mediaMarket.shipImage": "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=700&h=400&fit=crop&auto=format",
+      "mediaMarket.mediaHref": "/divisions/media",
+      "mediaMarket.shipHref": "/divisions/ship-marketplace",
       "mediaMarket.badge": "Network71 Media",
       "mediaMarket.title1": "Global Stories.",
       "mediaMarket.title2": "Real Impact.",
@@ -6415,10 +6458,16 @@
       "mediaMarket.eyebrow": "Explore Network71",
       "mediaMarket.story1.title": "Explore Our Business Divisions",
       "mediaMarket.story1.date": "Services & sectors",
+      "mediaMarket.story1.image": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=120&h=80&fit=crop&auto=format",
+      "mediaMarket.story1.href": "/about",
       "mediaMarket.story2.title": "Responsible Agriculture & Sourcing",
       "mediaMarket.story2.date": "Agriculture division",
+      "mediaMarket.story2.image": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=120&h=80&fit=crop&auto=format",
+      "mediaMarket.story2.href": "/divisions/agriculture",
       "mediaMarket.story3.title": "Software & Digital Product Development",
       "mediaMarket.story3.date": "IT & software",
+      "mediaMarket.story3.image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=120&h=80&fit=crop&auto=format",
+      "mediaMarket.story3.href": "/divisions/it-software",
       "mediaMarket.mediaDivision": "Media Division",
       "mediaMarket.eshipEyebrow": "eSHIPe Ship Marketplace",
       "mediaMarket.eshipTitle1": "The Global Platform for",
@@ -6485,17 +6534,21 @@
       "home.esg.title2": "Responsible Growth.",
       "home.esg.lead": "Sustainability is embedded in our business strategy — from how we source raw materials to how we invest in the communities where we operate.",
       "home.esg.cta": "Our ESG Commitment",
+      "home.esg.href": "/sustainability",
       "home.esg.e.label": "Environmental",
+      "home.esg.e.image": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=320&fit=crop&auto=format",
       "home.esg.e.imgAlt": "Wind turbines generating renewable energy at sunset",
       "home.esg.e.desc": "Carbon footprint reduction targets, sustainable sourcing, and responsible manufacturing across all divisions.",
       "home.esg.e.stat": "Environment",
       "home.esg.e.statLabel": "Responsible sourcing",
       "home.esg.s.label": "Social",
+      "home.esg.s.image": "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&h=320&fit=crop&auto=format",
       "home.esg.s.imgAlt": "Sustainable agriculture and farming community landscapes",
       "home.esg.s.desc": "Fair labour practices, community investment, and workforce development in every market we operate.",
       "home.esg.s.stat": "People",
       "home.esg.s.statLabel": "Fair working practices",
       "home.esg.g.label": "Governance",
+      "home.esg.g.image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=320&fit=crop&auto=format",
       "home.esg.g.imgAlt": "Corporate governance and professional business environment",
       "home.esg.g.desc": "Transparent corporate governance, ethical business practices, and robust accountability frameworks.",
       "home.esg.g.stat": "Integrity",

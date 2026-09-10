@@ -127,6 +127,7 @@ const bn: TradingContent = {
     heroPrimaryCta: 'বাণিজ্য অনুসন্ধান',
     heroSecondaryCta: 'বিভাগসমূহ দেখুন',
     heroImageAlt: 'শিপিং ও লজিস্টিকস — বৈশ্বিক কার্গো',
+    heroImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1400&h=800&fit=crop&auto=format',
     infrastructureEyebrow: 'লজিস্টিকস',
     infrastructureTitle: 'লজিস্টিকস অবকাঠামো',
     infrastructureLead: 'সব প্রধান বাণিজ্য করিডোরে যাচাইকৃত অংশীদার নেটওয়ার্কসহ বহুমাধ্যমিক ফ্রেইট সক্ষমতা।',

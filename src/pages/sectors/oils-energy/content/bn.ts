@@ -20,6 +20,7 @@ const bn: OilsEnergyContent = {
   divisionName: "তেল ও জ্বালানি",
   accentClass: "text-amber-400",
   hero: {
+    edibleImage: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=700&h=800&fit=crop&auto=format",
     edibleTitle: "ভোজ্য\nতেল",
     edibleLead: "ভোজ্যতেল সোর্সিং, পরিশোধন ও বিতরণ সংক্রান্ত অনুসন্ধান",
     energyTitle: "এনার্জি",
