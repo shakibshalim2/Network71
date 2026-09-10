@@ -106,6 +106,18 @@ export type Inquiry = {
   message: string
   reference: string
   status: string
+  assigned_to: number | null
+  assignee_name: string | null
+  notes: InquiryNote[]
   created_at: string
   source: string
+}
+export type InquiryNote = {
+  id: number
+  note: string
+  author_name: string
+  created_at: string
+}
+export type InquiryPage = Page<Inquiry> & {
+  assignees: { id: number; name: string }[]
 }

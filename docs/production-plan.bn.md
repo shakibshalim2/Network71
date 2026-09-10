@@ -174,6 +174,7 @@ Verified: 562 locale template validations; 13 sections/reset HTTP checks; origin
 
 Still open (do not report the entire production plan as complete):
 - Generic collection public consumer parity is complete. Legacy Pages/Divisions collection definitions are retired; the section CMS is now their sole authoritative editor. Existing legacy database rows remain inert and excluded from dashboard counts.
+- Inquiry Inbox now supports active-admin assignment, status tracking and private timestamped notes; retention automation remains open.
 - Complete nested/shared section layout coverage, draft autosave/review history, and manual visual/accessibility acceptance beyond the automated checks.
 - Actual SMTP provider delivery, cron setup, cPanel rewrites/HTTPS, deployment and isolated backup restore/offsite recovery verification.
 - Owner-approved company imagery, factual claims, real vessel/seller profiles and private evidence/document workflows.

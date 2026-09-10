@@ -121,17 +121,46 @@ final class Api
         if ($method === 'GET' && $path === '/api/v1/admin/inquiries') {
             $page = max(1, min(100000, (int)($_GET['page'] ?? 1)));
             $total = (int)$this->db->query('SELECT COUNT(*) FROM inquiries')->fetchColumn();
-            Http::json(['items' => $this->db->query('SELECT * FROM inquiries ORDER BY id DESC LIMIT 30 OFFSET ' . (($page - 1) * 30))->fetchAll(), 'total' => $total, 'page' => $page, 'pages' => max(1, (int)ceil($total / 30))]);
+            $items = $this->db->query('SELECT i.*, u.name AS assignee_name FROM inquiries i LEFT JOIN admin_users u ON u.id = i.assigned_to ORDER BY i.id DESC LIMIT 30 OFFSET ' . (($page - 1) * 30))->fetchAll();
+            $ids = array_map(static fn(array $item): int => (int)$item['id'], $items);
+            $notes = [];
+            if ($ids) {
+                $placeholders = implode(',', array_fill(0, count($ids), '?'));
+                foreach ($this->db->query("SELECT n.id, n.inquiry_id, n.note, n.created_at, u.name AS author_name FROM inquiry_notes n JOIN admin_users u ON u.id = n.author_id WHERE n.inquiry_id IN ($placeholders) ORDER BY n.id", $ids)->fetchAll() as $note) {
+                    $notes[(int)$note['inquiry_id']][] = $note;
+                }
+            }
+            foreach ($items as &$item) $item['notes'] = $notes[(int)$item['id']] ?? [];
+            unset($item);
+            $assignees = $this->db->query('SELECT id, name FROM admin_users WHERE active = 1 ORDER BY name, id')->fetchAll();
+            Http::json(['items' => $items, 'assignees' => $assignees, 'total' => $total, 'page' => $page, 'pages' => max(1, (int)ceil($total / 30))]);
         }
         if ($method === 'PATCH' && preg_match('~^/api/v1/admin/inquiries/([0-9]+)$~', $path, $match)) {
-            $status = Http::body()['status'] ?? '';
-            if (!in_array($status, ['new', 'in_progress', 'closed'], true)) Http::fail(422, 'Invalid enquiry status.');
-            $this->db->transaction(function () use ($status, $match, $user) {
+            $input = Http::body();
+            $status = $input['status'] ?? null;
+            $assignedTo = $input['assigned_to'] ?? null;
+            if ($status !== null && !in_array($status, ['new', 'in_progress', 'closed'], true)) Http::fail(422, 'Invalid enquiry status.');
+            if ($assignedTo !== null && (!is_int($assignedTo) || $assignedTo < 1)) Http::fail(422, 'Invalid assignee.');
+            if ($status === null && !array_key_exists('assigned_to', $input)) Http::fail(422, 'Choose a status or assignee.');
+            $this->db->transaction(function () use ($status, $assignedTo, $input, $match, $user) {
                 if (!$this->db->query('SELECT id FROM inquiries WHERE id = ? FOR UPDATE', [$match[1]])->fetch()) Http::fail(404, 'Enquiry not found.');
-                $this->db->query('UPDATE inquiries SET status = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$status, $match[1]]);
-                $this->db->audit((int)$user['id'], 'update_status', 'inquiries', (int)$match[1]);
+                if ($assignedTo !== null && !$this->db->query('SELECT id FROM admin_users WHERE id = ? AND active = 1', [$assignedTo])->fetch()) Http::fail(422, 'Choose an active assignee.');
+                if ($status !== null) $this->db->query('UPDATE inquiries SET status = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$status, $match[1]]);
+                if (array_key_exists('assigned_to', $input)) $this->db->query('UPDATE inquiries SET assigned_to = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$assignedTo, $match[1]]);
+                $this->db->audit((int)$user['id'], 'update_inquiry', 'inquiries', (int)$match[1]);
             });
             Http::json(['ok' => true]);
+        }
+        if ($method === 'POST' && preg_match('~^/api/v1/admin/inquiries/([0-9]+)/notes$~', $path, $match)) {
+            $note = Http::string(Http::body(), 'note', 2000, true);
+            $created = $this->db->transaction(function () use ($note, $match, $user) {
+                if (!$this->db->query('SELECT id FROM inquiries WHERE id = ? FOR UPDATE', [$match[1]])->fetch()) Http::fail(404, 'Enquiry not found.');
+                $this->db->query('INSERT INTO inquiry_notes (inquiry_id, author_id, note, created_at) VALUES (?, ?, ?, UTC_TIMESTAMP())', [$match[1], $user['id'], $note]);
+                $id = (int)$this->db->pdo->lastInsertId();
+                $this->db->audit((int)$user['id'], 'add_note', 'inquiries', (int)$match[1]);
+                return $this->db->query('SELECT n.id, n.inquiry_id, n.note, n.created_at, u.name AS author_name FROM inquiry_notes n JOIN admin_users u ON u.id = n.author_id WHERE n.id = ?', [$id])->fetch();
+            });
+            Http::json($created, 201);
         }
         if ($path === '/api/v1/admin/users') {
             $auth->owner();

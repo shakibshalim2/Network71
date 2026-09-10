@@ -9,6 +9,7 @@ $base = rtrim(getenv('N71_TEST_BASE_URL') ?: 'http://127.0.0.1:8787', '/');
 if (!in_array(parse_url($base, PHP_URL_HOST), ['localhost', '127.0.0.1'], true)) throw new RuntimeException('Use a loopback test server.');
 $db = new Database($config);
 $prefix = 'test-' . bin2hex(random_bytes(6));
+$inquiryBucket = hash('sha256', 'inquiry:127.0.0.1');
 $ids = []; $userId = null; $mediaId = null; $filename = null; $reference = null;
 $checks = 0;
 function check(bool $condition, string $message): void { global $checks; if (!$condition) throw new RuntimeException($message); $checks++; }
@@ -90,12 +91,19 @@ try {
     check($guest->send('GET', 'media/' . $filename)['status'] === 200, 'Uploaded image not served.');
     file_put_contents($tempBad, '<?php echo 1;');
     check($owner->send('POST', 'admin/media', ['file' => new CURLFile($tempBad, 'image/png', 'fake.png'), 'alt' => 'Invalid image', 'permission' => 'yes'])['status'] === 422, 'Disguised PHP upload accepted.');
+    $db->query('DELETE FROM rate_limits WHERE bucket = ?', [$inquiryBucket]);
     $inquiry = ['name' => 'Test enquiry', 'email' => $email, 'subject' => $prefix, 'message' => 'Integration test', 'request_key' => bin2hex(random_bytes(20))];
     $received = $guest->send('POST', 'inquiries', $inquiry); check($received['status'] === 201, 'Inquiry not stored.'); $reference = $received['data']['reference'];
     $duplicate = $guest->send('POST', 'inquiries', $inquiry); check($duplicate['status'] === 200 && $duplicate['data']['reference'] === $reference, 'Retry duplicated enquiry.');
     $inquiry['message'] = 'Changed'; check($guest->send('POST', 'inquiries', $inquiry)['status'] === 409, 'Reused key accepted a different payload.');
     $inquiryId = $db->query('SELECT id FROM inquiries WHERE reference = ?', [$reference])->fetchColumn();
     check($owner->send('PATCH', "admin/inquiries/$inquiryId", ['status' => 'in_progress'])['status'] === 200, 'Inbox status update failed.');
+    $ownerId = (int)$db->query('SELECT id FROM admin_users WHERE email = ?', [(string)getenv('N71_TEST_EMAIL')])->fetchColumn();
+    check($owner->send('PATCH', "admin/inquiries/$inquiryId", ['assigned_to' => $ownerId])['status'] === 200, 'Inbox assignment failed.');
+    check($owner->send('POST', "admin/inquiries/$inquiryId/notes", ['note' => 'Private follow-up note'])['status'] === 201, 'Inbox note creation failed.');
+    $inbox = $owner->send('GET', 'admin/inquiries')['data'];
+    $inboxItem = array_values(array_filter($inbox['items'], static fn(array $item): bool => $item['reference'] === $reference))[0] ?? null;
+    check($inboxItem && (int)$inboxItem['assigned_to'] === $ownerId && count($inboxItem['notes']) === 1 && $inboxItem['notes'][0]['note'] === 'Private follow-up note', 'Inbox assignment or notes were not returned.');
     check($owner->send('POST', "admin/content/projects/$id/state", ['action' => 'unpublish', 'version' => 3])['status'] === 200, 'Unpublish failed.');
     check($guest->send('GET', 'content/projects/' . $prefix)['status'] === 404, 'Unpublished content remained public.');
     check($owner->send('POST', 'auth/logout')['status'] === 200, 'Logout failed.');
@@ -106,6 +114,7 @@ try {
     if ($mediaId) { $db->query("DELETE FROM audit_logs WHERE entity_id = ? AND entity = 'media'", [$mediaId]); $db->query('DELETE FROM media_assets WHERE id = ?', [$mediaId]); if ($filename) unlink($config['storage'] . '/media/' . $filename); }
     if ($reference) { $inquiryId = $db->query('SELECT id FROM inquiries WHERE reference = ?', [$reference])->fetchColumn(); $db->query("DELETE FROM audit_logs WHERE entity_id = ? AND entity = 'inquiries'", [$inquiryId]); $db->query('DELETE FROM inquiries WHERE reference = ?', [$reference]); }
     if ($userId) { $db->query("DELETE FROM audit_logs WHERE actor_id = ? OR (entity = 'users' AND entity_id = ?)", [$userId, $userId]); $db->query('DELETE FROM admin_users WHERE id = ?', [$userId]); }
+    $db->query('DELETE FROM rate_limits WHERE bucket = ?', [$inquiryBucket]);
     $db->query('DELETE FROM rate_limits WHERE bucket = ?', [hash('sha256', 'login-email:' . $prefix . '@example.test')]);
     unlink($tempImage); unlink($tempBad);
 }

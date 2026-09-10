@@ -145,7 +145,17 @@
 .adm-inquiry dt { color: var(--adm-muted); font-size: 10px; }
 .adm-inquiry dd { margin: 3px 0; overflow-wrap: anywhere; }
 .adm-inquiry dd a { color: var(--adm-green); text-decoration: underline; }
-.adm-inquiry label { max-width: 240px; }
+.adm-inquiry-controls { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.adm-inquiry-controls label { max-width: none; }
+.adm-inquiry-notes { border-top: 1px solid var(--adm-line); margin-top: 20px; padding-top: 18px; }
+.adm-inquiry-notes h3 { font-size: 13px; }
+.adm-inquiry-notes ul { list-style: none; padding: 0; display: grid; gap: 8px; }
+.adm-inquiry-notes li { padding: 11px; border-radius: 7px; background: #f5f8fa; }
+.adm-inquiry-notes li p { white-space: pre-wrap; overflow-wrap: anywhere; margin: 0 0 6px; font-size: 12px; }
+.adm-inquiry-notes li span { color: var(--adm-muted); font-size: 10px; }
+.adm-inquiry-notes form { display: grid; gap: 10px; margin-top: 12px; }
+.adm-inquiry-notes form label { max-width: none; }
+.adm-inquiry-notes form .adm-button { justify-self: end; }
 .adm-footer { display: flex; justify-content: space-between; padding: 22px 38px; font-size: 10px; color: var(--adm-muted); border-top: 1px solid var(--adm-line); }
 .adm-bottom-nav { display: none; }
 .adm-signout { margin-top: 25px; }
@@ -195,6 +205,7 @@
   .adm-login-form { padding: 35px; }
 }
 @media(max-width: 600px) {
+  .adm-inquiry-controls { grid-template-columns: minmax(0,1fr); }
   .adm-topbar { min-height: 67px; padding: 10px 19px; }
   .adm-top-actions { gap: 10px; }
   .adm-top-actions>.adm-avatar { display: none; }

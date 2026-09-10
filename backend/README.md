@@ -18,7 +18,7 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 ## Still to implement
 
 - Full revision history/review approval UI, private project evidence, media replacement/removal workflow and richer field types.
-- Inquiry assignment/notes, retention automation, verified offsite backups and cPanel production deployment. SMTP delivery exists but remains disabled until a real provider and cron are configured and tested.
+- Inquiry retention automation, verified offsite backups and cPanel production deployment. SMTP delivery exists but remains disabled until a real provider and cron are configured and tested.
 - Actual company content review and publishing. Existing public marketing claims were not verified by building this backend.
 
 ## Local setup
@@ -109,5 +109,7 @@ Configure the private `smtp` array from config/example.php, then run `php backen
 `/admin/pages` now edits packaged page sections in EN/BN, supports draft save/publish, visibility/order, page SEO and authenticated saved-draft previews. Shared text is under `site`; homepage layout is under `home`. `php backend/bin/seed-sections.php` optionally imports missing templates as drafts without overwriting existing records or publishing. All 14 collection modules have public consumers. Legacy Pages/Divisions collection definitions and their seeder were retired; any old database rows remain inert and are excluded from dashboard counts.
 
 Media archive is owner-only and rejects referenced assets. Replace an image by uploading a new asset, updating/publishing its references, then archiving the old unused asset. Owner-generated password reset links expire after 30 minutes and can be consumed once; they are shown for private sharing, not automatically emailed.
+
+The Inbox supports status changes, assignment to an active admin account and timestamped internal notes. Notes are available only through authenticated admin endpoints and are never included in public enquiry responses.
 
 For project social metadata, deploy the project.php example and its matching rewrite rule as documented in `docs/deployment-checklist.md`. Local rendering tests do not establish actual cPanel compatibility.
