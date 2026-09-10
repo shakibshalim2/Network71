@@ -1949,8 +1949,24 @@
         {
           "key": "year",
           "label": "Year"
+        },
+        {
+          "key": "location",
+          "label": "Location"
+        },
+        {
+          "key": "duration",
+          "label": "Duration"
         }
       ],
+      "deliverablesTitle": "Deliverables",
+      "resultEvidenceTitle": "Result evidence",
+      "resultBaselineLabel": "Baseline / comparison",
+      "resultSourceLabel": "Source / explanation",
+      "resultDateLabel": "As of",
+      "galleryTitle": "Project gallery",
+      "testimonialTitle": "Related testimonial",
+      "publicEvidence": "View public evidence ↗",
       "story": [
         {
           "key": "challenge",
@@ -2564,6 +2580,7 @@
       "details": "View specifications",
       "detailTitle": "Vessel specifications (illustrative)",
       "sellerTitle": "Seller information",
+      "sellerWebsite": "Visit seller website ↗",
       "sellerNote": "Seller identity and availability have not been published for this example. Contact Network71 for a current, approved listing.",
       "specNote": "Class, dimensions, engine and survey records are available on request for actual listings.",
       "enquiryIntro": "I would like to discuss a vessel with these requirements:",
@@ -2591,6 +2608,20 @@
         },
         {
           "label": "Built"
+        }
+      ],
+      "extendedSpecs": [
+        {
+          "key": "classification",
+          "label": "Class status"
+        },
+        {
+          "key": "dimensions",
+          "label": "Dimensions"
+        },
+        {
+          "key": "engine",
+          "label": "Engine"
         }
       ],
       "price": "Price",

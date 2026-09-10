@@ -3780,7 +3780,9 @@
                   "values": [
                     "client",
                     "division",
-                    "year"
+                    "year",
+                    "location",
+                    "duration"
                   ]
                 },
                 "label": {
@@ -3790,6 +3792,38 @@
               }
             },
             "max": 100
+          },
+          "deliverablesTitle": {
+            "type": "string",
+            "format": "text"
+          },
+          "resultEvidenceTitle": {
+            "type": "string",
+            "format": "text"
+          },
+          "resultBaselineLabel": {
+            "type": "string",
+            "format": "text"
+          },
+          "resultSourceLabel": {
+            "type": "string",
+            "format": "text"
+          },
+          "resultDateLabel": {
+            "type": "string",
+            "format": "text"
+          },
+          "galleryTitle": {
+            "type": "string",
+            "format": "text"
+          },
+          "testimonialTitle": {
+            "type": "string",
+            "format": "text"
+          },
+          "publicEvidence": {
+            "type": "string",
+            "format": "text"
           },
           "story": {
             "type": "array",
@@ -4708,6 +4742,10 @@
             "type": "string",
             "format": "text"
           },
+          "sellerWebsite": {
+            "type": "string",
+            "format": "text"
+          },
           "sellerNote": {
             "type": "string",
             "format": "text"
@@ -4785,6 +4823,27 @@
             "item": {
               "type": "object",
               "fields": {
+                "label": {
+                  "type": "string",
+                  "format": "text"
+                }
+              }
+            },
+            "max": 100
+          },
+          "extendedSpecs": {
+            "type": "array",
+            "item": {
+              "type": "object",
+              "fields": {
+                "key": {
+                  "type": "fixed",
+                  "values": [
+                    "classification",
+                    "dimensions",
+                    "engine"
+                  ]
+                },
                 "label": {
                   "type": "string",
                   "format": "text"

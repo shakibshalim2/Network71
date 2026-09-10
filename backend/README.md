@@ -1,11 +1,11 @@
 # Network71 backend and website CMS
 
-The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-admin-plan.bn.md). The admin, page-section CMS and all 14 purpose-built public collection consumers are working; production hosting and owner content acceptance remain external steps.
+The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-admin-plan.bn.md). The admin, page-section CMS and all 16 purpose-built public collection consumers are working; production hosting and owner content acceptance remain external steps.
 
 ## Available now
 
 - `/admin` login, desktop sidebar, mobile bottom navigation and responsive forms for every module.
-- Fourteen schema-driven collection modules: projects, team, posts, press, jobs, gallery, brands, locations, timeline, testimonials, credentials, metrics, navigation and settings. Website pages and divisions use the richer page-section editor.
+- Sixteen schema-driven collection modules: projects, vessels, vessel sellers, team, posts, press, jobs, gallery, brands, locations, timeline, testimonials, credentials, metrics, navigation and settings. Website pages and divisions use the richer page-section editor.
 - MySQL/PDO persistence, owner/editor permissions, draft/published snapshots, optimistic version checks, archive/unpublish and audit logging. Public ordering changes only when published.
 - Public collection/detail API, JSON-only errors, validated fields, cookie sessions, CSRF/origin checks and rate limiting.
 - Raster image uploads with permission confirmation, MIME/signature checks, pixel/size limits, WebP re-encoding, private filesystem storage and a public image-serving endpoint. All accepted media is public; do not upload confidential documents.
@@ -16,6 +16,7 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 - A published `company-profile` Settings record centrally controls general, careers, press, legal and investor email addresses, phone, website, business hours, operating/registered addresses and social profiles. Safe packaged contact values remain during API outages or before the record is published.
 - Homepage cards, media teasers, CTA destinations and major homepage/division imagery are structured URL fields in the page-section CMS. Admins can replace them with approved Media Library URLs without editing React components.
 - Projects support location/duration, separate deliverables, verified result baseline/source/date, up to 30 captioned images, an approved related testimonial and a public evidence link. The public case-study page renders these fields only from the published snapshot.
+- eSHIPe has separate Vessels and Vessel Sellers collections. Published inventory replaces the clearly labelled packaged examples, supports seller linking by slug and renders approved vessel media/specification/profile data without publishing private contact details.
 - Owner-issued expiring password reset links, referenced-media archive protection and a transactional email outbox with a locked PHPMailer worker.
 
 ## Still to implement
@@ -111,7 +112,7 @@ Set `inquiry_retention_days` in the private configuration (default 365, allowed 
 
 ## Current admin and deployment additions
 
-`/admin/pages` now edits packaged page sections in EN/BN, supports draft save/publish, visibility/order, page SEO and authenticated saved-draft previews. Shared text is under `site`; homepage layout is under `home`. `php backend/bin/seed-sections.php` optionally imports missing templates as drafts without overwriting existing records or publishing. All 14 collection modules have public consumers. Legacy Pages/Divisions collection definitions and their seeder were retired; any old database rows remain inert and are excluded from dashboard counts.
+`/admin/pages` now edits packaged page sections in EN/BN, supports draft save/publish, visibility/order, page SEO and authenticated saved-draft previews. Shared text is under `site`; homepage layout is under `home`. `php backend/bin/seed-sections.php` optionally imports missing templates as drafts without overwriting existing records or publishing. All 16 collection modules have public consumers. Legacy Pages/Divisions collection definitions and their seeder were retired; any old database rows remain inert and are excluded from dashboard counts.
 
 Media archive is owner-only and rejects referenced assets. Replace an image by uploading a new asset, updating/publishing its references, then archiving the old unused asset. Owner-generated password reset links expire after 30 minutes and can be consumed once; they are shown for private sharing, not automatically emailed.
 

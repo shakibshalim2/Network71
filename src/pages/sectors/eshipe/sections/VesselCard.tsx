@@ -1,6 +1,6 @@
 import type { EShipeContent } from "../content/en"
+import type { Vessel } from "./VesselListings"
 type Listings = EShipeContent["listings"]
-type Vessel = Listings["vessels"][number]
 interface VesselCardProps {
   vessel: Vessel
   c: Listings
@@ -23,8 +23,12 @@ export default function VesselCard({ vessel, c, onOpen }: VesselCardProps) {
         style={{ height: 160, background: "var(--s3)" }}
       >
         <img
-          src={c.illustrativeImage}
-          alt={c.illustrativeAlt} loading="lazy" decoding="async" width="800" height="400"
+          src={vessel.image || c.illustrativeImage}
+          alt={vessel.published ? vessel.name : c.illustrativeAlt}
+          loading="lazy"
+          decoding="async"
+          width="800"
+          height="400"
           className="w-full h-full object-cover"
           style={{ opacity: 0.85 }}
         />
@@ -44,11 +48,14 @@ export default function VesselCard({ vessel, c, onOpen }: VesselCardProps) {
             color: "var(--fg)",
           }}
         >
-          {c.activityOptions.find((o) => o.value === vessel.status)?.label ?? vessel.status}
+          {c.activityOptions.find((o) => o.value === vessel.status)?.label ??
+            vessel.status}
         </span>
         <div className="absolute bottom-3 left-4">
           <div className="text-white font-semibold text-sm">
-            {c.example.replace("{type}", vessel.type)}
+            {vessel.published
+              ? vessel.name
+              : c.example.replace("{type}", vessel.type)}
           </div>
           <div className="text-slate-400 text-xs">{vessel.type}</div>
         </div>
@@ -71,10 +78,12 @@ export default function VesselCard({ vessel, c, onOpen }: VesselCardProps) {
             className="font-display text-lg font-semibold"
             style={{ color: vessel.color }}
           >
-            {c.onEnquiry}
+            {vessel.price || c.onEnquiry}
           </span>
         </div>
-        <button type="button" onClick={onOpen}
+        <button
+          type="button"
+          onClick={onOpen}
           className="block text-center py-2 rounded-lg text-xs font-semibold"
           style={{
             background: `color-mix(in srgb, ${vessel.color} 8%, transparent)`,

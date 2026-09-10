@@ -1,19 +1,81 @@
 import VesselCard from "./VesselCard"
 import VesselDetail from "./VesselDetail"
 import { useState } from "react"
+
 import type { EShipeContent } from "../content/en"
+
 import { BG_ALT, OCEAN } from "../theme"
+import {
+  safeContentUrl,
+  textField,
+  usePublicContent,
+  type PublishedPage,
+} from "@/lib/publicContent"
 
 type Listings = EShipeContent["listings"]
-type Vessel = Listings["vessels"][number]
+
+export type Vessel = Listings["vessels"][number] & {
+  image?: string
+  published?: boolean
+  classification?: string
+  dimensions?: string
+  engine?: string
+  survey?: string
+  sellerName?: string
+  sellerCompany?: string
+  sellerLocation?: string
+  sellerProfile?: string
+  sellerStatus?: string
+  sellerUrl?: string
+}
 
 export default function VesselListings({ c }: { c: Listings }) {
+  const { data: vesselPage } = usePublicContent<PublishedPage>("vessels?page=1")
+  const { data: sellerPage } = usePublicContent<PublishedPage>("sellers?page=1")
   const [selected, setSelected] = useState<Vessel | null>(null)
   const [query, setQuery] = useState("")
+
   const [typeFilter, setTypeFilter] = useState("All Types")
+
   const [activityFilter, setActivityFilter] = useState("All")
-  const filtered = c.vessels.filter((vessel) => {
+
+  const publishedVessels: Vessel[] = (vesselPage?.items || []).map((item) => {
+    const seller = (sellerPage?.items || []).find(
+      (candidate) => candidate.slug === textField(item, "seller_slug"),
+    )
+    const condition =
+      textField(item, "condition") === "Scrap" ? "Scrap" : "Trading"
+    return {
+      name: textField(item, "title"),
+      type: textField(item, "vessel_type"),
+      filterType: textField(item, "filter_type"),
+      flag: textField(item, "flag"),
+      dwt: textField(item, "capacity"),
+      year: textField(item, "built_year"),
+      price: textField(item, "price"),
+      status: textField(item, "activity"),
+      condition,
+      color: condition === "Scrap" ? "var(--accent-red)" : OCEAN,
+      image: safeContentUrl(textField(item, "image")),
+      published: true,
+      classification: textField(item, "classification"),
+      dimensions: textField(item, "dimensions"),
+      engine: textField(item, "engine"),
+      survey: textField(item, "survey_summary"),
+      sellerName: seller ? textField(seller, "title") : "",
+      sellerCompany: seller ? textField(seller, "company") : "",
+      sellerLocation: seller ? textField(seller, "location") : "",
+      sellerProfile: seller ? textField(seller, "profile") : "",
+      sellerStatus: seller ? textField(seller, "verification_status") : "",
+      sellerUrl: seller ? safeContentUrl(textField(seller, "url")) : undefined,
+    }
+  })
+  const vessels: Vessel[] = publishedVessels.length
+    ? publishedVessels
+    : c.vessels
+  const filtered = vessels.filter((vessel) => {
     const q = query.trim().toLowerCase()
+
     return (
       (!q ||
         vessel.name.toLowerCase().includes(q) ||
@@ -23,17 +85,24 @@ export default function VesselListings({ c }: { c: Listings }) {
         (typeFilter === "Scrap"
           ? vessel.condition === "Scrap"
           : vessel.filterType
+
               .toLowerCase()
+
               .includes(typeFilter.toLowerCase()))) &&
       (activityFilter === "All" || vessel.status === activityFilter)
     )
   })
+
   const active = query || typeFilter !== "All Types" || activityFilter !== "All"
+
   const reset = () => {
     setQuery("")
+
     setTypeFilter("All Types")
+
     setActivityFilter("All")
   }
+
   return (
     <section
       id="listings"
@@ -59,6 +128,7 @@ export default function VesselListings({ c }: { c: Listings }) {
           className="rounded-2xl p-5 mb-10"
           style={{
             background: `color-mix(in srgb, ${OCEAN} 3%, transparent)`,
+
             border: `1px solid color-mix(in srgb, ${OCEAN} 13%, transparent)`,
           }}
         >
@@ -77,6 +147,7 @@ export default function VesselListings({ c }: { c: Listings }) {
               className="flex-1 min-w-[200px] px-4 py-2.5 rounded-lg text-sm text-white placeholder:text-slate-600 outline-none"
               style={{
                 background: "var(--fill-2)",
+
                 border: "var(--border-subtle)",
               }}
             />
@@ -120,15 +191,22 @@ export default function VesselListings({ c }: { c: Listings }) {
               {filtered.length === 0
                 ? c.noFilters
                 : c.showing
+
                     .replace("{shown}", String(filtered.length))
-                    .replace("{total}", String(c.vessels.length))}
+
+                    .replace("{total}", String(vessels.length))}
             </div>
           )}
         </div>
         {filtered.length ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((vessel) => (
-              <VesselCard key={vessel.name} vessel={vessel} c={c} onOpen={() => setSelected(vessel)} />
+              <VesselCard
+                key={vessel.name}
+                vessel={vessel}
+                c={c}
+                onOpen={() => setSelected(vessel)}
+              />
             ))}
           </div>
         ) : (
@@ -136,6 +214,7 @@ export default function VesselListings({ c }: { c: Listings }) {
             className="py-20 text-center rounded-2xl"
             style={{
               background: "var(--fill-1)",
+
               border: "var(--border-subtle)",
             }}
           >
@@ -154,7 +233,13 @@ export default function VesselListings({ c }: { c: Listings }) {
           </div>
         )}
       </div>
-      {selected && <VesselDetail vessel={selected} c={c} onClose={() => setSelected(null)} />}
+      {selected && (
+        <VesselDetail
+          vessel={selected}
+          c={c}
+          onClose={() => setSelected(null)}
+        />
+      )}
     </section>
   )
 }

@@ -1949,8 +1949,24 @@
         {
           "key": "year",
           "label": "বছর"
+        },
+        {
+          "key": "location",
+          "label": "স্থান"
+        },
+        {
+          "key": "duration",
+          "label": "সময়কাল"
         }
       ],
+      "deliverablesTitle": "সরবরাহকৃত কাজ",
+      "resultEvidenceTitle": "ফলাফলের প্রমাণ",
+      "resultBaselineLabel": "প্রাথমিক অবস্থা / তুলনা",
+      "resultSourceLabel": "উৎস / ব্যাখ্যা",
+      "resultDateLabel": "যে তারিখ পর্যন্ত",
+      "galleryTitle": "প্রকল্পের গ্যালারি",
+      "testimonialTitle": "সংশ্লিষ্ট প্রশংসাপত্র",
+      "publicEvidence": "প্রকাশ্য প্রমাণ দেখুন ↗",
       "story": [
         {
           "key": "challenge",
@@ -2564,6 +2580,7 @@
       "details": "বিস্তারিত দেখুন",
       "detailTitle": "জাহাজের বিবরণ (উদাহরণ)",
       "sellerTitle": "বিক্রেতার তথ্য",
+      "sellerWebsite": "বিক্রেতার ওয়েবসাইট দেখুন ↗",
       "sellerNote": "এই উদাহরণের বিক্রেতার পরিচয় ও প্রাপ্যতা প্রকাশিত হয়নি। বর্তমান অনুমোদিত তালিকার জন্য Network71-এর সঙ্গে যোগাযোগ করুন।",
       "specNote": "প্রকৃত জাহাজের ক্লাস, মাপ, ইঞ্জিন ও সার্ভের নথি অনুরোধের ভিত্তিতে পাওয়া যাবে।",
       "enquiryIntro": "এই চাহিদার একটি জাহাজ সম্পর্কে আলোচনা করতে চাই:",
@@ -2591,6 +2608,20 @@
         },
         {
           "label": "নির্মাণসাল"
+        }
+      ],
+      "extendedSpecs": [
+        {
+          "key": "classification",
+          "label": "ক্লাস অবস্থা"
+        },
+        {
+          "key": "dimensions",
+          "label": "মাত্রা"
+        },
+        {
+          "key": "engine",
+          "label": "ইঞ্জিন"
         }
       ],
       "price": "মূল্য",
