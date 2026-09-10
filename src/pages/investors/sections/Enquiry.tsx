@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { openEmailDraft } from '@/lib/mailto'
+import { useInquiry } from '@/lib/inquiry'
 import type { InvestorsContent } from '../content/en'
 import Eyebrow from './Eyebrow'
 
@@ -17,7 +17,7 @@ const selectCls = 'w-full bg-navy-dark border border-white/10 rounded-lg px-4 py
 const labelCls = 'block text-xs text-slate-400 mb-2 font-medium'
 
 export default function Enquiry({ c, email }: { c: InvestorsContent['enquiry']; email: string }) {
-  // Option values stay language-neutral so the generated email draft is consistent.
+  // Option values stay language-neutral so inbox records remain consistent across locales.
   const [form, setForm] = useState<FormState>({
     name: '',
     company: '',
@@ -26,7 +26,7 @@ export default function Enquiry({ c, email }: { c: InvestorsContent['enquiry']; 
     inquiry: 'General Inquiry',
     message: '',
   })
-  const [sent, setSent] = useState(false)
+  const inquiry = useInquiry()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -34,15 +34,13 @@ export default function Enquiry({ c, email }: { c: InvestorsContent['enquiry']; 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    openEmailDraft(email, `Investor enquiry from ${form.name}`, {
-      Name: form.name,
-      Company: form.company,
-      Email: form.email,
-      'Investment range': form.range,
-      'Inquiry type': form.inquiry,
-      Message: form.message,
+    void inquiry.submit({
+      name: form.name,
+      company: form.company,
+      email: form.email,
+      subject: `Investor enquiry: ${form.inquiry}`,
+      message: `Investment range: ${form.range}\nInquiry type: ${form.inquiry}\n\n${form.message}`,
     })
-    setSent(true)
   }
 
   const f = c.form
@@ -67,7 +65,7 @@ export default function Enquiry({ c, email }: { c: InvestorsContent['enquiry']; 
           </div>
         </div>
 
-        {sent ? (
+        {inquiry.reference ? (
           <div className="bg-navy border border-gold/20 rounded-2xl p-12 text-center">
             <div className="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-5">
               <svg className="w-7 h-7 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
@@ -75,10 +73,11 @@ export default function Enquiry({ c, email }: { c: InvestorsContent['enquiry']; 
               </svg>
             </div>
             <h3 className="font-display text-2xl text-white mb-3">{c.sentTitle}</h3>
-            <p className="text-slate-400 text-sm">{c.sentText}</p>
+            <p className="text-slate-400 text-sm">{c.sentText.replace('{ref}', inquiry.reference)}</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="bg-navy border border-white/8 rounded-2xl p-8 space-y-5">
+            {inquiry.error && <p role="alert" className="text-sm" style={{ color: 'var(--accent-red)' }}>{inquiry.error}</p>}
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <label htmlFor="investor-name" className={labelCls}>{f.name}</label>
@@ -156,9 +155,10 @@ export default function Enquiry({ c, email }: { c: InvestorsContent['enquiry']; 
             </div>
             <button
               type="submit"
+              disabled={inquiry.busy}
               className="w-full py-3.5 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors"
             >
-              {f.submit}
+              {inquiry.busy ? `${f.submit}…` : f.submit}
             </button>
           </form>
         )}

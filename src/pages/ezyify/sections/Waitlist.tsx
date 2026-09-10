@@ -1,14 +1,12 @@
 import { useState } from "react"
-import { openEmailDraft } from "@/lib/mailto"
 import { Link } from "react-router-dom"
 import { BG, SURFACE } from "../theme"
 import type { EzyifyContent } from "../content/en"
-import { useCompanySettings } from "@/lib/companySettings"
+import { useInquiry } from "@/lib/inquiry"
 
 export default function Waitlist({ c }: { c: EzyifyContent["waitlist"] }) {
   const [email, setEmail] = useState("")
-  const [submitted, setSubmitted] = useState(false)
-  const { generalEmail } = useCompanySettings()
+  const inquiry = useInquiry()
   return (
     <section
       className="py-28 px-6 relative overflow-hidden"
@@ -35,7 +33,7 @@ export default function Waitlist({ c }: { c: EzyifyContent["waitlist"] }) {
           {c.lead}
         </p>
 
-        {submitted ? (
+        {inquiry.reference ? (
           <div className="inline-flex items-center gap-3 px-8 py-4 rounded-xl border border-purple-500/40 bg-purple-500/10 text-purple-300">
             <svg
               className="w-5 h-5"
@@ -50,14 +48,13 @@ export default function Waitlist({ c }: { c: EzyifyContent["waitlist"] }) {
                 d="M5 13l4 4L19 7"
               />
             </svg>
-            {c.success}
+            {c.success.replace('{ref}', inquiry.reference)}
           </div>
         ) : (
           <form
             onSubmit={(e) => {
               e.preventDefault()
-              openEmailDraft(generalEmail, c.subject, { Email: email })
-              setSubmitted(true)
+              void inquiry.submit({ name: email, email, subject: c.subject, message: c.lead })
             }}
             className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
           >
@@ -72,15 +69,17 @@ export default function Waitlist({ c }: { c: EzyifyContent["waitlist"] }) {
             />
             <button
               type="submit"
+              disabled={inquiry.busy}
               className="px-7 py-3.5 rounded-xl font-semibold text-white text-sm whitespace-nowrap hover:opacity-90 transition-opacity"
               style={{
                 background: "linear-gradient(135deg, #7C3AED, #EC4899)",
               }}
             >
-              {c.join}
+              {inquiry.busy ? `${c.join}…` : c.join}
             </button>
           </form>
         )}
+        {inquiry.error && <p role="alert" className="text-sm mt-4" style={{ color: '#F87171' }}>{inquiry.error}</p>}
 
         <div className="mt-10 flex flex-wrap gap-x-4 gap-y-3 justify-center">
           <a

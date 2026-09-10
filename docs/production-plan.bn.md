@@ -184,6 +184,13 @@ All 560 EN/BN schema sections, nested list fields and shared site copy are edita
 
 No production deployment or real external email delivery was performed. All locally completed work is committed and synchronized to both active branches.
 
+## Final backend and XAMPP verification — 10 September 2026
+
+- Investor enquiry, Blog subscription এবং Ezyify waitlist এখন visitor-এর email application-এর ওপর নির্ভর না করে secure inquiry endpoint-এ save হয়; প্রতিটি submission reference, Inbox record এবং transactional outbox entry পায়।
+- চলমান XAMPP MariaDB 10.4.28-এ fresh database setup, migration 001–009, owner login এবং 61 HTTP/MySQL integration check pass করেছে। Section workflow-এর 20টি check, 560 EN/BN schema validation, outbox retry, media archive protection, private CV/evidence access এবং project renderer check-ও pass করেছে।
+- Private SQL backup একটি আলাদা local restore database-এ import করে 15টি table-এর row count মিলেছে; test database পরে সরানো হয়েছে। এটি local restore verification, offsite/production recovery acceptance নয়।
+- cPanel package-এ PHP upload/POST/memory limit example যোগ হয়েছে এবং readiness checker এখন 10 MB upload, 12 MB POST ও 128 MB memory minimum যাচাই করে। Actual host rewrite, HTTPS, cron, SMTP এবং offsite recovery verification external থাকে।
+
 ## Insights and Press public collection integration — 10 September 2026
 
 - `/blog` and `/press` now show only published records from their matching CMS collections, respect the selected EN/BN locale, provide honest empty/error/loading states and paginate public results.

@@ -12,6 +12,7 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 - Raster image uploads with permission confirmation, MIME/signature checks, pixel/size limits, WebP re-encoding, private filesystem storage and a public image-serving endpoint. All accepted media is public; do not upload confidential documents.
 - Account creation/deactivation and CLI password recovery.
 - Main contact page and shared sector enquiry forms save to the admin inbox. Server-side idempotency returns the same reference for an identical retried submission.
+- Investor enquiries, Blog subscription requests and the Ezyify waitlist also save to the same managed inbox and transactional notification outbox instead of depending on a visitor email application.
 - Published vacancies and the general Careers action open an EN/BN application form. PDF CVs (maximum 5 MB) are stored outside public media, downloads require an authenticated admin session, and the Applications inbox supports status and assignment. Rejected/withdrawn applications follow a separately configurable retention period.
 - EN/BN page-section editing, visibility/order controls, SEO fields and authenticated saved-draft previews. Published overrides are consumed across the public page inventory.
 - All 560 packaged EN/BN content sections, including nested lists and shared site copy, are schema-validated and editable. Page layout, component structure, routes, colours and animation remain intentionally code-controlled; Homepage exposes its approved order/visibility controls separately.
@@ -89,8 +90,9 @@ All authenticated writes require the current `X-CSRF-Token`. Sessions rotate at 
 2. Copy the backend into `/home/ACCOUNT/network71-private`. Exclude local config, storage/database, development credentials, tests and development router; create production config privately. Include app, config template, database migrations and CLI tools needed for setup.
 3. Copy `deploy/api-index.php` to `public_html/api/index.php`. Adjust the private directory path if necessary.
 4. Merge `deploy/htaccess.example` into `public_html/.htaccess`, preserving cPanel-generated PHP handler rules. API routes must be handled before the SPA fallback. The example targets Apache-compatible rewriting and must be tested on the actual host.
-5. Use cPanel Database Wizard to create database/user; import the numbered SQL migrations with phpMyAdmin or run the CLI migration tool. If manually importing, also record the applied migration versions in `schema_migrations` to prevent rerunning DDL. Use a separate migration account; runtime only needs SELECT/INSERT/UPDATE/DELETE.
-6. Configure HTTPS, production origin, secure cookies, storage permissions, error logging and backups. Create owner credentials privately. Test cold page loads, API JSON errors, login/logout, writes, images, forms and backups before public release.
+5. Copy `deploy/user.ini.example` to `public_html/.user.ini`, or apply equivalent values with cPanel MultiPHP INI Editor. Confirm that the host permits at least 10 MB uploads, 12 MB POST bodies and 128 MB PHP memory.
+6. Use cPanel Database Wizard to create database/user; import the numbered SQL migrations with phpMyAdmin or run the CLI migration tool. If manually importing, also record the applied migration versions in `schema_migrations` to prevent rerunning DDL. Use a separate migration account; runtime only needs SELECT/INSERT/UPDATE/DELETE.
+7. Configure HTTPS, production origin, secure cookies, storage permissions, error logging and backups. Create owner credentials privately. Test cold page loads, API JSON errors, login/logout, writes, images, forms and backups before public release.
 
 Do not upload the repository wholesale. Database data, config, credentials, logs and PHP source belong outside the public document root. The PHP built-in server is for local development only. Deploy the locked Composer/PHPMailer dependencies with the private backend.
 

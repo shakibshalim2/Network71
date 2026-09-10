@@ -67,8 +67,8 @@ const en = {
     lead: 'Send your questions and the documents you would like to review.',
     email: 'investors@network71.com',
     direct: 'Direct investor enquiries',
-    sentTitle: 'Email Draft Ready',
-    sentText: 'Send the prepared draft in your email app to complete your investor enquiry.',
+    sentTitle: 'Enquiry Received',
+    sentText: 'Your investor enquiry has been saved. Reference: {ref}',
     form: {
       name: 'Full Name *',
       namePlaceholder: 'Jane Smith',

@@ -474,6 +474,14 @@
             "type": "string",
             "format": "text"
           },
+          "sending": {
+            "type": "string",
+            "format": "text"
+          },
+          "success": {
+            "type": "string",
+            "format": "text"
+          },
           "note": {
             "type": "string",
             "format": "text"

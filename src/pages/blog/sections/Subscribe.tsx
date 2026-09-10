@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import { openEmailDraft } from '@/lib/mailto'
 import type { BlogContent } from '../content/en'
-import { useCompanySettings } from '@/lib/companySettings'
+import { useInquiry } from '@/lib/inquiry'
 
 export default function Subscribe({ c }: { c: BlogContent['subscribe'] }) {
   const [email, setEmail] = useState('')
-  const { generalEmail } = useCompanySettings()
+  const inquiry = useInquiry()
   return (
     <section className="bg-navy-dark border-t border-white/8">
       <div className="max-w-3xl mx-auto px-6 lg:px-8 py-20 text-center">
@@ -18,12 +17,11 @@ export default function Subscribe({ c }: { c: BlogContent['subscribe'] }) {
         <p className="text-slate-400 text-base mb-8 max-w-md mx-auto">
           {c.text}
         </p>
-        <form
+        {inquiry.reference ? <p role="status" className="text-gold text-sm">{c.success.replace('{ref}', inquiry.reference)}</p> : <form
           className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
           onSubmit={(event) => {
             event.preventDefault()
-            openEmailDraft(generalEmail, c.mailSubject, { [c.mailFieldLabel]: email })
-            setEmail('')
+            void inquiry.submit({ name: email, email, subject: c.mailSubject, message: `${c.mailFieldLabel}: ${email}` })
           }}
         >
           <input
@@ -37,11 +35,13 @@ export default function Subscribe({ c }: { c: BlogContent['subscribe'] }) {
           />
           <button
             type="submit"
+            disabled={inquiry.busy}
             className="px-6 py-3 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors flex-shrink-0"
           >
-            {c.button}
+            {inquiry.busy ? c.sending : c.button}
           </button>
-        </form>
+        </form>}
+        {inquiry.error && <p role="alert" className="text-sm mt-3" style={{ color: 'var(--accent-red)' }}>{inquiry.error}</p>}
         <p className="text-slate-500 text-xs mt-3">{c.note}</p>
       </div>
     </section>

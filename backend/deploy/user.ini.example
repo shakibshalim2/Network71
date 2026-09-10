@@ -1,0 +1,12 @@
+; Copy as public_html/.user.ini, or apply equivalent values in cPanel MultiPHP INI Editor.
+; A host-level policy may override these values; verify with bin/check-deploy.php.
+upload_max_filesize = 12M
+post_max_size = 14M
+memory_limit = 256M
+max_execution_time = 60
+max_input_time = 60
+display_errors = Off
+log_errors = On
+session.use_strict_mode = 1
+session.use_only_cookies = 1
+session.cookie_httponly = 1

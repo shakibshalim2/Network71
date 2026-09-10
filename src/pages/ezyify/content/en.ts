@@ -97,7 +97,7 @@ const en = {
     eyebrow: "Coming Soon",
     title: "Be First to Experience Ezyify",
     lead: "Join the waitlist and shape the future of social commerce.",
-    success: "Your email draft is ready — send it to request early access.",
+    success: "Your early-access request has been received. Reference: {ref}",
     emailLabel: "Email address for Ezyify early access",
     placeholder: "your@email.com",
     join: "Join Waitlist",

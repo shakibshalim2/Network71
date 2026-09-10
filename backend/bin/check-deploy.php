@@ -4,9 +4,18 @@ if(PHP_SAPI!=='cli')exit;
 require dirname(__DIR__).'/app/bootstrap.php';
 $failed=0;
 function report(bool $ok,string $label):void{global $failed;echo ($ok?'PASS ':'FAIL ').$label.PHP_EOL;if(!$ok)$failed++;}
+function ini_bytes(string $value): int {
+    $value=trim($value);if($value===''||$value==='-1')return PHP_INT_MAX;
+    $number=(int)$value;$unit=strtolower(substr($value,-1));
+    return match($unit){'g'=>$number*1024*1024*1024,'m'=>$number*1024*1024,'k'=>$number*1024,default=>$number};
+}
 report(PHP_VERSION_ID>=80300,'PHP 8.3+ (production target 8.4)');
 foreach(['pdo_mysql','mbstring','fileinfo','gd','openssl','session'] as $ext)report(extension_loaded($ext),'Extension '.$ext);
 report(function_exists('imagewebp'),'GD WebP encoding');
+report(ini_bytes((string)ini_get('upload_max_filesize'))>=10*1024*1024,'PHP upload limit at least 10 MB');
+$postLimit=ini_bytes((string)ini_get('post_max_size'));
+report($postLimit===0||$postLimit>=12*1024*1024,'PHP POST limit at least 12 MB');
+report(ini_bytes((string)ini_get('memory_limit'))>=128*1024*1024,'PHP memory limit at least 128 MB');
 try{
     $config=app_config();report(is_dir($config['storage'])&&is_writable($config['storage']),'Private storage writable');
     report($config['environment']==='development'||($config['secure_cookie']&&str_starts_with($config['origin'],'https://')),'HTTPS/session cookie policy');
