@@ -9,6 +9,7 @@ import Board from './governance/sections/Board'
 import Policies from './governance/sections/Policies'
 import Committees from './governance/sections/Committees'
 import ContactCta from './governance/sections/ContactCta'
+import PublishedCredentials from './governance/sections/PublishedCredentials'
 
 const loaders = { bn: () => import('./governance/content/bn') }
 
@@ -22,6 +23,7 @@ export default function Governance() {
         <Framework c={c.framework} />
         <Board c={c.board} />
         <Policies c={c.policies} />
+        <PublishedCredentials />
         <Committees c={c.committees} />
         <ContactCta c={c.contact} />
       </ManagedContent>

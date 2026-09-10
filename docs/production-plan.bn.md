@@ -171,7 +171,7 @@ Completed in this resumed session:
 Verified: 562 locale template validations; 13 sections/reset HTTP checks; original 38 HTTP/MySQL smoke checks; outbox failure/retry simulation; media archive protection; project renderer escaping/metadata; authenticated browser save/preview/publish; EN/BN editor at 375/768/1440; 156 public route/locale/viewport structural checks. The original About test section was restored.
 
 Still open (do not report the entire production plan as complete):
-- Module-by-module public consumer parity for the remaining generic CMS collections (e.g. Brands/Credentials/Settings): Insights, Press, Timeline and Locations now read approved EN/BN collection records; page-section overrides work, but every generic collection is not automatically mapped into each existing static section.
+- Module-by-module public consumer parity for the remaining generic CMS collections (Testimonials/Navigation/Settings): Insights, Press, Timeline, Locations, Brands, Credentials and verified Metrics now read approved EN/BN collection records; page-section overrides work, but every generic collection is not automatically mapped into each existing static section.
 - Complete nested/shared section layout coverage, draft autosave/review history, and manual visual/accessibility acceptance beyond the automated checks.
 - Actual SMTP provider delivery, cron setup, cPanel rewrites/HTTPS, deployment and isolated backup restore/offsite recovery verification.
 - Owner-approved company imagery, factual claims, real vessel/seller profiles and private evidence/document workflows.
@@ -191,3 +191,10 @@ No production deployment or real external email delivery was performed. User req
 - `/timeline` now renders only documented, published CMS milestones instead of the packaged historical claims. Each locale has an independent public record set and an honest empty state.
 - `/global-presence` now renders approved office, trade-market and partner-location records from the Locations collection, including optional public contact details.
 - Verification: production build and 13 authenticated section/reset HTTP checks passed. Mocked browser checks passed both consumers, Bangla timeline selection and 375px overflow checks.
+
+## Brands, Credentials and verified Metrics integration — 10 September 2026
+
+- The homepage brand strip uses published Brands records when available and retains the existing division links as its packaged fallback.
+- Sustainability replaces packaged target cards with published Metrics once approved records exist. Each published figure carries its public source/explanation and as-of date.
+- Governance shows published Credentials only when approved records exist, including issuer, reference, expiry and a scheme-validated verification link.
+- Verification: production build passed; mocked browser checks covered all three consumers, Bangla Metrics selection and 375px overflow.

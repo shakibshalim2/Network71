@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 import { useLocalizedContent } from '@/i18n/useLocalizedContent'
 import en from './sustainability/content/en'
 import Hero from './sustainability/sections/Hero'
-import Metrics from './sustainability/sections/Metrics'
+import VerifiedMetrics from './sustainability/sections/VerifiedMetrics'
 import Sdgs from './sustainability/sections/Sdgs'
 import Commitments from './sustainability/sections/Commitments'
 import Programs from './sustainability/sections/Programs'
@@ -20,7 +20,7 @@ export default function Sustainability() {
       <Header />
       <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
-        <Metrics c={c.metrics} />
+        <VerifiedMetrics fallback={c.metrics} />
         <Sdgs c={c.sdgs} />
         <Commitments c={c.commitments} />
         <Programs c={c.programs} />

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useT } from '@/i18n'
+import { safeContentUrl, textField, usePublicContent, type PublishedPage } from '@/lib/publicContent'
 
 const BRANDS = [
   { name: 'EZYIFY',         sub: 'partners.sub.ezyify',   color: 'var(--accent-purple)', href: '/ezyify',    font: "'Playfair Display', serif" },
@@ -74,6 +75,8 @@ function BrandMark({ name, sub, color, href, font }: typeof BRANDS[number]) {
 
 export default function TrustedPartners() {
   const { t } = useT()
+  const { data } = usePublicContent<PublishedPage>('brands')
+  const published = data?.items ?? []
   return (
     <section
       style={{ background: 'var(--s0)', borderTop: '1px solid var(--line)' }}
@@ -115,9 +118,24 @@ export default function TrustedPartners() {
           onMouseEnter={e => ((e.currentTarget as HTMLElement).style.animationPlayState = 'paused')}
           onMouseLeave={e => ((e.currentTarget as HTMLElement).style.animationPlayState = 'running')}
         >
-          {doubled.map((brand, i) => (
-            <BrandMark key={`${brand.name}-${i}`} {...brand} />
-          ))}
+          {published.length
+            ? [...published, ...published].map((brand, i) => {
+                const href = safeContentUrl(textField(brand, 'url'))
+                const mark = (
+                  <span className="px-5 sm:px-8 inline-flex flex-col items-center justify-center shrink-0 py-2 gap-1">
+                    <span className="brand-name text-[13.5px] sm:text-[15px] font-extrabold tracking-[0.08em] text-[var(--fg-muted)] whitespace-nowrap uppercase">
+                      {textField(brand, 'title')}
+                    </span>
+                    <span className="brand-sub font-mono text-[7.5px] tracking-[0.18em] text-[var(--fg-subtle)] whitespace-nowrap uppercase">
+                      {textField(brand, 'stage')}
+                    </span>
+                  </span>
+                )
+                return href ? <a href={href} key={`${brand.id}-${i}`}>{mark}</a> : <span key={`${brand.id}-${i}`}>{mark}</span>
+              })
+            : doubled.map((brand, i) => (
+                <BrandMark key={`${brand.name}-${i}`} {...brand} />
+              ))}
         </div>
       </div>
 
