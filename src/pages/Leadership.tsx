@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import PublishedTeam from "@/components/PublishedTeam";
 import Footer from "@/components/Footer";
 import { useLocalizedContent } from "@/i18n/useLocalizedContent";
 import en from "./leadership/content/en";
@@ -19,6 +20,7 @@ export default function Leadership() {
       <main className="public-content">
         <Hero c={c.hero} />
         <CeoCard c={c.ceo} />
+        <PublishedTeam />
         <SeniorLeaders c={c.senior} />
         <Board c={c.board} />
         <Advisors c={c.advisors} />

@@ -117,3 +117,10 @@ MySQL: ACCOUNT_network71 (utf8mb4)
 | 10 | Final full review: all 26 routes × 3 widths × EN/BN, admin flows, smoke suite, build; fix regressions; update this table | full matrix | ⬜ |
 
 প্রতিটি ধাপে যে ফাইল push হওয়ার পর সমস্যা মনে হবে, পরের commit-এ সেটাই fix করে আবার push হবে।
+
+## Implementation log — 10 September 2026
+
+- Baseline reconciliation: steps 1–2 were already committed upstream; the table above is the original plan, not evidence of completion. Step 3 already had its About/leadership copy changes.
+- Step 3: Leadership now reads owner-published Team profiles, with pagination and loading/retry states. No sample profiles were seeded. Existing CEO copy remains as supplied; company facts still need owner verification.
+- Step 4: added a native accessible vessel specification dialog, requirements prefill into the sector enquiry form, category links/hover, and Media gallery lightbox. Illustrative inventory stays labelled; unavailable seller/class/survey information is explicitly undisclosed. No real seller profiles were invented.
+- Validation: TypeScript passed; Chrome at 375px passed dialog open/Escape, enquiry prefill, gallery lightbox and overflow checks. Live database-backed Team publication is included in the later CMS integration checks.

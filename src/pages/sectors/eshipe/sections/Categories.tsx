@@ -21,7 +21,7 @@ export default function Categories({ c }: { c: EShipeContent["categories"] }) {
           {c.items.map((item) => (
             <article
               key={item.name}
-              className="p-5 rounded-xl"
+              className="p-5 rounded-xl transition-transform hover:-translate-y-1 focus-within:ring-2 focus-within:ring-sky-400"
               style={{
                 background: "var(--fill-1)",
                 border: "var(--border-subtle)",
@@ -36,12 +36,12 @@ export default function Categories({ c }: { c: EShipeContent["categories"] }) {
               <p className="text-slate-500 text-xs leading-relaxed mb-4">
                 {item.desc}
               </p>
-              <span
+              <a href="#listings"
                 className="text-[10px] font-mono uppercase"
                 style={{ color: item.color }}
               >
                 {c.available}
-              </span>
+              </a>
             </article>
           ))}
         </div>

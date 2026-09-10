@@ -75,6 +75,12 @@ const en = {
     items: categoryItems,
   },
   listings: {
+    details: "View specifications",
+    detailTitle: "Vessel specifications (illustrative)",
+    sellerTitle: "Seller information",
+    sellerNote: "Seller identity and availability have not been published for this example. Contact Network71 for a current, approved listing.",
+    specNote: "Class, dimensions, engine and survey records are available on request for actual listings.",
+    enquiryIntro: "I would like to discuss a vessel with these requirements:",
     eyebrow: "Vessel Listings",
     title: "Available Vessels",
     description:

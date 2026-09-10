@@ -132,3 +132,8 @@
   .public-content :is(button,a):is(.px-6,.px-8) { min-height: 44px; }
 }
 @media(max-width:359px) { .public-content .card-rail { grid-template-columns: minmax(0,1fr); } }
+
+.n71-dialog { border: 0; padding: 20px; margin: auto; max-height: 90dvh; width: min(760px, 100%); background: transparent; color: var(--fg); overflow: auto; }
+.n71-dialog::backdrop { background: rgba(0,0,0,.75); }
+.n71-dialog-panel { background: var(--s1); border: 1px solid var(--line); border-radius: 18px; padding: clamp(20px,4vw,36px); }
+.n71-dialog-close { min-width:44px; min-height:44px; font-size:28px; border:1px solid var(--line); border-radius:8px; }

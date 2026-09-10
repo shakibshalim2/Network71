@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom"
 import { useState } from 'react'
 import { useInquiry } from '@/lib/inquiry'
 import { useT } from '@/i18n'
@@ -14,7 +15,8 @@ export default function SectorContact({
   inquiryTypes = ['General Inquiry', 'Partnership', 'Buyer Inquiry', 'Investment', 'Supplier Inquiry'],
 }: SectorContactProps) {
   const { t } = useT()
-  const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', type: '', message: '' })
+  const [params] = useSearchParams()
+  const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', type: '', message: params.get('requirements')?.slice(0, 2000) || '' })
   const inquiry = useInquiry()
   const sent = Boolean(inquiry.reference)
 
