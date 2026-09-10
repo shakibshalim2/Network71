@@ -190,6 +190,7 @@ No production deployment or real external email delivery was performed. All loca
 - চলমান XAMPP MariaDB 10.4.28-এ fresh database setup, migration 001–009, owner login এবং 61 HTTP/MySQL integration check pass করেছে। Section workflow-এর 20টি check, 560 EN/BN schema validation, outbox retry, media archive protection, private CV/evidence access এবং project renderer check-ও pass করেছে।
 - Private SQL backup একটি আলাদা local restore database-এ import করে 15টি table-এর row count মিলেছে; test database পরে সরানো হয়েছে। এটি local restore verification, offsite/production recovery acceptance নয়।
 - cPanel package-এ PHP upload/POST/memory limit example যোগ হয়েছে এবং readiness checker এখন 10 MB upload, 12 MB POST ও 128 MB memory minimum যাচাই করে। Actual host rewrite, HTTPS, cron, SMTP এবং offsite recovery verification external থাকে।
+- Repeatable `pnpm run package:cpanel` builder public/private directory split, locked PHP dependencies, storage skeleton, deployment guide ও SHA-256 manifest-সহ extract-ready archive তৈরি করে। 216টি packaged file-এর checksum এবং development secret/path exclusion pass করেছে। আলাদা XAMPP Apache 2.4 instance-এ archive layout দিয়ে root, SPA/Admin deep link, API rewrite/JSON error, inquiry/outbox এবং published-project metadata renderer pass করেছে।
 
 ## Insights and Press public collection integration — 10 September 2026
 

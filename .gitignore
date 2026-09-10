@@ -28,3 +28,4 @@ logs/
 !/backend/storage/.gitkeep
 
 /backend/vendor/
+/artifacts/

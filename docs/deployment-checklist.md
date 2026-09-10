@@ -1,6 +1,6 @@
 # Deployment and recovery
 
-Build with `pnpm run build`. Deploy `dist/` into `public_html`, and backend application files into a private sibling directory using `backend/deploy/api-index.php` and `htaccess.example`. Vercel static hosting alone does not execute this PHP API.
+Run `pnpm run package:cpanel` to build `artifacts/network71-cpanel.tar.gz` and verify it against the generated `.sha256` sidecar after upload. Extract its `public_html` and `network71-private` directories under the cPanel account home, then create the private production configuration from `network71-private/config/local.php.example`. The archive includes a per-file SHA-256 manifest and excludes local credentials, tests, logs, database state and uploaded files. Vercel static hosting alone does not execute this PHP API.
 
 Before updating an existing database, run `php backend/bin/backup.php` and copy the private SQL backup plus `backend/storage/media`, `backend/storage/applications` and `backend/storage/private-documents` to protected offsite storage. Do not expose these backups under the document root. The backup set contains account hashes, enquiries, candidate data and confidential project evidence. Keep the previous frontend/backend release until acceptance finishes.
 

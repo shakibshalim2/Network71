@@ -86,6 +86,8 @@ All authenticated writes require the current `X-CSRF-Token`. Sessions rotate at 
 
 ## cPanel package
 
+Run `pnpm run package:cpanel` to build an extract-ready `artifacts/network71-cpanel.tar.gz` and its `.sha256` sidecar (the build machine needs `tar`). Its top level contains `public_html`, `network71-private`, a per-file SHA-256 release manifest and the deployment checklist. The builder fails if the locked Composer vendor directory or any required deployment input is missing, and rejects development database names, local owner addresses and workspace paths.
+
 1. Build React with `pnpm run build`; upload only `dist` contents into `public_html`.
 2. Copy the backend into `/home/ACCOUNT/network71-private`. Exclude local config, storage/database, development credentials, tests and development router; create production config privately. Include app, config template, database migrations and CLI tools needed for setup.
 3. Copy `deploy/api-index.php` to `public_html/api/index.php`. Adjust the private directory path if necessary.
