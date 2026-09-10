@@ -69,7 +69,7 @@ return (<form className="adm-panel adm-editor" onSubmit={save}>
                 <label
                   key={field.key}
                   className={
-                    field.type === "textarea" || field.type === "checkbox"
+                    ["textarea", "urls", "checkbox"].includes(field.type)
                       ? "adm-full"
                       : ""
                   }
@@ -80,7 +80,7 @@ return (<form className="adm-panel adm-editor" onSubmit={save}>
                       {field.required ? " *" : ""}
                     </span>
                   )}
-                  {field.type === "textarea" ? (
+                  {["textarea", "urls"].includes(field.type) ? (
                     <textarea
                       rows={field.key === "body" ? 9 : 4}
                       maxLength={20000}
@@ -123,6 +123,9 @@ return (<form className="adm-panel adm-editor" onSubmit={save}>
                       Upload an image in Media library, then paste its image URL
                       here.
                     </small>
+                  )}
+                  {field.type === "urls" && (
+                    <small>Paste one Media library or HTTPS image URL per line (maximum 30).</small>
                   )}
                 </label>
               )

@@ -20,7 +20,7 @@ final class Content
                 // Permissions are required for publication, but incomplete drafts can be saved.
                 continue;
             }
-            $value = Http::string($data, $key, $field['type'] === 'textarea' ? 20000 : 1000, $key === 'title');
+            $value = Http::string($data, $key, in_array($field['type'], ['textarea', 'urls'], true) ? 20000 : 1000, $key === 'title');
             if ($value !== '') {
                 if ($field['type'] === 'select' && !in_array($value, $field['options'], true)) Http::fail(422, "Invalid {$field['label']}.");
                 if ($field['type'] === 'email' && !filter_var($value, FILTER_VALIDATE_EMAIL)) Http::fail(422, "Invalid {$field['label']}.");
@@ -28,6 +28,20 @@ final class Content
                     $local = str_starts_with($value, '/') && !str_starts_with($value, '//') && !str_contains($value, '\\') && !preg_match('/[\x00-\x20]/', $value);
                     $web = filter_var($value, FILTER_VALIDATE_URL) && in_array(strtolower(parse_url($value, PHP_URL_SCHEME) ?? ''), ['https', 'http'], true);
                     if (!$web && !($field['type'] !== 'url' && $local)) Http::fail(422, "Use a valid web URL for {$field['label']}.");
+                }
+                if ($field['type'] === 'urls') {
+                    $lines = preg_split('/\R/u', $value) ?: [];
+                    $cleanLines = [];
+                    foreach ($lines as $line) {
+                        $url = trim($line);
+                        if ($url === '') continue;
+                        $local = str_starts_with($url, '/') && !str_starts_with($url, '//') && !str_contains($url, '\\') && !preg_match('/[\x00-\x20]/', $url);
+                        $web = filter_var($url, FILTER_VALIDATE_URL) && in_array(strtolower(parse_url($url, PHP_URL_SCHEME) ?? ''), ['https', 'http'], true);
+                        if (!$web && !$local) Http::fail(422, "Use one valid web or media URL per line for {$field['label']}.");
+                        $cleanLines[] = $url;
+                    }
+                    if (count($cleanLines) > 30) Http::fail(422, "Use no more than 30 URLs for {$field['label']}.");
+                    $value = implode("\n", $cleanLines);
                 }
                 if ($field['type'] === 'path' && !preg_match('~^/(?:[a-z0-9-]+/?)*$~', $value)) Http::fail(422, 'Use a valid website path.');
                 if ($field['type'] === 'date') {

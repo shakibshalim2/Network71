@@ -11,7 +11,7 @@ Status (১০ সেপ্টেম্বর ২০২৬): core admin, EN/BN p
 | Dashboard | Draft/published content, incoming inquiries, recent changes |
 | Pages | Home, About, Investors, Sustainability, Governance, Legal, Brand ও অন্য static page-এর text, section ও SEO |
 | Divisions | আটটি বিভাগের পরিচিতি, services, process, metrics ও contact |
-| Projects | Client work, own product, case study, outcomes ও delivery evidence |
+| Projects | Client work, own product, location/duration, deliverables, captioned gallery, result baseline/source/date, approved testimonial ও public delivery evidence |
 | Team | Leadership ও team পরিচিতি |
 | Insights / Press | Blog এবং press releases |
 | Careers | Job opening ও application routing |
