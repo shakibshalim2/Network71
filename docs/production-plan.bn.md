@@ -170,17 +170,15 @@ Completed in this resumed session:
 - Transactional enquiry email outbox and locked PHPMailer SMTP worker with retry; dashboard queue counts. SMTP is disabled until configured.
 - cPanel readiness checker, admin manifest, deployment checklist and project HTML/social metadata renderer example.
 
-Verified: 562 locale template validations; 13 sections/reset HTTP checks; original 38 HTTP/MySQL smoke checks; outbox failure/retry simulation; media archive protection; project renderer escaping/metadata; authenticated browser save/preview/publish; EN/BN editor at 375/768/1440; 156 public route/locale/viewport structural checks. The original About test section was restored.
+Verified: 558 locale template validations; 15 section/reset/review HTTP checks; 43 HTTP/MySQL integration checks; outbox failure/retry simulation; media archive protection; project renderer escaping/metadata; authenticated browser save/preview/publish; EN/BN editor at 375/768/1440; 156 public route/locale/viewport structural checks. The original About test section was restored.
 
 Still open (do not report the entire production plan as complete):
-- Generic collection public consumer parity is complete. Legacy Pages/Divisions collection definitions are retired; the section CMS is now their sole authoritative editor. Existing legacy database rows remain inert and excluded from dashboard counts.
-- Inquiry Inbox now supports active-admin assignment, status tracking and private timestamped notes. The locked daily cleanup job enforces configurable closed-inquiry retention and removes expired reset/rate-limit records.
 - Complete nested/shared section layout coverage, draft autosave, and manual visual/accessibility acceptance beyond the automated checks. Revision history and editor-to-owner review requests are implemented.
 - Actual SMTP provider delivery, cron setup, cPanel rewrites/HTTPS, deployment and isolated backup restore/offsite recovery verification.
 - Owner-approved company imagery, factual claims, real vessel/seller profiles and private evidence/document workflows.
 - Globe remains about 637 kB with a build warning.
 
-No production deployment or real external email delivery was performed. User requested stopping here; changes are saved as a checkpoint.
+No production deployment or real external email delivery was performed. All locally completed work is committed and synchronized to both active branches.
 
 ## Insights and Press public collection integration — 10 September 2026
 
