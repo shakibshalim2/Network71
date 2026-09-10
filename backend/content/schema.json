@@ -945,10 +945,6 @@
           "cta": {
             "type": "string",
             "format": "text"
-          },
-          "ctaHref": {
-            "type": "string",
-            "format": "text"
           }
         }
       },
@@ -1028,10 +1024,6 @@
             "type": "string",
             "format": "text"
           },
-          "applySubject": {
-            "type": "string",
-            "format": "text"
-          },
           "paginationLabel": {
             "type": "string",
             "format": "text"
@@ -1095,11 +1087,76 @@
             "type": "string",
             "format": "text"
           },
-          "href": {
+          "apply": {
             "type": "string",
-            "format": "url"
+            "format": "text"
+          }
+        }
+      },
+      "application": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "generalTitle": {
+            "type": "string",
+            "format": "text"
+          },
+          "generalRole": {
+            "type": "string",
+            "format": "text"
+          },
+          "name": {
+            "type": "string",
+            "format": "text"
           },
           "email": {
+            "type": "string",
+            "format": "text"
+          },
+          "phone": {
+            "type": "string",
+            "format": "text"
+          },
+          "coverLetter": {
+            "type": "string",
+            "format": "text"
+          },
+          "resume": {
+            "type": "string",
+            "format": "text"
+          },
+          "resumeHelp": {
+            "type": "string",
+            "format": "text"
+          },
+          "consent": {
+            "type": "string",
+            "format": "text"
+          },
+          "submit": {
+            "type": "string",
+            "format": "text"
+          },
+          "submitting": {
+            "type": "string",
+            "format": "text"
+          },
+          "successTitle": {
+            "type": "string",
+            "format": "text"
+          },
+          "successText": {
+            "type": "string",
+            "format": "text"
+          },
+          "error": {
+            "type": "string",
+            "format": "text"
+          },
+          "close": {
             "type": "string",
             "format": "text"
           }

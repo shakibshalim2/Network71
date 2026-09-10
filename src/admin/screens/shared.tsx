@@ -1,7 +1,13 @@
-import { useEffect, useState, type FormEvent } from 'react'
-import { Link } from 'react-router-dom'
-import { api, type ContentRecord, type Module, type Page, type User } from '../api'
-import { Empty, ErrorNotice, Icon, Loading } from '../Admin'
+import { useEffect, useState, type FormEvent } from "react"
+import { Link } from "react-router-dom"
+import {
+  api,
+  type ContentRecord,
+  type Module,
+  type Page,
+  type User,
+} from "../api"
+import { Empty, ErrorNotice, Icon, Loading } from "../Admin"
 export function useResource<T>(path: string) {
   const [data, setData] = useState<T | null>(null)
   const [error, setError] = useState("")
@@ -28,7 +34,13 @@ export function useResource<T>(path: string) {
     reload: () => setRevision((value) => value + 1),
   }
 }
-export function ResourceError({ error, retry }: { error: string; retry: () => void }) {
+export function ResourceError({
+  error,
+  retry,
+}: {
+  error: string
+  retry: () => void
+}) {
   return error ? (
     <>
       <ErrorNotice message={error} />
@@ -80,6 +92,7 @@ export type DashboardData = {
   published: number
   drafts: number
   inquiries: number
+  applications: number
   activity: {
     id: number
     action: string

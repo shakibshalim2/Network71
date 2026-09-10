@@ -8,7 +8,6 @@ const bn: CareersContent = {
     title: 'Network71-এ আপনার ক্যারিয়ার গড়ুন',
     lead: 'আমাদের ব্যবসায়িক বিভাগগুলোতে কর্মরত উদ্যমী পেশাজীবীদের দলে যোগ দিন। প্রথম দিন থেকেই উদীয়মান বাজারের ভবিষ্যৎ গড়ে তুলুন।',
     cta: 'আপনার CV পাঠান',
-    ctaHref: 'mailto:careers@network71.com',
   },
   benefits: {
     eyebrow: 'সংস্কৃতি',
@@ -52,10 +51,9 @@ const bn: CareersContent = {
     loading: 'শূন্যপদ লোড হচ্ছে…',
     retry: 'আবার চেষ্টা করুন',
     emptyTitle: 'বর্তমানে কোনো শূন্যপদ তালিকাভুক্ত নেই।',
-    emptyText: 'ভবিষ্যৎ সুযোগের জন্য নিজের পরিচয় জানাতে careers@network71.com ঠিকানায় আপনার CV পাঠান।',
+    emptyText: 'ভবিষ্যৎ সুযোগের জন্য এই পৃষ্ঠার সাধারণ আবেদন ফর্ম ব্যবহার করে নিজের পরিচয় দিন।',
     applyBy: 'আবেদনের শেষ তারিখ {date}',
     apply: 'আবেদন করুন',
-    applySubject: 'Application: ',
     paginationLabel: 'শূন্যপদের পৃষ্ঠাসমূহ',
     previous: 'পূর্ববর্তী',
     pageOf: 'পৃষ্ঠা {page} / {total}',
@@ -68,7 +66,7 @@ const bn: CareersContent = {
       {
         step: '০১',
         title: 'আবেদন',
-        desc: 'careers@network71.com ঠিকানায় আপনার CV পাঠান অথবা কোনো বিজ্ঞপ্তিতে “আবেদন করুন” বোতামে ক্লিক করুন।',
+        desc: 'প্রকাশিত কোনো পদ বা ভবিষ্যৎ সুযোগের জন্য নিরাপদ আবেদন ফর্ম পূরণ করুন।',
       },
       {
         step: '০২',
@@ -90,8 +88,25 @@ const bn: CareersContent = {
   cta: {
     title: 'উপযুক্ত পদ খুঁজে পাননি?',
     text: 'তবুও আপনার CV আমাদের পাঠান। অসাধারণ প্রতিভার সন্ধানে আমরা সবসময় সচেষ্ট।',
-    href: 'mailto:careers@network71.com?subject=Speculative CV Submission',
-    email: 'careers@network71.com',
+    apply: 'সাধারণ আবেদন জমা দিন',
+  },
+  application: {
+    title: '{job} পদের জন্য আবেদন',
+    generalTitle: 'সাধারণ আবেদন',
+    generalRole: 'ভবিষ্যৎ সুযোগ',
+    name: 'পুরো নাম',
+    email: 'ইমেইল ঠিকানা',
+    phone: 'ফোন নম্বর',
+    coverLetter: 'সংক্ষিপ্ত আবেদনপত্র',
+    resume: 'CV / জীবনবৃত্তান্ত',
+    resumeHelp: 'শুধু PDF, সর্বোচ্চ ৫ MB। ফাইলটি ব্যক্তিগতভাবে সংরক্ষিত হবে এবং শুধু অনুমোদিত recruitment admin দেখতে পারবেন।',
+    consent: 'নিয়োগের জন্য Network71-কে আমার আবেদন প্রক্রিয়া করার সম্মতি দিচ্ছি। বাতিল বা প্রত্যাহার করা আবেদন নির্ধারিত retention period শেষে মুছে ফেলা হবে।',
+    submit: 'আবেদন জমা দিন',
+    submitting: 'জমা হচ্ছে…',
+    successTitle: 'আবেদন গ্রহণ করা হয়েছে',
+    successText: 'পরবর্তী যোগাযোগের জন্য এই reference রাখুন: {reference}',
+    error: 'আপনার আবেদন জমা দেওয়া যায়নি। আবার চেষ্টা করুন।',
+    close: 'বন্ধ করুন',
   },
 }
 

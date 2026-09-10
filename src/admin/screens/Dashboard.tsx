@@ -1,8 +1,22 @@
-import { useEffect, useState, type FormEvent } from 'react'
-import { Link } from 'react-router-dom'
-import { api, type ContentRecord, type Module, type Page, type User } from '../api'
-import { Empty, ErrorNotice, Icon, Loading } from '../Admin'
-import { useResource, ResourceError, Pager, time, type DashboardData, type MediaItem, type Inquiry } from './shared'
+import { useEffect, useState, type FormEvent } from "react"
+import { Link } from "react-router-dom"
+import {
+  api,
+  type ContentRecord,
+  type Module,
+  type Page,
+  type User,
+} from "../api"
+import { Empty, ErrorNotice, Icon, Loading } from "../Admin"
+import {
+  useResource,
+  ResourceError,
+  Pager,
+  time,
+  type DashboardData,
+  type MediaItem,
+  type Inquiry,
+} from "./shared"
 export function Dashboard() {
   const { data, error, loading, reload } =
     useResource<DashboardData>("admin/dashboard")
@@ -10,7 +24,12 @@ export function Dashboard() {
   if (!data || error) return <ResourceError error={error} retry={reload} />
   return (
     <>
-      <p className="adm-notice">Email notifications: {data.smtp_enabled ? 'enabled' : 'not configured'} · {data.mail_pending} pending · {data.mail_failed} failed. Enquiries are stored in Inbox. Failed delivery needs a configuration check by your server administrator.</p>
+      <p className="adm-notice">
+        Email notifications: {data.smtp_enabled ? "enabled" : "not configured"}{" "}
+        · {data.mail_pending} pending · {data.mail_failed} failed. Enquiries are
+        stored in Inbox. Failed delivery needs a configuration check by your
+        server administrator.
+      </p>
       <section className="adm-welcome">
         <div>
           <span className="adm-eyebrow">YOUR WEBSITE, IN ONE PLACE</span>
@@ -60,6 +79,12 @@ export function Dashboard() {
             value: data.inquiries,
             icon: "inbox",
             to: "inquiries",
+          },
+          {
+            label: "New applications",
+            value: data.applications,
+            icon: "inbox",
+            to: "applications",
           },
         ].map((item) => (
           <Link className="adm-stat" key={item.label} to={`/admin/${item.to}`}>

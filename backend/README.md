@@ -11,6 +11,7 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 - Raster image uploads with permission confirmation, MIME/signature checks, pixel/size limits, WebP re-encoding, private filesystem storage and a public image-serving endpoint. All accepted media is public; do not upload confidential documents.
 - Account creation/deactivation and CLI password recovery.
 - Main contact page and shared sector enquiry forms save to the admin inbox. Server-side idempotency returns the same reference for an identical retried submission.
+- Published vacancies and the general Careers action open an EN/BN application form. PDF CVs (maximum 5 MB) are stored outside public media, downloads require an authenticated admin session, and the Applications inbox supports status and assignment. Rejected/withdrawn applications follow a separately configurable retention period.
 - EN/BN page-section editing, visibility/order controls, SEO fields and authenticated saved-draft previews. Published overrides are consumed across the public page inventory.
 - Published public consumers for projects, team, jobs, gallery, Insights, Press, Timeline, Locations, Brands, Credentials, verified Metrics, Testimonials, Company Settings and Navigation. Insights and Press include locale-aware list and detail routes.
 - A published `company-profile` Settings record centrally controls general, careers, press, legal and investor email addresses, phone, website, business hours, operating/registered addresses and social profiles. Safe packaged contact values remain during API outages or before the record is published.
@@ -56,8 +57,12 @@ Prefix `/api/v1`:
 | `DELETE /admin/media/{id}` | Owner-only archive; rejects referenced media |
 | `GET /media/{filename}` | Re-encoded public image, immutable URL |
 | `POST /inquiries` | Save message; required random `request_key` (20–64 alphanumeric/hyphen characters) |
+| `POST /job-applications` | Multipart application for a published vacancy or `general`; PDF CV, consent and idempotency key required |
 | `GET /admin/inquiries` | Paginated inbox |
 | `PATCH /admin/inquiries/{id}` | `status`: new, in_progress, closed |
+| `GET /admin/applications` | Paginated private recruitment inbox |
+| `PATCH /admin/applications/{id}` | Recruitment status and active-admin assignment |
+| `GET /admin/applications/{id}/resume` | Authenticated private PDF download |
 | `GET/POST /admin/users` | Owner account list/create |
 | `PATCH /admin/users/{id}` | Owner enables/disables another account with boolean `active` |
 | `POST /admin/users/{id}/reset-link` | Owner issues an expiring one-use reset link |

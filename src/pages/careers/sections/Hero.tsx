@@ -1,7 +1,14 @@
-import { Link } from 'react-router-dom'
-import type { CareersContent } from '../content/en'
+import { Link } from "react-router-dom"
 
-export default function Hero({ c }: { c: CareersContent['hero'] }) {
+import type { CareersContent } from "../content/en"
+
+export default function Hero({
+  c,
+  onApply,
+}: {
+  c: CareersContent["hero"]
+  onApply: () => void
+}) {
   return (
     <section className="relative bg-navy pt-32 pb-20 overflow-hidden">
       <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
@@ -27,12 +34,13 @@ export default function Hero({ c }: { c: CareersContent['hero'] }) {
           {c.lead}
         </p>
         <div className="mt-10">
-          <a
-            href={c.ctaHref}
+          <button
+            type="button"
+            onClick={onApply}
             className="inline-flex items-center px-8 py-3.5 bg-gold text-on-brand text-sm font-semibold rounded hover:bg-gold-light transition-colors shadow-lg shadow-gold/20"
           >
             {c.cta}
-          </a>
+          </button>
         </div>
       </div>
     </section>

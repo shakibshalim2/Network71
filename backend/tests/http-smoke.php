@@ -10,7 +10,7 @@ if (!in_array(parse_url($base, PHP_URL_HOST), ['localhost', '127.0.0.1'], true))
 $db = new Database($config);
 $prefix = 'test-' . bin2hex(random_bytes(6));
 $inquiryBucket = hash('sha256', 'inquiry:127.0.0.1');
-$ids = []; $userId = null; $mediaId = null; $filename = null; $reference = null;
+$ids = []; $userId = null; $mediaId = null; $filename = null; $reference = null; $applicationId = null; $applicationFilename = null;
 $checks = 0;
 function check(bool $condition, string $message): void { global $checks; if (!$condition) throw new RuntimeException($message); $checks++; }
 final class Client
@@ -21,7 +21,7 @@ final class Client
     public function send(string $method, string $path, mixed $data = null, ?string $csrf = null, ?string $origin = null): array
     {
         $headers = ['Origin: ' . ($origin ?? $this->origin), 'X-CSRF-Token: ' . ($csrf ?? $this->csrf)];
-        $multipart = is_array($data) && isset($data['file']) && $data['file'] instanceof CURLFile;
+        $multipart = is_array($data) && count(array_filter($data, static fn(mixed $value): bool => $value instanceof CURLFile)) > 0;
         if ($data !== null && !$multipart) $headers[] = 'Content-Type: application/json';
         curl_setopt_array($this->curl, [CURLOPT_URL => $this->base . '/api/v1/' . $path, CURLOPT_CUSTOMREQUEST => $method, CURLOPT_POSTFIELDS => $data === null ? null : ($multipart ? $data : json_encode($data, JSON_THROW_ON_ERROR)), CURLOPT_HTTPHEADER => $headers, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 15]);
         $raw = curl_exec($this->curl);
@@ -42,6 +42,7 @@ $editor = new Client($base, $config['origin']);
 $guest = new Client($base, $config['origin']);
 $tempImage = tempnam(sys_get_temp_dir(), 'n71-image-');
 $tempBad = tempnam(sys_get_temp_dir(), 'n71-bad-');
+$tempPdf = tempnam(sys_get_temp_dir(), 'n71-pdf-');
 try {
     check($guest->send('GET', 'admin/dashboard')['status'] === 401, 'Admin must reject guests.');
     $owner->login((string)getenv('N71_TEST_EMAIL'), (string)getenv('N71_TEST_PASSWORD'));
@@ -107,17 +108,30 @@ try {
     $inbox = $owner->send('GET', 'admin/inquiries')['data'];
     $inboxItem = array_values(array_filter($inbox['items'], static fn(array $item): bool => $item['reference'] === $reference))[0] ?? null;
     check($inboxItem && (int)$inboxItem['assigned_to'] === $ownerId && count($inboxItem['notes']) === 1 && $inboxItem['notes'][0]['note'] === 'Private follow-up note', 'Inbox assignment or notes were not returned.');
+    $job = ['slug'=>$prefix.'-job','data'=>['title'=>'Integration vacancy','employment'=>'Full time']];
+    $created = $owner->send('POST','admin/content/jobs',$job); check($created['status'] === 201,'Job draft creation failed.'); $jobId=(int)$created['data']['id']; $ids[]=$jobId;
+    check($owner->send('POST',"admin/content/jobs/$jobId/state",['action'=>'publish','version'=>1])['status'] === 200,'Job publishing failed.');
+    file_put_contents($tempPdf,"%PDF-1.4\n1 0 obj<</Type/Catalog>>endobj\n%%EOF");
+    $application = ['resume'=>new CURLFile($tempPdf,'application/pdf','candidate.pdf'),'job_slug'=>$job['slug'],'locale'=>'en','name'=>'Test candidate','email'=>'candidate@example.test','phone'=>'+8801000000000','cover_letter'=>'Private application','consent'=>'yes','request_key'=>bin2hex(random_bytes(20))];
+    $receivedApplication=$guest->send('POST','job-applications',$application); check($receivedApplication['status'] === 201,'Job application was not accepted.');
+    $applicationRow=$db->query('SELECT id,resume_filename FROM job_applications WHERE reference=?',[$receivedApplication['data']['reference']])->fetch(); $applicationId=(int)$applicationRow['id']; $applicationFilename=$applicationRow['resume_filename'];
+    check($guest->send('GET',"admin/applications/$applicationId/resume")['status'] === 401,'Private CV was available without authentication.');
+    $applicationList=$owner->send('GET','admin/applications')['data']['items']; check(count(array_filter($applicationList,static fn(array $item):bool=>(int)$item['id']===$applicationId))===1,'Application inbox did not return the submission.');
+    check($owner->send('PATCH',"admin/applications/$applicationId",['status'=>'reviewing','assigned_to'=>$ownerId])['status'] === 200,'Application workflow update failed.');
+    $download=$owner->send('GET',"admin/applications/$applicationId/resume"); check($download['status'] === 200 && str_starts_with($download['raw'],'%PDF-'),'Authenticated CV download failed.');
     check($owner->send('POST', "admin/content/projects/$id/state", ['action' => 'unpublish', 'version' => 3])['status'] === 200, 'Unpublish failed.');
     check($guest->send('GET', 'content/projects/' . $prefix)['status'] === 404, 'Unpublished content remained public.');
     check($owner->send('POST', 'auth/logout')['status'] === 200, 'Logout failed.');
     check($owner->send('GET', 'admin/dashboard')['status'] === 401, 'Logout retained access.');
     echo "$checks HTTP/MySQL integration checks passed.\n";
 } finally {
-    foreach ($ids as $id) { $db->query('DELETE FROM audit_logs WHERE entity_id = ? AND entity IN (?, ?)', [$id, 'projects', 'posts']); $db->query('DELETE FROM content_records WHERE id = ?', [$id]); }
+    if ($applicationId) { $db->query("DELETE FROM audit_logs WHERE entity='applications' AND entity_id=?",[$applicationId]); $db->query('DELETE FROM job_applications WHERE id=?',[$applicationId]); if ($applicationFilename && is_file($config['storage'].'/applications/'.$applicationFilename)) unlink($config['storage'].'/applications/'.$applicationFilename); }
+    foreach ($ids as $id) { $db->query('DELETE FROM audit_logs WHERE entity_id = ? AND entity IN (?, ?, ?)', [$id, 'projects', 'posts', 'jobs']); $db->query('DELETE FROM content_records WHERE id = ?', [$id]); }
     if ($mediaId) { $db->query("DELETE FROM audit_logs WHERE entity_id = ? AND entity = 'media'", [$mediaId]); $db->query('DELETE FROM media_assets WHERE id = ?', [$mediaId]); if ($filename) unlink($config['storage'] . '/media/' . $filename); }
     if ($reference) { $inquiryId = $db->query('SELECT id FROM inquiries WHERE reference = ?', [$reference])->fetchColumn(); $db->query("DELETE FROM audit_logs WHERE entity_id = ? AND entity = 'inquiries'", [$inquiryId]); $db->query('DELETE FROM inquiries WHERE reference = ?', [$reference]); }
     if ($userId) { $db->query("DELETE FROM audit_logs WHERE actor_id = ? OR (entity = 'users' AND entity_id = ?)", [$userId, $userId]); $db->query('DELETE FROM admin_users WHERE id = ?', [$userId]); }
     $db->query('DELETE FROM rate_limits WHERE bucket = ?', [$inquiryBucket]);
+    $db->query('DELETE FROM rate_limits WHERE bucket = ?', [hash('sha256', 'job-application:127.0.0.1')]);
     $db->query('DELETE FROM rate_limits WHERE bucket = ?', [hash('sha256', 'login-email:' . $prefix . '@example.test')]);
-    unlink($tempImage); unlink($tempBad);
+    unlink($tempImage); unlink($tempBad); unlink($tempPdf);
 }

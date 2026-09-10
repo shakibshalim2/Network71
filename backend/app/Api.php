@@ -6,11 +6,13 @@ final class Api
     private Database $db;
     private Content $content;
     private Media $media;
+    private JobApplications $applications;
     public function __construct(private array $config)
     {
         $this->db = new Database($config);
         $this->content = new Content($this->db, require __DIR__ . '/modules.php');
         $this->media = new Media($this->db, $config);
+        $this->applications = new JobApplications($this->db, $config);
     }
 
     public function run(): never
@@ -56,6 +58,13 @@ final class Api
             }
             Http::json(['reference' => $reference, 'message' => 'Your enquiry has been received.'], 201);
         }
+        if ($method === 'POST' && $path === '/api/v1/job-applications') {
+            $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+            if ($origin !== '' && $origin !== $this->config['origin']) Http::fail(403, 'Origin is not allowed.');
+            $this->db->throttle('job-application:' . ($_SERVER['REMOTE_ADDR'] ?? ''), 3, 600);
+            if (($_POST['website'] ?? '') !== '') Http::fail(422, 'Unable to accept this submission.');
+            Http::json($this->applications->create(), 201);
+        }
 
         $auth = new Auth($this->db, $this->config);
         if ($method !== 'GET') $auth->checkWrite();
@@ -96,6 +105,7 @@ final class Api
                 'published' => (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE module NOT IN ('pages','divisions') AND status = 'published'")->fetchColumn(),
                 'drafts' => (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE module NOT IN ('pages','divisions') AND (status = 'draft' OR (status = 'published' AND draft_json <> published_json))")->fetchColumn(),
                 'inquiries' => (int)$this->db->query("SELECT COUNT(*) FROM inquiries WHERE status = 'new'")->fetchColumn(),
+                'applications' => (int)$this->db->query("SELECT COUNT(*) FROM job_applications WHERE status = 'new'")->fetchColumn(),
                 'activity' => $this->db->query('SELECT a.id, a.action, a.entity, a.created_at, u.name FROM audit_logs a LEFT JOIN admin_users u ON u.id = a.actor_id ORDER BY a.id DESC LIMIT 12')->fetchAll(),
             ]);
         }
@@ -166,6 +176,13 @@ final class Api
                 return $this->db->query('SELECT n.id, n.inquiry_id, n.note, n.created_at, u.name AS author_name FROM inquiry_notes n JOIN admin_users u ON u.id = n.author_id WHERE n.id = ?', [$id])->fetch();
             });
             Http::json($created, 201);
+        }
+        if ($method === 'GET' && $path === '/api/v1/admin/applications') Http::json($this->applications->listing());
+        if ($method === 'PATCH' && preg_match('~^/api/v1/admin/applications/([0-9]+)$~',$path,$match)) {
+            $this->applications->update((int)$match[1],Http::body(),$user); Http::json(['ok'=>true]);
+        }
+        if ($method === 'GET' && preg_match('~^/api/v1/admin/applications/([0-9]+)/resume$~',$path,$match)) {
+            $this->applications->download((int)$match[1]);
         }
         if ($path === '/api/v1/admin/users') {
             $auth->owner();

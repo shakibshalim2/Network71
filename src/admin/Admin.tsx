@@ -8,7 +8,14 @@ import {
 } from "react"
 import { Link, NavLink, useBlocker, useParams } from "react-router-dom"
 import { api, setCsrf, type Modules, type User } from "./api"
-import { ContentEditor, Dashboard, Inbox, MediaLibrary, Users } from "./screens"
+import {
+  Applications,
+  ContentEditor,
+  Dashboard,
+  Inbox,
+  MediaLibrary,
+  Users,
+} from "./screens"
 import "./admin.css"
 
 export function Icon({ name, size = 20 }: { name: string; size?: number }) {
@@ -216,15 +223,18 @@ const primary = [
   { key: "content", label: "Content", icon: "content" },
   { key: "projects", label: "Projects", icon: "projects" },
   { key: "inquiries", label: "Inbox", icon: "inbox" },
+  { key: "applications", label: "Applications", icon: "inbox" },
 ]
 
 export default function Admin() {
   const { section = "" } = useParams()
   useEffect(() => {
-    const link=document.querySelector<HTMLLinkElement>('link[rel="manifest"]')
-    const previous=link?.getAttribute('href')
-    link?.setAttribute('href','/admin.webmanifest')
-    return () => {if(previous)link?.setAttribute('href',previous)}
+    const link = document.querySelector<HTMLLinkElement>('link[rel="manifest"]')
+    const previous = link?.getAttribute("href")
+    link?.setAttribute("href", "/admin.webmanifest")
+    return () => {
+      if (previous) link?.setAttribute("href", previous)
+    }
   }, [])
   const [user, setUser] = useState<User | null>(null)
   const [modules, setModules] = useState<Modules>({})
@@ -317,6 +327,7 @@ export default function Admin() {
       "": "Overview",
       content: "Website content",
       inquiries: "Inbox",
+      applications: "Job applications",
       media: "Media library",
       users: "Team access",
       more: "Workspace tools",
@@ -338,7 +349,8 @@ export default function Admin() {
     ]
     const parentActive =
       mobile &&
-      ((key === "more" && moreSections.includes(section)) ||
+      ((key === "inquiries" && section === "applications") ||
+        (key === "more" && moreSections.includes(section)) ||
         (key === "content" &&
           Boolean(modules[section]) &&
           section !== "projects" &&
@@ -433,7 +445,9 @@ export default function Admin() {
                 </span>
               </div>
               <ErrorNotice message={error} />
-              {section === "pages" ? (<PageEditor user={user} onDirty={setDirty} />) : section === "" ? (
+              {section === "pages" ? (
+                <PageEditor user={user} onDirty={setDirty} />
+              ) : section === "" ? (
                 <Dashboard />
               ) : section === "content" || section === "more" ? (
                 <>
@@ -504,6 +518,8 @@ export default function Admin() {
                 <MediaLibrary user={user} />
               ) : section === "inquiries" ? (
                 <Inbox />
+              ) : section === "applications" ? (
+                <Applications />
               ) : section === "users" ? (
                 <Users user={user} />
               ) : modules[section] ? (

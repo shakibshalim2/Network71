@@ -12,6 +12,8 @@ return [
     'storage' => dirname(__DIR__) . '/storage',
     // Closed enquiries older than this are removed by bin/cleanup.php.
     'inquiry_retention_days' => 365,
+    // Rejected or withdrawn applications older than this are deleted with their private CV files.
+    'application_retention_days' => 730,
     'smtp' => [
         'enabled' => false,
         'host' => 'smtp.example.com', 'port' => 587, 'encryption' => 'tls',

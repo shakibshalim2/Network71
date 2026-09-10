@@ -6,7 +6,6 @@ const en = {
     title: 'Build Your Career at Network71',
     lead: 'Join a team of driven professionals working across our business divisions. Shape the future of emerging markets from day one.',
     cta: 'Send Your CV',
-    ctaHref: 'mailto:careers@network71.com',
   },
   benefits: {
     eyebrow: 'Culture',
@@ -50,10 +49,9 @@ const en = {
     loading: 'Loading vacancies…',
     retry: 'Try again',
     emptyTitle: 'No open vacancies are listed here.',
-    emptyText: 'Send your CV to careers@network71.com to introduce yourself for future opportunities.',
+    emptyText: 'Use the general application form on this page to introduce yourself for future opportunities.',
     applyBy: 'Apply by {date}',
     apply: 'Apply',
-    applySubject: 'Application: ',
     paginationLabel: 'Vacancy pages',
     previous: 'Previous',
     pageOf: 'Page {page} of {total}',
@@ -66,7 +64,7 @@ const en = {
       {
         step: '01',
         title: 'Apply',
-        desc: 'Send your CV to careers@network71.com or hit Apply on any listing.',
+        desc: 'Complete the secure application form for a listed role or a future opportunity.',
       },
       {
         step: '02',
@@ -88,8 +86,25 @@ const en = {
   cta: {
     title: "Don't see a fit?",
     text: "Send us your CV anyway. We're always looking for exceptional talent.",
-    href: 'mailto:careers@network71.com?subject=Speculative CV Submission',
-    email: 'careers@network71.com',
+    apply: 'Submit a general application',
+  },
+  application: {
+    title: 'Apply for {job}',
+    generalTitle: 'General application',
+    generalRole: 'Future opportunities',
+    name: 'Full name',
+    email: 'Email address',
+    phone: 'Phone number',
+    coverLetter: 'Cover note',
+    resume: 'CV / résumé',
+    resumeHelp: 'PDF only, maximum 5 MB. Your file is stored privately and is available only to authenticated recruitment admins.',
+    consent: 'I consent to Network71 processing my application for recruitment. Rejected or withdrawn applications are deleted after the configured retention period.',
+    submit: 'Submit application',
+    submitting: 'Submitting…',
+    successTitle: 'Application received',
+    successText: 'Keep this reference for follow-up: {reference}',
+    error: 'Your application could not be submitted. Please try again.',
+    close: 'Close',
   },
 }
 

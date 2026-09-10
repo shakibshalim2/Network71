@@ -1,35 +1,57 @@
-import { useState } from 'react'
+import { useState } from "react"
+
 import {
   usePublicContent,
   textField,
   type PublishedPage,
-} from '@/lib/publicContent'
-import type { CareersContent } from '../content/en'
+} from "@/lib/publicContent"
 
-export default function Openings({ c }: { c: CareersContent['openings'] }) {
+import type { CareersContent } from "../content/en"
+import type { ApplicationTarget } from "./ApplicationForm"
+
+export default function Openings({
+  c,
+  onApply,
+}: {
+  c: CareersContent["openings"]
+  onApply: (target: ApplicationTarget) => void
+}) {
   const [page, setPage] = useState(1)
+
   const { data, loading, error, retry } = usePublicContent<PublishedPage>(
-    'jobs?page=' + page,
+    "jobs?page=" + page,
   )
-  const today = new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Asia/Dhaka',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
+
+  const today = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Dhaka",
+
+    year: "numeric",
+
+    month: "2-digit",
+
+    day: "2-digit",
   }).format(new Date())
+
   const openings = (data?.items || [])
+
     .filter(
       (job) =>
-        !textField(job, 'deadline') || textField(job, 'deadline') >= today,
+        !textField(job, "deadline") || textField(job, "deadline") >= today,
     )
+
     .map((job) => ({
       id: job.id,
-      title: textField(job, 'title'),
-      division: textField(job, 'employment'),
-      location: textField(job, 'location'),
-      body: textField(job, 'body'),
-      deadline: textField(job, 'deadline'),
-      email: textField(job, 'email'),
+      slug: job.slug,
+      title: textField(job, "title"),
+
+      division: textField(job, "employment"),
+
+      location: textField(job, "location"),
+
+      body: textField(job, "body"),
+
+      deadline: textField(job, "deadline"),
+
     }))
 
   return (
@@ -103,16 +125,17 @@ export default function Openings({ c }: { c: CareersContent['openings'] }) {
                 </p>
                 {job.deadline && (
                   <p className="text-sm text-slate-500 mt-3">
-                    {c.applyBy.replace('{date}', job.deadline)}
+                    {c.applyBy.replace("{date}", job.deadline)}
                   </p>
                 )}
               </div>
-              <a
-                href={`mailto:${encodeURIComponent(job.email)}?subject=${c.applySubject}${encodeURIComponent(job.title)}`}
+              <button
+                type="button"
+                onClick={() => onApply({ slug: job.slug, title: job.title })}
                 className="flex-shrink-0 px-5 py-2.5 bg-gold text-on-brand text-xs font-semibold rounded hover:bg-gold-light transition-colors"
               >
                 {c.apply}
-              </a>
+              </button>
             </div>
           ))}
         </div>
@@ -122,7 +145,9 @@ export default function Openings({ c }: { c: CareersContent['openings'] }) {
               {c.previous}
             </button>
             <span>
-              {c.pageOf.replace('{page}', String(page)).replace('{total}', String(data?.pages))}
+              {c.pageOf
+                .replace("{page}", String(page))
+                .replace("{total}", String(data?.pages))}
             </span>
             <button
               disabled={page >= (data?.pages || 1)}
