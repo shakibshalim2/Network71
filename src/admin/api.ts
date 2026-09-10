@@ -22,6 +22,7 @@ export type ContentRecord = {
   id: number
   slug: string
   module: string
+  locale: "en" | "bn"
   data: Record<string, string | boolean>
   status: string
   version: number

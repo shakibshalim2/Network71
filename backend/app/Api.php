@@ -56,10 +56,18 @@ final class Api
 
         $auth = new Auth($this->db, $this->config);
         if ($method !== 'GET') $auth->checkWrite();
+        if ($method === 'POST' && $path === '/api/v1/auth/reset-password') {
+            (new PasswordReset($this->db))->consume(Http::body()); Http::json(['ok'=>true]);
+        }
         if ($method === 'GET' && $path === '/api/v1/auth/session') Http::json(['user' => $auth->user(false), 'csrf' => $auth->csrf()]);
         if ($method === 'POST' && $path === '/api/v1/auth/login') Http::json($auth->login(Http::body()));
         if ($method === 'POST' && $path === '/api/v1/auth/logout') { $auth->logout(); Http::json(['ok' => true]); }
         $user = $auth->user();
+        if ($method === 'POST' && preg_match('~^/api/v1/admin/users/([0-9]+)/reset-link$~',$path,$match)) {
+            $owner=$auth->owner();
+            $token=(new PasswordReset($this->db))->issue((int)$match[1],$owner);
+            Http::json(['url'=>$this->config['origin'].'/admin/reset#'.$token]);
+        }
         if (str_starts_with($path, '/api/v1/admin/sections')) {
             $sections = new Sections($this->db);
             if ($method === 'GET' && $path === '/api/v1/admin/sections') Http::json($sections->catalog());
@@ -93,12 +101,15 @@ final class Api
             }
             if (($method === 'POST' && !$id) || ($method === 'PUT' && $id && !isset($match[3]))) Http::json($this->content->save($module, $id, Http::body(), $user), $id ? 200 : 201);
         }
+        if ($method === 'DELETE' && preg_match('~^/api/v1/admin/media/([0-9]+)$~',$path,$match)) {
+            $this->media->archive((int)$match[1],$auth->owner()); Http::json(['ok'=>true]);
+        }
         if ($path === '/api/v1/admin/media') {
             if ($method === 'POST') Http::json($this->media->upload($user), 201);
             if ($method === 'GET') {
                 $page = max(1, min(100000, (int)($_GET['page'] ?? 1)));
-                $total = (int)$this->db->query('SELECT COUNT(*) FROM media_assets')->fetchColumn();
-                Http::json(['items' => $this->db->query('SELECT id, filename, alt, width, height, bytes, created_at FROM media_assets ORDER BY id DESC LIMIT 24 OFFSET ' . (($page - 1) * 24))->fetchAll(), 'page' => $page, 'pages' => max(1, (int)ceil($total / 24)), 'total' => $total]);
+                $total = (int)$this->db->query('SELECT COUNT(*) FROM media_assets WHERE deleted_at IS NULL')->fetchColumn();
+                Http::json(['items' => $this->db->query('SELECT id, filename, alt, width, height, bytes, created_at FROM media_assets WHERE deleted_at IS NULL ORDER BY id DESC LIMIT 24 OFFSET ' . (($page - 1) * 24))->fetchAll(), 'page' => $page, 'pages' => max(1, (int)ceil($total / 24)), 'total' => $total]);
             }
         }
         if ($method === 'GET' && $path === '/api/v1/admin/inquiries') {

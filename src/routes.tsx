@@ -36,6 +36,7 @@ const Blog = lazy(() => import("@/pages/Blog"))
 const Gallery = lazy(() => import("@/pages/Gallery"))
 const BrandPage = lazy(() => import("@/pages/BrandPage"))
 const NotFound = lazy(() => import("@/pages/NotFound"))
+const ResetPassword = lazy(() => import("@/admin/ResetPassword"))
 const Admin = lazy(() => import("@/admin/Admin"))
 const Projects = lazy(() => import("@/pages/Projects"))
 
@@ -71,6 +72,7 @@ export const router = createBrowserRouter([
   {
     Component: Root,
     children: [
+      { path: "/admin/reset", Component: ResetPassword },
       { path: "/admin", Component: Admin },
       { path: "/admin/:section", Component: Admin },
       { path: "/", Component: Home },

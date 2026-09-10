@@ -43,10 +43,24 @@ final class Media
         } finally { imagedestroy($original); imagedestroy($output); }
     }
 
+    public function archive(int $id, array $user): void
+    {
+        $this->db->transaction(function () use ($id,$user) {
+            $row=$this->db->query('SELECT filename FROM media_assets WHERE id=? AND deleted_at IS NULL FOR UPDATE',[$id])->fetch();
+            if(!$row) Http::fail(404,'Image not found.');
+            $needle='%'.$row['filename'].'%';
+            $records=(int)$this->db->query('SELECT COUNT(*) FROM content_records WHERE draft_json LIKE ? OR published_json LIKE ?',[$needle,$needle])->fetchColumn();
+            $sections=(int)$this->db->query('SELECT COUNT(*) FROM page_sections WHERE draft_json LIKE ? OR published_json LIKE ?',[$needle,$needle])->fetchColumn();
+            if($records+$sections>0) Http::fail(409,'This image is used in website content. Replace its references before archiving.');
+            $this->db->query('UPDATE media_assets SET deleted_at=UTC_TIMESTAMP() WHERE id=?',[$id]);
+            $this->db->audit((int)$user['id'],'archive_media','media',$id);
+        });
+    }
+
     public function serve(string $filename): never
     {
         if (!preg_match('/^[a-f0-9]{40}\.webp$/', $filename)) Http::fail(404, 'Image not found.');
-        $row = $this->db->query('SELECT filename FROM media_assets WHERE filename = ?', [$filename])->fetch();
+        $row = $this->db->query('SELECT filename FROM media_assets WHERE filename = ? AND deleted_at IS NULL', [$filename])->fetch();
         $path = $this->config['storage'] . '/media/' . $filename;
         if (!$row || !is_file($path)) Http::fail(404, 'Image not found.');
         header('Content-Type: image/webp');

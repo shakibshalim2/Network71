@@ -140,3 +140,12 @@ CMS foundation added in this checkpoint (not a completed CMS rollout):
 
 Still pending: page/section admin editor and locale tabs; admin refactor; media delete/replace workflow; reset-link workflow; SMTP/outbox; complete CMS coverage and preview; cPanel deployment validator/package; live company/seller/evidence data; full responsive/accessibility and authenticated API regression matrix. No production deployment was performed. Work paused at the user request; do not treat original unchecked plan rows as finished.
 - Pause validation: final TypeScript/Vite production build passed (existing 637 kB globe warning); PHP syntax checks passed; 508 section templates and unsafe URL rejection passed; public About section API returned valid empty overrides; Chrome About EN/BN fallback had no runtime errors. Full CMS write/publish integration remains unverified.
+
+## Resumed implementation — 10 September 2026
+
+- `/admin/pages`: schema-based nested fields and repeatable rows, EN/BN selection, draft save, owner publishing, visibility/order and public-page link; unsaved edits retain navigation protection. Collection editors now choose EN/BN.
+- Admin screens split into separate files; media archive rejects referenced images; replacement uses new immutable upload URL followed by draft/publish and archive.
+- Owner can generate a private 30-minute reset link; tokens are hashed, single-use, and password change revokes existing sessions. No reset email is sent automatically.
+- Added cPanel readiness checker, deployment/restore checklist and scoped admin manifest.
+- Verified: 13 real HTTP/MySQL checks for sections/reset; 508 schema templates; Chrome admin login and EN/BN nested editor at 375/768/1440 widths; production build passed.
+- Remaining: SMTP/outbox, full section/SEO/preview coverage, complete route matrix and actual hosting/offsite restore verification. Earlier checkpoint remains historical.

@@ -1,3 +1,4 @@
+import PageEditor from "./PageEditor"
 import {
   useCallback,
   useEffect,
@@ -219,6 +220,12 @@ const primary = [
 
 export default function Admin() {
   const { section = "" } = useParams()
+  useEffect(() => {
+    const link=document.querySelector<HTMLLinkElement>('link[rel="manifest"]')
+    const previous=link?.getAttribute('href')
+    link?.setAttribute('href','/admin.webmanifest')
+    return () => {if(previous)link?.setAttribute('href',previous)}
+  }, [])
   const [user, setUser] = useState<User | null>(null)
   const [modules, setModules] = useState<Modules>({})
   const [loading, setLoading] = useState(true)
@@ -426,7 +433,7 @@ export default function Admin() {
                 </span>
               </div>
               <ErrorNotice message={error} />
-              {section === "" ? (
+              {section === "pages" ? (<PageEditor user={user} onDirty={setDirty} />) : section === "" ? (
                 <Dashboard />
               ) : section === "content" || section === "more" ? (
                 <>
@@ -494,7 +501,7 @@ export default function Admin() {
                   )}
                 </>
               ) : section === "media" ? (
-                <MediaLibrary />
+                <MediaLibrary user={user} />
               ) : section === "inquiries" ? (
                 <Inbox />
               ) : section === "users" ? (
