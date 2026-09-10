@@ -8,7 +8,7 @@
 
 ভিজিটর যেন সহজে বুঝতে পারেন Network71 কী করে, কোন কাজ বাস্তবে করেছে, সেই কাজে দলের ভূমিকা কী ছিল এবং যোগাযোগ করলে কীভাবে কাজ শুরু হবে। এজন্য হোমপেজে বাস্তব কাজের সারাংশ, `/projects`-এ কাজের তালিকা এবং `/projects/:slug`-এ বিস্তারিত case study থাকবে। Admin panel দিয়ে কোড পরিবর্তন ছাড়াই কাজ, ছবি ও অনুমোদিত তথ্য প্রকাশ করা যাবে।
 
-প্রস্তাবিত stack: বর্তমান React/Vite frontend + modular PHP backend + MySQL database। PHP 8.4 deployment target, hosting provider-এর উপলব্ধ ও supported patch version যাচাই সাপেক্ষে। MySQL 8.4 অগ্রাধিকার; host MariaDB দিলে তার supported version-এ migration এবং query পরীক্ষা করে নিতে হবে। Database driver হবে PDO; SQL হবে portable, InnoDB ও utf8mb4 ব্যবহার করবে।
+প্রস্তাবিত stack: বর্তমান React/Vite frontend + modular PHP backend + MySQL database। PHP 8.2+ deployment target, hosting provider-এর উপলব্ধ ও supported patch version যাচাই সাপেক্ষে। Host-এর supported MySQL/MariaDB version-এ migration এবং query পরীক্ষা করে নিতে হবে। Database driver হবে PDO; SQL হবে portable, InnoDB ও utf8mb4 ব্যবহার করবে।
 
 বর্তমান corporate content-এর সবকিছু CMS-এ নেওয়া প্রথম ধাপের প্রয়োজন নয়। প্রথম release-এ Projects, trust content, company contact information এবং inquiry management সম্পূর্ণ করা হবে। Blog, careers ও press management পরের ধাপ।
 
@@ -144,7 +144,7 @@ Case study share করলে Facebook/WhatsApp crawler যেন সঠিক t
 
 Setup sequence: PHP/extensions ও hosting capability পরীক্ষা → cPanel Database Wizard-এ DB/user তৈরি → private application এবং build upload → secrets configure → migration import/run → এককালীন Owner account তৈরি → SSL ও rewrite configure → SMTP test → cron ও backup configure → staging acceptance → production release। Web-based installer ব্যবহার করতে হলে single-use secret ও setup lock লাগবে; release শেষে installer অপসারণ করতে হবে।
 
-Hosting check: PHP 8.4 ও PDO MySQL, mbstring, fileinfo, OpenSSL, GD/WebP; actual DB version; HTTPS; rewrite support; upload/storage/memory limit; outbound SMTP; cron interval; public root-এর বাইরে readable application directory। cPanel-এর features provider বন্ধ রাখতে পারেন, তাই hosting package না দেখে নির্দিষ্ট compatibility নিশ্চিত করা যাবে না। [cPanel PHP configuration](https://docs.cpanel.net/cpanel/software/multiphp-manager-for-cpanel/), [database management](https://docs.cpanel.net/cpanel/databases/manage-my-databases/), [cron jobs](https://docs.cpanel.net/cpanel/advanced/cron-jobs/), [PHP support lifecycle](https://www.php.net/supported-versions.php)।
+Hosting check: PHP 8.2+ ও PDO MySQL, mbstring, fileinfo, OpenSSL, GD/WebP; actual DB version; HTTPS; rewrite support; upload/storage/memory limit; outbound SMTP; cron interval; public root-এর বাইরে readable application directory। cPanel-এর features provider বন্ধ রাখতে পারেন, তাই hosting package না দেখে নির্দিষ্ট compatibility নিশ্চিত করা যাবে না। [cPanel PHP configuration](https://docs.cpanel.net/cpanel/software/multiphp-manager-for-cpanel/), [database management](https://docs.cpanel.net/cpanel/databases/manage-my-databases/), [cron jobs](https://docs.cpanel.net/cpanel/advanced/cron-jobs/), [PHP support lifecycle](https://www.php.net/supported-versions.php)।
 
 **Backend protection ও maintenance**
 

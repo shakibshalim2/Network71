@@ -9,7 +9,7 @@ function ini_bytes(string $value): int {
     $number=(int)$value;$unit=strtolower(substr($value,-1));
     return match($unit){'g'=>$number*1024*1024*1024,'m'=>$number*1024*1024,'k'=>$number*1024,default=>$number};
 }
-report(PHP_VERSION_ID>=80300,'PHP 8.3+ (production target 8.4)');
+report(PHP_VERSION_ID>=80200,'PHP 8.2+');
 foreach(['pdo_mysql','mbstring','fileinfo','gd','openssl','session'] as $ext)report(extension_loaded($ext),'Extension '.$ext);
 report(function_exists('imagewebp'),'GD WebP encoding');
 report(ini_bytes((string)ini_get('upload_max_filesize'))>=10*1024*1024,'PHP upload limit at least 10 MB');

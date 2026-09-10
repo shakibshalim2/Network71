@@ -33,7 +33,7 @@ Optional future enhancements include additional image derivatives and richer fie
 
 ## Local setup
 
-Prerequisites: PHP 8.3+ (production target 8.4), PDO MySQL, mbstring, fileinfo, GD with WebP, sessions, and a MySQL/MariaDB database. The test runner also uses PHP cURL.
+Prerequisites: PHP 8.2+, PDO MySQL, mbstring, fileinfo, GD with WebP, sessions, and a MySQL/MariaDB database. The test runner also uses PHP cURL.
 
 1. Create a dedicated database and user. Copy `config/example.php` to `config/local.php`; configure DSN, credentials, `environment`, exact browser `origin`, storage directory and secure cookie policy. Local HTTP uses `secure_cookie = false`; production HTTPS uses `true`.
 2. Run `php backend/bin/setup.php`. Migrations are tracked in `schema_migrations`; take a backup before applying them to an existing environment.
@@ -104,7 +104,7 @@ Do not upload the repository wholesale. Database data, config, credentials, logs
 
 For real HTTP/database integration checks, start the development API, set `N71_TEST_EMAIL` and `N71_TEST_PASSWORD` to a development owner, then run `php backend/tests/http-smoke.php`. Optionally set `N71_TEST_BASE_URL` to a loopback API address. The suite refuses non-development configurations and non-loopback URLs; it creates random fixtures and deletes only those fixtures in `finally`. It consumes normal rate-limit attempts, so avoid repeatedly running it against a shared development login within 15 minutes.
 
-Production PHP 8.4, a modern MySQL/MariaDB host, Apache/LiteSpeed rewrites, real SMTP and backup recovery require staging verification; local tests alone do not establish those deployment guarantees.
+Production PHP 8.2 or newer, a modern MySQL/MariaDB host, Apache/LiteSpeed rewrites, real SMTP and backup recovery require staging verification; local tests alone do not establish those deployment guarantees.
 
 Implementation references: [PHP cookie sessions](https://www.php.net/manual/en/function.session-set-cookie-params.php), [PDO prepared statements](https://www.php.net/manual/en/pdo.prepared-statements.php).
 

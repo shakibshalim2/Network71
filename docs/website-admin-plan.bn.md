@@ -48,7 +48,7 @@ Schema-driven প্রথম ধাপের পরে page-specific repeatable
 
 PDO prepared queries, password hashing, expiring sessions, CSRF checks, login/inquiry rate limits, role checks এবং transactional audit logs থাকবে। Public Media raster image decode/re-encode করে। Confidential project evidence আলাদা private storage-এ PDF/JPEG/PNG allowlist, signature/size validation ও authenticated download ব্যবহার করে; কোনো public URL তৈরি হয় না।
 
-Production target PHP 8.4 + supported MySQL/MariaDB। Local environment-এ উপলব্ধ PHP 8.3 এবং isolated MariaDB দিয়ে functionality test করা যেতে পারে; সেটি PHP 8.4/MySQL 8.4 production certification নয়। cPanel-এ static React build + PHP API, private application files public_html-এর বাইরে, same-origin API এবং HTTPS cookie।
+Production target PHP 8.2+ এবং supported MySQL/MariaDB। Local environment-এ উপলব্ধ PHP 8.3 এবং isolated MariaDB দিয়ে functionality test করা হয়েছে; actual cPanel PHP/MySQL environment staging acceptance-এর অংশ। cPanel-এ static React build + PHP API, private application files public_html-এর বাইরে, same-origin API এবং HTTPS cookie।
 
 ## Acceptance
 
