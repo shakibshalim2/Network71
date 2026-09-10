@@ -195,7 +195,7 @@ export default function Grid({
               />
             </svg>
           </button>
-          <img
+          <img decoding="async" loading="lazy"
             src={lightbox.src.replace("w=400", "w=1200")}
             alt={lightbox.alt}
             className="max-w-full max-h-[calc(100dvh-120px)] rounded-xl object-contain"

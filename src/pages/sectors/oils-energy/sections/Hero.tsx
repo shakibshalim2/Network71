@@ -8,7 +8,7 @@ export default function Hero({ c }: { c: OilsEnergyContent }) {
         <div className="absolute inset-0 flex">
           {/* Left — {c.overview.oilsTitle} (amber) */}
           <div className="flex-1 relative overflow-hidden">
-            <img
+            <img decoding="async"
               src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=700&h=800&fit=crop&auto=format"
               alt={c.hero.edibleImageAlt}
               className="absolute inset-0 w-full h-full object-cover"

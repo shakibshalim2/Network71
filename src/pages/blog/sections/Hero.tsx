@@ -25,7 +25,7 @@ export function Featured({ c }: { c: BlogContent['featured'] }) {
     <section className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
       <div className="force-dark relative overflow-hidden rounded-2xl border border-white/8 bg-navy-light min-h-[320px] flex flex-col justify-end">
         {/* Featured post background image */}
-        <img
+        <img decoding="async"
           src={c.imageSrc}
           alt={c.imageAlt}
           className="absolute inset-0 w-full h-full object-cover"

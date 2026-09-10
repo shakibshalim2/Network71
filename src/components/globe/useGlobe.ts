@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type RefObject } from 'react'
-import * as THREE from 'three'
+import { AmbientLight, DirectionalLight, Group, Mesh, MeshPhongMaterial, PerspectiveCamera, SRGBColorSpace, Scene, SphereGeometry, Texture, TextureLoader } from 'three'
 import { useTheme } from '@/context/ThemeContext'
 import { LOCATIONS, detectQuality, type GlobeProps } from './data'
 import { latLon, isWebGLAvailable } from './geo'
@@ -39,15 +39,15 @@ export function useGlobe(
       const tooltip = createTooltip(container)
 
       // ── Scene / camera ────────────────────────────────────────────────────────
-      const scene  = new THREE.Scene()
-      const camera = new THREE.PerspectiveCamera(40, W0 / H0, 0.1, 100)
+      const scene  = new Scene()
+      const camera = new PerspectiveCamera(40, W0 / H0, 0.1, 100)
       camera.position.set(0, 0, 7.5)  // cinematic intro start
 
       // ── Lighting ──────────────────────────────────────────────────────────────
-      const sun = new THREE.DirectionalLight(0xFFF4E0, 2.9)
+      const sun = new DirectionalLight(0xFFF4E0, 2.9)
       sun.position.set(-4, 2.5, 5)
       scene.add(sun)
-      scene.add(new THREE.AmbientLight(0x18284A, 0.46))
+      scene.add(new AmbientLight(0x18284A, 0.46))
       // sunDir is a mutable Vector3 that slowly orbits over time
       const sunDir = sun.position.clone().normalize()
 
@@ -63,27 +63,27 @@ export function useGlobe(
       // Only blend in when BOTH succeed — error leaves procedural shader intact.
       let dayOK = false, nightOK = false
       const tryBlend = () => { if (dayOK && nightOK) uniforms.uTexBlend.value = 0.001 }
-      const loader   = new THREE.TextureLoader()
+      const loader   = new TextureLoader()
       loader.setCrossOrigin('anonymous')
       loader.load(CDN + 'earth-blue-marble.jpg',
-        (t) => { if (!disposed) { t.colorSpace = THREE.SRGBColorSpace; uniforms.uDay.value = t; dayOK = true; tryBlend() } })
+        (t) => { if (!disposed) { t.colorSpace = SRGBColorSpace; uniforms.uDay.value = t; dayOK = true; tryBlend() } })
       loader.load(CDN + 'earth-night.jpg',
-        (t) => { if (!disposed) { t.colorSpace = THREE.SRGBColorSpace; uniforms.uNight.value = t; nightOK = true; tryBlend() } })
+        (t) => { if (!disposed) { t.colorSpace = SRGBColorSpace; uniforms.uNight.value = t; nightOK = true; tryBlend() } })
 
       // ── Cloud layer (desktop + tablet only) ────────────────────────────────────
-      let cloudsMesh: THREE.Mesh | null = null
+      let cloudsMesh: Mesh | null = null
       if (!mobile) {
-        const cMat = new THREE.MeshPhongMaterial({
+        const cMat = new MeshPhongMaterial({
           map: blackTex, alphaMap: blackTex, transparent: true, opacity: 0.0, depthWrite: false,
         })
-        cloudsMesh = new THREE.Mesh(new THREE.SphereGeometry(1.007, SEGS, SEGS), cMat)
+        cloudsMesh = new Mesh(new SphereGeometry(1.007, SEGS, SEGS), cMat)
         earthGroup.add(cloudsMesh)
         loader.load(CDN + 'earth-clouds.png',
           (t) => { if (!disposed) { cMat.map = t; cMat.alphaMap = t; cMat.opacity = tablet ? 0.28 : 0.34; cMat.needsUpdate = true } })
       }
 
       // ── Markers ───────────────────────────────────────────────────────────────
-      const markerGroup = new THREE.Group()
+      const markerGroup = new Group()
       earthGroup.add(markerGroup)
       const markerObjs = createMarkers(markerGroup)
 
@@ -98,7 +98,7 @@ export function useGlobe(
       const ripple = { ...createClickRipple(earthGroup), phase: 1.0 }   // 1 = finished
 
       // ── Trade routes + particle travelers ──────────────────────────────────────
-      const arcGroup = new THREE.Group()
+      const arcGroup = new Group()
       earthGroup.add(arcGroup)
       const routeStates = createRoutes(arcGroup, hqLoc)
 
@@ -141,15 +141,15 @@ export function useGlobe(
         detach()
         const resources = new Set<{ dispose: () => void }>()
         scene.traverse(obj => {
-          const mesh = obj as THREE.Mesh
+          const mesh = obj as Mesh
           if (mesh.geometry) resources.add(mesh.geometry)
           const materials = mesh.material ? (Array.isArray(mesh.material) ? mesh.material : [mesh.material]) : []
           materials.forEach(material => {
             resources.add(material)
-            Object.values(material).forEach(value => { if (value instanceof THREE.Texture) resources.add(value) })
+            Object.values(material).forEach(value => { if (value instanceof Texture) resources.add(value) })
           })
         })
-        Object.values(uniforms).forEach(uniform => { if (uniform.value instanceof THREE.Texture) resources.add(uniform.value) })
+        Object.values(uniforms).forEach(uniform => { if (uniform.value instanceof Texture) resources.add(uniform.value) })
         resources.forEach(resource => resource.dispose())
         renderer.dispose()
         if (container.contains(canvas)) container.removeChild(canvas)

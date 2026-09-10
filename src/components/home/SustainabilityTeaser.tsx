@@ -77,7 +77,7 @@ export default function SustainabilityTeaser() {
             >
               {/* Image with overlay */}
               <div className="h-[140px] sm:h-[160px]" style={{ position: 'relative', overflow: 'hidden', background: '#0a1a10' }}>
-                <img
+                <img decoding="async" loading="lazy"
                   src={img}
                   alt={t(`home.esg.${id}.imgAlt`)}
                   style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.45) saturate(0.75)', display: 'block', transition: 'filter 0.3s, transform 0.5s' }}

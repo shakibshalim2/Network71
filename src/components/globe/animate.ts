@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { Group, MathUtils, Mesh, MeshBasicMaterial, PerspectiveCamera, Quaternion, Scene, Vector3, WebGLRenderer } from 'three'
 import type { ResolvedTheme } from '@/context/ThemeContext'
 import type { Quality } from './data'
 import { easeOutCubic } from './geo'
@@ -9,24 +9,24 @@ import type { Physics, ClickRipple } from './interaction'
 
 export interface FrameCtx {
   q: Quality
-  renderer: THREE.WebGLRenderer
-  scene: THREE.Scene
-  camera: THREE.PerspectiveCamera
+  renderer: WebGLRenderer
+  scene: Scene
+  camera: PerspectiveCamera
   canvas: HTMLCanvasElement
   container: HTMLElement
   themeRef: { current: ResolvedTheme }
-  sunDir: THREE.Vector3
+  sunDir: Vector3
   uniforms: Uniforms
-  stars: THREE.Group
-  atmosphere: THREE.Group
-  earthGroup: THREE.Group
-  cloudsMesh: THREE.Mesh | null
+  stars: Group
+  atmosphere: Group
+  earthGroup: Group
+  cloudsMesh: Mesh | null
   markerObjs: MarkerObj[]
   S: Physics
   input: { hoveredId: string | null }
   tooltip: { ttEl: HTMLDivElement; ttRole: HTMLDivElement; ttName: HTMLDivElement; ttCountry: HTMLDivElement }
-  radar1: { mesh: THREE.Mesh; mat: THREE.MeshBasicMaterial }
-  radar2: { mesh: THREE.Mesh; mat: THREE.MeshBasicMaterial }
+  radar1: { mesh: Mesh; mat: MeshBasicMaterial }
+  radar2: { mesh: Mesh; mat: MeshBasicMaterial }
   ripple: ClickRipple
   routeStates: RouteState[]
   satDots: SatDot[]
@@ -50,10 +50,10 @@ export function createFrameLoop(ctx: FrameCtx) {
   let lowFPS  = false  // quality reduction flag when sustained < 35fps
 
   // Sun orbit (cached axis to avoid new Euler each frame)
-  const SUN_ORBIT_AXIS = new THREE.Vector3(0, 1, 0.18).normalize()
-  const sunOrbitQ = new THREE.Quaternion().setFromAxisAngle(SUN_ORBIT_AXIS, 0.000028)
+  const SUN_ORBIT_AXIS = new Vector3(0, 1, 0.18).normalize()
+  const sunOrbitQ = new Quaternion().setFromAxisAngle(SUN_ORBIT_AXIS, 0.000028)
 
-  const tempPt = new THREE.Vector3()  // reused each frame — no allocation in loop
+  const tempPt = new Vector3()  // reused each frame — no allocation in loop
   let texBlend = 0.0
 
   let disposed = false
@@ -84,7 +84,7 @@ export function createFrameLoop(ctx: FrameCtx) {
     if (!reducedMotion) sunDir.applyQuaternion(sunOrbitQ)
     uniforms.uSunDir.value.copy(sunDir)
     const daylight = themeRef.current === 'light' ? 1 : 0
-    uniforms.uLightMode.value = reducedMotion ? daylight : THREE.MathUtils.lerp(uniforms.uLightMode.value, daylight, 0.12)
+    uniforms.uLightMode.value = reducedMotion ? daylight : MathUtils.lerp(uniforms.uLightMode.value, daylight, 0.12)
     stars.visible = !daylight
     atmosphere.visible = !daylight
     if (daylight !== previousDaylight) {
@@ -93,7 +93,7 @@ export function createFrameLoop(ctx: FrameCtx) {
           ? (marker.loc.isHQ ? 0x855C16 : 0x086580)
           : (marker.loc.isHQ ? 0xC8962A : 0x22D3EE)
         for (const mesh of [marker.dot, marker.ring, marker.outerRing]) {
-          if (mesh) (mesh.material as THREE.MeshBasicMaterial).color.setHex(color)
+          if (mesh) (mesh.material as MeshBasicMaterial).color.setHex(color)
         }
       })
       previousDaylight = daylight
@@ -146,20 +146,20 @@ export function createFrameLoop(ctx: FrameCtx) {
       m.scaleTarget   = isHovered ? 1.65 : 1.0
       const cs        = m.dot.scale.x
       m.dot.scale.setScalar(cs + (m.scaleTarget - cs) * 0.14)
-      ;(m.dot.material as THREE.MeshBasicMaterial).color.setHex(
+      ;(m.dot.material as MeshBasicMaterial).color.setHex(
         isHovered ? (m.loc.isHQ ? 0xFFD966 : 0x44EEFF) : (m.loc.isHQ ? 0xC8962A : 0x22D3EE)
       )
 
       if (m.loc.isHQ) {
         const pulse = Math.sin(t * 2.5)
-        ;(m.ring.material as THREE.MeshBasicMaterial).opacity = 0.28 + 0.28 * pulse
+        ;(m.ring.material as MeshBasicMaterial).opacity = 0.28 + 0.28 * pulse
         m.ring.scale.setScalar(1 + 0.30 * pulse)
         if (m.outerRing) {
-          ;(m.outerRing.material as THREE.MeshBasicMaterial).opacity = 0.11 + 0.13 * Math.sin(t * 2.5 + 0.5)
+          ;(m.outerRing.material as MeshBasicMaterial).opacity = 0.11 + 0.13 * Math.sin(t * 2.5 + 0.5)
           m.outerRing.scale.setScalar(1 + 0.18 * Math.sin(t * 2.5 + 0.5))
         }
         if (m.glowMesh) {
-          ;(m.glowMesh.material as THREE.MeshBasicMaterial).opacity = 0.05 + 0.04 * pulse
+          ;(m.glowMesh.material as MeshBasicMaterial).opacity = 0.05 + 0.04 * pulse
         }
       }
     })

@@ -1,19 +1,19 @@
-import * as THREE from 'three'
+import { ACESFilmicToneMapping, AdditiveBlending, BufferAttribute, BufferGeometry, CanvasTexture, DataTexture, DoubleSide, FrontSide, Group, IUniform, Mesh, MeshBasicMaterial, Points, PointsMaterial, RGBAFormat, RingGeometry, ShaderMaterial, SphereGeometry, Texture, Vector3, WebGLRenderer } from 'three'
 import { LOCATIONS, type Location, type Quality } from './data'
 import { EARTH_VERT, EARTH_FRAG, ATMO_VERT, ATMO_FRAG, OUTER_ATMO_FRAG } from './shaders'
 import { latLon, buildLandMask } from './geo'
 
-export const V_UP = new THREE.Vector3(0, 0, 1)
+export const V_UP = new Vector3(0, 0, 1)
 
 // ─── Renderer + canvas ────────────────────────────────────────────────────────
 
 export function createRenderer(container: HTMLElement, q: Quality) {
   const rect0 = container.getBoundingClientRect()
   const W0 = Math.max(rect0.width, 320), H0 = Math.max(rect0.height, 200)
-  const renderer = new THREE.WebGLRenderer({ antialias: !q.mobile, alpha: true })
+  const renderer = new WebGLRenderer({ antialias: !q.mobile, alpha: true })
   renderer.setPixelRatio(q.PR)
   renderer.setSize(W0, H0)
-  renderer.toneMapping = THREE.ACESFilmicToneMapping
+  renderer.toneMapping = ACESFilmicToneMapping
   renderer.toneMappingExposure = 1.15
 
   const canvas = renderer.domElement
@@ -84,11 +84,11 @@ export function createStars(STAR_COUNT: number) {
       pos[i*3+1] = r * Math.sin(phi) * Math.sin(theta)
       pos[i*3+2] = r * Math.cos(phi)
     }
-    const geo = new THREE.BufferGeometry()
-    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3))
-    return new THREE.Points(geo, new THREE.PointsMaterial({ color, size, sizeAttenuation: true, transparent: true, opacity }))
+    const geo = new BufferGeometry()
+    geo.setAttribute('position', new BufferAttribute(pos, 3))
+    return new Points(geo, new PointsMaterial({ color, size, sizeAttenuation: true, transparent: true, opacity }))
   }
-  const stars = new THREE.Group()
+  const stars = new Group()
   stars.add(mkStars(STAR_COUNT, 11, 14, 0.013, 0xFFFFFF, 0.78))
   stars.add(mkStars(Math.round(STAR_COUNT * 0.11), 12, 15, 0.028, 0xAABBFF, 0.32))
   return stars
@@ -97,45 +97,45 @@ export function createStars(STAR_COUNT: number) {
 // ─── Earth shader + atmospheres ───────────────────────────────────────────────
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Uniforms = Record<string, THREE.IUniform<any>>
+export type Uniforms = Record<string, IUniform<any>>
 
-export function createEarth(q: Quality, sunDir: THREE.Vector3, lightMode: number) {
+export function createEarth(q: Quality, sunDir: Vector3, lightMode: number) {
   // ── Land mask ─────────────────────────────────────────────────────────────
-  const maskTex  = new THREE.CanvasTexture(buildLandMask(q.MASK_W, q.MASK_H))
+  const maskTex  = new CanvasTexture(buildLandMask(q.MASK_W, q.MASK_H))
   const blackPx  = new Uint8Array([0, 0, 0, 255])
-  const blackTex = new THREE.DataTexture(blackPx, 1, 1, THREE.RGBAFormat)
+  const blackTex = new DataTexture(blackPx, 1, 1, RGBAFormat)
   blackTex.needsUpdate = true
 
   // ── Earth group ───────────────────────────────────────────────────────────
-  const earthGroup = new THREE.Group()
+  const earthGroup = new Group()
   earthGroup.rotation.y = Math.PI  // Dhaka faces camera initially
 
   // ── Earth shader ──────────────────────────────────────────────────────────
   const uniforms: Uniforms = {
     uMask:     { value: maskTex },
-    uDay:      { value: blackTex as THREE.Texture },
-    uNight:    { value: blackTex as THREE.Texture },
+    uDay:      { value: blackTex as Texture },
+    uNight:    { value: blackTex as Texture },
     uTexBlend: { value: 0.0 },
     uLightMode: { value: lightMode },
     uSunDir:   { value: sunDir.clone() },
   }
-  const earthMat = new THREE.ShaderMaterial({ uniforms, vertexShader: EARTH_VERT, fragmentShader: EARTH_FRAG })
-  earthGroup.add(new THREE.Mesh(new THREE.SphereGeometry(1, q.SEGS, q.SEGS), earthMat))
+  const earthMat = new ShaderMaterial({ uniforms, vertexShader: EARTH_VERT, fragmentShader: EARTH_FRAG })
+  earthGroup.add(new Mesh(new SphereGeometry(1, q.SEGS, q.SEGS), earthMat))
 
   // ── Atmospheres ───────────────────────────────────────────────────────────
-  const atmoMat = new THREE.ShaderMaterial({
+  const atmoMat = new ShaderMaterial({
     vertexShader: ATMO_VERT, fragmentShader: ATMO_FRAG,
-    blending: THREE.AdditiveBlending, transparent: true, depthWrite: false, side: THREE.FrontSide,
+    blending: AdditiveBlending, transparent: true, depthWrite: false, side: FrontSide,
   })
-  const atmosphere = new THREE.Group()
-  atmosphere.add(new THREE.Mesh(new THREE.SphereGeometry(1.20, 48, 48), atmoMat))
+  const atmosphere = new Group()
+  atmosphere.add(new Mesh(new SphereGeometry(1.20, 48, 48), atmoMat))
 
   if (!q.mobile) {
-    atmosphere.add(new THREE.Mesh(
-      new THREE.SphereGeometry(1.42, 48, 48),
-      new THREE.ShaderMaterial({
+    atmosphere.add(new Mesh(
+      new SphereGeometry(1.42, 48, 48),
+      new ShaderMaterial({
         vertexShader: ATMO_VERT, fragmentShader: OUTER_ATMO_FRAG,
-        blending: THREE.AdditiveBlending, transparent: true, depthWrite: false, side: THREE.FrontSide,
+        blending: AdditiveBlending, transparent: true, depthWrite: false, side: FrontSide,
       }),
     ))
   }
@@ -147,50 +147,50 @@ export function createEarth(q: Quality, sunDir: THREE.Vector3, lightMode: number
 
 export type MarkerObj = {
   loc: Location
-  dot: THREE.Mesh
-  ring: THREE.Mesh
-  outerRing: THREE.Mesh | null
-  glowMesh: THREE.Mesh | null
+  dot: Mesh
+  ring: Mesh
+  outerRing: Mesh | null
+  glowMesh: Mesh | null
   scaleTarget: number
 }
 
-export function createMarkers(markerGroup: THREE.Group): MarkerObj[] {
+export function createMarkers(markerGroup: Group): MarkerObj[] {
   return LOCATIONS.map((loc) => {
     const pos    = latLon(loc.lat, loc.lon, 1.013)
     const normal = pos.clone().normalize()
     const color  = loc.isHQ ? 0xC8962A : 0x22D3EE
 
-    const dot = new THREE.Mesh(
-      new THREE.SphereGeometry(loc.isHQ ? 0.014 : 0.009, 12, 12),
-      new THREE.MeshBasicMaterial({ color }),
+    const dot = new Mesh(
+      new SphereGeometry(loc.isHQ ? 0.014 : 0.009, 12, 12),
+      new MeshBasicMaterial({ color }),
     )
     dot.position.copy(pos)
     markerGroup.add(dot)
 
-    const ring = new THREE.Mesh(
-      new THREE.RingGeometry(loc.isHQ ? 0.022 : 0.013, loc.isHQ ? 0.032 : 0.022, 32),
-      new THREE.MeshBasicMaterial({ color, transparent: true, opacity: loc.isHQ ? 0.70 : 0.55, side: THREE.DoubleSide }),
+    const ring = new Mesh(
+      new RingGeometry(loc.isHQ ? 0.022 : 0.013, loc.isHQ ? 0.032 : 0.022, 32),
+      new MeshBasicMaterial({ color, transparent: true, opacity: loc.isHQ ? 0.70 : 0.55, side: DoubleSide }),
     )
     ring.position.copy(latLon(loc.lat, loc.lon, 1.016))
     ring.quaternion.setFromUnitVectors(V_UP, normal)
     markerGroup.add(ring)
 
-    let outerRing: THREE.Mesh | null = null
+    let outerRing: Mesh | null = null
     if (loc.isHQ) {
-      outerRing = new THREE.Mesh(
-        new THREE.RingGeometry(0.038, 0.046, 32),
-        new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.28, side: THREE.DoubleSide }),
+      outerRing = new Mesh(
+        new RingGeometry(0.038, 0.046, 32),
+        new MeshBasicMaterial({ color, transparent: true, opacity: 0.28, side: DoubleSide }),
       )
       outerRing.position.copy(latLon(loc.lat, loc.lon, 1.017))
       outerRing.quaternion.setFromUnitVectors(V_UP, normal)
       markerGroup.add(outerRing)
     }
 
-    let glowMesh: THREE.Mesh | null = null
+    let glowMesh: Mesh | null = null
     if (loc.isHQ) {
-      glowMesh = new THREE.Mesh(
-        new THREE.SphereGeometry(0.036, 12, 12),
-        new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.09, blending: THREE.AdditiveBlending, depthWrite: false }),
+      glowMesh = new Mesh(
+        new SphereGeometry(0.036, 12, 12),
+        new MeshBasicMaterial({ color, transparent: true, opacity: 0.09, blending: AdditiveBlending, depthWrite: false }),
       )
       glowMesh.position.copy(pos)
       markerGroup.add(glowMesh)
@@ -202,23 +202,23 @@ export function createMarkers(markerGroup: THREE.Group): MarkerObj[] {
 
 // ─── HQ radar pulse + click ripple ────────────────────────────────────────────
 
-export function createRadarRing(earthGroup: THREE.Group, hqPos: THREE.Vector3, hqNormal: THREE.Vector3) {
-  const mat  = new THREE.MeshBasicMaterial({
+export function createRadarRing(earthGroup: Group, hqPos: Vector3, hqNormal: Vector3) {
+  const mat  = new MeshBasicMaterial({
     color: 0xC8962A, transparent: true, opacity: 0.0,
-    side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending,
+    side: DoubleSide, depthWrite: false, blending: AdditiveBlending,
   })
-  const mesh = new THREE.Mesh(new THREE.RingGeometry(0.001, 0.003, 64), mat)
+  const mesh = new Mesh(new RingGeometry(0.001, 0.003, 64), mat)
   mesh.position.copy(hqPos.clone().multiplyScalar(1.016))
   mesh.quaternion.setFromUnitVectors(V_UP, hqNormal)
   earthGroup.add(mesh)
   return { mesh, mat }
 }
 
-export function createClickRipple(earthGroup: THREE.Group) {
-  const clickRippleMat = new THREE.MeshBasicMaterial({
-    color: 0xFFFFFF, transparent: true, opacity: 0.0, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending,
+export function createClickRipple(earthGroup: Group) {
+  const clickRippleMat = new MeshBasicMaterial({
+    color: 0xFFFFFF, transparent: true, opacity: 0.0, side: DoubleSide, depthWrite: false, blending: AdditiveBlending,
   })
-  const clickRippleMesh = new THREE.Mesh(new THREE.RingGeometry(0.001, 0.003, 64), clickRippleMat)
+  const clickRippleMesh = new Mesh(new RingGeometry(0.001, 0.003, 64), clickRippleMat)
   clickRippleMesh.visible = false
   earthGroup.add(clickRippleMesh)
   return { clickRippleMesh, clickRippleMat }

@@ -39,7 +39,7 @@ export default function Posts({ c }: { c: BlogContent['posts'] }) {
           <div key={i} className="bg-navy-light border border-white/8 rounded-xl overflow-hidden hover:border-white/20 transition-colors group flex flex-col">
             {/* Post image */}
             <div className="h-44 relative overflow-hidden bg-navy-dark">
-              <img
+              <img decoding="async" loading="lazy"
                 src={post.img}
                 alt={post.title}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"

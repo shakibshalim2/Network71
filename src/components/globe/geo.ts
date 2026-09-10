@@ -1,13 +1,13 @@
-import * as THREE from 'three'
+import { Vector3 } from 'three'
 import landRings from '@/lib/world-land.json'
 import { N71 } from './data'
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
-export function latLon(lat: number, lon: number, r = 1.0): THREE.Vector3 {
+export function latLon(lat: number, lon: number, r = 1.0): Vector3 {
   const phi   = (lon + 180) * (Math.PI / 180)
   const theta = (90 - lat) * (Math.PI / 180)
-  return new THREE.Vector3(
+  return new Vector3(
     -Math.cos(phi) * Math.sin(theta) * r,
      Math.cos(theta) * r,
      Math.sin(phi) * Math.sin(theta) * r,
@@ -17,7 +17,7 @@ export function latLon(lat: number, lon: number, r = 1.0): THREE.Vector3 {
 export function greatArc(
   lat1: number, lon1: number, lat2: number, lon2: number,
   steps = 80, lift = 0.30,
-): THREE.Vector3[] {
+): Vector3[] {
   const a     = latLon(lat1, lon1)
   const b     = latLon(lat2, lon2)
   const omega = Math.acos(Math.max(-1, Math.min(1, a.dot(b))))

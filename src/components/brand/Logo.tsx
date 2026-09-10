@@ -104,7 +104,7 @@ function Cropped({ src, alt, bounds, height, filter }: CropProps) {
       display: 'inline-block',
       lineHeight: 0,
     }}>
-      <img
+      <img decoding="async"
         src={src}
         alt={alt}
         draggable={false}

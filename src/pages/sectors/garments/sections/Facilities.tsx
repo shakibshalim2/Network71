@@ -58,21 +58,21 @@ export default function Facilities({
           {/* Image grid */}
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2 rounded-2xl overflow-hidden h-52">
-              <img
+              <img decoding="async" loading="lazy"
                 src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=500&fit=crop&auto=format"
                 alt={c.alts[0]}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
             </div>
             <div className="rounded-2xl overflow-hidden h-44">
-              <img
+              <img decoding="async" loading="lazy"
                 src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=350&fit=crop&auto=format"
                 alt={c.alts[1]}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
             </div>
             <div className="rounded-2xl overflow-hidden h-44">
-              <img
+              <img decoding="async" loading="lazy"
                 src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=350&fit=crop&auto=format"
                 alt={c.alts[2]}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"

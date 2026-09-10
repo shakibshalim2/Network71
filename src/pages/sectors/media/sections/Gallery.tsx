@@ -32,7 +32,7 @@ export default function Gallery({ c }: { c: MediaContent['gallery'] }) {
         </div>
         <p className="mt-6 text-center text-slate-600 text-xs font-mono">{c.note}</p>
       </div>
-      {selected && <Dialog title={selected.label} onClose={() => setSelected(null)}><img src={selected.img} alt={selected.label} width="1200" height="800" className="w-full h-auto rounded-xl" /><p className="mt-4">{c.note}</p></Dialog>}
+      {selected && <Dialog title={selected.label} onClose={() => setSelected(null)}><img decoding="async" src={selected.img} alt={selected.label} width="1200" height="800" className="w-full h-auto rounded-xl" /><p className="mt-4">{c.note}</p></Dialog>}
     </section>
   )
 }

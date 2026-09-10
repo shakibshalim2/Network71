@@ -12,7 +12,7 @@ export default function Hero({
   return (
     <section className="force-dark sector-hero relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0">
-        <img
+        <img decoding="async"
           src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&h=800&fit=crop&auto=format"
           alt={c.alt}
           className="w-full h-full object-cover"

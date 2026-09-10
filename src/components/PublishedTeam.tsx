@@ -16,7 +16,7 @@ export default function PublishedTeam() {
         const image = safeContentUrl(textField(item, 'image'))
         const link = safeContentUrl(textField(item, 'url'))
         return <article key={item.id} className="p-6 rounded-xl border border-white/10">
-          {image && <img src={image} alt={textField(item, 'title')} loading="lazy" width="320" height="320" className="w-24 h-24 rounded-full object-cover mb-5" />}
+          {image && <img decoding="async" src={image} alt={textField(item, 'title')} loading="lazy" width="320" height="320" className="w-24 h-24 rounded-full object-cover mb-5" />}
           <h3 className="text-xl">{textField(item, 'title')}</h3><p className="text-gold my-3">{textField(item, 'position')}</p>
           <p className="whitespace-pre-wrap text-slate-400">{textField(item, 'body')}</p>
           {link && <a href={link} className="public-text-link">{bn ? 'পেশাগত প্রোফাইল' : 'Professional profile'} ↗</a>}

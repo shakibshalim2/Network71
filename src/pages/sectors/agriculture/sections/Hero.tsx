@@ -5,7 +5,7 @@ export default function Hero({ c }: { c: AgricultureContent["hero"] }) {
   return (
     <section className="force-dark sector-hero relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0">
-        <img
+        <img decoding="async"
           src={c.imageUrl}
           alt={c.imageAlt}
           className="w-full h-full object-cover"

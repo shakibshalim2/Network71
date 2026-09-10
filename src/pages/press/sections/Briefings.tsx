@@ -21,7 +21,7 @@ export default function Briefings({ c }: { c: PressContent['briefings'] }) {
           {c.releases.map((pr) => (
             <div key={pr.img} className="group bg-navy rounded-2xl border border-white/8 hover:border-gold/20 transition-colors overflow-hidden flex flex-col md:flex-row">
               <div className="md:w-64 flex-shrink-0 overflow-hidden bg-navy-dark">
-                <img
+                <img decoding="async" loading="lazy"
                   src={pr.img}
                   alt={pr.title}
                   className="w-full h-48 md:h-full object-cover opacity-70 group-hover:opacity-85 transition-opacity"

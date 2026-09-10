@@ -21,7 +21,7 @@ export default function MediaAndMarketplace() {
 
               {/* Left: editorial hero image */}
               <div className="force-dark relative overflow-hidden min-h-[260px] sm:min-h-[340px]">
-                <img
+                <img decoding="async" loading="lazy"
                   src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&h=700&fit=crop&auto=format"
                   alt={t('mediaMarket.mediaAlt')}
                   className="absolute inset-0 w-full h-full object-cover"
@@ -113,7 +113,7 @@ export default function MediaAndMarketplace() {
                       onMouseEnter={e => { e.currentTarget.style.background = 'var(--line)' }}
                       onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
                     >
-                      <img
+                      <img decoding="async" loading="lazy"
                         src={story.img}
                         alt={t(story.title)}
                         style={{ width: 54, height: 38, objectFit: 'cover', borderRadius: 5, flexShrink: 0 }}
@@ -199,7 +199,7 @@ export default function MediaAndMarketplace() {
 
             {/* Ship image */}
             <div className="min-h-[150px] sm:min-h-[180px]" style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
-              <img
+              <img decoding="async" loading="lazy"
                 src="https://images.unsplash.com/photo-1605745341112-85968b19335b?w=700&h=400&fit=crop&auto=format"
                 alt={t('mediaMarket.shipAlt')}
                 className="w-full h-full object-cover"

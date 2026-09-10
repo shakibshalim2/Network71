@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { Group, Mesh, MeshBasicMaterial, PerspectiveCamera, Raycaster, Vector2 } from 'three'
 import type { HotspotData } from './data'
 import { V_UP, type MarkerObj } from './scene'
 
@@ -14,13 +14,13 @@ export function createPhysics() {
 }
 export type Physics = ReturnType<typeof createPhysics>
 
-export type ClickRipple = { clickRippleMesh: THREE.Mesh; clickRippleMat: THREE.MeshBasicMaterial; phase: number }
+export type ClickRipple = { clickRippleMesh: Mesh; clickRippleMat: MeshBasicMaterial; phase: number }
 
 export interface InteractionCtx {
   container: HTMLElement
   canvas: HTMLCanvasElement
-  camera: THREE.PerspectiveCamera
-  earthGroup: THREE.Group
+  camera: PerspectiveCamera
+  earthGroup: Group
   markerObjs: MarkerObj[]
   ttEl: HTMLDivElement
   S: Physics
@@ -32,8 +32,8 @@ export interface InteractionCtx {
 
 export function attachInteraction(ctx: InteractionCtx) {
   const { container, canvas, camera, earthGroup, markerObjs, ttEl, S, ripple, onHotspot } = ctx
-  const raycaster = new THREE.Raycaster()
-  const mouse2    = new THREE.Vector2()
+  const raycaster = new Raycaster()
+  const mouse2    = new Vector2()
   // Mutable so the draw loop can read hover state each frame
   const input = { hoveredId: null as string | null, kbMarkerIdx: -1 }
 
