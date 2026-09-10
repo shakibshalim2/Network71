@@ -1,23 +1,27 @@
 import ManagedContent from "@/components/ManagedContent"
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import { useLocalizedContent } from '@/i18n/useLocalizedContent'
-import en from './blog/content/en'
-import { Hero, Featured } from './blog/sections/Hero'
-import Posts from './blog/sections/Posts'
-import Subscribe from './blog/sections/Subscribe'
+import Header from "@/components/Header"
 
-const loaders = { bn: () => import('./blog/content/bn') }
+import Footer from "@/components/Footer"
+
+import { useLocalizedContent } from "@/i18n/useLocalizedContent"
+
+import en from "./blog/content/en"
+
+import { Hero } from "./blog/sections/Hero"
+import PublishedArticles from "@/components/PublishedArticles"
+import Subscribe from "./blog/sections/Subscribe"
+
+const loaders = { bn: () => import("./blog/content/bn") }
 
 export default function Blog() {
-  const c = useLocalizedContent(en, loaders, { page: 'blog' })
+  const c = useLocalizedContent(en, loaders, { page: "blog" })
+
   return (
     <div className="min-h-screen bg-navy text-white">
       <Header />
       <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
-        <Featured c={c.featured} />
-        <Posts c={c.posts} />
+        <PublishedArticles module="posts" />
         <Subscribe c={c.subscribe} />
       </ManagedContent>
       <Footer />

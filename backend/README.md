@@ -1,6 +1,6 @@
-# Network71 backend — first implementation
+# Network71 backend and website CMS
 
-The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-admin-plan.bn.md). This implementation provides a working admin foundation, not a completed migration of every public page.
+The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-admin-plan.bn.md). The admin, page-section CMS and core public collection consumers are working; some generic collections still need a matching public presentation.
 
 ## Available now
 
@@ -12,13 +12,15 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 - Account creation/deactivation and CLI password recovery.
 - Main contact page and shared sector enquiry forms save to the admin inbox. Server-side idempotency returns the same reference for an identical retried submission.
 - Page inventory seed: 16 page drafts and 8 division drafts. These only identify existing routes; they contain no fabricated company details and do not overwrite existing records.
+- EN/BN page-section editing, visibility/order controls, SEO fields and authenticated saved-draft previews. Published overrides are consumed across the public page inventory.
+- Published public consumers for projects, team, jobs, gallery, Insights and Press. Insights and Press include locale-aware list and detail routes.
+- Owner-issued expiring password reset links, referenced-media archive protection and a transactional email outbox with a locked PHPMailer worker.
 
 ## Still to implement
 
-- Connect all public content sections to the CMS, including page-specific repeatable blocks, home ordering, menus/footer, sector content, blog, jobs, team and gallery. Publishing CMS content currently exposes it through the API; existing public content renderers still use their original copy.
-- Public project listing/case-study pages and featured projects; social metadata renderer.
+- Add tailored public presentations for the remaining generic collections such as brands, credentials, verified metrics, navigation and company settings.
 - Full revision history/review approval UI, private project evidence, media replacement/removal workflow and richer field types.
-- SMTP delivery/outbox, automated password reset, inquiry assignment/notes, retention automation, verified offsite backups and cPanel production deployment. Inbox storage works without email delivery; no email notification is sent in this phase.
+- Inquiry assignment/notes, retention automation, verified offsite backups and cPanel production deployment. SMTP delivery exists but remains disabled until a real provider and cron are configured and tested.
 - Actual company content review and publishing. Existing public marketing claims were not verified by building this backend.
 
 ## Local setup

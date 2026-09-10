@@ -171,10 +171,17 @@ Completed in this resumed session:
 Verified: 562 locale template validations; 13 sections/reset HTTP checks; original 38 HTTP/MySQL smoke checks; outbox failure/retry simulation; media archive protection; project renderer escaping/metadata; authenticated browser save/preview/publish; EN/BN editor at 375/768/1440; 156 public route/locale/viewport structural checks. The original About test section was restored.
 
 Still open (do not report the entire production plan as complete):
-- Module-by-module public consumer parity for all generic CMS collections (e.g. Insights/Press/Brands/Credentials/Settings): page-section overrides work, but every generic collection is not automatically mapped into each existing static section.
+- Module-by-module public consumer parity for the remaining generic CMS collections (e.g. Brands/Credentials/Settings): Insights and Press now read approved EN/BN collection records, with public list/detail routes; page-section overrides work, but every generic collection is not automatically mapped into each existing static section.
 - Complete nested/shared section layout coverage, draft autosave/review history, and manual visual/accessibility acceptance beyond the automated checks.
 - Actual SMTP provider delivery, cron setup, cPanel rewrites/HTTPS, deployment and isolated backup restore/offsite recovery verification.
 - Owner-approved company imagery, factual claims, real vessel/seller profiles and private evidence/document workflows.
 - Globe remains about 637 kB with a build warning.
 
 No production deployment or real external email delivery was performed. User requested stopping here; changes are saved as a checkpoint.
+
+## Insights and Press public collection integration — 10 September 2026
+
+- `/blog` and `/press` now show only published records from their matching CMS collections, respect the selected EN/BN locale, provide honest empty/error/loading states and paginate public results.
+- `/blog/:slug` and `/press/:slug` render published article details, approved cover media and safe source links. Draft, archived, unpublished and wrong-locale records remain unavailable through the public API.
+- Dynamic article metadata uses the published SEO title/description when supplied; unknown records remain noindex.
+- Verification: TypeScript/Vite production build passed. Mocked browser coverage passed list/detail rendering for both modules, Bangla locale selection and 375px overflow checks. The existing Three.js globe chunk warning remains.

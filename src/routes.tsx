@@ -33,6 +33,7 @@ const Timeline = lazy(() => import("@/pages/Timeline"))
 const Press = lazy(() => import("@/pages/Press"))
 const Legal = lazy(() => import("@/pages/Legal"))
 const Blog = lazy(() => import("@/pages/Blog"))
+const Article = lazy(() => import("@/pages/Article"))
 const Gallery = lazy(() => import("@/pages/Gallery"))
 const BrandPage = lazy(() => import("@/pages/BrandPage"))
 const NotFound = lazy(() => import("@/pages/NotFound"))
@@ -89,8 +90,10 @@ export const router = createBrowserRouter([
       { path: "/governance", Component: Governance },
       { path: "/timeline", Component: Timeline },
       { path: "/press", Component: Press },
+      { path: "/press/:slug", Component: Article },
       { path: "/legal", Component: Legal },
       { path: "/blog", Component: Blog },
+      { path: "/blog/:slug", Component: Article },
       { path: "/gallery", Component: Gallery },
       { path: "/brand", Component: BrandPage },
       { path: "/divisions/garments", Component: Garments },
