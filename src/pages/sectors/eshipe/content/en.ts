@@ -11,9 +11,9 @@ const en = {
       desc: "Purchase, sale, charter and lease",
     },
     {
-      value: "Verified",
+      value: "Verify",
       label: "Buyer & seller profiles",
-      desc: "Identity-checked counterparties",
+      desc: "Counterparty checks required per enquiry",
     },
     {
       value: "Specs",
@@ -23,7 +23,7 @@ const en = {
     {
       value: "Recycling",
       label: "Responsible yards",
-      desc: "Hong Kong Convention–aligned partners",
+      desc: "Compliance checked per enquiry",
     },
   ],
   inquiryTypes: [
@@ -127,7 +127,7 @@ const en = {
     eyebrow: "Responsible Recycling",
     title: "Ship Recycling, Done Right.",
     description:
-      "We connect vessel owners with recycling yards that operate to Hong Kong Convention and IMO guidelines, putting safety, environmental responsibility, and transparent documentation first.",
+      "We can route enquiries to recycling yards. Convention alignment, permits and documentation must be verified for each yard before engagement.",
     items: recyclingItems,
   },
   why: {

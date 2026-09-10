@@ -8,7 +8,7 @@ export const metrics = [
   {
     value: "Food safety",
     label: "Systems",
-    desc: "HACCP-based controls in edible oil production",
+    desc: "HACCP readiness target; verification pending",
   },
   { value: "—", label: "Export Reach", desc: "Data to be published" },
 ]
@@ -120,7 +120,7 @@ export const supplyChainNodes = [
   },
   {
     label: "Processing Facility",
-    sub: "HACCP-based controls",
+    sub: "HACCP readiness target",
     color: "var(--accent-amber)",
   },
   {
@@ -143,7 +143,7 @@ export const supplyChainNodes = [
 export const certifications = [
   {
     name: "HACCP",
-    desc: "Hazard Analysis and Critical Control Points — the framework our edible oil food safety management system is built on.",
+    desc: "Target hazard-analysis framework. Verified implementation or certification has not yet been published.",
     prominent: true,
   },
   {
@@ -152,19 +152,19 @@ export const certifications = [
   },
   {
     name: "BSTI",
-    desc: "Bangladesh Standards and Testing Institution registration where applicable for products sold domestically.",
+    desc: "Registration may be required for applicable products; approved registration details have not yet been published.",
   },
   {
     name: "Halal Compliance",
-    desc: "Edible oils produced and packaged under Halal-compliant conditions; working towards formal recognition per product line.",
+    desc: "Product-level halal requirements are part of the readiness roadmap; current recognition has not been published.",
   },
   {
     name: "Quality Laboratory",
-    desc: "In-house quality laboratory for FFA, peroxide value, moisture, and microbiological testing.",
+    desc: "Planned testing scope includes FFA, peroxide value, moisture and microbiological analysis; current laboratory capability requires confirmation.",
   },
   {
     name: "Fuel Safety Compliance",
-    desc: "Petroleum storage and distribution in line with applicable fire and safety regulations.",
+    desc: "Applicable fire, storage and distribution requirements must be confirmed before each fuel engagement.",
   },
 ]
 

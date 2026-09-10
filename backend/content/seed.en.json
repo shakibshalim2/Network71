@@ -1647,36 +1647,6 @@
         "International Trade"
       ]
     },
-    "senior": {
-      "eyebrow": "Executive Team",
-      "title": "Executive Mandates",
-      "lead": "The group is structured around these executive functions. Appointments are published here as they are confirmed; until then each mandate is led from the Office of the CEO.",
-      "functionLabel": "Executive function",
-      "mandateLabel": "Appointment to be announced",
-      "leaders": [
-        {
-          "title": "Chief Financial Officer",
-          "abbr": "CFO",
-          "gradient": "from-blue-500 to-indigo-600",
-          "initials": "CFO",
-          "responsibilities": "Financial strategy, treasury, investor relations, and compliance across all Network71 divisions."
-        },
-        {
-          "title": "Chief Operating Officer",
-          "abbr": "COO",
-          "gradient": "from-emerald-500 to-teal-600",
-          "initials": "COO",
-          "responsibilities": "Cross-divisional operations, supply chain coordination, and enterprise performance management."
-        },
-        {
-          "title": "Chief Technology Officer",
-          "abbr": "CTO",
-          "gradient": "from-purple-500 to-violet-600",
-          "initials": "CTO",
-          "responsibilities": "Technology vision, Ezyify platform leadership, digital transformation, and IT infrastructure."
-        }
-      ]
-    },
     "board": {
       "eyebrow": "Governance",
       "title": "Board of Directors",
@@ -1684,27 +1654,6 @@
       "badge": "Governance framework",
       "cardTitle": "Board Oversight Mandate",
       "cardBody": "Board-level oversight covers group strategy, risk, financial stewardship, leadership accountability, and responsible long-term growth across Network71's business portfolio."
-    },
-    "advisors": {
-      "eyebrow": "Advisory",
-      "title": "Advisory Functions",
-      "lead": "Independent advisory input the group draws on for international business, technology and governance. Named advisors are published with their consent.",
-      "capabilityLabel": "Advisory scope",
-      "mandateLabel": "Advisor names published on confirmation",
-      "items": [
-        {
-          "gradient": "from-amber-500 to-orange-600",
-          "initials": "ADV",
-          "area": "Strategic Advisory",
-          "desc": "International trade, market entry and multi-sector group development."
-        },
-        {
-          "gradient": "from-pink-500 to-rose-600",
-          "initials": "ADV",
-          "area": "ESG & Governance Advisory",
-          "desc": "Sustainability reporting, corporate governance and stakeholder engagement."
-        }
-      ]
     },
     "cta": {
       "title": "Join Our Leadership Team",
@@ -2196,7 +2145,7 @@
       },
       {
         "title": "Quality & Lab Testing",
-        "desc": "Pesticide residue checks, moisture testing, and export test reports from accredited labs."
+        "desc": "Pesticide residue, moisture and export testing can be specified; laboratory accreditation must be confirmed per report."
       },
       {
         "title": "Cold Chain Storage",
@@ -2237,19 +2186,19 @@
     "quality": {
       "eyebrow": "Standards",
       "title": "Quality & Compliance",
-      "description": "Every shipment leaves our facility backed by laboratory verification and the documentation required by importing markets.",
+      "description": "Quality requirements are confirmed for each shipment. Verified certificates and laboratory records are shared only when available and approved.",
       "certifications": [
         {
           "name": "HACCP",
-          "desc": "Hazard Analysis & Critical Control Points — systematic food safety management across all processing facilities."
+          "desc": "Target hazard-analysis framework; no current certification or facility-wide implementation is claimed here."
         },
         {
           "name": "Organic Programme",
-          "desc": "Organic lots are grown under third-party certification schemes; certificates for specific lots are shared on request."
+          "desc": "Organic status must be confirmed for each lot through an approved third-party certificate."
         },
         {
           "name": "Phytosanitary Compliance",
-          "desc": "Plant health inspection and government-issued certificates meeting importing country requirements."
+          "desc": "Phytosanitary documents are shipment-specific and supplied only when issued by the relevant authority."
         },
         {
           "name": "Export Documentation",
@@ -2472,9 +2421,9 @@
         "desc": "Purchase, sale, charter and lease"
       },
       {
-        "value": "Verified",
+        "value": "Verify",
         "label": "Buyer & seller profiles",
-        "desc": "Identity-checked counterparties"
+        "desc": "Counterparty checks required per enquiry"
       },
       {
         "value": "Specs",
@@ -2484,7 +2433,7 @@
       {
         "value": "Recycling",
         "label": "Responsible yards",
-        "desc": "Hong Kong Convention–aligned partners"
+        "desc": "Compliance checked per enquiry"
       }
     ],
     "inquiryTypes": [
@@ -2549,13 +2498,13 @@
         {
           "icon": "♻",
           "title": "Ship Recycling",
-          "desc": "Responsible end-of-life ship recycling through yards that operate to Hong Kong Convention and IMO guidelines, with EU Ship Recycling Regulation routing where required. Competitive LDT rates with full documentation.",
+          "desc": "Routing support for end-of-life ship recycling enquiries. Yard permits, convention alignment, rates and documentation must be confirmed for each transaction.",
           "color": "var(--accent-emerald)"
         },
         {
           "icon": "🔍",
           "title": "Inspection & Valuation",
-          "desc": "Independent vessel inspection and market valuation services performed by class-accredited marine surveyors. Full condition reports, survey documentation, and fair market value assessments.",
+          "desc": "Inspection and valuation coordination may be arranged. Surveyor accreditation, scope, reports and fees must be confirmed for each vessel.",
           "color": "var(--accent-amber)"
         }
       ]
@@ -2783,7 +2732,7 @@
       },
       {
         "title": "Inspection & Survey",
-        "desc": "Independent survey conducted by a class-accredited marine surveyor. Full condition report issued covering hull, machinery, and class status."
+        "desc": "An independent survey may be arranged; surveyor accreditation and report scope must be confirmed for the vessel."
       },
       {
         "title": "Negotiation & Agreement",
@@ -2797,14 +2746,14 @@
     "recycling": {
       "eyebrow": "Responsible Recycling",
       "title": "Ship Recycling, Done Right.",
-      "description": "We connect vessel owners with recycling yards that operate to Hong Kong Convention and IMO guidelines, putting safety, environmental responsibility, and transparent documentation first.",
+      "description": "We can route enquiries to recycling yards. Convention alignment, permits and documentation must be verified for each yard before engagement.",
       "items": [
         {
           "title": "Hong Kong Convention",
           "body": "International Maritime Organization",
-          "status": "Aligned",
+          "status": "Verify per yard",
           "statusColor": "var(--accent-emerald)",
-          "desc": "All recycling partners are aligned with the Hong Kong International Convention for Safe and Environmentally Sound Recycling of Ships."
+          "desc": "Convention alignment and permits must be verified for each proposed recycling yard."
         },
         {
           "title": "EU Ship Recycling Regulation",
@@ -2823,9 +2772,9 @@
         {
           "title": "ISM Code Compliance",
           "body": "International Safety Management",
-          "status": "Verified",
+          "status": "Verify per vessel",
           "statusColor": "var(--accent-sky)",
-          "desc": "All vessels listed for trading are verified for valid ISM certification and up-to-date safety management system documentation."
+          "desc": "ISM and safety-management documents must be verified for each vessel before a transaction."
         }
       ]
     },
@@ -2861,7 +2810,7 @@
         {
           "icon": "◈",
           "title": "Independent Surveyors",
-          "desc": "Independent survey partners arranged at the vessel’s port of call — class-accredited and working to recognised industry standards.",
+          "desc": "Survey support may be arranged at the vessel’s port of call; accreditation and availability require confirmation.",
           "color": "var(--accent-sky)"
         },
         {
@@ -2927,14 +2876,14 @@
     ],
     "metrics": [
       {
-        "value": "3",
+        "value": "—",
         "label": "Processing Units",
-        "desc": "Active production facilities"
+        "desc": "Verified facility data to be published"
       },
       {
-        "value": "Food safety",
-        "label": "Systems in place",
-        "desc": "HACCP and GMP-based production controls"
+        "value": "Roadmap",
+        "label": "Food safety",
+        "desc": "Target frameworks are listed below; certifications are not claimed"
       },
       {
         "value": "Multi",
@@ -2966,7 +2915,7 @@
       {
         "iconId": "icon4",
         "title": "Global Standards",
-        "desc": "Manufacturing processes aligned with international food industry standards — enabling retail-ready products for global shelves."
+        "desc": "International food-industry standards inform the readiness roadmap; current approvals require published evidence."
       }
     ],
     "productCategories": [
@@ -3055,23 +3004,23 @@
     ],
     "standards": [
       {
-        "title": "ISO 22000 Food Safety Management",
-        "desc": "International standard for food safety management systems — applied across our manufacturing operations to systematically control food safety hazards.",
+        "title": "ISO 22000 Readiness",
+        "desc": "Target food-safety management framework. Certification status will be published only with issuer and verification details.",
         "badge": "ISO 22000"
       },
       {
-        "title": "HACCP Implementation",
-        "desc": "Hazard Analysis and Critical Control Points methodology embedded at every production stage — from raw material intake through to final packaged product.",
+        "title": "HACCP Readiness",
+        "desc": "Target hazard-analysis framework. Implementation status will be published after documented verification.",
         "badge": "HACCP"
       },
       {
         "title": "Good Manufacturing Practice (GMP)",
-        "desc": "GMP protocols govern hygiene, personnel, facility maintenance, and process control — ensuring baseline food safety across all product lines.",
+        "desc": "Target operating framework for hygiene, personnel, maintenance and process control; verified implementation details are pending.",
         "badge": "GMP"
       },
       {
         "title": "Halal Compliance",
-        "desc": "Products eligible for halal designation are manufactured under halal-compliant conditions, with certification pursued per product line — supporting export to Muslim-majority markets worldwide.",
+        "desc": "Product-level certification may be pursued where relevant. No current halal certification is claimed without a published credential.",
         "badge": "Halal"
       }
     ],
@@ -3118,9 +3067,9 @@
           "RTD Formats"
         ],
         "certs": [
-          "ISO 22000",
-          "HACCP",
-          "Halal"
+          "Target: ISO 22000",
+          "Target: HACCP",
+          "Target: Halal"
         ]
       },
       {
@@ -3131,9 +3080,9 @@
           "Condiments & Sauces"
         ],
         "certs": [
-          "ISO 22000",
-          "GMP",
-          "BSTI"
+          "Target: ISO 22000",
+          "Target: GMP",
+          "Target: BSTI"
         ]
       },
       {
@@ -3144,9 +3093,9 @@
           "Baked Goods"
         ],
         "certs": [
-          "ISO 22000",
-          "HACCP",
-          "Halal"
+          "Target: ISO 22000",
+          "Target: HACCP",
+          "Target: Halal"
         ]
       }
     ],
@@ -3177,7 +3126,7 @@
       },
       {
         "name": "HACCP",
-        "body": "Hazard analysis framework — implemented in production"
+        "body": "Target hazard-analysis framework — verified implementation details pending"
       },
       {
         "name": "Halal",
@@ -3185,11 +3134,11 @@
       },
       {
         "name": "GMP",
-        "body": "Good Manufacturing Practice — framework applied"
+        "body": "Good Manufacturing Practice — target operating framework"
       },
       {
         "name": "BSTI",
-        "body": "Bangladesh Standards & Testing Institution — registration where applicable"
+        "body": "Registration status will be published with an approved credential where applicable"
       }
     ],
     "sustainability": [
@@ -3314,10 +3263,10 @@
       "title1": "Manufacturing Built to Standard,",
       "title2": "From Bangladesh to",
       "title3": "Global Shelves",
-      "p1": "Network71's Food & Beverage division operates manufacturing facilities built around recognised food-safety systems, producing a range of food and beverage products — from raw ingredient sourcing through to retail-ready packaging.",
+      "p1": "Network71 is developing a Food & Beverage division spanning product planning, sourcing and retail-ready packaging. Current facilities, approvals and production scope require confirmation.",
       "p2": "Our ambition is to establish Network71 as a trusted FMCG manufacturer from Bangladesh: supplying domestic retail, developing proprietary brands, and placing products on international shelves across the Middle East, Europe, and beyond.",
       "positioningLabel": "Key positioning:",
-      "positioning": "Halal-compliant processes, international food-safety systems and export-ready documentation — competitive on quality, not just price.",
+      "positioning": "A roadmap for product-level approvals, food-safety documentation and export readiness.",
       "pillarsTitle": "Brand Pillars"
     },
     "products": {
@@ -3334,11 +3283,11 @@
     },
     "standardsCopy": {
       "eyebrow": "Manufacturing Standards",
-      "title1": "Built to",
-      "title2": "Recognised Standards",
-      "lead": "Our facilities are built around internationally recognised food safety management systems. Standards are not a box-tick — they are embedded in our daily production operations.",
+      "title1": "Standards",
+      "title2": "Readiness Roadmap",
+      "lead": "These are target frameworks. Current certification, laboratory and facility status will be published only with approved evidence.",
       "labTitle": "Quality Laboratory",
-      "labLead": "In-house laboratory capability supports pre-production, in-line, and finished goods testing across our product range.",
+      "labLead": "The planned testing scope is listed below; current in-house and third-party capability requires confirmation.",
       "labItems": [
         "Microbiological analysis (bacteria, yeast, mould)",
         "Chemical composition and nutritional testing",
@@ -3356,7 +3305,7 @@
       "colUnit": "Processing Unit",
       "colCapacity": "Capacity",
       "colLines": "Product Lines",
-      "colCerts": "Standards applied",
+      "colCerts": "Target frameworks",
       "qcEyebrow": "On-Site Laboratory & QC",
       "qcTitle": "Integrated Quality Control",
       "qcItems": [
@@ -3408,7 +3357,7 @@
       "eyebrow": "Export Markets",
       "title1": "Bangladesh to",
       "title2": "Global Retail",
-      "lead": "Our halal-compliant processes, BSTI registration where applicable, and international food safety systems position Network71 products for placement in key export markets — particularly where Bangladeshi diaspora and halal consumer segments drive FMCG demand.",
+      "lead": "Export requirements vary by product and destination. Halal, BSTI and food-safety documentation will be confirmed for each opportunity before any market claim is made.",
       "cta": "Export Buyer Inquiry"
     },
     "opportunitiesCopy": {
@@ -3535,8 +3484,8 @@
         },
         {
           "icon": "🌐",
-          "title": "Global Standards",
-          "desc": "Working to WRAP, BSCI and international buyer code-of-conduct frameworks across our facilities."
+          "title": "Standards Roadmap",
+          "desc": "Target frameworks include WRAP, BSCI and buyer codes of conduct; approved credentials will be published separately."
         }
       ]
     },
@@ -3649,7 +3598,7 @@
       "eyebrow": "Our Facilities",
       "title1": "Industrial-Scale",
       "title2": "Production Floors",
-      "lead": "Network71 operates multiple production facilities in Bangladesh — equipped with modern machinery, structured production lines, and dedicated quality control zones engineered to meet international buyer standards.",
+      "lead": "Planned facility capabilities include structured production lines and dedicated quality-control zones. Verified site specifications will be published separately.",
       "stats": [
         {
           "value": "TBP",
@@ -3677,25 +3626,25 @@
     "quality": {
       "eyebrow": "Quality & Compliance",
       "title": "Standards. Audits. Compliance.",
-      "lead": "Our quality management system and compliance framework are built around the requirements of international buyer codes of conduct.",
+      "lead": "The compliance roadmap references international buyer codes of conduct; current approvals are shown only through published credentials.",
       "certifications": [
         {
           "code": "WRAP",
           "name": "Worldwide Responsible Accredited Production",
           "status": "progress",
-          "desc": "Framework we work to for ethical manufacturing, workplace safety and human rights; documentation on request."
+          "desc": "Reference framework in the compliance roadmap; no current accreditation is claimed without a published credential."
         },
         {
           "code": "ISO 9001",
           "name": "Quality Management Systems",
           "status": "progress",
-          "desc": "Framework our quality management is aligned to for consistent control across production processes."
+          "desc": "Target quality-management alignment; certification status has not been published."
         },
         {
           "code": "OEKO-TEX",
           "name": "Standard 100 — Textile Safety",
           "status": "progress",
-          "desc": "Testing components against harmful substance limits under the Standard 100 framework."
+          "desc": "Target material-testing framework; certified product status must be confirmed for each order."
         },
         {
           "code": "BSCI",
@@ -3705,16 +3654,16 @@
         }
       ],
       "progressLabel": "Working towards",
-      "auditTitle": "Factory Audit Ready",
-      "auditLead": "Our facilities are prepared for buyer-commissioned audits and work to BSCI/amfori and WRAP code-of-conduct frameworks; documentation is shared on request.",
+      "auditTitle": "Factory Audit Readiness",
+      "auditLead": "The audit-readiness roadmap references BSCI/amfori and WRAP codes of conduct. Current audit status requires documentary confirmation.",
       "auditItems": [
         {
           "label": "AQL Inspection Standard",
-          "note": "Applied at every production stage"
+          "note": "Target inspection framework"
         },
         {
           "label": "Third-Party Audit",
-          "note": "Available on buyer request"
+          "note": "Scope and availability require confirmation"
         }
       ]
     },
@@ -4869,7 +4818,7 @@
       "title": "Essential Products. Essential Infrastructure.",
       "lead": "From the cooking oil on family tables to the fuel powering factories, Network71 Oils & Energy operates across two essential sectors with a shared commitment to quality, reliability, and responsible growth.",
       "oilsTitle": "Edible Oils",
-      "oilsText": "We refine and distribute a range of vegetable oils for consumer, food-service, and industrial markets. Our HACCP-based facilities combine rigorous quality control with efficient, scalable production.",
+      "oilsText": "We refine and distribute a range of vegetable oils for consumer, food-service, and industrial markets. Food-safety controls and facility details will be published after owner verification.",
       "energyTitle": "Energy & Fuel",
       "energyText": "Our energy division supplies petroleum products and commercial fuel solutions to industrial, transport, construction, and institutional clients through a growing regional distribution network."
     },
@@ -4951,7 +4900,7 @@
       {
         "value": "Food safety",
         "label": "Systems",
-        "desc": "HACCP-based controls in edible oil production"
+        "desc": "HACCP readiness target; verification pending"
       },
       {
         "value": "—",
@@ -5063,7 +5012,7 @@
       },
       {
         "label": "Processing Facility",
-        "sub": "HACCP-based controls",
+        "sub": "HACCP readiness target",
         "color": "var(--accent-amber)"
       },
       {
@@ -5085,7 +5034,7 @@
     "certifications": [
       {
         "name": "HACCP",
-        "desc": "Hazard Analysis and Critical Control Points — the framework our edible oil food safety management system is built on.",
+        "desc": "Target hazard-analysis framework. Verified implementation or certification has not yet been published.",
         "prominent": true
       },
       {
@@ -5094,19 +5043,19 @@
       },
       {
         "name": "BSTI",
-        "desc": "Bangladesh Standards and Testing Institution registration where applicable for products sold domestically."
+        "desc": "Registration may be required for applicable products; approved registration details have not yet been published."
       },
       {
         "name": "Halal Compliance",
-        "desc": "Edible oils produced and packaged under Halal-compliant conditions; working towards formal recognition per product line."
+        "desc": "Product-level halal requirements are part of the readiness roadmap; current recognition has not been published."
       },
       {
         "name": "Quality Laboratory",
-        "desc": "In-house quality laboratory for FFA, peroxide value, moisture, and microbiological testing."
+        "desc": "Planned testing scope includes FFA, peroxide value, moisture and microbiological analysis; current laboratory capability requires confirmation."
       },
       {
         "name": "Fuel Safety Compliance",
-        "desc": "Petroleum storage and distribution in line with applicable fire and safety regulations."
+        "desc": "Applicable fire, storage and distribution requirements must be confirmed before each fuel engagement."
       }
     ],
     "techCards": [
@@ -5263,15 +5212,15 @@
         "Bulk & retail packs",
         "Five oil varieties"
       ],
-      "oilsBody": "From crude sourcing to consumer-ready packaging, our edible oil operations cover soybean, palm, sunflower, olive, and blended vegetable oils. HACCP-based facilities serve both consumer retail and industrial food manufacturing segments.",
+      "oilsBody": "From crude sourcing to consumer-ready packaging, our edible oil operations cover soybean, palm, sunflower, olive, and blended vegetable oils. Current facility and production status is available from the division on request.",
       "fuelBody": "Petroleum distribution, industrial fuel supply, and commercial energy logistics through a regional network of distribution centres. We serve transport, manufacturing, construction, and institutional clients with compliant, reliable fuel programmes.",
-      "edibleBody": "Every oil variant is refined, tested, and packaged in our HACCP-based facility. We supply in bulk tanker, industrial drum, and retail bottle formats — meeting the needs of food manufacturers and end consumers alike.",
+      "edibleBody": "Planned supply formats include bulk tanker, industrial drum, and retail bottle options. Product, testing and facility details require confirmation for each enquiry.",
       "fuelLead": "Our fuel distribution infrastructure is built for industrial-scale reliability. Petroleum products, industrial fuel contracts, and commercial energy solutions — all managed through a digitally connected distribution network.",
       "supplyEyebrow": "Supply Chain",
       "supplyLead": "An integrated, traceable supply chain from raw material procurement through to retail and industrial delivery — combining imported and locally sourced inputs with domestic processing.",
       "complianceEyebrow": "Quality & Compliance",
-      "complianceLead": "Our edible oil products are produced to international food safety frameworks. Our quality system is built on HACCP principles, with BSTI registration where applicable and Halal-compliant processes — supporting product integrity from plant to delivery.",
-      "haccpDescription": "Hazard Analysis and Critical Control Points — the framework our edible oil food safety management system is built on.",
+      "complianceLead": "The division's quality roadmap references HACCP principles and applicable BSTI or product-level requirements. Current approvals are published only through verified credentials.",
+      "haccpDescription": "Hazard Analysis and Critical Control Points is a target framework; verified implementation details have not yet been published.",
       "technologyEyebrow": "Technology & Operations",
       "technologyLead": "Operational technology across both divisions is designed to reduce variability, increase traceability, and ensure on-time delivery at volume.",
       "sustainabilityEyebrow": "Sustainability",
@@ -5290,14 +5239,14 @@
       "divisionB": "Division B",
       "valueChain": "Value Chain",
       "oilsTagline": "One Quality Standard.",
-      "oilCertification": "HACCP-based controls · BSTI registration where applicable",
+      "oilCertification": "Target frameworks · verification pending",
       "grades": "Grades",
       "uses": "Common Uses",
       "packaging": "Packaging",
       "fuelTagline": "Regional Reach.",
       "fuelSafety": "Safety-compliant storage & dispatch",
       "verified": "Verified at Every Step.",
-      "haccpOperations": "HACCP-Based Operations",
+      "haccpOperations": "HACCP Readiness Target",
       "supplySchematic": "Distribution Centre Network — Schematic",
       "plant": "PLANT",
       "processingPlant": "Processing Plant",

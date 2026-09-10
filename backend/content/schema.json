@@ -3020,64 +3020,6 @@
           }
         }
       },
-      "senior": {
-        "type": "object",
-        "fields": {
-          "eyebrow": {
-            "type": "string",
-            "format": "text"
-          },
-          "title": {
-            "type": "string",
-            "format": "text"
-          },
-          "lead": {
-            "type": "string",
-            "format": "text"
-          },
-          "functionLabel": {
-            "type": "string",
-            "format": "text"
-          },
-          "mandateLabel": {
-            "type": "string",
-            "format": "text"
-          },
-          "leaders": {
-            "type": "array",
-            "item": {
-              "type": "object",
-              "fields": {
-                "title": {
-                  "type": "string",
-                  "format": "text"
-                },
-                "abbr": {
-                  "type": "string",
-                  "format": "text"
-                },
-                "gradient": {
-                  "type": "fixed",
-                  "values": [
-                    "from-blue-500 to-indigo-600",
-                    "from-emerald-500 to-teal-600",
-                    "from-purple-500 to-violet-600"
-                  ]
-                },
-                "initials": {
-                  "type": "string",
-                  "format": "text"
-                },
-                "responsibilities": {
-                  "type": "string",
-                  "format": "text"
-                }
-              }
-            },
-            "max": 100
-          }
-        }
-      },
       "board": {
         "type": "object",
         "fields": {
@@ -3104,59 +3046,6 @@
           "cardBody": {
             "type": "string",
             "format": "text"
-          }
-        }
-      },
-      "advisors": {
-        "type": "object",
-        "fields": {
-          "eyebrow": {
-            "type": "string",
-            "format": "text"
-          },
-          "title": {
-            "type": "string",
-            "format": "text"
-          },
-          "lead": {
-            "type": "string",
-            "format": "text"
-          },
-          "capabilityLabel": {
-            "type": "string",
-            "format": "text"
-          },
-          "mandateLabel": {
-            "type": "string",
-            "format": "text"
-          },
-          "items": {
-            "type": "array",
-            "item": {
-              "type": "object",
-              "fields": {
-                "gradient": {
-                  "type": "fixed",
-                  "values": [
-                    "from-amber-500 to-orange-600",
-                    "from-pink-500 to-rose-600"
-                  ]
-                },
-                "initials": {
-                  "type": "string",
-                  "format": "text"
-                },
-                "area": {
-                  "type": "string",
-                  "format": "text"
-                },
-                "desc": {
-                  "type": "string",
-                  "format": "text"
-                }
-              }
-            },
-            "max": 100
           }
         }
       },

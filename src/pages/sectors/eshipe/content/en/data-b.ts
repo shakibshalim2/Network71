@@ -11,7 +11,7 @@ export const process = [
   },
   {
     title: "Inspection & Survey",
-    desc: "Independent survey conducted by a class-accredited marine surveyor. Full condition report issued covering hull, machinery, and class status.",
+    desc: "An independent survey may be arranged; surveyor accreditation and report scope must be confirmed for the vessel.",
   },
   {
     title: "Negotiation & Agreement",
@@ -27,9 +27,9 @@ export const recyclingItems = [
   {
     title: "Hong Kong Convention",
     body: "International Maritime Organization",
-    status: "Aligned",
+    status: "Verify per yard",
     statusColor: "var(--accent-emerald)",
-    desc: "All recycling partners are aligned with the Hong Kong International Convention for Safe and Environmentally Sound Recycling of Ships.",
+    desc: "Convention alignment and permits must be verified for each proposed recycling yard.",
   },
   {
     title: "EU Ship Recycling Regulation",
@@ -48,9 +48,9 @@ export const recyclingItems = [
   {
     title: "ISM Code Compliance",
     body: "International Safety Management",
-    status: "Verified",
+    status: "Verify per vessel",
     statusColor: OCEAN,
-    desc: "All vessels listed for trading are verified for valid ISM certification and up-to-date safety management system documentation.",
+    desc: "ISM and safety-management documents must be verified for each vessel before a transaction.",
   },
 ]
 
@@ -82,7 +82,7 @@ export const whyItems = [
   {
     icon: "◈",
     title: "Independent Surveyors",
-    desc: "Independent survey partners arranged at the vessel’s port of call — class-accredited and working to recognised industry standards.",
+    desc: "Survey support may be arranged at the vessel’s port of call; accreditation and availability require confirmation.",
     color: OCEAN,
   },
   {

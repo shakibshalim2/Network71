@@ -1,6 +1,6 @@
 # Network71 backend and website CMS
 
-The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-admin-plan.bn.md). The admin, page-section CMS and core public collection consumers are working; some generic collections still need a matching public presentation.
+The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-admin-plan.bn.md). The admin, page-section CMS and all 14 purpose-built public collection consumers are working; production hosting and owner content acceptance remain external steps.
 
 ## Available now
 
@@ -35,7 +35,7 @@ Prerequisites: PHP 8.3+ (production target 8.4), PDO MySQL, mbstring, fileinfo, 
 
 The local instance created during development uses an isolated MariaDB data directory under ignored `backend/storage/database`, loopback port 33171, PHP on 8787 and Vite on 8443. Its generated local-only owner credentials are in ignored `backend/storage/local-admin.txt`. These files are not deployment assets. After restarting the machine, start the isolated database before starting PHP.
 
-To reset an account through server CLI, set the same two environment variables and run `php backend/bin/reset-password.php`. The command never creates or reactivates an account. Production automated reset is a later feature.
+To reset an account through server CLI, set the same two environment variables and run `php backend/bin/reset-password.php`. The command never creates or reactivates an account. Owners can also generate an expiring one-use reset link in Admin; automatic reset email delivery is not enabled.
 
 ## HTTP contract
 
@@ -52,12 +52,15 @@ Prefix `/api/v1`:
 | `POST /admin/content/{module}/{id}/state` | Owner publish/unpublish/archive using `action` and `version` |
 | `GET /content/{module}[/{slug}]` | Public published content only |
 | `GET/POST /admin/media` | Paginated media list / multipart upload (`file`, `alt`, `permission=yes`) |
+| `DELETE /admin/media/{id}` | Owner-only archive; rejects referenced media |
 | `GET /media/{filename}` | Re-encoded public image, immutable URL |
 | `POST /inquiries` | Save message; required random `request_key` (20–64 alphanumeric/hyphen characters) |
 | `GET /admin/inquiries` | Paginated inbox |
 | `PATCH /admin/inquiries/{id}` | `status`: new, in_progress, closed |
 | `GET/POST /admin/users` | Owner account list/create |
 | `PATCH /admin/users/{id}` | Owner enables/disables another account with boolean `active` |
+| `POST /admin/users/{id}/reset-link` | Owner issues an expiring one-use reset link |
+| `GET/PUT/POST /admin/sections/{page}` | Read, save and publish locale-aware page sections |
 
 Content writes contain `slug`, `sort_order`, `data` and, for existing records, `version`. Schema validation strips unknown fields. Fields other than the title may be incomplete while drafting; required publication fields are checked on publish. Search/pagination parameters are `q` and `page`; content pages are limited to 30 records, media to 24. The first version supports text-based search only, not full-text ranking.
 
@@ -72,7 +75,7 @@ All authenticated writes require the current `X-CSRF-Token`. Sessions rotate at 
 5. Use cPanel Database Wizard to create database/user; import the numbered SQL migrations with phpMyAdmin or run the CLI migration tool. If manually importing, also record the applied migration versions in `schema_migrations` to prevent rerunning DDL. Use a separate migration account; runtime only needs SELECT/INSERT/UPDATE/DELETE.
 6. Configure HTTPS, production origin, secure cookies, storage permissions, error logging and backups. Create owner credentials privately. Test cold page loads, API JSON errors, login/logout, writes, images, forms and backups before public release.
 
-Do not upload the repository wholesale. Database data, config, credentials, logs and PHP source belong outside the public document root. The PHP built-in server is for local development only. This phase has no Composer dependencies yet; SMTP will introduce a locked PHPMailer dependency.
+Do not upload the repository wholesale. Database data, config, credentials, logs and PHP source belong outside the public document root. The PHP built-in server is for local development only. Deploy the locked Composer/PHPMailer dependencies with the private backend.
 
 ## Verification
 
@@ -86,7 +89,9 @@ Implementation references: [PHP cookie sessions](https://www.php.net/manual/en/f
 
 Local verification on 9 September 2026 used PHP 8.3.33 and an isolated MariaDB 10.4.28 instance. The HTTP suite passed 38 checks, including password-reset session invalidation. Browser checks covered all admin module lists/forms at 320, 375, 768, 1024 and 1440 pixels, draft persistence, navigation guards, logout and public-site navigation isolation. Main contact and sector form submissions were verified in the inbox; test records were removed afterwards. Selected accessibility rules were checked on the content editors and admin utility screens. Production TypeScript/Vite build passes with the existing large globe-chunk warning.
 
-## CMS foundation checkpoint — 10 September 2026
+## Historical CMS foundation checkpoint — 10 September 2026
+
+The pending statements in this checkpoint describe that intermediate commit; the “Current admin and deployment additions” section below supersedes them.
 
 Run `node scripts/export-content-schema.mjs` to regenerate packaged EN/BN schemas/templates. Back up the database (`php backend/bin/backup.php`) and apply `php backend/bin/setup.php` before deploying this revision; migration 003 is required. `php backend/tests/section-schema.php` validates packaged templates.
 
@@ -104,7 +109,7 @@ Configure the private `smtp` array from config/example.php, then run `php backen
 
 ## Current admin and deployment additions
 
-`/admin/pages` now edits packaged page sections in EN/BN, supports draft save/publish, visibility/order, page SEO and authenticated saved-draft previews. Shared text is under `site`; homepage layout is under `home`. `php backend/bin/seed-sections.php` optionally imports missing templates as drafts without overwriting existing records or publishing. Generic collection-to-public-section mapping is still incomplete; see the latest checkpoint in docs.
+`/admin/pages` now edits packaged page sections in EN/BN, supports draft save/publish, visibility/order, page SEO and authenticated saved-draft previews. Shared text is under `site`; homepage layout is under `home`. `php backend/bin/seed-sections.php` optionally imports missing templates as drafts without overwriting existing records or publishing. All 14 purpose-built collection modules now have public consumers; legacy Pages/Divisions inventory remains separate from the section CMS.
 
 Media archive is owner-only and rejects referenced assets. Replace an image by uploading a new asset, updating/publishing its references, then archiving the old unused asset. Owner-generated password reset links expire after 30 minutes and can be consumed once; they are shown for private sharing, not automatically emailed.
 

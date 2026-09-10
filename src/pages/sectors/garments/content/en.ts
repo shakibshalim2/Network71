@@ -43,7 +43,7 @@ const en = {
       { icon: "⚡", title: "Speed-to-Market", desc: "Compressed lead times with agile production scheduling and dedicated sampling teams." },
       { icon: "✓", title: "Quality Assurance", desc: "AQL-based inspection at every production stage. Zero-compromise quality control protocols." },
       { icon: "🌿", title: "Sustainable Practice", desc: "Organic and recycled fibre options, water recycling, and energy-efficient factory operations." },
-      { icon: "🌐", title: "Global Standards", desc: "Working to WRAP, BSCI and international buyer code-of-conduct frameworks across our facilities." },
+      { icon: "🌐", title: "Standards Roadmap", desc: "Target frameworks include WRAP, BSCI and buyer codes of conduct; approved credentials will be published separately." },
     ],
   },
   products: {
@@ -77,8 +77,7 @@ const en = {
     eyebrow: "Our Facilities",
     title1: "Industrial-Scale",
     title2: "Production Floors",
-    lead: "Network71 operates multiple production facilities in Bangladesh — equipped with modern machinery, structured production " +
-      "lines, and dedicated quality control zones engineered to meet international buyer standards.",
+    lead: "Planned facility capabilities include structured production lines and dedicated quality-control zones. Verified site specifications will be published separately.",
     stats: [
       { value: "TBP", label: "Production Floor", sub: "To be published" },
       { value: "TBP", label: "Cutting Lines", sub: "To be published" },
@@ -90,12 +89,12 @@ const en = {
   quality: {
     eyebrow: "Quality & Compliance",
     title: "Standards. Audits. Compliance.",
-    lead: "Our quality management system and compliance framework are built around the requirements of international buyer codes of conduct.",
+    lead: "The compliance roadmap references international buyer codes of conduct; current approvals are shown only through published credentials.",
     certifications: data.certifications,
     progressLabel: "Working towards",
-    auditTitle: "Factory Audit Ready",
-    auditLead: "Our facilities are prepared for buyer-commissioned audits and work to BSCI/amfori and WRAP code-of-conduct frameworks; documentation is shared on request.",
-    auditItems: [{ label: "AQL Inspection Standard", note: "Applied at every production stage" }, { label: "Third-Party Audit", note: "Available on buyer request" }],
+    auditTitle: "Factory Audit Readiness",
+    auditLead: "The audit-readiness roadmap references BSCI/amfori and WRAP codes of conduct. Current audit status requires documentary confirmation.",
+    auditItems: [{ label: "AQL Inspection Standard", note: "Target inspection framework" }, { label: "Third-Party Audit", note: "Scope and availability require confirmation" }],
   },
   sustainability: {
     eyebrow: "Sustainability", title1: "Responsible Fashion", title2: "Manufacturing",

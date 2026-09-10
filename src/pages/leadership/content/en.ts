@@ -24,36 +24,6 @@ const en = {
       'International Trade',
     ],
   },
-  senior: {
-    eyebrow: 'Executive Team',
-    title: 'Executive Mandates',
-    lead: 'The group is structured around these executive functions. Appointments are published here as they are confirmed; until then each mandate is led from the Office of the CEO.',
-    functionLabel: 'Executive function',
-    mandateLabel: 'Appointment to be announced',
-    leaders: [
-      {
-        title: 'Chief Financial Officer',
-        abbr: 'CFO',
-        gradient: 'from-blue-500 to-indigo-600',
-        initials: 'CFO',
-        responsibilities: 'Financial strategy, treasury, investor relations, and compliance across all Network71 divisions.',
-      },
-      {
-        title: 'Chief Operating Officer',
-        abbr: 'COO',
-        gradient: 'from-emerald-500 to-teal-600',
-        initials: 'COO',
-        responsibilities: 'Cross-divisional operations, supply chain coordination, and enterprise performance management.',
-      },
-      {
-        title: 'Chief Technology Officer',
-        abbr: 'CTO',
-        gradient: 'from-purple-500 to-violet-600',
-        initials: 'CTO',
-        responsibilities: 'Technology vision, Ezyify platform leadership, digital transformation, and IT infrastructure.',
-      },
-    ],
-  },
   board: {
     eyebrow: 'Governance',
     title: 'Board of Directors',
@@ -61,27 +31,6 @@ const en = {
     badge: 'Governance framework',
     cardTitle: 'Board Oversight Mandate',
     cardBody: "Board-level oversight covers group strategy, risk, financial stewardship, leadership accountability, and responsible long-term growth across Network71's business portfolio.",
-  },
-  advisors: {
-    eyebrow: 'Advisory',
-    title: 'Advisory Functions',
-    lead: 'Independent advisory input the group draws on for international business, technology and governance. Named advisors are published with their consent.',
-    capabilityLabel: 'Advisory scope',
-    mandateLabel: 'Advisor names published on confirmation',
-    items: [
-      {
-        gradient: 'from-amber-500 to-orange-600',
-        initials: 'ADV',
-        area: 'Strategic Advisory',
-        desc: 'International trade, market entry and multi-sector group development.',
-      },
-      {
-        gradient: 'from-pink-500 to-rose-600',
-        initials: 'ADV',
-        area: 'ESG & Governance Advisory',
-        desc: 'Sustainability reporting, corporate governance and stakeholder engagement.',
-      },
-    ],
   },
   cta: {
     title: 'Join Our Leadership Team',

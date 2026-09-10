@@ -58,7 +58,7 @@ export const operations = {
     },
     {
       title: "Quality & Lab Testing",
-      desc: "Pesticide residue checks, moisture testing, and export test reports from accredited labs.",
+      desc: "Pesticide residue, moisture and export testing can be specified; laboratory accreditation must be confirmed per report.",
     },
     {
       title: "Cold Chain Storage",
@@ -100,19 +100,19 @@ export const operations = {
     eyebrow: "Standards",
     title: "Quality & Compliance",
     description:
-      "Every shipment leaves our facility backed by laboratory verification and the documentation required by importing markets.",
+      "Quality requirements are confirmed for each shipment. Verified certificates and laboratory records are shared only when available and approved.",
     certifications: [
       {
         name: "HACCP",
-        desc: "Hazard Analysis & Critical Control Points — systematic food safety management across all processing facilities.",
+        desc: "Target hazard-analysis framework; no current certification or facility-wide implementation is claimed here.",
       },
       {
         name: "Organic Programme",
-        desc: "Organic lots are grown under third-party certification schemes; certificates for specific lots are shared on request.",
+        desc: "Organic status must be confirmed for each lot through an approved third-party certificate.",
       },
       {
         name: "Phytosanitary Compliance",
-        desc: "Plant health inspection and government-issued certificates meeting importing country requirements.",
+        desc: "Phytosanitary documents are shipment-specific and supplied only when issued by the relevant authority.",
       },
       {
         name: "Export Documentation",

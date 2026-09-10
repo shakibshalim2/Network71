@@ -3,19 +3,19 @@ export const facilities = [
     unit: 'Processing Unit 1',
     capacity: 'On request',
     lines: ['Beverages & Juices', 'RTD Formats'],
-    certs: ['ISO 22000', 'HACCP', 'Halal'],
+    certs: ['Target: ISO 22000', 'Target: HACCP', 'Target: Halal'],
   },
   {
     unit: 'Processing Unit 2',
     capacity: 'On request',
     lines: ['Processed Foods', 'Condiments & Sauces'],
-    certs: ['ISO 22000', 'GMP', 'BSTI'],
+    certs: ['Target: ISO 22000', 'Target: GMP', 'Target: BSTI'],
   },
   {
     unit: 'Processing Unit 3',
     capacity: 'On request',
     lines: ['Snacks & Confectionery', 'Baked Goods'],
-    certs: ['ISO 22000', 'HACCP', 'Halal'],
+    certs: ['Target: ISO 22000', 'Target: HACCP', 'Target: Halal'],
   },
 ]
 
@@ -27,10 +27,10 @@ export const qualityMetrics = [
 
 export const certifications = [
   { name: 'ISO 22000', body: 'Food safety management framework — working towards' },
-  { name: 'HACCP', body: 'Hazard analysis framework — implemented in production' },
+  { name: 'HACCP', body: 'Target hazard-analysis framework — verified implementation details pending' },
   { name: 'Halal', body: 'Halal-compliant processes — working towards per product line' },
-  { name: 'GMP', body: 'Good Manufacturing Practice — framework applied' },
-  { name: 'BSTI', body: 'Bangladesh Standards & Testing Institution — registration where applicable' },
+  { name: 'GMP', body: 'Good Manufacturing Practice — target operating framework' },
+  { name: 'BSTI', body: 'Registration status will be published with an approved credential where applicable' },
 ]
 
 export const sustainability = [

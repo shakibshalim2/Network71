@@ -19,14 +19,13 @@ export const serviceItems = [
     icon: "♻",
     title: "Ship Recycling",
     desc:
-      "Responsible end-of-life ship recycling through yards that operate to Hong Kong Convention and IMO " +
-      "guidelines, with EU Ship Recycling Regulation routing where required. Competitive LDT rates with full documentation.",
+      "Routing support for end-of-life ship recycling enquiries. Yard permits, convention alignment, rates and documentation must be confirmed for each transaction.",
     color: "var(--accent-emerald)",
   },
   {
     icon: "🔍",
     title: "Inspection & Valuation",
-    desc: "Independent vessel inspection and market valuation services performed by class-accredited marine surveyors. Full condition reports, survey documentation, and fair market value assessments.",
+    desc: "Inspection and valuation coordination may be arranged. Surveyor accreditation, scope, reports and fees must be confirmed for each vessel.",
     color: "var(--accent-amber)",
   },
 ]

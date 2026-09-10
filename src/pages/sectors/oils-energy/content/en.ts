@@ -28,7 +28,7 @@ const en = {
     oilsTitle: "Edible Oils",
     oilsText:
       "We refine and distribute a range of vegetable oils for consumer, food-service, and industrial " +
-        "markets. Our HACCP-based facilities combine rigorous quality control with efficient, scalable production.",
+        "markets. Food-safety controls and facility details will be published after owner verification.",
     energyTitle: "Energy & Fuel",
     energyText:
       "Our energy division supplies petroleum products and commercial fuel solutions to industrial, " +
@@ -125,13 +125,12 @@ const en = {
     oilsTags: ['Food-safety systems', 'Consumer + Industrial', 'Bulk & retail packs', 'Five oil varieties'],
     oilsBody:
       "From crude sourcing to consumer-ready packaging, our edible oil operations cover soybean, palm, sunflower, olive, and " +
-        "blended vegetable oils. HACCP-based facilities serve both consumer retail and industrial food manufacturing segments.",
+        "blended vegetable oils. Current facility and production status is available from the division on request.",
     fuelBody:
       "Petroleum distribution, industrial fuel supply, and commercial energy logistics through a regional network of " +
         "distribution centres. We serve transport, manufacturing, construction, and institutional clients with compliant, reliable fuel programmes.",
     edibleBody:
-      "Every oil variant is refined, tested, and packaged in our HACCP-based facility. We supply in bulk " +
-        "tanker, industrial drum, and retail bottle formats — meeting the needs of food manufacturers and end consumers alike.",
+      "Planned supply formats include bulk tanker, industrial drum, and retail bottle options. Product, testing and facility details require confirmation for each enquiry.",
     fuelLead:
       "Our fuel distribution infrastructure is built for industrial-scale reliability. Petroleum products, industrial " +
         "fuel contracts, and commercial energy solutions — all managed through a digitally connected distribution network.",
@@ -141,10 +140,9 @@ const en = {
         "industrial delivery — combining imported and locally sourced inputs with domestic processing.",
     complianceEyebrow: "Quality & Compliance",
     complianceLead:
-      "Our edible oil products are produced to international food safety frameworks. Our quality system is built on HACCP principles, " +
-        "with BSTI registration where applicable and Halal-compliant processes — supporting product integrity from plant to delivery.",
+      "The division's quality roadmap references HACCP principles and applicable BSTI or product-level requirements. Current approvals are published only through verified credentials.",
     haccpDescription:
-      "Hazard Analysis and Critical Control Points — the framework our edible oil food safety management system is built on.",
+      "Hazard Analysis and Critical Control Points is a target framework; verified implementation details have not yet been published.",
     technologyEyebrow: "Technology & Operations",
     technologyLead:
       "Operational technology across both divisions is designed to reduce variability, increase traceability, and ensure on-time delivery at volume.",
@@ -168,14 +166,14 @@ const en = {
     divisionB: "Division B",
     valueChain: "Value Chain",
     oilsTagline: "One Quality Standard.",
-    oilCertification: "HACCP-based controls · BSTI registration where applicable",
+    oilCertification: "Target frameworks · verification pending",
     grades: "Grades",
     uses: "Common Uses",
     packaging: "Packaging",
     fuelTagline: "Regional Reach.",
     fuelSafety: "Safety-compliant storage & dispatch",
     verified: "Verified at Every Step.",
-    haccpOperations: "HACCP-Based Operations",
+    haccpOperations: "HACCP Readiness Target",
     supplySchematic: "Distribution Centre Network — Schematic",
     plant: "PLANT",
     processingPlant: "Processing Plant",

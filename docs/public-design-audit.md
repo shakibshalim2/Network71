@@ -1,6 +1,6 @@
 # Public website design and responsive audit
 
-Status: in progress. Scope: all public routes and their sections; admin is excluded.
+Status: automated implementation and regression complete; owner content review and manual visual/accessibility acceptance pending. Scope: all public routes and their sections; admin is excluded.
 
 ## Plan, before implementation
 
@@ -23,4 +23,4 @@ Status: in progress. Scope: all public routes and their sections; admin is exclu
 
 ## Findings and resolution log
 
-Initial code review: homepage repeats unverified scale claims in its hero and stats; actual project work has no public route; stock office/gallery imagery is labelled as company activity; many corporate/sector pages lack a main landmark; small inline labels and dense mobile grids require section-level review. Browser audit and fixes follow below.
+Initial findings were addressed through the public Projects list/detail flow, honest media labels/fallbacks, page landmarks, responsive fixes and EN/BN claims cleanup. The final automated matrix covered 26 routes at 375/768/1440 in both locales (156 checks) without runtime errors or horizontal overflow. Selected keyboard/admin accessibility checks passed. Stock imagery replacement, factual substantiation and full manual visual/accessibility acceptance require the owner and staging environment.

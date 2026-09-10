@@ -121,19 +121,19 @@ export const data = {
       code: "WRAP",
       name: "Worldwide Responsible Accredited Production",
       status: "progress",
-      desc: "Framework we work to for ethical manufacturing, workplace safety and human rights; documentation on request.",
+      desc: "Reference framework in the compliance roadmap; no current accreditation is claimed without a published credential.",
     },
     {
       code: "ISO 9001",
       name: "Quality Management Systems",
       status: "progress",
-      desc: "Framework our quality management is aligned to for consistent control across production processes.",
+      desc: "Target quality-management alignment; certification status has not been published.",
     },
     {
       code: "OEKO-TEX",
       name: "Standard 100 — Textile Safety",
       status: "progress",
-      desc: "Testing components against harmful substance limits under the Standard 100 framework.",
+      desc: "Target material-testing framework; certified product status must be confirmed for each order.",
     },
     {
       code: "BSCI",

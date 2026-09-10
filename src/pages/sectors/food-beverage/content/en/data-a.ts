@@ -1,6 +1,6 @@
 export const metrics = [
-  { value: '3', label: 'Processing Units', desc: 'Active production facilities' },
-  { value: 'Food safety', label: 'Systems in place', desc: 'HACCP and GMP-based production controls' },
+  { value: '—', label: 'Processing Units', desc: 'Verified facility data to be published' },
+  { value: 'Roadmap', label: 'Food safety', desc: 'Target frameworks are listed below; certifications are not claimed' },
   { value: 'Multi', label: 'Product categories', desc: 'Processed foods, beverages, snacks, condiments' },
   { value: '—', label: 'Annual Output', desc: 'Data to be published' },
 ]
@@ -24,7 +24,7 @@ export const pillars = [
   {
     iconId: 'icon4',
     title: 'Global Standards',
-    desc: 'Manufacturing processes aligned with international food industry standards — enabling retail-ready products for global shelves.',
+    desc: 'International food-industry standards inform the readiness roadmap; current approvals require published evidence.',
   },
 ]
 
@@ -100,23 +100,23 @@ export const brandModels = [
 
 export const standards = [
   {
-    title: 'ISO 22000 Food Safety Management',
-    desc: 'International standard for food safety management systems — applied across our manufacturing operations to systematically control food safety hazards.',
+    title: 'ISO 22000 Readiness',
+    desc: 'Target food-safety management framework. Certification status will be published only with issuer and verification details.',
     badge: 'ISO 22000',
   },
   {
-    title: 'HACCP Implementation',
-    desc: 'Hazard Analysis and Critical Control Points methodology embedded at every production stage — from raw material intake through to final packaged product.',
+    title: 'HACCP Readiness',
+    desc: 'Target hazard-analysis framework. Implementation status will be published after documented verification.',
     badge: 'HACCP',
   },
   {
     title: 'Good Manufacturing Practice (GMP)',
-    desc: 'GMP protocols govern hygiene, personnel, facility maintenance, and process control — ensuring baseline food safety across all product lines.',
+    desc: 'Target operating framework for hygiene, personnel, maintenance and process control; verified implementation details are pending.',
     badge: 'GMP',
   },
   {
     title: 'Halal Compliance',
-    desc: 'Products eligible for halal designation are manufactured under halal-compliant conditions, with certification pursued per product line — supporting export to Muslim-majority markets worldwide.',
+    desc: 'Product-level certification may be pursued where relevant. No current halal certification is claimed without a published credential.',
     badge: 'Halal',
   },
 ]

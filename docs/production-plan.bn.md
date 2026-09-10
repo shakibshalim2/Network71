@@ -1,28 +1,30 @@
 # Network71 — Production-level completion plan
 
-তারিখ: ৯ সেপ্টেম্বর ২০২৬ · Branch: `hoplite/halikarnassos-28c502d9` · Status: **কাজ চলছে** (প্রতিটি ধাপ শেষে এই ফাইলের status table আপডেট হবে)
+তারিখ: ১০ সেপ্টেম্বর ২০২৬ · Branch: `main` / `chore/website-admin-cleanup` · Status: **Local implementation complete; production acceptance pending**
 
 এই plan-টি ৪টি স্বতন্ত্র audit (public corporate pages, division pages, admin + backend, performance/code-health) এবং ২৬টি route-এর full-page screenshot review-এর ভিত্তিতে তৈরি। কাজের নিয়ম: **এক ধাপ → test → commit → push**, তারপর পরের ধাপ। কোনো ফাইল ~250 লাইন (`.tsx`) / ~300 লাইন (`.ts` data) ছাড়াবে না। Public site-এর design **wholesale change হবে না** — শুধু গ্যাপ পূরণ, polish ও bug fix।
 
 ---
 
-## ১. Brief coverage — কী আছে, কী নেই
+## ১. Original audit snapshot — historical
+
+এই section ও পরের gap তালিকাগুলো ৯ সেপ্টেম্বরের baseline। এগুলো current status নয়; authoritative status হলো নিচের Steps table, implementation log এবং “Still open” তালিকা।
 
 | Brief-এর দাবি | অবস্থা | মন্তব্য |
 | --- | --- | --- |
 | ১০টি division (Garments, Agriculture, F&B, Oils & Energy, Ezyify, IT, Trading, Strategic Ventures, Media, Ship Marketplace) | ✅ আছে | প্রতিটির নিজস্ব page, hero, sections, inquiry form |
 | Vision: “Building Businesses. Connecting Markets. Creating the Future.” | ✅ আছে | Homepage About section + প্রতিটি page-এর GlobalCTA |
 | Media: Digital Newspaper + TV, News/Breaking/Live/Video/Programs/Business/International/Technology/Culture/Investigative, advertising + partnership | ✅ আছে | ৬ coverage desk, TV schedule, “Reach Our Audiences” advertising section |
-| Ship Marketplace: buy/sell/lease/discover, vessel specs, categories, search & filter, buyer-seller profiles, inquiry | ⚠️ আংশিক | Search/filter/categories/listing/inquiry আছে। **Vessel detail (full specification) view নেই**, buyer/seller profile শুধু text-এ উল্লেখ — কোনো UI নেই |
-| Ezyify: AI, social commerce, video commerce, creator marketplace, cross-border | ✅ আছে, কিন্তু **bug** | `EzyifyPage.tsx`-এ ৬টি section ভুল content prop পাচ্ছে (Segments↔AI, Roadmap↔Revenue…) — page-এর গল্প এলোমেলো |
+| Ship Marketplace: buy/sell/lease/discover, vessel specs, categories, search & filter, buyer-seller profiles, inquiry | ⚠️ আংশিক | Vessel detail ও enquiry prefill সম্পন্ন; বাস্তব vessel/seller records মালিকপক্ষ থেকে প্রয়োজন। |
+| Ezyify: AI, social commerce, video commerce, creator marketplace, cross-border | ✅ | Section prop mapping ঠিক করা হয়েছে। |
 | EN/BN toggle পুরো site-এ | ✅ আছে | ২৬ route render-audit-এ leak নেই |
 | Responsive (desktop/tablet/mobile) | ✅ overflow নেই | 375/768/1440-এ ২৬ route-এ horizontal overflow পাওয়া যায়নি; polish বাকি (নিচে) |
 | Real imagery | ⚠️ | ৬৪টি image Unsplash CDN থেকে আসে (stock)। বাস্তব company ছবি পেলে admin media library থেকে replace করা যাবে |
 | Real 3D | ✅ | Homepage three.js globe (lazy, 637 kB chunk — optimise করা হবে) |
-| **No exaggerated / unverifiable claims** | ❌ **সমস্যা আছে** | নিচের তালিকা দেখুন |
-| Admin: সব page-এর সব content edit | ❌ **নেই** | ১৬টি generic module আছে, কিন্তু ২৬টি public page-এর hero/section copy hardcoded; publish করলে public site-এ কোনো effect হয় না |
-| Admin mobile app-like | ⚠️ আংশিক | Bottom nav আছে; confirm dialog, loading/error state, media delete, EN/BN field নেই |
-| cPanel-hostable PHP + MySQL backend | ✅ ভিত্তি আছে | PHP 8.3 + PDO/MySQL, `.htaccess` example, 38/38 smoke test pass। Deployment checklist/validator বাকি |
+| **No exaggerated / unverifiable claims** | ⚠️ code cleanup complete | তালিকাভুক্ত scale/certification claims neutral করা হয়েছে; owner factual acceptance এখনও প্রয়োজন। |
+| Admin: সব page-এর সব content edit | ✅ | 27 page/site schemas, EN/BN section editor, publish, layout, SEO ও preview কাজ করে। |
+| Admin mobile app-like | ✅ | Responsive navigation/editor, confirmation, state feedback, locale controls, media archive ও reset flow আছে। |
+| cPanel-hostable PHP + MySQL backend | ✅ package ready | PHP/PDO backend, rewrite examples, readiness checker ও deployment checklist আছে; actual host verification বাকি। |
 
 ### Unverifiable claims (সব সরানো/নিরপেক্ষ করা হবে)
 
@@ -56,7 +58,7 @@
 
 ---
 
-## ২. Admin + Backend gap
+## ২. Original Admin + Backend gap — historical
 
 - **Content model**: `content_records(module, slug, draft_json, published_json)` — single language, generic ১৬ module। Public page-এর section-wise content (hero, stats, services, faq…) এর সাথে map করা নেই।
 - **Public consumers**: শুধু Projects, Gallery, Careers(jobs) API থেকে পড়ে; বাকি সব `content/en.ts`/`bn.ts` থেকে।
@@ -105,16 +107,16 @@ MySQL: ACCOUNT_network71 (utf8mb4)
 | # | কাজ | Test | Status |
 | --- | --- | --- | --- |
 | 0 | এই plan + audit report commit | — | ✅ |
-| 1 | Ezyify section prop bug fix; canonical `/divisions/ship-marketplace` redirect; dead `Stats.tsx`/`Innovation.tsx` remove; `Footer.tsx` split | tsc, build, browser h2 order, 301-style redirect | ⬜ |
-| 2 | Unverifiable claims cleanup (index.html, global-presence, sustainability, eshipe, media, ezyify, garments, agriculture, oils, F&B) EN + BN একসাথে; certification wording | tsc, BN/EN render audit, grep re-scan | ⬜ |
-| 3 | About/Leadership placeholders সরানো; Leadership → team module থেকে confirmed profiles; About hero visual | browser 375/768/1440 | ⬜ |
-| 4 | eSHIPe vessel detail sheet (specs, seller card, inquiry prefill) + category hover; Media gallery lightbox + “Live” label fix | interaction test | ⬜ |
-| 5 | Perf: three.js named imports, image `loading="lazy"` + dimensions, `sitemap.xml`, `<html lang>` verify, reduced-motion audit | build chunk sizes, Lighthouse-style checks | ⬜ |
-| 6 | Backend: migrations 003 (`page_sections`, `locale`, `media.deleted_at`, `password_resets`), `Sections.php`, page API, schema export script + seed importer, media delete/replace, reset-link flow | `php -l`, smoke tests extended, curl | ⬜ |
-| 7 | Frontend hook: `usePageContent` merge into `useLocalizedContent`; wire ২৬ pages (batch by 6–7, each batch commit) | per-page EN/BN render with published override | ⬜ |
-| 8 | Admin refactor: `screens/*`, primitives, Pages module UI (EN/BN tabs, repeatable rows, publish), Collections locale tab, media delete, confirm/toast/skeleton, tablet breakpoint, PWA manifest | browser 375/768/1440, a11y checks | ⬜ |
-| 9 | cPanel package: `deploy/` checklist, `bin/check-deploy.php` (extensions, writable storage, DB, rewrite), `.htaccess` final, `README` update | script run locally | ⬜ |
-| 10 | Final full review: all 26 routes × 3 widths × EN/BN, admin flows, smoke suite, build; fix regressions; update this table | full matrix | ⬜ |
+| 1 | Ezyify mapping, canonical redirect, dead code, Footer split | build/browser | ✅ |
+| 2 | Listed unverifiable claims cleanup in EN/BN | schema, grep, 24 browser checks | ✅; owner acceptance pending |
+| 3 | Leadership placeholders removed; published Team consumer; About presentation | browser | ✅ |
+| 4 | eSHIPe detail/prefill and Media lightbox/label | interaction test | ✅ |
+| 5 | Named Three imports, image hints, sitemap, language/reduced-motion audit | build/browser | ⚠️ complete except 637 kB globe optimisation |
+| 6 | Locale/page migrations, API/schema/importer, media archive, reset flow | PHP/HTTP tests | ✅ |
+| 7 | Page hooks and all public collection consumers | EN/BN render tests | ✅ |
+| 8 | Admin refactor, page/collection editors and responsive controls | browser/a11y checks | ✅ core; autosave/review history is later enhancement |
+| 9 | cPanel examples, readiness checker and deployment guide | local checker | ✅ package; actual host pending |
+| 10 | 26 routes × 3 widths × EN/BN, admin/API/build regressions | full matrix | ✅ automated; manual acceptance pending |
 
 প্রতিটি ধাপে যে ফাইল push হওয়ার পর সমস্যা মনে হবে, পরের commit-এ সেটাই fix করে আবার push হবে।
 

@@ -2,7 +2,7 @@
 
 পরবর্তী scope update: [পুরো ওয়েবসাইটের admin পরিকল্পনা](website-admin-plan.bn.md)। নিচের project-focused scope-এর বদলে এখন পুরো ওয়েবসাইট CMS লক্ষ্য; প্রথম implementation-এর অবস্থা [backend README](../backend/README.md)-তে আছে।
 
-তারিখ: ৯ সেপ্টেম্বর ২০২৬। অবস্থা: বাস্তবায়নের আগে পরিকল্পনা; এই নথি কোনো backend বা নতুন public page চালু করে না।
+তারিখ: ৯ সেপ্টেম্বর ২০২৬। অবস্থা: **Historical design plan**; backend, Projects UI এবং expanded CMS পরে বাস্তবায়িত হয়েছে। বর্তমান status-এর জন্য [production plan](production-plan.bn.md) ও [backend README](../backend/README.md) দেখুন।
 
 **লক্ষ্য ও সিদ্ধান্ত**
 

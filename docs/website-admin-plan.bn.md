@@ -1,5 +1,7 @@
 # Network71: পুরো ওয়েবসাইটের admin ও backend
 
+Status (১০ সেপ্টেম্বর ২০২৬): core admin, EN/BN page-section CMS, all 14 collection consumers, inquiry inbox/outbox, media archive, reset links and deployment package are implemented. Revision review/history, private evidence, production deployment and owner content acceptance remain open.
+
 এই পরিকল্পনা আগের project-কেন্দ্রিক MVP scope-কে সম্প্রসারিত করে। লক্ষ্য হলো পুরো ওয়েবসাইটের content management; project showcase তার একটি module।
 
 ## কী নিয়ন্ত্রণ করা যাবে
