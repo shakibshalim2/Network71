@@ -1,6 +1,6 @@
 # Network71: পুরো ওয়েবসাইটের admin ও backend
 
-Status (১০ সেপ্টেম্বর ২০২৬): core admin, EN/BN page-section CMS, ১৬টি collection consumer, revision history/owner review requests, inquiry inbox/outbox, private career application inbox, media archive, reset links এবং deployment package implemented। eSHIPe vessel/seller inventory এখন dedicated collection। Private project evidence, production deployment ও owner content acceptance open।
+Status (১০ সেপ্টেম্বর ২০২৬): core admin, EN/BN page-section CMS, ১৬টি collection consumer, বাধ্যতামূলক Draft → In review → Approved → Published workflow, revision preview/restore, inquiry inbox/outbox, private career application inbox, media archive, reset links এবং deployment package implemented। eSHIPe vessel/seller inventory এখন dedicated collection। Private project evidence, production deployment ও owner content acceptance open।
 
 এই পরিকল্পনা আগের project-কেন্দ্রিক MVP scope-কে সম্প্রসারিত করে। লক্ষ্য হলো পুরো ওয়েবসাইটের content management; project showcase তার একটি module।
 
@@ -42,7 +42,7 @@ Bottom navigation শুধু `/admin/*`-এ থাকবে। Public website-
 
 ## Data ও security
 
-প্রথম ধাপে shared content records ব্যবহার হবে: module + unique slug + draft JSON + separately published JSON + version + status + ordering। Server-owned schemas field validation করবে; arbitrary JSON/HTML editor public interface হবে না। Public API শুধু published snapshot ফেরত দেবে। Draft edit live data বদলাবে না। Owner publish/archive করতে পারবেন; Editor draft save করতে পারবেন। Optimistic version check stale overwrite আটকাবে।
+প্রথম ধাপে shared content records ব্যবহার হবে: module + unique slug + draft JSON + separately published JSON + version + status + ordering। Server-owned schemas field validation করবে; arbitrary JSON/HTML editor public interface হবে না। Public API শুধু published snapshot ফেরত দেবে। Draft edit live data বদলাবে না। Editor draft save/review request করতে পারবেন; Owner approval ছাড়া current version publish হবে না। পুরোনো revision preview/restore করা যায় এবং restore হলে approval reset হয়। Optimistic version check stale overwrite আটকাবে।
 
 Schema-driven প্রথম ধাপের পরে page-specific repeatable blocks এবং প্রয়োজনীয় relational project evidence/result tables যোগ হবে। Existing content-এর প্রতিটি field-এর migration inventory থাকবে।
 

@@ -173,10 +173,10 @@ Completed in this resumed session:
 Global contact endpoints and company profile fields are centrally controlled by a published Settings record; packaged values remain only as outage/unpublished fallbacks.
 Homepage cards/CTA destinations and previously hardcoded homepage/division image URLs are now validated page-section fields editable through admin.
 
-Verified: 558 locale template validations; 15 section/reset/review HTTP checks; 43 HTTP/MySQL integration checks; outbox failure/retry simulation; media archive protection; project renderer escaping/metadata; authenticated browser save/preview/publish; EN/BN editor at 375/768/1440; 156 public route/locale/viewport structural checks. The original About test section was restored.
+Verified: 560 locale template validations; 20 section/reset/review/restore HTTP checks; 55 HTTP/MySQL integration checks; outbox failure/retry simulation; media archive protection; project renderer escaping/metadata; authenticated browser save/preview/publish; EN/BN editor at 375/768/1440; 156 public route/locale/viewport structural checks. The original About test section was restored.
 
 Still open (do not report the entire production plan as complete):
-- Complete nested/shared section layout coverage, draft autosave, and manual visual/accessibility acceptance beyond the automated checks. Revision history and editor-to-owner review requests are implemented.
+- Complete nested/shared section layout coverage, draft autosave, and manual visual/accessibility acceptance beyond the automated checks. Revision history, snapshot preview/restore and mandatory owner approval are implemented.
 - Actual SMTP provider delivery, cron setup, cPanel rewrites/HTTPS, deployment and isolated backup restore/offsite recovery verification.
 - Owner-approved company imagery, factual claims, real vessel/seller profiles and private evidence/document workflows.
 - Globe remains about 637 kB with a build warning.

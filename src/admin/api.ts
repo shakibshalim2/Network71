@@ -29,6 +29,7 @@ export type ContentRecord = {
   sort_order: number
   updated_at: string
   review_requested_at: string | null
+  review_state: "draft" | "in_review" | "approved" | "published"
 }
 export type Page<T> = {
   items: T[]

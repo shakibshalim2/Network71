@@ -27,7 +27,9 @@ export function ContentEditor({
   const [busy, setBusy] = useState(false)
   const [actionError, setActionError] = useState("")
   const [notice, setNotice] = useState("")
-  const [history, setHistory] = useState<{ recordId: number; items: { id: number; version: number; event: string; created_at: string; author_name: string }[] } | null>(null)
+  type Revision = { id: number; version: number; event: string; created_at: string; author_name: string }
+  const [history, setHistory] = useState<{ recordId: number; items: Revision[] } | null>(null)
+  const [revisionPreview, setRevisionPreview] = useState<(Revision & { recordId: number; snapshot: Record<string, string | boolean>; sort_order: number }) | null>(null)
   const writable =
     user.role === "owner" || !["settings", "navigation"].includes(moduleKey)
   const markDirty = (value: boolean) => {
@@ -91,6 +93,8 @@ export function ContentEditor({
         `${
           action === "publish"
             ? "Publish the saved draft of"
+            : action === "approve"
+              ? "Approve the reviewed draft of"
             : action === "request_review"
               ? "Request owner review for"
             : action === "archive"
@@ -112,6 +116,8 @@ export function ContentEditor({
         `Content ${
           action === "publish"
             ? "published"
+            : action === "approve"
+              ? "approved"
             : action === "request_review"
               ? "submitted for review"
             : action === "archive"
@@ -132,6 +138,21 @@ export function ContentEditor({
       const result = await api<{ items: { id: number; version: number; event: string; created_at: string; author_name: string }[] }>(`admin/content/${moduleKey}/${record.id}/history`)
       setHistory({ recordId: record.id, items: result.items })
     } catch (error) { setActionError((error as Error).message) }
+  }
+  async function previewRevision(record: ContentRecord, revision: Revision) {
+    setActionError("")
+    try {
+      const result = await api<Revision & { snapshot: Record<string, string | boolean>; sort_order: number }>(`admin/content/${moduleKey}/${record.id}/history/${revision.id}`)
+      setRevisionPreview({ ...result, recordId: record.id })
+    } catch (error) { setActionError((error as Error).message) }
+  }
+  async function restoreRevision(record: ContentRecord, revision: Revision) {
+    if (!window.confirm(`Restore revision v${revision.version} as the current draft?`)) return
+    setBusy(true);setActionError("")
+    try {
+      await api(`admin/content/${moduleKey}/${record.id}/restore`,{method:"POST",body:JSON.stringify({revision_id:revision.id,version:record.version})})
+      setNotice("Revision restored as a new draft. Review is required before publishing.");setHistory(null);setRevisionPreview(null);reload()
+    } catch(error){setActionError((error as Error).message)} finally {setBusy(false)}
   }
   return (
     <>
@@ -196,7 +217,7 @@ export function ContentEditor({
                           </p>
                         </div>
                         <span className={`adm-tag ${record.status}`}>
-                          {record.review_requested_at ? "review requested" : record.status}
+                          {record.review_state === "in_review" ? "in review" : record.review_state === "approved" ? "approved" : record.status}
                         </span>
                         <div className="adm-record-actions">
                           {writable && (
@@ -207,12 +228,13 @@ export function ContentEditor({
                               Edit
                             </button>
                           )}
-                          <button disabled={busy} onClick={() => transition(record, "request_review")}>Request review</button>
+                          <button disabled={busy || ["in_review", "approved"].includes(record.review_state)} onClick={() => transition(record, "request_review")}>Request review</button>
                           <button disabled={busy} onClick={() => loadHistory(record)}>History</button>
                           {user.role === "owner" && (
                             <>
+                              <button disabled={busy || record.review_state !== "in_review"} onClick={() => transition(record, "approve")}>Approve</button>
                               <button
-                                disabled={busy}
+                                disabled={busy || record.review_state !== "approved"}
                                 onClick={() => transition(record, "publish")}
                               >
                                 {record.status === "published"
@@ -244,10 +266,11 @@ export function ContentEditor({
                           <div className="adm-revision-list">
                             <strong>Revision history</strong>
                             {history.items.length ? history.items.map((revision) => (
-                              <span key={revision.id}>v{revision.version} · {revision.event.replace(/_/g, " ")} · {revision.author_name} · {time(revision.created_at)}</span>
+                              <span key={revision.id}>v{revision.version} · {revision.event.replace(/_/g, " ")} · {revision.author_name} · {time(revision.created_at)} <button type="button" disabled={busy} onClick={() => previewRevision(record,revision)}>Preview</button>{writable && <button type="button" disabled={busy} onClick={() => restoreRevision(record,revision)}>Restore</button>}</span>
                             )) : <span>No recorded revisions yet.</span>}
                           </div>
                         )}
+                        {revisionPreview?.recordId === record.id && <div className="adm-revision-preview"><strong>Revision v{revisionPreview.version}</strong><pre>{JSON.stringify(revisionPreview.snapshot,null,2)}</pre></div>}
                       </article>
                     ))}
                   </div>

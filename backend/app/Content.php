@@ -67,11 +67,11 @@ final class Content
         $count = (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE $where", $params)->fetchColumn();
         $column = $public ? 'published_json' : 'draft_json';
         $order = $public ? 'published_sort_order' : 'sort_order';
-        $rows = $this->db->query("SELECT id, module, slug, locale, $column AS payload, status, version, $order AS sort_order, updated_at, published_at, review_requested_at FROM content_records WHERE $where ORDER BY $order, id DESC LIMIT $limit OFFSET " . (($page - 1) * $limit), $params)->fetchAll();
+        $rows = $this->db->query("SELECT id, module, slug, locale, $column AS payload, status, version, $order AS sort_order, updated_at, published_at, review_requested_at, review_state FROM content_records WHERE $where ORDER BY $order, id DESC LIMIT $limit OFFSET " . (($page - 1) * $limit), $params)->fetchAll();
         foreach ($rows as &$row) {
             $row['data'] = json_decode($row['payload'], true, 32, JSON_THROW_ON_ERROR);
             unset($row['payload']);
-            if ($public) unset($row['version'], $row['updated_at']);
+            if ($public) unset($row['version'], $row['updated_at'], $row['review_requested_at'], $row['review_state']);
         }
         return ['items' => $rows, 'total' => $count, 'page' => $page, 'pages' => max(1, (int)ceil($count / $limit))];
     }
@@ -96,7 +96,7 @@ final class Content
                     if ($old['locale'] !== $locale) Http::fail(422, 'A record cannot change language. Create a separate translation.');
                     if ((int)$old['version'] !== (int)($input['version'] ?? 0)) Http::fail(409, 'Someone updated this item. Reload before saving.');
                     if ($old['published_at'] && $old['slug'] !== $slug) Http::fail(422, 'Published slugs are locked to preserve public links.');
-                    $this->db->query('UPDATE content_records SET slug = ?, draft_json = ?, version = version + 1, sort_order = ?, review_requested_at = NULL, review_requested_by = NULL, updated_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$slug, $json, $order, $user['id'], $id]);
+                    $this->db->query("UPDATE content_records SET slug=?,draft_json=?,version=version+1,sort_order=?,review_requested_at=NULL,review_requested_by=NULL,review_state='draft',review_version=NULL,approved_at=NULL,approved_by=NULL,updated_by=?,updated_at=UTC_TIMESTAMP() WHERE id=?", [$slug, $json, $order, $user['id'], $id]);
                 } else {
                     $this->db->query('INSERT INTO content_records (module, slug, draft_json, sort_order, updated_by, locale, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())', [$module, $slug, $json, $order, $user['id'], $locale]);
                     $id = (int)$this->db->pdo->lastInsertId();
@@ -116,22 +116,26 @@ final class Content
     {
         $this->schema($module);
         $action = $input['action'] ?? '';
-        if (!in_array($action, ['request_review', 'publish', 'archive', 'unpublish'], true)) Http::fail(422, 'Unknown publishing action.');
+        if (!in_array($action, ['request_review', 'approve', 'publish', 'archive', 'unpublish'], true)) Http::fail(422, 'Unknown publishing action.');
         if ($action !== 'request_review' && $user['role'] !== 'owner') Http::fail(403, 'Only an owner can publish or archive content.');
         $this->db->transaction(function () use ($module, $id, $input, $user, $action) {
             $row = $this->db->query('SELECT * FROM content_records WHERE id = ? AND module = ? FOR UPDATE', [$id, $module])->fetch();
             if (!$row) Http::fail(404, 'Record not found.');
             if ((int)$row['version'] !== (int)($input['version'] ?? 0)) Http::fail(409, 'Record changed. Reload before continuing.');
             if ($action === 'request_review') {
-                $this->db->query('UPDATE content_records SET review_requested_at = UTC_TIMESTAMP(), review_requested_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$user['id'], $id]);
+                $this->db->query("UPDATE content_records SET review_requested_at=UTC_TIMESTAMP(),review_requested_by=?,review_state='in_review',review_version=version,approved_at=NULL,approved_by=NULL,updated_at=UTC_TIMESTAMP() WHERE id=?", [$user['id'], $id]);
+            } elseif ($action === 'approve') {
+                if ($row['review_state'] !== 'in_review' || (int)$row['review_version'] !== (int)$row['version']) Http::fail(422, 'Request review for the current draft before approval.');
+                $this->db->query("UPDATE content_records SET review_state='approved',approved_at=UTC_TIMESTAMP(),approved_by=?,updated_at=UTC_TIMESTAMP() WHERE id=?",[$user['id'],$id]);
             } elseif ($action === 'publish') {
+                if ($row['review_state'] !== 'approved' || (int)$row['review_version'] !== (int)$row['version']) Http::fail(422, 'The current draft must be reviewed and approved before publishing.');
                 $data = json_decode($row['draft_json'], true, 32, JSON_THROW_ON_ERROR);
                 foreach ($this->schema($module)['fields'] as $field) {
                     if ($field['required'] && empty($data[$field['key']])) Http::fail(422, "Complete {$field['label']} before publishing.");
                 }
-                $this->db->query("UPDATE content_records SET published_json = draft_json, published_sort_order = sort_order, status = 'published', version = version + 1, published_at = UTC_TIMESTAMP(), review_requested_at = NULL, review_requested_by = NULL, updated_at = UTC_TIMESTAMP(), updated_by = ? WHERE id = ?", [$user['id'], $id]);
+                $this->db->query("UPDATE content_records SET published_json=draft_json,published_sort_order=sort_order,status='published',version=version+1,published_at=UTC_TIMESTAMP(),review_requested_at=NULL,review_requested_by=NULL,review_state='published',review_version=NULL,approved_at=NULL,approved_by=NULL,updated_at=UTC_TIMESTAMP(),updated_by=? WHERE id=?", [$user['id'], $id]);
             } else {
-                $this->db->query('UPDATE content_records SET status = ?, version = version + 1, updated_at = UTC_TIMESTAMP(), updated_by = ? WHERE id = ?', [$action === 'archive' ? 'archived' : 'draft', $user['id'], $id]);
+                $this->db->query("UPDATE content_records SET status=?,version=version+1,review_requested_at=NULL,review_requested_by=NULL,review_state='draft',review_version=NULL,approved_at=NULL,approved_by=NULL,updated_at=UTC_TIMESTAMP(),updated_by=? WHERE id=?", [$action === 'archive' ? 'archived' : 'draft', $user['id'], $id]);
             }
             $version = (int)$this->db->query('SELECT version FROM content_records WHERE id = ?', [$id])->fetchColumn();
             $this->db->query('INSERT INTO content_revisions (record_id, version, event, snapshot_json, sort_order, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, UTC_TIMESTAMP())', [$id, $version, $action, $row['draft_json'], $row['sort_order'], $user['id']]);
@@ -144,5 +148,36 @@ final class Content
         $this->schema($module);
         if (!$this->db->query('SELECT id FROM content_records WHERE id = ? AND module = ?', [$id, $module])->fetch()) Http::fail(404, 'Record not found.');
         return $this->db->query('SELECT r.id, r.version, r.event, r.sort_order, r.created_at, u.name AS author_name FROM content_revisions r JOIN admin_users u ON u.id = r.created_by WHERE r.record_id = ? ORDER BY r.id DESC LIMIT 50', [$id])->fetchAll();
+    }
+
+    public function revision(string $module, int $id, int $revisionId): array
+    {
+        $this->schema($module);
+        $row=$this->db->query('SELECT r.id,r.version,r.event,r.snapshot_json,r.sort_order,r.created_at,u.name AS author_name FROM content_revisions r JOIN content_records c ON c.id=r.record_id JOIN admin_users u ON u.id=r.created_by WHERE r.id=? AND r.record_id=? AND c.module=?',[$revisionId,$id,$module])->fetch();
+        if(!$row) Http::fail(404,'Revision not found.');
+        $row['snapshot']=json_decode($row['snapshot_json'],true,32,JSON_THROW_ON_ERROR);unset($row['snapshot_json']);
+        return $row;
+    }
+
+    public function restore(string $module,int $id,array $input,array $user): array
+    {
+        $this->schema($module);
+        if (in_array($module,['settings','navigation'],true) && $user['role']!=='owner') Http::fail(403,'Only an owner can restore website settings and navigation.');
+        $revisionId=filter_var($input['revision_id']??null,FILTER_VALIDATE_INT);
+        if(!$revisionId) Http::fail(422,'Choose a revision to restore.');
+        return $this->db->transaction(function () use ($module,$id,$input,$user,$revisionId): array {
+            $record=$this->db->query('SELECT * FROM content_records WHERE id=? AND module=? FOR UPDATE',[$id,$module])->fetch();
+            if(!$record) Http::fail(404,'Record not found.');
+            if((int)$record['version']!==(int)($input['version']??0)) Http::fail(409,'Record changed. Reload before restoring.');
+            $revision=$this->db->query('SELECT snapshot_json,sort_order FROM content_revisions WHERE id=? AND record_id=?',[$revisionId,$id])->fetch();
+            if(!$revision) Http::fail(404,'Revision not found.');
+            $snapshot=$this->validate($module,json_decode($revision['snapshot_json'],true,32,JSON_THROW_ON_ERROR));
+            $json=json_encode($snapshot,JSON_THROW_ON_ERROR|JSON_UNESCAPED_UNICODE);
+            $this->db->query("UPDATE content_records SET draft_json=?,sort_order=?,version=version+1,review_requested_at=NULL,review_requested_by=NULL,review_state='draft',review_version=NULL,approved_at=NULL,approved_by=NULL,updated_by=?,updated_at=UTC_TIMESTAMP() WHERE id=?",[$json,$revision['sort_order'],$user['id'],$id]);
+            $version=(int)$record['version']+1;
+            $this->db->query("INSERT INTO content_revisions(record_id,version,event,snapshot_json,sort_order,created_by,created_at) VALUES (?,?, 'restore_revision',?,?,?,UTC_TIMESTAMP())",[$id,$version,$json,$revision['sort_order'],$user['id']]);
+            $this->db->audit((int)$user['id'],'restore_revision',$module,$id);
+            return ['version'=>$version];
+        });
     }
 }

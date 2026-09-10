@@ -6,7 +6,7 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 
 - `/admin` login, desktop sidebar, mobile bottom navigation and responsive forms for every module.
 - Sixteen schema-driven collection modules: projects, vessels, vessel sellers, team, posts, press, jobs, gallery, brands, locations, timeline, testimonials, credentials, metrics, navigation and settings. Website pages and divisions use the richer page-section editor.
-- MySQL/PDO persistence, owner/editor permissions, draft/published snapshots, optimistic version checks, archive/unpublish and audit logging. Public ordering changes only when published.
+- MySQL/PDO persistence, owner/editor permissions, draft/published snapshots, optimistic version checks, archive/unpublish and audit logging. Every current draft must pass review request and explicit owner approval before publishing.
 - Public collection/detail API, JSON-only errors, validated fields, cookie sessions, CSRF/origin checks and rate limiting.
 - Raster image uploads with permission confirmation, MIME/signature checks, pixel/size limits, WebP re-encoding, private filesystem storage and a public image-serving endpoint. All accepted media is public; do not upload confidential documents.
 - Account creation/deactivation and CLI password recovery.
@@ -51,7 +51,9 @@ Prefix `/api/v1`:
 | `GET /admin/modules`, `/admin/dashboard` | Form schemas and actual workspace counts |
 | `GET/POST /admin/content/{module}` | Paginated list / new draft |
 | `PUT /admin/content/{module}/{id}` | Save draft using `version` |
-| `POST /admin/content/{module}/{id}/state` | Owner publish/unpublish/archive using `action` and `version` |
+| `POST /admin/content/{module}/{id}/state` | Request review, owner approval, publish/unpublish/archive using `action` and `version` |
+| `GET /admin/content/{module}/{id}/history[/{revision}]` | Revision list or one authenticated snapshot preview |
+| `POST /admin/content/{module}/{id}/restore` | Restore a selected snapshot as a new unapproved draft |
 | `GET /content/{module}[/{slug}]` | Public published content only |
 | `GET/POST /admin/media` | Paginated media list / multipart upload (`file`, `alt`, `permission=yes`) |
 | `DELETE /admin/media/{id}` | Owner-only archive; rejects referenced media |
@@ -66,7 +68,9 @@ Prefix `/api/v1`:
 | `GET/POST /admin/users` | Owner account list/create |
 | `PATCH /admin/users/{id}` | Owner enables/disables another account with boolean `active` |
 | `POST /admin/users/{id}/reset-link` | Owner issues an expiring one-use reset link |
-| `GET/PUT/POST /admin/sections/{page}` | Read, save and publish locale-aware page sections |
+| `GET/PUT/POST /admin/sections/{page}` | Read, save, review, approve and publish locale-aware page sections |
+| `GET /admin/sections/{page}/history[/{revision}]` | Section revision list or snapshot preview |
+| `POST /admin/sections/{page}/restore` | Restore a section revision as a new unapproved draft |
 
 Content writes contain `slug`, `sort_order`, `data` and, for existing records, `version`. Schema validation strips unknown fields. Fields other than the title may be incomplete while drafting; required publication fields are checked on publish. Search/pagination parameters are `q` and `page`; content pages are limited to 30 records, media to 24. The first version supports text-based search only, not full-text ranking.
 
@@ -123,6 +127,6 @@ Media archive is owner-only and rejects referenced assets. Replace an image by u
 
 The Inbox supports status changes, assignment to an active admin account and timestamped internal notes. Notes are available only through authenticated admin endpoints and are never included in public enquiry responses.
 
-Collection records and page sections record draft/publishing revisions with author and time. Editors can request owner review; owners retain publish/unpublish authority. Saving another draft clears the pending review marker so changed content must be submitted again.
+Collection records and page sections record draft/publishing revisions with author and time. The enforced flow is Draft → In review → Approved → Published. Owners approve; only an approved current version can be published. Admins can preview any retained revision and restore it as a new draft. Saving or restoring clears approval so changed content must complete the flow again.
 
 For project social metadata, deploy the project.php example and its matching rewrite rule as documented in `docs/deployment-checklist.md`. Local rendering tests do not establish actual cPanel compatibility.

@@ -25,6 +25,9 @@ try {
     verify(request('GET',"page/$page?locale=$locale")[1]===$before,'Draft privacy');
     verify(request('PUT',"admin/sections/$page",$payload)[0]===409,'Stale version rejected');
     $version=$saved[1]['version'];
+    verify(request('POST',"admin/sections/$page",['section'=>$section,'locale'=>$locale,'version'=>$version,'action'=>'publish'])[0]===422,'Unreviewed publish rejected');
+    verify(request('POST',"admin/sections/$page",['section'=>$section,'locale'=>$locale,'version'=>$version,'action'=>'request_review'])[0]===200,'Review request');
+    verify(request('POST',"admin/sections/$page",['section'=>$section,'locale'=>$locale,'version'=>$version,'action'=>'approve'])[0]===200,'Review approval');
     verify(request('POST',"admin/sections/$page",['section'=>$section,'locale'=>$locale,'version'=>$version,'action'=>'publish'])[0]===200,'Publish');
     verify(request('GET',"page/$page?locale=$locale")[1]['sections'][$section]['title']==='CMS integration check','Published content');
     $db->query("UPDATE admin_users SET role='editor' WHERE id=?",[$id]);
@@ -32,8 +35,11 @@ try {
     $history=request('GET',"admin/sections/$page/history?locale=$locale&section=$section");
     verify($history[0]===200&&count($history[1]['items'])>=3&&$history[1]['items'][0]['event']==='request_review','Section revision history');
     verify(request('POST',"admin/sections/$page",['section'=>$section,'locale'=>$locale,'version'=>$version+1,'action'=>'unpublish'])[0]===403,'Editor cannot publish');
+    $revisionId=(int)$history[1]['items'][0]['id'];
+    $preview=request('GET',"admin/sections/$page/history/$revisionId?locale=$locale&section=$section");verify($preview[0]===200&&isset($preview[1]['snapshot']['title']),'Revision preview');
+    verify(request('POST',"admin/sections/$page/restore",['section'=>$section,'locale'=>$locale,'version'=>$version+1,'revision_id'=>$revisionId])[0]===200,'Revision restore');
     $db->query("UPDATE admin_users SET role='owner' WHERE id=?",[$id]);
-    verify(request('POST',"admin/sections/$page",['section'=>$section,'locale'=>$locale,'version'=>$version+1,'action'=>'unpublish'])[0]===200,'Unpublish');
+    verify(request('POST',"admin/sections/$page",['section'=>$section,'locale'=>$locale,'version'=>$version+2,'action'=>'unpublish'])[0]===200,'Unpublish');
     verify(!isset(request('GET',"page/$page?locale=$locale")[1]['sections'][$section]),'Public override removed');
     $link=request('POST',"admin/users/$id/reset-link",[]);verify($link[0]===200,'Reset link issued');
     $resetToken=explode('#',$link[1]['url'])[1];$newPassword=bin2hex(random_bytes(20));

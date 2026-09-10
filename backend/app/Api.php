@@ -86,6 +86,12 @@ final class Api
             if ($method === 'GET' && preg_match('~^/api/v1/admin/sections/([a-z0-9/-]+)/history$~', $path, $match)) {
                 Http::json(['items'=>$sections->history($match[1],Http::string($_GET,'section',100,true),Sections::locale())]);
             }
+            if ($method === 'GET' && preg_match('~^/api/v1/admin/sections/([a-z0-9/-]+)/history/([0-9]+)$~',$path,$match)) {
+                Http::json($sections->revision($match[1],Http::string($_GET,'section',100,true),Sections::locale(),(int)$match[2]));
+            }
+            if ($method === 'POST' && preg_match('~^/api/v1/admin/sections/([a-z0-9/-]+)/restore$~',$path,$match)) {
+                $input=Http::body();Http::json($sections->restore($match[1],Http::string($input,'section',100,true),$input,$user));
+            }
             if (preg_match('~^/api/v1/admin/sections/([a-z0-9/-]+)$~', $path, $match)) {
                 $page = $match[1];
                 if ($method === 'GET') Http::json($sections->read($page,Sections::locale(),false));
@@ -121,6 +127,12 @@ final class Api
         }
         if ($method === 'GET' && preg_match('~^/api/v1/admin/content/([a-z-]+)/([0-9]+)/history$~', $path, $match)) {
             Http::json(['items' => $this->content->history($match[1], (int)$match[2])]);
+        }
+        if ($method === 'GET' && preg_match('~^/api/v1/admin/content/([a-z-]+)/([0-9]+)/history/([0-9]+)$~',$path,$match)) {
+            Http::json($this->content->revision($match[1],(int)$match[2],(int)$match[3]));
+        }
+        if ($method === 'POST' && preg_match('~^/api/v1/admin/content/([a-z-]+)/([0-9]+)/restore$~',$path,$match)) {
+            Http::json($this->content->restore($match[1],(int)$match[2],Http::body(),$user));
         }
         if ($method === 'DELETE' && preg_match('~^/api/v1/admin/media/([0-9]+)$~',$path,$match)) {
             $this->media->archive((int)$match[1],$auth->owner()); Http::json(['ok'=>true]);

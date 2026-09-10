@@ -158,6 +158,9 @@
 .adm-inquiry-notes form .adm-button { justify-self: end; }
 .adm-revision-list { grid-column: 2/-1; display: grid; gap: 5px; padding: 12px; background: #f5f8fa; border-radius: 8px; font-size: 11px; }
 .adm-revision-list span { color: var(--adm-muted); }
+.adm-revision-list button { margin-left: 8px; padding: 4px 7px; border: 1px solid var(--adm-line); border-radius: 5px; background: #fff; color: var(--adm-green); }
+.adm-revision-preview { grid-column: 2/-1; min-width: 0; padding: 14px; border: 1px solid var(--adm-line); border-radius: 8px; background: #fff; }
+.adm-revision-preview pre { max-height: 360px; overflow: auto; margin: 10px 0 0; padding: 12px; border-radius: 6px; background: #14251f; color: #eef8f3; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 11px; }
 .adm-footer { display: flex; justify-content: space-between; padding: 22px 38px; font-size: 10px; color: var(--adm-muted); border-top: 1px solid var(--adm-line); }
 .adm-bottom-nav { display: none; }
 .adm-signout { margin-top: 25px; }

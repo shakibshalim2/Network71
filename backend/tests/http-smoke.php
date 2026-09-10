@@ -54,6 +54,9 @@ try {
     check($created['status'] === 201, 'Create draft failed.');
     $id = (int)$created['data']['id']; $ids[] = $id;
     check($guest->send('GET', 'content/projects/' . $prefix)['status'] === 404, 'Draft must remain private.');
+    check($owner->send('POST', "admin/content/projects/$id/state", ['action' => 'publish', 'version' => 1])['status'] === 422, 'Unreviewed draft was published.');
+    check($owner->send('POST', "admin/content/projects/$id/state", ['action' => 'request_review', 'version' => 1])['status'] === 200, 'Review request failed.');
+    check($owner->send('POST', "admin/content/projects/$id/state", ['action' => 'approve', 'version' => 1])['status'] === 200, 'Approval failed.');
     check($owner->send('POST', "admin/content/projects/$id/state", ['action' => 'publish', 'version' => 1])['status'] === 200, 'Publishing failed.');
     $public = $guest->send('GET', 'content/projects/' . $prefix);
     check($public['status'] === 200 && $public['data']['data']['title'] === $project['data']['title'], 'Published snapshot missing.');
@@ -66,6 +69,8 @@ try {
     check(count($listing) >= 1 && (int)$listing[0]['sort_order'] === 0, 'Draft display order leaked publicly.');
     $bad = $project; $bad['slug'] = $prefix . '-permission'; $bad['data']['permission'] = false;
     $created = $owner->send('POST', 'admin/content/projects', $bad); $permissionId = (int)$created['data']['id']; $ids[] = $permissionId;
+    $owner->send('POST', "admin/content/projects/$permissionId/state", ['action' => 'request_review', 'version' => 1]);
+    $owner->send('POST', "admin/content/projects/$permissionId/state", ['action' => 'approve', 'version' => 1]);
     check($owner->send('POST', "admin/content/projects/$permissionId/state", ['action' => 'publish', 'version' => 1])['status'] === 422, 'Permission must be required for publication.');
     $bad['slug'] = $prefix . '-url'; $bad['data']['url'] = 'javascript:alert(1)';
     check($owner->send('POST', 'admin/content/projects', $bad)['status'] === 422, 'Unsafe URLs must be rejected.');
@@ -79,6 +84,10 @@ try {
     $history = $editor->send('GET', "admin/content/projects/$id/history");
     check($history['status'] === 200 && count($history['data']['items']) >= 3 && $history['data']['items'][0]['event'] === 'request_review', 'Content revision history missing.');
     check($editor->send('POST', "admin/content/projects/$id/state", ['action' => 'publish', 'version' => 3])['status'] === 403, 'Editor published content.');
+    $revisionId=(int)$history['data']['items'][0]['id'];
+    $revision=$editor->send('GET',"admin/content/projects/$id/history/$revisionId");
+    check($revision['status']===200 && isset($revision['data']['snapshot']['title']),'Revision preview missing.');
+    check($editor->send('POST',"admin/content/projects/$id/restore",['revision_id'=>$revisionId,'version'=>3])['status']===200,'Revision restore failed.');
     check($editor->send('POST', 'admin/content/settings', ['slug' => $prefix, 'data' => ['title' => 'Test settings']])['status'] === 403, 'Editor changed settings.');
     $editorDraft = ['slug' => $prefix . '-editor', 'data' => ['title' => 'Editor draft']];
     $created = $editor->send('POST', 'admin/content/posts', $editorDraft); check($created['status'] === 201, 'Editor could not save draft.'); $ids[] = (int)$created['data']['id'];
@@ -110,6 +119,8 @@ try {
     check($inboxItem && (int)$inboxItem['assigned_to'] === $ownerId && count($inboxItem['notes']) === 1 && $inboxItem['notes'][0]['note'] === 'Private follow-up note', 'Inbox assignment or notes were not returned.');
     $job = ['slug'=>$prefix.'-job','data'=>['title'=>'Integration vacancy','employment'=>'Full time']];
     $created = $owner->send('POST','admin/content/jobs',$job); check($created['status'] === 201,'Job draft creation failed.'); $jobId=(int)$created['data']['id']; $ids[]=$jobId;
+    $owner->send('POST',"admin/content/jobs/$jobId/state",['action'=>'request_review','version'=>1]);
+    $owner->send('POST',"admin/content/jobs/$jobId/state",['action'=>'approve','version'=>1]);
     check($owner->send('POST',"admin/content/jobs/$jobId/state",['action'=>'publish','version'=>1])['status'] === 200,'Job publishing failed.');
     file_put_contents($tempPdf,"%PDF-1.4\n1 0 obj<</Type/Catalog>>endobj\n%%EOF");
     $application = ['resume'=>new CURLFile($tempPdf,'application/pdf','candidate.pdf'),'job_slug'=>$job['slug'],'locale'=>'en','name'=>'Test candidate','email'=>'candidate@example.test','phone'=>'+8801000000000','cover_letter'=>'Private application','consent'=>'yes','request_key'=>bin2hex(random_bytes(20))];
@@ -119,7 +130,7 @@ try {
     $applicationList=$owner->send('GET','admin/applications')['data']['items']; check(count(array_filter($applicationList,static fn(array $item):bool=>(int)$item['id']===$applicationId))===1,'Application inbox did not return the submission.');
     check($owner->send('PATCH',"admin/applications/$applicationId",['status'=>'reviewing','assigned_to'=>$ownerId])['status'] === 200,'Application workflow update failed.');
     $download=$owner->send('GET',"admin/applications/$applicationId/resume"); check($download['status'] === 200 && str_starts_with($download['raw'],'%PDF-'),'Authenticated CV download failed.');
-    check($owner->send('POST', "admin/content/projects/$id/state", ['action' => 'unpublish', 'version' => 3])['status'] === 200, 'Unpublish failed.');
+    check($owner->send('POST', "admin/content/projects/$id/state", ['action' => 'unpublish', 'version' => 4])['status'] === 200, 'Unpublish failed.');
     check($guest->send('GET', 'content/projects/' . $prefix)['status'] === 404, 'Unpublished content remained public.');
     check($owner->send('POST', 'auth/logout')['status'] === 200, 'Logout failed.');
     check($owner->send('GET', 'admin/dashboard')['status'] === 401, 'Logout retained access.');
