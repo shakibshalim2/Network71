@@ -171,7 +171,7 @@ Completed in this resumed session:
 Verified: 562 locale template validations; 13 sections/reset HTTP checks; original 38 HTTP/MySQL smoke checks; outbox failure/retry simulation; media archive protection; project renderer escaping/metadata; authenticated browser save/preview/publish; EN/BN editor at 375/768/1440; 156 public route/locale/viewport structural checks. The original About test section was restored.
 
 Still open (do not report the entire production plan as complete):
-- Module-by-module public consumer parity for the remaining generic Navigation collection: all other purpose-built collections now have a public consumer; page-section overrides work, but legacy Pages/Divisions inventory records remain separate from the section CMS.
+- Generic collection public consumer parity is complete for the purpose-built modules. Published Navigation records now control direct header/footer links; legacy Pages/Divisions inventory records remain separate because the section CMS is their authoritative replacement.
 - Complete nested/shared section layout coverage, draft autosave/review history, and manual visual/accessibility acceptance beyond the automated checks.
 - Actual SMTP provider delivery, cron setup, cPanel rewrites/HTTPS, deployment and isolated backup restore/offsite recovery verification.
 - Owner-approved company imagery, factual claims, real vessel/seller profiles and private evidence/document workflows.
@@ -204,3 +204,10 @@ No production deployment or real external email delivery was performed. User req
 - Approved Testimonials appear on About only after the permission-required CMS record is published; unpublished or absent records add no placeholder endorsements.
 - Contact methods use the first published Company Settings record for public email, phone, address and social profile, with packaged contact copy as the no-record/API-failure fallback.
 - Verification: production build and mocked EN/BN consumer checks passed at 375px.
+
+## Navigation public integration — 10 September 2026
+
+- Published Header navigation records replace the packaged direct links on desktop and in the mobile drawer; the Divisions navigation remains a dedicated structured menu.
+- Published Footer records replace the packaged footer columns with an ordered approved-link grid. With no published records or an API failure, the packaged navigation remains available.
+- Internal paths use client-side routing; validated HTTP(S) destinations use normal external links. EN/BN records are requested independently.
+- Verification: production build passed; mocked browser checks covered desktop header, mobile drawer, footer and Bangla records. All 14 purpose-built collection modules now have a matching public consumer; Pages/Divisions are retained as legacy inventory alongside the page-section CMS.

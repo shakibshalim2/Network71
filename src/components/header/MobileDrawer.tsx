@@ -5,6 +5,7 @@ import { useT, DIVISION_HREF, DIVISION_COLOR, divKey } from '@/i18n'
 import { ThemeSegmented } from '@/components/ThemeToggle'
 import { MENU_DIVISIONS, LANG_OPTIONS } from './data'
 import { MobileLink, MobileAccordion } from './primitives'
+import type { PublicNavItem } from '@/lib/publicNavigation'
 
 type Props = {
   pathname: string
@@ -16,11 +17,12 @@ type Props = {
   language: Language
   setLanguage: (lang: Language) => void
   drawerRef: RefObject<HTMLDivElement | null>
+  publishedNavigation: PublicNavItem[]
 }
 
 /** Mobile backdrop + slide-in navigation drawer. */
 export default function MobileDrawer({
-  pathname, mobileOpen, setMobileOpen, searchOpen, mobileExpanded, toggleAccordion, language, setLanguage, drawerRef,
+  pathname, mobileOpen, setMobileOpen, searchOpen, mobileExpanded, toggleAccordion, language, setLanguage, drawerRef, publishedNavigation,
 }: Props) {
   const { t } = useT()
   return (
@@ -109,13 +111,17 @@ export default function MobileDrawer({
             </Link>
           </MobileAccordion>
 
-          <MobileLink href="/about"           active={pathname === '/about'}>{t('nav.about')}</MobileLink>
-          <MobileLink href="/projects" active={pathname.startsWith('/projects')}>{t('nav.ourWork')}</MobileLink>
-          <MobileLink href="/global-presence" active={pathname === '/global-presence'}>{t('nav.globalPresence')}</MobileLink>
-          <MobileLink href="/divisions/media" active={pathname === '/divisions/media'}>{t('nav.media')}</MobileLink>
-          <MobileLink href="/investors"       active={pathname === '/investors'}>{t('nav.investorRelations')}</MobileLink>
-          <MobileLink href="/careers"         active={pathname === '/careers'}>{t('nav.careers')}</MobileLink>
-          <MobileLink href="/contact"         active={pathname === '/contact'}>{t('nav.contact')}</MobileLink>
+          {publishedNavigation.length ? publishedNavigation.map(item => (
+            <MobileLink href={item.href} active={pathname === item.href} key={item.id}>{item.title}</MobileLink>
+          )) : <>
+            <MobileLink href="/about" active={pathname === '/about'}>{t('nav.about')}</MobileLink>
+            <MobileLink href="/projects" active={pathname.startsWith('/projects')}>{t('nav.ourWork')}</MobileLink>
+            <MobileLink href="/global-presence" active={pathname === '/global-presence'}>{t('nav.globalPresence')}</MobileLink>
+            <MobileLink href="/divisions/media" active={pathname === '/divisions/media'}>{t('nav.media')}</MobileLink>
+            <MobileLink href="/investors" active={pathname === '/investors'}>{t('nav.investorRelations')}</MobileLink>
+            <MobileLink href="/careers" active={pathname === '/careers'}>{t('nav.careers')}</MobileLink>
+            <MobileLink href="/contact" active={pathname === '/contact'}>{t('nav.contact')}</MobileLink>
+          </>}
 
           {/* More pages accordion */}
           <MobileAccordion

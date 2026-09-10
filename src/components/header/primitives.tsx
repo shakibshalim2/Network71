@@ -5,23 +5,27 @@ import { IconChevron } from './icons'
 // ─── Nav link (desktop) ───────────────────────────────────────────────────────
 
 export function NavLink({ href, children, active }: { href: string; children: ReactNode; active: boolean }) {
+  const style = {
+    fontSize: 13, fontWeight: 500, letterSpacing: '0.01em', minHeight: 44, display: 'inline-flex', alignItems: 'center',
+    color: active ? 'var(--brand)' : 'var(--fg-muted)',
+    textDecoration: 'none', position: 'relative' as const, paddingBottom: 2,
+    transition: 'color 0.15s', whiteSpace: 'nowrap' as const,
+  }
+  const content = <>{children}{active && (
+    <span style={{
+      position: 'absolute', bottom: -2, left: 0, right: 0, height: 1.5,
+      background: 'linear-gradient(90deg,var(--brand),var(--brand-bright) 60%,transparent)',
+      borderRadius: 1,
+    }} />
+  )}</>
+  const events = {
+    onMouseEnter: (e: React.MouseEvent<HTMLElement>) => { if (!active) e.currentTarget.style.color = 'var(--fg-strong)' },
+    onMouseLeave: (e: React.MouseEvent<HTMLElement>) => { if (!active) e.currentTarget.style.color = 'var(--fg-muted)' },
+  }
+  if (/^https?:\/\//.test(href)) return <a href={href} style={style} {...events}>{content}</a>
   return (
-    <Link to={href} aria-current={active ? 'page' : undefined} style={{
-      fontSize: 13, fontWeight: 500, letterSpacing: '0.01em', minHeight: 44, display: 'inline-flex', alignItems: 'center',
-      color: active ? 'var(--brand)' : 'var(--fg-muted)',
-      textDecoration: 'none', position: 'relative', paddingBottom: 2,
-      transition: 'color 0.15s', whiteSpace: 'nowrap',
-    }}
-      onMouseEnter={e => { if (!active) e.currentTarget.style.color = 'var(--fg-strong)' }}
-      onMouseLeave={e => { if (!active) e.currentTarget.style.color = 'var(--fg-muted)' }}>
-      {children}
-      {active && (
-        <span style={{
-          position: 'absolute', bottom: -2, left: 0, right: 0, height: 1.5,
-          background: 'linear-gradient(90deg,var(--brand),var(--brand-bright) 60%,transparent)',
-          borderRadius: 1,
-        }} />
-      )}
+    <Link to={href} aria-current={active ? 'page' : undefined} style={style} {...events}>
+      {content}
     </Link>
   )
 }
@@ -51,24 +55,26 @@ export function IconBtn({
 // ─── Mobile helper components ─────────────────────────────────────────────────
 
 export function MobileLink({ href, active, children }: { href: string; active: boolean; children: ReactNode }) {
+  const style = {
+    display: 'flex', alignItems: 'center',
+    padding: '12px 12px', borderRadius: 9,
+    fontSize: 14.5, fontWeight: 500, textDecoration: 'none',
+    color: active ? 'var(--brand)' : 'var(--fg-muted)',
+    background: active ? 'var(--brand-wash)' : 'transparent',
+    transition: 'all 0.14s',
+  }
+  const content = <>{children}{active && (
+    <span style={{
+      marginLeft: 'auto', width: 5, height: 5,
+      borderRadius: '50%', background: 'var(--brand)', flexShrink: 0,
+    }} />
+  )}</>
+  if (/^https?:\/\//.test(href)) return <a href={href} style={style}>{content}</a>
   return (
     <Link
       to={href}
-      style={{
-        display: 'flex', alignItems: 'center',
-        padding: '12px 12px', borderRadius: 9,
-        fontSize: 14.5, fontWeight: 500, textDecoration: 'none',
-        color: active ? 'var(--brand)' : 'var(--fg-muted)',
-        background: active ? 'var(--brand-wash)' : 'transparent',
-        transition: 'all 0.14s',
-      }}>
-      {children}
-      {active && (
-        <span style={{
-          marginLeft: 'auto', width: 5, height: 5,
-          borderRadius: '50%', background: 'var(--brand)', flexShrink: 0,
-        }} />
-      )}
+      style={style}>
+      {content}
     </Link>
   )
 }

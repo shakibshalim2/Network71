@@ -8,9 +8,11 @@ import DivisionsMega from './header/DivisionsMega'
 import LanguageMenu from './header/LanguageMenu'
 import SearchOverlay from './header/SearchOverlay'
 import MobileDrawer from './header/MobileDrawer'
+import { usePublishedNavigation } from '@/lib/publicNavigation'
 
 export default function Header() {
   const s = useHeaderState()
+  const navigation = usePublishedNavigation()
   const { pathname, t, glassy, mobileOpen, setMobileOpen, searchOpen, setSearchOpen } = s
 
   return (
@@ -65,13 +67,17 @@ export default function Header() {
               megaOpen={s.megaOpen} setMegaOpen={s.setMegaOpen}
               openMega={s.openMega} closeMega={s.closeMega} megaRef={s.megaRef} />
 
-            <NavLink href="/about"            active={pathname === '/about'}>{t('nav.about')}</NavLink>
-            <NavLink href="/projects" active={pathname.startsWith('/projects')}>{t('nav.ourWork')}</NavLink>
-            <NavLink href="/global-presence"  active={pathname === '/global-presence'}>{t('nav.globalPresence')}</NavLink>
-            <NavLink href="/divisions/media"  active={pathname === '/divisions/media'}>{t('nav.media')}</NavLink>
-            <NavLink href="/investors"        active={pathname === '/investors'}>{t('nav.investors')}</NavLink>
-            <NavLink href="/careers"          active={pathname === '/careers'}>{t('nav.careers')}</NavLink>
-            <NavLink href="/contact"          active={pathname === '/contact'}>{t('nav.contact')}</NavLink>
+            {navigation.header.length ? navigation.header.map(item => (
+              <NavLink href={item.href} active={pathname === item.href} key={item.id}>{item.title}</NavLink>
+            )) : <>
+              <NavLink href="/about" active={pathname === '/about'}>{t('nav.about')}</NavLink>
+              <NavLink href="/projects" active={pathname.startsWith('/projects')}>{t('nav.ourWork')}</NavLink>
+              <NavLink href="/global-presence" active={pathname === '/global-presence'}>{t('nav.globalPresence')}</NavLink>
+              <NavLink href="/divisions/media" active={pathname === '/divisions/media'}>{t('nav.media')}</NavLink>
+              <NavLink href="/investors" active={pathname === '/investors'}>{t('nav.investors')}</NavLink>
+              <NavLink href="/careers" active={pathname === '/careers'}>{t('nav.careers')}</NavLink>
+              <NavLink href="/contact" active={pathname === '/contact'}>{t('nav.contact')}</NavLink>
+            </>}
           </nav>
 
           {/* ══════════════════════════════════════
@@ -183,7 +189,8 @@ export default function Header() {
       <MobileDrawer
         pathname={pathname} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} searchOpen={searchOpen}
         mobileExpanded={s.mobileExpanded} toggleAccordion={s.toggleAccordion}
-        language={s.language} setLanguage={s.setLanguage} drawerRef={s.drawerRef} />
+        language={s.language} setLanguage={s.setLanguage} drawerRef={s.drawerRef}
+        publishedNavigation={navigation.header} />
     </>
   )
 }

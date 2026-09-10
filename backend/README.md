@@ -13,12 +13,12 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 - Main contact page and shared sector enquiry forms save to the admin inbox. Server-side idempotency returns the same reference for an identical retried submission.
 - Page inventory seed: 16 page drafts and 8 division drafts. These only identify existing routes; they contain no fabricated company details and do not overwrite existing records.
 - EN/BN page-section editing, visibility/order controls, SEO fields and authenticated saved-draft previews. Published overrides are consumed across the public page inventory.
-- Published public consumers for projects, team, jobs, gallery, Insights, Press, Timeline, Locations, Brands, Credentials, verified Metrics, Testimonials and Company Settings. Insights and Press include locale-aware list and detail routes.
+- Published public consumers for projects, team, jobs, gallery, Insights, Press, Timeline, Locations, Brands, Credentials, verified Metrics, Testimonials, Company Settings and Navigation. Insights and Press include locale-aware list and detail routes.
 - Owner-issued expiring password reset links, referenced-media archive protection and a transactional email outbox with a locked PHPMailer worker.
 
 ## Still to implement
 
-- Connect the generic Navigation collection to the public header/footer. Legacy Pages/Divisions inventory records remain separate from the page-section CMS.
+- Decide whether to migrate or remove the legacy Pages/Divisions inventory modules; the page-section CMS is now the authoritative public page editor.
 - Full revision history/review approval UI, private project evidence, media replacement/removal workflow and richer field types.
 - Inquiry assignment/notes, retention automation, verified offsite backups and cPanel production deployment. SMTP delivery exists but remains disabled until a real provider and cron are configured and tested.
 - Actual company content review and publishing. Existing public marketing claims were not verified by building this backend.
