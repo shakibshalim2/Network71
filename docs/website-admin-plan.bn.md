@@ -1,6 +1,6 @@
 # Network71: পুরো ওয়েবসাইটের admin ও backend
 
-Status (১০ সেপ্টেম্বর ২০২৬): core admin, EN/BN page-section CMS, ১৬টি collection consumer, বাধ্যতামূলক Draft → In review → Approved → Published workflow, revision preview/restore, inquiry inbox/outbox, private career application inbox, project evidence vault, media archive, reset links এবং deployment package implemented। eSHIPe vessel/seller inventory এখন dedicated collection। Production deployment, offsite restore verification ও owner content acceptance open।
+Status (১০ সেপ্টেম্বর ২০২৬): core admin, ৫৬০টি EN/BN page-section template, server draft autosave, ১৬টি collection consumer, বাধ্যতামূলক Draft → In review → Approved → Published workflow, revision preview/restore, inquiry inbox/outbox, private career application inbox, project evidence vault, media archive, reset links এবং deployment package implemented। Production deployment, offsite restore verification ও owner content acceptance open।
 
 এই পরিকল্পনা আগের project-কেন্দ্রিক MVP scope-কে সম্প্রসারিত করে। লক্ষ্য হলো পুরো ওয়েবসাইটের content management; project showcase তার একটি module।
 

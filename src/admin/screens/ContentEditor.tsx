@@ -1,6 +1,6 @@
 import CollectionForm from "./CollectionForm"
 import ProjectDocuments from "./ProjectDocuments"
-import { useEffect, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { api, type ContentRecord, type Module, type Page, type User } from '../api'
 import { Empty, ErrorNotice, Icon, Loading } from '../Admin'
@@ -28,12 +28,15 @@ export function ContentEditor({
   const [busy, setBusy] = useState(false)
   const [actionError, setActionError] = useState("")
   const [notice, setNotice] = useState("")
+  const editRevision = useRef(0)
+  const blockedAutosave = useRef(-1)
   type Revision = { id: number; version: number; event: string; created_at: string; author_name: string }
   const [history, setHistory] = useState<{ recordId: number; items: Revision[] } | null>(null)
   const [revisionPreview, setRevisionPreview] = useState<(Revision & { recordId: number; snapshot: Record<string, string | boolean>; sort_order: number }) | null>(null)
   const writable =
     user.role === "owner" || !["settings", "navigation"].includes(moduleKey)
   const markDirty = (value: boolean) => {
+    if (value) editRevision.current += 1
     setDirty(value)
     onDirty(value)
   }
@@ -67,27 +70,39 @@ export function ContentEditor({
       setActionError("")
     }
   }
-  async function save(event: FormEvent) {
-    event.preventDefault()
+  async function persist(closeAfter: boolean, automatic = false) {
     if (!editing) return
+    const capturedRevision = editRevision.current
     setBusy(true)
     setActionError("")
     setNotice("")
     try {
-      await api(
+      const result = await api<{ id: number; version: number }>(
         `admin/content/${moduleKey}${editing.id ? "/" + editing.id : ""}`,
         { method: editing.id ? "PUT" : "POST", body: JSON.stringify({ ...editing, locale }) },
       )
-      setEditing(null)
-      markDirty(false)
-      setNotice("Draft saved. Publish it when you are ready.")
+      setEditing((current) => current ? { ...current, id: result.id, version: result.version, locale: locale as "en" | "bn" } : current)
+      if (capturedRevision === editRevision.current) {
+        if (closeAfter) setEditing(null)
+        markDirty(false)
+      }
+      blockedAutosave.current = -1
+      setNotice(automatic ? "Draft autosaved." : "Draft saved. Request review when it is ready.")
       reload()
     } catch (error) {
+      if (automatic) blockedAutosave.current = capturedRevision
       setActionError((error as Error).message)
     } finally {
       setBusy(false)
     }
   }
+  async function save(event: FormEvent) { event.preventDefault(); await persist(true) }
+  useEffect(() => {
+    const title=editing?.data?.title
+    if(!dirty||busy||!editing?.slug||!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(editing.slug)||typeof title!=="string"||!title.trim()||blockedAutosave.current===editRevision.current)return
+    const timer=window.setTimeout(()=>{void persist(false,true)},1500)
+    return()=>window.clearTimeout(timer)
+  },[dirty,busy,editing,locale])
   async function transition(record: ContentRecord, action: string) {
     if (
       !window.confirm(

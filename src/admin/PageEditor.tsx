@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { api, type User } from './api'
 import SectionFields, { type Schema } from './SectionFields'
 
@@ -14,23 +14,30 @@ export default function PageEditor({ user, onDirty }: { user: User; onDirty: (di
   const [error,setError]=useState(''), [notice,setNotice]=useState(''), [revision,setRevision]=useState(0)
   const [history,setHistory]=useState<{id:number;version:number;event:string;created_at:string;author_name:string}[]>([])
   const [revisionPreview,setRevisionPreview]=useState<{id:number;version:number;snapshot:unknown}|null>(null)
+  const editRevision=useRef(0), blockedAutosave=useRef(-1)
   useEffect(() => { api<Record<string,PageSchema>>('admin/sections').then(setCatalog).catch(e => setError(e.message)) },[revision])
   useEffect(() => {
     const controller=new AbortController(); setLoading(true); setError(''); setData(null); setSection('')
     api<PageData>(`admin/sections/${page}?locale=${locale}`,{signal:controller.signal}).then(result => {setData(result)}).catch(e=>{if(!controller.signal.aborted)setError(e.message)}).finally(()=>{if(!controller.signal.aborted)setLoading(false)})
     return ()=>controller.abort()
   },[page,locale,revision])
-  function mark(next:boolean) {setDirty(next);onDirty(next)}
+  function mark(next:boolean) {if(next)editRevision.current+=1;setDirty(next);onDirty(next)}
   function canLeave() {return !dirty || window.confirm('Discard unsaved section changes?')}
   function open(key:string) {
     if(!data || !canLeave())return
     setSection(key);setValue(structuredClone(data.sections[key] ?? data.defaults[key]));setMeta(data.meta[key] || {version:0,visible:true,order:Object.keys(data.schema.sections).indexOf(key)*10,status:'draft',review_state:'draft'});setHistory([]);setRevisionPreview(null);mark(false);setNotice('')
   }
-  async function save() {
+  async function save(automatic=false) {
+    const capturedRevision=editRevision.current
     setBusy(true);setError('');setNotice('')
-    try {const result=await api<{version:number}>(`admin/sections/${page}`,{method:'PUT',body:JSON.stringify({section,locale,data:value,visible:meta.visible,order:meta.order,version:meta.version})});setMeta({...meta,version:result.version,review_requested_at:null,review_state:'draft'});setData(old=>old?{...old,sections:{...old.sections,[section]:value},meta:{...old.meta,[section]:{...meta,version:result.version,review_requested_at:null,review_state:'draft'}}}:old);mark(false);setNotice('Draft saved. Request review before publishing.')}
-    catch(e){setError((e as Error).message)}finally{setBusy(false)}
+    try {const result=await api<{version:number}>(`admin/sections/${page}`,{method:'PUT',body:JSON.stringify({section,locale,data:value,visible:meta.visible,order:meta.order,version:meta.version})});setMeta(current=>({...current,version:result.version,review_requested_at:null,review_state:'draft'}));setData(old=>old?{...old,sections:{...old.sections,[section]:value},meta:{...old.meta,[section]:{...meta,version:result.version,review_requested_at:null,review_state:'draft'}}}:old);if(capturedRevision===editRevision.current)mark(false);blockedAutosave.current=-1;setNotice(automatic?'Draft autosaved.':'Draft saved. Request review before publishing.')}
+    catch(e){if(automatic)blockedAutosave.current=capturedRevision;setError((e as Error).message)}finally{setBusy(false)}
   }
+  useEffect(()=>{
+    if(!dirty||busy||!section||blockedAutosave.current===editRevision.current)return
+    const timer=window.setTimeout(()=>{void save(true)},1500)
+    return()=>window.clearTimeout(timer)
+  },[dirty,busy,section,value,meta.visible,meta.order])
   async function publish(action:string) {
     if(!window.confirm(`${action === 'publish' ? 'Publish the approved section' : action === 'approve' ? 'Approve the reviewed section' : action === 'request_review' ? 'Request owner review for this section' : 'Remove the published override and restore packaged content'}?`))return
     setBusy(true);setError('')
@@ -56,11 +63,11 @@ export default function PageEditor({ user, onDirty }: { user: User; onDirty: (di
     {notice && <p role="status" className="adm-notice">{notice}</p>}
     {loading ? <p role="status">Loading page sections…</p> : data && <>
       <label>Section<select aria-label="Section" value={section} disabled={busy} onChange={e=>open(e.target.value)}><option value="" disabled>Choose a section</option>{Object.keys(data.schema.sections).map(key=><option key={key}>{key}</option>)}</select></label>
-      {section && <form onSubmit={e=>{e.preventDefault();void save()}}>
+      {section && <form onSubmit={e=>{e.preventDefault();void save(false)}}>
         <fieldset disabled={busy}><SectionFields schema={data.schema.sections[section]} value={value} label={section} change={next=>{setValue(next);mark(true)}} />
         <label className="adm-check"><input type="checkbox" checked={meta.visible} onChange={e=>{setMeta({...meta,visible:e.target.checked});mark(true)}} />Visible on supported page sections</label>
         <label>Section order<input type="number" min={-10000} max={10000} value={meta.order} onChange={e=>{setMeta({...meta,order:e.target.valueAsNumber||0});mark(true)}} /></label></fieldset>
-        <div className="adm-section-actions"><button className="adm-button" disabled={busy || !dirty}>{busy?'Working…':'Save draft'}</button>
+        <div className="adm-section-actions"><span className="adm-help">Drafts autosave after 1.5 seconds of inactivity.</span><button className="adm-button" disabled={busy || !dirty}>{busy?'Working…':'Save draft'}</button>
         <button type="button" className="adm-button secondary" disabled={busy||dirty||!meta.version||['in_review','approved'].includes(meta.review_state)} onClick={()=>publish('request_review')}>{meta.review_state==='in_review'?'In review':meta.review_state==='approved'?'Approved':'Request review'}</button>
         {user.role==='owner' && <><button type="button" className="adm-button secondary" disabled={busy||dirty||meta.review_state!=='in_review'} onClick={()=>publish('approve')}>Approve</button><button type="button" className="adm-button secondary" disabled={busy||dirty||meta.review_state!=='approved'} onClick={()=>publish('publish')}>Publish</button><button type="button" className="adm-button secondary" disabled={busy||dirty||meta.status!=='published'} onClick={()=>publish('unpublish')}>Restore default</button></>}
         <button type="button" className="adm-button secondary" disabled={busy||!meta.version} onClick={loadHistory}>History</button><a href={data.schema.path} target="_blank" rel="noreferrer">View public page ↗</a><a href={`${data.schema.path}?n71-preview=1`} target="_blank" rel="noreferrer">Preview saved draft ↗</a></div>

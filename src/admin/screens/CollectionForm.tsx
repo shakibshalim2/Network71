@@ -134,7 +134,7 @@ return (<form className="adm-panel adm-editor" onSubmit={save}>
           <div className="adm-editor-actions">
             <span>
               {dirty
-                ? "You have unsaved changes."
+                ? "Saving automatically after you pause…"
                 : "Fields marked * are required to publish."}
             </span>
             <button className="adm-button" disabled={busy}>

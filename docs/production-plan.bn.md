@@ -20,7 +20,7 @@
 | EN/BN toggle পুরো site-এ | ✅ আছে | ২৬ route render-audit-এ leak নেই |
 | Responsive (desktop/tablet/mobile) | ✅ overflow নেই | 375/768/1440-এ ২৬ route-এ horizontal overflow পাওয়া যায়নি; polish বাকি (নিচে) |
 | Real imagery | ⚠️ | ৬৪টি image Unsplash CDN থেকে আসে (stock)। বাস্তব company ছবি পেলে admin media library থেকে replace করা যাবে |
-| Real 3D | ✅ | Homepage three.js globe (lazy, 637 kB chunk — optimise করা হবে) |
+| Real 3D | ✅ | Homepage Three.js globe আলাদা lazy chunk; first paint-এর পরে শুরু, 637 kB raw / প্রায় 173 kB gzip, explicit 700 kB budget |
 | **No exaggerated / unverifiable claims** | ⚠️ code cleanup complete | তালিকাভুক্ত scale/certification claims neutral করা হয়েছে; owner factual acceptance এখনও প্রয়োজন। |
 | Admin: সব page-এর সব content edit | ✅ | 27 page/site schemas, EN/BN section editor, publish, layout, SEO ও preview কাজ করে। |
 | Admin mobile app-like | ✅ | Responsive navigation/editor, confirmation, state feedback, locale controls, media archive ও reset flow আছে। |
@@ -111,7 +111,7 @@ MySQL: ACCOUNT_network71 (utf8mb4)
 | 2 | Listed unverifiable claims cleanup in EN/BN | schema, grep, 24 browser checks | ✅; owner acceptance pending |
 | 3 | Leadership placeholders removed; published Team consumer; About presentation | browser | ✅ |
 | 4 | eSHIPe detail/prefill and Media lightbox/label | interaction test | ✅ |
-| 5 | Named Three imports, image hints, sitemap, language/reduced-motion audit | build/browser | ⚠️ complete except 637 kB globe optimisation |
+| 5 | Named Three imports, image hints, sitemap, language/reduced-motion audit | build/browser | ✅; globe isolated/deferred এবং explicit bundle budget-এর মধ্যে |
 | 6 | Locale/page migrations, API/schema/importer, media archive, reset flow | PHP/HTTP tests | ✅ |
 | 7 | Page hooks and all public collection consumers | EN/BN render tests | ✅ |
 | 8 | Admin refactor, page/collection editors and responsive controls | browser/a11y checks | ✅ core; autosave/review history is later enhancement |
@@ -176,10 +176,11 @@ Homepage cards/CTA destinations and previously hardcoded homepage/division image
 Verified: 560 locale template validations; 20 section/reset/review/restore HTTP checks; 61 HTTP/MySQL integration checks including private CV/evidence access; outbox failure/retry simulation; media archive protection; project renderer escaping/metadata; authenticated browser save/preview/publish; EN/BN editor at 375/768/1440; 156 public route/locale/viewport structural checks. The original About test section was restored.
 
 Still open (do not report the entire production plan as complete):
-- Complete nested/shared section layout coverage, draft autosave, and manual visual/accessibility acceptance beyond the automated checks. Revision history, snapshot preview/restore and mandatory owner approval are implemented.
+- Manual visual/accessibility acceptance beyond the automated route/viewport checks.
 - Actual SMTP provider delivery, cron setup, cPanel rewrites/HTTPS, deployment and isolated backup restore/offsite recovery verification.
 - Owner-approved company imagery, factual claims এবং real vessel/seller/content records। Private project evidence/document workflow implemented; production records ও owner acceptance এখনো external।
-- Globe remains about 637 kB with a build warning.
+
+All 560 EN/BN schema sections, nested list fields and shared site copy are editable; layout/component structure remains code-controlled by the CMS boundary defined in this plan. Collection and page-section drafts now autosave after 1.5 seconds of inactivity. The WebGL globe remains an isolated 637 kB raw / about 173 kB gzip optional chunk, starts after the first paint, and has an explicit 700 kB chunk budget, so the production build no longer emits the generic 500 kB warning.
 
 No production deployment or real external email delivery was performed. All locally completed work is committed and synchronized to both active branches.
 

@@ -8,6 +8,8 @@ export default defineConfig({
   build: {
     sourcemap: false,
     minify: true,
+    // The optional WebGL globe is isolated and deferred; its current raw budget is 700 kB (about 173 kB gzip).
+    chunkSizeWarningLimit: 700,
   },
   plugins: [react(), tailwindcss()],
   resolve: {

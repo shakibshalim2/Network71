@@ -5,6 +5,7 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 ## Available now
 
 - `/admin` login, desktop sidebar, mobile bottom navigation and responsive forms for every module.
+- Collection and page-section drafts autosave to the server after 1.5 seconds without editing; manual Save remains available. Invalid partial fields stay visible with an error instead of retrying continuously.
 - Sixteen schema-driven collection modules: projects, vessels, vessel sellers, team, posts, press, jobs, gallery, brands, locations, timeline, testimonials, credentials, metrics, navigation and settings. Website pages and divisions use the richer page-section editor.
 - MySQL/PDO persistence, owner/editor permissions, draft/published snapshots, optimistic version checks, archive/unpublish and audit logging. Every current draft must pass review request and explicit owner approval before publishing.
 - Public collection/detail API, JSON-only errors, validated fields, cookie sessions, CSRF/origin checks and rate limiting.
@@ -13,6 +14,7 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 - Main contact page and shared sector enquiry forms save to the admin inbox. Server-side idempotency returns the same reference for an identical retried submission.
 - Published vacancies and the general Careers action open an EN/BN application form. PDF CVs (maximum 5 MB) are stored outside public media, downloads require an authenticated admin session, and the Applications inbox supports status and assignment. Rejected/withdrawn applications follow a separately configurable retention period.
 - EN/BN page-section editing, visibility/order controls, SEO fields and authenticated saved-draft previews. Published overrides are consumed across the public page inventory.
+- All 560 packaged EN/BN content sections, including nested lists and shared site copy, are schema-validated and editable. Page layout, component structure, routes, colours and animation remain intentionally code-controlled; Homepage exposes its approved order/visibility controls separately.
 - Published public consumers for projects, team, jobs, gallery, Insights, Press, Timeline, Locations, Brands, Credentials, verified Metrics, Testimonials, Company Settings and Navigation. Insights and Press include locale-aware list and detail routes.
 - A published `company-profile` Settings record centrally controls general, careers, press, legal and investor email addresses, phone, website, business hours, operating/registered addresses and social profiles. Safe packaged contact values remain during API outages or before the record is published.
 - Homepage cards, media teasers, CTA destinations and major homepage/division imagery are structured URL fields in the page-section CMS. Admins can replace them with approved Media Library URLs without editing React components.
@@ -21,11 +23,12 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 - eSHIPe has separate Vessels and Vessel Sellers collections. Published inventory replaces the clearly labelled packaged examples, supports seller linking by slug and renders approved vessel media/specification/profile data without publishing private contact details.
 - Owner-issued expiring password reset links, referenced-media archive protection and a transactional email outbox with a locked PHPMailer worker.
 
-## Still to implement
+## Release work outside the repository
 
-- Further media derivatives and field-specific replacement previews.
 - Verified offsite backups and cPanel production deployment. SMTP delivery exists but remains disabled until a real provider and cron are configured and tested.
 - Actual company content review and publishing. Existing public marketing claims were not verified by building this backend.
+
+Optional future enhancements include additional image derivatives and richer field-specific media replacement previews; the current immutable upload → update references → publish → archive workflow is complete and tested.
 
 ## Local setup
 

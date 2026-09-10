@@ -104,7 +104,7 @@ final class Content
                 $version = (int)$this->db->query('SELECT version FROM content_records WHERE id = ?', [$id])->fetchColumn();
                 $this->db->query('INSERT INTO content_revisions (record_id, version, event, snapshot_json, sort_order, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, UTC_TIMESTAMP())', [$id, $version, 'save_draft', $json, $order, $user['id']]);
                 $this->db->audit((int)$user['id'], 'save_draft', $module, $id);
-                return ['id' => $id];
+                return ['id' => $id, 'version' => $version];
             });
         } catch (PDOException $error) {
             if ($error->getCode() === '23000') Http::fail(409, 'This slug already exists in this module.');

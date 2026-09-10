@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import type { HotspotData } from '@/components/Globe3D'
 
 const Globe3D = lazy(() => import('@/components/Globe3D'))
@@ -10,19 +10,21 @@ interface Props {
 }
 
 export default function GlobeStage({ globeReady, onHotspot, onReady }: Props) {
+  const [mountGlobe,setMountGlobe]=useState(false)
+  useEffect(()=>{const timer=window.setTimeout(()=>setMountGlobe(true),250);return()=>window.clearTimeout(timer)},[])
   return (
     <>
       {/* ── Interactive 3D Globe — single instance, positioned right on desktop ── */}
       {/* On lg+: right 65% of viewport (sphere center ≈ 68% from left).
           On mobile: full viewport with heavy gradient overlay for readability. */}
-      <Suspense fallback={null}>
+      {mountGlobe && <Suspense fallback={null}>
         <Globe3D
           className="hero-globe absolute top-0 bottom-0 right-0 left-0 lg:left-[35%]"
           style={{ zIndex: 1 }}
           onHotspot={onHotspot}
           onReady={onReady}
         />
-      </Suspense>
+      </Suspense>}
 
       {/* ── Globe loading shimmer — fades out once canvas is ready ── */}
       <div
