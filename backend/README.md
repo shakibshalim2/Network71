@@ -13,7 +13,7 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 - Main contact page and shared sector enquiry forms save to the admin inbox. Server-side idempotency returns the same reference for an identical retried submission.
 - Page inventory seed: 16 page drafts and 8 division drafts. These only identify existing routes; they contain no fabricated company details and do not overwrite existing records.
 - EN/BN page-section editing, visibility/order controls, SEO fields and authenticated saved-draft previews. Published overrides are consumed across the public page inventory.
-- Published public consumers for projects, team, jobs, gallery, Insights and Press. Insights and Press include locale-aware list and detail routes.
+- Published public consumers for projects, team, jobs, gallery, Insights, Press, Timeline and Locations. Insights and Press include locale-aware list and detail routes.
 - Owner-issued expiring password reset links, referenced-media archive protection and a transactional email outbox with a locked PHPMailer worker.
 
 ## Still to implement

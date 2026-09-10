@@ -9,7 +9,7 @@ import Counts from "./global-presence/sections/Counts";
 import Regions from "./global-presence/sections/Regions";
 import TradeRoutes from "./global-presence/sections/TradeRoutes";
 import Divisions from "./global-presence/sections/Divisions";
-import Offices from "./global-presence/sections/Offices";
+import PublishedLocations from "./global-presence/sections/PublishedLocations";
 
 const loaders = { bn: () => import("./global-presence/content/bn") };
 
@@ -25,7 +25,7 @@ export default function GlobalPresence() {
         <Regions c={c.regions} />
         <TradeRoutes c={c.routes} />
         <Divisions c={c.divisions} />
-        <Offices c={c.offices} />
+        <PublishedLocations />
       </ManagedContent>
       <Footer />
     </div>

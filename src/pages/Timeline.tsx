@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 import { useLocalizedContent } from '@/i18n/useLocalizedContent'
 import en from './timeline/content/en'
 import Hero from './timeline/sections/Hero'
-import Milestones from './timeline/sections/Milestones'
+import PublishedMilestones from './timeline/sections/PublishedMilestones'
 import AboutCta from './timeline/sections/AboutCta'
 
 const loaders = { bn: () => import('./timeline/content/bn') }
@@ -16,7 +16,7 @@ export default function Timeline() {
       <Header />
       <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
-        <Milestones c={c.timeline} />
+        <PublishedMilestones />
         <AboutCta c={c.cta} />
       </ManagedContent>
       <Footer />
