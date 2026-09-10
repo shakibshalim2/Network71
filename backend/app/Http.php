@@ -25,9 +25,9 @@ final class Http
         if (!str_starts_with(strtolower($_SERVER['CONTENT_TYPE'] ?? ''), 'application/json')) {
             self::fail(415, 'Send JSON content.');
         }
-        $raw = file_get_contents('php://input', false, null, 0, 100001);
-        if ($raw === false || strlen($raw) > 100000) self::fail(413, 'Request is too large.');
-        try { $body = json_decode($raw, true, 32, JSON_THROW_ON_ERROR); }
+        $raw = file_get_contents('php://input', false, null, 0, 750001);
+        if ($raw === false || strlen($raw) > 750000) self::fail(413, 'Request is too large.');
+        try { $body = json_decode($raw, true, 64, JSON_THROW_ON_ERROR); }
         catch (JsonException) { self::fail(400, 'Invalid JSON.'); }
         if (!is_array($body) || array_is_list($body)) self::fail(400, 'Expected a JSON object.');
         return $body;

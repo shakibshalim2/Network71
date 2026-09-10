@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { useLocalizedContent } from '@/i18n/useLocalizedContent'
@@ -11,17 +12,17 @@ import ContactCta from './press/sections/ContactCta'
 const loaders = { bn: () => import('./press/content/bn') }
 
 export default function Press() {
-  const c = useLocalizedContent(en, loaders)
+  const c = useLocalizedContent(en, loaders, { page: 'press' })
   return (
     <div className="min-h-screen bg-navy text-white">
       <Header />
-      <main className="public-content">
+      <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
         <MediaKit c={c.mediaKit} />
         <Briefings c={c.briefings} />
         <Verification c={c.verification} />
         <ContactCta c={c.contact} />
-      </main>
+      </ManagedContent>
       <Footer />
     </div>
   )

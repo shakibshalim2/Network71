@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import Header from "@/components/Header";
 import PublishedTeam from "@/components/PublishedTeam";
 import Footer from "@/components/Footer";
@@ -13,11 +14,11 @@ import JoinCta from "./leadership/sections/JoinCta";
 const loaders = { bn: () => import("./leadership/content/bn") };
 
 export default function Leadership() {
-  const c = useLocalizedContent(en, loaders);
+  const c = useLocalizedContent(en, loaders, { page: 'leadership' });
   return (
     <div className="min-h-screen bg-navy text-slate-100">
       <Header />
-      <main className="public-content">
+      <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
         <CeoCard c={c.ceo} />
         <PublishedTeam />
@@ -25,7 +26,7 @@ export default function Leadership() {
         <Board c={c.board} />
         <Advisors c={c.advisors} />
         <JoinCta c={c.cta} />
-      </main>
+      </ManagedContent>
       <Footer />
     </div>
   );

@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import SectorHeader from "@/components/sector/SectorHeader"
 import ProcessFlow from "@/components/sector/ProcessFlow"
 import MetricsBar from "@/components/sector/MetricsBar"
@@ -21,14 +22,14 @@ import Roadmap from "./agriculture/sections/Roadmap"
 const loaders = { bn: () => import("./agriculture/content/bn") }
 
 export default function Agriculture() {
-  const c = useLocalizedContent(en, loaders)
+  const c = useLocalizedContent(en, loaders, { page: 'divisions/agriculture' })
   return (
     <div className="sector-page min-h-full bg-navy">
       <SectorHeader
         divisionName={c.divisionName}
         accentClass="text-green-400"
       />
-      <main className="public-content">
+      <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
         <MetricsBar metrics={c.metrics} accentHex={GREEN} dark />
         <Vision c={c.vision} />
@@ -51,7 +52,7 @@ export default function Agriculture() {
           accentHex={GREEN}
           inquiryTypes={c.inquiryTypes}
         />
-      </main>
+      </ManagedContent>
       <Footer />
     </div>
   )

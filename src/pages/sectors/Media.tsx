@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import SectorHeader from '@/components/sector/SectorHeader'
 import MetricsBar from '@/components/sector/MetricsBar'
 import SectorContact from '@/components/sector/SectorContact'
@@ -16,11 +17,11 @@ import Gallery from './media/sections/Gallery'
 const loaders = { bn: () => import('./media/content/bn') }
 
 export default function Media() {
-  const c = useLocalizedContent(en, loaders)
+  const c = useLocalizedContent(en, loaders, { page: 'divisions/media' })
   return (
     <div className="sector-page min-h-full" style={{ background: BG_DEEP, color: 'var(--fg)' }}>
       <SectorHeader divisionName={c.divisionName} accentClass="text-red-400" />
-      <main className="public-content">
+      <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
         <MetricsBar metrics={c.metrics} accentHex={RED} dark />
         <Overview c={c.overview} />
@@ -30,7 +31,7 @@ export default function Media() {
         <Advertising c={c.advertising} />
         <Gallery c={c.gallery} />
         <SectorContact divisionName={c.divisionName} accentHex={RED} inquiryTypes={c.inquiryTypes} />
-      </main>
+      </ManagedContent>
       <Footer />
     </div>
   )

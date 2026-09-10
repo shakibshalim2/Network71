@@ -7,6 +7,8 @@ require_once __DIR__ . '/Auth.php';
 require_once __DIR__ . '/Content.php';
 require_once __DIR__ . '/Media.php';
 require_once __DIR__ . '/Api.php';
+require_once __DIR__ . '/SectionValidation.php';
+require_once __DIR__ . '/Sections.php';
 
 function app_config(): array
 {

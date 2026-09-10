@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import { useState } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -9,7 +10,7 @@ import { Privacy, Terms, Cookies, Compliance } from './legal/sections/Articles'
 const loaders = { bn: () => import('./legal/content/bn') }
 
 export default function Legal() {
-  const c = useLocalizedContent(en, loaders)
+  const c = useLocalizedContent(en, loaders, { page: 'legal' })
   const [active, setActive] = useState('privacy')
 
   const scrollTo = (id: string) => {
@@ -20,7 +21,7 @@ export default function Legal() {
   return (
     <div className="min-h-screen bg-navy text-white">
       <Header />
-      <main className="public-content">
+      <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
 
         {/* Body with sticky sidebar */}
@@ -40,7 +41,7 @@ export default function Legal() {
             </div>
           </div>
         </div>
-      </main>
+      </ManagedContent>
       <Footer />
     </div>
   )

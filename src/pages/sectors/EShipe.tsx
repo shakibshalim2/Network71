@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import SectorHeader from "@/components/sector/SectorHeader"
 import MetricsBar from "@/components/sector/MetricsBar"
 import ProcessFlow from "@/components/sector/ProcessFlow"
@@ -17,14 +18,14 @@ import GlobalReach from "./eshipe/sections/GlobalReach"
 const loaders = { bn: () => import("./eshipe/content/bn") }
 
 export default function EShipe() {
-  const c = useLocalizedContent(en, loaders)
+  const c = useLocalizedContent(en, loaders, { page: 'divisions/ship-marketplace' })
   return (
     <div
       className="sector-page min-h-full"
       style={{ background: BG_DEEP, color: "var(--fg)" }}
     >
       <SectorHeader divisionName={c.divisionName} accentClass="text-sky-400" />
-      <main className="public-content">
+      <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
         <MetricsBar metrics={c.metrics} accentHex={OCEAN} dark />
         <Services c={c.services} />
@@ -43,7 +44,7 @@ export default function EShipe() {
           accentHex={OCEAN}
           inquiryTypes={c.inquiryTypes}
         />
-      </main>
+      </ManagedContent>
       <Footer />
     </div>
   )

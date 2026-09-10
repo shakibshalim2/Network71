@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
+import { usePageOverrides, mergeContent, contentMeta } from '@/lib/pageContent'
 import { useLanguage, type Language } from '@/context/LanguageContext'
 
 type Loader<T> = () => Promise<{ default: T }>
@@ -26,7 +27,9 @@ function load<T>(loader: Loader<T>): Promise<T> {
 export function useLocalizedContent<T>(
   en: T,
   loaders: Partial<Record<Exclude<Language, 'en'>, Loader<T>>>,
+  options?: { page: string },
 ): T {
+  const overrides = usePageOverrides(options?.page)
   const { language } = useLanguage()
   const loader = language === 'en' ? undefined : loaders[language]
   const [resolved, setResolved] = useState<{ lang: Language; data: T } | null>(() => {
@@ -38,10 +41,14 @@ export function useLocalizedContent<T>(
   useEffect(() => {
     if (!loader) return
     let alive = true
-    void load(loader).then(data => { if (alive) setResolved({ lang: language, data }) })
+    void load(loader).then(data => { if (alive) setResolved({ lang: language, data }) }).catch(() => { /* Retain English when a translation chunk is unavailable. */ })
     return () => { alive = false }
   }, [loader, language])
 
-  if (language === 'en' || !loader) return en
-  return resolved?.lang === language ? resolved.data : en
+  const base = language === 'en' || !loader ? en : resolved?.lang === language ? resolved.data : en
+  return useMemo(() => {
+    const result = mergeContent(base, overrides.sections)
+    if (result && typeof result === 'object') contentMeta.set(result, overrides.meta)
+    return result
+  }, [base, overrides])
 }

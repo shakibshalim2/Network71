@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { useLocalizedContent } from '@/i18n/useLocalizedContent'
@@ -9,16 +10,16 @@ import Subscribe from './blog/sections/Subscribe'
 const loaders = { bn: () => import('./blog/content/bn') }
 
 export default function Blog() {
-  const c = useLocalizedContent(en, loaders)
+  const c = useLocalizedContent(en, loaders, { page: 'blog' })
   return (
     <div className="min-h-screen bg-navy text-white">
       <Header />
-      <main className="public-content">
+      <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
         <Featured c={c.featured} />
         <Posts c={c.posts} />
         <Subscribe c={c.subscribe} />
-      </main>
+      </ManagedContent>
       <Footer />
     </div>
   )

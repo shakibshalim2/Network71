@@ -20,7 +20,7 @@ export function usePublicContent<T>(path: string) {
   const [error, setError] = useState("")
   const [notFound, setNotFound] = useState(false)
   const [attempt, setAttempt] = useState(0)
-  const { t } = useT()
+  const { t, language } = useT()
   useEffect(() => {
     const controller = new AbortController()
     const timeout = window.setTimeout(() => {
@@ -32,7 +32,7 @@ export function usePublicContent<T>(path: string) {
     setError("")
     setNotFound(false)
     setData(null)
-    fetch(`/api/v1/content/${path}`, { signal: controller.signal })
+    fetch(`/api/v1/content/${path}${path.includes("?") ? "&" : "?"}locale=${language}`, { signal: controller.signal })
       .then(async (response) => {
         if (response.status === 404) {
           setNotFound(true)
@@ -56,7 +56,7 @@ export function usePublicContent<T>(path: string) {
       window.clearTimeout(timeout)
       controller.abort()
     }
-  }, [path, attempt])
+  }, [path, attempt, language])
   return {
     data,
     loading,

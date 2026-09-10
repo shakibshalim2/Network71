@@ -17,12 +17,15 @@ final class Api
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $path = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+        if ($method === 'GET' && preg_match('~^/api/v1/page/([a-z0-9/-]+)$~', $path, $match)) {
+            Http::json((new Sections($this->db))->read($match[1],Sections::locale(),true));
+        }
         if ($method === 'GET' && $path === '/api/v1/health') Http::json(['status' => 'ok']);
         if ($method === 'GET' && preg_match('~^/api/v1/media/([^/]+)$~', $path, $match)) $this->media->serve($match[1]);
         if ($method === 'GET' && preg_match('~^/api/v1/content/([a-z-]+)(?:/([a-z0-9-]+))?$~', $path, $match)) {
             $this->content->schema($match[1]);
             if (!isset($match[2])) Http::json($this->content->list($match[1], true));
-            $row = $this->db->query("SELECT slug, published_json, published_at FROM content_records WHERE module = ? AND slug = ? AND status = 'published' AND published_json IS NOT NULL", [$match[1], $match[2]])->fetch();
+            $row = $this->db->query("SELECT slug, published_json, published_at FROM content_records WHERE module = ? AND slug = ? AND locale = ? AND status = 'published' AND published_json IS NOT NULL", [$match[1], $match[2], Sections::locale()])->fetch();
             if (!$row) Http::fail(404, 'Content not found.');
             Http::json(['slug' => $row['slug'], 'data' => json_decode($row['published_json'], true, 32, JSON_THROW_ON_ERROR), 'published_at' => $row['published_at']]);
         }
@@ -57,6 +60,18 @@ final class Api
         if ($method === 'POST' && $path === '/api/v1/auth/login') Http::json($auth->login(Http::body()));
         if ($method === 'POST' && $path === '/api/v1/auth/logout') { $auth->logout(); Http::json(['ok' => true]); }
         $user = $auth->user();
+        if (str_starts_with($path, '/api/v1/admin/sections')) {
+            $sections = new Sections($this->db);
+            if ($method === 'GET' && $path === '/api/v1/admin/sections') Http::json($sections->catalog());
+            if (preg_match('~^/api/v1/admin/sections/([a-z0-9/-]+)$~', $path, $match)) {
+                $page = $match[1];
+                if ($method === 'GET') Http::json($sections->read($page,Sections::locale(),false));
+                $input = Http::body();
+                $section = Http::string($input,'section',100,true);
+                if ($method === 'PUT') Http::json($sections->save($page,$section,$input,$user));
+                if ($method === 'POST') { $sections->transition($page,$section,$input,$auth->owner()); Http::json(['ok'=>true]); }
+            }
+        }
         if ($method === 'GET' && $path === '/api/v1/admin/modules') Http::json($this->content->modules);
         if ($method === 'GET' && $path === '/api/v1/admin/dashboard') {
             Http::json([

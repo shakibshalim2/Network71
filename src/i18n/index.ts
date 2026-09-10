@@ -2,6 +2,7 @@ import { useCallback } from 'react'
 import { useLanguage, type Language } from '@/context/LanguageContext'
 import { en, type TKey } from './en'
 import { bn } from './bn'
+import { usePageOverrides } from '@/lib/pageContent'
 
 const DICTIONARIES: Record<Language, Record<TKey, string>> = { en, bn }
 
@@ -15,7 +16,11 @@ export function translate(lang: Language, key: TKey, vars?: Record<string, strin
 /** Returns `t(key, vars?)` bound to the active language. */
 export function useT() {
   const { language } = useLanguage()
-  const t = useCallback((key: TKey, vars?: Record<string, string | number>) => translate(language, key, vars), [language])
+  const { sections } = usePageOverrides('site')
+  const t = useCallback((key: TKey, vars?: Record<string, string | number>) => {
+    const value = (sections.copy as Record<string, unknown> | undefined)?.[key]
+    return typeof value === 'string' ? (vars ? value.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? `{${k}}`)) : value) : translate(language, key, vars)
+  }, [language, sections])
   return { t, language }
 }
 

@@ -8,7 +8,7 @@ const loaders = { bn: () => import("./projects/content/bn") }
 
 export default function Projects() {
   const { slug } = useParams()
-  const c = useLocalizedContent(en, loaders)
+  const c = useLocalizedContent(en, loaders, { page: 'projects' })
   return slug ? (
     <ProjectDetail key={slug} slug={slug} c={c.detail} />
   ) : (

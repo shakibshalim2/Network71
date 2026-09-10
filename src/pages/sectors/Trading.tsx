@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import SectorHeader from '@/components/sector/SectorHeader'
 import ProcessFlow from '@/components/sector/ProcessFlow'
 import MetricsBar from '@/components/sector/MetricsBar'
@@ -24,6 +25,6 @@ import Roadmap from './trading/sections/Roadmap'
 const loaders = { bn: () => import('./trading/content/bn') }
 
 export default function Trading() {
-  const c = useLocalizedContent(en, loaders)
-  return <div className="sector-page min-h-full bg-navy" style={{ background: BG_DEEP }}><SectorHeader divisionName={c.divisionName} accentClass="text-blue-400" /><main className="public-content"><Hero c={c} /><MetricsBar metrics={c.metrics} accentHex={BLUE} dark /><Overview c={c} /><Categories c={c} /><Network c={c} /><Services c={c} /><ProcessFlow steps={c.process} accentHex={BLUE} label={c.processLabel} /><Compliance c={c} /><Infrastructure c={c} /><Technology c={c} /><Finance c={c} /><Lanes c={c} /><Risk c={c} /><Sustainability c={c} /><Opportunities c={c} /><Roadmap c={c} /><SectorContact divisionName={c.divisionName} accentHex={BLUE} inquiryTypes={c.inquiryTypes} /></main><Footer /></div>
+  const c = useLocalizedContent(en, loaders, { page: 'divisions/global-trading' })
+  return <div className="sector-page min-h-full bg-navy" style={{ background: BG_DEEP }}><SectorHeader divisionName={c.divisionName} accentClass="text-blue-400" /><ManagedContent content={c} className="public-content"><Hero c={c} /><MetricsBar metrics={c.metrics} accentHex={BLUE} dark /><Overview c={c} /><Categories c={c} /><Network c={c} /><Services c={c} /><ProcessFlow steps={c.process} accentHex={BLUE} label={c.processLabel} /><Compliance c={c} /><Infrastructure c={c} /><Technology c={c} /><Finance c={c} /><Lanes c={c} /><Risk c={c} /><Sustainability c={c} /><Opportunities c={c} /><Roadmap c={c} /><SectorContact divisionName={c.divisionName} accentHex={BLUE} inquiryTypes={c.inquiryTypes} /></ManagedContent><Footer /></div>
 }

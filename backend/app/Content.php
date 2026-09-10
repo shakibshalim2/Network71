@@ -45,15 +45,15 @@ final class Content
         $this->schema($module);
         $page = max(1, min(100000, (int)($_GET['page'] ?? 1)));
         $limit = 30;
-        $where = 'module = ?' . ($public ? " AND status = 'published' AND published_json IS NOT NULL" : '');
-        $params = [$module];
+        $where = 'module = ? AND locale = ?' . ($public ? " AND status = 'published' AND published_json IS NOT NULL" : '');
+        $params = [$module, Sections::locale()];
         $q = trim(is_string($_GET['q'] ?? null) ? $_GET['q'] : '');
         if (strlen($q) > 150) Http::fail(422, 'Search is too long.');
         if ($q !== '') { $where .= $public ? ' AND (published_json LIKE ? OR slug LIKE ?)' : ' AND (draft_json LIKE ? OR slug LIKE ?)'; $params[] = '%' . $q . '%'; $params[] = '%' . $q . '%'; }
         $count = (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE $where", $params)->fetchColumn();
         $column = $public ? 'published_json' : 'draft_json';
         $order = $public ? 'published_sort_order' : 'sort_order';
-        $rows = $this->db->query("SELECT id, module, slug, $column AS payload, status, version, $order AS sort_order, updated_at, published_at FROM content_records WHERE $where ORDER BY $order, id DESC LIMIT $limit OFFSET " . (($page - 1) * $limit), $params)->fetchAll();
+        $rows = $this->db->query("SELECT id, module, slug, locale, $column AS payload, status, version, $order AS sort_order, updated_at, published_at FROM content_records WHERE $where ORDER BY $order, id DESC LIMIT $limit OFFSET " . (($page - 1) * $limit), $params)->fetchAll();
         foreach ($rows as &$row) {
             $row['data'] = json_decode($row['payload'], true, 32, JSON_THROW_ON_ERROR);
             unset($row['payload']);
@@ -66,6 +66,7 @@ final class Content
     {
         $this->schema($module);
         if (in_array($module, ['settings', 'navigation'], true) && $user['role'] !== 'owner') Http::fail(403, 'Only an owner can edit website settings and navigation.');
+        $locale = Sections::locale($input['locale'] ?? 'en');
         $slug = Http::string($input, 'slug', 160, true);
         if (!preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $slug)) Http::fail(422, 'Slug must use lowercase letters, numbers and hyphens.');
         if (!is_array($input['data'] ?? null)) Http::fail(422, 'Content fields are missing.');
@@ -73,16 +74,17 @@ final class Content
         $order = filter_var($input['sort_order'] ?? 0, FILTER_VALIDATE_INT);
         if ($order === false || abs($order) > 100000) Http::fail(422, 'Invalid display order.');
         try {
-            return $this->db->transaction(function () use ($module, $id, $input, $user, $slug, $data, $order) {
+            return $this->db->transaction(function () use ($module, $id, $input, $user, $slug, $data, $order, $locale) {
                 $json = json_encode($data, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE);
                 if ($id) {
                     $old = $this->db->query('SELECT * FROM content_records WHERE id = ? AND module = ? FOR UPDATE', [$id, $module])->fetch();
                     if (!$old) Http::fail(404, 'Record not found.');
+                    if ($old['locale'] !== $locale) Http::fail(422, 'A record cannot change language. Create a separate translation.');
                     if ((int)$old['version'] !== (int)($input['version'] ?? 0)) Http::fail(409, 'Someone updated this item. Reload before saving.');
                     if ($old['published_at'] && $old['slug'] !== $slug) Http::fail(422, 'Published slugs are locked to preserve public links.');
                     $this->db->query('UPDATE content_records SET slug = ?, draft_json = ?, version = version + 1, sort_order = ?, updated_by = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$slug, $json, $order, $user['id'], $id]);
                 } else {
-                    $this->db->query('INSERT INTO content_records (module, slug, draft_json, sort_order, updated_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())', [$module, $slug, $json, $order, $user['id']]);
+                    $this->db->query('INSERT INTO content_records (module, slug, draft_json, sort_order, updated_by, locale, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())', [$module, $slug, $json, $order, $user['id'], $locale]);
                     $id = (int)$this->db->pdo->lastInsertId();
                 }
                 $this->db->audit((int)$user['id'], 'save_draft', $module, $id);

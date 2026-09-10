@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { useLocalizedContent } from '@/i18n/useLocalizedContent'
@@ -13,11 +14,11 @@ import Cta from './sustainability/sections/Cta'
 const loaders = { bn: () => import('./sustainability/content/bn') }
 
 export default function Sustainability() {
-  const c = useLocalizedContent(en, loaders)
+  const c = useLocalizedContent(en, loaders, { page: 'sustainability' })
   return (
     <div className="min-h-screen bg-navy text-slate-100">
       <Header />
-      <main className="public-content">
+      <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
         <Metrics c={c.metrics} />
         <Sdgs c={c.sdgs} />
@@ -25,7 +26,7 @@ export default function Sustainability() {
         <Programs c={c.programs} />
         <Report c={c.report} />
         <Cta c={c.cta} />
-      </main>
+      </ManagedContent>
       <Footer />
     </div>
   )

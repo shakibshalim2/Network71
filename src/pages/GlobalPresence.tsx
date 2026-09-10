@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useLocalizedContent } from "@/i18n/useLocalizedContent";
@@ -13,11 +14,11 @@ import Offices from "./global-presence/sections/Offices";
 const loaders = { bn: () => import("./global-presence/content/bn") };
 
 export default function GlobalPresence() {
-  const c = useLocalizedContent(en, loaders);
+  const c = useLocalizedContent(en, loaders, { page: 'global-presence' });
   return (
     <div className="min-h-screen bg-navy text-slate-100">
       <Header />
-      <main className="public-content">
+      <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
         <WorldMap c={c.map} />
         <Counts c={c.counts} />
@@ -25,7 +26,7 @@ export default function GlobalPresence() {
         <TradeRoutes c={c.routes} />
         <Divisions c={c.divisions} />
         <Offices c={c.offices} />
-      </main>
+      </ManagedContent>
       <Footer />
     </div>
   );

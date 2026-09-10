@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import SectorHeader from '@/components/sector/SectorHeader'
 import MetricsBar from '@/components/sector/MetricsBar'
 import ProcessFlow from '@/components/sector/ProcessFlow'
@@ -15,11 +16,11 @@ import Status from './ventures/sections/Status'
 const loaders = { bn: () => import('./ventures/content/bn') }
 
 export default function StrategicVentures() {
-  const c = useLocalizedContent(en, loaders)
+  const c = useLocalizedContent(en, loaders, { page: 'divisions/strategic-ventures' })
   return (
     <div className="sector-page min-h-full" style={{ background: BG_DEEP, color: 'var(--fg)' }}>
       <SectorHeader divisionName={c.divisionName} accentClass="text-indigo-300" />
-      <main className="public-content">
+      <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
         <MetricsBar metrics={c.metrics} accentHex={INDIGO} dark />
         <Overview c={c.overview} />
@@ -28,7 +29,7 @@ export default function StrategicVentures() {
         <Partners c={c.partners} />
         <Status c={c.status} />
         <SectorContact divisionName={c.divisionName} accentHex={INDIGO} inquiryTypes={c.inquiryTypes} />
-      </main>
+      </ManagedContent>
       <Footer />
     </div>
   )

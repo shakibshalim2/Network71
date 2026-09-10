@@ -125,3 +125,18 @@ MySQL: ACCOUNT_network71 (utf8mb4)
 - Step 4: added a native accessible vessel specification dialog, requirements prefill into the sector enquiry form, category links/hover, and Media gallery lightbox. Illustrative inventory stays labelled; unavailable seller/class/survey information is explicitly undisclosed. No real seller profiles were invented.
 - Validation: TypeScript passed; Chrome at 375px passed dialog open/Escape, enquiry prefill, gallery lightbox and overflow checks. Live database-backed Team publication is included in the later CMS integration checks.
 - Step 5: explicit Three.js imports, missing async/lazy image hints and static public-route sitemap added. Existing fixed image containers reserve layout space; hero/logo images remain eager. Production build passed. Globe remains 637 kB: named imports did not reduce this chunk; no performance gain is claimed. Existing reduced-motion and offscreen-render guards were inspected; final browser matrix remains pending.
+
+## Pause checkpoint — user requested stop (10 September 2026)
+
+Completed and pushed before this checkpoint: published Team section, vessel example detail/enquiry prefill, Media lightbox, public sitemap, image loading hints and explicit Three.js imports.
+
+CMS foundation added in this checkpoint (not a completed CMS rollout):
+- Migration 003 adds locale-aware collections, page_sections, and reserved media deletion/password reset columns/tables. Media deletion and reset endpoints are NOT implemented.
+- Export script generates 26 page/shared-copy schemas and EN/BN draft templates; 508 locale sections pass schema validation. Templates are files only; no marketing content was automatically published.
+- Authenticated section draft/publish API enforces owner publishing, CSRF and version checks; public API returns published snapshots. Full authenticated HTTP regression testing remains pending.
+- 25 existing page content hooks plus shared homepage/navigation translations can consume published overrides with packaged-copy fallback. Direct content-driven sections support visibility/order; complete homepage layout control, every nested/shared section, SEO management and draft preview still need work.
+- Collection requests now carry EN/BN locale; admin collection language controls remain pending. Existing records remain English; Bangla collections require separately published Bangla records.
+- Local database backup was created privately before applying migration 003. Backup restore/offsite verification has NOT been performed.
+
+Still pending: page/section admin editor and locale tabs; admin refactor; media delete/replace workflow; reset-link workflow; SMTP/outbox; complete CMS coverage and preview; cPanel deployment validator/package; live company/seller/evidence data; full responsive/accessibility and authenticated API regression matrix. No production deployment was performed. Work paused at the user request; do not treat original unchecked plan rows as finished.
+- Pause validation: final TypeScript/Vite production build passed (existing 637 kB globe warning); PHP syntax checks passed; 508 section templates and unsafe URL rejection passed; public About section API returned valid empty overrides; Chrome About EN/BN fallback had no runtime errors. Full CMS write/publish integration remains unverified.

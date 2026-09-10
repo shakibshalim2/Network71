@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import SectorHeader from '@/components/sector/SectorHeader'
 import ProcessFlow from '@/components/sector/ProcessFlow'
 import MetricsBar from '@/components/sector/MetricsBar'
@@ -21,8 +22,8 @@ import Roadmap from './oils-energy/sections/Roadmap'
 const loaders = { bn: () => import('./oils-energy/content/bn') }
 
 export default function OilsEnergy() {
-  const c = useLocalizedContent(en, loaders)
-  return <div className="sector-page min-h-full bg-navy"><SectorHeader divisionName={c.divisionName} accentClass={c.accentClass} /><main className="public-content">
+  const c = useLocalizedContent(en, loaders, { page: 'divisions/oils-energy' })
+  return <div className="sector-page min-h-full bg-navy"><SectorHeader divisionName={c.divisionName} accentClass={c.accentClass} /><ManagedContent content={c} className="public-content">
     <Hero c={c} /><MetricsBar metrics={c.metrics} accentHex={AMBER} /><Overview c={c} /><EdibleOils c={c} /><EnergyFuel c={c} /><ProcessFlow steps={c.oilProcessSteps} accentHex={AMBER} label={c.copy.oilProcessLabel} /><SupplyChain c={c} /><Compliance c={c} /><Technology c={c} /><Sustainability c={c} /><Markets c={c} /><Opportunities c={c} /><Roadmap c={c} /><SectorContact divisionName={c.divisionName} accentHex={AMBER} inquiryTypes={c.inquiryTypes} />
-  </main><Footer /></div>
+  </ManagedContent><Footer /></div>
 }

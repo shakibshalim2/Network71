@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 import { useLocalizedContent } from "@/i18n/useLocalizedContent"
@@ -9,15 +10,15 @@ import FormSection from "./contact/sections/FormSection"
 const loaders = { bn: () => import("./contact/content/bn") }
 
 export default function Contact() {
-  const c = useLocalizedContent(en, loaders)
+  const c = useLocalizedContent(en, loaders, { page: 'contact' })
   return (
     <div className="min-h-full">
       <Header />
-      <main className="public-content">
+      <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
         <Methods c={c.methods} />
         <FormSection form={c.form} sidebar={c.sidebar} />
-      </main>
+      </ManagedContent>
       <Footer />
     </div>
   )

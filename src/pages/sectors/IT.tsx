@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import SectorHeader from "@/components/sector/SectorHeader"
 import ProcessFlow from "@/components/sector/ProcessFlow"
 import MetricsBar from "@/components/sector/MetricsBar"
@@ -23,14 +24,14 @@ import Roadmap from "./it/sections/Roadmap"
 const loaders = { bn: () => import("./it/content/bn") }
 
 export default function IT() {
-  const c = useLocalizedContent(en, loaders)
+  const c = useLocalizedContent(en, loaders, { page: 'divisions/it-software' })
   return (
     <div
       className="sector-page min-h-full"
       style={{ background: BG_DEEP, color: "var(--fg)" }}
     >
       <SectorHeader divisionName={c.divisionName} accentClass="text-cyan-400" />
-      <main className="public-content">
+      <ManagedContent content={c} className="public-content">
         <Hero c={c} />{" "}
         <MetricsBar metrics={c.metrics} accentHex={ACCENT} dark />{" "}
         <Overview c={c} /> <Services c={c} />
@@ -48,7 +49,7 @@ export default function IT() {
           accentHex={ACCENT}
           inquiryTypes={c.inquiryTypes}
         />
-      </main>
+      </ManagedContent>
       <Footer />
     </div>
   )

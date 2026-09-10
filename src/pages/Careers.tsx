@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 import { useLocalizedContent } from "@/i18n/useLocalizedContent"
@@ -11,17 +12,17 @@ import Cta from "./careers/sections/Cta"
 const loaders = { bn: () => import("./careers/content/bn") }
 
 export default function Careers() {
-  const c = useLocalizedContent(en, loaders)
+  const c = useLocalizedContent(en, loaders, { page: 'careers' })
   return (
     <div className="min-h-full">
       <Header />
-      <main className="public-content">
+      <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
         <Benefits c={c.benefits} />
         <Openings c={c.openings} />
         <Process c={c.process} />
         <Cta c={c.cta} />
-      </main>
+      </ManagedContent>
       <Footer />
     </div>
   )

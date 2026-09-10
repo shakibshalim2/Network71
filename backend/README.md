@@ -83,3 +83,11 @@ Production PHP 8.4, a modern MySQL/MariaDB host, Apache/LiteSpeed rewrites, real
 Implementation references: [PHP cookie sessions](https://www.php.net/manual/en/function.session-set-cookie-params.php), [PDO prepared statements](https://www.php.net/manual/en/pdo.prepared-statements.php).
 
 Local verification on 9 September 2026 used PHP 8.3.33 and an isolated MariaDB 10.4.28 instance. The HTTP suite passed 38 checks, including password-reset session invalidation. Browser checks covered all admin module lists/forms at 320, 375, 768, 1024 and 1440 pixels, draft persistence, navigation guards, logout and public-site navigation isolation. Main contact and sector form submissions were verified in the inbox; test records were removed afterwards. Selected accessibility rules were checked on the content editors and admin utility screens. Production TypeScript/Vite build passes with the existing large globe-chunk warning.
+
+## CMS foundation checkpoint — 10 September 2026
+
+Run `node scripts/export-content-schema.mjs` to regenerate packaged EN/BN schemas/templates. Back up the database (`php backend/bin/backup.php`) and apply `php backend/bin/setup.php` before deploying this revision; migration 003 is required. `php backend/tests/section-schema.php` validates packaged templates.
+
+Public `GET /api/v1/page/{page_key}?locale=en|bn` returns published sections and visibility/order metadata. Authenticated `GET /api/v1/admin/sections` returns the catalog; `GET /api/v1/admin/sections/{page_key}?locale=en|bn` returns schemas/defaults/drafts. `PUT` on the latter saves `{section,locale,data,visible,order,version}` (version 0 for a new draft); owner-only `POST` takes `{section,locale,action,version}` for publish/unpublish.
+
+Collection lists/details support `locale=en|bn`; writes include locale. Existing rows are English. The page editor and admin language tabs are still pending, as are reset/media deletion endpoints despite their reserved schema. This is an implementation checkpoint, not a completed CMS or production deployment.

@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import SectorHeader from "@/components/sector/SectorHeader"
 import ProcessFlow from "@/components/sector/ProcessFlow"
 import MetricsBar from "@/components/sector/MetricsBar"
@@ -22,11 +23,11 @@ import Roadmap from "./garments/sections/Roadmap"
 const loaders = { bn: () => import("./garments/content/bn") }
 
 export default function Garments() {
-  const c = useLocalizedContent(en, loaders)
+  const c = useLocalizedContent(en, loaders, { page: 'divisions/garments' })
   return (
     <div className="sector-page min-h-full bg-surface-0">
       <SectorHeader divisionName={c.divisionName} accentClass="text-rose-400" />
-      <main className="public-content">
+      <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
         <MetricsBar metrics={c.metrics} accentHex={ACCENT} />
         <Overview c={c.overview} />
@@ -50,7 +51,7 @@ export default function Garments() {
           accentHex={ACCENT}
           inquiryTypes={c.inquiryTypes}
         />
-      </main>
+      </ManagedContent>
       <Footer />
     </div>
   )

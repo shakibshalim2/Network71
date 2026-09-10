@@ -1,3 +1,4 @@
+import ManagedContent from "@/components/ManagedContent"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 import { useLocalizedContent } from "@/i18n/useLocalizedContent"
@@ -17,14 +18,14 @@ import Waitlist from "./ezyify/sections/Waitlist"
 const loaders = { bn: () => import("./ezyify/content/bn") }
 
 export default function EzyifyPage() {
-  const c = useLocalizedContent(en, loaders)
+  const c = useLocalizedContent(en, loaders, { page: 'ezyify' })
   return (
     <div
       className="min-h-screen"
       style={{ backgroundColor: BG, color: "var(--fg)" }}
     >
       <Header />
-      <main className="public-content">
+      <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
         <Audience c={c.audience} />
         <Features c={c.features} />
@@ -35,7 +36,7 @@ export default function EzyifyPage() {
         <Partners c={c.partners} />
         <Roadmap c={c.roadmap} />
         <Waitlist c={c.waitlist} />
-      </main>
+      </ManagedContent>
       <Footer />
     </div>
   )
