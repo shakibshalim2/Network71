@@ -44,9 +44,9 @@ $tempBad = tempnam(sys_get_temp_dir(), 'n71-bad-');
 try {
     check($guest->send('GET', 'admin/dashboard')['status'] === 401, 'Admin must reject guests.');
     $owner->login((string)getenv('N71_TEST_EMAIL'), (string)getenv('N71_TEST_PASSWORD'));
-    check(count($owner->send('GET', 'admin/modules')['data']) === 16, 'Expected all website modules.');
-    check($owner->send('POST', 'admin/content/pages', [], 'wrong')['status'] === 403, 'CSRF must be enforced.');
-    check($owner->send('POST', 'admin/content/pages', [], null, 'https://untrusted.example')['status'] === 403, 'Origin must be enforced.');
+    check(count($owner->send('GET', 'admin/modules')['data']) === 14, 'Expected all active collection modules.');
+    check($owner->send('POST', 'admin/content/projects', [], 'wrong')['status'] === 403, 'CSRF must be enforced.');
+    check($owner->send('POST', 'admin/content/projects', [], null, 'https://untrusted.example')['status'] === 403, 'Origin must be enforced.');
     $project = ['slug' => $prefix, 'data' => ['title' => 'Integration <script>alert(1)</script>', 'type' => 'Client work', 'work_status' => 'Completed', 'role' => 'Test deliverable', 'permission' => true]];
     $created = $owner->send('POST', 'admin/content/projects', $project);
     check($created['status'] === 201, 'Create draft failed.');

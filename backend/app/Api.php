@@ -89,9 +89,9 @@ final class Api
                 'mail_pending' => (int)$this->db->query("SELECT COUNT(*) FROM email_outbox WHERE status='pending'")->fetchColumn(),
                 'mail_failed' => (int)$this->db->query("SELECT COUNT(*) FROM email_outbox WHERE status='failed'")->fetchColumn(),
                 'smtp_enabled' => (bool)($this->config['smtp']['enabled'] ?? false),
-                'total' => (int)$this->db->query('SELECT COUNT(*) FROM content_records')->fetchColumn(),
-                'published' => (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE status = 'published'")->fetchColumn(),
-                'drafts' => (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE status = 'draft' OR (status = 'published' AND draft_json <> published_json)")->fetchColumn(),
+                'total' => (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE module NOT IN ('pages','divisions')")->fetchColumn(),
+                'published' => (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE module NOT IN ('pages','divisions') AND status = 'published'")->fetchColumn(),
+                'drafts' => (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE module NOT IN ('pages','divisions') AND (status = 'draft' OR (status = 'published' AND draft_json <> published_json))")->fetchColumn(),
                 'inquiries' => (int)$this->db->query("SELECT COUNT(*) FROM inquiries WHERE status = 'new'")->fetchColumn(),
                 'activity' => $this->db->query('SELECT a.id, a.action, a.entity, a.created_at, u.name FROM audit_logs a LEFT JOIN admin_users u ON u.id = a.actor_id ORDER BY a.id DESC LIMIT 12')->fetchAll(),
             ]);

@@ -5,20 +5,18 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 ## Available now
 
 - `/admin` login, desktop sidebar, mobile bottom navigation and responsive forms for every module.
-- Sixteen schema-driven modules: pages, divisions, projects, team, posts, press, jobs, gallery, brands, locations, timeline, testimonials, credentials, metrics, navigation and settings.
+- Fourteen schema-driven collection modules: projects, team, posts, press, jobs, gallery, brands, locations, timeline, testimonials, credentials, metrics, navigation and settings. Website pages and divisions use the richer page-section editor.
 - MySQL/PDO persistence, owner/editor permissions, draft/published snapshots, optimistic version checks, archive/unpublish and audit logging. Public ordering changes only when published.
 - Public collection/detail API, JSON-only errors, validated fields, cookie sessions, CSRF/origin checks and rate limiting.
 - Raster image uploads with permission confirmation, MIME/signature checks, pixel/size limits, WebP re-encoding, private filesystem storage and a public image-serving endpoint. All accepted media is public; do not upload confidential documents.
 - Account creation/deactivation and CLI password recovery.
 - Main contact page and shared sector enquiry forms save to the admin inbox. Server-side idempotency returns the same reference for an identical retried submission.
-- Page inventory seed: 16 page drafts and 8 division drafts. These only identify existing routes; they contain no fabricated company details and do not overwrite existing records.
 - EN/BN page-section editing, visibility/order controls, SEO fields and authenticated saved-draft previews. Published overrides are consumed across the public page inventory.
 - Published public consumers for projects, team, jobs, gallery, Insights, Press, Timeline, Locations, Brands, Credentials, verified Metrics, Testimonials, Company Settings and Navigation. Insights and Press include locale-aware list and detail routes.
 - Owner-issued expiring password reset links, referenced-media archive protection and a transactional email outbox with a locked PHPMailer worker.
 
 ## Still to implement
 
-- Decide whether to migrate or remove the legacy Pages/Divisions inventory modules; the page-section CMS is now the authoritative public page editor.
 - Full revision history/review approval UI, private project evidence, media replacement/removal workflow and richer field types.
 - Inquiry assignment/notes, retention automation, verified offsite backups and cPanel production deployment. SMTP delivery exists but remains disabled until a real provider and cron are configured and tested.
 - Actual company content review and publishing. Existing public marketing claims were not verified by building this backend.
@@ -30,8 +28,7 @@ Prerequisites: PHP 8.3+ (production target 8.4), PDO MySQL, mbstring, fileinfo, 
 1. Create a dedicated database and user. Copy `config/example.php` to `config/local.php`; configure DSN, credentials, `environment`, exact browser `origin`, storage directory and secure cookie policy. Local HTTP uses `secure_cookie = false`; production HTTPS uses `true`.
 2. Run `php backend/bin/setup.php`. Migrations are tracked in `schema_migrations`; take a backup before applying them to an existing environment.
 3. Set `N71_OWNER_EMAIL` and `N71_OWNER_PASSWORD` in the current shell, then run `php backend/bin/setup.php --owner`. No default password or public signup exists. Clear those environment variables afterwards.
-4. Optionally run `php backend/bin/seed-pages.php` to create the existing page inventory as drafts.
-5. Run `pnpm dev:api` (loopback port 8787) and `pnpm dev` (port 8443). Vite forwards `/api` requests to PHP. Visit `http://localhost:8443/admin`.
+4. Run `pnpm dev:api` (loopback port 8787) and `pnpm dev` (port 8443). Vite forwards `/api` requests to PHP. Visit `http://localhost:8443/admin`.
 
 The local instance created during development uses an isolated MariaDB data directory under ignored `backend/storage/database`, loopback port 33171, PHP on 8787 and Vite on 8443. Its generated local-only owner credentials are in ignored `backend/storage/local-admin.txt`. These files are not deployment assets. After restarting the machine, start the isolated database before starting PHP.
 
@@ -109,7 +106,7 @@ Configure the private `smtp` array from config/example.php, then run `php backen
 
 ## Current admin and deployment additions
 
-`/admin/pages` now edits packaged page sections in EN/BN, supports draft save/publish, visibility/order, page SEO and authenticated saved-draft previews. Shared text is under `site`; homepage layout is under `home`. `php backend/bin/seed-sections.php` optionally imports missing templates as drafts without overwriting existing records or publishing. All 14 purpose-built collection modules now have public consumers; legacy Pages/Divisions inventory remains separate from the section CMS.
+`/admin/pages` now edits packaged page sections in EN/BN, supports draft save/publish, visibility/order, page SEO and authenticated saved-draft previews. Shared text is under `site`; homepage layout is under `home`. `php backend/bin/seed-sections.php` optionally imports missing templates as drafts without overwriting existing records or publishing. All 14 collection modules have public consumers. Legacy Pages/Divisions collection definitions and their seeder were retired; any old database rows remain inert and are excluded from dashboard counts.
 
 Media archive is owner-only and rejects referenced assets. Replace an image by uploading a new asset, updating/publishing its references, then archiving the old unused asset. Owner-generated password reset links expire after 30 minutes and can be consumed once; they are shown for private sharing, not automatically emailed.
 

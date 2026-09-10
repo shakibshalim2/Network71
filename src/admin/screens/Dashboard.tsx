@@ -132,10 +132,9 @@ export function Dashboard() {
         </section>
       </div>
       <div className="adm-notice">
-        <strong>Content migration is in progress.</strong> Saved content is
-        available through the CMS API. Existing public pages will use it as each
-        page is connected; publishing here does not yet replace their current
-        copy.
+        <strong>Publishing is connected.</strong> Page sections and all active
+        collections update their matching public presentation after owner
+        approval. Use preview to review page drafts before publishing.
       </div>
     </>
   )
