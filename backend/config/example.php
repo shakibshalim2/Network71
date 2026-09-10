@@ -10,6 +10,8 @@ return [
     'origin' => 'https://example.com',
     'secure_cookie' => true,
     'storage' => dirname(__DIR__) . '/storage',
+    // Closed enquiries older than this are removed by bin/cleanup.php.
+    'inquiry_retention_days' => 365,
     'smtp' => [
         'enabled' => false,
         'host' => 'smtp.example.com', 'port' => 587, 'encryption' => 'tls',

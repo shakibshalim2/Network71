@@ -18,7 +18,7 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 ## Still to implement
 
 - Full revision history/review approval UI, private project evidence, media replacement/removal workflow and richer field types.
-- Inquiry retention automation, verified offsite backups and cPanel production deployment. SMTP delivery exists but remains disabled until a real provider and cron are configured and tested.
+- Verified offsite backups and cPanel production deployment. SMTP delivery exists but remains disabled until a real provider and cron are configured and tested.
 - Actual company content review and publishing. Existing public marketing claims were not verified by building this backend.
 
 ## Local setup
@@ -101,6 +101,8 @@ Collection lists/details support `locale=en|bn`; writes include locale. Existing
 Install locked PHP dependencies with `composer install --no-dev --working-dir=backend` (or run Composer in the private backend directory), and deploy vendor with the backend. Migration 004 atomically stores an outbox notification with every new enquiry; retried submissions do not enqueue another notification.
 
 Configure the private `smtp` array from config/example.php, then run `php backend/bin/send-outbox.php` every minute through cPanel cron. SMTP is disabled by default. The worker uses authenticated TLS via PHPMailer, a non-overlapping file lock, batches of 20, exponential retry and a maximum of 10 attempts. Failed messages remain recorded with the enquiry. SMTP acceptance followed by a process/database failure can result in duplicate delivery on retry; a stable Message-ID is used, but exactly-once delivery is not claimed.
+
+Set `inquiry_retention_days` in the private configuration (default 365, allowed 30–3650) and run `php backend/bin/cleanup.php` daily through cron. The locked job deletes only closed enquiries older than the configured period, along with their notes/outbox rows and related audit entries. It also removes expired password-reset tokens and rate-limit buckets. Open enquiries are retained regardless of age.
 
 `php backend/tests/outbox.php` simulates provider failure and recovery on one isolated development fixture; actual SMTP and external delivery must be checked on staging. The implementation follows the [PHPMailer SMTP documentation](https://github.com/PHPMailer/PHPMailer). No real email was sent during development checks.
 
