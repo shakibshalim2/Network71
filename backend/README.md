@@ -104,7 +104,7 @@ Production PHP 8.4, a modern MySQL/MariaDB host, Apache/LiteSpeed rewrites, real
 
 Implementation references: [PHP cookie sessions](https://www.php.net/manual/en/function.session-set-cookie-params.php), [PDO prepared statements](https://www.php.net/manual/en/pdo.prepared-statements.php).
 
-Local verification on 9 September 2026 used PHP 8.3.33 and an isolated MariaDB 10.4.28 instance. The HTTP suite passed 38 checks, including password-reset session invalidation. Browser checks covered all admin module lists/forms at 320, 375, 768, 1024 and 1440 pixels, draft persistence, navigation guards, logout and public-site navigation isolation. Main contact and sector form submissions were verified in the inbox; test records were removed afterwards. Selected accessibility rules were checked on the content editors and admin utility screens. Production TypeScript/Vite build passes with the existing large globe-chunk warning.
+Local verification on 9 September 2026 used PHP 8.3.33 and an isolated MariaDB 10.4.28 instance. The HTTP suite passed 38 checks, including password-reset session invalidation. Browser checks covered all admin module lists/forms at 320, 375, 768, 1024 and 1440 pixels, draft persistence, navigation guards, logout and public-site navigation isolation. Main contact and sector form submissions were verified in the inbox; test records were removed afterwards. Selected accessibility rules were checked on the content editors and admin utility screens. The WebGL globe is isolated in a deferred chunk; the production TypeScript/Vite build passes within the configured chunk budget.
 
 ## Historical CMS foundation checkpoint — 10 September 2026
 
