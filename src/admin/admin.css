@@ -161,6 +161,13 @@
 .adm-revision-list button { margin-left: 8px; padding: 4px 7px; border: 1px solid var(--adm-line); border-radius: 5px; background: #fff; color: var(--adm-green); }
 .adm-revision-preview { grid-column: 2/-1; min-width: 0; padding: 14px; border: 1px solid var(--adm-line); border-radius: 8px; background: #fff; }
 .adm-revision-preview pre { max-height: 360px; overflow: auto; margin: 10px 0 0; padding: 12px; border-radius: 6px; background: #14251f; color: #eef8f3; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 11px; }
+.adm-private-documents { margin-top: 22px; }
+.adm-private-documents .adm-upload { margin: 22px 0; padding: 0; box-shadow: none; }
+.adm-private-document-list { display: grid; gap: 10px; padding: 0; list-style: none; }
+.adm-private-document-list li { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px; border: 1px solid var(--adm-line); border-radius: 8px; }
+.adm-private-document-list li>div { flex: 1 1 260px; min-width: 0; }
+.adm-private-document-list strong,.adm-private-document-list span { display: block; overflow-wrap: anywhere; }
+.adm-private-document-list span { margin-top: 4px; color: var(--adm-muted); font-size: 11px; }
 .adm-footer { display: flex; justify-content: space-between; padding: 22px 38px; font-size: 10px; color: var(--adm-muted); border-top: 1px solid var(--adm-line); }
 .adm-bottom-nav { display: none; }
 .adm-signout { margin-top: 25px; }

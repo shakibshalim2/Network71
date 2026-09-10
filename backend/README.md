@@ -17,12 +17,13 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 - A published `company-profile` Settings record centrally controls general, careers, press, legal and investor email addresses, phone, website, business hours, operating/registered addresses and social profiles. Safe packaged contact values remain during API outages or before the record is published.
 - Homepage cards, media teasers, CTA destinations and major homepage/division imagery are structured URL fields in the page-section CMS. Admins can replace them with approved Media Library URLs without editing React components.
 - Projects support location/duration, separate deliverables, verified result baseline/source/date, up to 30 captioned images, an approved related testimonial and a public evidence link. The public case-study page renders these fields only from the published snapshot.
+- Each saved Project has a separate private evidence panel for PDF/JPEG/PNG files up to 10 MB. Files live outside public media, have no public endpoint, require an authenticated admin session to download, and can be permanently removed by an owner.
 - eSHIPe has separate Vessels and Vessel Sellers collections. Published inventory replaces the clearly labelled packaged examples, supports seller linking by slug and renders approved vessel media/specification/profile data without publishing private contact details.
 - Owner-issued expiring password reset links, referenced-media archive protection and a transactional email outbox with a locked PHPMailer worker.
 
 ## Still to implement
 
-- Private project evidence, media replacement workflow and richer field types.
+- Further media derivatives and field-specific replacement previews.
 - Verified offsite backups and cPanel production deployment. SMTP delivery exists but remains disabled until a real provider and cron are configured and tested.
 - Actual company content review and publishing. Existing public marketing claims were not verified by building this backend.
 
@@ -58,6 +59,9 @@ Prefix `/api/v1`:
 | `GET/POST /admin/media` | Paginated media list / multipart upload (`file`, `alt`, `permission=yes`) |
 | `DELETE /admin/media/{id}` | Owner-only archive; rejects referenced media |
 | `GET /media/{filename}` | Re-encoded public image, immutable URL |
+| `GET/POST /admin/projects/{id}/documents` | List or upload private project evidence |
+| `GET /admin/projects/{id}/documents/{document}/download` | Authenticated private evidence download |
+| `DELETE /admin/projects/{id}/documents/{document}` | Owner-only private evidence removal |
 | `POST /inquiries` | Save message; required random `request_key` (20–64 alphanumeric/hyphen characters) |
 | `POST /job-applications` | Multipart application for a published vacancy or `general`; PDF CV, consent and idempotency key required |
 | `GET /admin/inquiries` | Paginated inbox |

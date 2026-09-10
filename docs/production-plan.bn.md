@@ -173,12 +173,12 @@ Completed in this resumed session:
 Global contact endpoints and company profile fields are centrally controlled by a published Settings record; packaged values remain only as outage/unpublished fallbacks.
 Homepage cards/CTA destinations and previously hardcoded homepage/division image URLs are now validated page-section fields editable through admin.
 
-Verified: 560 locale template validations; 20 section/reset/review/restore HTTP checks; 55 HTTP/MySQL integration checks; outbox failure/retry simulation; media archive protection; project renderer escaping/metadata; authenticated browser save/preview/publish; EN/BN editor at 375/768/1440; 156 public route/locale/viewport structural checks. The original About test section was restored.
+Verified: 560 locale template validations; 20 section/reset/review/restore HTTP checks; 61 HTTP/MySQL integration checks including private CV/evidence access; outbox failure/retry simulation; media archive protection; project renderer escaping/metadata; authenticated browser save/preview/publish; EN/BN editor at 375/768/1440; 156 public route/locale/viewport structural checks. The original About test section was restored.
 
 Still open (do not report the entire production plan as complete):
 - Complete nested/shared section layout coverage, draft autosave, and manual visual/accessibility acceptance beyond the automated checks. Revision history, snapshot preview/restore and mandatory owner approval are implemented.
 - Actual SMTP provider delivery, cron setup, cPanel rewrites/HTTPS, deployment and isolated backup restore/offsite recovery verification.
-- Owner-approved company imagery, factual claims, real vessel/seller profiles and private evidence/document workflows.
+- Owner-approved company imagery, factual claims এবং real vessel/seller/content records। Private project evidence/document workflow implemented; production records ও owner acceptance এখনো external।
 - Globe remains about 637 kB with a build warning.
 
 No production deployment or real external email delivery was performed. All locally completed work is committed and synchronized to both active branches.

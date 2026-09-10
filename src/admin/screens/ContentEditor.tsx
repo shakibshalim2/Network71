@@ -1,4 +1,5 @@
 import CollectionForm from "./CollectionForm"
+import ProjectDocuments from "./ProjectDocuments"
 import { useEffect, useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { api, type ContentRecord, type Module, type Page, type User } from '../api'
@@ -165,7 +166,7 @@ export function ContentEditor({
         </div>
       )}
       {editing ? (
-        <CollectionForm editing={editing} module={module} busy={busy} dirty={dirty} save={save} close={close} setEditing={setEditing} markDirty={markDirty} />
+        <><CollectionForm editing={editing} module={module} busy={busy} dirty={dirty} save={save} close={close} setEditing={setEditing} markDirty={markDirty} />{moduleKey === "projects" && editing.id && <ProjectDocuments projectId={editing.id} user={user} />}</>
       ) : (
         <>
           <div className="adm-toolbar"><label>Language<select aria-label="Collection language" value={locale} onChange={e => { setLocale(e.target.value); setPage(1) }}><option value="en">English</option><option value="bn">বাংলা</option></select></label>

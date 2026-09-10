@@ -7,12 +7,14 @@ final class Api
     private Content $content;
     private Media $media;
     private JobApplications $applications;
+    private PrivateDocuments $documents;
     public function __construct(private array $config)
     {
         $this->db = new Database($config);
         $this->content = new Content($this->db, require __DIR__ . '/modules.php');
         $this->media = new Media($this->db, $config);
         $this->applications = new JobApplications($this->db, $config);
+        $this->documents = new PrivateDocuments($this->db, $config);
     }
 
     public function run(): never
@@ -195,6 +197,12 @@ final class Api
         }
         if ($method === 'GET' && preg_match('~^/api/v1/admin/applications/([0-9]+)/resume$~',$path,$match)) {
             $this->applications->download((int)$match[1]);
+        }
+        if ($method === 'GET' && preg_match('~^/api/v1/admin/projects/([0-9]+)/documents$~',$path,$match)) Http::json($this->documents->listing((int)$match[1]));
+        if ($method === 'POST' && preg_match('~^/api/v1/admin/projects/([0-9]+)/documents$~',$path,$match)) Http::json($this->documents->upload((int)$match[1],$user),201);
+        if ($method === 'GET' && preg_match('~^/api/v1/admin/projects/([0-9]+)/documents/([0-9]+)/download$~',$path,$match)) $this->documents->download((int)$match[1],(int)$match[2]);
+        if ($method === 'DELETE' && preg_match('~^/api/v1/admin/projects/([0-9]+)/documents/([0-9]+)$~',$path,$match)) {
+            $this->documents->archive((int)$match[1],(int)$match[2],$auth->owner());Http::json(['ok'=>true]);
         }
         if ($path === '/api/v1/admin/users') {
             $auth->owner();

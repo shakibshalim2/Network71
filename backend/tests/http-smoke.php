@@ -10,7 +10,7 @@ if (!in_array(parse_url($base, PHP_URL_HOST), ['localhost', '127.0.0.1'], true))
 $db = new Database($config);
 $prefix = 'test-' . bin2hex(random_bytes(6));
 $inquiryBucket = hash('sha256', 'inquiry:127.0.0.1');
-$ids = []; $userId = null; $mediaId = null; $filename = null; $reference = null; $applicationId = null; $applicationFilename = null;
+$ids = []; $userId = null; $mediaId = null; $filename = null; $reference = null; $applicationId = null; $applicationFilename = null; $documentId = null; $documentFilename = null;
 $checks = 0;
 function check(bool $condition, string $message): void { global $checks; if (!$condition) throw new RuntimeException($message); $checks++; }
 final class Client
@@ -43,6 +43,7 @@ $guest = new Client($base, $config['origin']);
 $tempImage = tempnam(sys_get_temp_dir(), 'n71-image-');
 $tempBad = tempnam(sys_get_temp_dir(), 'n71-bad-');
 $tempPdf = tempnam(sys_get_temp_dir(), 'n71-pdf-');
+$tempEvidence = tempnam(sys_get_temp_dir(), 'n71-evidence-');
 try {
     check($guest->send('GET', 'admin/dashboard')['status'] === 401, 'Admin must reject guests.');
     $owner->login((string)getenv('N71_TEST_EMAIL'), (string)getenv('N71_TEST_PASSWORD'));
@@ -104,6 +105,14 @@ try {
     check($guest->send('GET', 'media/' . $filename)['status'] === 200, 'Uploaded image not served.');
     file_put_contents($tempBad, '<?php echo 1;');
     check($owner->send('POST', 'admin/media', ['file' => new CURLFile($tempBad, 'image/png', 'fake.png'), 'alt' => 'Invalid image', 'permission' => 'yes'])['status'] === 422, 'Disguised PHP upload accepted.');
+    file_put_contents($tempEvidence,"%PDF-1.4\n1 0 obj<</Type/Catalog>>endobj\n%%EOF");
+    $uploadedDocument=$owner->send('POST',"admin/projects/$id/documents",['file'=>new CURLFile($tempEvidence,'application/pdf','private-evidence.pdf'),'label'=>'Private delivery proof','confirmation'=>'yes']);
+    check($uploadedDocument['status']===201,'Private evidence upload failed.');$documentId=(int)$uploadedDocument['data']['id'];$documentFilename=$db->query('SELECT filename FROM private_documents WHERE id=?',[$documentId])->fetchColumn();
+    check($guest->send('GET',"admin/projects/$id/documents/$documentId/download")['status']===401,'Private evidence was available without authentication.');
+    $privateList=$owner->send('GET',"admin/projects/$id/documents");check($privateList['status']===200&&count($privateList['data']['items'])===1,'Private evidence list failed.');
+    $privateDownload=$owner->send('GET',"admin/projects/$id/documents/$documentId/download");check($privateDownload['status']===200&&str_starts_with($privateDownload['raw'],'%PDF-'),'Private evidence download failed.');
+    check($owner->send('DELETE',"admin/projects/$id/documents/$documentId")['status']===200,'Private evidence removal failed.');
+    check($owner->send('GET',"admin/projects/$id/documents/$documentId/download")['status']===404,'Removed private evidence remained downloadable.');
     $db->query('DELETE FROM rate_limits WHERE bucket = ?', [$inquiryBucket]);
     $inquiry = ['name' => 'Test enquiry', 'email' => $email, 'subject' => $prefix, 'message' => 'Integration test', 'request_key' => bin2hex(random_bytes(20))];
     $received = $guest->send('POST', 'inquiries', $inquiry); check($received['status'] === 201, 'Inquiry not stored.'); $reference = $received['data']['reference'];
@@ -136,6 +145,7 @@ try {
     check($owner->send('GET', 'admin/dashboard')['status'] === 401, 'Logout retained access.');
     echo "$checks HTTP/MySQL integration checks passed.\n";
 } finally {
+    if ($documentId) { $db->query("DELETE FROM audit_logs WHERE entity='private_documents' AND entity_id=?",[$documentId]); $db->query('DELETE FROM private_documents WHERE id=?',[$documentId]); if($documentFilename&&is_file($config['storage'].'/private-documents/'.$documentFilename))unlink($config['storage'].'/private-documents/'.$documentFilename); }
     if ($applicationId) { $db->query("DELETE FROM audit_logs WHERE entity='applications' AND entity_id=?",[$applicationId]); $db->query('DELETE FROM job_applications WHERE id=?',[$applicationId]); if ($applicationFilename && is_file($config['storage'].'/applications/'.$applicationFilename)) unlink($config['storage'].'/applications/'.$applicationFilename); }
     foreach ($ids as $id) { $db->query('DELETE FROM audit_logs WHERE entity_id = ? AND entity IN (?, ?, ?)', [$id, 'projects', 'posts', 'jobs']); $db->query('DELETE FROM content_records WHERE id = ?', [$id]); }
     if ($mediaId) { $db->query("DELETE FROM audit_logs WHERE entity_id = ? AND entity = 'media'", [$mediaId]); $db->query('DELETE FROM media_assets WHERE id = ?', [$mediaId]); if ($filename) unlink($config['storage'] . '/media/' . $filename); }
@@ -144,5 +154,5 @@ try {
     $db->query('DELETE FROM rate_limits WHERE bucket = ?', [$inquiryBucket]);
     $db->query('DELETE FROM rate_limits WHERE bucket = ?', [hash('sha256', 'job-application:127.0.0.1')]);
     $db->query('DELETE FROM rate_limits WHERE bucket = ?', [hash('sha256', 'login-email:' . $prefix . '@example.test')]);
-    unlink($tempImage); unlink($tempBad); unlink($tempPdf);
+    unlink($tempImage); unlink($tempBad); unlink($tempPdf); unlink($tempEvidence);
 }

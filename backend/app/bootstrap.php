@@ -12,6 +12,7 @@ require_once __DIR__ . '/Sections.php';
 require_once __DIR__ . '/PasswordReset.php';
 require_once __DIR__ . '/Outbox.php';
 require_once __DIR__ . '/JobApplications.php';
+require_once __DIR__ . '/PrivateDocuments.php';
 
 function app_config(): array
 {

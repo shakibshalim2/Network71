@@ -11,6 +11,7 @@ try{
     $config=app_config();report(is_dir($config['storage'])&&is_writable($config['storage']),'Private storage writable');
     report($config['environment']==='development'||($config['secure_cookie']&&str_starts_with($config['origin'],'https://')),'HTTPS/session cookie policy');
     $retention=(int)($config['inquiry_retention_days']??365);report($retention>=30&&$retention<=3650,'Inquiry retention policy');
+    $applicationRetention=(int)($config['application_retention_days']??730);report($applicationRetention>=30&&$applicationRetention<=3650,'Application retention policy');
     $db=new Database($config);report(true,'Database connection');
     foreach(glob(dirname(__DIR__).'/database/*.sql') as $file){$version=basename($file,'.sql');report((bool)$db->query('SELECT version FROM schema_migrations WHERE version=?',[$version])->fetch(),'Migration '.$version);}
     report((int)$db->query("SELECT COUNT(*) FROM admin_users WHERE active=1 AND role='owner'")->fetchColumn()>0,'Active owner exists');

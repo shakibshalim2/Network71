@@ -1,6 +1,6 @@
 # Network71: পুরো ওয়েবসাইটের admin ও backend
 
-Status (১০ সেপ্টেম্বর ২০২৬): core admin, EN/BN page-section CMS, ১৬টি collection consumer, বাধ্যতামূলক Draft → In review → Approved → Published workflow, revision preview/restore, inquiry inbox/outbox, private career application inbox, media archive, reset links এবং deployment package implemented। eSHIPe vessel/seller inventory এখন dedicated collection। Private project evidence, production deployment ও owner content acceptance open।
+Status (১০ সেপ্টেম্বর ২০২৬): core admin, EN/BN page-section CMS, ১৬টি collection consumer, বাধ্যতামূলক Draft → In review → Approved → Published workflow, revision preview/restore, inquiry inbox/outbox, private career application inbox, project evidence vault, media archive, reset links এবং deployment package implemented। eSHIPe vessel/seller inventory এখন dedicated collection। Production deployment, offsite restore verification ও owner content acceptance open।
 
 এই পরিকল্পনা আগের project-কেন্দ্রিক MVP scope-কে সম্প্রসারিত করে। লক্ষ্য হলো পুরো ওয়েবসাইটের content management; project showcase তার একটি module।
 
@@ -11,7 +11,7 @@ Status (১০ সেপ্টেম্বর ২০২৬): core admin, EN/BN p
 | Dashboard | Draft/published content, incoming inquiries, recent changes |
 | Pages | Home, About, Investors, Sustainability, Governance, Legal, Brand ও অন্য static page-এর text, section ও SEO |
 | Divisions | আটটি বিভাগের পরিচিতি, services, process, metrics ও contact |
-| Projects | Client work, own product, location/duration, deliverables, captioned gallery, result baseline/source/date, approved testimonial ও public delivery evidence |
+| Projects | Client work, own product, location/duration, deliverables, captioned gallery, result baseline/source/date, approved testimonial, public evidence link ও authenticated private evidence vault |
 | Vessels / Sellers | eSHIPe inventory, vessel specifications, approved seller profile ও slug-based relation |
 | Team | Leadership ও team পরিচিতি |
 | Insights / Press | Blog এবং press releases |
@@ -38,7 +38,7 @@ Bottom navigation শুধু `/admin/*`-এ থাকবে। Public website-
 1. **এই কাজের প্রথম ধাপ:** PHP/PDO MySQL schema ও setup tools, secure session login, Owner/Editor permissions, schema-driven content editor, draft/published snapshots, media upload, inquiry API/inbox, account management, audit log এবং responsive admin shell। Public collection APIs থাকবে; existing page content migration আলাদা কাজ হিসেবে দৃশ্যমান থাকবে।
 2. **Public content migration:** বর্তমান প্রতিটি page/component থেকে business content structured data-তে আনা; admin field-এর সাথে renderer mapping; homepage section ordering/visibility/images/destinations, header/footer/settings, sector pages, articles/jobs/team/gallery। প্রতিটি migrated section edit/publish করে public site-এ যাচাই করতে হবে। Layout/route implementation code-managed থাকবে।
 3. **Project showcase:** Featured work, project list/detail, actual client material, approved evidence, share metadata এবং related inquiry।
-4. **Operations:** Authenticated SMTP/outbox retry, password reset, private documents, image derivatives, backup/restore, cPanel staging, production hardening ও deployment।
+4. **Operations:** Authenticated SMTP/outbox retry, password reset এবং private documents implemented; image derivatives, verified offsite backup/restore, cPanel staging, production hardening ও deployment external operations।
 
 ## Data ও security
 
@@ -46,7 +46,7 @@ Bottom navigation শুধু `/admin/*`-এ থাকবে। Public website-
 
 Schema-driven প্রথম ধাপের পরে page-specific repeatable blocks এবং প্রয়োজনীয় relational project evidence/result tables যোগ হবে। Existing content-এর প্রতিটি field-এর migration inventory থাকবে।
 
-PDO prepared queries, password hashing, expiring sessions, CSRF checks, login/inquiry rate limits, role checks এবং transactional audit logs থাকবে। Media initial scope raster images, decoded/re-encoded; upload executable files নয়। Public uploads-এ publish rights নিশ্চিত করতে হবে; confidential evidence private-document phase-এর আগে upload করা যাবে না।
+PDO prepared queries, password hashing, expiring sessions, CSRF checks, login/inquiry rate limits, role checks এবং transactional audit logs থাকবে। Public Media raster image decode/re-encode করে। Confidential project evidence আলাদা private storage-এ PDF/JPEG/PNG allowlist, signature/size validation ও authenticated download ব্যবহার করে; কোনো public URL তৈরি হয় না।
 
 Production target PHP 8.4 + supported MySQL/MariaDB। Local environment-এ উপলব্ধ PHP 8.3 এবং isolated MariaDB দিয়ে functionality test করা যেতে পারে; সেটি PHP 8.4/MySQL 8.4 production certification নয়। cPanel-এ static React build + PHP API, private application files public_html-এর বাইরে, same-origin API এবং HTTPS cookie।
 
