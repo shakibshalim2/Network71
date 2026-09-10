@@ -1,6 +1,8 @@
 import type { PressContent } from '../content/en'
+import { useCompanySettings } from '@/lib/companySettings'
 
 export default function Briefings({ c }: { c: PressContent['briefings'] }) {
+  const { pressEmail } = useCompanySettings()
   return (
     <section className="bg-navy-dark border-y border-white/8">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
@@ -10,7 +12,7 @@ export default function Briefings({ c }: { c: PressContent['briefings'] }) {
             <p className="text-slate-400 text-sm">{c.lead}</p>
           </div>
           <a
-            href={`mailto:${c.email}`}
+            href={`mailto:${pressEmail}`}
             className="flex-shrink-0 px-5 py-2.5 border border-gold/25 text-gold text-sm font-medium rounded-lg hover:bg-gold/8 transition-colors"
           >
             {c.enquiriesLabel}
@@ -37,7 +39,7 @@ export default function Briefings({ c }: { c: PressContent['briefings'] }) {
                   <p className="text-slate-400 text-sm leading-relaxed">{pr.excerpt}</p>
                 </div>
                 <div className="mt-5 flex items-center gap-2 text-gold text-sm font-medium">
-                  <a href={`mailto:${c.email}?subject=${encodeURIComponent(`${c.requestSubject}: ${pr.title}`)}`}>{c.requestLabel}</a>
+                  <a href={`mailto:${pressEmail}?subject=${encodeURIComponent(`${c.requestSubject}: ${pr.title}`)}`}>{c.requestLabel}</a>
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                   </svg>

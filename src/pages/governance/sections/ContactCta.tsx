@@ -1,6 +1,8 @@
 import type { GovernanceContent } from '../content/en'
+import { useCompanySettings } from '@/lib/companySettings'
 
 export default function ContactCta({ c }: { c: GovernanceContent['contact'] }) {
+  const { legalEmail } = useCompanySettings()
   return (
     <section className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-8 bg-navy-light border border-white/8 rounded-2xl">
@@ -9,10 +11,10 @@ export default function ContactCta({ c }: { c: GovernanceContent['contact'] }) {
           <p className="text-slate-400 text-sm">{c.lead}</p>
         </div>
         <a
-          href={`mailto:${c.email}`}
+          href={`mailto:${legalEmail}`}
           className="flex-shrink-0 px-6 py-3 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors"
         >
-          {c.email}
+          {legalEmail}
         </a>
       </div>
     </section>

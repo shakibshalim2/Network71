@@ -13,6 +13,7 @@ The complete website CMS plan is in [website-admin-plan.bn.md](../docs/website-a
 - Main contact page and shared sector enquiry forms save to the admin inbox. Server-side idempotency returns the same reference for an identical retried submission.
 - EN/BN page-section editing, visibility/order controls, SEO fields and authenticated saved-draft previews. Published overrides are consumed across the public page inventory.
 - Published public consumers for projects, team, jobs, gallery, Insights, Press, Timeline, Locations, Brands, Credentials, verified Metrics, Testimonials, Company Settings and Navigation. Insights and Press include locale-aware list and detail routes.
+- A published `company-profile` Settings record centrally controls general, careers, press, legal and investor email addresses, phone, website, business hours, operating/registered addresses and social profiles. Safe packaged contact values remain during API outages or before the record is published.
 - Owner-issued expiring password reset links, referenced-media archive protection and a transactional email outbox with a locked PHPMailer worker.
 
 ## Still to implement

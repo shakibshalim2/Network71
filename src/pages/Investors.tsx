@@ -9,12 +9,13 @@ import Thesis from './investors/sections/Thesis'
 import Documents from './investors/sections/Documents'
 import Governance from './investors/sections/Governance'
 import Enquiry from './investors/sections/Enquiry'
+import { useCompanySettings } from '@/lib/companySettings'
 
 const loaders = { bn: () => import('./investors/content/bn') }
 
 export default function Investors() {
   const c = useLocalizedContent(en, loaders, { page: 'investors' })
-  const email = c.enquiry.email
+  const email = useCompanySettings().investorsEmail
   return (
     <div className="min-h-full">
       <Header />
@@ -24,7 +25,7 @@ export default function Investors() {
         <Thesis c={c.thesis} />
         <Documents c={c.documents} email={email} />
         <Governance c={c.governance} />
-        <Enquiry c={c.enquiry} />
+        <Enquiry c={c.enquiry} email={email} />
       </ManagedContent>
       <Footer />
     </div>

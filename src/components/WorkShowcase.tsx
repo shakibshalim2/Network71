@@ -8,6 +8,7 @@ import {
   type PublishedItem,
   type PublishedPage,
 } from "@/lib/publicContent"
+import { useCompanySettings } from "@/lib/companySettings"
 
 export function WorkImage({ src, alt }: { src: string; alt: string }) {
   const { t } = useT()
@@ -117,6 +118,7 @@ const STEPS = ["s1", "s2", "s3", "s4"] as const
 
 export function WorkingTogether() {
   const { t } = useT()
+  const { generalEmail } = useCompanySettings()
   return (
     <section className="working-together section-y">
       <div className="container-page">
@@ -142,8 +144,8 @@ export function WorkingTogether() {
         </ol>
         <div className="working-contact">
           <p>{t("work.together.brief")}</p>
-          <a href="mailto:info@network71.com">
-            info@network71.com <span aria-hidden="true">↗</span>
+          <a href={`mailto:${generalEmail}`}>
+            {generalEmail} <span aria-hidden="true">↗</span>
           </a>
         </div>
       </div>

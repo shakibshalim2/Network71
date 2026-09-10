@@ -3,10 +3,12 @@ import { openEmailDraft } from "@/lib/mailto"
 import { Link } from "react-router-dom"
 import { BG, SURFACE } from "../theme"
 import type { EzyifyContent } from "../content/en"
+import { useCompanySettings } from "@/lib/companySettings"
 
 export default function Waitlist({ c }: { c: EzyifyContent["waitlist"] }) {
   const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
+  const { generalEmail } = useCompanySettings()
   return (
     <section
       className="py-28 px-6 relative overflow-hidden"
@@ -54,7 +56,7 @@ export default function Waitlist({ c }: { c: EzyifyContent["waitlist"] }) {
           <form
             onSubmit={(e) => {
               e.preventDefault()
-              openEmailDraft("info@network71.com", c.subject, { Email: email })
+              openEmailDraft(generalEmail, c.subject, { Email: email })
               setSubmitted(true)
             }}
             className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"

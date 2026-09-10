@@ -170,6 +170,8 @@ Completed in this resumed session:
 - Transactional enquiry email outbox and locked PHPMailer SMTP worker with retry; dashboard queue counts. SMTP is disabled until configured.
 - cPanel readiness checker, admin manifest, deployment checklist and project HTML/social metadata renderer example.
 
+Global contact endpoints and company profile fields are centrally controlled by a published Settings record; packaged values remain only as outage/unpublished fallbacks.
+
 Verified: 558 locale template validations; 15 section/reset/review HTTP checks; 43 HTTP/MySQL integration checks; outbox failure/retry simulation; media archive protection; project renderer escaping/metadata; authenticated browser save/preview/publish; EN/BN editor at 375/768/1440; 156 public route/locale/viewport structural checks. The original About test section was restored.
 
 Still open (do not report the entire production plan as complete):

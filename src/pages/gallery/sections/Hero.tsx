@@ -1,4 +1,5 @@
 import type { GalleryContent } from "../content/en"
+import { useCompanySettings } from "@/lib/companySettings"
 
 export function Hero({ c }: { c: GalleryContent["hero"] }) {
   return (
@@ -24,6 +25,7 @@ export function Hero({ c }: { c: GalleryContent["hero"] }) {
 }
 
 export function ContributeCta({ c }: { c: GalleryContent["cta"] }) {
+  const { pressEmail } = useCompanySettings()
   return (
     <section className="bg-navy-dark border-t border-white/8">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-14 flex flex-col md:flex-row items-center justify-between gap-6">
@@ -36,7 +38,7 @@ export function ContributeCta({ c }: { c: GalleryContent["cta"] }) {
           </p>
         </div>
         <a
-          href="mailto:press@network71.com"
+          href={`mailto:${pressEmail}`}
           className="flex-shrink-0 px-7 py-3 border border-gold/40 text-gold text-sm font-semibold rounded-lg hover:bg-gold/10 transition-colors"
         >
           {c.button}

@@ -16,7 +16,7 @@ const inputCls = 'w-full bg-navy-dark border border-white/10 rounded-lg px-4 py-
 const selectCls = 'w-full bg-navy-dark border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold/50 transition-colors'
 const labelCls = 'block text-xs text-slate-400 mb-2 font-medium'
 
-export default function Enquiry({ c }: { c: InvestorsContent['enquiry'] }) {
+export default function Enquiry({ c, email }: { c: InvestorsContent['enquiry']; email: string }) {
   // Option values stay language-neutral so the generated email draft is consistent.
   const [form, setForm] = useState<FormState>({
     name: '',
@@ -34,7 +34,7 @@ export default function Enquiry({ c }: { c: InvestorsContent['enquiry'] }) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    openEmailDraft(c.email, `Investor enquiry from ${form.name}`, {
+    openEmailDraft(email, `Investor enquiry from ${form.name}`, {
       Name: form.name,
       Company: form.company,
       Email: form.email,
@@ -55,9 +55,9 @@ export default function Enquiry({ c }: { c: InvestorsContent['enquiry'] }) {
           <h2 className="font-display text-4xl text-white mb-3 tracking-[-0.02em]">{c.title}</h2>
           <p className="text-slate-400 text-sm mb-2">{c.lead}</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-slate-400">
-            <a href={`mailto:${c.email}`} className="flex items-center gap-1.5 hover:text-gold transition-colors">
+            <a href={`mailto:${email}`} className="flex items-center gap-1.5 hover:text-gold transition-colors">
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
-              {c.email}
+              {email}
             </a>
             <span className="hidden sm:inline text-slate-600">·</span>
             <span className="flex items-center gap-1.5">

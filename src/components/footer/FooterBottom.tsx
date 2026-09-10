@@ -2,9 +2,11 @@ import { Link } from "react-router-dom"
 import Logo from "@/components/brand/Logo"
 import { useT } from "@/i18n"
 import { LEGAL } from "./data"
+import { useCompanySettings } from "@/lib/companySettings"
 
 export default function FooterBottom() {
   const { t } = useT()
+  const { generalEmail } = useCompanySettings()
   return (
     <div
       className="flex flex-col lg:flex-row lg:flex-wrap lg:items-center lg:justify-between gap-4 lg:gap-x-7 pt-5 sm:pt-[22px]"
@@ -74,7 +76,7 @@ export default function FooterBottom() {
       </div>
 
       <a
-        href="mailto:info@network71.com"
+        href={`mailto:${generalEmail}`}
         className="wrap-anywhere tap-inline"
         style={{
           fontFamily: "var(--font-mono)",
@@ -83,7 +85,7 @@ export default function FooterBottom() {
           textDecoration: "none",
         }}
       >
-        info@network71.com
+        {generalEmail}
       </a>
     </div>
   )

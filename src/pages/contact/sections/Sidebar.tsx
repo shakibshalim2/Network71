@@ -1,6 +1,8 @@
 import type { ContactContent } from '../content/en'
+import { useCompanySettings } from '@/lib/companySettings'
 
 export default function Sidebar({ c }: { c: ContactContent['sidebar'] }) {
+  const settings = useCompanySettings()
   return (
     <div className="lg:col-span-2 space-y-8">
       {/* Offices */}
@@ -15,9 +17,9 @@ export default function Sidebar({ c }: { c: ContactContent['sidebar'] }) {
               <div className="w-2 h-2 rounded-full bg-gold" />
               <span className="text-white text-sm font-semibold">{c.hqLabel}</span>
             </div>
-            <p className="text-slate-400 text-sm">{c.hqCity}</p>
-            <a href={`mailto:${c.hqEmail}`} className="text-gold text-xs hover:underline mt-2 inline-block">
-              {c.hqEmail}
+            <p className="text-slate-400 text-sm">{settings.operatingAddress || c.hqCity}</p>
+            <a href={`mailto:${settings.generalEmail}`} className="text-gold text-xs hover:underline mt-2 inline-block">
+              {settings.generalEmail}
             </a>
           </div>
         </div>
@@ -34,7 +36,7 @@ export default function Sidebar({ c }: { c: ContactContent['sidebar'] }) {
             <div key={division} className="flex items-center justify-between py-3 border-b border-white/6 last:border-0">
               <span className="text-slate-400 text-sm">{division}</span>
               <a
-                href={`mailto:${c.hqEmail}?subject=${encodeURIComponent(`${division} enquiry`)}`}
+                href={`mailto:${settings.generalEmail}?subject=${encodeURIComponent(`${division} enquiry`)}`}
                 className="text-gold text-xs hover:underline flex-shrink-0 ml-3"
               >
                 {c.enquire}

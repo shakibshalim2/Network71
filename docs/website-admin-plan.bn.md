@@ -20,7 +20,7 @@ Status (১০ সেপ্টেম্বর ২০২৬): core admin, EN/BN p
 | Locations / Timeline | Global presence ও milestones |
 | Testimonials / Credentials / Metrics | Permission-সহ feedback, certifications ও verified claims |
 | Navigation | Header/footer links ও ordering |
-| Settings | Public contact, social links ও company profile; server secrets নয় |
+| Settings | `company-profile` record থেকে global general/careers/press/legal/investor contacts, phone, website, business hours, operating/registered address ও social profiles; server secrets নয় |
 | Inquiries | Website থেকে আসা message, reference ও follow-up status |
 | Users / Activity | Owner/editor accounts, role checks এবং audit trail |
 

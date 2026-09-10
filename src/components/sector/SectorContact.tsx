@@ -2,6 +2,7 @@ import { useSearchParams } from "react-router-dom"
 import { useState } from 'react'
 import { useInquiry } from '@/lib/inquiry'
 import { useT } from '@/i18n'
+import { useCompanySettings } from '@/lib/companySettings'
 
 interface SectorContactProps {
   divisionName: string
@@ -15,6 +16,7 @@ export default function SectorContact({
   inquiryTypes = ['General Inquiry', 'Partnership', 'Buyer Inquiry', 'Investment', 'Supplier Inquiry'],
 }: SectorContactProps) {
   const { t } = useT()
+  const settings = useCompanySettings()
   const [params] = useSearchParams()
   const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', type: '', message: params.get('requirements')?.slice(0, 2000) || '' })
   const inquiry = useInquiry()
@@ -60,7 +62,7 @@ export default function SectorContact({
                 </div>
                 <div>
                   <div className="text-white font-medium text-sm">{t('sector.contact.email')}</div>
-                  <a href="mailto:info@network71.com" className="text-slate-400 text-sm hover:text-white transition-colors">info@network71.com</a>
+                  <a href={`mailto:${settings.generalEmail}`} className="text-slate-400 text-sm hover:text-white transition-colors">{settings.generalEmail}</a>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -72,7 +74,7 @@ export default function SectorContact({
                 </div>
                 <div>
                   <div className="text-white font-medium text-sm">{t('sector.contact.hq')}</div>
-                  <div className="text-slate-400 text-sm">{t('sector.contact.hqValue')}</div>
+                  <div className="text-slate-400 text-sm">{settings.operatingAddress || t('sector.contact.hqValue')}</div>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -84,7 +86,7 @@ export default function SectorContact({
                 </div>
                 <div>
                   <div className="text-white font-medium text-sm">{t('sector.contact.web')}</div>
-                  <a href="https://network71.com" className="text-slate-400 text-sm hover:text-white transition-colors">network71.com</a>
+                  <a href={settings.website} className="text-slate-400 text-sm hover:text-white transition-colors">{settings.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}</a>
                 </div>
               </div>
             </div>

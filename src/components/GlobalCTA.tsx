@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useT } from '@/i18n'
+import { useCompanySettings } from '@/lib/companySettings'
 
 const InvestIcon = () => (
   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -28,6 +29,7 @@ const CARDS = [
 
 export default function GlobalCTA() {
   const { t } = useT()
+  const { generalEmail } = useCompanySettings()
   return (
     <section
       className="section-y force-dark"
@@ -99,9 +101,9 @@ export default function GlobalCTA() {
         {/* Contact line */}
         <div className="mt-9 pt-8 sm:mt-12 sm:pt-10 text-center" style={{ borderTop: '1px solid var(--line)' }}>
           <p className="font-mono text-[8px] tracking-[0.22em] sm:text-[9px] sm:tracking-[0.3em] uppercase mb-3" style={{ color: 'var(--fg-faint)' }}>{t('cta.direct')}</p>
-          <a href="mailto:info@network71.com"
+          <a href={`mailto:${generalEmail}`}
             className="font-semibold text-base sm:text-lg wrap-anywhere transition-colors duration-150" style={{ color: 'var(--brand-fg)' }}>
-            info@network71.com
+            {generalEmail}
           </a>
         </div>
       </div>

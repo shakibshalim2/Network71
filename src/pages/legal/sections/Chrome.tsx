@@ -1,8 +1,7 @@
 import type { ReactNode } from 'react'
 import type { LegalContent } from '../content/en'
 import { ARTICLE_ICONS, MailIcon } from '../icons'
-
-const LEGAL_MAILTO = 'mailto:legal@network71.com'
+import { useCompanySettings } from '@/lib/companySettings'
 
 export function Hero({ c }: { c: LegalContent['hero'] }) {
   return (
@@ -25,6 +24,7 @@ export function Hero({ c }: { c: LegalContent['hero'] }) {
 }
 
 export function Toc({ c, active, onSelect }: { c: LegalContent['toc']; active: string; onSelect: (id: string) => void }) {
+  const { legalEmail } = useCompanySettings()
   return (
     <aside className="w-full lg:w-56 flex-shrink-0">
       <nav aria-label={c.ariaLabel} className="lg:sticky lg:top-24 space-y-1">
@@ -41,7 +41,7 @@ export function Toc({ c, active, onSelect }: { c: LegalContent['toc']; active: s
         ))}
         <div className="pt-6 border-t border-white/8 mt-6">
           <a
-            href={LEGAL_MAILTO}
+            href={`mailto:${legalEmail}`}
             className="flex items-center gap-2 text-xs text-slate-400 hover:text-gold transition-colors"
           >
             {MailIcon}
@@ -72,6 +72,7 @@ export function ClauseHeading({ children, tight = false }: { children: ReactNode
 }
 
 export function Contact({ c }: { c: LegalContent['contact'] }) {
+  const { legalEmail } = useCompanySettings()
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-7 bg-navy-light border border-white/8 rounded-2xl">
       <div>
@@ -79,10 +80,10 @@ export function Contact({ c }: { c: LegalContent['contact'] }) {
         <p className="text-slate-400 text-sm">{c.text}</p>
       </div>
       <a
-        href={LEGAL_MAILTO}
+        href={`mailto:${legalEmail}`}
         className="flex-shrink-0 px-6 py-3 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors"
       >
-        {c.email}
+        {legalEmail}
       </a>
     </div>
   )

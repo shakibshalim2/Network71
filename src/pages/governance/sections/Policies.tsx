@@ -1,6 +1,8 @@
 import type { GovernanceContent } from '../content/en'
+import { useCompanySettings } from '@/lib/companySettings'
 
 export default function Policies({ c }: { c: GovernanceContent['policies'] }) {
+  const { legalEmail } = useCompanySettings()
   return (
     <section className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
       <div className="mb-12">
@@ -24,7 +26,7 @@ export default function Policies({ c }: { c: GovernanceContent['policies'] }) {
               </div>
             </div>
             <div className="flex items-center gap-3 pt-2 border-t border-white/8">
-              <a href={`mailto:${c.email}?subject=${encodeURIComponent(`${c.requestSubject}: ${policy.title}`)}`} className="flex items-center gap-2 px-4 py-2 bg-white/5 text-slate-300 hover:text-gold text-sm rounded-lg transition-colors">
+              <a href={`mailto:${legalEmail}?subject=${encodeURIComponent(`${c.requestSubject}: ${policy.title}`)}`} className="flex items-center gap-2 px-4 py-2 bg-white/5 text-slate-300 hover:text-gold text-sm rounded-lg transition-colors">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                 </svg>

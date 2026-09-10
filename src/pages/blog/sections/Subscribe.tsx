@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { openEmailDraft } from '@/lib/mailto'
 import type { BlogContent } from '../content/en'
+import { useCompanySettings } from '@/lib/companySettings'
 
 export default function Subscribe({ c }: { c: BlogContent['subscribe'] }) {
   const [email, setEmail] = useState('')
+  const { generalEmail } = useCompanySettings()
   return (
     <section className="bg-navy-dark border-t border-white/8">
       <div className="max-w-3xl mx-auto px-6 lg:px-8 py-20 text-center">
@@ -20,7 +22,7 @@ export default function Subscribe({ c }: { c: BlogContent['subscribe'] }) {
           className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
           onSubmit={(event) => {
             event.preventDefault()
-            openEmailDraft('info@network71.com', c.mailSubject, { [c.mailFieldLabel]: email })
+            openEmailDraft(generalEmail, c.mailSubject, { [c.mailFieldLabel]: email })
             setEmail('')
           }}
         >
