@@ -41,6 +41,7 @@ final class Sections
     }
     public function save(string $page, string $section, array $input, array $user): array
     {
+        if($page==='site' && $user['role']!=='owner') Http::fail(403,'Only an owner can edit shared site settings and navigation copy.');
         $field = $this->schema($page)['sections'][$section] ?? Http::fail(404, 'Section not found.');
         $locale = self::locale($input['locale'] ?? 'en');
         if (!array_key_exists('data', $input)) Http::fail(422, 'Section content is required.');

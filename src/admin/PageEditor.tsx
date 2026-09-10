@@ -48,7 +48,7 @@ export default function PageEditor({ user, onDirty }: { user: User; onDirty: (di
         <label>Section order<input type="number" min={-10000} max={10000} value={meta.order} onChange={e=>{setMeta({...meta,order:e.target.valueAsNumber||0});mark(true)}} /></label></fieldset>
         <div className="adm-section-actions"><button className="adm-button" disabled={busy || !dirty}>{busy?'Working…':'Save draft'}</button>
         {user.role==='owner' && <><button type="button" className="adm-button secondary" disabled={busy||dirty||!meta.version} onClick={()=>publish('publish')}>Publish</button><button type="button" className="adm-button secondary" disabled={busy||dirty||meta.status!=='published'} onClick={()=>publish('unpublish')}>Restore default</button></>}
-        <a href={data.schema.path} target="_blank" rel="noreferrer">View public page ↗</a></div>
+        <a href={data.schema.path} target="_blank" rel="noreferrer">View public page ↗</a><a href={`${data.schema.path}?n71-preview=1`} target="_blank" rel="noreferrer">Preview saved draft ↗</a></div>
       </form>}
     </>}
   </div>

@@ -86,6 +86,9 @@ final class Api
         if ($method === 'GET' && $path === '/api/v1/admin/modules') Http::json($this->content->modules);
         if ($method === 'GET' && $path === '/api/v1/admin/dashboard') {
             Http::json([
+                'mail_pending' => (int)$this->db->query("SELECT COUNT(*) FROM email_outbox WHERE status='pending'")->fetchColumn(),
+                'mail_failed' => (int)$this->db->query("SELECT COUNT(*) FROM email_outbox WHERE status='failed'")->fetchColumn(),
+                'smtp_enabled' => (bool)($this->config['smtp']['enabled'] ?? false),
                 'total' => (int)$this->db->query('SELECT COUNT(*) FROM content_records')->fetchColumn(),
                 'published' => (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE status = 'published'")->fetchColumn(),
                 'drafts' => (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE status = 'draft' OR (status = 'published' AND draft_json <> published_json)")->fetchColumn(),

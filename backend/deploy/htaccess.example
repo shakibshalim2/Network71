@@ -3,6 +3,7 @@ RewriteEngine On
 
 # Keep the hosting provider's PHP handler directives when combining this file.
 RewriteRule ^api(?:/.*)?$ api/index.php [END,QSA]
+RewriteRule ^projects/[a-z0-9-]+/?$ project.php [END,QSA]
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [END]

@@ -9,7 +9,8 @@ export function emptyValue(schema: Schema): unknown {
   return ''
 }
 export default function SectionFields({ schema, value, label, change }: { schema: Schema; value: unknown; label: string; change: (value: unknown) => void }) {
-  if (schema.type === 'fixed' || schema.type === 'null') return null
+  if (schema.type === 'fixed') return label === 'key' ? <strong>{String(value)}</strong> : null
+  if (schema.type === 'null') return null
   if (value == null && schema.nullable) return <button type="button" className="adm-button secondary" onClick={() => change(emptyValue({ ...schema, nullable: false }))}>Add {label}</button>
   if (schema.type === 'object') return <fieldset className="adm-section-fields"><legend>{label}</legend>{Object.entries(schema.fields || {}).map(([key, field]) => <SectionFields key={key} schema={field} label={key} value={(value as Record<string, unknown>)?.[key]} change={next => change({ ...(value as object), [key]: next })} />)}</fieldset>
   if (schema.type === 'array') {

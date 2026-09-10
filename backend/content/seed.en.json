@@ -172,6 +172,10 @@
       "text": "Be part of the team that's shaping the future of emerging markets.",
       "primary": "Explore Careers",
       "secondary": "Get in Touch"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "blog": {
@@ -259,6 +263,10 @@
       "note": "Submitting opens a prepared request in your email app.",
       "mailSubject": "Network71 insights subscription request",
       "mailFieldLabel": "Email"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "brand": {
@@ -449,6 +457,10 @@
     },
     "footer": {
       "text": "Brand Identity System · Network71 Ltd · 2026"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "careers": {
@@ -543,6 +555,10 @@
       "text": "Send us your CV anyway. We're always looking for exceptional talent.",
       "href": "mailto:careers@network71.com?subject=Speculative CV Submission",
       "email": "careers@network71.com"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "contact": {
@@ -630,6 +646,10 @@
         "Media",
         "eSHIPe Maritime"
       ]
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "ezyify": {
@@ -1008,6 +1028,10 @@
       "deck": "Ezyify Investor Deck",
       "programs": "Partner Programs",
       "subject": "Ezyify early-access request"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "gallery": {
@@ -1038,6 +1062,10 @@
       "title": "Want to contribute to the gallery?",
       "text": "If you have photos from Network71 events, facilities, or operations, reach out to our media team.",
       "button": "Submit Photos"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "global-presence": {
@@ -1351,6 +1379,10 @@
       "regionalLabel": "Regional Offices",
       "regionalValue": "On Request",
       "regionalDesc": "Regional representation is coordinated from our Dhaka headquarters. Contact our team for partner and representative details in your market."
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "governance": {
@@ -1444,6 +1476,10 @@
       "title": "Governance Enquiries",
       "lead": "For questions related to corporate governance, contact our compliance team.",
       "email": "governance@network71.com"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "investors": {
@@ -1579,6 +1615,10 @@
         "messagePlaceholder": "Tell us about your enquiry…",
         "submit": "Send Enquiry"
       }
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "leadership": {
@@ -1671,6 +1711,10 @@
       "lead": "Network71 is actively building its executive and senior management team. If you are a driven leader with experience in multi-sector operations, we would like to hear from you.",
       "button": "Explore Opportunities",
       "href": "/careers"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "legal": {
@@ -1816,6 +1860,10 @@
       "title": "Legal Inquiries",
       "text": "For questions concerning our legal policies or compliance matters, contact our legal team.",
       "email": "legal@network71.com"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "press": {
@@ -1894,6 +1942,10 @@
       "title": "Get in Touch with our Press Team",
       "lead": "For media inquiries, interview requests, or press kit access, please reach out to our communications team.",
       "email": "press@network71.com"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "projects": {
@@ -1968,6 +2020,10 @@
       "enquiryTitleLine2": "similar in mind?",
       "enquiryText": "Tell us about your requirements and reference this project in your brief.",
       "enquiryCta": "Discuss a similar project ↗"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "divisions/agriculture": {
@@ -2401,7 +2457,11 @@
       "Processing JV",
       "Farmer/Supplier Registration",
       "Investment Inquiry"
-    ]
+    ],
+    "seo": {
+      "title": "",
+      "description": ""
+    }
   },
   "divisions/ship-marketplace": {
     "divisionName": "Ship Marketplace",
@@ -2849,6 +2909,10 @@
           "color": "var(--accent-emerald)"
         }
       ]
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "divisions/food-beverage": {
@@ -3357,6 +3421,10 @@
       "eyebrow": "Growth Roadmap",
       "title": "The Path to Global Shelves",
       "lead": "A four-year plan taking the Food & Beverage division from manufacturing foundations to own-brand international retail listing."
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "divisions/garments": {
@@ -3848,6 +3916,10 @@
           "desc": "Full integration of automated cutting systems, IoT-enabled quality monitoring, and real-time buyer portals for transparent production tracking."
         }
       ]
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "divisions/it-software": {
@@ -4463,7 +4535,11 @@
       "Ezyify Partnership",
       "AI/ML Projects",
       "Investment Inquiry"
-    ]
+    ],
+    "seo": {
+      "title": "",
+      "description": ""
+    }
   },
   "divisions/media": {
     "divisionName": "Media",
@@ -4758,7 +4834,11 @@
       "Content Partnership",
       "Press Credentials",
       "Editorial Contact"
-    ]
+    ],
+    "seo": {
+      "title": "",
+      "description": ""
+    }
   },
   "divisions/oils-energy": {
     "divisionName": "Oils & Energy",
@@ -5234,7 +5314,11 @@
       "Distribution Partnership",
       "Investment Inquiry",
       "Bulk Order"
-    ]
+    ],
+    "seo": {
+      "title": "",
+      "description": ""
+    }
   },
   "divisions/global-trading": {
     "divisionName": "Global Trading & Logistics",
@@ -5664,7 +5748,11 @@
       "Logistics Partnership",
       "Trade Finance",
       "Market Entry"
-    ]
+    ],
+    "seo": {
+      "title": "",
+      "description": ""
+    }
   },
   "divisions/strategic-ventures": {
     "divisionName": "Strategic Ventures",
@@ -5833,7 +5921,11 @@
       "Market Entry",
       "Investment Opportunity",
       "Trade Corridor / Bilateral"
-    ]
+    ],
+    "seo": {
+      "title": "",
+      "description": ""
+    }
   },
   "sustainability": {
     "hero": {
@@ -5990,6 +6082,10 @@
       "title": "Sustainability Inquiries",
       "text": "For partnership opportunities, ESG data requests, or to learn more about our sustainability programmes, reach out to our team.",
       "button": "Contact Our ESG Team"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "timeline": {
@@ -6056,6 +6152,10 @@
       "lead": "Discover the values, people, and vision driving our growth across ten divisions and the markets we serve.",
       "button": "About Network71",
       "href": "/about"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "site": {
@@ -6462,6 +6562,69 @@
       "notFound.link.ezyify": "Ezyify",
       "notFound.link.investors": "Investors",
       "notFound.link.careers": "Careers"
+    }
+  },
+  "home": {
+    "layout": [
+      {
+        "key": "hero",
+        "visible": true,
+        "order": 0
+      },
+      {
+        "key": "work",
+        "visible": true,
+        "order": 10
+      },
+      {
+        "key": "divisions",
+        "visible": true,
+        "order": 20
+      },
+      {
+        "key": "process",
+        "visible": true,
+        "order": 30
+      },
+      {
+        "key": "about",
+        "visible": true,
+        "order": 40
+      },
+      {
+        "key": "ezyify",
+        "visible": true,
+        "order": 50
+      },
+      {
+        "key": "brands",
+        "visible": true,
+        "order": 60
+      },
+      {
+        "key": "marketplace",
+        "visible": true,
+        "order": 70
+      },
+      {
+        "key": "leadership",
+        "visible": true,
+        "order": 80
+      },
+      {
+        "key": "sustainability",
+        "visible": true,
+        "order": 90
+      },
+      {
+        "key": "contact",
+        "visible": true,
+        "order": 100
+      }
+    ],
+    "seo": {
+      "title": "",
+      "description": ""
     }
   }
 }

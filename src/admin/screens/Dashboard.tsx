@@ -10,6 +10,7 @@ export function Dashboard() {
   if (!data || error) return <ResourceError error={error} retry={reload} />
   return (
     <>
+      <p className="adm-notice">Email notifications: {data.smtp_enabled ? 'enabled' : 'not configured'} · {data.mail_pending} pending · {data.mail_failed} failed. Enquiries are stored in Inbox. Failed delivery needs a configuration check by your server administrator.</p>
       <section className="adm-welcome">
         <div>
           <span className="adm-eyebrow">YOUR WEBSITE, IN ONE PLACE</span>

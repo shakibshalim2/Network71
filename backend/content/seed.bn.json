@@ -172,6 +172,10 @@
       "text": "উদীয়মান বাজারের ভবিষ্যৎ গড়ছে যে টিম — তার অংশ হোন।",
       "primary": "ক্যারিয়ার দেখুন",
       "secondary": "যোগাযোগ করুন"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "blog": {
@@ -259,6 +263,10 @@
       "note": "জমা দিলে আপনার ইমেইল অ্যাপে একটি প্রস্তুত অনুরোধ খুলবে।",
       "mailSubject": "Network71 অন্তর্দৃষ্টি সাবস্ক্রিপশন অনুরোধ",
       "mailFieldLabel": "ইমেইল"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "brand": {
@@ -449,6 +457,10 @@
     },
     "footer": {
       "text": "ব্র্যান্ড পরিচিতি সিস্টেম · Network71 Ltd · ২০২৬"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "careers": {
@@ -543,6 +555,10 @@
       "text": "তবুও আপনার CV আমাদের পাঠান। অসাধারণ প্রতিভার সন্ধানে আমরা সবসময় সচেষ্ট।",
       "href": "mailto:careers@network71.com?subject=Speculative CV Submission",
       "email": "careers@network71.com"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "contact": {
@@ -630,6 +646,10 @@
         "মিডিয়া",
         "eSHIPe মেরিটাইম"
       ]
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "ezyify": {
@@ -1008,6 +1028,10 @@
       "deck": "Ezyify ইনভেস্টর ডেক",
       "programs": "অংশীদার প্রোগ্রাম",
       "subject": "Ezyify আর্লি-অ্যাক্সেস অনুরোধ"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "gallery": {
@@ -1038,6 +1062,10 @@
       "title": "গ্যালারিতে অবদান রাখতে চান?",
       "text": "Network71-এর ইভেন্ট, স্থাপনা বা কার্যক্রমের ছবি থাকলে আমাদের মিডিয়া টিমের সঙ্গে যোগাযোগ করুন।",
       "button": "ছবি জমা দিন"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "global-presence": {
@@ -1351,6 +1379,10 @@
       "regionalLabel": "আঞ্চলিক কার্যালয়",
       "regionalValue": "অনুরোধে জানানো হয়",
       "regionalDesc": "আঞ্চলিক প্রতিনিধিত্ব ঢাকার সদর দপ্তর থেকে সমন্বিত হয়। আপনার বাজারে অংশীদার ও প্রতিনিধির তথ্যের জন্য আমাদের টিমের সঙ্গে যোগাযোগ করুন।"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "governance": {
@@ -1444,6 +1476,10 @@
       "title": "সুশাসন সংক্রান্ত জিজ্ঞাসা",
       "lead": "কর্পোরেট সুশাসন সম্পর্কিত প্রশ্নের জন্য আমাদের কমপ্লায়েন্স দলের সঙ্গে যোগাযোগ করুন।",
       "email": "governance@network71.com"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "investors": {
@@ -1579,6 +1615,10 @@
         "messagePlaceholder": "আপনার জিজ্ঞাসা সম্পর্কে লিখুন…",
         "submit": "জিজ্ঞাসা পাঠান"
       }
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "leadership": {
@@ -1671,6 +1711,10 @@
       "lead": "Network71 সক্রিয়ভাবে নির্বাহী ও জ্যেষ্ঠ ব্যবস্থাপনা দল গড়ে তুলছে। বহুখাত পরিচালনায় অভিজ্ঞ একজন উদ্যমী নেতা হলে আমরা আপনার কথা শুনতে আগ্রহী।",
       "button": "সুযোগগুলো দেখুন",
       "href": "/careers"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "legal": {
@@ -1816,6 +1860,10 @@
       "title": "আইনি অনুসন্ধান",
       "text": "আমাদের আইনি নীতি বা কমপ্লায়েন্স সংক্রান্ত প্রশ্নের জন্য আমাদের আইনি টিমের সঙ্গে যোগাযোগ করুন।",
       "email": "legal@network71.com"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "press": {
@@ -1894,6 +1942,10 @@
       "title": "আমাদের প্রেস দলের সঙ্গে যোগাযোগ করুন",
       "lead": "মিডিয়া জিজ্ঞাসা, সাক্ষাৎকারের অনুরোধ বা প্রেস কিট পেতে আমাদের যোগাযোগ দলের সঙ্গে সংযুক্ত হোন।",
       "email": "press@network71.com"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "projects": {
@@ -1968,6 +2020,10 @@
       "enquiryTitleLine2": "ভাবছেন কি?",
       "enquiryText": "আপনার প্রয়োজন সম্পর্কে আমাদের জানান এবং ব্রিফে এই প্রকল্পের উল্লেখ করুন।",
       "enquiryCta": "অনুরূপ প্রকল্প নিয়ে আলোচনা করুন ↗"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "divisions/agriculture": {
@@ -2401,7 +2457,11 @@
       "প্রক্রিয়াজাতকরণ JV",
       "কৃষক/সরবরাহকারী নিবন্ধন",
       "বিনিয়োগ অনুসন্ধান"
-    ]
+    ],
+    "seo": {
+      "title": "",
+      "description": ""
+    }
   },
   "divisions/ship-marketplace": {
     "divisionName": "শিপ মার্কেটপ্লেস",
@@ -2849,6 +2909,10 @@
           "color": "var(--accent-emerald)"
         }
       ]
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "divisions/food-beverage": {
@@ -3357,6 +3421,10 @@
       "eyebrow": "প্রবৃদ্ধির রোডম্যাপ",
       "title": "বিশ্ববাজারের তাকে পৌঁছার পথ",
       "lead": "খাদ্য ও পানীয় বিভাগকে উৎপাদনের ভিত্তি থেকে নিজস্ব ব্র্যান্ডের আন্তর্জাতিক রিটেইল তালিকাভুক্তিতে নিয়ে যাওয়ার চার বছরের পরিকল্পনা।"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "divisions/garments": {
@@ -3848,6 +3916,10 @@
           "desc": "স্বয়ংক্রিয় কাটিং সিস্টেম, IoT-চালিত মান পর্যবেক্ষণ এবং স্বচ্ছ উৎপাদন ট্র্যাকিংয়ের জন্য রিয়েল-টাইম ক্রেতা পোর্টালের পূর্ণ সমন্বয়।"
         }
       ]
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "divisions/it-software": {
@@ -4463,7 +4535,11 @@
       "Ezyify অংশীদারত্ব",
       "AI/ML প্রকল্প",
       "বিনিয়োগ-সংক্রান্ত অনুসন্ধান"
-    ]
+    ],
+    "seo": {
+      "title": "",
+      "description": ""
+    }
   },
   "divisions/media": {
     "divisionName": "মিডিয়া",
@@ -4758,7 +4834,11 @@
       "কন্টেন্ট অংশীদারিত্ব",
       "প্রেস ক্রেডেনশিয়াল",
       "সম্পাদকীয় যোগাযোগ"
-    ]
+    ],
+    "seo": {
+      "title": "",
+      "description": ""
+    }
   },
   "divisions/oils-energy": {
     "divisionName": "তেল ও জ্বালানি",
@@ -5234,7 +5314,11 @@
       "ডিস্ট্রিবিউশন অংশীদারিত্ব",
       "বিনিয়োগ অনুসন্ধান",
       "বাল্ক অর্ডার"
-    ]
+    ],
+    "seo": {
+      "title": "",
+      "description": ""
+    }
   },
   "divisions/global-trading": {
     "divisionName": "গ্লোবাল ট্রেডিং অ্যান্ড লজিস্টিকস",
@@ -5664,7 +5748,11 @@
       "লজিস্টিকস অংশীদারিত্ব",
       "বাণিজ্য অর্থায়ন",
       "বাজারে প্রবেশ"
-    ]
+    ],
+    "seo": {
+      "title": "",
+      "description": ""
+    }
   },
   "divisions/strategic-ventures": {
     "divisionName": "স্ট্র্যাটেজিক ভেঞ্চার্স",
@@ -5833,7 +5921,11 @@
       "মার্কেট এন্ট্রি",
       "বিনিয়োগের সুযোগ",
       "ট্রেড করিডোর / দ্বিপাক্ষিক"
-    ]
+    ],
+    "seo": {
+      "title": "",
+      "description": ""
+    }
   },
   "sustainability": {
     "hero": {
@@ -5990,6 +6082,10 @@
       "title": "টেকসই উন্নয়ন-সংক্রান্ত জিজ্ঞাসা",
       "text": "অংশীদারিত্বের সুযোগ, ESG উপাত্তের অনুরোধ, অথবা আমাদের টেকসই উন্নয়ন কর্মসূচি সম্পর্কে আরও জানতে আমাদের টিমের সঙ্গে যোগাযোগ করুন।",
       "button": "আমাদের ESG টিমের সঙ্গে যোগাযোগ"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "timeline": {
@@ -6056,6 +6152,10 @@
       "lead": "দশটি বিভাগ ও আমাদের সেবাপ্রাপ্ত বাজারগুলোতে প্রবৃদ্ধির চালিকাশক্তি — মূল্যবোধ, মানুষ ও দৃষ্টিভঙ্গি সম্পর্কে জানুন।",
       "button": "Network71 পরিচিতি",
       "href": "/about"
+    },
+    "seo": {
+      "title": "",
+      "description": ""
     }
   },
   "site": {
@@ -6462,6 +6562,69 @@
       "notFound.link.ezyify": "Ezyify",
       "notFound.link.investors": "বিনিয়োগকারী",
       "notFound.link.careers": "ক্যারিয়ার"
+    }
+  },
+  "home": {
+    "layout": [
+      {
+        "key": "hero",
+        "visible": true,
+        "order": 0
+      },
+      {
+        "key": "work",
+        "visible": true,
+        "order": 10
+      },
+      {
+        "key": "divisions",
+        "visible": true,
+        "order": 20
+      },
+      {
+        "key": "process",
+        "visible": true,
+        "order": 30
+      },
+      {
+        "key": "about",
+        "visible": true,
+        "order": 40
+      },
+      {
+        "key": "ezyify",
+        "visible": true,
+        "order": 50
+      },
+      {
+        "key": "brands",
+        "visible": true,
+        "order": 60
+      },
+      {
+        "key": "marketplace",
+        "visible": true,
+        "order": 70
+      },
+      {
+        "key": "leadership",
+        "visible": true,
+        "order": 80
+      },
+      {
+        "key": "sustainability",
+        "visible": true,
+        "order": 90
+      },
+      {
+        "key": "contact",
+        "visible": true,
+        "order": 100
+      }
+    ],
+    "seo": {
+      "title": "",
+      "description": ""
     }
   }
 }

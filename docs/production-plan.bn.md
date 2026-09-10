@@ -151,3 +151,30 @@ Still pending: page/section admin editor and locale tabs; admin refactor; media 
 - Remaining: SMTP/outbox, full section/SEO/preview coverage, complete route matrix and actual hosting/offsite restore verification. Earlier checkpoint remains historical.
 
 - SMTP phase: locked PHPMailer 7.1.1, atomic inquiry/outbox insert, CLI worker with overlap lock and bounded retries. Simulated provider failure retained the enquiry, scheduled retry, recovered and avoided normal resend. Composer audit passed. Actual SMTP remains disabled until owner configuration and delivery test.
+
+- Homepage layout order/visibility, per-page SEO fields and authenticated saved-draft preview added. Preview is noindex and never cached as public content.
+- Browser save → private preview → publish → public render passed; an unauthenticated preview did not reveal the draft. The original page was restored after the test.
+- Public matrix: 26 routes × EN/BN × 375/768/1440 = 156 viewport checks passed with no horizontal overflow or page runtime exceptions. This is automated structural coverage, not a claim of full manual visual/a11y certification.
+- Media fixture checks passed: referenced image rejected, unused image archived.
+
+## Latest pause checkpoint — user requested stop
+
+Completed in this resumed session:
+- Page/section editor with nested fields/repeatable rows, EN/BN, draft/publish, section visibility/order, unsaved-edit guards and authenticated draft preview.
+- Homepage layout controls, per-page SEO overrides, shared homepage/navigation copy controls and a non-overwriting draft-template importer.
+- Collection language selection; separate admin screen modules and collection form.
+- Referenced-image archive protection and documented replacement workflow using immutable new URLs.
+- Owner-generated expiring one-use password reset links; session invalidation.
+- Transactional enquiry email outbox and locked PHPMailer SMTP worker with retry; dashboard queue counts. SMTP is disabled until configured.
+- cPanel readiness checker, admin manifest, deployment checklist and project HTML/social metadata renderer example.
+
+Verified: 562 locale template validations; 13 sections/reset HTTP checks; original 38 HTTP/MySQL smoke checks; outbox failure/retry simulation; media archive protection; project renderer escaping/metadata; authenticated browser save/preview/publish; EN/BN editor at 375/768/1440; 156 public route/locale/viewport structural checks. The original About test section was restored.
+
+Still open (do not report the entire production plan as complete):
+- Module-by-module public consumer parity for all generic CMS collections (e.g. Insights/Press/Brands/Credentials/Settings): page-section overrides work, but every generic collection is not automatically mapped into each existing static section.
+- Complete nested/shared section layout coverage, draft autosave/review history, and manual visual/accessibility acceptance beyond the automated checks.
+- Actual SMTP provider delivery, cron setup, cPanel rewrites/HTTPS, deployment and isolated backup restore/offsite recovery verification.
+- Owner-approved company imagery, factual claims, real vessel/seller profiles and private evidence/document workflows.
+- Globe remains about 637 kB with a build warning.
+
+No production deployment or real external email delivery was performed. User requested stopping here; changes are saved as a checkpoint.

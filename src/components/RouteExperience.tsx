@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { useLocation } from "react-router-dom"
+import { usePageOverrides } from '@/lib/pageContent'
 
 type PageMeta = {
   title: string
@@ -52,7 +53,9 @@ function setMeta(name: string, content: string) {
 }
 
 export default function RouteExperience() {
-  const { pathname } = useLocation()
+  const { pathname, search } = useLocation()
+  const {sections}=usePageOverrides(PAGE_META[pathname] ? pathname==='/'?'home':pathname.slice(1) : undefined)
+  const seo=sections.seo as {title?:string;description?:string}|undefined
 
   useEffect(() => {
     const isAdmin = pathname === '/admin' || pathname.startsWith('/admin/')
@@ -62,9 +65,9 @@ export default function RouteExperience() {
       description: "The requested Network71 page could not be found.",
     })
 
-    document.title = meta.title
-    setMeta("description", meta.description)
-    setMeta("robots", isAdmin ? "noindex, nofollow" : PAGE_META[pathname] ? "index, follow" : "noindex, follow")
+    document.title = seo?.title || meta.title
+    setMeta("description", seo?.description || meta.description)
+    setMeta("robots", isAdmin || new URLSearchParams(search).has('n71-preview') ? "noindex, nofollow" : PAGE_META[pathname] ? "index, follow" : "noindex, follow")
     // Keep the canonical URL in sync with the SPA route (legacy aliases redirect first).
     const canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')
     if (canonical) canonical.href = `${window.location.origin}${pathname === '/' ? '/' : pathname.replace(/\/$/, '')}`
@@ -72,7 +75,7 @@ export default function RouteExperience() {
     requestAnimationFrame(() => {
       document.getElementById("main-content")?.focus({ preventScroll: true })
     })
-  }, [pathname])
+  }, [pathname, search, seo])
 
   return null
 }

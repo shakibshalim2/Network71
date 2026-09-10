@@ -73,6 +73,9 @@ export function time(value: string) {
   })
 }
 export type DashboardData = {
+  mail_pending: number
+  mail_failed: number
+  smtp_enabled: boolean
   total: number
   published: number
   drafts: number

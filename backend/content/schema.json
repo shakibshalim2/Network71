@@ -322,6 +322,19 @@
             "format": "text"
           }
         }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
+          }
+        }
       }
     }
   },
@@ -470,6 +483,19 @@
             "format": "text"
           },
           "mailFieldLabel": {
+            "type": "string",
+            "format": "text"
+          }
+        }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
             "type": "string",
             "format": "text"
           }
@@ -873,6 +899,19 @@
             "format": "text"
           }
         }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
+          }
+        }
       }
     }
   },
@@ -1061,6 +1100,19 @@
             "format": "url"
           },
           "email": {
+            "type": "string",
+            "format": "text"
+          }
+        }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
             "type": "string",
             "format": "text"
           }
@@ -1285,6 +1337,19 @@
               "format": "text"
             },
             "max": 100
+          }
+        }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
           }
         }
       }
@@ -1898,6 +1963,19 @@
             "format": "text"
           }
         }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
+          }
+        }
       }
     }
   },
@@ -2000,6 +2078,19 @@
             "format": "text"
           },
           "button": {
+            "type": "string",
+            "format": "text"
+          }
+        }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
             "type": "string",
             "format": "text"
           }
@@ -2334,6 +2425,19 @@
             "format": "text"
           }
         }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
+          }
+        }
       }
     }
   },
@@ -2510,6 +2614,19 @@
             "format": "text"
           },
           "email": {
+            "type": "string",
+            "format": "text"
+          }
+        }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
             "type": "string",
             "format": "text"
           }
@@ -2807,6 +2924,19 @@
             }
           }
         }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
+          }
+        }
       }
     }
   },
@@ -3048,6 +3178,19 @@
           "href": {
             "type": "string",
             "format": "url"
+          }
+        }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
           }
         }
       }
@@ -3380,6 +3523,19 @@
             "format": "text"
           }
         }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
+          }
+        }
       }
     }
   },
@@ -3549,6 +3705,19 @@
             "format": "text"
           },
           "email": {
+            "type": "string",
+            "format": "text"
+          }
+        }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
             "type": "string",
             "format": "text"
           }
@@ -3767,6 +3936,19 @@
             "format": "text"
           },
           "enquiryCta": {
+            "type": "string",
+            "format": "text"
+          }
+        }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
             "type": "string",
             "format": "text"
           }
@@ -4397,6 +4579,19 @@
           "format": "text"
         },
         "max": 100
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
+          }
+        }
       }
     }
   },
@@ -4968,6 +5163,19 @@
               }
             },
             "max": 100
+          }
+        }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
           }
         }
       }
@@ -5705,6 +5913,19 @@
             "format": "text"
           }
         }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
+          }
+        }
       }
     }
   },
@@ -6427,6 +6648,19 @@
               }
             },
             "max": 100
+          }
+        }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
           }
         }
       }
@@ -7205,6 +7439,19 @@
           "format": "text"
         },
         "max": 100
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
+          }
+        }
       }
     }
   },
@@ -7634,6 +7881,19 @@
           "format": "text"
         },
         "max": 100
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
+          }
+        }
       }
     }
   },
@@ -8463,6 +8723,19 @@
           "format": "text"
         },
         "max": 100
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
+          }
+        }
       }
     }
   },
@@ -9044,6 +9317,19 @@
           "format": "text"
         },
         "max": 100
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
+          }
+        }
       }
     }
   },
@@ -9306,6 +9592,19 @@
           "format": "text"
         },
         "max": 100
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
+          }
+        }
       }
     }
   },
@@ -9591,6 +9890,19 @@
             "format": "text"
           }
         }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
+          }
+        }
       }
     }
   },
@@ -9667,6 +9979,19 @@
           "href": {
             "type": "string",
             "format": "url"
+          }
+        }
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
+            "type": "string",
+            "format": "text"
           }
         }
       }
@@ -11284,6 +11609,56 @@
             "format": "text"
           },
           "notFound.link.careers": {
+            "type": "string",
+            "format": "text"
+          }
+        }
+      }
+    }
+  },
+  "home": {
+    "label": "Homepage layout",
+    "path": "/",
+    "sections": {
+      "layout": {
+        "type": "array",
+        "item": {
+          "type": "object",
+          "fields": {
+            "key": {
+              "type": "fixed",
+              "values": [
+                "hero",
+                "work",
+                "divisions",
+                "process",
+                "about",
+                "ezyify",
+                "brands",
+                "marketplace",
+                "leadership",
+                "sustainability",
+                "contact"
+              ]
+            },
+            "visible": {
+              "type": "boolean"
+            },
+            "order": {
+              "type": "number"
+            }
+          }
+        },
+        "max": 100
+      },
+      "seo": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "string",
+            "format": "text"
+          },
+          "description": {
             "type": "string",
             "format": "text"
           }

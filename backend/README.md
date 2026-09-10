@@ -99,3 +99,11 @@ Install locked PHP dependencies with `composer install --no-dev --working-dir=ba
 Configure the private `smtp` array from config/example.php, then run `php backend/bin/send-outbox.php` every minute through cPanel cron. SMTP is disabled by default. The worker uses authenticated TLS via PHPMailer, a non-overlapping file lock, batches of 20, exponential retry and a maximum of 10 attempts. Failed messages remain recorded with the enquiry. SMTP acceptance followed by a process/database failure can result in duplicate delivery on retry; a stable Message-ID is used, but exactly-once delivery is not claimed.
 
 `php backend/tests/outbox.php` simulates provider failure and recovery on one isolated development fixture; actual SMTP and external delivery must be checked on staging. The implementation follows the [PHPMailer SMTP documentation](https://github.com/PHPMailer/PHPMailer). No real email was sent during development checks.
+
+## Current admin and deployment additions
+
+`/admin/pages` now edits packaged page sections in EN/BN, supports draft save/publish, visibility/order, page SEO and authenticated saved-draft previews. Shared text is under `site`; homepage layout is under `home`. `php backend/bin/seed-sections.php` optionally imports missing templates as drafts without overwriting existing records or publishing. Generic collection-to-public-section mapping is still incomplete; see the latest checkpoint in docs.
+
+Media archive is owner-only and rejects referenced assets. Replace an image by uploading a new asset, updating/publishing its references, then archiving the old unused asset. Owner-generated password reset links expire after 30 minutes and can be consumed once; they are shown for private sharing, not automatically emailed.
+
+For project social metadata, deploy the project.php example and its matching rewrite rule as documented in `docs/deployment-checklist.md`. Local rendering tests do not establish actual cPanel compatibility.

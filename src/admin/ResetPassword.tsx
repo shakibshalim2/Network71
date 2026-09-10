@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api, setCsrf } from './api'
+import './admin.css'
 export default function ResetPassword() {
   const [token]=useState(()=>{const value=window.location.hash.slice(1);history.replaceState(null,'',window.location.pathname);return value})
   const [error,setError]=useState(''),[busy,setBusy]=useState(false),[done,setDone]=useState(false)

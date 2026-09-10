@@ -46,6 +46,14 @@ try {
   for (const locale of ['en','bn']) seeds[locale].site = (await server.ssrLoadModule(`/src/i18n/${locale}.ts`))[locale]
   catalog.site = { label: 'Shared site & homepage copy', path: '/', sections: { copy: schema(seeds.en.site) } }
   seeds.en.site={copy:seeds.en.site}; seeds.bn.site={copy:seeds.bn.site}
+  const { homeLayout } = await server.ssrLoadModule('/src/lib/homeLayout.ts')
+  catalog.home={label:'Homepage layout',path:'/',sections:{layout:schema(homeLayout)}}
+  seeds.en.home={layout:homeLayout};seeds.bn.home={layout:homeLayout}
+  for(const key of Object.keys(catalog).filter(key=>key!=='site')) {
+    const seo={title:'',description:''}
+    catalog[key].sections.seo=schema(seo)
+    seeds.en[key].seo=seo;seeds.bn[key].seo=seo
+  }
   await mkdir('backend/content',{recursive:true})
   for (const [name,data] of Object.entries({schema:catalog,'seed.en':seeds.en,'seed.bn':seeds.bn}))
     await writeFile(`backend/content/${name}.json`,JSON.stringify(data,null,2)+'\n')

@@ -10,7 +10,8 @@ export const contentMeta = new WeakMap<object, Record<string, SectionMeta>>()
 
 export function usePageOverrides(page?: string) {
   const { language } = useLanguage()
-  const key = page ? `${page}?locale=${language}` : ''
+  const preview = new URLSearchParams(window.location.search).get('n71-preview') === '1'
+  const key = page ? `${preview?'draft:':''}${page}?locale=${language}` : ''
   const [result, setResult] = useState<{ key: string; data: PageOverrides } | null>(null)
   useEffect(() => {
     if (!key) return
@@ -20,11 +21,11 @@ export function usePageOverrides(page?: string) {
     if (cached && Date.now() - cached.time < 10000) return
     let request = pending.get(key)
     if (!request) {
-      request = fetch(`/api/v1/page/${key}`, { signal: AbortSignal.timeout(10000) }).then(async r => {
+      request = fetch(`/api/v1/${preview?'admin/sections':'page'}/${key.replace(/^draft:/,'')}`, { signal: AbortSignal.timeout(10000), credentials:'same-origin' }).then(async r => {
         if (!r.ok) throw new Error('Page content unavailable')
         const data = await r.json() as PageOverrides
         if (!data.sections || !data.meta) throw new Error('Invalid page response')
-        entries.set(key, { data, time: Date.now() }); return data
+        if(!preview) entries.set(key, { data, time: Date.now() }); return data
       }).finally(() => pending.delete(key))
       pending.set(key, request)
     }
