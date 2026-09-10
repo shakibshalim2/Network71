@@ -58,7 +58,7 @@ export const SUGGESTED_SEARCHES = [
 ]
 
 export const DEFAULT_RECENT = [
-  { label: 'Ship Marketplace',   href: '/divisions/eshipe' },
+  { label: 'Ship Marketplace',   href: '/divisions/ship-marketplace' },
   { label: 'Investor Relations', href: '/investors' },
   { label: 'Global Presence',   href: '/global-presence' },
 ]

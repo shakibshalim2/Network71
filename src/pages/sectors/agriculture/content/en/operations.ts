@@ -24,17 +24,17 @@ export const operations = {
       {
         icon: "🔗",
         title: "Traceability Systems",
-        desc: "Blockchain-ready batch tracking allows buyers to verify origin, handling history, and certification status for every shipment.",
+        desc: "Batch tracking allows buyers to verify origin, handling history, and supporting documentation for every shipment.",
       },
     ],
     dashboard: {
       title: "N71 AgriOps Dashboard",
       status: "Live",
       metrics: [
-        { label: "Active Farm Lots", val: "847" },
-        { label: "Avg Yield Index", val: "94.2" },
-        { label: "Cold Chain Uptime", val: "99.1%" },
-        { label: "Pending Shipments", val: "23" },
+        { label: "Farm Lot Registry", val: "Live" },
+        { label: "Yield Tracking", val: "Per lot" },
+        { label: "Cold Chain Monitoring", val: "Continuous" },
+        { label: "Shipment Status", val: "Tracked" },
       ],
     },
   },
@@ -58,7 +58,7 @@ export const operations = {
     },
     {
       title: "Quality & Lab Testing",
-      desc: "Pesticide residue checks, moisture testing, and export certification at accredited labs.",
+      desc: "Pesticide residue checks, moisture testing, and export test reports from accredited labs.",
     },
     {
       title: "Cold Chain Storage",
@@ -66,7 +66,7 @@ export const operations = {
     },
     {
       title: "Packaging & Export",
-      desc: "Retail-ready and bulk packaging with full documentation for 18+ global markets.",
+      desc: "Retail-ready and bulk packaging with full documentation for destination markets.",
     },
   ],
   supplyChain: {
@@ -74,8 +74,8 @@ export const operations = {
     title: "End-to-End Value Chain",
     farmerTitle: "Farmer Network",
     farmerPoints: [
-      "500+ farming partners",
-      "10,000+ acres under management",
+      "Partner farming network",
+      "Managed and contracted acreage",
       "Multiple producing districts",
       "Organic & conventional lots",
     ],
@@ -90,7 +90,7 @@ export const operations = {
     ],
     buyerTitle: "Global Markets",
     buyerPoints: [
-      "18+ destination countries",
+      "Export documentation for destination markets",
       "Retail supermarket chains",
       "Industrial food processors",
       "Institutional bulk buyers",
@@ -100,15 +100,15 @@ export const operations = {
     eyebrow: "Standards",
     title: "Quality & Compliance",
     description:
-      "Every shipment leaves our facility backed by rigorous laboratory verification and internationally recognised certifications.",
+      "Every shipment leaves our facility backed by laboratory verification and the documentation required by importing markets.",
     certifications: [
       {
         name: "HACCP",
         desc: "Hazard Analysis & Critical Control Points — systematic food safety management across all processing facilities.",
       },
       {
-        name: "Organic Certification",
-        desc: "Third-party organic certification verifying zero synthetic pesticide use throughout the supply chain.",
+        name: "Organic Programme",
+        desc: "Organic lots are grown under third-party certification schemes; certificates for specific lots are shared on request.",
       },
       {
         name: "Phytosanitary Compliance",
@@ -121,9 +121,9 @@ export const operations = {
     ],
     performanceTitle: "Performance Metrics",
     bars: [
-      { label: "Organic Sourcing Rate", value: 100 },
-      { label: "Quality Pass Rate (Target 98%+)", value: 98 },
-      { label: "Post-Harvest Loss Reduction (Target <5%)", value: 95 },
+      { label: "Target: traceable sourcing across all lots", value: 100 },
+      { label: "Target: quality pass rate ≥ 98%", value: 98 },
+      { label: "Target: post-harvest loss below 5%", value: 95 },
     ],
     footnote:
       "* Metrics reflect division targets. Verified data to be published upon completion of current audit cycle.",

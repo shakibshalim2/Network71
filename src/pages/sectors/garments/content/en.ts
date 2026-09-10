@@ -3,10 +3,10 @@ import { data } from "./en/data"
 const en = {
   divisionName: "Garments & Apparel",
   metrics: [
-    { value: "5+", label: "Factories", desc: "Production facilities" },
-    { value: "2,000+", label: "Workers", desc: "Skilled workforce" },
-    { value: "15+", label: "Export Countries", desc: "Global reach" },
-    { value: "—", label: "Annual Capacity", desc: "Data to be published" },
+    { value: "Full-package", label: "Manufacturing model", desc: "Design to export under one supply chain" },
+    { value: "Export", label: "Bangladesh base", desc: "Manufacturing for international buyers" },
+    { value: "Audit-ready", label: "Buyer compliance", desc: "Code-of-conduct frameworks" },
+    { value: "On request", label: "Capacity data", desc: "Factory capability deck available" },
   ],
   processLabel: "Our Process",
   processSteps: data.processSteps,
@@ -22,28 +22,28 @@ const en = {
     eyebrow: "Network71 — Division 01",
     title1: "Garments",
     title2: "Apparel",
-    lead: "Private-label manufacturing and full-package production built for the world's most demanding fashion markets.",
+    lead: "Private-label manufacturing and full-package production built for demanding international fashion markets.",
     description: "From Bangladesh to the globe — sustainable fashion, uncompromising quality, and industrial precision at every stage of the supply chain.",
     ctaPrimary: "Request RFQ",
     ctaSecondary: "Explore Division",
-    tags: ["Bangladesh Based", "15+ Export Markets", "ISO Compliant"],
+    tags: ["Bangladesh Based", "Export Focused", "Buyer Code-of-Conduct Ready"],
   },
   overview: {
     eyebrow: "Division Overview",
-    title1: "Manufacturing",
-    title2: "Leadership at Scale",
+    title1: "Full-Package",
+    title2: "Manufacturing",
     p1: "Network71's Garments & Apparel division is one of Bangladesh's emerging private-label manufacturing operations — " +
       "combining industrial-scale production capacity with the craftsmanship precision demanded by international fashion brands.",
-    p2: "We serve international buyers across 15+ countries with a full-package manufacturing model that spans design consultation, " +
+    p2: "We serve international buyers with a full-package manufacturing model that spans design consultation, " +
       "material sourcing, cut and sew operations, quality assurance, and export logistics — all under one coordinated supply chain.",
-    p3: "Our commitment to sustainable fashion is embedded in every production decision — from certified fabric selection to worker " +
-      "welfare programmes that set a benchmark for responsible apparel manufacturing in South Asia.",
+    p3: "Our commitment to sustainable fashion is embedded in every production decision — from responsible fabric selection to worker " +
+      "welfare programmes designed to support responsible apparel manufacturing in South Asia.",
     tags: ["Private Label Focus", "Sustainable Manufacturing", "Full Package Production", "Export Ready"],
     pillars: [
       { icon: "⚡", title: "Speed-to-Market", desc: "Compressed lead times with agile production scheduling and dedicated sampling teams." },
       { icon: "✓", title: "Quality Assurance", desc: "AQL-based inspection at every production stage. Zero-compromise quality control protocols." },
-      { icon: "🌿", title: "Sustainable Practice", desc: "Certified organic fibres, water recycling, and energy-efficient factory operations." },
-      { icon: "🌐", title: "Global Standards", desc: "WRAP, BSCI, and international buyer code-of-conduct compliance across all facilities." },
+      { icon: "🌿", title: "Sustainable Practice", desc: "Organic and recycled fibre options, water recycling, and energy-efficient factory operations." },
+      { icon: "🌐", title: "Global Standards", desc: "Working to WRAP, BSCI and international buyer code-of-conduct frameworks across our facilities." },
     ],
   },
   products: {
@@ -82,24 +82,24 @@ const en = {
     stats: [
       { value: "TBP", label: "Production Floor", sub: "To be published" },
       { value: "TBP", label: "Cutting Lines", sub: "To be published" },
-      { value: "2,000+", label: "Sewing Stations", sub: "Skilled operators" },
+      { value: "Multi-line", label: "Sewing floors", sub: "Trained operators" },
     ],
     note: "Detailed facility specifications to be published. Contact the division for a factory capability deck.",
     alts: ["Factory production floor", "Garment production", "Textile materials"],
   },
   quality: {
     eyebrow: "Quality & Compliance",
-    title: "Certified. Audited. Compliant.",
-    lead: "Our quality management system and compliance framework meet the requirements of the world's most stringent international buyer codes of conduct.",
+    title: "Standards. Audits. Compliance.",
+    lead: "Our quality management system and compliance framework are built around the requirements of international buyer codes of conduct.",
     certifications: data.certifications,
-    progressLabel: "Certification in Progress",
+    progressLabel: "Working towards",
     auditTitle: "Factory Audit Ready",
-    auditLead: "All Network71 facilities maintain continuous audit readiness for BSCI, amfori, and buyer-commissioned third-party social compliance audits.",
+    auditLead: "Our facilities are prepared for buyer-commissioned audits and work to BSCI/amfori and WRAP code-of-conduct frameworks; documentation is shared on request.",
     auditItems: [{ label: "AQL Inspection Standard", note: "Applied at every production stage" }, { label: "Third-Party Audit", note: "Available on buyer request" }],
   },
   sustainability: {
     eyebrow: "Sustainability", title1: "Responsible Fashion", title2: "Manufacturing",
-    p1: "Network71's Garments division is actively building one of the most responsible apparel supply chains in Bangladesh — " +
+    p1: "Network71's Garments division is building a responsible apparel supply chain in Bangladesh — " +
       "embedding sustainability into sourcing decisions, production processes, and workforce development.",
     p2: "Our sustainability targets set measurable targets across material use, water management, carbon reduction, and worker welfare " +
       "— with transparent progress reporting to international buyers.",
@@ -108,20 +108,20 @@ const en = {
   },
   supplyChain: {
     eyebrow: "Supply Chain", title1: "Integrated Supply Chain", title2: "From Source to Buyer",
-    lead: "Based in Bangladesh — the world's second-largest garment exporter — Network71 operates a vertically integrated supply " +
-      "chain connecting global raw material suppliers to international buyers across 15+ countries.",
+    lead: "Based in Bangladesh — the world's second-largest garment exporter — Network71 operates an integrated supply " +
+      "chain connecting raw material suppliers to international buyers.",
     columns: [
-      { icon: "🌾", title: "Raw Material Suppliers", items: ["Certified fabric mills", "Trim & accessory suppliers", "Sustainable fibre sources"] },
+      { icon: "🌾", title: "Raw Material Suppliers", items: ["Approved fabric mills", "Trim & accessory suppliers", "Sustainable fibre sources"] },
       { icon: "🏭", title: "N71 Factories", items: ["Pattern & cutting", "Sewing & assembly", "Washing & finishing"] },
       { icon: "✈️", title: "Export & Logistics", items: ["QC lab clearance", "Customs documentation", "Freight to buyer"] },
     ],
-    bangladeshTitle: "Bangladesh — World's Premier Garment Export Hub",
+    bangladeshTitle: "Bangladesh — A Global Garment Export Hub",
     bangladeshLead: "Bangladesh is the world's second-largest apparel exporter, providing Network71 with access to one of the deepest " +
       "pools of skilled garment workers, established textile infrastructure, and competitive production economics.",
   },
   markets: {
-    eyebrow: "Export Markets", title1: "15+ Countries.", title2: "One Supply Chain.",
-    lead: "Network71 garments reach buyers across major fashion markets on four continents. Export coverage is expanding as we scale capacity and establish new buyer relationships.",
+    eyebrow: "Export Markets", title1: "Many Markets.", title2: "One Supply Chain.",
+    lead: "Network71 garments are produced for buyers in major international fashion markets. Export coverage is expanding as we scale capacity and establish new buyer relationships.",
     markets: data.exportMarkets, primary: "Primary", additionalLabel: "Additional export markets:", dataNote: "Data to be published", note: "Contact the division for full market coverage details.",
   },
   opportunity: {

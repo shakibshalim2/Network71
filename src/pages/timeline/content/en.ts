@@ -37,8 +37,8 @@ const en = {
       {
         year: '2022',
         title: 'International Scale',
-        desc: 'Trade network extended across the Middle East, Europe, and Southeast Asia. Revenue trajectory accelerating toward global benchmarks.',
-        note: 'Detailed data to be published' as string | null,
+        desc: 'Trade network extended across the Middle East, Europe, and Southeast Asia, with new export and sourcing relationships.',
+        note: null as string | null,
         isLeft: true,
       },
       {
@@ -51,7 +51,7 @@ const en = {
       {
         year: '2024',
         title: 'Today',
-        desc: 'Present operations spanning 25+ countries with $150M+ annual revenue across eight diversified sectors.',
+        desc: 'Ten business divisions — including Media, Ship Marketplace and Strategic Ventures — operating from Dhaka with trade partners across South Asia, the Middle East and Southeast Asia.',
         note: 'More milestones ahead' as string | null,
         isLeft: true,
       },
@@ -59,7 +59,7 @@ const en = {
   },
   cta: {
     title: 'Learn More About Network71',
-    lead: 'Discover the values, people, and vision driving our growth across ten divisions and 25+ countries.',
+    lead: 'Discover the values, people, and vision driving our growth across ten divisions and the markets we serve.',
     button: 'About Network71',
     href: '/about',
   },

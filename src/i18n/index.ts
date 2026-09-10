@@ -39,7 +39,7 @@ export const DIVISION_HREF: Record<DivisionId, string> = {
   trading: '/divisions/global-trading',
   ventures: '/divisions/strategic-ventures',
   media: '/divisions/media',
-  ship: '/divisions/eshipe',
+  ship: '/divisions/ship-marketplace',
 }
 
 export const DIVISION_COLOR: Record<DivisionId, string> = {

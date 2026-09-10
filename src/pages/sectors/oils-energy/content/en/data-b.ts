@@ -14,7 +14,7 @@ export const techCards = [
   {
     title: "Digital Distribution Management",
     desc: "Ezyify-integrated logistics platform provides real-time dispatch tracking, route optimisation, " +
-      "and delivery confirmation across all 8 distribution centres, serving both oil and fuel operations.",
+      "and delivery confirmation across our distribution centres, serving both oil and fuel operations.",
     accent: "var(--accent-sky)",
     iconId: "distribution",
   },
@@ -23,7 +23,7 @@ export const techCards = [
 export const sustainabilityOils = [
   {
     label: "RSPO-Aligned Palm Sourcing",
-    target: "Target: 100% certified supply by 2027",
+    target: "Target: fully RSPO-certified supply by 2027",
     pct: 40,
   },
   {
@@ -41,7 +41,7 @@ export const sustainabilityOils = [
 export const sustainabilityEnergy = [
   {
     label: "Responsible Fuel Storage",
-    target: "Secondary containment at all 8 centres",
+    target: "Target: secondary containment at every centre",
     pct: 100,
   },
   {
@@ -51,7 +51,7 @@ export const sustainabilityEnergy = [
   },
   {
     label: "Environmental Compliance Audits",
-    target: "Annual third-party environmental audit",
+    target: "Target: annual third-party environmental audit",
     pct: 100,
   },
 ]
@@ -65,7 +65,7 @@ export const roadmapItems = [
   {
     year: "2026",
     title: "Premium Organic Oil Line",
-    desc: "Launch certified organic and cold-pressed premium oil SKUs for health-conscious and export markets.",
+    desc: "Launch organic-certified and cold-pressed premium oil lines for health-conscious and export markets.",
   },
   {
     year: "2027",
@@ -129,7 +129,7 @@ export const marketsItems = [
 export const opportunitiesItems = [
   {
     title: "Edible Oil Distributors",
-    desc: "We are expanding our regional distribution partner network for edible oils across all divisions. Partners gain exclusive territory rights, competitive margins, and full marketing support.",
+    desc: "We are expanding our regional distribution partner network for edible oils. Partners gain defined territories, competitive margins, and marketing support.",
     cta: "Become a Distributor",
     accent: "var(--accent-amber)",
     iconId: "distributor",

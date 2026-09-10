@@ -25,9 +25,9 @@ const en = {
       eyebrow: "Network71 \u2014 Division 06",
       title: "Software",
       lead:
-        "Engineering the digital backbone of a global enterprise — and building tomorrow's platforms. From" +
-        "internal ERP to AI-powered consumer products, Network71's technology division delivers software that" +
-        "scales without limits.",
+        "Engineering the digital backbone of a global enterprise — and building tomorrow's platforms. From " +
+        "internal ERP to AI-powered consumer products, Network71's technology division delivers software " +
+        "built to scale with the business.",
       ctaPrimary: "Start a Project",
       ctaSecondary: "Explore Ezyify",
       detailPrimary: "$ n71 deploy --division=it --env=production",
@@ -40,15 +40,14 @@ const en = {
       eyebrow: "Division Overview",
       title: "The Technology Division That Powers Every Business Unit",
       lead:
-        "Network71's IT & Software division operates on two parallel tracks. Internally, it builds and" +
-        "maintains the enterprise technology infrastructure that powers all ten N71 business divisions — from" +
-        "garment production tracking to cross-border trade management. Externally, it develops commercial" +
-        "software products, most notably Ezyify, our AI-powered social commerce ecosystem positioned to" +
-        "redefine how the world shops online.",
+        "Network71's IT & Software division operates on two parallel tracks. Internally, it builds and " +
+        "maintains the enterprise technology infrastructure that supports all ten N71 business divisions — from " +
+        "garment production tracking to cross-border trade management. Externally, it develops commercial " +
+        "software products, most notably Ezyify, our AI-powered social commerce ecosystem currently in build.",
       ctaPrimary:
-        "The division brings together full-stack development, product design, mobile, cloud infrastructure," +
-        "data, and security capabilities inside a single delivery practice. Every engagement is structured" +
-        "around clear business outcomes, maintainable systems, and a reliable path from discovery to" +
+        "The division brings together full-stack development, product design, mobile, cloud infrastructure, " +
+        "data, and security capabilities inside a single delivery practice. Every engagement is structured " +
+        "around clear business outcomes, maintainable systems, and a reliable path from discovery to " +
         "production.",
     },
     Services: {
@@ -61,10 +60,9 @@ const en = {
       title: "Ezyify",
       lead: "N71's flagship AI-powered social commerce ecosystem",
       ctaPrimary:
-        "Built entirely in-house by Network71's IT division, Ezyify fuses social media, AI commerce, and" +
-        "creator monetisation into a single, seamless platform. Every feature — from AR try-on to" +
-        "conversational checkout — is engineered by our team, proving the full depth of our technology" +
-        "capability.",
+        "Built in-house by Network71's IT division, Ezyify brings social media, AI commerce, and " +
+        "creator monetisation together on a single platform. Every feature — from AR try-on to " +
+        "conversational checkout — is engineered by our team and is currently in build ahead of launch.",
       ctaSecondary: "Explore Ezyify",
       detailPrimary: "ezyify.com",
     },
@@ -78,7 +76,7 @@ const en = {
       title: "Products We Have",
       lead: "Designed to Work.",
       ctaPrimary:
-        "A selection of Network71-owned platforms and digital experiences. Each project demonstrates how we" +
+        "A selection of Network71-owned platforms and digital experiences. Each project demonstrates how we " +
         "turn a complex sector into a clear, responsive product journey.",
       ctaSecondary: "Build a Project Like These",
       detailPrimary: "Web \u00b7 Mobile \u00b7 Marketplace \u00b7 Enterprise",
@@ -92,8 +90,8 @@ const en = {
       eyebrow: "Internal Enterprise Backbone",
       title: "IT Powers Every N71 Division",
       lead:
-        "The IT division is the connective tissue of Network71 — running enterprise systems that keep all ten" +
-        "business divisions operating at peak efficiency, unified through the Ezyify platform.",
+        "The IT division is the connective tissue of Network71 — running the enterprise systems that keep all ten " +
+        "business divisions connected, with Ezyify as the shared commerce layer.",
       ctaPrimary: "Ezyify Platform",
       ctaSecondary: "N71 Digital Operations Hub",
     },
@@ -106,10 +104,10 @@ const en = {
     },
     Quality: {
       eyebrow: "Quality & Security",
-      title: "Built to the Highest Standards",
+      title: "Built with Security and Quality in Mind",
       lead:
-        "Security and quality are not afterthoughts — they are architectural principles. Every system we" +
-        "deliver is reviewed, tested, and hardened before it reaches production. Our compliance roadmap" +
+        "Security and quality are not afterthoughts — they are architectural principles. Every system we " +
+        "deliver is reviewed, tested, and hardened before it reaches production. Our compliance roadmap " +
         "aligns with internationally recognised frameworks.",
       ctaPrimary: "Request a Security Briefing",
     },
@@ -117,13 +115,13 @@ const en = {
       eyebrow: "Global Reach",
       title: "Remote Delivery. Global Impact.",
       lead:
-        "Our engineering headquarters is in Dhaka, Bangladesh — giving us access to an exceptional talent" +
-        "pool, competitive cost structures, and a time zone that enables productive overlap with Europe, the" +
+        "Our engineering headquarters is in Dhaka, Bangladesh — giving us access to a deep talent " +
+        "pool, competitive cost structures, and a time zone that enables productive overlap with Europe, the " +
         "Middle East, and Asia.",
       ctaPrimary:
-        "We deliver projects entirely remotely using battle-tested async workflows, with optional embedded" +
-        "team arrangements for clients requiring on-site presence. Through the wider Network71 network, we" +
-        "have supported projects in 25+ countries across the globe.",
+        "We deliver projects remotely using proven async workflows, with optional embedded " +
+        "team arrangements for clients requiring on-site presence. Through the wider Network71 network, we " +
+        "have supported projects for clients across South Asia, the Middle East and beyond.",
     },
     Opportunities: {
       eyebrow: "Opportunities",
@@ -144,11 +142,10 @@ const en = {
       ],
       eyebrow: "AI Research & Development",
       title:
-        "Network71's AI Lab is the engine behind Ezyify's intelligence and the research arm of our software" +
-        "practice. Our scientists and engineers are building production-grade AI systems — not prototypes —" +
-        "that power real commerce at scale. From computer vision models that enable AR try-on to" +
-        "demand-forecasting systems that reduce supply-chain waste, every model we train has a concrete" +
-        "business application.",
+        "Network71's AI Lab is the engine behind Ezyify's intelligence and the research arm of our software " +
+        "practice. Our engineers are building production-oriented AI systems for commerce. From computer " +
+        "vision models that enable AR try-on to demand-forecasting systems that help reduce supply-chain " +
+        "waste, every model we work on has a concrete business application.",
       lead: "Active Model Types",
       ctaPrimary: '"} model.train(dataset=commerce_signals)',
       ctaSecondary: "epoch 1/50 \u2014 loss: 0.3412 \u2014 acc: 0.8870",

@@ -179,7 +179,7 @@ export default function MediaAndMarketplace() {
               </p>
 
               <Link
-                to="/divisions/eshipe"
+                to="/divisions/ship-marketplace"
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: 8,
                   padding: '10px 20px', borderRadius: 8, fontSize: 12.5, fontWeight: 700,

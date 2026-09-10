@@ -11,23 +11,23 @@ const en = {
     lead: "Network71 Media is the Group's dedicated media division — delivering credible, independent, and high-quality journalism across digital news and broadcast television. Serving audiences across South Asia, the Middle East, and beyond.",
     ctaPrimary: 'Media Partnerships',
     ctaSecondary: 'View Programmes',
-    live: 'Live Now',
+    live: 'Live Schedule',
     stats: [
       { v: '24/7', l: 'Broadcast' },
       { v: 'Multi', l: 'Platform' },
-      { v: '25+', l: 'Countries' },
+      { v: 'Digital + TV', l: 'Platforms' },
     ],
     terminal: {
       command: '$ n71-media --channel=live --stream=active',
-      checks: ['broadcast signal confirmed', 'editorial desk online', '25+ country distribution'],
+      checks: ['broadcast signal confirmed', 'editorial desk online', 'digital & broadcast desks online'],
       status: 'transmitting_',
     },
   },
   metrics: [
     { value: 'Live', label: 'Broadcasting', desc: '24/7 news & programme delivery' },
     { value: 'Multi', label: 'Platform', desc: 'Digital, mobile & broadcast' },
-    { value: '25+', label: 'Countries', desc: 'Regional audience reach' },
-    { value: '2024', label: 'Launched', desc: 'Network71 Media Division' },
+    { value: 'Regional', label: 'Audience', desc: 'South Asia, Middle East & diaspora' },
+    { value: 'Two', label: 'Platforms', desc: 'Digital newspaper and TV channel' },
   ],
   overview: {
     eyebrow: 'Division Overview',
@@ -46,11 +46,11 @@ const en = {
     title: 'Six Coverage Desks',
     lead: 'Our editorial team is organised across six specialist desks — each staffed by dedicated journalists and editors with deep subject expertise.',
     items: [
-      { title: 'Breaking News', desc: 'Real-time reporting on major world events. Verified, fast, and ethically sourced from correspondents across the globe.', color: RED },
+      { title: 'Breaking News', desc: 'Real-time reporting on major world events. Verified, fast, and ethically sourced from correspondents and wire partners across our coverage regions.', color: RED },
       { title: 'Business & Economy', desc: 'In-depth analysis of global markets, trade policy, corporate developments, and emerging economic trends.', color: GOLD },
       { title: 'International Affairs', desc: 'Comprehensive international news coverage including geopolitics, diplomacy, and cross-border developments.', color: 'var(--accent-cyan)' },
       { title: 'Technology', desc: 'Innovation, AI, startups, digital transformation, and the technology forces reshaping industries worldwide.', color: 'var(--accent-purple)' },
-      { title: 'Culture & Society', desc: 'Arts, heritage, social movements, sports, and the stories that define communities across every continent.', color: 'var(--accent-emerald)' },
+      { title: 'Culture & Society', desc: 'Arts, heritage, social movements, sports, and the stories that define communities at home and in the diaspora.', color: 'var(--accent-emerald)' },
       { title: 'Investigative Reporting', desc: 'Long-form investigative journalism — uncovering stories that matter with evidence, rigour, and independence.', color: 'var(--accent-orange)' },
     ],
   },
@@ -98,8 +98,8 @@ const en = {
     cta: 'Enquire Now',
     items: [
       { title: 'Display Advertising', tag: 'Digital', desc: 'Premium display placements across the Network71 Media digital portfolio including news portal, mobile app, and video player pre/mid-rolls.', color: RED },
-      { title: 'Broadcast Sponsorship', tag: 'TV', desc: 'Named sponsorship of flagship programmes — brand exposure across our 24/7 TV channel reach with verified audience metrics.', color: GOLD },
-      { title: 'Strategic Content Partnership', tag: 'Branded Content', desc: 'Custom editorial content, advertorials, and co-produced features that integrate brand messaging within trusted editorial context.', color: 'var(--accent-cyan)' },
+      { title: 'Broadcast Sponsorship', tag: 'TV', desc: 'Named sponsorship of flagship programmes — brand exposure across our 24/7 TV channel, with audience reporting shared as distribution partnerships are confirmed.', color: GOLD },
+      { title: 'Strategic Content Partnership', tag: 'Branded Content', desc: 'Custom editorial content, advertorials, and co-produced features that integrate brand messaging within a clearly labelled editorial context.', color: 'var(--accent-cyan)' },
     ],
   },
   gallery: {

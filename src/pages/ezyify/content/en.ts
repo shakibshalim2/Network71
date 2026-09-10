@@ -33,20 +33,21 @@ const en = {
   segments: {
     eyebrow: "The Opportunity",
     title: "Market Opportunity",
-    lead: "Social commerce is the fastest-growing retail channel globally. Ezyify positions Network71 at the intersection of AI, social media, and e-commerce.",
+    lead: "Social commerce is one of the fastest-growing retail channels. Ezyify positions Network71 at the intersection of AI, social media, and e-commerce.",
     marketLead:
-      "The global social commerce market is projected to reach trillions in the coming decade. " +
-      "Ezyify targets a high-growth slice across emerging and diaspora markets where mobile-first commerce is exploding.",
+      "Social commerce is one of the fastest-growing retail channels worldwide. " +
+      "Ezyify targets a high-growth slice across emerging and diaspora markets where mobile-first commerce is expanding rapidly.",
     regions: "4 Regions",
     timelineLead:
       "Progressive rollout beginning with core markets in South Asia, expanding through the Middle East and Southeast Asia, with Western diaspora markets targeted in 2026.",
-    tam: "Total Addressable Market",
+    tamValue: "Growing",
+    tam: "Market Opportunity",
     markets: "Target Markets",
     timeline: "Launch Timeline",
     regionList: ["South Asia", "Middle East", "Southeast Asia", "Western Markets (Diaspora)"],
     quote:
-      "Social commerce is the fastest-growing retail channel globally. Ezyify positions Network71 at the intersection of AI, " +
-      "social media, and e-commerce — capturing a market that existing platforms are only beginning to address.",
+      "Social commerce is one of the fastest-growing retail channels. Ezyify positions Network71 at the intersection of AI, " +
+      "social media, and e-commerce — building for a market that existing platforms are only beginning to address.",
     vision: "Network71 Strategic Vision",
   },
   roadmap: {
@@ -60,11 +61,11 @@ const en = {
     badges: techBadges,
     eyebrow: "Under the Hood",
     title: "Technology Architecture",
-    lead: "Built by Network71's 200+ engineer team in Dhaka — Ezyify runs on a proprietary AI stack purpose-built for social commerce at scale.",
-    modelCount: "50+",
-    modelTitle: "Proprietary AI Models",
+    lead: "Built by Network71's engineering team in Dhaka — Ezyify runs on an AI stack purpose-built for social commerce.",
+    modelCount: "AI",
+    modelTitle: "AI-assisted commerce stack",
     modelLead:
-      "Purpose-trained on commerce, fashion, and consumer behaviour data across South Asia and the Middle East",
+      "Recommendation, visual search, virtual try-on and fraud screening — built for commerce across South Asia and the Middle East",
     usedFor: "Used for:",
     stack: "Infrastructure Stack",
   },

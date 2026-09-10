@@ -1,14 +1,14 @@
 export const metrics = [
-  { value: "1M+", label: "Liters / Month", desc: "Monthly production volume" },
+  { value: "Edible + fuel", label: "Two product lines", desc: "Refined oils and petroleum distribution" },
   {
-    value: "8",
-    label: "Distribution Centers",
-    desc: "Nationwide logistics network",
+    value: "Regional",
+    label: "Distribution network",
+    desc: "Centres serving retail and industrial buyers",
   },
   {
-    value: "HACCP",
-    label: "Certified",
-    desc: "International food safety standard",
+    value: "Food safety",
+    label: "Systems",
+    desc: "HACCP-based controls in edible oil production",
   },
   { value: "—", label: "Export Reach", desc: "Data to be published" },
 ]
@@ -36,7 +36,7 @@ export const oilProcessSteps = [
   },
   {
     title: "Distribution",
-    desc: "Temperature-monitored dispatch to retail chains, food manufacturers, and export consolidators via our 8-centre network.",
+    desc: "Temperature-monitored dispatch to retail chains, food manufacturers, and export consolidators via our distribution network.",
   },
 ]
 
@@ -83,8 +83,8 @@ export const fuelCapabilities = [
       "Furnace oil",
       "Jet fuel coordination",
     ],
-    stat: "8 centres",
-    statLabel: "distribution coverage",
+    stat: "Regional",
+    statLabel: "distribution network",
   },
   {
     title: "Industrial Fuel Supply",
@@ -107,7 +107,7 @@ export const fuelCapabilities = [
       "Hotel & hospitality sector",
       "Government & institutional supply",
     ],
-    stat: "TBP",
+    stat: "On request",
     statLabel: "contract volume data",
   },
 ]
@@ -120,7 +120,7 @@ export const supplyChainNodes = [
   },
   {
     label: "Processing Facility",
-    sub: "HACCP-certified plant",
+    sub: "HACCP-based controls",
     color: "var(--accent-amber)",
   },
   {
@@ -129,8 +129,8 @@ export const supplyChainNodes = [
     color: "var(--accent-emerald)",
   },
   {
-    label: "8 Distribution Centers",
-    sub: "Nationwide network",
+    label: "Distribution Centres",
+    sub: "Regional network",
     color: "var(--accent-sky)",
   },
   {
@@ -143,24 +143,24 @@ export const supplyChainNodes = [
 export const certifications = [
   {
     name: "HACCP",
-    desc: "Hazard Analysis and Critical Control Points — the cornerstone of our food safety management system across all edible oil operations.",
+    desc: "Hazard Analysis and Critical Control Points — the framework our edible oil food safety management system is built on.",
     prominent: true,
   },
   {
     name: "ISO 22000",
-    desc: "Food Safety Management System standard applied at processing and packaging stages.",
+    desc: "Food safety management framework we are working towards at processing and packaging stages.",
   },
   {
-    name: "BSTI Approved",
-    desc: "Bangladesh Standards and Testing Institution compliance for all products sold domestically.",
+    name: "BSTI",
+    desc: "Bangladesh Standards and Testing Institution registration where applicable for products sold domestically.",
   },
   {
-    name: "Halal Certified",
-    desc: "All edible oils produced and packaged under Halal-compliant conditions.",
+    name: "Halal Compliance",
+    desc: "Edible oils produced and packaged under Halal-compliant conditions; working towards formal recognition per product line.",
   },
   {
-    name: "Lab Accreditation",
-    desc: "In-house quality laboratory capable of FFA, peroxide value, moisture, and microbiological testing.",
+    name: "Quality Laboratory",
+    desc: "In-house quality laboratory for FFA, peroxide value, moisture, and microbiological testing.",
   },
   {
     name: "Fuel Safety Compliance",

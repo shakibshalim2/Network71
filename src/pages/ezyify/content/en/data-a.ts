@@ -1,18 +1,26 @@
 export const stats = [
-  { value: "10M+", label: "Target Users", sub: "Global addressable audience" },
   {
-    value: "$500M",
-    label: "Market Potential",
-    sub: "Projected market opportunity",
+    value: "AI",
+    label: "Powered commerce",
+    sub: "Personalisation, try-on, search",
   },
-  { value: "50+", label: "AI Models", sub: "Powering the platform" },
-  { value: "99.9%", label: "Uptime SLA", sub: "Enterprise-grade reliability" },
+  {
+    value: "Social",
+    label: "Video & creator commerce",
+    sub: "Discover, watch, buy",
+  },
+  {
+    value: "Cross-border",
+    label: "Multi-market rollout",
+    sub: "South Asia first",
+  },
+  { value: "In build", label: "Platform status", sub: "Waitlist open" },
 ]
 
 export const features = [
   {
     title: "AI Virtual Try-On",
-    desc: "AR and image-based technology lets shoppers try products before buying — dramatically reducing return rates and boosting purchase confidence.",
+    desc: "AR and image-based technology lets shoppers try products before buying — helping reduce return rates and boosting purchase confidence.",
     gradient: "from-purple-500 to-violet-600",
     sym: "✦",
   },
@@ -93,9 +101,9 @@ export const segments = [
     icon: "🏢",
     headline: "The built-in supplier network",
     points: [
-      "Direct access to N71&apos;s 6 business divisions",
+      "Direct access to Network71&apos;s manufacturing and trading divisions",
       "Factory-to-consumer pricing advantage",
-      "Verified, audited products",
+      "Quality-checked products from group divisions",
       "Integrated logistics via N71 trading arm",
     ],
     cta: "Learn More",

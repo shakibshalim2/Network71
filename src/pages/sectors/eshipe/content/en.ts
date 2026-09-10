@@ -5,21 +5,25 @@ import { process, recyclingItems, whyItems, regions } from "./en/data-b"
 const en = {
   divisionName: "Ship Marketplace",
   metrics: [
-    { value: "50+", label: "Countries", desc: "Global marketplace reach" },
     {
-      value: "200+",
-      label: "Active Buyers",
-      desc: "Registered vessel purchasers",
+      value: "Buy · Sell · Lease",
+      label: "Transaction modes",
+      desc: "Purchase, sale, charter and lease",
     },
     {
-      value: "150+",
-      label: "Vessel Sellers",
-      desc: "Listed ship owners & brokers",
+      value: "Verified",
+      label: "Buyer & seller profiles",
+      desc: "Identity-checked counterparties",
     },
     {
-      value: "25+",
-      label: "Recycling Yards",
-      desc: "Certified demolition partners",
+      value: "Specs",
+      label: "Full vessel data",
+      desc: "Class, tonnage, build, survey status",
+    },
+    {
+      value: "Recycling",
+      label: "Responsible yards",
+      desc: "Hong Kong Convention–aligned partners",
     },
   ],
   inquiryTypes: [
@@ -42,15 +46,15 @@ const en = {
     browse: "Browse Listings",
     list: "List Your Vessel",
     metrics: [
-      { value: "50+", label: "Countries" },
-      { value: "200+", label: "Active Buyers" },
-      { value: "150+", label: "Vessel Sellers" },
-      { value: "25+", label: "Recycling Yards" },
+      { value: "Buy · Sell · Lease", label: "Transaction modes" },
+      { value: "Verified", label: "Buyer & seller profiles" },
+      { value: "Specs", label: "Full vessel data" },
+      { value: "Recycling", label: "Responsible yards" },
     ],
     terminal: [
       "$ eshipe --network=global --status=online",
-      "✓ marketplace active — 50+ countries",
-      "✓ 200+ buyers registered",
+      "✓ listings with full specifications",
+      "✓ structured inquiry routing",
       "✓ recycling yards verified",
       "▌ awaiting vessel enquiry_",
     ],
@@ -74,7 +78,7 @@ const en = {
     eyebrow: "Vessel Listings",
     title: "Available Vessels",
     description:
-      "Browse our current selection of verified vessels. Contact our brokers for full specifications and inspection arrangements.",
+      "Listings shown are illustrative; live inventory is shared on request. Contact our brokers for full specifications and inspection arrangements.",
     searchLabel: "Search Vessel Listings",
     placeholder: "Search by vessel name, type, or flag...",
     typeLabel: "Vessel type",
@@ -117,23 +121,23 @@ const en = {
     eyebrow: "Responsible Recycling",
     title: "Ship Recycling, Done Right.",
     description:
-      "We connect vessel owners with certified recycling yards that put safety, environmental responsibility, and transparent documentation first.",
+      "We connect vessel owners with recycling yards that operate to Hong Kong Convention and IMO guidelines, putting safety, environmental responsibility, and transparent documentation first.",
     items: recyclingItems,
   },
   why: {
     eyebrow: "Why eSHIPe",
     title: "The Network71 Maritime Advantage",
     description:
-      "eSHIPe is backed by Network71’s global trade infrastructure — giving buyers and sellers access to a network built on decades of international commercial experience.",
+      "eSHIPe is backed by Network71’s trading and logistics infrastructure — giving buyers and sellers access to the Group’s cross-border commercial network from its Dhaka headquarters.",
     items: whyItems,
   },
   reach: {
     eyebrow: "Global Reach",
-    title: "50+ Countries. One Marketplace.",
+    title: "Cross-Border by Design.",
     description:
-      "eSHIPe operates across the world’s major shipping corridors — from the Bay of Bengal and the Arabian " +
-      "Gulf to the Mediterranean, the North Sea, and East Asia. Our buyers and sellers span every major " +
-      "maritime flag state and port cluster.",
+      "eSHIPe is built to serve the major shipping corridors — from the Bay of Bengal and the Arabian " +
+      "Gulf to the Mediterranean, the North Sea, and East Asia — connecting buyers and sellers across " +
+      "South Asia, the Middle East, Southeast Asia and beyond.",
     note: "Off-market deal flows and private listings are available to registered members. Contact us to join the eSHIPe network.",
     regions,
   },

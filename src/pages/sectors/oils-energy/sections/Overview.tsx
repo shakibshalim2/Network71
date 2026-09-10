@@ -45,7 +45,7 @@ export default function Overview({ c }: { c: OilsEnergyContent }) {
               </p>
 
               <div className="grid grid-cols-2 gap-2 mb-6">
-                {['HACCP Certified', 'Consumer + Industrial', '1M+ L/Month', '5 Oil Varieties'].map((tag) => (
+                {c.sectionCopy.oilsTags.map((tag) => (
                   <div
                     key={tag}
                     className="text-xs font-medium px-3 py-1.5 rounded-lg"

@@ -2,14 +2,14 @@ const en = {
   hero: {
     badge: 'International Operations',
     title: 'Our Global Reach',
-    stats: '25+ Countries \u00a0•\u00a0 8 Business Divisions \u00a0•\u00a0 One Vision',
-    lead: 'From our headquarters in Dhaka, Network71 operates across South Asia, the Middle East, Europe, Southeast Asia, and Africa — connected by trade, technology, and shared purpose.',
+    stats: 'Dhaka Headquarters \u00a0•\u00a0 10 Business Divisions \u00a0•\u00a0 One Vision',
+    lead: 'From our headquarters in Dhaka, Network71 trades and partners across South Asia, the Middle East and Southeast Asia, with export relationships reaching Europe and Africa — connected by trade, technology, and shared purpose.',
   },
   map: {
     eyebrow: 'Where We Operate',
     title: 'Global Footprint',
     lead: 'Gold markers indicate regional operational clusters. Trade route lines show principal import/export corridors.',
-    footnote: 'Map is illustrative. Exact country list to be published in our Global Operations Report.',
+    footnote: 'Map is illustrative. Markers show trade and partner locations, not a registry of subsidiaries or offices.',
     cities: [
       { cx: 676, cy: 147, label: 'Dhaka', sublabel: 'HQ', pulse: true, primary: true },
       { cx: 588, cy: 144, label: 'Dubai', sublabel: '', pulse: false, primary: false },
@@ -30,17 +30,17 @@ const en = {
   },
   counts: {
     items: [
-      { stat: '25+', label: 'Countries of Operation' },
-      { stat: '8', label: 'Business Divisions' },
-      { stat: '6', label: 'Global Regions' },
+      { stat: '10', label: 'Business Divisions' },
+      { stat: 'Dhaka', label: 'Group Headquarters' },
+      { stat: '3', label: 'Focus Regions' },
     ],
-    footnote: 'Full country list to be published. Operational in 25+ countries as of 2025.',
+    footnote: 'Regional presence reflects active trade relationships and partner locations; office details are published on the Contact page.',
   },
   regions: {
     eyebrow: 'Regions',
     title: 'Regional Breakdown',
     lead: "Each region plays a distinct role in Network71's global value chain.",
-    countriesNote: 'Specific countries: Data to be published',
+    countriesNote: 'Focus regions: South Asia, Middle East, Southeast Asia',
     items: [
       {
         name: 'South Asia',
@@ -51,7 +51,7 @@ const en = {
         icon: '🇧🇩',
         highlights: [
           'Headquarters: Dhaka, Bangladesh',
-          'Largest workforce concentration',
+          'Core workforce and operations',
           'Primary manufacturing base',
         ],
       },
@@ -123,10 +123,12 @@ const en = {
       { name: 'Agriculture & Agro', focus: 'Farming: South Asia → Trade: Middle East, Southeast Asia, Africa', href: '/divisions/agriculture', icon: '🌾' },
       { name: 'Food & Beverage', focus: 'Production: Bangladesh → Distribution: South Asia, Middle East', href: '/divisions/food-beverage', icon: '🥤' },
       { name: 'Oils & Energy', focus: 'Import: Southeast Asia, Middle East → Distribution: Bangladesh, regional', href: '/divisions/oils-energy', icon: '⚡' },
-      { name: 'IT & Software', focus: 'Development: Bangladesh → Clients: Global (via Ezyify platform)', href: '/divisions/it-software', icon: '💻' },
-      { name: 'Global Trading', focus: 'Multi-corridor: 25+ countries across 8 primary trade routes', href: '/divisions/global-trading', icon: '🚢' },
-      { name: 'Media', focus: 'Broadcast: South Asia, Middle East → Digital: Global streaming reach', href: '/divisions/media', icon: '📺' },
-      { name: 'eSHIPe Maritime', focus: 'Marketplace: 50+ countries, maritime corridors worldwide', href: '/divisions/eshipe', icon: '⚓' },
+      { name: 'IT & Software', focus: 'Development: Bangladesh → Delivery: group divisions, the Ezyify platform and enterprise clients', href: '/divisions/it-software', icon: '💻' },
+      { name: 'Global Trading', focus: 'Multi-corridor: sourcing and export across South Asia, the Gulf and Southeast Asia', href: '/divisions/global-trading', icon: '🚢' },
+      { name: 'Media', focus: 'Newsroom: Bangladesh → Digital newspaper and TV available online', href: '/divisions/media', icon: '📺' },
+      { name: 'eSHIPe Maritime', focus: 'Marketplace: cross-border vessel trade across South Asia, the Gulf and beyond', href: '/divisions/eshipe', icon: '⚓' },
+      { name: 'Strategic Ventures', focus: 'Partnerships: joint ventures and market entry across our focus regions', href: '/divisions/strategic-ventures', icon: '🤝' },
+      { name: 'Ezyify', focus: 'Platform: built in Bangladesh → cross-border digital commerce', href: '/ezyify', icon: '🛍️' },
     ],
   },
   offices: {
@@ -136,8 +138,8 @@ const en = {
     hqCity: 'Dhaka, Bangladesh',
     hqDesc: 'All corporate functions, executive leadership, primary technology operations, and strategic coordination are headquartered in Dhaka.',
     regionalLabel: 'Regional Offices',
-    regionalValue: 'To Be Published',
-    regionalDesc: 'Regional office and representative locations across our operational geographies will be published in the upcoming Global Operations Report.',
+    regionalValue: 'On Request',
+    regionalDesc: 'Regional representation is coordinated from our Dhaka headquarters. Contact our team for partner and representative details in your market.',
   },
 }
 
