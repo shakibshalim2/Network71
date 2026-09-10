@@ -4,7 +4,7 @@ import Footer from "@/components/Footer"
 import { useLocalizedContent } from "@/i18n/useLocalizedContent"
 import en from "./contact/content/en"
 import Hero from "./contact/sections/Hero"
-import Methods from "./contact/sections/Methods"
+import PublishedMethods from "./contact/sections/PublishedMethods"
 import FormSection from "./contact/sections/FormSection"
 
 const loaders = { bn: () => import("./contact/content/bn") }
@@ -16,7 +16,7 @@ export default function Contact() {
       <Header />
       <ManagedContent content={c} className="public-content">
         <Hero c={c.hero} />
-        <Methods c={c.methods} />
+        <PublishedMethods fallback={c.methods} />
         <FormSection form={c.form} sidebar={c.sidebar} />
       </ManagedContent>
       <Footer />

@@ -171,7 +171,7 @@ Completed in this resumed session:
 Verified: 562 locale template validations; 13 sections/reset HTTP checks; original 38 HTTP/MySQL smoke checks; outbox failure/retry simulation; media archive protection; project renderer escaping/metadata; authenticated browser save/preview/publish; EN/BN editor at 375/768/1440; 156 public route/locale/viewport structural checks. The original About test section was restored.
 
 Still open (do not report the entire production plan as complete):
-- Module-by-module public consumer parity for the remaining generic CMS collections (Testimonials/Navigation/Settings): Insights, Press, Timeline, Locations, Brands, Credentials and verified Metrics now read approved EN/BN collection records; page-section overrides work, but every generic collection is not automatically mapped into each existing static section.
+- Module-by-module public consumer parity for the remaining generic Navigation collection: all other purpose-built collections now have a public consumer; page-section overrides work, but legacy Pages/Divisions inventory records remain separate from the section CMS.
 - Complete nested/shared section layout coverage, draft autosave/review history, and manual visual/accessibility acceptance beyond the automated checks.
 - Actual SMTP provider delivery, cron setup, cPanel rewrites/HTTPS, deployment and isolated backup restore/offsite recovery verification.
 - Owner-approved company imagery, factual claims, real vessel/seller profiles and private evidence/document workflows.
@@ -198,3 +198,9 @@ No production deployment or real external email delivery was performed. User req
 - Sustainability replaces packaged target cards with published Metrics once approved records exist. Each published figure carries its public source/explanation and as-of date.
 - Governance shows published Credentials only when approved records exist, including issuer, reference, expiry and a scheme-validated verification link.
 - Verification: production build passed; mocked browser checks covered all three consumers, Bangla Metrics selection and 375px overflow.
+
+## Testimonials and public Settings integration — 10 September 2026
+
+- Approved Testimonials appear on About only after the permission-required CMS record is published; unpublished or absent records add no placeholder endorsements.
+- Contact methods use the first published Company Settings record for public email, phone, address and social profile, with packaged contact copy as the no-record/API-failure fallback.
+- Verification: production build and mocked EN/BN consumer checks passed at 375px.

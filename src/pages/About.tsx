@@ -11,6 +11,7 @@ import Values from './about/sections/Values'
 import Leadership from './about/sections/Leadership'
 import Timeline from './about/sections/Timeline'
 import Cta from './about/sections/Cta'
+import PublishedTestimonials from './about/sections/PublishedTestimonials'
 
 const loaders = { bn: () => import('./about/content/bn') }
 
@@ -27,6 +28,7 @@ export default function About() {
         <Values c={c.values} />
         <Leadership c={c.leadership} />
         <Timeline c={c.timeline} />
+        <PublishedTestimonials />
         <Cta c={c.cta} />
       </ManagedContent>
       <Footer />
