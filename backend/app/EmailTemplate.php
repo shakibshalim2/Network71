@@ -1,0 +1,86 @@
+<?php
+declare(strict_types=1);
+
+final class EmailTemplate
+{
+    public static function render(array $row, array $config): array
+    {
+        $escape = static fn(mixed $value): string => htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $reference = (string)$row['reference'];
+        $empty = 'Not provided';
+        $created = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', (string)($row['created_at'] ?? ''), new DateTimeZone('UTC'));
+        $received = $created ? $created->format('d M Y · H:i') . ' UTC' : 'Just now';
+        $origin = rtrim((string)($config['origin'] ?? ''), '/');
+        $source = (string)($row['source'] ?? '');
+        $sourceUrl = preg_match('~^/[A-Za-z0-9/_?&=.%+-]*$~', $source) ? $origin . $source : '';
+        $sourceValue = $source !== '' ? $escape($source) : $empty;
+        if ($sourceUrl !== '' && filter_var($sourceUrl, FILTER_VALIDATE_URL)) {
+            $sourceValue = '<a href="' . $escape($sourceUrl) . '" style="color:#b42318;text-decoration:underline;">' . $sourceValue . '</a>';
+        }
+        $replyUrl = 'mailto:' . (string)$row['email'] . '?subject=' . rawurlencode('Re: ' . (string)$row['subject'] . ' · ' . $reference);
+        $details = self::row('Name', $escape($row['name']))
+            . self::row('Email', '<a href="mailto:' . $escape($row['email']) . '" style="color:#b42318;text-decoration:none;">' . $escape($row['email']) . '</a>')
+            . self::row('Phone', ($row['phone'] ?? '') !== '' ? $escape($row['phone']) : $empty)
+            . self::row('Company', ($row['company'] ?? '') !== '' ? $escape($row['company']) : $empty)
+            . self::row('Subject', $escape($row['subject']))
+            . self::row('Source', $sourceValue)
+            . self::row('Received', $escape($received), true);
+        $message = nl2br($escape($row['message']), false);
+        $subject = 'New website enquiry · ' . $reference;
+        $html = <<<HTML
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light only"><title>{$escape($subject)}</title></head>
+<body style="margin:0;padding:0;background:#eef1f4;color:#17202a;font-family:Arial,Helvetica,sans-serif;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">New message from {$escape($row['name'])} · {$escape($row['subject'])}</div>
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;background:#eef1f4;">
+<tr><td align="center" style="padding:32px 12px;">
+<table role="presentation" width="640" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:640px;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(18,29,43,.10);">
+<tr><td style="height:5px;background:#e21b23;font-size:0;line-height:0;">&nbsp;</td></tr>
+<tr><td style="background:#000000;padding:24px 34px 22px;">
+<img src="cid:network71-logo" width="210" alt="Network71" style="display:block;width:210px;max-width:70%;height:auto;border:0;">
+<p style="margin:16px 0 0;color:#aab3bd;font-size:11px;line-height:1.5;letter-spacing:2px;text-transform:uppercase;">Website notification</p>
+</td></tr>
+<tr><td style="padding:34px 34px 16px;">
+<p style="margin:0 0 8px;color:#b42318;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;">New enquiry</p>
+<h1 style="margin:0;color:#111820;font-size:27px;line-height:1.25;font-weight:700;">A new message needs your attention</h1>
+<p style="margin:14px 0 0;color:#5c6672;font-size:15px;line-height:1.65;">A visitor submitted an enquiry through the Network71 website. The complete details are below.</p>
+<div style="margin-top:22px;display:inline-block;padding:9px 13px;background:#fff1f1;border:1px solid #ffd2d4;border-radius:7px;color:#991b1b;font-family:Consolas,Monaco,monospace;font-size:12px;font-weight:700;">{$escape($reference)}</div>
+</td></tr>
+<tr><td style="padding:12px 34px 0;">
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;border:1px solid #e5e9ed;border-radius:10px;border-collapse:separate;overflow:hidden;">{$details}</table>
+</td></tr>
+<tr><td style="padding:28px 34px 0;">
+<p style="margin:0 0 10px;color:#6a737d;font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;">Message</p>
+<div style="padding:20px;background:#f7f8fa;border-left:4px solid #e21b23;border-radius:4px 9px 9px 4px;color:#202a35;font-size:15px;line-height:1.7;word-break:break-word;">{$message}</div>
+</td></tr>
+<tr><td style="padding:28px 34px 36px;">
+<a href="{$escape($replyUrl)}" style="display:inline-block;padding:13px 22px;background:#e21b23;border-radius:7px;color:#ffffff;font-size:14px;font-weight:700;text-decoration:none;">Reply to {$escape($row['name'])}</a>
+</td></tr>
+<tr><td style="padding:20px 34px;background:#111820;color:#8f9aa5;font-size:11px;line-height:1.7;">
+This automated notification was generated by the Network71 website.<br>Keep the reference number when following up with the sender.
+</td></tr>
+</table>
+</td></tr></table>
+</body></html>
+HTML;
+        $text = "NEW WEBSITE ENQUIRY\n"
+            . "Reference: {$reference}\n"
+            . "Received: {$received}\n"
+            . "Name: {$row['name']}\n"
+            . "Email: {$row['email']}\n"
+            . 'Phone: ' . (($row['phone'] ?? '') !== '' ? $row['phone'] : $empty) . "\n"
+            . 'Company: ' . (($row['company'] ?? '') !== '' ? $row['company'] : $empty) . "\n"
+            . "Subject: {$row['subject']}\n"
+            . 'Source: ' . ($source !== '' ? $source : $empty) . "\n\n"
+            . "MESSAGE\n{$row['message']}\n";
+        return ['subject' => $subject, 'html' => $html, 'text' => $text];
+    }
+
+    private static function row(string $label, string $value, bool $last = false): string
+    {
+        $border = $last ? '' : 'border-bottom:1px solid #e9edf0;';
+        return '<tr><td width="120" valign="top" style="padding:12px 14px;color:#737d88;font-size:12px;font-weight:700;' . $border . '">' . $label
+            . '</td><td valign="top" style="padding:12px 14px;color:#202a35;font-size:13px;line-height:1.5;word-break:break-word;' . $border . '">' . $value . '</td></tr>';
+    }
+}

@@ -27,7 +27,7 @@ await copy('backend/deploy/project.php', 'public_html/project.php')
 await copy('backend/deploy/htaccess.example', 'public_html/.htaccess')
 await copy('backend/deploy/user.ini.example', 'public_html/.user.ini')
 
-for (const directory of ['app', 'bin', 'content', 'database', 'vendor']) {
+for (const directory of ['app', 'assets', 'bin', 'content', 'database', 'vendor']) {
   await copy(`backend/${directory}`, `network71-private/${directory}`)
 }
 await copy('backend/public/index.php', 'network71-private/public/index.php')

@@ -28,6 +28,7 @@ try{
     foreach(['en','bn'] as $locale)report(is_file(dirname(__DIR__)."/content/seed.$locale.json"),'Packaged '.$locale.' content');
     if($config['smtp']['enabled']??false) {
         report(is_file(dirname(__DIR__).'/vendor/autoload.php'),'Composer SMTP dependencies');
+        report(is_file(dirname(__DIR__).'/assets/network71-email-logo.png'),'Embedded email logo');
         foreach(['host','username','password','from','to'] as $key)report(!empty($config['smtp'][$key]),'SMTP '.$key.' configured');
         report(in_array($config['smtp']['encryption']??'', ['tls','ssl'],true),'SMTP TLS policy');
     } else echo "PENDING SMTP disabled; enquiry storage works without delivery.\n";

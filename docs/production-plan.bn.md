@@ -224,3 +224,9 @@ No production deployment or real external email delivery was performed. All loca
 - Published Footer records replace the packaged footer columns with an ordered approved-link grid. With no published records or an API failure, the packaged navigation remains available.
 - Internal paths use client-side routing; validated HTTP(S) destinations use normal external links. EN/BN records are requested independently.
 - Verification: production build passed; mocked browser checks covered desktop header, mobile drawer, footer and Bangla records. After the global navigation change, the full 26-route × EN/BN × 375/768/1440 matrix passed all 156 structural checks again with no runtime exception or horizontal overflow. All 16 collection modules now have a matching public consumer; Pages/Divisions use the page-section CMS. Dedicated Vessels/Sellers collections feed approved eSHIPe inventory when published.
+
+## Branded SMTP notification verification — 11 September 2026
+
+- Enquiry notifications now use a responsive Network71-branded HTML layout with an embedded logo, reference and contact details, message panel, direct reply action and plain-text fallback.
+- PHPMailer MIME generation, visitor-content escaping, outbox retry/recovery and the full 61-check HTTP/MySQL integration suite passed. The configured cPanel SMTP account accepted a real branded delivery to the configured Network71 receiver mailbox.
+- The cPanel release package now includes the private email asset and template. Its 218-file manifest and SHA-256 archive checksum passed; production-host cron and final inbox-client acceptance remain deployment checks.

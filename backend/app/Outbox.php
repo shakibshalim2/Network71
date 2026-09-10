@@ -33,9 +33,12 @@ final class Outbox
         $mail=new \PHPMailer\PHPMailer\PHPMailer(true);$mail->isSMTP();$mail->Host=$smtp['host'];$mail->Port=(int)$smtp['port'];
         $mail->SMTPAuth=true;$mail->Username=$smtp['username'];$mail->Password=$smtp['password'];$mail->SMTPSecure=$smtp['encryption'];$mail->Timeout=15;$mail->CharSet='UTF-8';
         $mail->setFrom($smtp['from'],'Network71 website');$mail->addAddress($smtp['to']);$mail->addReplyTo($row['email'],$row['name']);
-        $mail->Subject='Website enquiry '.$row['reference'];
+        $template=EmailTemplate::render($row,$this->config);
+        $logo=dirname(__DIR__).'/assets/network71-email-logo.png';
+        if(!is_file($logo))throw new RuntimeException('Email logo asset is missing.');
+        $mail->addEmbeddedImage($logo,'network71-logo','network71-logo.png','base64','image/png');
+        $mail->isHTML(true);$mail->Subject=$template['subject'];$mail->Body=$template['html'];$mail->AltBody=$template['text'];
         $mail->MessageID='<'.$row['reference'].'@'.parse_url($this->config['origin'],PHP_URL_HOST).'>';
-        $mail->Body="Reference: {$row['reference']}\nName: {$row['name']}\nEmail: {$row['email']}\nPhone: {$row['phone']}\nCompany: {$row['company']}\nSubject: {$row['subject']}\nSource: {$row['source']}\n\n{$row['message']}";
         $mail->send();
     }
 }

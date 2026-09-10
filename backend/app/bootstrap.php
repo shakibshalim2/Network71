@@ -10,6 +10,7 @@ require_once __DIR__ . '/Api.php';
 require_once __DIR__ . '/SectionValidation.php';
 require_once __DIR__ . '/Sections.php';
 require_once __DIR__ . '/PasswordReset.php';
+require_once __DIR__ . '/EmailTemplate.php';
 require_once __DIR__ . '/Outbox.php';
 require_once __DIR__ . '/JobApplications.php';
 require_once __DIR__ . '/PrivateDocuments.php';
