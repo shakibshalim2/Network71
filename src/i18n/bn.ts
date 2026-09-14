@@ -129,6 +129,8 @@ const bnCore: Record<Exclude<TKey, keyof typeof enHomepage>, string> = {
   'divisions.eyebrow': 'আমাদের ব্যবসা',
   'divisions.title1': 'বৈচিত্র্যময় শিল্প।',
   'divisions.title2': 'ঐক্যবদ্ধ শক্তি।',
+  'divisions.hint': 'প্রিভিউ দেখতে কোনো লাইনে হোভার করুন। দশটি বিভাগ, একটি গ্রুপ।',
+  'divisions.swipe': 'দেখতে সোয়াইপ করুন',
   'divisions.explore': 'দেখুন',
   'divisions.explorePlatform': 'প্ল্যাটফর্ম দেখুন',
 

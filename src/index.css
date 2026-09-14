@@ -4,6 +4,7 @@
 @import './styles/public-refinements.css';
 @import './styles/design-system.css';
 @import './styles/header.css';
+@import './styles/signature.css';
 
 @theme {
   /* ── Brand depths ── */

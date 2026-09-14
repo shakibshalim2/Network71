@@ -131,6 +131,8 @@ const enCore = {
   'divisions.title1': 'Diverse Industries.',
   'divisions.title2': 'Unified Strength.',
   'divisions.explore': 'Explore',
+  'divisions.hint': 'Hover a line to preview. Ten divisions, one operating group.',
+  'divisions.swipe': 'Swipe to browse',
   'divisions.explorePlatform': 'Explore Platform',
 
   // ── Homepage: About ──

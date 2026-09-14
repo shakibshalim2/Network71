@@ -82,3 +82,19 @@ Installed `motion` (Framer Motion successor, `motion/react`). A shared vocabular
 | Route change | Hard swap | `.route-enter` fade/rise (skipped for admin) |
 | Buttons | 8 ad-hoc gold buttons on corporate pages | All on `.btn` primitives; press feedback |
 | Labels | 90 `text-[9px]` eyebrows in source | Rewritten to 11px / 0.2em in source (not only via CSS floor) |
+
+## Phase 3 — signature layouts (Home)
+
+The first two phases kept the original section grammar. Phase 3 replaces the three
+most-seen Home sections with layouts that belong to Network71 alone, each with a
+dedicated mobile treatment.
+
+| Section | Was | Now |
+|---|---|---|
+| Hero headline | Static two-line H1 | `KineticText`: words rise out of clipped lines (editorial reveal) |
+| Hero stats (mobile) | 2×2 grid of tiny tiles | Horizontal signal strip of pill cards |
+| Divisions | 10 equal photo tiles | **Numbered index** (`DivisionsIndex`): rows expand on hover, accent bar slides with `layoutId`, a spring-following preview card shows the division photo. **Mobile:** tall “dossier” snap rail with numbered cards, scroll-driven depth/parallax (`animation-timeline: view()` with graceful fallback) and a swipe hint |
+| About | 3-column statement/values/photo | **Statement band** (`StatementBand`): slow marquee of the brand statement, one strong paragraph, four value cards lit by a pointer-tracking spotlight |
+| Connect CTA | 3 equal glass cards | **Portal** (`ConnectPortal`): segmented chooser with sliding pill; the choice re-colours the WebGL aurora and swaps copy with a blur-crossfade. Stacks vertically under 480px |
+
+All motion honours `prefers-reduced-motion`; list/rail/portal remain fully usable without JS.

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { useT } from '@/i18n'
 import { EASE_OUT } from '@/lib/motion'
+import KineticText from '@/components/motion/KineticText'
 
 const rise = { hidden: { opacity: 0, y: 26 }, show: { opacity: 1, y: 0, transition: { duration: 0.85, ease: EASE_OUT } } }
 
@@ -39,9 +40,8 @@ export default function HeroContent() {
           </motion.div>
 
           {/* H1 */}
-          <motion.h1
-            variants={rise}
-            className="font-display"
+          <h1
+            className="font-display hero-kinetic"
             style={{
               /* 8.5vw lets the two lines fill small screens without overflowing */
               fontSize: 'clamp(33px, 8.5vw, 84px)',
@@ -51,10 +51,9 @@ export default function HeroContent() {
               marginBottom: 'clamp(14px, 3vw, 22px)',
             }}
           >
-            {t('hero.title1')}
-            <br />
-            <em style={{ color: 'var(--brand-fg)' }}>{t('hero.title2')}</em>
-          </motion.h1>
+            <KineticText text={t('hero.title1')} delay={0.25} />
+            <KineticText text={t('hero.title2')} delay={0.45} as="em" style={{ color: 'var(--brand-fg)' }} />
+          </h1>
 
           {/* Body */}
           <motion.p variants={rise} style={{

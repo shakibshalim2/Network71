@@ -37,7 +37,7 @@ export default function HeroStats() {
   }))
 
   return (
-    <div style={{
+    <div className="hero-stats" style={{
       background: 'var(--header-bg)',
       borderTop: '1px solid var(--line)',
       position: 'relative', zIndex: 10,
