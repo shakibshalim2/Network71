@@ -8,7 +8,7 @@ export default function Sustainability({ c }: { c: OilsEnergyContent }) {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8" style={{ background: 'var(--accent-emerald)' }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase text-emerald-600">
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium text-emerald-600">
                 {c.sectionCopy.sustainabilityEyebrow}
               </span>
               <div className="h-px w-8" style={{ background: 'var(--accent-emerald)' }} />

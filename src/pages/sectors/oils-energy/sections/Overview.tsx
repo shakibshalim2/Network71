@@ -8,7 +8,7 @@ export default function Overview({ c }: { c: OilsEnergyContent }) {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: AMBER }}>
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: AMBER }}>
                 {c.sectionCopy.overviewEyebrow}
               </span>
               <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
@@ -35,7 +35,7 @@ export default function Overview({ c }: { c: OilsEnergyContent }) {
                   </svg>
                 </div>
                 <div>
-                  <div className="text-[10px] font-bold tracking-[0.25em] uppercase mb-1" style={{ color: AMBER }}>{c.copy.divisionA}</div>
+                  <div className="text-[11px] font-bold tracking-[0.14em] uppercase mb-1" style={{ color: AMBER }}>{c.copy.divisionA}</div>
                   <h3 className="font-display text-2xl text-fg">{c.overview.oilsTitle}</h3>
                 </div>
               </div>
@@ -57,7 +57,7 @@ export default function Overview({ c }: { c: OilsEnergyContent }) {
               </div>
 
               <div className="border-t pt-5" style={{ borderColor: `color-mix(in srgb, ${AMBER} 9%, transparent)` }}>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">{c.copy.valueChain}</div>
+                <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400 mb-3">{c.copy.valueChain}</div>
                 <div className="flex items-center gap-1.5 text-xs text-slate-500 flex-wrap">
                   {['Sourcing', 'Refining', 'Blending', '{c.copy.packaging}', 'Distribution'].map((s, i, arr) => (
                     <span key={s} className="flex items-center gap-1.5">
@@ -84,7 +84,7 @@ export default function Overview({ c }: { c: OilsEnergyContent }) {
                   </svg>
                 </div>
                 <div>
-                  <div className="text-[10px] font-bold tracking-[0.25em] uppercase mb-1" style={{ color: SKY }}>{c.copy.divisionB}</div>
+                  <div className="text-[11px] font-bold tracking-[0.14em] uppercase mb-1" style={{ color: SKY }}>{c.copy.divisionB}</div>
                   <h3 className="font-display text-2xl text-fg">{c.overview.energyTitle}</h3>
                 </div>
               </div>
@@ -106,7 +106,7 @@ export default function Overview({ c }: { c: OilsEnergyContent }) {
               </div>
 
               <div className="border-t pt-5" style={{ borderColor: `color-mix(in srgb, ${SKY} 9%, transparent)` }}>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">{c.copy.valueChain}</div>
+                <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400 mb-3">{c.copy.valueChain}</div>
                 <div className="flex items-center gap-1.5 text-xs text-slate-500 flex-wrap">
                   {['Procurement', 'Storage', 'Distribution', 'Logistics', 'Client Delivery'].map((s, i, arr) => (
                     <span key={s} className="flex items-center gap-1.5">

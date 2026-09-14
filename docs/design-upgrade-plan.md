@@ -61,3 +61,24 @@ Shared chrome: SectorHeader (refine CTA) · MetricsBar (refine) · SectionEyebro
 4. **Shared sector chrome** — eyebrow, metrics bar, header CTA, contact form inputs.
 5. **Page heroes** — Careers/Leadership/Sustainability/Global-presence mobile padding via foundation rules.
 6. **Verify** — `tsc --noEmit`, `vite build`, screenshots at 390 & 1440 in dark and light.
+
+## Phase 2 — motion, navigation chrome and small parts
+
+Installed `motion` (Framer Motion successor, `motion/react`). A shared vocabulary lives in
+`src/lib/motion.ts` (easings, springs, popover / sheet / drawer / modal variants).
+
+| Surface | Before | After |
+|---|---|---|
+| Header | 40 inline `onMouseEnter` handlers, opacity-toggled menus always in DOM | `src/styles/header.css` classes; `AnimatePresence` mounts menus only while open; shared `layoutId` active-indicator slides between nav links; hamburger morphs to ✕ |
+| Divisions mega menu | Instant fade | Scale/fade popover, items stagger in, flagship strip with arrow nudge |
+| Language menu | Instant fade | Popover variant, animated chevron |
+| Search sheet | CSS translate, 8px labels | Spring sheet + backdrop, class-based rows, `.chip`, `.kbd-pill` |
+| Mobile drawer | Slide, no item motion | Spring drawer, staggered items, accordion animates height with `AnimatePresence`, segmented controls |
+| Modal (`Dialog`) | Static panel | Spring panel entrance, blurred backdrop, icon close button, full-width form on phones |
+| Home hero | Static | Eyebrow → title → lead → CTAs stagger on load |
+| PageHero | Static | Staggered copy, drifting orbs, WebGL `AuroraCanvas` (half-res, pauses off-screen, respects reduced motion, no-WebGL fallback) |
+| Sector heroes (9) | Static | Image settle-zoom + copy rise via structural CSS |
+| Section reveal | Section only | Grid / rail children stagger after the section reveals |
+| Route change | Hard swap | `.route-enter` fade/rise (skipped for admin) |
+| Buttons | 8 ad-hoc gold buttons on corporate pages | All on `.btn` primitives; press feedback |
+| Labels | 90 `text-[9px]` eyebrows in source | Rewritten to 11px / 0.2em in source (not only via CSS floor) |

@@ -8,7 +8,7 @@ export default function QualityLab({ c }: { c: FoodBeverageContent }) {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8" style={{ background: ORANGE, color: 'var(--s0)' }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ORANGE }}>{c.facilitiesCopy.eyebrow}</span>
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: ORANGE }}>{c.facilitiesCopy.eyebrow}</span>
               <div className="h-px w-8" style={{ background: ORANGE, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">{c.facilitiesCopy.title}</h2>
@@ -19,16 +19,16 @@ export default function QualityLab({ c }: { c: FoodBeverageContent }) {
             {c.facilities.map((f) => (
               <div key={f.unit} className="bg-surface-2 rounded-2xl border border-slate-100 overflow-hidden">
                 <div className="px-6 pt-6 pb-4 border-b border-slate-100" style={{ background: `color-mix(in srgb, ${ORANGE} 2%, transparent)` }}>
-                  <div className="text-[10px] font-bold tracking-[0.25em] uppercase mb-1" style={{ color: ORANGE }}>{c.facilitiesCopy.colUnit}</div>
+                  <div className="text-[11px] font-bold tracking-[0.14em] uppercase mb-1" style={{ color: ORANGE }}>{c.facilitiesCopy.colUnit}</div>
                   <h3 className="font-display text-xl text-fg">{f.unit.replace('Processing Unit ', '')}</h3>
                 </div>
                 <div className="p-6 space-y-5">
                   <div>
-                    <div className="text-[10px] font-bold tracking-wider uppercase text-slate-400 mb-2">{c.facilitiesCopy.colCapacity}</div>
+                    <div className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">{c.facilitiesCopy.colCapacity}</div>
                     <div className="text-sm text-slate-600 font-medium">{f.capacity}</div>
                   </div>
                   <div>
-                    <div className="text-[10px] font-bold tracking-wider uppercase text-slate-400 mb-2">{c.facilitiesCopy.colLines}</div>
+                    <div className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">{c.facilitiesCopy.colLines}</div>
                     <div className="space-y-1">
                       {f.lines.map((line) => (
                         <div key={line} className="flex items-center gap-2 text-sm text-slate-600">
@@ -39,7 +39,7 @@ export default function QualityLab({ c }: { c: FoodBeverageContent }) {
                     </div>
                   </div>
                   <div>
-                    <div className="text-[10px] font-bold tracking-wider uppercase text-slate-400 mb-2">{c.facilitiesCopy.colCerts}</div>
+                    <div className="text-[11px] font-bold tracking-[0.14em] uppercase text-slate-400 mb-2">{c.facilitiesCopy.colCerts}</div>
                     <div className="flex flex-wrap gap-1.5">
                       {f.certs.map((cert) => (
                         <span
@@ -63,7 +63,7 @@ export default function QualityLab({ c }: { c: FoodBeverageContent }) {
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="h-px w-6" style={{ background: ORANGE, color: 'var(--s0)' }} />
-                  <span className="text-[10px] font-semibold tracking-[0.25em] uppercase" style={{ color: ORANGE }}>{c.facilitiesCopy.qcEyebrow}</span>
+                  <span className="text-[11px] font-semibold tracking-[0.14em] uppercase" style={{ color: ORANGE }}>{c.facilitiesCopy.qcEyebrow}</span>
                 </div>
                 <h3 className="font-display text-2xl text-fg mb-3">{c.facilitiesCopy.qcTitle}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{c.facilitiesCopy.qcLead}</p>

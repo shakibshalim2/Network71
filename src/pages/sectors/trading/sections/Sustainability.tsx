@@ -8,7 +8,7 @@ export default function Sustainability({ c }: { c: TradingContent }) {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8" style={{ background: BLUE, color: 'var(--s0)' }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: BLUE }}>{c.copy.sustainabilityEyebrow}</span>
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: BLUE }}>{c.copy.sustainabilityEyebrow}</span>
               <div className="h-px w-8" style={{ background: BLUE, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">{c.copy.sustainabilityTitle}</h2>

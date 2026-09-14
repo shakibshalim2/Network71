@@ -36,7 +36,7 @@ export default function Subscribe({ c }: { c: BlogContent['subscribe'] }) {
           <button
             type="submit"
             disabled={inquiry.busy}
-            className="px-6 py-3 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors flex-shrink-0"
+            className="btn btn-primary btn-sm flex-shrink-0"
           >
             {inquiry.busy ? c.sending : c.button}
           </button>

@@ -8,7 +8,7 @@ export default function Benefits({ c }: { c: CareersContent['benefits'] }) {
         <div className="text-center mb-14">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="h-px w-12 bg-gold" />
-            <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">
+            <span className="font-mono text-[11px] tracking-[0.2em] text-gold uppercase font-medium">
               {c.eyebrow}
             </span>
             <div className="h-px w-12 bg-gold" />

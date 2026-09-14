@@ -12,7 +12,7 @@ export default function Markets({ c }: { c: AgricultureContent["markets"] }) {
               style={{ background: GREEN, color: "var(--s0)" }}
             />
             <span
-              className="font-mono text-[9px] tracking-[0.35em] uppercase"
+              className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium"
               style={{ color: GREEN }}
             >
               {c.eyebrow}
@@ -43,7 +43,7 @@ export default function Markets({ c }: { c: AgricultureContent["markets"] }) {
             >
               <div className="text-3xl mb-3">{m.flag}</div>
               <div
-                className="text-[10px] font-bold tracking-[0.2em] uppercase mb-1"
+                className="text-[11px] font-bold tracking-[0.14em] uppercase mb-1"
                 style={{ color: m.color }}
               >
                 {m.role}

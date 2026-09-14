@@ -21,7 +21,7 @@ export default function Hero({ c }: { c: MediaContent['hero'] }) {
         <div className="max-w-4xl">
           <div className="flex items-center gap-3 mb-8">
             <div className="h-px w-12" style={{ background: RED }} />
-            <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: RED }}>{c.eyebrow}</span>
+            <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: RED }}>{c.eyebrow}</span>
           </div>
 
           <h1 className="font-display leading-[1.05] tracking-[-0.02em] mb-6" style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)' }}>
@@ -52,7 +52,7 @@ export default function Hero({ c }: { c: MediaContent['hero'] }) {
             {c.stats.map((m) => (
               <div key={m.l}>
                 <div className="font-display text-3xl mb-0.5" style={{ color: RED }}>{m.v}</div>
-                <div className="text-[10px] font-semibold uppercase tracking-widest text-slate-500">{m.l}</div>
+                <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">{m.l}</div>
               </div>
             ))}
           </div>

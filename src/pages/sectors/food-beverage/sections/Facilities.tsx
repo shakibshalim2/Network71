@@ -10,7 +10,7 @@ export default function Facilities({ c }: { c: FoodBeverageContent }) {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-px w-8" style={{ background: ORANGE, color: 'var(--s0)' }} />
-                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ORANGE }}>{c.quality.eyebrow}</span>
+                <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: ORANGE }}>{c.quality.eyebrow}</span>
               </div>
               <h2 className="font-display text-4xl text-fg mb-6">{c.quality.title}</h2>
               <p className="text-slate-500 text-sm leading-relaxed mb-8">{c.quality.lead}</p>
@@ -40,7 +40,7 @@ export default function Facilities({ c }: { c: FoodBeverageContent }) {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-px w-8" style={{ background: ORANGE, color: 'var(--s0)' }} />
-                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ORANGE }}>{c.quality.targetsEyebrow}</span>
+                <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: ORANGE }}>{c.quality.targetsEyebrow}</span>
               </div>
               <h2 className="font-display text-4xl text-fg mb-6">{c.quality.targetsTitle1}<br />{c.quality.targetsTitle2}</h2>
               <div className="space-y-8">

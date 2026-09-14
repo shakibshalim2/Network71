@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'motion/react'
 import { useT } from '@/i18n'
+import { EASE_OUT } from '@/lib/motion'
+
+const rise = { hidden: { opacity: 0, y: 26 }, show: { opacity: 1, y: 0, transition: { duration: 0.85, ease: EASE_OUT } } }
 
 /** Main text content: eyebrow, H1, lead, CTAs, interaction hints, scroll indicator. */
 export default function HeroContent() {
@@ -12,10 +16,13 @@ export default function HeroContent() {
           paddingTop: 'calc(var(--header-h) + clamp(36px, 8vw, 60px))',
           paddingBottom: 'clamp(36px, 7vw, 52px)',
         }}>
-        <div style={{ maxWidth: 560 }}>
+        <motion.div
+          style={{ maxWidth: 560 }}
+          initial="hidden" animate="show"
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.11, delayChildren: 0.15 } } }}>
 
           {/* Eyebrow */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 'clamp(18px, 4vw, 30px)' }}>
+          <motion.div variants={rise} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 'clamp(18px, 4vw, 30px)' }}>
             <span style={{
               width: 6, height: 6, borderRadius: '50%', background: 'var(--brand)',
               animation: 'pulse-slow 2.8s ease-in-out infinite', flexShrink: 0,
@@ -29,10 +36,11 @@ export default function HeroContent() {
               }}>
               {t('hero.eyebrow')}
             </span>
-          </div>
+          </motion.div>
 
           {/* H1 */}
-          <h1
+          <motion.h1
+            variants={rise}
             className="font-display"
             style={{
               /* 8.5vw lets the two lines fill small screens without overflowing */
@@ -46,10 +54,10 @@ export default function HeroContent() {
             {t('hero.title1')}
             <br />
             <em style={{ color: 'var(--brand-fg)' }}>{t('hero.title2')}</em>
-          </h1>
+          </motion.h1>
 
           {/* Body */}
-          <p style={{
+          <motion.p variants={rise} style={{
             color: 'var(--fg)',
             fontSize: 'clamp(15.5px, 3.6vw, 17.5px)',
             lineHeight: 1.7,
@@ -57,10 +65,11 @@ export default function HeroContent() {
             marginBottom: 'clamp(24px, 5vw, 36px)',
           }}>
             {t('hero.lead')}
-          </p>
+          </motion.p>
 
           {/* CTAs — stack full-width on narrow screens, inline from 400px up */}
-          <div
+          <motion.div
+            variants={rise}
             className="flex flex-col min-[400px]:flex-row min-[400px]:flex-wrap"
             style={{ gap: 12, marginBottom: 'clamp(26px, 6vw, 40px)' }}>
             <Link to="/projects" className="btn btn-primary btn-stack">
@@ -72,10 +81,10 @@ export default function HeroContent() {
             <Link to="/contact" className="btn btn-secondary btn-stack">
               {t('hero.ctaContact')}
             </Link>
-          </div>
+          </motion.div>
 
           {/* Interaction hints — desktop only */}
-          <div className="hidden lg:flex" style={{ alignItems: 'center', gap: 20, marginBottom: 28 }}>
+          <motion.div variants={rise} className="hidden lg:flex" style={{ alignItems: 'center', gap: 20, marginBottom: 28 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 13, height: 13, color: 'var(--fg-faint)' }}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225M13.684 16.6l2.224-2.51M6.228 15.228l-3.87-3.87a1.125 1.125 0 010-1.59L6.57 5.572m0 0l.943-.943M6.57 5.572L9.228 8.23" />
@@ -106,10 +115,10 @@ export default function HeroContent() {
                 {t('hero.keys')}
               </span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Scroll indicator */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <motion.div variants={rise} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={{
               width: 20, height: 32, borderRadius: 10,
               border: '1px solid var(--line-strong)',
@@ -129,9 +138,9 @@ export default function HeroContent() {
             }}>
               {t('hero.scroll')}
             </span>
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
       </div>
     </div>
   )

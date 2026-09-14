@@ -8,7 +8,7 @@ export default function BrandModels({ c }: { c: FoodBeverageContent }) {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8" style={{ background: ORANGE, color: 'var(--s0)' }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ORANGE }}>{c.brandModelsCopy.eyebrow}</span>
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: ORANGE }}>{c.brandModelsCopy.eyebrow}</span>
               <div className="h-px w-8" style={{ background: ORANGE, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-white mb-4">{c.brandModelsCopy.title1}<br />{c.brandModelsCopy.title2}</h2>
@@ -29,7 +29,7 @@ export default function BrandModels({ c }: { c: FoodBeverageContent }) {
                   <div className="inline-block mb-4 px-2.5 py-1 rounded-full text-[10px] font-bold bg-black/10 text-inherit tracking-wider uppercase">{c.brandModelsCopy.highlightTag}</div>
                 )}
                 <div
-                  className="inline-block px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase mb-4"
+                  className="inline-block px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.14em] uppercase mb-4"
                   style={model.highlight ? { background: 'rgba(0,0,0,0.08)', color: 'inherit' } : { background: `color-mix(in srgb, ${ORANGE} 9%, transparent)`, color: ORANGE }}
                 >
                   {model.tag}

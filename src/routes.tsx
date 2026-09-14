@@ -4,6 +4,7 @@ import {
   ScrollRestoration,
   Outlet,
   Navigate,
+  useLocation,
 } from "react-router-dom"
 import RouteExperience from "@/components/RouteExperience"
 import { useT } from "@/i18n"
@@ -54,6 +55,7 @@ function PageLoader() {
 
 function Root() {
   const { t } = useT()
+  const { pathname } = useLocation()
   useSectionReveal()
   return (
     <>
@@ -63,7 +65,7 @@ function Root() {
       <RouteExperience />
       <ScrollRestoration />
       <Suspense fallback={<PageLoader />}>
-        <div id="main-content" tabIndex={-1}>
+        <div id="main-content" tabIndex={-1} className={pathname.startsWith("/admin") ? undefined : "route-enter"} key={pathname}>
           <Outlet />
         </div>
       </Suspense>

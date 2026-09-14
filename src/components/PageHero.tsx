@@ -1,5 +1,13 @@
 import type { ReactNode } from "react"
 import { Link } from "react-router-dom"
+import { motion } from "motion/react"
+import { EASE_OUT } from "@/lib/motion"
+import AuroraCanvas from "@/components/AuroraCanvas"
+
+const rise = {
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: EASE_OUT } },
+}
 
 interface Crumb {
   home: string
@@ -17,6 +25,8 @@ interface PageHeroProps {
   align?: "start" | "center"
   /** Accent colour for the eyebrow rule/label and glow. Defaults to brand gold. */
   accent?: string
+  /** Hex colour for the WebGL aurora backdrop; defaults to brand gold. */
+  auroraHex?: string
   /** Rendered beneath the lead — CTAs, chips, facts. */
   children?: ReactNode
   /** Rendered as a right-hand column on large screens (start alignment only). */
@@ -36,6 +46,7 @@ export default function PageHero({
   breadcrumb,
   align = "start",
   accent = "var(--brand-fg)",
+  auroraHex = "#C8962A",
   children,
   aside,
   className = "",
@@ -47,8 +58,10 @@ export default function PageHero({
       data-align={align}
       style={{ ["--hero-accent" as string]: accent }}
     >
+      <AuroraCanvas color={auroraHex} secondary="#0D9488" intensity={0.7} />
       <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
-      <div className="page-hero__glow pointer-events-none" aria-hidden="true" />
+      <div className="page-hero__orb page-hero__orb--a" aria-hidden="true" />
+      <div className="page-hero__orb page-hero__orb--b" aria-hidden="true" />
       <div
         className={`relative container-page ${centered ? "text-center" : ""}`}
       >
@@ -68,9 +81,20 @@ export default function PageHero({
               : ""
           }
         >
-          <div className={centered ? "mx-auto max-w-3xl" : "max-w-3xl"}>
+          <motion.div
+            className={centered ? "mx-auto max-w-3xl" : "max-w-3xl"}
+            initial="hidden"
+            animate="show"
+            variants={{
+              hidden: {},
+              show: {
+                transition: { staggerChildren: 0.1, delayChildren: 0.05 },
+              },
+            }}
+          >
             {eyebrow && (
-              <p
+              <motion.p
+                variants={rise}
                 className={`page-hero__eyebrow ${
                   centered ? "justify-center" : ""
                 }`}
@@ -80,26 +104,47 @@ export default function PageHero({
                 {centered && (
                   <span className="page-hero__rule" aria-hidden="true" />
                 )}
-              </p>
+              </motion.p>
             )}
-            <h1 className="page-hero__title font-display">{title}</h1>
-            {kicker && <p className="page-hero__kicker">{kicker}</p>}
+            <motion.h1
+              variants={rise}
+              className="page-hero__title font-display"
+            >
+              {title}
+            </motion.h1>
+            {kicker && (
+              <motion.p variants={rise} className="page-hero__kicker">
+                {kicker}
+              </motion.p>
+            )}
             {lead && (
-              <p className={`page-hero__lead ${centered ? "mx-auto" : ""}`}>
+              <motion.p
+                variants={rise}
+                className={`page-hero__lead ${centered ? "mx-auto" : ""}`}
+              >
                 {lead}
-              </p>
+              </motion.p>
             )}
             {children && (
-              <div
+              <motion.div
+                variants={rise}
                 className={`page-hero__actions ${
                   centered ? "justify-center" : ""
                 }`}
               >
                 {children}
-              </div>
+              </motion.div>
             )}
-          </div>
-          {aside}
+          </motion.div>
+          {aside && (
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.35, ease: EASE_OUT }}
+            >
+              {aside}
+            </motion.div>
+          )}
         </div>
       </div>
     </section>

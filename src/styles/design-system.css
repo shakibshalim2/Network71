@@ -267,3 +267,67 @@ html.js-reveal .public-content .reveal-target.is-revealed {
 /* Body copy in cards authored as `text-sm text-slate-400` reads muted rather than faint. */
 .public-content section p.text-sm.text-slate-400 { color: var(--fg-muted); line-height: 1.7; }
 .public-content section p.text-xs { font-size: 13px; }
+
+/* ── Staggered children inside revealed sections ─────────────────────────────
+   Grid items settle in one after another once their section reveals. Uses the
+   `translate` property so it composes with card hover `transform`s. */
+html.js-reveal .public-content .reveal-target :is(.grid, .card-rail, .working-steps, .work-grid) > * {
+  opacity: 0;
+  translate: 0 18px;
+  transition: opacity 0.6s cubic-bezier(0.2, 0.65, 0.2, 1), translate 0.6s cubic-bezier(0.2, 0.65, 0.2, 1);
+}
+html.js-reveal .public-content .reveal-target.is-revealed :is(.grid, .card-rail, .working-steps, .work-grid) > * {
+  opacity: 1;
+  translate: none;
+}
+html.js-reveal .public-content .reveal-target.is-revealed :is(.grid, .card-rail, .working-steps, .work-grid) > :nth-child(2) { transition-delay: 0.07s; }
+html.js-reveal .public-content .reveal-target.is-revealed :is(.grid, .card-rail, .working-steps, .work-grid) > :nth-child(3) { transition-delay: 0.14s; }
+html.js-reveal .public-content .reveal-target.is-revealed :is(.grid, .card-rail, .working-steps, .work-grid) > :nth-child(4) { transition-delay: 0.21s; }
+html.js-reveal .public-content .reveal-target.is-revealed :is(.grid, .card-rail, .working-steps, .work-grid) > :nth-child(5) { transition-delay: 0.28s; }
+html.js-reveal .public-content .reveal-target.is-revealed :is(.grid, .card-rail, .working-steps, .work-grid) > :nth-child(6) { transition-delay: 0.35s; }
+html.js-reveal .public-content .reveal-target.is-revealed :is(.grid, .card-rail, .working-steps, .work-grid) > :nth-child(n + 7) { transition-delay: 0.4s; }
+@media (prefers-reduced-motion: reduce), print {
+  html.js-reveal .public-content .reveal-target :is(.grid, .card-rail, .working-steps, .work-grid) > * { opacity: 1; translate: none; transition: none; }
+}
+
+/* ── Route transition ─────────────────────────────────────────────────────── */
+@keyframes route-enter { from { opacity: 0; translate: 0 10px; } to { opacity: 1; translate: none; } }
+.route-enter { animation: route-enter 0.45s cubic-bezier(0.2, 0.65, 0.2, 1) both; }
+@media (prefers-reduced-motion: reduce) { .route-enter { animation: none; } }
+
+/* ── Ambient hero atmosphere ──────────────────────────────────────────────── */
+.page-hero__orb {
+  position: absolute; border-radius: 50%; pointer-events: none; filter: blur(70px); opacity: 0.55;
+  animation: mesh-drift 22s ease-in-out infinite;
+}
+.page-hero__orb--a { width: 420px; height: 420px; right: -120px; top: -140px; background: color-mix(in srgb, var(--hero-accent) 18%, transparent); }
+.page-hero__orb--b { width: 320px; height: 320px; left: -100px; bottom: -160px; background: color-mix(in srgb, var(--brand) 10%, transparent); animation-delay: -9s; animation-direction: reverse; }
+.page-hero[data-align="center"] .page-hero__orb--a { right: 15%; }
+.page-hero[data-align="center"] .page-hero__orb--b { left: 15%; }
+@media (max-width: 767px) { .page-hero__orb { opacity: 0.4; } }
+@media (prefers-reduced-motion: reduce) { .page-hero__orb { animation: none; } }
+
+/* Button press feedback */
+.btn:active { transform: translateY(1px) scale(0.985); }
+
+/* ── Sector hero entrance ─────────────────────────────────────────────────────
+   Division heroes are hand-built per page; animate them structurally so every
+   one of the nine opens with the same choreography. */
+@keyframes hero-rise { from { opacity: 0; translate: 0 26px; } to { opacity: 1; translate: none; } }
+@keyframes hero-zoom { from { scale: 1.06; } to { scale: 1; } }
+.public-content .sector-hero > .absolute.inset-0:first-child > img { animation: hero-zoom 1.8s cubic-bezier(0.2, 0.65, 0.2, 1) both; }
+.public-content .sector-hero .max-w-3xl > * { animation: hero-rise 0.85s cubic-bezier(0.2, 0.65, 0.2, 1) both; }
+.public-content .sector-hero .max-w-3xl > :nth-child(1) { animation-delay: 0.1s; }
+.public-content .sector-hero .max-w-3xl > :nth-child(2) { animation-delay: 0.2s; }
+.public-content .sector-hero .max-w-3xl > :nth-child(3) { animation-delay: 0.3s; }
+.public-content .sector-hero .max-w-3xl > :nth-child(4) { animation-delay: 0.4s; }
+.public-content .sector-hero .max-w-3xl > :nth-child(5) { animation-delay: 0.5s; }
+.public-content .sector-hero .max-w-3xl > :nth-child(n + 6) { animation-delay: 0.6s; }
+@media (prefers-reduced-motion: reduce) {
+  .public-content .sector-hero > .absolute.inset-0:first-child > img,
+  .public-content .sector-hero .max-w-3xl > * { animation: none; }
+}
+
+/* ── Aurora canvas ─────────────────────────────────────────────────────────── */
+.aurora-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; display: block; }
+[data-theme="light"] .page-hero .aurora-canvas { opacity: 0.45; mix-blend-mode: multiply; }

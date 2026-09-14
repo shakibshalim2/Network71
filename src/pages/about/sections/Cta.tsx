@@ -18,14 +18,14 @@ export default function Cta({ c }: { c: AboutContent['cta'] }) {
         <div className="flex flex-col min-[400px]:flex-row min-[400px]:flex-wrap justify-center gap-3 sm:gap-4">
           <Link
             to="/careers"
-            className="inline-flex items-center justify-center px-7 sm:px-8 py-3.5 bg-gold text-[13px] sm:text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors shadow-lg shadow-gold/20"
+            className="btn btn-primary"
             style={{ color: 'var(--fg-onbrand)' }}
           >
             {c.primary}
           </Link>
           <Link
             to="/contact"
-            className="inline-flex items-center justify-center px-7 sm:px-8 py-3.5 border border-white/20 text-white text-[13px] sm:text-sm font-medium rounded-lg hover:bg-white/5 hover:border-white/40 transition-colors"
+            className="btn btn-secondary"
           >
             {c.secondary}
           </Link>

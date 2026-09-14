@@ -1,17 +1,17 @@
 import type { RefObject } from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'motion/react'
 import type { Language } from '@/context/LanguageContext'
 import { useT, DIVISION_HREF, DIVISION_COLOR, divKey } from '@/i18n'
 import { ThemeSegmented } from '@/components/ThemeToggle'
 import { MENU_DIVISIONS, LANG_OPTIONS } from './data'
 import { MobileLink, MobileAccordion } from './primitives'
 import type { PublicNavItem } from '@/lib/publicNavigation'
+import { backdrop, drawerRight, EASE_OUT } from '@/lib/motion'
 
 type Props = {
   pathname: string
-  mobileOpen: boolean
   setMobileOpen: (v: boolean) => void
-  searchOpen: boolean
   mobileExpanded: string | null
   toggleAccordion: (key: string) => void
   language: Language
@@ -20,202 +20,128 @@ type Props = {
   publishedNavigation: PublicNavItem[]
 }
 
-/** Mobile backdrop + slide-in navigation drawer. */
+const item = { hidden: { opacity: 0, x: 14 }, show: { opacity: 1, x: 0, transition: { duration: 0.32, ease: EASE_OUT } } }
+
+/** Mobile backdrop + slide-in navigation drawer. Mounted only while open. */
 export default function MobileDrawer({
-  pathname, mobileOpen, setMobileOpen, searchOpen, mobileExpanded, toggleAccordion, language, setLanguage, drawerRef, publishedNavigation,
+  pathname, setMobileOpen, mobileExpanded, toggleAccordion, language, setLanguage, drawerRef, publishedNavigation,
 }: Props) {
   const { t } = useT()
+  const morePages = [
+    { label: t('nav.leadership'), href: '/leadership' },
+    { label: t('nav.history'), href: '/timeline' },
+    { label: t('nav.sustainability'), href: '/sustainability' },
+    { label: t('nav.governance'), href: '/governance' },
+    { label: t('nav.press'), href: '/press' },
+    { label: t('nav.blog'), href: '/blog' },
+    { label: t('nav.gallery'), href: '/gallery' },
+    { label: t('nav.brand'), href: '/brand' },
+    { label: t('nav.legal'), href: '/legal' },
+  ]
   return (
     <>
-      {/* ════════════════════════════════════════════
-          MOBILE BACKDROP
-      ════════════════════════════════════════════ */}
-      <div
+      <motion.div
         onClick={() => setMobileOpen(false)}
         aria-hidden="true"
-        style={{
-          position: 'fixed', top: 'var(--header-h)', left: 0, right: 0, bottom: 0, zIndex: 48,
-          background: 'var(--scrim)', backdropFilter: 'blur(5px)',
-          WebkitBackdropFilter: 'blur(5px)',
-          opacity: mobileOpen ? 1 : 0,
-          pointerEvents: mobileOpen ? 'auto' : 'none',
-          transition: 'opacity 0.25s',
-        }}
+        className="overlay-backdrop"
+        style={{ top: 'var(--header-h)', zIndex: 48 }}
+        variants={backdrop} initial="hidden" animate="show" exit="hidden"
       />
 
-      {/* ════════════════════════════════════════════
-          MOBILE DRAWER
-      ════════════════════════════════════════════ */}
-      <div
+      <motion.div
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
         ref={drawerRef}
         tabIndex={-1}
-        inert={!mobileOpen || searchOpen}
-        aria-hidden={!mobileOpen || searchOpen}
-        className="no-scrollbar"
-        style={{
-          position: 'fixed', top: 'var(--header-h)', right: 0, bottom: 0, zIndex: 49,
-          width: 'min(340px, 90vw)',
-          background: 'var(--s2)',
-          borderLeft: '1px solid var(--line)',
-          boxShadow: 'var(--shadow-pop)',
-          transform: mobileOpen ? 'translateX(0)' : 'translateX(100%)',
-          transition: 'transform 0.28s cubic-bezier(0.4,0,0.2,1), visibility 0.28s',
-          display: 'flex', flexDirection: 'column',
-          overflowY: 'auto',
-          WebkitOverflowScrolling: 'touch',
-          overscrollBehavior: 'contain',
-          visibility: mobileOpen ? 'visible' : 'hidden',
-          paddingBottom: 'calc(24px + var(--safe-b))',
-        }}>
+        className="mobile-drawer no-scrollbar"
+        variants={drawerRight} initial="hidden" animate="show" exit="hidden">
 
-        {/* Drawer nav items */}
-        <div style={{ padding: '8px 10px 0', flex: 1 }}>
+        <motion.div
+          className="mobile-drawer__body"
+          initial="hidden" animate="show"
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.035, delayChildren: 0.08 } } }}>
 
-          <MobileLink href="/" active={pathname === '/'}>{t('nav.home')}</MobileLink>
+          <motion.div variants={item}><MobileLink href="/" active={pathname === '/'}>{t('nav.home')}</MobileLink></motion.div>
 
-          {/* Divisions accordion */}
-          <MobileAccordion
-            label={t('nav.divisions')}
-            expanded={mobileExpanded === 'divisions'}
-            onToggle={() => toggleAccordion('divisions')}>
-            {MENU_DIVISIONS.map(id => (
-              <Link key={id} to={DIVISION_HREF[id]} style={{
-                display: 'flex', alignItems: 'center', gap: 10,
-                padding: '9px 12px', borderRadius: 8, textDecoration: 'none',
-                transition: 'background 0.12s',
-              }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'var(--line)' }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}>
-                <span style={{ width: 7, height: 7, borderRadius: '50%', background: DIVISION_COLOR[id], flexShrink: 0 }} />
-                <span style={{ fontSize: 13.5, color: 'var(--fg-muted)' }}>{t(divKey(id, 'short'))}</span>
+          <motion.div variants={item}>
+            <MobileAccordion
+              label={t('nav.divisions')}
+              expanded={mobileExpanded === 'divisions'}
+              onToggle={() => toggleAccordion('divisions')}>
+              {MENU_DIVISIONS.map(id => (
+                <Link key={id} to={DIVISION_HREF[id]} className="mobile-sublink">
+                  <span className="mobile-sublink__dot" style={{ background: DIVISION_COLOR[id] }} />
+                  <span>{t(divKey(id, 'short'))}</span>
+                </Link>
+              ))}
+              <Link to="/ezyify" className="mobile-sublink mobile-sublink--flagship">
+                <span className="mobile-sublink__dot" style={{ background: 'var(--accent-purple)' }} />
+                <span style={{ color: 'var(--accent-purple)', fontWeight: 600 }}>Ezyify</span>
+                <span className="mobile-sublink__tag">{t('header.flagship')}</span>
               </Link>
-            ))}
-            <Link to="/ezyify" style={{
-              display: 'flex', alignItems: 'center', gap: 10,
-              padding: '9px 12px', borderRadius: 8, marginTop: 6, textDecoration: 'none',
-              background: 'rgba(88,28,220,0.08)', border: '1px solid rgba(124,58,237,0.2)',
-              transition: 'background 0.12s',
-            }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(88,28,220,0.14)' }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(88,28,220,0.08)' }}>
-              <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--accent-purple)', flexShrink: 0 }} />
-              <span style={{ fontSize: 13.5, color: 'var(--accent-purple)', fontWeight: 600 }}>Ezyify</span>
-              <span style={{
-                marginLeft: 'auto',
-                fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.15em',
-                textTransform: 'uppercase', color: 'rgba(168,85,247,0.5)',
-              }}>{t('header.flagship')}</span>
-            </Link>
-          </MobileAccordion>
+            </MobileAccordion>
+          </motion.div>
 
-          {publishedNavigation.length ? publishedNavigation.map(item => (
-            <MobileLink href={item.href} active={pathname === item.href} key={item.id}>{item.title}</MobileLink>
+          {publishedNavigation.length ? publishedNavigation.map(nav => (
+            <motion.div variants={item} key={nav.id}>
+              <MobileLink href={nav.href} active={pathname === nav.href}>{nav.title}</MobileLink>
+            </motion.div>
           )) : <>
-            <MobileLink href="/about" active={pathname === '/about'}>{t('nav.about')}</MobileLink>
-            <MobileLink href="/projects" active={pathname.startsWith('/projects')}>{t('nav.ourWork')}</MobileLink>
-            <MobileLink href="/global-presence" active={pathname === '/global-presence'}>{t('nav.globalPresence')}</MobileLink>
-            <MobileLink href="/divisions/media" active={pathname === '/divisions/media'}>{t('nav.media')}</MobileLink>
-            <MobileLink href="/investors" active={pathname === '/investors'}>{t('nav.investorRelations')}</MobileLink>
-            <MobileLink href="/careers" active={pathname === '/careers'}>{t('nav.careers')}</MobileLink>
-            <MobileLink href="/contact" active={pathname === '/contact'}>{t('nav.contact')}</MobileLink>
+            <motion.div variants={item}><MobileLink href="/about" active={pathname === '/about'}>{t('nav.about')}</MobileLink></motion.div>
+            <motion.div variants={item}><MobileLink href="/projects" active={pathname.startsWith('/projects')}>{t('nav.ourWork')}</MobileLink></motion.div>
+            <motion.div variants={item}><MobileLink href="/global-presence" active={pathname === '/global-presence'}>{t('nav.globalPresence')}</MobileLink></motion.div>
+            <motion.div variants={item}><MobileLink href="/divisions/media" active={pathname === '/divisions/media'}>{t('nav.media')}</MobileLink></motion.div>
+            <motion.div variants={item}><MobileLink href="/investors" active={pathname === '/investors'}>{t('nav.investorRelations')}</MobileLink></motion.div>
+            <motion.div variants={item}><MobileLink href="/careers" active={pathname === '/careers'}>{t('nav.careers')}</MobileLink></motion.div>
+            <motion.div variants={item}><MobileLink href="/contact" active={pathname === '/contact'}>{t('nav.contact')}</MobileLink></motion.div>
           </>}
 
-          {/* More pages accordion */}
-          <MobileAccordion
-            label={t('nav.more')}
-            expanded={mobileExpanded === 'more'}
-            onToggle={() => toggleAccordion('more')}>
-            {[
-              { label: t('nav.leadership'),      href: '/leadership' },
-              { label: t('nav.history'),     href: '/timeline' },
-              { label: t('nav.sustainability'),  href: '/sustainability' },
-              { label: t('nav.governance'),      href: '/governance' },
-              { label: t('nav.press'),  href: '/press' },
-              { label: t('nav.blog'), href: '/blog' },
-              { label: t('nav.gallery'),         href: '/gallery' },
-              { label: t('nav.brand'),  href: '/brand' },
-              { label: t('nav.legal'),           href: '/legal' },
-            ].map(item => (
-              <Link key={item.href} to={item.href} style={{
-                display: 'flex', alignItems: 'center', gap: 10,
-                padding: '9px 12px', borderRadius: 8, textDecoration: 'none',
-                transition: 'background 0.12s',
-              }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'var(--line)' }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}>
-                <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--brand-edge)', flexShrink: 0 }} />
-                <span style={{ fontSize: 13.5, color: 'var(--fg-muted)' }}>{item.label}</span>
-              </Link>
-            ))}
-          </MobileAccordion>
+          <motion.div variants={item}>
+            <MobileAccordion
+              label={t('nav.more')}
+              expanded={mobileExpanded === 'more'}
+              onToggle={() => toggleAccordion('more')}>
+              {morePages.map(page => (
+                <Link key={page.href} to={page.href} className="mobile-sublink">
+                  <span className="mobile-sublink__dot mobile-sublink__dot--small" />
+                  <span>{page.label}</span>
+                </Link>
+              ))}
+            </MobileAccordion>
+          </motion.div>
 
-          {/* Appearance — Light / Dark / Auto */}
-          <div style={{
-            margin: '14px 0 0',
-            padding: '14px 12px 0',
-            borderTop: '1px solid var(--line)',
-          }}>
-            <p style={{
-              fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.3em',
-              textTransform: 'uppercase', color: 'var(--fg-faint)', marginBottom: 10,
-            }}>{t('header.appearance')}</p>
+          <motion.div variants={item} className="mobile-drawer__section">
+            <p className="mobile-drawer__label">{t('header.appearance')}</p>
             <ThemeSegmented />
-          </div>
+          </motion.div>
 
-          {/* Language switcher */}
-          <div style={{
-            margin: '14px 0 0',
-            padding: '14px 12px 0',
-            borderTop: '1px solid var(--line)',
-          }}>
-            <p style={{
-              fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.3em',
-              textTransform: 'uppercase', color: 'var(--fg-faint)', marginBottom: 10,
-            }}>{t('header.language')}</p>
-            <div style={{ display: 'flex', gap: 6 }}>
+          <motion.div variants={item} className="mobile-drawer__section">
+            <p className="mobile-drawer__label">{t('header.language')}</p>
+            <div className="seg">
               {LANG_OPTIONS.map(l => (
                 <button
                   key={l.code}
+                  type="button"
                   onClick={() => setLanguage(l.code)}
-                  style={{
-                    flex: 1, padding: '9px 0', borderRadius: 8, border: 'none',
-                    fontSize: 12.5, fontWeight: 600, cursor: 'pointer',
-                    background: language === l.code ? 'var(--brand)' : 'var(--line)',
-                    color: language === l.code ? 'var(--s0)' : 'var(--fg-muted)',
-                    transition: 'all 0.15s',
-                  }}>
+                  className={`seg__opt${language === l.code ? ' is-active' : ''}`}>
                   {l.short}
                 </button>
               ))}
             </div>
-          </div>
+          </motion.div>
 
-          {/* Mobile CTA */}
-          <div style={{ paddingTop: 14 }}>
-            <Link
-              to="/contact"
-              style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                padding: '14px 0', borderRadius: 10,
-                background: 'var(--brand)', color: 'var(--fg-onbrand)',
-                fontSize: 13.5, fontWeight: 700, textDecoration: 'none',
-                transition: 'background 0.15s',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-bright)' }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'var(--brand)' }}>
+          <motion.div variants={item} style={{ paddingTop: 18 }}>
+            <Link to="/contact" className="btn btn-primary" style={{ width: '100%' }}>
               {t('header.connect')}
-              <svg fill="none" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2.5"
-                style={{ width: 12, height: 12 }}>
+              <svg fill="none" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8h10M8 3l5 5-5 5" />
               </svg>
             </Link>
-          </div>
+          </motion.div>
 
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </>
   )
 }

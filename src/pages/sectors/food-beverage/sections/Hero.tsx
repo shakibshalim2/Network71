@@ -16,7 +16,7 @@ export default function Hero({ c }: { c: FoodBeverageContent }) {
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-12" style={{ background: ORANGE, color: 'var(--s0)' }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ORANGE }}>{c.hero.eyebrow}</span>
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: ORANGE }}>{c.hero.eyebrow}</span>
             </div>
             <h1 className="font-display text-5xl lg:text-7xl text-white leading-[0.95] tracking-[-0.02em] mb-8">{c.hero.title1}<br />
               <span style={{ color: ORANGE }}>{c.hero.title2}</span>

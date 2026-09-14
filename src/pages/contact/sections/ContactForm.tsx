@@ -43,7 +43,7 @@ export default function ContactForm({ c }: { c: ContactContent['form'] }) {
       <div className="mb-10">
         <div className="flex items-center gap-3 mb-4">
           <div className="h-px w-12 bg-gold" />
-          <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">{c.eyebrow}</span>
+          <span className="font-mono text-[11px] tracking-[0.2em] text-gold uppercase font-medium">{c.eyebrow}</span>
         </div>
         <h2 className="font-display text-4xl text-white tracking-[-0.02em]">{c.title}</h2>
       </div>
@@ -140,7 +140,7 @@ export default function ContactForm({ c }: { c: ContactContent['form'] }) {
           <button
             type="submit"
             disabled={inquiry.busy}
-            className="w-full py-3.5 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors"
+            className="btn btn-primary w-full"
           >
             {inquiry.busy ? c.sending : c.send}
           </button>

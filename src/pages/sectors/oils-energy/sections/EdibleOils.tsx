@@ -8,7 +8,7 @@ export default function EdibleOils({ c }: { c: OilsEnergyContent }) {
           <div className="mb-14">
             <div className="flex items-center gap-3 mb-4">
               <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: AMBER }}>
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: AMBER }}>
                 {c.overview.oilsTitle} — Product Range
               </span>
             </div>
@@ -50,15 +50,15 @@ export default function EdibleOils({ c }: { c: OilsEnergyContent }) {
                 <h3 className="font-display text-lg text-fg mb-3">{oil.name}</h3>
                 <div className="space-y-2.5">
                   <div>
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">{c.copy.grades}</div>
+                    <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400 mb-0.5">{c.copy.grades}</div>
                     <div className="text-xs text-slate-600">{oil.grades}</div>
                   </div>
                   <div>
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">{c.copy.uses}</div>
+                    <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400 mb-0.5">{c.copy.uses}</div>
                     <div className="text-xs text-slate-600">{oil.uses}</div>
                   </div>
                   <div>
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">{c.copy.packaging}</div>
+                    <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400 mb-0.5">{c.copy.packaging}</div>
                     <div className="text-xs text-slate-600">{oil.packaging}</div>
                   </div>
                 </div>

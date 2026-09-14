@@ -19,7 +19,7 @@ export default function ProcessFlow({ steps, accentHex, label }: ProcessFlowProp
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center gap-3 mb-12">
           <div className="h-px w-8" style={{ background: accentHex }} />
-          <span className="text-[10px] font-semibold tracking-[0.3em] uppercase" style={{ color: accentHex }}>
+          <span className="text-[11px] font-semibold tracking-[0.14em] uppercase" style={{ color: accentHex }}>
             {heading}
           </span>
         </div>

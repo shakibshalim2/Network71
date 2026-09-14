@@ -13,7 +13,7 @@ export default function Opportunity({
           <div className="flex items-center justify-center gap-3 mb-5">
             <div className="h-px w-10" style={{ background: ACCENT }} />
             <span
-              className="font-mono text-[9px] tracking-[0.35em] uppercase"
+              className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium"
               style={{ color: ACCENT }}
             >
               {c.eyebrow}
@@ -42,7 +42,7 @@ export default function Opportunity({
             >
               <div className="text-3xl mb-5">{buyer.icon}</div>
               <div
-                className="text-[10px] font-semibold tracking-widest uppercase mb-2"
+                className="text-[11px] font-semibold tracking-[0.14em] uppercase mb-2"
                 style={{ color: ACCENT }}
               >
                 {buyer.subtitle}

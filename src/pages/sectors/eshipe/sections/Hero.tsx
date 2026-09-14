@@ -28,7 +28,7 @@ export default function Hero({ c }: { c: EShipeContent["hero"] }) {
           <div className="flex items-center gap-3 mb-8">
             <div className="h-px w-12" style={{ background: OCEAN }} />
             <span
-              className="font-mono text-[9px] tracking-[0.35em] uppercase"
+              className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium"
               style={{ color: OCEAN }}
             >
               {c.eyebrow}
@@ -44,7 +44,7 @@ export default function Hero({ c }: { c: EShipeContent["hero"] }) {
             >
               <span className="text-2xl">⚓</span>
               <span
-                className="font-mono text-[10px] tracking-[0.2em] uppercase font-semibold"
+                className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium"
                 style={{ color: OCEAN }}
               >
                 {c.badge}

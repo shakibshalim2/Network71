@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { motion, AnimatePresence, LayoutGroup } from 'motion/react'
 import { ThemeToggleButton } from '@/components/ThemeToggle'
 import Logo from '@/components/brand/Logo'
 import { useHeaderState } from './header/useHeaderState'
@@ -9,6 +10,7 @@ import LanguageMenu from './header/LanguageMenu'
 import SearchOverlay from './header/SearchOverlay'
 import MobileDrawer from './header/MobileDrawer'
 import { usePublishedNavigation } from '@/lib/publicNavigation'
+import { springSnappy } from '@/lib/motion'
 
 export default function Header() {
   const s = useHeaderState()
@@ -17,35 +19,11 @@ export default function Header() {
 
   return (
     <>
-      {/* ════════════════════════════════════════════
-          STICKY HEADER BAR
-      ════════════════════════════════════════════ */}
-      <header
-        role="banner"
-        style={{
-          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-          height: 'var(--header-h)',
-          background: glassy ? 'var(--header-bg)' : 'var(--header-idle-bg)',
-          backdropFilter: glassy ? 'blur(20px) saturate(180%)' : 'none',
-          WebkitBackdropFilter: glassy ? 'blur(20px) saturate(180%)' : 'none',
-          borderBottom: glassy ? '1px solid var(--line)' : '1px solid transparent',
-          boxShadow: glassy ? 'var(--shadow-card)' : 'none',
-          transition: 'background 0.35s, backdrop-filter 0.35s, border-color 0.35s, box-shadow 0.35s',
-        }}>
+      <header role="banner" className={`site-header${glassy ? ' is-glassy' : ''}`}>
+        <div className="container-page site-header__row">
 
-        <div
-          className="container-page"
-          style={{
-            height: '100%',
-            display: 'flex', alignItems: 'center',
-          }}>
-
-          {/* ── Logo (always visible, exactly one) ─── */}
-          <Link
-            to="/"
-            aria-label="Network71 — Home"
-            className="mr-auto xl:mr-7"
-            style={{ display: 'flex', alignItems: 'center', flexShrink: 0, minWidth: 0 }}>
+          {/* Logo */}
+          <Link to="/" aria-label="Network71 — Home" className="site-header__logo mr-auto xl:mr-7">
             <span className="flex items-center sm:hidden">
               <Logo variant="auto" height={21} />
             </span>
@@ -54,143 +32,92 @@ export default function Header() {
             </span>
           </Link>
 
-          {/* ══════════════════════════════════════
-              DESKTOP NAV  (hidden on < lg)
-          ══════════════════════════════════════ */}
-          <nav
-            className="hidden xl:flex gap-3.5 xl:gap-5 2xl:gap-[22px]"
-            aria-label="Main navigation"
-            style={{ alignItems: 'center', flex: 1, minWidth: 0 }}>
+          {/* Desktop nav */}
+          <LayoutGroup id="primary-nav">
+            <nav className="site-header__nav hidden xl:flex" aria-label="Main navigation">
+              <DivisionsMega
+                megaOpen={s.megaOpen} setMegaOpen={s.setMegaOpen}
+                openMega={s.openMega} closeMega={s.closeMega} megaRef={s.megaRef} />
 
-            {/* Divisions mega-menu */}
-            <DivisionsMega
-              megaOpen={s.megaOpen} setMegaOpen={s.setMegaOpen}
-              openMega={s.openMega} closeMega={s.closeMega} megaRef={s.megaRef} />
+              {navigation.header.length ? navigation.header.map(item => (
+                <NavLink href={item.href} active={pathname === item.href} key={item.id}>{item.title}</NavLink>
+              )) : <>
+                <NavLink href="/about" active={pathname === '/about'}>{t('nav.about')}</NavLink>
+                <NavLink href="/projects" active={pathname.startsWith('/projects')}>{t('nav.ourWork')}</NavLink>
+                <NavLink href="/global-presence" active={pathname === '/global-presence'}>{t('nav.globalPresence')}</NavLink>
+                <NavLink href="/divisions/media" active={pathname === '/divisions/media'}>{t('nav.media')}</NavLink>
+                <NavLink href="/investors" active={pathname === '/investors'}>{t('nav.investors')}</NavLink>
+                <NavLink href="/careers" active={pathname === '/careers'}>{t('nav.careers')}</NavLink>
+                <NavLink href="/contact" active={pathname === '/contact'}>{t('nav.contact')}</NavLink>
+              </>}
+            </nav>
+          </LayoutGroup>
 
-            {navigation.header.length ? navigation.header.map(item => (
-              <NavLink href={item.href} active={pathname === item.href} key={item.id}>{item.title}</NavLink>
-            )) : <>
-              <NavLink href="/about" active={pathname === '/about'}>{t('nav.about')}</NavLink>
-              <NavLink href="/projects" active={pathname.startsWith('/projects')}>{t('nav.ourWork')}</NavLink>
-              <NavLink href="/global-presence" active={pathname === '/global-presence'}>{t('nav.globalPresence')}</NavLink>
-              <NavLink href="/divisions/media" active={pathname === '/divisions/media'}>{t('nav.media')}</NavLink>
-              <NavLink href="/investors" active={pathname === '/investors'}>{t('nav.investors')}</NavLink>
-              <NavLink href="/careers" active={pathname === '/careers'}>{t('nav.careers')}</NavLink>
-              <NavLink href="/contact" active={pathname === '/contact'}>{t('nav.contact')}</NavLink>
-            </>}
-          </nav>
-
-          {/* ══════════════════════════════════════
-              DESKTOP RIGHT CONTROLS  (hidden on < lg)
-          ══════════════════════════════════════ */}
-          <div
-            className="hidden xl:flex"
-            style={{ alignItems: 'center', gap: 4, marginLeft: 'auto', flexShrink: 0 }}>
-
-            {/* Search */}
+          {/* Desktop controls */}
+          <div className="site-header__controls hidden xl:flex">
             <IconBtn label={t('header.searchSite')} onClick={() => { setMobileOpen(false); setSearchOpen(true) }}>
               <IconSearch size={16} />
             </IconBtn>
-
-            {/* Theme */}
             <ThemeToggleButton size={40} />
-
-            {/* Language */}
             <LanguageMenu
               language={s.language} setLanguage={s.setLanguage} curLang={s.curLang}
               langOpen={s.langOpen} setLangOpen={s.setLangOpen}
               openLang={s.openLang} closeLang={s.closeLang} langRef={s.langRef} />
-
-            {/* CTA */}
-            <Link
-              to="/contact"
-              style={{
-                display: 'flex', alignItems: 'center', gap: 6,
-                padding: '9px 18px', borderRadius: 8, marginLeft: 4,
-                fontSize: 12.5, fontWeight: 600, letterSpacing: '0.02em',
-                border: '1px solid var(--brand-edge)', color: 'var(--brand-fg)',
-                background: 'var(--brand-wash)', textDecoration: 'none',
-                transition: 'all 0.18s', whiteSpace: 'nowrap',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.background = 'var(--brand)'
-                e.currentTarget.style.color = 'var(--s0)'
-                e.currentTarget.style.borderColor = 'var(--brand)'
-                e.currentTarget.style.boxShadow = '0 0 22px var(--brand-edge)'
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.background = 'var(--brand-wash)'
-                e.currentTarget.style.color = 'var(--brand)'
-                e.currentTarget.style.borderColor = 'var(--brand-edge)'
-                e.currentTarget.style.boxShadow = 'none'
-              }}>
+            <Link to="/contact" className="btn btn-ghost btn-sm site-header__cta">
               {t('header.connectShort')}
-              <svg fill="none" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2"
-                style={{ width: 11, height: 11 }}>
+              <svg fill="none" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8h10M8 3l5 5-5 5" />
               </svg>
             </Link>
           </div>
 
-          {/* ══════════════════════════════════════
-              MOBILE RIGHT CONTROLS  (hidden on lg+)
-              NOTE: use Tailwind class "flex xl:hidden" — NO inline display property —
-              so Tailwind can correctly hide this at the lg breakpoint.
-          ══════════════════════════════════════ */}
-          <div
-            className="flex xl:hidden"
-            style={{ alignItems: 'center', gap: 2, marginLeft: 'auto' }}>
-
-            {/* Search */}
+          {/* Mobile controls */}
+          <div className="site-header__controls flex xl:hidden">
             <IconBtn label={t('header.searchSite')} onClick={() => setSearchOpen(true)}>
               <IconSearch size={18} />
             </IconBtn>
-
-            {/* Theme — one tap, no need to open the drawer */}
             <ThemeToggleButton size={40} />
-
-            {/* Hamburger / Close — single button, icon swaps */}
-            <button
-              onClick={() => { setSearchOpen(false); setMobileOpen(v => !v) }}
+            <motion.button
+              type="button"
+              onClick={() => { setSearchOpen(false); setMobileOpen(!mobileOpen) }}
               aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobileOpen}
-              style={{
-                width: 40, height: 40, borderRadius: 10, border: 'none', flexShrink: 0,
-                background: mobileOpen ? 'var(--line-strong)' : 'transparent',
-                color: 'var(--fg)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                cursor: 'pointer', transition: 'background 0.15s',
-              }}>
-              <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="2"
-                style={{ width: 20, height: 20, transition: 'opacity 0.15s' }}>
-                {mobileOpen
-                  ? <path strokeLinecap="round" strokeLinejoin="round" d="M5 5l12 12M17 5L5 17" />
-                  : <path strokeLinecap="round" strokeLinejoin="round" d="M3.5 7h15M3.5 11h15M3.5 15h15" />}
-              </svg>
-            </button>
+              className={`icon-btn hamburger${mobileOpen ? ' is-open' : ''}`}
+              whileTap={{ scale: 0.92 }}
+              transition={springSnappy}>
+              <span className="hamburger__bars" aria-hidden="true">
+                <motion.span animate={mobileOpen ? { y: 6, rotate: 45 } : { y: 0, rotate: 0 }} transition={springSnappy} />
+                <motion.span animate={mobileOpen ? { opacity: 0, scaleX: 0.4 } : { opacity: 1, scaleX: 1 }} transition={{ duration: 0.18 }} />
+                <motion.span animate={mobileOpen ? { y: -6, rotate: -45 } : { y: 0, rotate: 0 }} transition={springSnappy} />
+              </span>
+            </motion.button>
           </div>
 
         </div>
       </header>
 
-      {/* ════════════════════════════════════════════
-          SEARCH OVERLAY
-      ════════════════════════════════════════════ */}
-      <SearchOverlay
-        searchOpen={searchOpen} searchQuery={s.searchQuery} setSearchQuery={s.setSearchQuery}
-        searchResults={s.searchResults} byGroup={s.byGroup}
-        recentSearches={s.recentSearches} setRecentSearches={s.setRecentSearches}
-        closeSearch={s.closeSearch} handleResult={s.handleResult}
-        searchRef={s.searchRef} searchPanelRef={s.searchPanelRef} />
+      <AnimatePresence>
+        {searchOpen && (
+          <SearchOverlay
+            key="search"
+            searchQuery={s.searchQuery} setSearchQuery={s.setSearchQuery}
+            searchResults={s.searchResults} byGroup={s.byGroup}
+            recentSearches={s.recentSearches} setRecentSearches={s.setRecentSearches}
+            closeSearch={s.closeSearch} handleResult={s.handleResult}
+            searchRef={s.searchRef} searchPanelRef={s.searchPanelRef} />
+        )}
+      </AnimatePresence>
 
-      {/* ════════════════════════════════════════════
-          MOBILE DRAWER
-      ════════════════════════════════════════════ */}
-      <MobileDrawer
-        pathname={pathname} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} searchOpen={searchOpen}
-        mobileExpanded={s.mobileExpanded} toggleAccordion={s.toggleAccordion}
-        language={s.language} setLanguage={s.setLanguage} drawerRef={s.drawerRef}
-        publishedNavigation={navigation.header} />
+      <AnimatePresence>
+        {mobileOpen && !searchOpen && (
+          <MobileDrawer
+            key="drawer"
+            pathname={pathname} setMobileOpen={setMobileOpen}
+            mobileExpanded={s.mobileExpanded} toggleAccordion={s.toggleAccordion}
+            language={s.language} setLanguage={s.setLanguage} drawerRef={s.drawerRef}
+            publishedNavigation={navigation.header} />
+        )}
+      </AnimatePresence>
     </>
   )
 }

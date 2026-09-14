@@ -21,7 +21,7 @@ export function Usage({ c }: { c: BrandContent['usage'] }) {
       <SectionHead n={c.n} title={c.title} />
       <div className="grid md:grid-cols-2 gap-5">
         <div className="rounded-xl p-6" style={{ background: 'var(--s2)', border: '1px solid rgba(255,255,255,0.05)' }}>
-          <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-slate-600 mb-5">{c.clearSpaceLabel}</p>
+          <p className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium text-slate-600 mb-5">{c.clearSpaceLabel}</p>
           <div className="flex items-center justify-center py-6">
             <div className="relative p-8" style={{ border: '1px dashed rgba(212,36,36,0.35)', borderRadius: 2 }}>
               <Logo variant="primary" height={44} />
@@ -33,7 +33,7 @@ export function Usage({ c }: { c: BrandContent['usage'] }) {
           </p>
         </div>
         <div className="rounded-xl p-6" style={{ background: 'var(--s2)', border: '1px solid rgba(255,255,255,0.05)' }}>
-          <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-slate-600 mb-5">{c.neverLabel}</p>
+          <p className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium text-slate-600 mb-5">{c.neverLabel}</p>
           <ul className="space-y-2.5">
             {c.never.map(r => (
               <li key={r} className="flex items-start gap-3">
