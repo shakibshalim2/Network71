@@ -1,3 +1,6 @@
+import { motion } from "motion/react"
+import { EASE_OUT } from "@/lib/motion"
+
 interface Metric {
   value: string
   label: string
@@ -10,24 +13,56 @@ interface MetricsBarProps {
   dark?: boolean
 }
 
-export default function MetricsBar({ metrics, accentHex, dark = false }: MetricsBarProps) {
+const cell = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE_OUT } },
+}
+
+/** Ledger strip: numbered facts with a drawn divider and staggered reveal. */
+export default function MetricsBar({
+  metrics,
+  accentHex,
+  dark = false,
+}: MetricsBarProps) {
   return (
-    <div className={dark ? 'bg-navy-dark' : 'bg-navy-light'}>
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="sector-metrics grid grid-cols-2 lg:grid-cols-4">
+    <div
+      className={`ledger ${dark ? "bg-navy-dark" : "bg-navy-light"}`}
+      style={{ ["--ledger-accent" as string]: accentHex }}
+    >
+      <div className="container-page">
+        <motion.dl
+          className="ledger__grid"
+          style={{ ["--cells" as string]: metrics.length }}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.4 }}
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.09 } },
+          }}
+        >
           {metrics.map((m, i) => (
-            <div key={i} className="min-w-0 px-3 sm:px-6 py-7 sm:py-9 text-center">
-              <div
-                className="font-display text-[28px] sm:text-4xl lg:text-[44px] mb-2.5 break-words leading-none tracking-[-0.02em]"
-                style={{ color: accentHex }}
-              >
-                {m.value}
-              </div>
-              <div className="font-mono text-[11px] font-semibold tracking-[0.14em] uppercase text-fg-muted mb-1.5">{m.label}</div>
-              {m.desc && <div className="text-[13px] text-fg-subtle leading-relaxed">{m.desc}</div>}
-            </div>
+            <motion.div key={i} className="ledger__cell" variants={cell}>
+              <span className="ledger__idx">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <dd className="ledger__value font-display">{m.value}</dd>
+              <dt className="ledger__label">{m.label}</dt>
+              {m.desc && <p className="ledger__desc">{m.desc}</p>}
+              <motion.span
+                className="ledger__rule"
+                aria-hidden="true"
+                variants={{
+                  hidden: { scaleX: 0 },
+                  show: {
+                    scaleX: 1,
+                    transition: { duration: 0.8, ease: EASE_OUT, delay: 0.2 },
+                  },
+                }}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.dl>
       </div>
     </div>
   )

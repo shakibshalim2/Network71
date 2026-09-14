@@ -98,3 +98,15 @@ dedicated mobile treatment.
 | Connect CTA | 3 equal glass cards | **Portal** (`ConnectPortal`): segmented chooser with sliding pill; the choice re-colours the WebGL aurora and swaps copy with a blur-crossfade. Stacks vertically under 480px |
 
 All motion honours `prefers-reduced-motion`; list/rail/portal remain fully usable without JS.
+
+## Phase 4 — signature language on division pages + Ezyify
+
+Shared chrome carries the identity to all nine division pages at once.
+
+| Surface | Now |
+|---|---|
+| Sector hero headline (9 pages) | `useKineticHeadlines` wraps words at runtime and stages the same clipped word-reveal as Home (Web Animations API, reduced-motion aware) |
+| `MetricsBar` → **Ledger strip** | Numbered facts (01–04), display-size values, accent hairline draws in per cell with stagger |
+| `ProcessFlow` → **Journey line** | One accent line draws itself with scroll progress (`useScroll` + spring); nodes light and scale as the line reaches them. Horizontal on desktop, vertical rail on phones |
+| Every card grid on division pages | Structural editorial identity: running counter (`counter()`), pointer-tracking spotlight via one delegated listener, tighter H2 scale — no per-file edits |
+| Ezyify page hero | Staggered entrance, gradient headline shimmers slowly |

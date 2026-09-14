@@ -57,10 +57,21 @@ export function useSectionReveal() {
     const mo = new MutationObserver(schedule)
     mo.observe(document.body, { childList: true, subtree: true })
 
+    // Pointer spotlight for cards: one delegated listener writes --mx/--my on the hovered card.
+    const onPointer = (e: PointerEvent) => {
+      const card = (e.target as Element | null)?.closest<HTMLElement>('.public-content section .grid > [class*="rounded-"], .stmt__value')
+      if (!card) return
+      const r = card.getBoundingClientRect()
+      card.style.setProperty('--mx', `${((e.clientX - r.left) / r.width) * 100}%`)
+      card.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`)
+    }
+    document.addEventListener('pointermove', onPointer, { passive: true })
+
     return () => {
       if (frame) cancelAnimationFrame(frame)
       mo.disconnect()
       io.disconnect()
+      document.removeEventListener('pointermove', onPointer)
     }
   }, [pathname])
 }

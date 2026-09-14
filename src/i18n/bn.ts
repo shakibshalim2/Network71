@@ -234,6 +234,7 @@ const bnCore: Record<Exclude<TKey, keyof typeof enHomepage>, string> = {
   'sector.form.send': 'অনুসন্ধান পাঠান',
   'sector.form.privacy': 'আমরা আপনার গোপনীয়তাকে সম্মান করি। প্রদত্ত তথ্য শুধুমাত্র ব্যবসায়িক যোগাযোগে ব্যবহৃত হবে।',
   'sector.process.default': 'উৎপাদন প্রক্রিয়া',
+  'sector.process.steps': 'ধাপ',
 
   // ── Data-loading / form errors ──
   'lib.timeout': 'অনুরোধে বেশি সময় লাগছে। অনুগ্রহ করে আবার চেষ্টা করুন।',

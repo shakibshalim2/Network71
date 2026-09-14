@@ -9,6 +9,7 @@ import {
 import RouteExperience from "@/components/RouteExperience"
 import { useT } from "@/i18n"
 import { useSectionReveal } from "@/lib/useSectionReveal"
+import { useKineticHeadlines } from "@/lib/useKineticHeadlines"
 
 const Home = lazy(() => import("@/pages/Home"))
 const About = lazy(() => import("@/pages/About"))
@@ -57,6 +58,7 @@ function Root() {
   const { t } = useT()
   const { pathname } = useLocation()
   useSectionReveal()
+  useKineticHeadlines()
   return (
     <>
       <a className="skip-link" href="#main-content">

@@ -1,4 +1,7 @@
-import { useT } from '@/i18n'
+import { useRef } from "react"
+import { motion, useScroll, useSpring, useTransform } from "motion/react"
+import { useT } from "@/i18n"
+import { EASE_OUT } from "@/lib/motion"
 
 interface Step {
   title: string
@@ -11,66 +14,108 @@ interface ProcessFlowProps {
   label?: string
 }
 
-export default function ProcessFlow({ steps, accentHex, label }: ProcessFlowProps) {
+const rise = {
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE_OUT } },
+}
+
+/**
+ * Journey line: a single accent path that draws itself as the reader scrolls,
+ * with each step lighting up as the line reaches it. Horizontal on desktop,
+ * vertical on phones — the same scroll progress drives both.
+ */
+export default function ProcessFlow({
+  steps,
+  accentHex,
+  label,
+}: ProcessFlowProps) {
   const { t } = useT()
-  const heading = label ?? t('sector.process.default')
+  const heading = label ?? t("sector.process.default")
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 80%", "end 45%"],
+  })
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 28,
+    mass: 0.6,
+  })
+  const isDesktop =
+    typeof window !== "undefined" &&
+    window.matchMedia("(min-width: 1024px)").matches
+  const scaleX = useTransform(progress, (v) => (isDesktop ? v : 1))
+  const scaleY = useTransform(progress, (v) => (isDesktop ? 1 : v))
+
   return (
-    <section className="py-20 bg-navy">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex items-center gap-3 mb-12">
-          <div className="h-px w-8" style={{ background: accentHex }} />
-          <span className="text-[11px] font-semibold tracking-[0.14em] uppercase" style={{ color: accentHex }}>
+    <section
+      className="journey section-y"
+      style={{ ["--journey-accent" as string]: accentHex }}
+    >
+      <div className="container-page" ref={ref}>
+        <div className="journey__head">
+          <p className="journey__eyebrow">
+            <span className="eyebrow-rule" style={{ background: accentHex }} />
             {heading}
+          </p>
+          <span className="journey__count">
+            {String(steps.length).padStart(2, "0")} {t("sector.process.steps")}
           </span>
         </div>
 
-        {/* Desktop: horizontal flow */}
-        <div className="hidden lg:flex items-start gap-0">
-          {steps.map((step, i) => (
-            <div key={i} className="flex items-start flex-1 min-w-0">
-              <div className="flex-1 min-w-0">
-                {/* Step number + connector */}
-                <div className="flex items-center mb-3">
-                  <div
-                    className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold text-navy"
-                    style={{ background: accentHex }}
-                  >
-                    {String(i + 1).padStart(2, '0')}
-                  </div>
-                  {i < steps.length - 1 && (
-                    <div className="flex-1 h-px mx-2" style={{ background: `color-mix(in srgb, ${accentHex} 25%, transparent)` }} />
-                  )}
-                </div>
-                <div className="pr-4">
-                  <div className="text-white font-semibold text-sm mb-1">{step.title}</div>
-                  <div className="text-slate-500 text-xs leading-relaxed">{step.desc}</div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <div className="journey__track">
+          {/* Base + drawn line */}
+          <span className="journey__line" aria-hidden="true" />
+          <motion.span
+            className="journey__line journey__line--fill"
+            style={{ scaleX, scaleY }}
+            aria-hidden="true"
+          />
 
-        {/* Mobile: vertical list */}
-        <div className="lg:hidden space-y-0">
-          {steps.map((step, i) => (
-            <div key={i} className="flex gap-4">
-              <div className="flex flex-col items-center">
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold text-navy"
-                  style={{ background: accentHex }}
+          <motion.ol
+            className="journey__steps"
+            style={{ ["--steps" as string]: steps.length }}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.1 } },
+            }}
+          >
+            {steps.map((step, i) => {
+              const start = i / steps.length
+              const opacity = useTransform(
+                progress,
+                [start, Math.min(start + 0.15, 1)],
+                [0.35, 1],
+              )
+              const scale = useTransform(
+                progress,
+                [start, Math.min(start + 0.15, 1)],
+                [0.7, 1],
+              )
+              return (
+                <motion.li
+                  key={i}
+                  className="journey__step"
+                  variants={rise}
+                  style={{ opacity }}
                 >
-                  {String(i + 1).padStart(2, '0')}
-                </div>
-                {i < steps.length - 1 && (
-                  <div className="w-px flex-1 my-2" style={{ background: `color-mix(in srgb, ${accentHex} 19%, transparent)` }} />
-                )}
-              </div>
-              <div className="pb-6">
-                <div className="text-white font-semibold text-sm mb-1">{step.title}</div>
-                <div className="text-slate-500 text-xs leading-relaxed">{step.desc}</div>
-              </div>
-            </div>
-          ))}
+                  <motion.span
+                    className="journey__node font-display"
+                    style={{ scale }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </motion.span>
+                  <div className="journey__body">
+                    <h3>{step.title}</h3>
+                    <p>{step.desc}</p>
+                  </div>
+                </motion.li>
+              )
+            })}
+          </motion.ol>
         </div>
       </div>
     </section>

@@ -316,7 +316,7 @@ html.js-reveal .public-content .reveal-target.is-revealed :is(.grid, .card-rail,
 @keyframes hero-rise { from { opacity: 0; translate: 0 26px; } to { opacity: 1; translate: none; } }
 @keyframes hero-zoom { from { scale: 1.06; } to { scale: 1; } }
 .public-content .sector-hero > .absolute.inset-0:first-child > img { animation: hero-zoom 1.8s cubic-bezier(0.2, 0.65, 0.2, 1) both; }
-.public-content .sector-hero .max-w-3xl > * { animation: hero-rise 0.85s cubic-bezier(0.2, 0.65, 0.2, 1) both; }
+.public-content .sector-hero .max-w-3xl > :not(h1) { animation: hero-rise 0.85s cubic-bezier(0.2, 0.65, 0.2, 1) both; }
 .public-content .sector-hero .max-w-3xl > :nth-child(1) { animation-delay: 0.1s; }
 .public-content .sector-hero .max-w-3xl > :nth-child(2) { animation-delay: 0.2s; }
 .public-content .sector-hero .max-w-3xl > :nth-child(3) { animation-delay: 0.3s; }

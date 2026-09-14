@@ -235,6 +235,7 @@ const enCore = {
   'sector.form.send': 'Send Inquiry',
   'sector.form.privacy': 'We respect your privacy. Information shared is used solely for business correspondence.',
   'sector.process.default': 'Production Workflow',
+  'sector.process.steps': 'steps',
 
   // ── Data-loading / form errors ──
   'lib.timeout': 'The request took too long. Please try again.',

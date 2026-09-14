@@ -239,3 +239,107 @@
   .portal__tab { justify-content: flex-start; border-radius: 12px; padding: 14px 16px; }
   .portal__tab-bg { border-radius: 12px; }
 }
+
+/* ═══ Journey line (ProcessFlow) ═══ */
+.journey { --journey-accent: var(--brand); background: var(--s1); border-block: 1px solid var(--line); }
+.journey__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: clamp(36px, 5vw, 64px); }
+.journey__eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--journey-accent);
+}
+.journey__count { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-subtle); }
+.journey__track { position: relative; }
+.journey__line { position: absolute; background: var(--line-strong); border-radius: 2px; }
+.journey__line--fill { background: var(--journey-accent); box-shadow: 0 0 18px color-mix(in srgb, var(--journey-accent) 45%, transparent); }
+.journey__steps { list-style: none; margin: 0; padding: 0; position: relative; }
+.journey__node {
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  font-size: 15px; letter-spacing: 0.02em; color: var(--journey-accent);
+  background: var(--s0); border: 1px solid var(--journey-accent); position: relative; z-index: 1;
+}
+.journey__body h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: var(--fg-strong); margin-bottom: 8px; }
+.journey__body p { font-size: 14px; line-height: 1.65; color: var(--fg-muted); }
+
+/* Desktop: horizontal */
+@media (min-width: 1024px) {
+  .journey__line { top: 21px; left: 0; right: 0; height: 2px; }
+  .journey__line--fill { transform-origin: left center; scale: var(--_sx, 1) 1; }
+  .journey__steps { display: grid; grid-template-columns: repeat(var(--steps, 4), minmax(0, 1fr)); gap: 24px; }
+  .journey__step { display: grid; gap: 20px; }
+  .journey__body { padding-right: 12px; }
+}
+/* Mobile: vertical */
+@media (max-width: 1023px) {
+  .journey__line { left: 21px; top: 0; bottom: 0; width: 2px; }
+  .journey__line--fill { transform-origin: center top; }
+  .journey__steps { display: grid; gap: 28px; }
+  .journey__step { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 18px; align-items: start; }
+  .journey__body { padding-top: 8px; }
+}
+
+/* ═══ Ledger strip (MetricsBar) ═══ */
+.ledger { --ledger-accent: var(--brand); border-block: 1px solid var(--line); }
+.ledger__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; }
+@media (min-width: 1024px) { .ledger__grid { grid-template-columns: repeat(var(--cells, 4), minmax(0, 1fr)); } }
+.ledger__cell { position: relative; padding: clamp(24px, 3vw, 40px) clamp(16px, 2vw, 28px) clamp(26px, 3vw, 40px); display: grid; align-content: start; }
+.ledger__cell + .ledger__cell { border-left: 1px solid var(--line); }
+@media (max-width: 1023px) {
+  .ledger__cell:nth-child(2n + 1) { border-left: 0; }
+  .ledger__cell:nth-child(n + 3) { border-top: 1px solid var(--line); }
+}
+.ledger__idx { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--ledger-accent); margin-bottom: 18px; }
+.ledger__value { font-size: clamp(26px, 2.6vw, 40px); line-height: 1; letter-spacing: -0.025em; color: var(--fg-strong); margin: 0 0 10px; overflow-wrap: anywhere; }
+.ledger__label { font-size: 13.5px; font-weight: 600; color: var(--fg); letter-spacing: -0.005em; }
+.ledger__desc { margin-top: 6px; font-size: 13px; line-height: 1.55; color: var(--fg-subtle); }
+.ledger__rule { position: absolute; left: clamp(16px, 2vw, 28px); right: clamp(16px, 2vw, 28px); bottom: 0; height: 2px; background: var(--ledger-accent); transform-origin: left; opacity: 0.7; }
+
+/* Ledger on the "dark" strip variant reads on the page bg */
+.ledger.bg-navy-dark { background: var(--s1); }
+.ledger.bg-navy-light { background: var(--s2); }
+
+/* ═══ Sector card language ═══════════════════════════════════════════════════
+   Division sections author dozens of card grids. Give them one editorial
+   identity structurally: a running counter, a spotlight that follows the
+   pointer (set by useSectionReveal's delegated listener), and a hairline
+   that draws on hover. No per-file edits needed. */
+.sector-page section .grid { counter-reset: card; }
+.sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"] {
+  position: relative; counter-increment: card; overflow: hidden; isolation: isolate;
+}
+.sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"]::before {
+  content: counter(card, decimal-leading-zero);
+  position: absolute; top: 18px; right: 20px; z-index: 1;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--fg-faint);
+  transition: color 0.3s;
+}
+.sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"]::after {
+  content: ''; position: absolute; inset: -30%; z-index: 0; pointer-events: none; opacity: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.07), transparent 40%);
+  transition: opacity 0.35s;
+}
+[data-theme="light"] .sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"]::after {
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgb(15 23 42 / 0.06), transparent 40%);
+}
+@media (hover: hover) {
+  .sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"]:hover::after { opacity: 1; }
+  .sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"]:hover::before { color: var(--fg-muted); }
+}
+.sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"] > * { position: relative; z-index: 1; }
+
+/* Section headings on division pages: tighter editorial scale */
+.sector-page section h2.font-display { font-size: clamp(30px, 4.2vw, 52px); letter-spacing: -0.03em; line-height: 1.04; }
+
+/* ═══ Ezyify page ═══ */
+.public-content .ezyify-page-hero > .relative.z-10 > * { animation: hero-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.public-content .ezyify-page-hero > .relative.z-10 > :nth-child(1) { animation-delay: 0.1s; }
+.public-content .ezyify-page-hero > .relative.z-10 > :nth-child(2) { animation-delay: 0.25s; }
+.public-content .ezyify-page-hero > .relative.z-10 > :nth-child(3) { animation-delay: 0.4s; }
+.public-content .ezyify-page-hero > .relative.z-10 > :nth-child(4) { animation-delay: 0.55s; }
+.public-content .ezyify-page-hero > .relative.z-10 > :nth-child(n + 5) { animation-delay: 0.7s; }
+.public-content .ezyify-page-hero h1 { background-size: 200% 200%; animation: hero-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both, ezy-shimmer 9s ease-in-out infinite; }
+@keyframes ezy-shimmer { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+/* Ezyify feature cards: spotlight + counter like sector cards */
+.public-content section .grid > .group.rounded-2xl[class*="p-7"] { position: relative; counter-increment: card; }
+@media (prefers-reduced-motion: reduce) {
+  .public-content .ezyify-page-hero > .relative.z-10 > *, .public-content .ezyify-page-hero h1 { animation: none; }
+}
