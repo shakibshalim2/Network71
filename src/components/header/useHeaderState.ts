@@ -16,6 +16,7 @@ export function useHeaderState() {
   const searchIndex = [...SEARCH_INDEX, ...divisionIndex]
 
   const [scrolled, setScrolled]         = useState(false)
+  const [hidden, setHidden]             = useState(false)
   const [mobileOpen, setMobileOpen]     = useState(false)
   const [megaOpen, setMegaOpen]         = useState(false)
   const [langOpen, setLangOpen]         = useState(false)
@@ -49,11 +50,25 @@ export function useHeaderState() {
     }
   }, [])
 
-  // Scroll listener
+  // Scroll listener: glassy past 36px; hide while scrolling down, return on scroll-up.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 36)
+    let last = window.scrollY
+    let frame = 0
+    const onScroll = () => {
+      if (frame) return
+      frame = requestAnimationFrame(() => {
+        frame = 0
+        const y = window.scrollY
+        setScrolled(y > 36)
+        const delta = y - last
+        if (y < 120) setHidden(false)
+        else if (delta > 6) setHidden(true)
+        else if (delta < -6) setHidden(false)
+        last = y
+      })
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    return () => { window.removeEventListener('scroll', onScroll); if (frame) cancelAnimationFrame(frame) }
   }, [])
 
   // Close everything on route change
@@ -99,6 +114,8 @@ export function useHeaderState() {
 
   const isHome  = pathname === '/'
   const glassy  = scrolled || !isHome
+  // Never hide while a menu, drawer or search is open.
+  const headerHidden = hidden && !mobileOpen && !searchOpen && !megaOpen && !langOpen
   const curLang = LANG_OPTIONS.find(l => l.code === language)!
 
   const searchResults = searchQuery.trim()
@@ -137,7 +154,7 @@ export function useHeaderState() {
     mobileExpanded,
     searchRef, searchPanelRef, drawerRef, megaRef, langRef,
     openMega, closeMega, openLang, closeLang, closeSearch,
-    glassy, curLang, searchResults, byGroup,
+    glassy, headerHidden, curLang, searchResults, byGroup,
     handleResult, toggleAccordion,
   }
 }

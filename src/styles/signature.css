@@ -248,6 +248,7 @@
   font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--journey-accent);
 }
 .journey__count { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-subtle); }
+.journey__title { margin-top: 14px; font-size: clamp(30px, 4.2vw, 52px); letter-spacing: -0.03em; line-height: 1.04; color: var(--fg-strong); }
 .journey__track { position: relative; }
 .journey__line { position: absolute; background: var(--line-strong); border-radius: 2px; }
 .journey__line--fill { background: var(--journey-accent); box-shadow: 0 0 18px color-mix(in srgb, var(--journey-accent) 45%, transparent); }
@@ -325,6 +326,9 @@
   .sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"]:hover::before { color: var(--fg-muted); }
 }
 .sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"] > * { position: relative; z-index: 1; }
+/* Compact tiles (p-4) carry display numerals; give the counter its own lane. */
+.sector-page section .grid > :is(.rounded-2xl, .rounded-xl).p-4 > :first-child { padding-right: 28px; }
+.sector-page section .grid > :is(.rounded-2xl, .rounded-xl).p-4::before { top: 14px; right: 14px; }
 
 /* Section headings on division pages: tighter editorial scale */
 .sector-page section h2.font-display { font-size: clamp(30px, 4.2vw, 52px); letter-spacing: -0.03em; line-height: 1.04; }

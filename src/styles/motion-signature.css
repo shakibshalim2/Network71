@@ -1,0 +1,196 @@
+/* ── Phase 5: site-wide signature motion ────────────────────────────────────
+   Structural rules that carry the Home/division identity to every public
+   page without per-file edits. Everything degrades under reduced motion. */
+
+/* ═══ Kinetic section headlines (useKineticHeadlines) ═══ */
+[data-kinetic="pending"] { visibility: hidden; }
+.kin__clip { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+.kin__word { display: inline-block; will-change: transform; }
+
+/* ═══ Reading progress hairline ═══ */
+.read-progress {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 60; height: 2px; pointer-events: none;
+  transform-origin: left center; background: linear-gradient(90deg, var(--brand), var(--brand-bright));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--brand) 55%, transparent);
+}
+
+/* ═══ Header: hides on scroll-down, returns on scroll-up ═══ */
+.site-header { transition: background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease, translate 0.42s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.site-header.is-hidden { translate: 0 calc(-100% - 2px); }
+.site-header.is-hidden .site-header__row { pointer-events: none; }
+
+/* ═══ Section punctuation: numbered hairline that draws in on reveal ═══ */
+html.js-reveal .public-content section.reveal-target :is(.eyebrow-rule, .public-eyebrow, .page-hero__rule) { transform-origin: left; }
+html.js-reveal .public-content section.reveal-target .eyebrow-rule { scale: 0 1; transition: scale 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s; }
+html.js-reveal .public-content section.reveal-target.is-revealed .eyebrow-rule { scale: 1 1; }
+
+/* ═══ Editorial image treatment: clip-path curtain + settle ═══
+   Any block image inside a revealed section (facility photos, blog covers,
+   story panels) uncovers from the bottom with a slight settle-zoom. */
+html.js-reveal .public-content section.reveal-target :is(.rounded-2xl, .rounded-xl, .rounded-3xl) > img:only-child,
+html.js-reveal .public-content section.reveal-target .overflow-hidden > img.object-cover:first-child {
+  clip-path: inset(100% 0 0 0);
+  scale: 1.08;
+  transition: clip-path 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s, scale 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s;
+}
+html.js-reveal .public-content section.reveal-target.is-revealed :is(.rounded-2xl, .rounded-xl, .rounded-3xl) > img:only-child,
+html.js-reveal .public-content section.reveal-target.is-revealed .overflow-hidden > img.object-cover:first-child {
+  clip-path: inset(0 0 0 0);
+  scale: 1;
+}
+/* Hover zoom authored inline (hover:scale-105) must still win after settle. */
+@media (hover: hover) {
+  .public-content .reveal-target.is-revealed .overflow-hidden:hover > img.hover\:scale-105 { scale: 1.05; transition-duration: 0.7s; }
+}
+
+/* ═══ Scroll-drawn timeline spine (ScrollSpine) ═══ */
+.spine { position: relative; }
+.spine__base, .spine__fill {
+  position: absolute; top: 0; bottom: 0; left: var(--spine-x, 50%); width: 2px; translate: -50% 0; border-radius: 2px; pointer-events: none;
+}
+.spine__base { background: var(--line-strong); }
+.spine__fill { background: var(--spine-accent); transform-origin: center top; box-shadow: 0 0 16px color-mix(in srgb, var(--spine-accent) 45%, transparent); }
+@media (min-width: 768px) { .timeline-spine { --spine-md: 50%; } }
+
+/* ═══ Display numerals (01 / 02 / 03) tick up ═══ */
+html.js-reveal .public-content .reveal-target :is(.working-number, .font-display.text-5xl.text-gold, .font-display.text-gold.text-4xl) {
+  opacity: 0; translate: 0 8px; filter: blur(4px);
+  transition: opacity 0.7s ease, translate 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.7s ease;
+}
+html.js-reveal .public-content .reveal-target.is-revealed :is(.working-number, .font-display.text-5xl.text-gold, .font-display.text-gold.text-4xl) {
+  opacity: 1; translate: none; filter: none; transition-delay: 0.25s;
+}
+
+/* ═══ Buttons: shimmer sweep on primary; underline draw on text links ═══ */
+.btn-primary { position: relative; overflow: hidden; isolation: isolate; }
+.btn-primary::after {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgb(255 255 255 / 0.28) 50%, transparent 70%);
+  translate: -120% 0; transition: translate 0s;
+}
+@media (hover: hover) {
+  .btn-primary:hover::after { translate: 120% 0; transition: translate 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); }
+}
+.public-content :is(.public-text-link, .work-card-link, .working-contact a, .stmt__links a:not(.btn)) { position: relative; }
+.public-content .public-text-link::after, .public-content .working-contact a::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 8px; height: 1px; background: currentColor;
+  transform-origin: right; scale: 0 1; transition: scale 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@media (hover: hover) {
+  .public-content .public-text-link:hover::after, .public-content .working-contact a:hover::after { transform-origin: left; scale: 1 1; }
+}
+
+/* ═══ Cards: tilt-lite — spotlight already exists; add a soft depth edge ═══ */
+@media (hover: hover) {
+  .public-content section :is(.rounded-2xl, .rounded-xl)[class*="border-white/"]:is([class*="hover:border"], .group):hover {
+    box-shadow: var(--shadow-card), 0 0 0 1px color-mix(in srgb, var(--brand) 22%, transparent) inset;
+  }
+}
+
+/* ═══ Corporate card grids share the sector card identity ═══
+   Counter + pointer spotlight for any bordered card grid outside divisions. */
+.public-content:not(.sector-page *) section .grid > :is(.rounded-2xl, .rounded-xl)[class*="border-white/"][class*="p-"] {
+  position: relative; isolation: isolate;
+}
+.public-content:not(.sector-page *) section .grid > :is(.rounded-2xl, .rounded-xl)[class*="border-white/"][class*="p-"]::after {
+  content: ''; position: absolute; inset: -30%; z-index: 0; pointer-events: none; opacity: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.07), transparent 40%);
+  transition: opacity 0.35s;
+}
+[data-theme="light"] .public-content:not(.sector-page *) section .grid > :is(.rounded-2xl, .rounded-xl)[class*="border-white/"][class*="p-"]::after {
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgb(15 23 42 / 0.06), transparent 40%);
+}
+@media (hover: hover) {
+  .public-content:not(.sector-page *) section .grid > :is(.rounded-2xl, .rounded-xl)[class*="border-white/"][class*="p-"]:hover::after { opacity: 1; }
+}
+.public-content:not(.sector-page *) section .grid > :is(.rounded-2xl, .rounded-xl)[class*="border-white/"][class*="p-"] > :not(.absolute) { position: relative; z-index: 1; }
+
+/* ═══ Page hero: parallax drift of the atmosphere on scroll ═══ */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .page-hero__orb--a { animation: mesh-drift 22s ease-in-out infinite, orb-lift linear both; animation-timeline: auto, scroll(root); animation-range: normal, 0 100vh; }
+    .page-hero .aurora-canvas { animation: hero-fade linear both; animation-timeline: scroll(root); animation-range: 0 90vh; }
+    .public-content .sector-hero > .absolute.inset-0:first-child > img { animation: hero-zoom 1.8s cubic-bezier(0.2, 0.65, 0.2, 1) both, hero-parallax linear both; animation-timeline: auto, scroll(root); animation-range: normal, 0 100vh; }
+  }
+}
+@keyframes orb-lift { to { translate: 0 -120px; } }
+@keyframes hero-fade { to { opacity: 0.15; } }
+@keyframes hero-parallax { to { translate: 0 18vh; } }
+
+/* ═══ Statement quotes: quotation mark breathes ═══ */
+.public-content section blockquote { position: relative; }
+html.js-reveal .public-content section.reveal-target blockquote { opacity: 0; translate: 0 14px; filter: blur(6px); transition: opacity 0.9s ease 0.15s, translate 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s, filter 0.9s ease 0.15s; }
+html.js-reveal .public-content section.reveal-target.is-revealed blockquote { opacity: 1; translate: none; filter: none; }
+
+/* ═══ Progress bars: width already animates; add a moving sheen ═══ */
+.public-content [class*="bg-gradient-to-r"].h-full.rounded-full { position: relative; overflow: hidden; }
+.public-content [class*="bg-gradient-to-r"].h-full.rounded-full::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.35), transparent);
+  translate: -100% 0; animation: bar-sheen 2.6s ease-in-out 1.2s infinite;
+}
+@keyframes bar-sheen { 0% { translate: -100% 0; } 60%, 100% { translate: 100% 0; } }
+
+/* ═══ Rails on phones: edge fades hint at more content ═══ */
+@media (max-width: 767px) {
+  .public-content :is(.card-rail, .dix__rail, .hero-stats .grid) {
+    mask-image: linear-gradient(90deg, transparent 0, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent 100%);
+  }
+}
+
+/* ═══ Theme flip: soft crossfade curtain ═══ */
+.theme-veil {
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none; background: var(--s0);
+  animation: theme-veil 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes theme-veil { 0% { opacity: 0.85; } 100% { opacity: 0; } }
+
+/* ═══ Mobile drawer / dialog: keep spring, add subtle chroma edge ═══ */
+.dialog-panel, .mobile-drawer { box-shadow: var(--shadow-pop), 0 0 0 1px color-mix(in srgb, var(--brand) 14%, transparent) inset; }
+
+/* ═══ Footer columns: links slide on hover ═══ */
+@media (hover: hover) {
+  footer .tap-inline { transition: color 0.14s, translate 0.3s cubic-bezier(0.2, 0.7, 0.2, 1) !important; }
+  footer .tap-inline:hover { translate: 4px 0; }
+}
+
+/* ═══ Reduced motion: everything above becomes static ═══ */
+@media (prefers-reduced-motion: reduce) {
+  [data-kinetic="pending"] { visibility: visible; }
+  .read-progress, .theme-veil { display: none; }
+  .site-header.is-hidden { translate: none; }
+  html.js-reveal .public-content section.reveal-target :is(.eyebrow-rule, img, blockquote, .working-number, .absolute.w-px) { scale: 1 !important; clip-path: none !important; opacity: 1 !important; translate: none !important; filter: none !important; transition: none !important; }
+  .btn-primary::after, .public-content [class*="bg-gradient-to-r"].h-full.rounded-full::after { display: none; }
+}
+
+/* ═══ Section rail (division pages, ≥1280px) ═══ */
+.srail {
+  --srail-accent: var(--brand);
+  position: fixed; right: 18px; top: 50%; translate: 0 -50%; z-index: 40;
+  display: grid; gap: 6px; justify-items: end;
+}
+.srail__item {
+  display: flex; align-items: center; gap: 10px; padding: 4px 0; text-decoration: none; color: var(--fg-subtle);
+}
+.srail__dot {
+  position: relative; width: 22px; height: 22px; display: grid; place-items: center; flex-shrink: 0;
+}
+.srail__dot::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--fg-faint);
+  transition: background-color 0.25s, scale 0.25s;
+}
+.srail__item:hover .srail__dot::before { background: var(--fg-muted); scale: 1.3; }
+.srail__item.is-active .srail__dot::before { opacity: 0; }
+.srail__bar { position: absolute; width: 4px; height: 22px; border-radius: 3px; background: var(--srail-accent); box-shadow: 0 0 12px color-mix(in srgb, var(--srail-accent) 55%, transparent); }
+.srail__label {
+  display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 6px 10px; border-radius: 8px; background: var(--s2); border: 1px solid var(--line);
+  opacity: 0; translate: 8px 0; transition: opacity 0.25s, translate 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), color 0.25s;
+}
+.srail__idx { color: var(--srail-accent); }
+.srail__item:hover .srail__label, .srail__item.is-active .srail__label { opacity: 1; translate: 0 0; }
+.srail__item.is-active .srail__label { color: var(--fg-strong); border-color: color-mix(in srgb, var(--srail-accent) 40%, transparent); }
+.srail:hover .srail__label { opacity: 1; translate: 0 0; }
+@media (max-width: 1279px) { .srail { display: none; } }

@@ -1,4 +1,5 @@
 import { useT } from '@/i18n'
+import CountUp from '@/components/motion/CountUp'
 
 export const STAT_ICONS = [
   <svg key="a" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
@@ -65,7 +66,7 @@ export default function HeroStats() {
                 <div
                   className="font-display text-[21px] sm:text-[24px]"
                   style={{ color: 'var(--fg-strong)', lineHeight: 1, letterSpacing: '-0.02em' }}>
-                  {value}
+                  <CountUp value={value} />
                 </div>
                 <div
                   className="text-[11px] tracking-[0.14em]"

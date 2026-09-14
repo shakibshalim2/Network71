@@ -1,5 +1,6 @@
 import type { AboutContent } from '../content/en'
 import Eyebrow from './Eyebrow'
+import ScrollSpine from '@/components/motion/ScrollSpine'
 
 export default function Timeline({ c }: { c: AboutContent['timeline'] }) {
   return (
@@ -18,9 +19,7 @@ export default function Timeline({ c }: { c: AboutContent['timeline'] }) {
                     stay visually connected.
             ≥ md  → original alternating left/right layout.
         */}
-        <div className="relative">
-          <div className="absolute top-0 bottom-0 w-px bg-white/10 left-[15px] md:left-1/2 md:-translate-x-px" />
-
+        <ScrollSpine left="var(--spine-md, 16px)" className="relative timeline-spine">
           <ol className="space-y-7 sm:space-y-10 md:space-y-12 list-none m-0 p-0">
             {c.entries.map((entry, i) => (
               <li
@@ -55,7 +54,7 @@ export default function Timeline({ c }: { c: AboutContent['timeline'] }) {
               </li>
             ))}
           </ol>
-        </div>
+        </ScrollSpine>
       </div>
     </section>
   )

@@ -12,6 +12,8 @@ interface ProcessFlowProps {
   steps: Step[]
   accentHex: string
   label?: string
+  /** Optional small label above the heading; when set, `label` renders as a display H2. */
+  eyebrow?: string
 }
 
 const rise = {
@@ -28,6 +30,7 @@ export default function ProcessFlow({
   steps,
   accentHex,
   label,
+  eyebrow,
 }: ProcessFlowProps) {
   const { t } = useT()
   const heading = label ?? t("sector.process.default")
@@ -54,10 +57,20 @@ export default function ProcessFlow({
     >
       <div className="container-page" ref={ref}>
         <div className="journey__head">
-          <p className="journey__eyebrow">
-            <span className="eyebrow-rule" style={{ background: accentHex }} />
-            {heading}
-          </p>
+          {eyebrow ? (
+            <div>
+              <p className="journey__eyebrow">
+                <span className="eyebrow-rule" style={{ background: accentHex }} />
+                {eyebrow}
+              </p>
+              <h2 className="journey__title font-display">{heading}</h2>
+            </div>
+          ) : (
+            <p className="journey__eyebrow">
+              <span className="eyebrow-rule" style={{ background: accentHex }} />
+              {heading}
+            </p>
+          )}
           <span className="journey__count">
             {String(steps.length).padStart(2, "0")} {t("sector.process.steps")}
           </span>
