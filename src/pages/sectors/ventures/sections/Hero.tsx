@@ -26,13 +26,13 @@ export default function Hero({ c }: { c: VenturesContent['hero'] }) {
           <div>
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-12" style={{ background: INDIGO }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: INDIGO }}>{c.eyebrow}</span>
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: INDIGO }}>{c.eyebrow}</span>
             </div>
 
             <div className="mb-8 inline-flex">
               <div className="flex items-center gap-3 px-4 py-2 rounded-full" style={{ border: `1px solid color-mix(in srgb, ${INDIGO} 25%, transparent)`, background: `color-mix(in srgb, ${INDIGO} 6%, transparent)` }}>
                 <span className="w-2 h-2 rounded-full" style={{ background: INDIGO, boxShadow: `0 0 10px ${INDIGO}` }} />
-                <span className="font-mono text-[10px] tracking-[0.2em] uppercase font-semibold" style={{ color: INDIGO }}>{c.badge}</span>
+                <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: INDIGO }}>{c.badge}</span>
               </div>
             </div>
 
@@ -55,7 +55,7 @@ export default function Hero({ c }: { c: VenturesContent['hero'] }) {
           <div className="hidden lg:block">
             <div className="rounded-2xl p-6" style={{ background: 'var(--fill-1)', border: `1px solid color-mix(in srgb, ${INDIGO} 18%, transparent)`, backdropFilter: 'blur(12px)' }}>
               <div className="flex items-center justify-between mb-5">
-                <span className="font-mono text-[9px] tracking-[0.3em] uppercase" style={{ color: INDIGO }}>{c.mapEyebrow}</span>
+                <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: INDIGO }}>{c.mapEyebrow}</span>
                 <span className="font-mono text-[9px] text-slate-500">{c.mapCount.replace('{n}', String(ECOSYSTEM.length))}</span>
               </div>
               <div className="grid grid-cols-3 gap-2.5">

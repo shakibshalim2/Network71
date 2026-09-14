@@ -18,7 +18,7 @@ export default function Cta({
         <button
           type="button"
           onClick={onApply}
-          className="inline-flex items-center gap-2 px-8 py-3.5 bg-gold text-on-brand text-sm font-semibold rounded hover:bg-gold-light transition-colors shadow-lg shadow-gold/20"
+          className="btn btn-primary"
         >
           <svg
             className="w-4 h-4"

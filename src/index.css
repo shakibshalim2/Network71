@@ -2,6 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@300;400;500;600;700&display=swap');
 @import 'tailwindcss';
 @import './styles/public-refinements.css';
+@import './styles/design-system.css';
+@import './styles/header.css';
+@import './styles/signature.css';
 
 @theme {
   /* ── Brand depths ── */
@@ -803,9 +806,9 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
   outline-offset: 3px;
 }
 form label { display: block; }
-.sector-metrics > * { border-bottom: 1px solid var(--line); }
-.sector-metrics > :nth-child(odd) { border-inline-end: 1px solid var(--line); }
-.sector-metrics > :nth-last-child(-n+2) { border-bottom: 0; }
+
+
+
 .sector-hero { min-height: min(820px, calc(100svh - var(--header-h))); }
 .hero-content { pointer-events: none; }
 .hero-content :is(button, a) { pointer-events: auto; }

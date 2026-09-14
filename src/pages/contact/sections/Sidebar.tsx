@@ -9,7 +9,7 @@ export default function Sidebar({ c }: { c: ContactContent['sidebar'] }) {
       <div>
         <div className="flex items-center gap-3 mb-6">
           <div className="h-px w-12 bg-gold" />
-          <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">{c.officesEyebrow}</span>
+          <span className="font-mono text-[11px] tracking-[0.2em] text-gold uppercase font-medium">{c.officesEyebrow}</span>
         </div>
         <div className="space-y-4">
           <div className="bg-navy-dark border border-white/8 rounded-xl p-6">
@@ -29,7 +29,7 @@ export default function Sidebar({ c }: { c: ContactContent['sidebar'] }) {
       <div>
         <div className="flex items-center gap-3 mb-6">
           <div className="h-px w-12 bg-gold" />
-          <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">{c.divisionsEyebrow}</span>
+          <span className="font-mono text-[11px] tracking-[0.2em] text-gold uppercase font-medium">{c.divisionsEyebrow}</span>
         </div>
         <div className="space-y-3">
           {c.divisions.map((division) => (

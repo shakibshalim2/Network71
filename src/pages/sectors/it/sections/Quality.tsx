@@ -23,7 +23,7 @@ export default function Quality({ c }: { c: ITContent }) {
                 style={{ background: "var(--accent-emerald)" }}
               />
               <span
-                className="font-mono text-[9px] tracking-[0.35em] uppercase"
+                className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium"
                 style={{ color: "var(--accent-emerald)" }}
               >
                 {c.copy.Quality.eyebrow}

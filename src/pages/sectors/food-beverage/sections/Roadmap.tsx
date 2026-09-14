@@ -8,7 +8,7 @@ export default function Roadmap({ c }: { c: FoodBeverageContent }) {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8" style={{ background: ORANGE, color: 'var(--s0)' }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ORANGE }}>{c.roadmapCopy.eyebrow}</span>
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: ORANGE }}>{c.roadmapCopy.eyebrow}</span>
               <div className="h-px w-8" style={{ background: ORANGE, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-white mb-4">{c.roadmapCopy.title}</h2>
@@ -25,7 +25,7 @@ export default function Roadmap({ c }: { c: FoodBeverageContent }) {
                   </div>
                   <div className="p-6 rounded-2xl border border-white/6 hover:border-orange-500/20 transition-all" style={{ background: 'var(--fill-2)' }}>
                     <div className="lg:hidden font-display text-2xl mb-3" style={{ color: ORANGE }}>{item.year}</div>
-                    <div className="text-[10px] font-bold tracking-[0.2em] uppercase mb-2 text-slate-500">Phase {i + 1}</div>
+                    <div className="text-[11px] font-bold tracking-[0.14em] uppercase mb-2 text-slate-500">Phase {i + 1}</div>
                     <h3 className="font-display text-lg text-white mb-3">{item.milestone}</h3>
                     <p className="text-slate-400 text-xs leading-relaxed">{item.detail}</p>
                   </div>

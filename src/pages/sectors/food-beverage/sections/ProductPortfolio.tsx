@@ -11,7 +11,7 @@ export default function ProductPortfolio({ c }: { c: FoodBeverageContent }) {
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8" style={{ background: ORANGE, color: 'var(--s0)' }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ORANGE }}>{c.products.eyebrow}</span>
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: ORANGE }}>{c.products.eyebrow}</span>
               <div className="h-px w-8" style={{ background: ORANGE, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">{c.products.title}</h2>

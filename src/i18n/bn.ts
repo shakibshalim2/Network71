@@ -129,6 +129,8 @@ const bnCore: Record<Exclude<TKey, keyof typeof enHomepage>, string> = {
   'divisions.eyebrow': 'আমাদের ব্যবসা',
   'divisions.title1': 'বৈচিত্র্যময় শিল্প।',
   'divisions.title2': 'ঐক্যবদ্ধ শক্তি।',
+  'divisions.hint': 'প্রিভিউ দেখতে কোনো লাইনে হোভার করুন। দশটি বিভাগ, একটি গ্রুপ।',
+  'divisions.swipe': 'দেখতে সোয়াইপ করুন',
   'divisions.explore': 'দেখুন',
   'divisions.explorePlatform': 'প্ল্যাটফর্ম দেখুন',
 
@@ -232,6 +234,7 @@ const bnCore: Record<Exclude<TKey, keyof typeof enHomepage>, string> = {
   'sector.form.send': 'অনুসন্ধান পাঠান',
   'sector.form.privacy': 'আমরা আপনার গোপনীয়তাকে সম্মান করি। প্রদত্ত তথ্য শুধুমাত্র ব্যবসায়িক যোগাযোগে ব্যবহৃত হবে।',
   'sector.process.default': 'উৎপাদন প্রক্রিয়া',
+  'sector.process.steps': 'ধাপ',
 
   // ── Data-loading / form errors ──
   'lib.timeout': 'অনুরোধে বেশি সময় লাগছে। অনুগ্রহ করে আবার চেষ্টা করুন।',

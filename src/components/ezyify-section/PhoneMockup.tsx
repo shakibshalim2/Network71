@@ -61,7 +61,7 @@ function BottomNav({ tabId, color }: { tabId: TabId, color: string }) {
 
 function PhoneMockup({ tabId, color }: { tabId: TabId, color: string }) {
   return (
-    <div style={{ position: 'relative', width: PHONE_W, height: PHONE_H, flexShrink: 0 }}>
+    <div className="phone-ui" style={{ position: 'relative', width: PHONE_W, height: PHONE_H, flexShrink: 0 }}>
       {/* Chassis */}
       <div style={{ position: 'absolute', inset: 0, background: '#090912', borderRadius: 46, border: '1.5px solid rgba(255,255,255,0.13)', boxShadow: 'var(--shadow-device), inset 0 1px 0 var(--line-strong)', overflow: 'hidden' }}>
         {/* Dynamic Island */}

@@ -11,7 +11,7 @@ export default function Overview({ c }: { c: FoodBeverageContent }) {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-px w-8" style={{ background: ORANGE, color: 'var(--s0)' }} />
-                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ORANGE }}>{c.overview.eyebrow}</span>
+                <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: ORANGE }}>{c.overview.eyebrow}</span>
               </div>
               <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-6">{c.overview.title1}<br />{c.overview.title2}<br />{c.overview.title3}</h2>
               <p className="text-slate-500 leading-relaxed mb-5">{c.overview.p1}</p>
@@ -23,7 +23,7 @@ export default function Overview({ c }: { c: FoodBeverageContent }) {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-px w-8" style={{ background: ORANGE, color: 'var(--s0)' }} />
-                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ORANGE }}>{c.overview.pillarsTitle}</span>
+                <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: ORANGE }}>{c.overview.pillarsTitle}</span>
               </div>
               <div className="space-y-4">
                 {c.pillars.map((p) => (

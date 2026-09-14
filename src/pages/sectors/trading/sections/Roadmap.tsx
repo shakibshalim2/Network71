@@ -8,7 +8,7 @@ export default function Roadmap({ c }: { c: TradingContent }) {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8" style={{ background: BLUE, color: 'var(--s0)' }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: BLUE }}>{c.copy.roadmapEyebrow}</span>
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: BLUE }}>{c.copy.roadmapEyebrow}</span>
               <div className="h-px w-8" style={{ background: BLUE, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">{c.copy.roadmapTitle}</h2>
@@ -37,7 +37,7 @@ export default function Roadmap({ c }: { c: TradingContent }) {
                     className="p-6 rounded-2xl border text-center"
                     style={{ borderColor: `color-mix(in srgb, ${BLUE} 9%, transparent)`, background: i === 3 ? `color-mix(in srgb, ${BLUE} 2%, transparent)` : 'transparent' }}
                   >
-                    <div className="text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: BLUE }}>{r.year}</div>
+                    <div className="text-[11px] font-bold tracking-[0.14em] uppercase mb-2" style={{ color: BLUE }}>{r.year}</div>
                     <h3 className="font-display text-base text-fg mb-3">{r.milestone}</h3>
                     <p className="text-slate-500 text-xs leading-relaxed">{r.detail}</p>
                   </div>

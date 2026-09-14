@@ -131,6 +131,8 @@ const enCore = {
   'divisions.title1': 'Diverse Industries.',
   'divisions.title2': 'Unified Strength.',
   'divisions.explore': 'Explore',
+  'divisions.hint': 'Hover a line to preview. Ten divisions, one operating group.',
+  'divisions.swipe': 'Swipe to browse',
   'divisions.explorePlatform': 'Explore Platform',
 
   // ── Homepage: About ──
@@ -233,6 +235,7 @@ const enCore = {
   'sector.form.send': 'Send Inquiry',
   'sector.form.privacy': 'We respect your privacy. Information shared is used solely for business correspondence.',
   'sector.process.default': 'Production Workflow',
+  'sector.process.steps': 'steps',
 
   // ── Data-loading / form errors ──
   'lib.timeout': 'The request took too long. Please try again.',

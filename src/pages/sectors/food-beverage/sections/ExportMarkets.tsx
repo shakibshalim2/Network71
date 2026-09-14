@@ -9,7 +9,7 @@ export default function ExportMarkets({ c }: { c: FoodBeverageContent }) {
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-px w-8" style={{ background: ORANGE, color: 'var(--s0)' }} />
-                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: ORANGE }}>{c.exportMarketsCopy.eyebrow}</span>
+                <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: ORANGE }}>{c.exportMarketsCopy.eyebrow}</span>
               </div>
               <h2 className="font-display text-4xl lg:text-5xl text-white mb-6 leading-tight">{c.exportMarketsCopy.title1}<br />{c.exportMarketsCopy.title2}</h2>
               <p className="text-slate-400 text-sm leading-relaxed mb-6">{c.exportMarketsCopy.lead}</p>

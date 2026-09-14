@@ -38,9 +38,9 @@ export default function MediaAndMarketplace() {
                   <div style={{ marginBottom: 14 }}>
                     <span style={{
                       display: 'inline-flex', alignItems: 'center', gap: 5,
-                      padding: '3px 9px', borderRadius: 20,
+                      padding: '5px 11px', borderRadius: 20,
                       background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.30)',
-                      fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.26em',
+                      fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.16em',
                       textTransform: 'uppercase', color: 'var(--accent-red)',
                     }}>
                       <span style={{
@@ -52,7 +52,7 @@ export default function MediaAndMarketplace() {
                   </div>
 
                   <h3 className="font-display" style={{
-                    fontSize: 'clamp(22px, 2.6vw, 30px)',
+                    fontSize: 'clamp(26px, 2.8vw, 34px)',
                     color: 'var(--fg-strong)', lineHeight: 1.1,
                     letterSpacing: '-0.02em', marginBottom: 8,
                   }}>
@@ -62,27 +62,20 @@ export default function MediaAndMarketplace() {
                   </h3>
 
                   <p
-                    className="max-w-[280px] sm:max-w-[220px]"
-                    style={{ color: 'var(--fg-muted)', fontSize: 12, lineHeight: 1.6, marginBottom: 16 }}>
+                    className="max-w-[300px] sm:max-w-[260px]"
+                    style={{ color: 'var(--fg-muted)', fontSize: 14, lineHeight: 1.65, marginBottom: 18 }}>
                     {t('mediaMarket.lead')}
                   </p>
 
                   <Link
                     to={t('mediaMarket.mediaHref')}
-                    style={{
-                      display: 'inline-flex', alignItems: 'center', gap: 8,
-                      padding: '8px 16px', borderRadius: 7, fontSize: 12, fontWeight: 700,
-                      background: 'var(--brand-wash)', border: '1px solid var(--brand-edge)',
-                      color: 'var(--brand-fg)', textDecoration: 'none',
-                      transition: 'all 0.18s', width: 'fit-content',
-                    }}
-                    onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-edge)'; e.currentTarget.style.borderColor = 'var(--brand-edge)' }}
-                    onMouseLeave={e => { e.currentTarget.style.background = 'var(--brand-wash)'; e.currentTarget.style.borderColor = 'var(--brand-edge)' }}
+                    className="btn btn-ghost btn-sm"
+                    style={{ width: 'fit-content' }}
                   >
-                    <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 11, height: 11 }}>
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
                     {t('mediaMarket.exploreMedia')}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
                   </Link>
                 </div>
               </div>
@@ -95,7 +88,7 @@ export default function MediaAndMarketplace() {
               <div className="flex flex-col p-4 sm:p-5 border-t md:border-t-0 md:border-l border-[var(--line)]">
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                   <div style={{ height: 1, width: 18, background: 'var(--brand-edge)' }} />
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 7.5, letterSpacing: '0.32em', color: 'var(--brand-fg)', textTransform: 'uppercase' }}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.18em', color: 'var(--brand-fg)', textTransform: 'uppercase' }}>
                     {t('mediaMarket.eyebrow')}
                   </span>
                 </div>
@@ -106,8 +99,8 @@ export default function MediaAndMarketplace() {
                       key={story.id}
                       to={t(story.href)}
                       style={{
-                        display: 'flex', alignItems: 'flex-start', gap: 10,
-                        padding: '10px 8px', borderRadius: 8,
+                        display: 'flex', alignItems: 'center', gap: 14,
+                        padding: '12px 10px', borderRadius: 10,
                         transition: 'background 0.15s', textDecoration: 'none',
                       }}
                       onMouseEnter={e => { e.currentTarget.style.background = 'var(--line)' }}
@@ -116,13 +109,13 @@ export default function MediaAndMarketplace() {
                       <img decoding="async" loading="lazy"
                         src={t(story.image)}
                         alt={t(story.title)}
-                        style={{ width: 54, height: 38, objectFit: 'cover', borderRadius: 5, flexShrink: 0 }}
+                        style={{ width: 68, height: 48, objectFit: 'cover', borderRadius: 8, flexShrink: 0 }}
                       />
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: 11.5, fontWeight: 600, color: 'var(--fg)', lineHeight: 1.35, marginBottom: 4 }}>
+                        <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--fg-strong)', lineHeight: 1.4, marginBottom: 4 }}>
                           {t(story.title)}
                         </div>
-                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 8.5, color: 'var(--fg-subtle)', letterSpacing: '0.06em' }}>
+                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-subtle)', letterSpacing: '0.04em' }}>
                           {t(story.date)}
                         </div>
                       </div>
@@ -134,13 +127,12 @@ export default function MediaAndMarketplace() {
                   to={t('mediaMarket.mediaHref')}
                   style={{
                     display: 'inline-flex', alignItems: 'center', gap: 5,
-                    marginTop: 14, fontSize: 10.5, fontWeight: 600,
+                    marginTop: 16, fontSize: 13, fontWeight: 600, minHeight: 44,
                     color: 'var(--brand-fg)', textDecoration: 'none',
-                    fontFamily: 'var(--font-mono)', letterSpacing: '0.08em',
-                    textTransform: 'uppercase', transition: 'color 0.15s',
+                    letterSpacing: '0.01em', transition: 'color 0.15s',
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.color = 'var(--brand)' }}
-                  onMouseLeave={e => { e.currentTarget.style.color = 'var(--brand-edge)' }}
+                  onMouseEnter={e => { e.currentTarget.style.opacity = '0.75' }}
+                  onMouseLeave={e => { e.currentTarget.style.opacity = '1' }}
                 >
                   {t('mediaMarket.mediaDivision')}
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" style={{ width: 10, height: 10 }}>
@@ -160,35 +152,28 @@ export default function MediaAndMarketplace() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                 <div style={{ height: 1, width: 18, background: 'rgba(14,165,233,0.45)', flexShrink: 0 }} />
                 <span
-                  className="text-[7px] tracking-[0.2em] sm:text-[7.5px] sm:tracking-[0.32em]"
+                  className="text-[11px] tracking-[0.18em]"
                   style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent-sky)', textTransform: 'uppercase' }}>
                   {t('mediaMarket.eshipEyebrow')}
                 </span>
               </div>
 
               <h3 className="font-display" style={{
-                fontSize: 'clamp(19px, 2.2vw, 25px)',
-                color: 'var(--fg-strong)', lineHeight: 1.12, letterSpacing: '-0.02em', marginBottom: 8,
+                fontSize: 'clamp(24px, 2.4vw, 30px)',
+                color: 'var(--fg-strong)', lineHeight: 1.12, letterSpacing: '-0.02em', marginBottom: 10,
               }}>
                 {t('mediaMarket.eshipTitle1')}{' '}
                 <em style={{ color: 'var(--accent-sky)' }}>{t('mediaMarket.eshipTitle2')}</em>
               </h3>
 
-              <p style={{ color: 'var(--fg-muted)', fontSize: 12.5, lineHeight: 1.65, marginBottom: 16 }}>
+              <p style={{ color: 'var(--fg-muted)', fontSize: 14.5, lineHeight: 1.7, marginBottom: 18 }}>
                 {t('mediaMarket.eshipLead')}
               </p>
 
               <Link
                 to={t('mediaMarket.shipHref')}
-                style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8,
-                  padding: '10px 20px', borderRadius: 8, fontSize: 12.5, fontWeight: 700,
-                  background: 'var(--brand)', color: 'var(--fg-onbrand)',
-                  textDecoration: 'none', transition: 'background 0.18s',
-                  marginBottom: 16,
-                }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-bright)' }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'var(--brand)' }}
+                className="btn btn-primary btn-sm"
+                style={{ marginBottom: 20 }}
               >
                 {t('mediaMarket.exploreMarketplace')}
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" style={{ width: 13, height: 13 }}>
@@ -218,17 +203,17 @@ export default function MediaAndMarketplace() {
               {ESHIP_STATS.map(({ val, label }, i) => (
                 <div
                   key={label}
-                  className="px-2 py-3.5 sm:px-3 sm:py-4 text-center"
+                  className="px-2 py-4 sm:px-3 sm:py-5 text-center"
                   style={{
                     borderRight: i < 2 ? '1px solid var(--line)' : 'none',
                   }}
                 >
-                  <div className="font-display text-[17px] sm:text-[20px]" style={{ color: 'var(--accent-sky)', letterSpacing: '-0.02em', lineHeight: 1 }}>
+                  <div className="font-display text-[20px] sm:text-[24px]" style={{ color: 'var(--accent-sky)', letterSpacing: '-0.02em', lineHeight: 1 }}>
                     {t(val)}
                   </div>
                   <div
-                    className="text-[7px] tracking-[0.1em] sm:text-[8px] sm:tracking-[0.18em]"
-                    style={{ fontFamily: 'var(--font-mono)', color: 'var(--fg-subtle)', textTransform: 'uppercase', marginTop: 4 }}>
+                    className="text-[11px] tracking-[0.1em]"
+                    style={{ fontFamily: 'var(--font-mono)', color: 'var(--fg-subtle)', textTransform: 'uppercase', marginTop: 6 }}>
                     {t(label)}
                   </div>
                 </div>

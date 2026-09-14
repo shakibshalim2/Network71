@@ -156,7 +156,7 @@ export default function Enquiry({ c, email }: { c: InvestorsContent['enquiry']; 
             <button
               type="submit"
               disabled={inquiry.busy}
-              className="w-full py-3.5 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors"
+              className="btn btn-primary w-full"
             >
               {inquiry.busy ? `${f.submit}…` : f.submit}
             </button>

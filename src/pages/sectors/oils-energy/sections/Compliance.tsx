@@ -9,7 +9,7 @@ export default function Compliance({ c }: { c: OilsEnergyContent }) {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
-                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: AMBER }}>
+                <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: AMBER }}>
                   {c.sectionCopy.complianceEyebrow}
                 </span>
               </div>
@@ -49,7 +49,7 @@ export default function Compliance({ c }: { c: OilsEnergyContent }) {
                   style={{ borderColor: `color-mix(in srgb, ${AMBER} 9%, transparent)` }}
                 >
                   <div
-                    className="text-[10px] font-bold uppercase tracking-widest mb-2 px-2 py-0.5 rounded inline-block"
+                    className="text-[11px] font-bold uppercase tracking-[0.14em] mb-2 px-2 py-0.5 rounded inline-block"
                     style={{ background: `color-mix(in srgb, ${AMBER} 7%, transparent)`, color: 'var(--accent-amber)' }}
                   >
                     {cert.name}

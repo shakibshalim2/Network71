@@ -26,7 +26,7 @@ export default function Hero({ c }: { c: TradingContent }) {
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-10" style={{ background: BLUE, color: 'var(--s0)' }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: BLUE }}>{c.copy.heroEyebrow}</span>
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: BLUE }}>{c.copy.heroEyebrow}</span>
             </div>
             <h1 className="font-display text-5xl lg:text-7xl text-white leading-[1.05] tracking-[-0.02em] mb-6">{c.copy.heroTitle1}<br />
               <span style={{ color: BLUE }}>{c.copy.heroTitle2}</span>

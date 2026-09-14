@@ -112,7 +112,7 @@ export default function VesselListings({ c }: { c: Listings }) {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <header className="text-center mb-16">
           <span
-            className="font-mono text-[9px] tracking-[0.35em] uppercase"
+            className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium"
             style={{ color: OCEAN }}
           >
             {c.eyebrow}

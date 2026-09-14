@@ -21,7 +21,7 @@ export default function JoinCta({ c }: { c: LeadershipContent["cta"] }) {
             </p>
             <Link
               to={c.href}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-gold text-on-brand font-semibold hover:bg-gold-light transition-colors"
+              className="btn btn-primary"
             >
               {c.button}
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

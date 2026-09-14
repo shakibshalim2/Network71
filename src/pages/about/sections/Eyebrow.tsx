@@ -4,7 +4,7 @@ export default function Eyebrow({ label, center = false, className = 'mb-4 sm:mb
     return (
       <div className={`flex items-center justify-center gap-2.5 sm:gap-3 ${className}`}>
         <div className="h-px w-8 sm:w-12 bg-gold" />
-        <span className="font-mono text-[8px] tracking-[0.22em] sm:text-[9px] sm:tracking-[0.35em] text-gold uppercase font-medium">{label}</span>
+        <span className="font-mono text-[11px] tracking-[0.2em] text-gold uppercase font-medium">{label}</span>
         <div className="h-px w-8 sm:w-12 bg-gold" />
       </div>
     )
@@ -12,7 +12,7 @@ export default function Eyebrow({ label, center = false, className = 'mb-4 sm:mb
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <div className="h-px w-8 sm:w-12 bg-gold shrink-0" />
-      <span className="font-mono text-[8px] tracking-[0.22em] sm:text-[9px] sm:tracking-[0.35em] text-gold uppercase font-medium">{label}</span>
+      <span className="font-mono text-[11px] tracking-[0.2em] text-gold uppercase font-medium">{label}</span>
     </div>
   )
 }

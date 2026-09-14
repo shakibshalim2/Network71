@@ -31,7 +31,7 @@ export default function Hero({ c }: { c: OilsEnergyContent }) {
         {/* Left label — {c.overview.oilsTitle} */}
         <div className="oil-side absolute left-6 lg:left-12 top-1/2 -translate-y-1/2 z-10 max-w-[220px]">
           <div
-            className="inline-flex items-center gap-2 font-mono text-[9px] tracking-[0.35em] uppercase mb-3 px-3 py-1 rounded-full"
+            className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] uppercase font-medium mb-3 px-3 py-1 rounded-full"
             style={{ background: `color-mix(in srgb, ${AMBER} 13%, transparent)`, color: AMBER, border: `1px solid color-mix(in srgb, ${AMBER} 27%, transparent)` }}
           >
             {c.copy.divisionA}
@@ -48,7 +48,7 @@ export default function Hero({ c }: { c: OilsEnergyContent }) {
         {/* Right label — Energy & Fuel */}
         <div className="oil-side absolute right-6 lg:right-12 top-1/2 -translate-y-1/2 z-10 max-w-[220px] text-right">
           <div
-            className="inline-flex items-center gap-2 font-mono text-[9px] tracking-[0.35em] uppercase mb-3 px-3 py-1 rounded-full"
+            className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] uppercase font-medium mb-3 px-3 py-1 rounded-full"
             style={{ background: `color-mix(in srgb, ${SKY} 13%, transparent)`, color: SKY, border: `1px solid color-mix(in srgb, ${SKY} 27%, transparent)` }}
           >
             {c.copy.divisionB}
@@ -77,7 +77,7 @@ export default function Hero({ c }: { c: OilsEnergyContent }) {
               <span className="text-on-brand font-bold text-base font-display tracking-tight">{c.hero.brand}</span>
             </div>
             <div
-              className="font-mono text-[9px] tracking-[0.35em] uppercase mb-2"
+              className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium mb-2"
               style={{ color: AMBER }}
             >
               {c.hero.division}

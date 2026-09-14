@@ -8,7 +8,7 @@ export default function Markets({ c }: { c: OilsEnergyContent }) {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: AMBER }}>
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: AMBER }}>
                 {c.sectionCopy.marketsEyebrow}
               </span>
               <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
@@ -27,7 +27,7 @@ export default function Markets({ c }: { c: OilsEnergyContent }) {
                 style={{ background: 'var(--fill-2)', border: `1px solid color-mix(in srgb, ${mkt.accent} 15%, transparent)` }}
               >
                 <div
-                  className="text-[10px] font-bold uppercase tracking-widest mb-3"
+                  className="text-[11px] font-bold uppercase tracking-[0.14em] mb-3"
                   style={{ color: mkt.accent }}
                 >
                   {mkt.division}

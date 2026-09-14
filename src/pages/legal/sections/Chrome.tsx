@@ -1,25 +1,14 @@
 import type { ReactNode } from 'react'
+import PageHero from '@/components/PageHero'
 import type { LegalContent } from '../content/en'
 import { ARTICLE_ICONS, MailIcon } from '../icons'
 import { useCompanySettings } from '@/lib/companySettings'
 
 export function Hero({ c }: { c: LegalContent['hero'] }) {
   return (
-    <section className="relative pt-[68px] overflow-hidden bg-navy-dark">
-      <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
-      <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-gold/5 blur-3xl pointer-events-none" />
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 relative">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="h-px w-10 bg-gold" />
-          <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase">{c.eyebrow}</span>
-        </div>
-        <h1 className="font-display text-5xl lg:text-6xl text-white mb-5">{c.title}</h1>
-        <p className="text-slate-300 text-lg max-w-xl leading-relaxed">
-          {c.lead}
-        </p>
-        <p className="text-slate-500 text-sm mt-4">{c.updated}</p>
-      </div>
-    </section>
+    <PageHero eyebrow={c.eyebrow} title={c.title} lead={c.lead}>
+      <p className="text-[13px]" style={{ color: 'var(--fg-subtle)', marginTop: -8 }}>{c.updated}</p>
+    </PageHero>
   )
 }
 
@@ -81,7 +70,7 @@ export function Contact({ c }: { c: LegalContent['contact'] }) {
       </div>
       <a
         href={`mailto:${legalEmail}`}
-        className="flex-shrink-0 px-6 py-3 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors"
+        className="btn btn-primary flex-shrink-0"
       >
         {legalEmail}
       </a>

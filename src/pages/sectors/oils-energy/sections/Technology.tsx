@@ -9,7 +9,7 @@ export default function Technology({ c }: { c: OilsEnergyContent }) {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8" style={{ background: SKY, color: 'var(--s0)' }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: SKY }}>
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: SKY }}>
                 {c.sectionCopy.technologyEyebrow}
               </span>
               <div className="h-px w-8" style={{ background: SKY, color: 'var(--s0)' }} />

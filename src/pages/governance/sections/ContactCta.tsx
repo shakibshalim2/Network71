@@ -12,7 +12,7 @@ export default function ContactCta({ c }: { c: GovernanceContent['contact'] }) {
         </div>
         <a
           href={`mailto:${legalEmail}`}
-          className="flex-shrink-0 px-6 py-3 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-colors"
+          className="btn btn-primary flex-shrink-0"
         >
           {legalEmail}
         </a>

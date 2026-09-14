@@ -32,24 +32,24 @@ export default function SectorContact({
   }
 
   const inputCls =
-    'w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-500 text-sm focus:outline-none focus:border-white/30 transition-colors'
+    'w-full px-4 py-3.5 rounded-[10px] text-[15px] bg-surface-2 border border-line-strong text-fg placeholder:text-fg-faint focus:outline-none focus:border-[var(--brand-edge)] focus:ring-2 focus:ring-[var(--brand-wash)] transition-colors'
 
   return (
-    <section id="sector-contact" className="bg-navy-dark py-20">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-14">
+    <section id="sector-contact" className="bg-navy-dark section-y">
+      <div className="container-page">
+        <div className="grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-12 lg:gap-16 items-start">
           {/* Left — contact info */}
           <div>
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-8" style={{ background: accentHex }} />
-              <span className="text-[10px] font-semibold tracking-[0.3em] uppercase" style={{ color: accentHex }}>
+              <span className="font-mono text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ color: accentHex }}>
                 {t('sector.contact.eyebrow')}
               </span>
             </div>
-            <h2 className="font-display text-3xl lg:text-4xl text-white mb-5">
+            <h2 className="font-display text-[32px] sm:text-[40px] lg:text-[46px] leading-[1.08] tracking-[-0.025em] text-white mb-5">
               {t('sector.contact.title', { division: divisionName })}
             </h2>
-            <p className="text-slate-400 leading-relaxed mb-10 text-sm">
+            <p className="text-slate-400 leading-[1.75] mb-10 text-[15px] sm:text-base max-w-md">
               {t('sector.contact.lead', { division: divisionName })}
             </p>
 
@@ -61,8 +61,8 @@ export default function SectorContact({
                   </svg>
                 </div>
                 <div>
-                  <div className="text-white font-medium text-sm">{t('sector.contact.email')}</div>
-                  <a href={`mailto:${settings.generalEmail}`} className="text-slate-400 text-sm hover:text-white transition-colors">{settings.generalEmail}</a>
+                  <div className="text-white font-medium text-[15px]">{t('sector.contact.email')}</div>
+                  <a href={`mailto:${settings.generalEmail}`} className="text-slate-400 text-[14px] hover:text-white transition-colors">{settings.generalEmail}</a>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -73,8 +73,8 @@ export default function SectorContact({
                   </svg>
                 </div>
                 <div>
-                  <div className="text-white font-medium text-sm">{t('sector.contact.hq')}</div>
-                  <div className="text-slate-400 text-sm">{settings.operatingAddress || t('sector.contact.hqValue')}</div>
+                  <div className="text-white font-medium text-[15px]">{t('sector.contact.hq')}</div>
+                  <div className="text-slate-400 text-[14px]">{settings.operatingAddress || t('sector.contact.hqValue')}</div>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -85,8 +85,8 @@ export default function SectorContact({
                   </svg>
                 </div>
                 <div>
-                  <div className="text-white font-medium text-sm">{t('sector.contact.web')}</div>
-                  <a href={settings.website} className="text-slate-400 text-sm hover:text-white transition-colors">{settings.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}</a>
+                  <div className="text-white font-medium text-[15px]">{t('sector.contact.web')}</div>
+                  <a href={settings.website} className="text-slate-400 text-[14px] hover:text-white transition-colors">{settings.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}</a>
                 </div>
               </div>
             </div>
@@ -105,23 +105,23 @@ export default function SectorContact({
                 <p className="text-slate-400 text-sm max-w-xs">{t('sector.contact.thanks', { division: divisionName, ref: inquiry.reference })}</p>
               </div>
             ) : (
-              <form onSubmit={submit} className="space-y-4">
+              <form onSubmit={submit} className="space-y-4 rounded-2xl p-5 sm:p-7 lg:p-8" style={{ background: 'var(--fill-1)', border: '1px solid var(--line)' }}>
                 {inquiry.error && <p role="alert" className="text-sm" style={{ color: 'var(--accent-red)' }}>{inquiry.error}</p>}
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <label className="text-sm text-slate-400"><span className="block mb-2">{t('sector.form.name')}</span><input className={inputCls} aria-label={t('sector.form.namePh')} name="name" placeholder={t('sector.form.namePh')} value={form.name} onChange={handle} required /></label>
-                  <label className="text-sm text-slate-400"><span className="block mb-2">{t('sector.form.company')}</span><input className={inputCls} aria-label={t('sector.form.company')} name="company" placeholder={t('sector.form.companyPh')} value={form.company} onChange={handle} /></label>
+                  <label className="text-[13.5px] text-slate-400"><span className="block mb-2 font-medium">{t('sector.form.name')}</span><input className={inputCls} aria-label={t('sector.form.namePh')} name="name" placeholder={t('sector.form.namePh')} value={form.name} onChange={handle} required /></label>
+                  <label className="text-[13.5px] text-slate-400"><span className="block mb-2 font-medium">{t('sector.form.company')}</span><input className={inputCls} aria-label={t('sector.form.company')} name="company" placeholder={t('sector.form.companyPh')} value={form.company} onChange={handle} /></label>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <label className="text-sm text-slate-400"><span className="block mb-2">{t('sector.form.email')}</span><input className={inputCls} aria-label={t('sector.form.emailPh')} type="email" name="email" placeholder={t('sector.form.emailPh')} value={form.email} onChange={handle} required /></label>
-                  <label className="text-sm text-slate-400"><span className="block mb-2">{t('sector.form.phone')}</span><input className={inputCls} aria-label={t('sector.form.phone')} type="tel" name="phone" placeholder={t('sector.form.phonePh')} value={form.phone} onChange={handle} /></label>
+                  <label className="text-[13.5px] text-slate-400"><span className="block mb-2 font-medium">{t('sector.form.email')}</span><input className={inputCls} aria-label={t('sector.form.emailPh')} type="email" name="email" placeholder={t('sector.form.emailPh')} value={form.email} onChange={handle} required /></label>
+                  <label className="text-[13.5px] text-slate-400"><span className="block mb-2 font-medium">{t('sector.form.phone')}</span><input className={inputCls} aria-label={t('sector.form.phone')} type="tel" name="phone" placeholder={t('sector.form.phonePh')} value={form.phone} onChange={handle} /></label>
                 </div>
-                <label className="text-sm text-slate-400"><span className="block mb-2">{t('sector.form.type')}</span>
+                <label className="text-[13.5px] text-slate-400"><span className="block mb-2 font-medium">{t('sector.form.type')}</span>
                 <select className={inputCls} aria-label={t('sector.form.type')} name="type" value={form.type} onChange={handle}>
                   <option value="" disabled>{t('sector.form.type')}</option>
                   {inquiryTypes.map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
                 </label>
-                <label className="text-sm text-slate-400"><span className="block mb-2">{t('sector.form.details')}</span>
+                <label className="text-[13.5px] text-slate-400"><span className="block mb-2 font-medium">{t('sector.form.details')}</span>
                 <textarea
                   className={`${inputCls} resize-none`}
                   aria-label={t('sector.form.details')}
@@ -136,12 +136,12 @@ export default function SectorContact({
                 <button
                   type="submit"
                   disabled={inquiry.busy}
-                  className="w-full py-3.5 font-semibold text-sm text-navy rounded-lg transition-all duration-200 hover:opacity-90"
-                  style={{ background: accentHex }}
+                  className="btn w-full text-navy hover:-translate-y-px hover:opacity-95"
+                  style={{ background: accentHex, boxShadow: `0 10px 28px -12px ${accentHex}` }}
                 >
                   {inquiry.busy ? t('sector.form.sending') : t('sector.form.send')}
                 </button>
-                <p className="text-slate-600 text-xs text-center">
+                <p className="text-slate-500 text-[13px] text-center leading-relaxed">
                   {t('sector.form.privacy')}
                 </p>
               </form>
