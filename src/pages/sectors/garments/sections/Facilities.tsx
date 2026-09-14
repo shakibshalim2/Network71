@@ -14,7 +14,7 @@ export default function Facilities({
             <div className="flex items-center gap-3 mb-5">
               <div className="h-px w-10" style={{ background: ACCENT }} />
               <span
-                className="font-mono text-[9px] tracking-[0.35em] uppercase"
+                className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium"
                 style={{ color: ACCENT }}
               >
                 {c.eyebrow}

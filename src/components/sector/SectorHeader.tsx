@@ -30,15 +30,13 @@ export default function SectorHeader({ divisionName, accentClass = 'text-gold' }
         {/* Right actions */}
         <div className="flex items-center gap-1 sm:gap-3 flex-shrink-0">
           <ThemeToggleButton size={40} />
-          <Link to="/" className="hidden sm:flex items-center gap-1.5 font-mono text-[10px] text-slate-500 hover:text-white transition-colors">
+          <Link to="/" className="hidden sm:flex items-center gap-1.5 font-mono text-[11px] tracking-[0.06em] text-slate-500 hover:text-white transition-colors">
             <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
             Network71
           </Link>
-          <a href="#sector-contact"
-            className="inline-flex items-center justify-center min-h-11 px-3 sm:px-4 text-xs font-semibold rounded-lg transition-all duration-150"
-            style={{ background: 'var(--brand-bright)', color: 'var(--fg-onbrand)' }}>
+          <a href="#sector-contact" className="btn btn-primary btn-sm">
             <span className="sm:hidden">{t('sector.enquire')}</span><span className="hidden sm:inline">{t('sector.contactDivision')}</span>
           </a>
         </div>

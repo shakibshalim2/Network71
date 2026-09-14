@@ -4,9 +4,12 @@ import {
   ScrollRestoration,
   Outlet,
   Navigate,
+  useLocation,
 } from "react-router-dom"
 import RouteExperience from "@/components/RouteExperience"
 import { useT } from "@/i18n"
+import { useSectionReveal } from "@/lib/useSectionReveal"
+import { useKineticHeadlines } from "@/lib/useKineticHeadlines"
 
 const Home = lazy(() => import("@/pages/Home"))
 const About = lazy(() => import("@/pages/About"))
@@ -53,6 +56,9 @@ function PageLoader() {
 
 function Root() {
   const { t } = useT()
+  const { pathname } = useLocation()
+  useSectionReveal()
+  useKineticHeadlines()
   return (
     <>
       <a className="skip-link" href="#main-content">
@@ -61,7 +67,7 @@ function Root() {
       <RouteExperience />
       <ScrollRestoration />
       <Suspense fallback={<PageLoader />}>
-        <div id="main-content" tabIndex={-1}>
+        <div id="main-content" tabIndex={-1} className={pathname.startsWith("/admin") ? undefined : "route-enter"} key={pathname}>
           <Outlet />
         </div>
       </Suspense>

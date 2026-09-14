@@ -8,7 +8,7 @@ export default function SupplyChain({ c }: { c: OilsEnergyContent }) {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: AMBER }}>
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: AMBER }}>
                 {c.sectionCopy.supplyEyebrow}
               </span>
               <div className="h-px w-8" style={{ background: AMBER, color: 'var(--s0)' }} />
@@ -43,7 +43,7 @@ export default function SupplyChain({ c }: { c: OilsEnergyContent }) {
 
           {/* SVG decorative network map */}
           <div className="mt-14 rounded-2xl overflow-hidden border border-slate-200 bg-surface-2 p-6">
-            <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4">{c.copy.supplySchematic}</div>
+            <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400 mb-4">{c.copy.supplySchematic}</div>
             <svg viewBox="0 0 800 260" className="w-full" style={{ maxHeight: 260 }}>
               {/* Background */}
               <rect width="800" height="260" fill="#f8fafc" rx="12" />

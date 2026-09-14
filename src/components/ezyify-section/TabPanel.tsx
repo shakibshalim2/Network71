@@ -17,7 +17,7 @@ export default function TabPanel({ tabIdx, onSelect }: Props) {
       >
         Ezyify
       </h2>
-      <p className="text-[15px] sm:text-[17px] font-light tracking-wide mb-7 sm:mb-10" style={{ maxWidth: 400, color: 'var(--fg-muted)' }}>
+      <p className="text-[16px] sm:text-[18px] font-light tracking-wide mb-7 sm:mb-10 leading-relaxed" style={{ maxWidth: 420, color: 'var(--fg-muted)' }}>
         {t('ezyify.tagline')}
       </p>
 
@@ -34,10 +34,10 @@ export default function TabPanel({ tabIdx, onSelect }: Props) {
             >
               <div className="h-8 sm:h-[34px]" style={{ width: 3, borderRadius: 2, background: i === tabIdx ? color : 'var(--line-strong)', flexShrink: 0, transition: 'background 0.3s' }} />
               <div className="flex-1 min-w-0 text-left">
-                <div className="text-[13px] sm:text-sm font-semibold mb-0.5 transition-colors duration-300" style={{ color: i === tabIdx ? 'var(--fg-strong)' : 'var(--fg-muted)' }}>
+                <div className="text-[15px] font-semibold mb-1 transition-colors duration-300" style={{ color: i === tabIdx ? 'var(--fg-strong)' : 'var(--fg-muted)' }}>
                   {t(tabKey(id, 'label'))}
                 </div>
-                <div className="text-[11px] sm:text-xs leading-snug transition-colors duration-300" style={{ color: i === tabIdx ? 'var(--fg-muted)' : 'var(--fg-subtle)' }}>
+                <div className="text-[13px] leading-snug transition-colors duration-300" style={{ color: i === tabIdx ? 'var(--fg-muted)' : 'var(--fg-subtle)' }}>
                   {t(tabKey(id, 'desc'))}
                 </div>
               </div>
@@ -51,7 +51,7 @@ export default function TabPanel({ tabIdx, onSelect }: Props) {
         {FEATURE_KEYS.map(f => (
           <div key={f} className="flex items-center gap-2.5">
             <div style={{ width: 4, height: 4, borderRadius: '50%', background: currentColor, flexShrink: 0 }} />
-            <span style={{ fontSize: 12, color: 'var(--fg-muted)' }}>{t(tabKey(currentId, f))}</span>
+            <span style={{ fontSize: 13.5, color: 'var(--fg-muted)' }}>{t(tabKey(currentId, f))}</span>
           </div>
         ))}
       </div>
@@ -59,7 +59,7 @@ export default function TabPanel({ tabIdx, onSelect }: Props) {
       <div className="flex items-center gap-4">
         <Link
           to="/ezyify"
-          className="group inline-flex items-center justify-center gap-2.5 sm:gap-3 w-full min-[400px]:w-auto px-6 sm:px-7 py-3.5 rounded-xl font-semibold text-white text-[13px] sm:text-sm transition-all duration-300 hover:scale-105"
+          className="group btn w-full min-[400px]:w-auto text-white hover:-translate-y-px hover:brightness-110"
           style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)', boxShadow: '0 0 32px rgba(124,58,237,0.28)' }}
         >
           {t('ezyify.cta')}
@@ -68,7 +68,7 @@ export default function TabPanel({ tabIdx, onSelect }: Props) {
           </svg>
         </Link>
       </div>
-      <p className="font-mono text-[10px] tracking-wide mt-4" style={{ color: 'var(--fg-faint)' }}>{t('ezyify.partOf')}</p>
+      <p className="font-mono text-[11px] tracking-wide mt-5" style={{ color: 'var(--fg-subtle)' }}>{t('ezyify.partOf')}</p>
     </div>
   )
 }

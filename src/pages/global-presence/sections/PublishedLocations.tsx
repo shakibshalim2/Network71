@@ -15,7 +15,7 @@ export default function PublishedLocations() {
     <section className="py-20 px-6 bg-navy-dark">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-10">
-          <p className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium mb-3">
+          <p className="font-mono text-[11px] tracking-[0.2em] text-gold uppercase font-medium mb-3">
             {bn ? "অনুমোদিত তথ্য" : "Approved information"}
           </p>
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">

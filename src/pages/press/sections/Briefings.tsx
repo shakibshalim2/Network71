@@ -13,7 +13,7 @@ export default function Briefings({ c }: { c: PressContent['briefings'] }) {
           </div>
           <a
             href={`mailto:${pressEmail}`}
-            className="flex-shrink-0 px-5 py-2.5 border border-gold/25 text-gold text-sm font-medium rounded-lg hover:bg-gold/8 transition-colors"
+            className="btn btn-ghost btn-sm flex-shrink-0"
           >
             {c.enquiriesLabel}
           </a>

@@ -9,7 +9,7 @@ export default function Services({ c }: { c: EShipeContent["services"] }) {
           <div className="flex items-center justify-center gap-3 mb-5">
             <i className="h-px w-8" style={{ background: OCEAN }} />
             <span
-              className="font-mono text-[9px] tracking-[0.35em] uppercase"
+              className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium"
               style={{ color: OCEAN }}
             >
               {c.eyebrow}

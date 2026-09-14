@@ -8,7 +8,7 @@ export default function Infrastructure({ c }: { c: TradingContent }) {
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8" style={{ background: BLUE, color: 'var(--s0)' }} />
-              <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: BLUE }}>{c.copy.infrastructureEyebrow}</span>
+              <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: BLUE }}>{c.copy.infrastructureEyebrow}</span>
               <div className="h-px w-8" style={{ background: BLUE, color: 'var(--s0)' }} />
             </div>
             <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">{c.copy.infrastructureTitle}</h2>
@@ -50,7 +50,7 @@ export default function Infrastructure({ c }: { c: TradingContent }) {
                   {t.icon}
                 </div>
                 <div className="mb-1">
-                  <span className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: BLUE }}>{t.tag}</span>
+                  <span className="text-[11px] font-semibold tracking-[0.14em] uppercase" style={{ color: BLUE }}>{t.tag}</span>
                 </div>
                 <h3 className="font-display text-2xl text-fg mb-4">{t.mode}</h3>
                 <ul className="space-y-2.5 mb-5">

@@ -11,7 +11,7 @@ export default function Cta({ c }: { c: SustainabilityContent['cta'] }) {
         <p className="text-slate-400 text-lg mb-10 leading-relaxed">{c.text}</p>
         <Link
           to="/contact"
-          className="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-gold text-on-brand font-semibold hover:bg-gold-light transition-colors"
+          className="btn btn-primary"
         >
           {c.button}
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

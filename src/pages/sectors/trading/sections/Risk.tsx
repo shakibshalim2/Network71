@@ -9,7 +9,7 @@ export default function Risk({ c }: { c: TradingContent }) {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="h-px w-8" style={{ background: BLUE, color: 'var(--s0)' }} />
-                <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: BLUE }}>{c.copy.riskEyebrow}</span>
+                <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: BLUE }}>{c.copy.riskEyebrow}</span>
               </div>
               <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-6">{c.copy.riskTitle}</h2>
               <p className="text-slate-500 leading-relaxed mb-5">{c.copy.riskLead1}</p>

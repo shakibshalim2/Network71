@@ -87,13 +87,13 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             to="/"
-            className="px-8 py-3.5 bg-gold text-on-brand text-sm font-semibold rounded-lg hover:bg-gold-light transition-all duration-200 shadow-lg shadow-gold/20"
+            className="btn btn-primary"
           >
             {t('notFound.goHome')}
           </Link>
           <Link
             to="/contact"
-            className="px-8 py-3.5 border border-white/20 text-white text-sm font-medium rounded-lg hover:bg-white/5 hover:border-white/40 transition-all duration-200"
+            className="btn btn-secondary"
           >
             {t('notFound.contact')}
           </Link>

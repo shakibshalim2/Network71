@@ -8,24 +8,26 @@ export default function HeroTicker() {
     <div style={{
       background: 'var(--s-inset)',
       borderTop: '1px solid var(--fill-1)',
-      padding: '10px 0',
+      padding: '13px 0',
       overflow: 'hidden',
       position: 'relative', zIndex: 10,
+      maskImage: 'linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)',
+      WebkitMaskImage: 'linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)',
     }}>
       <div style={{ display: 'flex', whiteSpace: 'nowrap', animation: 'marquee 44s linear infinite' }}>
         {[...ticker, ...ticker, ...ticker].map((name, i) => (
           <span
             key={i}
-            className="gap-2.5 px-3.5 text-[8px] tracking-[0.2em] sm:gap-4 sm:px-6 sm:text-[9px] sm:tracking-[0.32em]"
+            className="gap-3 px-4 text-[11px] tracking-[0.16em] sm:gap-4 sm:px-6"
             style={{
               display: 'inline-flex', alignItems: 'center',
               fontFamily: 'var(--font-mono)',
-              color: 'var(--fg-faint)',
+              color: 'var(--fg-subtle)',
               textTransform: 'uppercase',
             }}
           >
             {name}
-            <span style={{ display: 'inline-block', width: 3.5, height: 3.5, borderRadius: '50%', background: 'var(--brand-edge)', flexShrink: 0 }} />
+            <span style={{ display: 'inline-block', width: 4, height: 4, borderRadius: '50%', background: 'var(--brand-edge)', flexShrink: 0 }} />
           </span>
         ))}
       </div>

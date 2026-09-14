@@ -79,11 +79,11 @@ export default function About() {
               <CompassIcon />
             </div>
             <h2 className="font-display" style={{
-              fontSize: 'clamp(23px, 5vw, 34px)',
+              fontSize: 'clamp(28px, 5vw, 38px)',
               color: 'var(--fg-strong)',
-              lineHeight: 1.18,
-              letterSpacing: '-0.02em',
-              marginBottom: 14,
+              lineHeight: 1.12,
+              letterSpacing: '-0.025em',
+              marginBottom: 16,
             }}>
               {t('about.title1')}
               <br />
@@ -91,20 +91,20 @@ export default function About() {
               <br />
               <em style={{ color: 'var(--brand-fg)' }}>{t('about.title3')}</em>
             </h2>
-            <p className="text-[13.5px] sm:text-[13px]" style={{
+            <p className="text-[15px]" style={{
               color: 'var(--fg-muted)',
-              lineHeight: 1.72,
-              maxWidth: 320,
-              marginBottom: 20,
+              lineHeight: 1.75,
+              maxWidth: 360,
+              marginBottom: 22,
             }}>
               {t('about.lead')}
             </p>
             <Link
               to={t('home.about.href')}
               style={{
-                display: 'inline-flex', alignItems: 'center', gap: 6,
-                fontSize: 12, fontWeight: 600, color: 'var(--brand-fg)',
-                textDecoration: 'none',
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                fontSize: 14, fontWeight: 600, color: 'var(--brand-fg)',
+                textDecoration: 'none', minHeight: 44,
                 transition: 'opacity 0.15s',
               }}
               onMouseEnter={e => { e.currentTarget.style.opacity = '0.75' }}
@@ -122,25 +122,26 @@ export default function About() {
             {values.map(({ key, icon }) => (
               <div
                 key={key}
-                className="p-3.5 sm:p-[18px_16px]"
+                className="card-lift p-4 sm:p-5"
                 style={{
                   background: 'var(--fill-1)',
                   border: '1px solid var(--line)',
-                  borderRadius: 12,
+                  borderRadius: 14,
                 }}
               >
                 <div
-                  className="w-8 h-8 sm:w-[34px] sm:h-[34px] mb-2.5"
+                  className="w-10 h-10 mb-3.5"
                   style={{
                     color: 'var(--brand-fg)',
-                    background: 'rgba(200,150,42,0.1)',
-                    borderRadius: 8,
+                    background: 'var(--brand-wash)',
+                    border: '1px solid var(--brand-edge)',
+                    borderRadius: 10,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                   }}>
                   {icon}
                 </div>
-                <div className="text-[12.5px] sm:text-[13px]" style={{ fontWeight: 700, color: 'var(--fg)', marginBottom: 5 }}>{t(`about.${key}.title`)}</div>
-                <div className="text-[10.5px] sm:text-[11px]" style={{ color: 'var(--fg-subtle)', lineHeight: 1.55 }}>{t(`about.${key}.desc`)}</div>
+                <div className="text-[15px]" style={{ fontWeight: 600, color: 'var(--fg-strong)', marginBottom: 6, letterSpacing: '-0.01em' }}>{t(`about.${key}.title`)}</div>
+                <div className="text-[13px]" style={{ color: 'var(--fg-muted)', lineHeight: 1.6 }}>{t(`about.${key}.desc`)}</div>
               </div>
             ))}
           </div>
@@ -172,8 +173,8 @@ export default function About() {
               backdropFilter: 'blur(8px)',
             }}>
               <span style={{
-                fontFamily: 'var(--font-mono)', fontSize: 9,
-                color: 'var(--brand-fg)', letterSpacing: '0.2em', textTransform: 'uppercase',
+                fontFamily: 'var(--font-mono)', fontSize: 11,
+                color: 'var(--brand-fg)', letterSpacing: '0.16em', textTransform: 'uppercase',
               }}>
                 Network71
               </span>
@@ -182,17 +183,8 @@ export default function About() {
             <div className="p-4 sm:p-[20px_18px]" style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
               <Link
                 to="/contact"
-                className="text-[12.5px] sm:text-[13px]"
-                style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  padding: '12px 16px', borderRadius: 8,
-                  background: 'var(--brand)', color: 'var(--fg-onbrand)',
-                  fontWeight: 700,
-                  textDecoration: 'none',
-                  transition: 'background 0.18s',
-                }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-bright)' }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'var(--brand)' }}
+                className="btn btn-primary"
+                style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}
               >
                 {t('about.partner')}
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" style={{ width: 16, height: 16 }}>

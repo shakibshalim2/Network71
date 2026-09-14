@@ -19,7 +19,7 @@ export default function AILab({ c }: { c: ITContent }) {
         <div className="flex items-center gap-3 mb-4">
           <div className="h-px w-10" style={{ background: PURPLE }} />
           <span
-            className="font-mono text-[9px] tracking-[0.35em] uppercase"
+            className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium"
             style={{ color: PURPLE }}
           >
             AI Research &amp; Development
@@ -72,7 +72,7 @@ export default function AILab({ c }: { c: ITContent }) {
                   }}
                 >
                   <div
-                    className="text-[10px] font-bold tracking-wider mb-1.5 uppercase"
+                    className="text-[11px] font-bold tracking-[0.14em] mb-1.5 uppercase"
                     style={{ color: m.color }}
                   >
                     {m.type}

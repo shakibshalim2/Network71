@@ -6,7 +6,7 @@ export default function WorldMap({ c }: { c: GlobalPresenceContent['map'] }) {
     <section className="py-20 px-6 bg-navy">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-10">
-          <p className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium mb-3">{c.eyebrow}</p>
+          <p className="font-mono text-[11px] tracking-[0.2em] text-gold uppercase font-medium mb-3">{c.eyebrow}</p>
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-3 tracking-[-0.02em]">{c.title}</h2>
           <p className="text-slate-400 max-w-xl mx-auto text-sm">
             {c.lead}

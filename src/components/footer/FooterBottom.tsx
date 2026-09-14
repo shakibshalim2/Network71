@@ -41,7 +41,7 @@ export default function FooterBottom() {
         <span
           style={{
             fontFamily: "var(--font-mono)",
-            fontSize: 9.5,
+            fontSize: 12,
             color: "var(--fg-faint)",
           }}
         >
@@ -58,7 +58,7 @@ export default function FooterBottom() {
             className="tap-inline"
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: 9.5,
+              fontSize: 12,
               color: "var(--fg-faint)",
               textDecoration: "none",
               transition: "color 0.14s",
@@ -80,7 +80,7 @@ export default function FooterBottom() {
         className="wrap-anywhere tap-inline"
         style={{
           fontFamily: "var(--font-mono)",
-          fontSize: 9.5,
+          fontSize: 12,
           color: "var(--fg-subtle)",
           textDecoration: "none",
         }}

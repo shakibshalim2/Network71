@@ -60,7 +60,7 @@ export default function Openings({
         <div className="text-center mb-14">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="h-px w-12 bg-gold" />
-            <span className="font-mono text-[9px] tracking-[0.35em] text-gold uppercase font-medium">
+            <span className="font-mono text-[11px] tracking-[0.2em] text-gold uppercase font-medium">
               {c.eyebrow}
             </span>
             <div className="h-px w-12 bg-gold" />
@@ -132,7 +132,7 @@ export default function Openings({
               <button
                 type="button"
                 onClick={() => onApply({ slug: job.slug, title: job.title })}
-                className="flex-shrink-0 px-5 py-2.5 bg-gold text-on-brand text-xs font-semibold rounded hover:bg-gold-light transition-colors"
+                className="btn btn-primary btn-sm flex-shrink-0"
               >
                 {c.apply}
               </button>

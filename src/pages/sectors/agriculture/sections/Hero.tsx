@@ -39,7 +39,7 @@ export default function Hero({ c }: { c: AgricultureContent["hero"] }) {
               style={{ background: GREEN, color: "var(--s0)" }}
             />
             <span
-              className="font-mono text-[9px] tracking-[0.35em] uppercase"
+              className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium"
               style={{ color: GREEN }}
             >
               {c.eyebrow}
