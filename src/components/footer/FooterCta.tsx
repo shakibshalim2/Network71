@@ -1,93 +1,123 @@
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { motion } from "motion/react"
 import { useT } from "@/i18n"
+import { EASE_OUT } from "@/lib/motion"
 
+const rise = {
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE_OUT } },
+}
+
+function useDhakaTime() {
+  const [time, setTime] = useState("")
+  useEffect(() => {
+    const fmt = new Intl.DateTimeFormat("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: "Asia/Dhaka",
+    })
+    const tick = () => setTime(fmt.format(new Date()))
+    tick()
+    const id = window.setInterval(tick, 15_000)
+    return () => window.clearInterval(id)
+  }, [])
+  return time
+}
+
+/**
+ * Closing signature: an oversized wordmark that reveals on scroll, the brand
+ * statement as a three-line poem, and a live Dhaka clock — the footer reads
+ * as a place, not a sitemap.
+ */
 export default function FooterCta() {
   const { t } = useT()
+  const time = useDhakaTime()
+  const lines = [t("about.title1"), t("about.title2"), t("about.title3")]
+
   return (
-    <div
-      style={{
-        borderTop: "1px solid var(--line)",
-        borderBottom: "1px solid var(--line)",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      {/* Subtle radial glow */}
-      <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "min(600px, 100%)",
-          height: 300,
-          background:
-            "radial-gradient(ellipse, rgba(200,150,42,0.055) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
-
-      <div
-        className="container-page py-14 sm:py-[72px] lg:pt-20 lg:pb-[72px]"
-        style={{ textAlign: "center", position: "relative" }}
-      >
-        <p
-          className="text-[11px] tracking-[0.2em]"
-          style={{
-            fontFamily: "var(--font-mono)",
-            textTransform: "uppercase",
-            color: "var(--brand-fg)",
-            marginBottom: 20,
+    <div className="foot-sig">
+      <div className="container-page foot-sig__inner">
+        <motion.div
+          className="foot-sig__grid"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.1 } },
           }}
         >
-          {t("footer.eyebrow")}
-        </p>
+          <div>
+            <motion.p variants={rise} className="foot-sig__eyebrow">
+              <span className="eyebrow-rule" />
+              {t("footer.eyebrow")}
+            </motion.p>
+            <h2 className="foot-sig__poem font-display">
+              {lines.map((line, i) => (
+                <motion.span
+                  key={line}
+                  variants={rise}
+                  className={`foot-sig__line foot-sig__line--${i}`}
+                >
+                  {line}
+                </motion.span>
+              ))}
+            </h2>
+          </div>
 
-        <h2
+          <motion.div variants={rise} className="foot-sig__side">
+            <p className="foot-sig__lead">{t("footer.lead")}</p>
+            <div className="foot-sig__actions">
+              <Link to="/contact" className="btn btn-primary">
+                {t("footer.ctaContact")}
+                <svg
+                  fill="none"
+                  viewBox="0 0 16 16"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3 8h10M8 3l5 5-5 5"
+                  />
+                </svg>
+              </Link>
+              <Link to="/about" className="btn btn-secondary">
+                {t("footer.ctaAbout")}
+              </Link>
+            </div>
+            <dl className="foot-sig__meta">
+              <div>
+                <dt>{t("hero.stat1.label")}</dt>
+                <dd>
+                  {t("hero.stat1.value")}{" "}
+                  <span className="foot-sig__clock" aria-live="off">
+                    {time}
+                  </span>
+                </dd>
+              </div>
+              <div>
+                <dt>{t("hero.stat2.label")}</dt>
+                <dd>{t("hero.stat2.value")}</dd>
+              </div>
+            </dl>
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Oversized wordmark — clipped at the bottom edge like a watermark */}
+      <div className="foot-sig__mark" aria-hidden="true">
+        <motion.span
+          initial={{ y: "40%", opacity: 0 }}
+          whileInView={{ y: "0%", opacity: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 1.1, ease: EASE_OUT }}
           className="font-display"
-          style={{
-            fontSize: "clamp(30px, 6.4vw, 60px)",
-            lineHeight: 1.08,
-            letterSpacing: "-0.03em",
-            color: "var(--fg-strong)",
-            marginBottom: 0,
-          }}
         >
-          {t("about.title1")}
-          <br />
-          <span style={{ color: "var(--brand-fg)" }}>{t("about.title2")}</span>
-          <br />
-          <span style={{ color: "var(--fg-subtle)" }}>{t("about.title3")}</span>
-        </h2>
-
-        <p
-          className="text-[15px] sm:text-[16px] mt-6 mb-8 sm:mt-7 sm:mb-10"
-          style={{
-            color: "var(--fg-subtle)",
-            lineHeight: 1.7,
-            maxWidth: 480,
-            marginInline: "auto",
-          }}
-        >
-          {t("footer.lead")}
-        </p>
-
-        {/* CTA buttons — stack full width on narrow phones */}
-        <div className="flex flex-col min-[400px]:flex-row min-[400px]:flex-wrap items-stretch min-[400px]:items-center justify-center gap-3">
-          <Link to="/about" className="btn btn-primary btn-stack">
-            {t("footer.ctaAbout")}
-            <svg fill="none" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2.2">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3 8h10M8 3l5 5-5 5"
-              />
-            </svg>
-          </Link>
-          <Link to="/contact" className="btn btn-secondary btn-stack">
-            {t("footer.ctaContact")}
-          </Link>
-        </div>
+          Network71
+        </motion.span>
       </div>
     </div>
   )
