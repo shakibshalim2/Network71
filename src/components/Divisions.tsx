@@ -41,11 +41,11 @@ export default function Divisions() {
       <div className="container-page">
 
         {/* Section header */}
-        <div className="text-center mb-8 sm:mb-12">
-          <div className="flex items-center justify-center gap-2.5 sm:gap-3 mb-4">
-            <div className="h-px w-6 sm:w-10" style={{ background: 'var(--brand-edge)' }} />
+        <div className="text-center mb-10 sm:mb-14">
+          <div className="flex items-center justify-center gap-3 mb-5">
+            <div className="h-px w-7 sm:w-10" style={{ background: 'var(--brand-edge)' }} />
             <span
-              className="text-[8px] tracking-[0.22em] sm:text-[9px] sm:tracking-[0.35em]"
+              className="text-[11px] tracking-[0.2em]"
               style={{
                 fontFamily: 'var(--font-mono)',
                 textTransform: 'uppercase',
@@ -53,11 +53,11 @@ export default function Divisions() {
               }}>
               {t('divisions.eyebrow')}
             </span>
-            <div className="h-px w-6 sm:w-10" style={{ background: 'var(--brand-edge)' }} />
+            <div className="h-px w-7 sm:w-10" style={{ background: 'var(--brand-edge)' }} />
           </div>
           <h2 className="font-display text-balance" style={{
-            fontSize: 'clamp(25px, 5.6vw, 48px)',
-            color: 'var(--fg-strong)', lineHeight: 1.14, letterSpacing: '-0.025em',
+            fontSize: 'clamp(30px, 5.6vw, 52px)',
+            color: 'var(--fg-strong)', lineHeight: 1.1, letterSpacing: '-0.03em',
           }}>
             {t('divisions.title1')} <em style={{ color: 'var(--brand-fg)' }}>{t('divisions.title2')}</em>
           </h2>
@@ -73,7 +73,7 @@ export default function Divisions() {
               <Link
                 key={item.id}
                 to={item.href}
-                className="force-dark group relative overflow-hidden rounded-xl block"
+                className="force-dark group division-card relative overflow-hidden rounded-2xl block"
                 style={{ aspectRatio: '3/4', background: 'var(--s2)' }}
               >
                 {/* Image */}
@@ -95,24 +95,24 @@ export default function Divisions() {
                 />
 
                 {/* Border */}
-                <div className="absolute inset-0 rounded-xl border border-white/[0.10] group-hover:border-white/25 transition-colors duration-300 pointer-events-none" />
+                <div className="absolute inset-0 rounded-2xl border border-white/[0.10] group-hover:border-white/25 transition-colors duration-300 pointer-events-none" />
 
                 {/* Tag */}
-                <div className="absolute top-3 left-3">
+                <div className="absolute top-4 left-4">
                   <span
-                    className="inline-block px-2 py-0.5 rounded-full font-mono text-[8px] font-semibold tracking-wider uppercase"
-                    style={{ background: `color-mix(in srgb, ${item.tagColor} 12%, transparent)`, color: item.tagColor, border: `1px solid color-mix(in srgb, ${item.tagColor} 25%, transparent)` }}
+                    className="inline-block px-2.5 py-1 rounded-full font-mono text-[11px] font-semibold tracking-[0.12em] uppercase"
+                    style={{ background: 'rgba(4,8,14,0.55)', color: item.tagColor, border: `1px solid color-mix(in srgb, ${item.tagColor} 40%, transparent)`, backdropFilter: 'blur(8px)' }}
                   >
                     {item.tag}
                   </span>
                 </div>
 
                 {/* Bottom content */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-3 xl:p-4">
+                <div className="division-card__body absolute bottom-0 left-0 right-0 p-5 md:p-4 xl:p-5">
                   {item.isEzyify ? (
                     <>
                       <div
-                        className="font-display text-[19px] md:text-[18px] xl:text-xl mb-1.5 leading-tight"
+                        className="font-display text-[22px] md:text-[20px] xl:text-[23px] mb-2 leading-tight"
                         style={{
                           background: 'linear-gradient(135deg, #A855F7 0%, #EC4899 60%, #22D3EE 100%)',
                           WebkitBackgroundClip: 'text',
@@ -122,25 +122,25 @@ export default function Divisions() {
                       >
                         {item.title}
                       </div>
-                      <p className="text-slate-300/60 text-[11.5px] md:text-[11px] leading-relaxed mb-2.5">{item.desc}</p>
-                      <span className="flex items-center gap-1.5 text-[10px] font-semibold font-mono tracking-wide"
+                      <p className="division-card__desc text-[13.5px] md:text-[13px] leading-[1.6] mb-3" style={{ color: 'rgba(226,232,240,0.86)' }}>{item.desc}</p>
+                      <span className="flex items-center gap-1.5 text-[12px] font-semibold tracking-[0.02em]"
                         style={{ color: 'var(--accent-purple)' }}>
                         {t('divisions.explorePlatform')}
-                        <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
                       </span>
                     </>
                   ) : (
                     <>
-                      <h3 className="font-display text-white leading-tight mb-1.5 text-[16px] md:text-[15px] xl:text-[17px]">
+                      <h3 className="font-display text-white leading-[1.15] mb-2 text-[20px] md:text-[18px] xl:text-[21px]">
                         {item.title}
                       </h3>
-                      <p className="text-slate-300/60 text-[11.5px] md:text-[11px] leading-relaxed mb-2.5">{item.desc}</p>
-                      <span className="flex items-center gap-1.5 text-[10px] font-semibold font-mono tracking-wide"
+                      <p className="division-card__desc text-[13.5px] md:text-[13px] leading-[1.6] mb-3" style={{ color: 'rgba(226,232,240,0.86)' }}>{item.desc}</p>
+                      <span className="flex items-center gap-1.5 text-[12px] font-semibold tracking-[0.02em]"
                         style={{ color: item.tagColor }}>
                         {t('divisions.explore')}
-                        <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                         </svg>
                       </span>

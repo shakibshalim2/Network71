@@ -33,7 +33,7 @@ export default function Ezyify() {
             className="flex items-center gap-2 px-3.5 py-2 sm:gap-3 sm:px-5 sm:py-2.5 rounded-full"
             style={{ border: '1px solid rgba(124,58,237,0.3)', background: 'rgba(124,58,237,0.07)' }}>
             <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: 'var(--brand)', boxShadow: '0 0 6px var(--brand)' }} />
-            <span className="font-mono text-[7.5px] tracking-[0.18em] sm:text-[9px] sm:tracking-[0.3em] uppercase text-center" style={{ color: 'var(--fg-muted)' }}>
+            <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-center" style={{ color: 'var(--fg-muted)' }}>
               {t('ezyify.badge')}
             </span>
           </div>

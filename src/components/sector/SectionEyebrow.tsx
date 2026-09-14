@@ -10,7 +10,7 @@ export default function SectionEyebrow({ label, color, center = false, className
   return (
     <div className={`flex items-center gap-3 ${center ? 'justify-center' : ''} ${className}`}>
       <div className={`h-px ${center ? 'w-8' : 'w-10'}`} style={{ background: color }} />
-      <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color }}>{label}</span>
+      <span className="font-mono text-[11px] tracking-[0.2em] uppercase" style={{ color }}>{label}</span>
       {center && <div className="h-px w-8" style={{ background: color }} />}
     </div>
   )

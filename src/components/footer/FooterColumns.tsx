@@ -21,11 +21,11 @@ function PublishedLink({ item }: { item: PublicNavItem }) {
     },
   }
   return /^https?:\/\//.test(item.href) ? (
-    <a className="tap-inline text-[12px] sm:text-[12.5px]" href={item.href} style={style} {...events}>
+    <a className="tap-inline text-[13.5px]" href={item.href} style={style} {...events}>
       {item.title}
     </a>
   ) : (
-    <Link className="tap-inline text-[12px] sm:text-[12.5px]" to={item.href} style={style} {...events}>
+    <Link className="tap-inline text-[13.5px]" to={item.href} style={style} {...events}>
       {item.title}
     </Link>
   )
@@ -36,7 +36,7 @@ function Col({ title, links }: { title: TKey; links: FooterLink[] }) {
   return (
     <div>
       <h4
-        className="text-[8px] tracking-[0.2em] sm:text-[8.5px] sm:tracking-[0.28em] mb-4 sm:mb-5"
+        className="text-[11px] tracking-[0.18em] mb-4 sm:mb-5"
         style={{
           fontFamily: "var(--font-mono)",
           fontWeight: 700,
@@ -47,7 +47,7 @@ function Col({ title, links }: { title: TKey; links: FooterLink[] }) {
         {t(title)}
       </h4>
       <ul
-        className="gap-2.5 sm:gap-[11px]"
+        className="gap-3"
         style={{
           listStyle: "none",
           margin: 0,
@@ -60,7 +60,7 @@ function Col({ title, links }: { title: TKey; links: FooterLink[] }) {
           <li key={label}>
             <Link
               to={href}
-              className="tap-inline text-[12px] sm:text-[12.5px]"
+              className="tap-inline text-[13.5px]"
               style={{
                 lineHeight: 1.45,
                 color: "var(--fg-subtle)",
@@ -94,7 +94,7 @@ export default function FooterColumns() {
         style={{ borderBottom: "1px solid var(--line)" }}
       >
         <h4
-          className="col-span-full text-[8px] tracking-[0.2em] sm:text-[8.5px] sm:tracking-[0.28em]"
+          className="col-span-full text-[11px] tracking-[0.18em]"
           style={{ fontFamily: "var(--font-mono)", fontWeight: 700, textTransform: "uppercase", color: "var(--brand-fg)" }}
         >
           {language === "bn" ? "প্রকাশিত লিংক" : "Published links"}

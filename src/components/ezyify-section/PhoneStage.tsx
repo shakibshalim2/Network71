@@ -5,7 +5,7 @@ import type { TabId } from './data'
 export default function PhoneStage({ tabId, color }: { tabId: TabId, color: string }) {
   const { t } = useT()
   return (
-    <div className="force-dark flex justify-center items-center relative py-6 sm:py-12">
+    <div className="force-dark phone-ui flex justify-center items-center relative py-6 sm:py-12">
       {/* Ambient glow tied to active tab */}
       <div className="w-[240px] h-[240px] sm:w-[340px] sm:h-[340px]" style={{ position: 'absolute', borderRadius: '50%', background: `color-mix(in srgb, ${color} 7%, transparent)`, filter: 'blur(72px)', transition: 'background 0.5s', pointerEvents: 'none' }} />
 

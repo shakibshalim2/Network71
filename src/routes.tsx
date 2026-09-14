@@ -7,6 +7,7 @@ import {
 } from "react-router-dom"
 import RouteExperience from "@/components/RouteExperience"
 import { useT } from "@/i18n"
+import { useSectionReveal } from "@/lib/useSectionReveal"
 
 const Home = lazy(() => import("@/pages/Home"))
 const About = lazy(() => import("@/pages/About"))
@@ -53,6 +54,7 @@ function PageLoader() {
 
 function Root() {
   const { t } = useT()
+  useSectionReveal()
   return (
     <>
       <a className="skip-link" href="#main-content">

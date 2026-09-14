@@ -48,12 +48,12 @@ export default function HeroStats() {
           {stats.map(({ icon, value, label, sub }, i) => (
             <div
               key={label}
-              className={`flex items-center gap-2.5 sm:gap-3.5 px-2 py-3.5 sm:px-4 sm:py-[18px] ${cls[i]}`}
+              className={`flex items-center gap-3 sm:gap-4 px-2 py-4 sm:px-5 sm:py-5 ${cls[i]}`}
             >
               <div
-                className="w-8 h-8 sm:w-[38px] sm:h-[38px] rounded-lg sm:rounded-[10px]"
+                className="w-9 h-9 sm:w-11 sm:h-11 rounded-[10px] sm:rounded-xl"
                 style={{
-                  background: 'rgba(200,150,42,0.1)',
+                  background: 'var(--brand-wash)',
                   border: '1px solid var(--brand-edge)',
                   color: 'var(--brand-fg)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -63,21 +63,21 @@ export default function HeroStats() {
               </div>
               <div style={{ minWidth: 0 }}>
                 <div
-                  className="font-display text-[19px] sm:text-[23px]"
+                  className="font-display text-[21px] sm:text-[24px]"
                   style={{ color: 'var(--fg-strong)', lineHeight: 1, letterSpacing: '-0.02em' }}>
                   {value}
                 </div>
                 <div
-                  className="text-[7.5px] tracking-[0.14em] sm:text-[8.5px] sm:tracking-[0.22em]"
+                  className="text-[11px] tracking-[0.14em]"
                   style={{
                     fontFamily: 'var(--font-mono)',
                     textTransform: 'uppercase',
-                    color: 'var(--brand-fg)', marginTop: 3,
+                    color: 'var(--brand-fg)', marginTop: 5,
                   }}>
                   {label}
                 </div>
                 {/* Sub-caption is noise at phone widths */}
-                <div className="hidden sm:block" style={{ fontSize: 10.5, color: 'var(--fg-subtle)', marginTop: 2 }}>{sub}</div>
+                <div className="hidden sm:block" style={{ fontSize: 12.5, color: 'var(--fg-subtle)', marginTop: 3 }}>{sub}</div>
               </div>
             </div>
           ))}

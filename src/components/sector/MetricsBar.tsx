@@ -16,15 +16,15 @@ export default function MetricsBar({ metrics, accentHex, dark = false }: Metrics
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="sector-metrics grid grid-cols-2 lg:grid-cols-4">
           {metrics.map((m, i) => (
-            <div key={i} className="min-w-0 px-2 sm:px-6 py-6 sm:py-8 text-center">
+            <div key={i} className="min-w-0 px-3 sm:px-6 py-7 sm:py-9 text-center">
               <div
-                className="font-display text-2xl sm:text-3xl lg:text-4xl mb-2 break-words"
+                className="font-display text-[28px] sm:text-4xl lg:text-[44px] mb-2.5 break-words leading-none tracking-[-0.02em]"
                 style={{ color: accentHex }}
               >
                 {m.value}
               </div>
-              <div className="font-mono text-[11px] font-semibold tracking-[0.1em] uppercase text-fg-muted mb-1">{m.label}</div>
-              {m.desc && <div className="text-xs text-fg-subtle leading-relaxed">{m.desc}</div>}
+              <div className="font-mono text-[11px] font-semibold tracking-[0.14em] uppercase text-fg-muted mb-1.5">{m.label}</div>
+              {m.desc && <div className="text-[13px] text-fg-subtle leading-relaxed">{m.desc}</div>}
             </div>
           ))}
         </div>

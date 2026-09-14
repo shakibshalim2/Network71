@@ -38,7 +38,7 @@ export default function HotspotCard({ hotspot, onClose }: Props) {
         backdropFilter: 'blur(22px)',
         WebkitBackdropFilter: 'blur(22px)',
         boxShadow: 'var(--shadow-pop)',
-        width: 'min(252px, calc(100vw - var(--gutter) * 2))',
+        width: 'min(280px, calc(100vw - var(--gutter) * 2))',
         textAlign: 'center',
       }}>
 
@@ -50,8 +50,8 @@ export default function HotspotCard({ hotspot, onClose }: Props) {
             animation: 'pulse-slow 2.2s ease-in-out infinite',
           }} />
           <span style={{
-            fontFamily: 'var(--font-mono)', fontSize: 8,
-            letterSpacing: '0.30em', color: 'var(--brand-fg)',
+            fontFamily: 'var(--font-mono)', fontSize: 11,
+            letterSpacing: '0.18em', color: 'var(--brand-fg)',
             textTransform: 'uppercase',
           }}>
             {hotspot.role}
@@ -87,8 +87,8 @@ export default function HotspotCard({ hotspot, onClose }: Props) {
             <path d="M3.5 3.5l1.5 1.5M11 11l1.5 1.5M3.5 12.5l1.5-1.5M11 5l1.5-1.5" stroke="var(--brand)" strokeWidth="1" strokeLinecap="round" opacity="0.5" />
           </svg>
           <span style={{
-            fontFamily: 'var(--font-mono)', fontSize: 8.5,
-            color: 'var(--brand-fg)', letterSpacing: '0.12em', textTransform: 'uppercase',
+            fontFamily: 'var(--font-mono)', fontSize: 11,
+            color: 'var(--brand-fg)', letterSpacing: '0.1em', textTransform: 'uppercase',
           }}>
             {hotspot.division}
           </span>

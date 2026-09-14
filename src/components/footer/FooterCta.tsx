@@ -32,7 +32,7 @@ export default function FooterCta() {
         style={{ textAlign: "center", position: "relative" }}
       >
         <p
-          className="text-[8px] tracking-[0.24em] sm:text-[9px] sm:tracking-[0.36em]"
+          className="text-[11px] tracking-[0.2em]"
           style={{
             fontFamily: "var(--font-mono)",
             textTransform: "uppercase",
@@ -46,9 +46,9 @@ export default function FooterCta() {
         <h2
           className="font-display"
           style={{
-            fontSize: "clamp(25px, 6.4vw, 56px)",
-            lineHeight: 1.14,
-            letterSpacing: "-0.025em",
+            fontSize: "clamp(30px, 6.4vw, 60px)",
+            lineHeight: 1.08,
+            letterSpacing: "-0.03em",
             color: "var(--fg-strong)",
             marginBottom: 0,
           }}
@@ -61,7 +61,7 @@ export default function FooterCta() {
         </h2>
 
         <p
-          className="text-[14px] sm:text-[15px] mt-5 mb-7 sm:mt-6 sm:mb-9"
+          className="text-[15px] sm:text-[16px] mt-6 mb-8 sm:mt-7 sm:mb-10"
           style={{
             color: "var(--fg-subtle)",
             lineHeight: 1.7,
@@ -74,39 +74,9 @@ export default function FooterCta() {
 
         {/* CTA buttons — stack full width on narrow phones */}
         <div className="flex flex-col min-[400px]:flex-row min-[400px]:flex-wrap items-stretch min-[400px]:items-center justify-center gap-3">
-          <Link
-            to="/about"
-            className="justify-center"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              padding: "13px 28px",
-              borderRadius: 9,
-              background: "var(--brand)",
-              color: "var(--fg-onbrand)",
-              fontSize: 13.5,
-              fontWeight: 700,
-              textDecoration: "none",
-              transition: "background 0.17s, box-shadow 0.17s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "var(--brand-bright)"
-              e.currentTarget.style.boxShadow = "0 0 28px var(--brand-edge)"
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "var(--brand)"
-              e.currentTarget.style.boxShadow = "none"
-            }}
-          >
+          <Link to="/about" className="btn btn-primary btn-stack">
             {t("footer.ctaAbout")}
-            <svg
-              fill="none"
-              viewBox="0 0 16 16"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              style={{ width: 12, height: 12 }}
-            >
+            <svg fill="none" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2.2">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -114,34 +84,7 @@ export default function FooterCta() {
               />
             </svg>
           </Link>
-          <Link
-            to="/contact"
-            className="justify-center"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              padding: "13px 28px",
-              borderRadius: 9,
-              border: "1px solid var(--line-strong)",
-              color: "var(--fg-muted)",
-              fontSize: 13.5,
-              fontWeight: 600,
-              textDecoration: "none",
-              background: "transparent",
-              transition: "all 0.17s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.28)"
-              e.currentTarget.style.color = "var(--fg-strong)"
-              e.currentTarget.style.background = "var(--line)"
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "var(--line-strong)"
-              e.currentTarget.style.color = "var(--fg-muted)"
-              e.currentTarget.style.background = "transparent"
-            }}
-          >
+          <Link to="/contact" className="btn btn-secondary btn-stack">
             {t("footer.ctaContact")}
           </Link>
         </div>
