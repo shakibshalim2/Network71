@@ -228,3 +228,126 @@ html.js-reveal .public-content:not(.sector-page *) section.reveal-target.is-reve
 @media (prefers-reduced-motion: reduce) {
   .public-content:not(.sector-page *) section .grid > :is(.rounded-2xl, .rounded-xl)[class*="border-white/"][class*="p-"] > :first-child:not(.absolute)::before { transition: none; }
 }
+
+/* ═══ 10. Contact form — floating labels, drawn underline, segmented department ═══ */
+.cf__form { display: grid; gap: 22px; }
+.cf__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 22px; }
+.cf__field { position: relative; }
+.cf__input {
+  width: 100%; min-height: 58px; padding: 24px 14px 10px; border-radius: 12px 12px 4px 4px;
+  background: var(--fill-1); border: 1px solid var(--line); border-bottom-color: var(--line-strong);
+  color: var(--fg-strong); font-size: 15px; line-height: 1.4; outline: none;
+  transition: background-color 0.25s, border-color 0.25s;
+}
+.cf__input:hover { background: var(--fill-2); }
+.cf__input:focus { background: var(--fill-2); border-color: color-mix(in srgb, var(--pa) 35%, var(--line)); }
+.cf__area { min-height: 168px; resize: vertical; padding-top: 30px; }
+.cf__label {
+  position: absolute; left: 14px; top: 19px; pointer-events: none; color: var(--fg-subtle); font-size: 15px; line-height: 1.3;
+  transform-origin: left top; transition: translate 0.25s cubic-bezier(0.2, 0.7, 0.2, 1), scale 0.25s cubic-bezier(0.2, 0.7, 0.2, 1), color 0.25s;
+}
+.cf__field--area .cf__label { top: 18px; }
+.cf__field:focus-within .cf__label, .cf__field.has-value .cf__label { translate: 0 -11px; scale: 0.74; color: var(--fg-muted); }
+.cf__field:focus-within .cf__label { color: var(--pa); }
+.cf__req { color: var(--pa); }
+.cf__line {
+  position: absolute; left: 4px; right: 4px; bottom: 0; height: 2px; border-radius: 2px 2px 0 0; background: var(--pa);
+  transform-origin: left; scale: 0 1; transition: scale 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.cf__field:focus-within .cf__line { scale: 1 1; }
+.cf__input:user-invalid { border-bottom-color: color-mix(in srgb, var(--accent-red) 60%, transparent); }
+.cf__count { position: absolute; right: 12px; bottom: 10px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--fg-faint); font-variant-numeric: tabular-nums; }
+
+.cf__dept { border: 0; margin: 0; padding: 0; min-width: 0; }
+.cf__legend { font-size: 12px; letter-spacing: 0.04em; color: var(--fg-muted); margin-bottom: 10px; padding: 0; }
+.cf__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.cf__chip {
+  position: relative; isolation: isolate; display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px;
+  border: 1px solid var(--line-strong); background: transparent; color: var(--fg-muted); font-size: 13.5px; font-weight: 600; cursor: pointer;
+  transition: color 0.25s, border-color 0.25s;
+}
+.cf__chip:hover { color: var(--fg-strong); border-color: color-mix(in srgb, var(--pa) 45%, transparent); }
+.cf__chip.is-on { color: var(--fg-onbrand); border-color: transparent; }
+.cf__chip-bg { position: absolute; inset: 0; z-index: -1; border-radius: 999px; background: var(--pa); box-shadow: 0 8px 22px -10px var(--pa); }
+.cf__chip:focus-visible { outline: 2px solid var(--pa); outline-offset: 2px; }
+.cf__select-sr { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+
+.cf__actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 4px; }
+.cf__hint { font-size: 13px; color: var(--fg-subtle); }
+.cf__hint strong { color: var(--fg-muted); font-weight: 600; }
+.cf__submit { position: relative; min-width: 220px; overflow: hidden; }
+.cf__submit-progress { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; background: rgb(0 0 0 / 0.28); transform-origin: left; scale: 0 1; }
+.cf__submit.is-busy .cf__submit-progress { animation: cf-progress 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) infinite; }
+.cf__submit.is-busy svg { animation: cf-fly 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) infinite; }
+@keyframes cf-progress { 0% { scale: 0 1; transform-origin: left; } 60% { scale: 1 1; transform-origin: left; } 61% { transform-origin: right; } 100% { scale: 0 1; transform-origin: right; } }
+@keyframes cf-fly { 0%, 100% { translate: 0 0; opacity: 1; } 45% { translate: 14px 0; opacity: 0; } 55% { translate: -10px 0; opacity: 0; } }
+.cf__error { font-size: 14px; color: var(--accent-red); padding: 12px 14px; border-radius: 10px; border: 1px solid color-mix(in srgb, var(--accent-red) 35%, transparent); background: color-mix(in srgb, var(--accent-red) 8%, transparent); }
+
+.cf__success {
+  position: relative; overflow: hidden; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 26px; align-items: start;
+  padding: clamp(28px, 4vw, 44px); border-radius: 20px; border: 1px solid color-mix(in srgb, var(--pa) 30%, var(--line));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--pa) 8%, transparent), transparent 60%), var(--s2);
+}
+.cf__success::after {
+  content: 'N71'; position: absolute; right: -0.05em; bottom: -0.35em; pointer-events: none; font-family: var(--font-display);
+  font-size: clamp(110px, 16vw, 200px); line-height: 1; letter-spacing: -0.05em; color: transparent; -webkit-text-stroke: 1px var(--line-strong);
+}
+.cf__success h3 { font-size: clamp(24px, 2.6vw, 32px); color: var(--fg-strong); margin-bottom: 8px; letter-spacing: -0.02em; }
+.cf__success p { color: var(--fg-muted); font-size: 15px; line-height: 1.7; max-width: 46ch; }
+.cf__success-mark { position: relative; width: 72px; height: 72px; display: grid; place-items: center; color: var(--pa); }
+.cf__success-ring { position: absolute; inset: 0; width: 100%; height: 100%; rotate: -90deg; }
+.cf__success-ring circle { fill: none; stroke: var(--pa); stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 1; animation: cf-draw 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s forwards; }
+.cf__success-tick { width: 30px; height: 30px; }
+.cf__success-tick path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: cf-draw 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.9s forwards; }
+@keyframes cf-draw { to { stroke-dashoffset: 0; } }
+.cf__ref { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line-strong); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; color: var(--fg-subtle); }
+.cf__ref strong { color: var(--fg-strong); font-weight: 500; }
+
+@media (max-width: 639px) {
+  .cf__grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .cf__actions { flex-direction: column; align-items: stretch; }
+  .cf__submit { width: 100%; }
+  .cf__hint { text-align: center; }
+  .cf__success { grid-template-columns: minmax(0, 1fr); padding: 24px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cf__label, .cf__line, .cf__input, .cf__chip { transition: none; }
+  .cf__submit.is-busy .cf__submit-progress, .cf__submit.is-busy svg { animation: none; }
+  .cf__success-ring circle, .cf__success-tick path { animation: none; stroke-dashoffset: 0; }
+}
+
+/* ═══ 11. Contact sidebar — office card with live clock, division ledger ═══ */
+.csb__office {
+  position: relative; overflow: hidden; isolation: isolate; padding: 22px 22px 24px; border-radius: 16px;
+  border: 1px solid var(--line); background: linear-gradient(135deg, color-mix(in srgb, var(--pa) 8%, transparent), transparent 60%), var(--s2);
+}
+.csb__office::before { content: ''; position: absolute; left: 22px; right: 22px; top: 0; height: 2px; background: var(--pa); border-radius: 0 0 2px 2px; }
+.csb__office-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.csb__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--pa); box-shadow: 0 0 0 4px color-mix(in srgb, var(--pa) 18%, transparent); animation: pulse-slow 2.8s ease-in-out infinite; }
+.csb__office-label { font-size: 13px; font-weight: 600; color: var(--fg-strong); }
+.csb__clock { margin-left: auto; display: inline-flex; align-items: baseline; gap: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--fg-subtle); }
+.csb__clock strong { font-size: 15px; font-weight: 500; letter-spacing: 0.06em; color: var(--pa); font-variant-numeric: tabular-nums; }
+.csb__office-city { font-size: 22px; letter-spacing: -0.015em; color: var(--fg-strong); line-height: 1.25; margin-bottom: 10px; }
+.csb__office-mail { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; font-size: 14px; color: var(--pa); }
+.csb__office-mail span { transition: translate 0.3s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.csb__office-mail:hover span { translate: 3px -3px; }
+.csb__office-mark { position: absolute; right: -0.04em; bottom: -0.36em; z-index: -1; pointer-events: none; font-size: 110px; line-height: 1; letter-spacing: -0.05em; color: transparent; -webkit-text-stroke: 1px var(--line-strong); opacity: 0.8; }
+
+.csb__ledger { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-strong); }
+.csb__row {
+  position: relative; display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; column-gap: 12px;
+  min-height: 52px; padding: 6px 0; border-bottom: 1px solid var(--line); text-decoration: none; color: inherit; isolation: isolate;
+}
+.csb__row::before { content: ''; position: absolute; left: -10px; right: -10px; top: 0; bottom: 0; z-index: -1; border-radius: 8px; opacity: 0; background: color-mix(in srgb, var(--pa) 7%, transparent); transition: opacity 0.3s; }
+.csb__idx { font-family: var(--font-mono); font-size: 11px; color: var(--fg-faint); transition: color 0.3s; }
+.csb__name { font-size: 14.5px; color: var(--fg-muted); transition: color 0.3s, translate 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.csb__cta { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--pa); opacity: 0.75; transition: opacity 0.3s; }
+.csb__cta svg { width: 13px; height: 13px; transition: translate 0.3s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (hover: hover) {
+  .csb__row:hover::before { opacity: 1; }
+  .csb__row:hover .csb__idx { color: var(--pa); }
+  .csb__row:hover .csb__name { color: var(--fg-strong); translate: 4px 0; }
+  .csb__row:hover .csb__cta { opacity: 1; }
+  .csb__row:hover .csb__cta svg { translate: 2px -2px; }
+}
+@media (prefers-reduced-motion: reduce) { .csb__dot { animation: none; } .csb__name, .csb__cta svg, .csb__office-mail span { transition: none; } }
