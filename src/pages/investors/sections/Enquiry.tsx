@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, type ChangeEvent, type FormEvent, type ReactNode } from 'react'
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import { useInquiry } from '@/lib/inquiry'
+import { EASE_OUT, springSoft } from '@/lib/motion'
 import type { InvestorsContent } from '../content/en'
 import Eyebrow from './Eyebrow'
 
@@ -12,11 +14,46 @@ type FormState = {
   message: string
 }
 
-const inputCls = 'w-full bg-navy-dark border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-gold/50 transition-colors'
-const selectCls = 'w-full bg-navy-dark border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold/50 transition-colors'
-const labelCls = 'block text-xs text-slate-400 mb-2 font-medium'
+const MESSAGE_MAX = 1200
+
+function Field({ value, children, className = '' }: { value: string; children: ReactNode; className?: string }) {
+  return (
+    <div className={`cf__field${value ? ' has-value' : ''} ${className}`}>
+      {children}
+      <span className="cf__line" aria-hidden="true" />
+    </div>
+  )
+}
+
+function Chips({
+  name, legend, options, value, onChange, layoutId, reduce,
+}: {
+  name: string; legend: ReactNode; options: readonly { value: string; label: string }[]
+  value: string; onChange: (v: string) => void; layoutId: string; reduce: boolean | null
+}) {
+  return (
+    <fieldset className="cf__dept">
+      <legend className="cf__legend">{legend}</legend>
+      <div className="cf__chips" role="radiogroup">
+        {options.map((o) => {
+          const on = value === o.value
+          return (
+            <button key={o.value} type="button" role="radio" aria-checked={on} className={`cf__chip${on ? ' is-on' : ''}`} onClick={() => onChange(o.value)}>
+              {on && <motion.span layoutId={layoutId} className="cf__chip-bg" transition={reduce ? { duration: 0 } : springSoft} />}
+              <span>{o.label}</span>
+            </button>
+          )
+        })}
+      </div>
+      <select name={name} value={value} onChange={(e) => onChange(e.target.value)} className="cf__select-sr" tabIndex={-1} aria-hidden="true">
+        {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+      </select>
+    </fieldset>
+  )
+}
 
 export default function Enquiry({ c, email }: { c: InvestorsContent['enquiry']; email: string }) {
+  const reduce = useReducedMotion()
   // Option values stay language-neutral so inbox records remain consistent across locales.
   const [form, setForm] = useState<FormState>({
     name: '',
@@ -27,12 +64,14 @@ export default function Enquiry({ c, email }: { c: InvestorsContent['enquiry']; 
     message: '',
   })
   const inquiry = useInquiry()
+  const f = c.form
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setForm({ ...form, [name]: name === 'message' ? value.slice(0, MESSAGE_MAX) : value })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     void inquiry.submit({
       name: form.name,
@@ -43,125 +82,75 @@ export default function Enquiry({ c, email }: { c: InvestorsContent['enquiry']; 
     })
   }
 
-  const f = c.form
+  const strip = (s: string) => s.replace(/\s*\*\s*$/, '')
+  const label = (s: string) => (/\*\s*$/.test(s) ? <>{strip(s)}<span className="cf__req" aria-hidden="true"> *</span></> : strip(s))
 
   return (
-    <section className="bg-navy-dark py-24">
-      <div className="max-w-2xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <Eyebrow label={c.eyebrow} center />
-          <h2 className="font-display text-4xl text-white mb-3 tracking-[-0.02em]">{c.title}</h2>
-          <p className="text-slate-400 text-sm mb-2">{c.lead}</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-slate-400">
-            <a href={`mailto:${email}`} className="flex items-center gap-1.5 hover:text-gold transition-colors">
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
-              {email}
-            </a>
-            <span className="hidden sm:inline text-slate-600">·</span>
-            <span className="flex items-center gap-1.5">
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              {c.direct}
-            </span>
+    <section className="bg-navy-dark py-24 cf inv-enquiry">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+        <div className="inv-enquiry__grid">
+          <div className="inv-enquiry__intro">
+            <Eyebrow label={c.eyebrow} />
+            <h2 className="font-display text-4xl text-white mb-3 tracking-[-0.02em]">{c.title}</h2>
+            <p className="text-slate-400 text-[15px] leading-relaxed mb-6" style={{ maxWidth: '38ch' }}>{c.lead}</p>
+            <dl className="inv-enquiry__meta">
+              <div>
+                <dt>{c.direct}</dt>
+                <dd><a href={`mailto:${email}`}>{email}<span aria-hidden="true">↗</span></a></dd>
+              </div>
+            </dl>
           </div>
-        </div>
 
-        {inquiry.reference ? (
-          <div className="bg-navy border border-gold/20 rounded-2xl p-12 text-center">
-            <div className="w-14 h-14 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-5">
-              <svg className="w-7 h-7 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-              </svg>
-            </div>
-            <h3 className="font-display text-2xl text-white mb-3">{c.sentTitle}</h3>
-            <p className="text-slate-400 text-sm">{c.sentText.replace('{ref}', inquiry.reference)}</p>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="bg-navy border border-white/8 rounded-2xl p-8 space-y-5">
-            {inquiry.error && <p role="alert" className="text-sm" style={{ color: 'var(--accent-red)' }}>{inquiry.error}</p>}
-            <div className="grid sm:grid-cols-2 gap-5">
-              <div>
-                <label htmlFor="investor-name" className={labelCls}>{f.name}</label>
-                <input
-                  name="name" id="investor-name"
-                  required
-                  value={form.name}
-                  onChange={handleChange}
-                  className={inputCls}
-                  placeholder={f.namePlaceholder}
-                />
-              </div>
-              <div>
-                <label htmlFor="investor-company" className={labelCls}>{f.company}</label>
-                <input
-                  name="company" id="investor-company"
-                  required
-                  value={form.company}
-                  onChange={handleChange}
-                  className={inputCls}
-                  placeholder={f.companyPlaceholder}
-                />
-              </div>
-            </div>
-            <div>
-              <label htmlFor="investor-email" className={labelCls}>{f.email}</label>
-              <input
-                name="email" id="investor-email"
-                type="email"
-                required
-                value={form.email}
-                onChange={handleChange}
-                className={inputCls}
-                placeholder={f.emailPlaceholder}
-              />
-            </div>
-            <div>
-              <label htmlFor="investor-range" className={labelCls}>{f.range}</label>
-              <select
-                name="range" id="investor-range"
-                value={form.range}
-                onChange={handleChange}
-                className={selectCls}
-              >
-                {f.rangeOptions.map((o) => (
-                  <option key={o.value} value={o.value}>{o.label}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="investor-inquiry" className={labelCls}>{f.inquiry}</label>
-              <select
-                name="inquiry" id="investor-inquiry"
-                required
-                value={form.inquiry}
-                onChange={handleChange}
-                className={selectCls}
-              >
-                {f.inquiryOptions.map((o) => (
-                  <option key={o.value} value={o.value}>{o.label}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="investor-message" className={labelCls}>{f.message}</label>
-              <textarea
-                name="message" id="investor-message"
-                required
-                rows={4}
-                value={form.message}
-                onChange={handleChange}
-                className={`${inputCls} resize-none`}
-                placeholder={f.messagePlaceholder}
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={inquiry.busy}
-              className="btn btn-primary w-full"
-            >
-              {inquiry.busy ? `${f.submit}…` : f.submit}
-            </button>
-          </form>
-        )}
+          <AnimatePresence mode="wait" initial={false}>
+            {inquiry.reference ? (
+              <motion.div key="sent" role="status" className="cf__success" initial={reduce ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE_OUT }}>
+                <span className="cf__success-mark" aria-hidden="true">
+                  <svg viewBox="0 0 100 100" className="cf__success-ring"><circle cx="50" cy="50" r="48" pathLength="1" /></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="cf__success-tick"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" pathLength="1" /></svg>
+                </span>
+                <div>
+                  <p className="public-eyebrow" style={{ marginBottom: 10 }}>{c.eyebrow}</p>
+                  <h3 className="font-display">{c.sentTitle}</h3>
+                  <p>{c.sentText.replace('{ref}', String(inquiry.reference))}</p>
+                  <span className="cf__ref"><span>REF</span><strong>{String(inquiry.reference)}</strong></span>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.form key="form" onSubmit={handleSubmit} className="cf__form inv-enquiry__form" initial={false} exit={reduce ? undefined : { opacity: 0, y: -12, transition: { duration: 0.3 } }}>
+                {inquiry.error && <p role="alert" className="cf__error">{inquiry.error}</p>}
+                <div className="cf__grid">
+                  <Field value={form.name}>
+                    <input name="name" id="investor-name" required value={form.name} onChange={handleChange} className="cf__input" placeholder=" " autoComplete="name" />
+                    <label htmlFor="investor-name" className="cf__label">{label(f.name)}</label>
+                  </Field>
+                  <Field value={form.company}>
+                    <input name="company" id="investor-company" required value={form.company} onChange={handleChange} className="cf__input" placeholder=" " autoComplete="organization" />
+                    <label htmlFor="investor-company" className="cf__label">{label(f.company)}</label>
+                  </Field>
+                </div>
+                <Field value={form.email}>
+                  <input name="email" id="investor-email" type="email" required value={form.email} onChange={handleChange} className="cf__input" placeholder=" " autoComplete="email" inputMode="email" />
+                  <label htmlFor="investor-email" className="cf__label">{label(f.email)}</label>
+                </Field>
+                <Chips name="inquiry" legend={label(f.inquiry)} options={f.inquiryOptions} value={form.inquiry} onChange={(v) => setForm({ ...form, inquiry: v })} layoutId="inv-inquiry" reduce={reduce} />
+                <Chips name="range" legend={label(f.range)} options={f.rangeOptions} value={form.range} onChange={(v) => setForm({ ...form, range: v })} layoutId="inv-range" reduce={reduce} />
+                <Field value={form.message} className="cf__field--area">
+                  <textarea name="message" id="investor-message" required rows={5} value={form.message} onChange={handleChange} className="cf__input cf__area" placeholder=" " maxLength={MESSAGE_MAX} />
+                  <label htmlFor="investor-message" className="cf__label">{label(f.message)}</label>
+                  <span className="cf__count" aria-live="polite"><span>{form.message.length}</span> / {MESSAGE_MAX}</span>
+                </Field>
+                <div className="cf__actions">
+                  <button type="submit" disabled={inquiry.busy} className={`btn btn-primary cf__submit${inquiry.busy ? ' is-busy' : ''}`}>
+                    <span className="cf__submit-label">{inquiry.busy ? `${f.submit}…` : f.submit}</span>
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    <span className="cf__submit-progress" aria-hidden="true" />
+                  </button>
+                  <span className="cf__hint">{strip(f.inquiry)}: <strong>{f.inquiryOptions.find((o) => o.value === form.inquiry)?.label}</strong></span>
+                </div>
+              </motion.form>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   )

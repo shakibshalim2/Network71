@@ -19,23 +19,24 @@ export default function Briefings({ c }: { c: PressContent['briefings'] }) {
           </a>
         </div>
 
-        <div className="space-y-8">
-          {c.releases.map((pr) => (
-            <div key={pr.img} className="group bg-navy rounded-2xl border border-white/8 hover:border-gold/20 transition-colors overflow-hidden flex flex-col md:flex-row">
-              <div className="md:w-64 flex-shrink-0 overflow-hidden bg-navy-dark">
+        <div className="space-y-6 brief">
+          {c.releases.map((pr, i) => (
+            <div key={pr.img} className="group bg-navy rounded-2xl border border-white/8 hover:border-gold/20 transition-colors overflow-hidden flex flex-col md:flex-row brief__row">
+              <div className="md:w-64 flex-shrink-0 overflow-hidden bg-navy-dark brief__media">
                 <img decoding="async" loading="lazy"
                   src={pr.img}
                   alt={pr.title}
                   className="w-full h-48 md:h-full object-cover opacity-70 group-hover:opacity-85 transition-opacity"
                 />
+                <span className="brief__idx font-mono" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               </div>
               <div className="flex-1 p-7 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-3 mb-4">
-                    <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${pr.tagColor}`}>{pr.tag}</span>
-                    <span className="text-slate-500 text-xs">{pr.date}</span>
+                    <span className="brief__tag">{pr.tag}</span>
+                    <span className="font-mono text-[11px] tracking-[0.14em] uppercase text-slate-500">{pr.date}</span>
                   </div>
-                  <h3 className="font-display text-xl text-white mb-3 leading-snug group-hover:text-gold transition-colors">{pr.title}</h3>
+                  <h3 className="font-display text-xl text-white mb-3 leading-snug brief__h">{pr.title}</h3>
                   <p className="text-slate-400 text-sm leading-relaxed">{pr.excerpt}</p>
                 </div>
                 <div className="mt-5 flex items-center gap-2 text-gold text-sm font-medium">

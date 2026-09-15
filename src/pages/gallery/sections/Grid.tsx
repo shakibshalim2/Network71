@@ -8,6 +8,9 @@ import {
   type PublishedPage,
 } from "@/lib/publicContent"
 import { WorkImage } from "@/components/WorkShowcase"
+import ContentState from "@/components/ContentState"
+import { motion, useReducedMotion } from "motion/react"
+import { springSoft } from "@/lib/motion"
 import type { GalleryContent } from "../content/en"
 
 const ALL = "All"
@@ -41,6 +44,9 @@ export default function Grid({
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(
     null,
   )
+  const reduce = useReducedMotion()
+  const countFor = (tab: string) =>
+    tab === ALL ? galleryItems.length : galleryItems.filter((g) => g.tab === tab).length
 
   const dialogRef = useRef<HTMLDivElement>(null)
   useDialogFocus(Boolean(lightbox), dialogRef)
@@ -67,51 +73,46 @@ export default function Grid({
       {/* Filter tabs */}
       <div className="bg-navy/95 backdrop-blur-md border-b border-white/8">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-wrap gap-2 py-3">
-            {filterTabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                aria-pressed={activeTab === tab}
-                className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-colors ${
-                  activeTab === tab
-                    ? "bg-gold text-on-brand"
-                    : "text-slate-400 hover:text-white hover:bg-white/5"
-                }`}
-              >
-                {tabLabel(tab)}
-              </button>
-            ))}
+          <div className="cf__chips gal__tabs py-3" role="tablist">
+            {filterTabs.map((tab) => {
+              const on = activeTab === tab
+              return (
+                <button
+                  key={tab}
+                  role="tab"
+                  aria-selected={on}
+                  onClick={() => setActiveTab(tab)}
+                  className={`cf__chip${on ? " is-on" : ""}`}
+                >
+                  {on && <motion.span layoutId="gal-chip" className="cf__chip-bg" transition={reduce ? { duration: 0 } : springSoft} />}
+                  <span>{tabLabel(tab)}</span>
+                  {galleryItems.length > 0 && <span className="gal__tab-n">{countFor(tab)}</span>}
+                </button>
+              )
+            })}
           </div>
         </div>
       </div>
 
       {/* Masonry grid */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-        {loading && (
-          <div className="public-empty" role="status">
-            {c.loading}
-          </div>
-        )}
-        {error && (
-          <div className="public-empty" role="alert">
-            <p>{error}</p>
-            <button className="public-button" onClick={retry}>
-              {c.retry}
-            </button>
-          </div>
-        )}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {loading && <ContentState kind="loading" eyebrow={c.allLabel} title={c.loading} />}
+        {error && <ContentState kind="error" eyebrow={c.allLabel} title={c.emptyAll} text={error} actionLabel={c.retry} onAction={retry} />}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 gal__grid">
           {visible.map((item, i) => (
             <button
               type="button"
               aria-label={`${c.viewPrefix} ${item.label}`}
               key={i}
-              className="gallery-card break-inside-avoid rounded-xl overflow-hidden relative group cursor-pointer"
+              className="gallery-card break-inside-avoid rounded-xl overflow-hidden relative group cursor-pointer gal__card"
               onClick={() => setLightbox({ src: item.src, alt: item.alt })}
             >
               <div className="work-card-image">
                 <WorkImage src={item.src} alt={item.alt} />
+                <span className="gal__idx font-mono" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                <span className="gal__view" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path strokeLinecap="round" strokeLinejoin="round" d="M4 9V5a1 1 0 011-1h4M20 9V5a1 1 0 00-1-1h-4M4 15v4a1 1 0 001 1h4M20 15v4a1 1 0 01-1 1h-4" /></svg>
+                </span>
               </div>
               <div className="gallery-caption">
                 <p className="text-fg font-semibold text-sm">{item.label}</p>
@@ -126,14 +127,16 @@ export default function Grid({
 
         {!loading && !error && visible.length === 0 && (
           <div className="public-empty">
+            <span className="public-eyebrow">{tabLabel(activeTab)}</span>
             <h3>
               {activeTab === ALL ? c.emptyAll : c.emptyCategory}
             </h3>
             <p>
               {c.emptyText}
             </p>
-            <Link className="public-button" to="/contact">
-              {c.emptyCta}
+            <Link className="btn btn-primary" to="/contact">
+              {c.emptyCta.replace(/\s*↗\s*$/, "")}
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M8 7h9v9" /></svg>
             </Link>
           </div>
         )}
@@ -195,7 +198,10 @@ export default function Grid({
               />
             </svg>
           </button>
-          <img decoding="async" loading="lazy"
+          <motion.img decoding="async" loading="lazy"
+            initial={reduce ? false : { opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, ease: [0.2, 0.7, 0.2, 1] }}
             src={lightbox.src.replace("w=400", "w=1200")}
             alt={lightbox.alt}
             className="max-w-full max-h-[calc(100dvh-120px)] rounded-xl object-contain"

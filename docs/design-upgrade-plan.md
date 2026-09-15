@@ -194,3 +194,200 @@ Governance, Leadership, Careers, Global presence, Contact) still read as one gol
 Verified `tsc --noEmit` + `vite build`; sweeps at 1440 and 390 (no horizontal overflow) for
 Investors, Sustainability, Leadership, Governance, Careers, Global presence, About, Projects;
 light theme checked on Investors; division pages still read their ledger accent (rail + progress).
+
+## Phase 7 — second full audit: section-by-section push toward top-tier
+
+Re-audited every Home and Contact section in the running app at 1440 and 390 (dark), after
+Phases 1–6. Verdicts below are against the Apple / Stripe / Linear / Vercel / Maersk bar: a
+section is **keep** only if it already has a signature move *and* holds up on a phone.
+
+### Home `/` — inventory and verdict
+
+| # | Section | Desktop | Mobile | Verdict → what changes |
+|---|---|---|---|---|
+| 1 | Hero (globe + kinetic H1 + CTAs) | strong | globe is faded to black; the phone sees a plain dark field under the headline | **refine mobile** — reposition the globe as a lit crescent low-right behind the CTAs with a lighter top fade so the phone hero has the same "object" desktop has; scroll cue actually animates |
+| 2 | Hero stats strip | fine | horizontal rail clips the second card mid-word ("BUSINESS DIVIS…") | **rework mobile** — 2×2 hairline grid (no clipping), value + label only |
+| 3 | Division ticker | fine | fine | keep |
+| 4 | Our Work (empty state plate) | generic bordered card, 01–02–03 mark duplicates the process section beneath | same, stacked | **rework** — editorial enquiry plate: hairline "N71" watermark, left-anchored display title, CTA with magnetic hover; the numeric mark becomes a live "brief → scope → people" hairline strip |
+| 5 | Divisions index | signature (cursor preview, accent bar) | dossier rail good, but "swipe to browse" is a static hint | **refine** — desktop row gets an accent wash that follows the active row; mobile rail gets a live position indicator (dots + `01 / 10` counter) that tracks scroll-snap, replacing the static hint |
+| 6 | Working together (4 steps) | static numbered columns | 2-col stack | **rework motion** — steps sit on a scroll-drawn process line with a travelling node (horizontal on desktop, vertical spine on mobile); numbers rise in sequence |
+| 7 | Statement band | marquee + spotlight values | fine | **refine** — marquee speed/skew reacts to scroll velocity (Linear/Stripe move); pauses on hover already |
+| 8 | Ezyify flagship | strong | strong | keep |
+| 9 | Brands strip | one thin marquee, small labels, weak centred heading | same | **rework** — two-row counter-scrolling brand wall with larger marks, hairline frame and accent on hover; heading becomes a proper eyebrow + count |
+| 10 | Media + eSHIPe | good | good | keep |
+| 11 | Leadership teaser | founder card is flat | fine | **refine** — monogram ring draws on reveal, card gets pointer spotlight like the value cards |
+| 12 | Sustainability teaser | good | good | keep |
+| 13 | Connect portal | good | good | keep |
+| 14 | Footer | signature | good | keep |
+
+### Contact `/contact` — inventory and verdict
+
+| # | Section | Verdict → what changes |
+|---|---|---|
+| 1 | Page hero | keep (accent chrome from Phase 6) |
+| 2 | Methods (3 dossier cards) | keep |
+| 3 | Contact form | **rework** — floating labels with an accent underline that draws on focus, department as segmented chips (select stays for a11y fallback), message counter, submit button shows progress and a success plate; sidebar division list gets accent arrows and hover translate |
+| 4 | Sidebar (offices + by division) | **refine** — office card gets a live Dhaka clock; by-division rows become ledger rows |
+
+### Other pages
+Everything below Home and Contact inherits the shared motion primitives added here (process
+line, brand wall, floating-label form). Per-page passes are logged as they land.
+
+### Execution order
+Hero mobile → stats grid → Work plate → Divisions indicator → Process line → Brand wall →
+Statement velocity → Leadership polish → Contact form → Contact sidebar → remaining pages.
+Every task: `tsc --noEmit`, 1440 + 390 check, `prefers-reduced-motion` static path, one commit.
+
+### Phase 7 — landed (Home + Contact)
+
+| Task | Commit scope |
+|---|---|
+| Hero (mobile) | `--hero-fade-y` rebalanced so the globe shows as a lit crescent low-right; `.hero-atmos` CSS rim + two counter-rotating orbit rings + pulsing satellite give the phone hero a focal object even before WebGL paints. Stats strip → 2×2 hairline ledger (no more clipped "BUSINESS DIVIS…") |
+| Our Work plate | `.work-intro` is now an editorial plate: faint 64px grid + N71 hairline watermark, left-anchored display title, three-step **Brief → Scope → People** strip whose hairlines draw and nodes light in sequence on reveal |
+| Divisions index | Mobile rail: live accent indicator (dots + `01 / 10`) tracks scroll-snap via rAF; desktop active row gets a gutter-bleed accent wash |
+| Working together | New `ProcessLine` motion primitive (`src/components/motion/ProcessLine.tsx`): scroll-driven fill + travelling node; horizontal across the step row on desktop, vertical spine on phones; steps light via `--pline-lit` |
+| Brand wall | `TrustedPartners` → two counter-scrolling rows of numbered marks in hairline frames, brand-accent hover, eyebrow + count heading. CMS brands still replace the built-ins |
+| Statement band | Marquee speed and skew follow scroll velocity (`useVelocity`), spring-smoothed; static under reduced motion |
+| Leadership teaser | Founder monogram ring draws on reveal (`pathLength`), pointer spotlight, N71 watermark |
+| Contact form | Floating labels with accent underline that draws on focus, department as segmented radio chips (hidden `<select>` remains the submitted control), message counter, busy-state progress bar + arrow "fly", success plate with drawn ring/tick and mono REF pill. Fields use `autocomplete`/`inputmode` |
+| Contact sidebar | Office card: accent hairline, pulsing dot, live Dhaka clock (`useDhakaTime`, shared with footer), display city, N71 watermark. Division list → numbered ledger rows with hover translate + arrow |
+
+Verified: `tsc --noEmit` + `vite build`; 1440 and 390 (no horizontal overflow on Home or
+Contact); light theme on Home hero/work/brands; every new animation has a
+`prefers-reduced-motion` static path.
+
+### About `/about` — inventory and verdict (Phase 7, page 3)
+
+| # | Section | Desktop | Mobile | Verdict → what changes |
+|---|---|---|---|---|
+| 1 | Page hero + vision panel | accent chrome, count-up facts | stacks cleanly | keep |
+| 2 | Story ("From Dhaka to the World") | three grey paragraphs + a photo card with a plain bullet list | same, stacked | **refine** — first paragraph gets a display drop-cap and a hairline "2018" watermark; the photo card becomes a dossier plate: division dots take their own accent, active-divisions figure counts up, image parallaxes |
+| 3 | Purpose (Vision / Mission) | two dossier cards (Phase 6) | fine | keep |
+| 4 | Founder quote | static block, huge decorative quote mark | fine | **refine** — quote reveals line-by-line (KineticText), quote mark draws as a stroke, attribution monogram gets the ring |
+| 5 | Core values | five small centred icon cards, 11.5px copy | five stacked cards, long | **rework** — numbered value ledger: rows with accent bar + hover expand (same language as the divisions index); on phones a compact stacked ledger, not five cards |
+| 6 | Leadership | grey placeholder portrait icon | same | **refine** — portrait placeholder → drawn monogram ring on an accent-washed plate; hover translate on the name |
+| 7 | Our Journey timeline | scroll spine (Phase 5) | left spine | keep |
+| 8 | Testimonials (published) | CMS-driven | — | keep |
+| 9 | Join CTA | centred title + two buttons, then the footer signature repeats a CTA right below | same | **refine** — becomes a left-anchored editorial band with drawn hairline, buttons right, so it stops competing with the footer poem |
+
+**About — landed:** Story (drop-cap lead, `2018` hairline watermark, parallax dossier plate with numbered accent division dots, corner marks, count-up figure); Quote (words rise in sequence, quote mark and monogram ring draw as strokes); Values → `.vled` numbered ledger with accent bar, live `01 / 05` counter, compact two-row layout on phones; Leadership placeholder → drawn monogram plate; Join CTA → left-anchored band with a drawn accent rule. Verified `tsc` + `vite build`, 1440 + 390 (no overflow).
+
+### Careers `/careers` + Investors `/investors` — inventory and verdict (Phase 7, pages 4–5)
+
+Both pages share the Phase 6 corporate template, so they are taken together.
+
+| Page | # | Section | Verdict → what changes |
+|---|---|---|---|
+| Careers | 1 | Hero (cyan accent) | keep |
+| Careers | 2 | Why Network71 (6 dossier cards) | **rework** — left-anchored heading with `06 reasons` count; cards get a pointer spotlight and an oversized hairline numeral; **phones: cards collapse to a compact icon ledger** (six tall cards was two screens of scrolling) |
+| Careers | 3 | Current openings | **refine** — loading/error/empty states become the editorial plate (error today is a bare paragraph + yellow button); job cards → posting rows with accent hairline and hover translate |
+| Careers | 4 | How we hire | keep (already a drawn process line) |
+| Careers | 5 | Don't see a fit CTA | **refine** — shared `cta-band` (left-anchored, drawn rule) so it stops repeating the footer's centred call |
+| Investors | 1 | Hero | keep |
+| Investors | 2 | Start with the right information | keep |
+| Investors | 3 | Investment thesis (3 cards) | **refine** — same spotlight + hairline numeral treatment as Careers benefits; title hovers to accent |
+| Investors | 4 | Documents & filings | keep (Phase 6 ledger) |
+| Investors | 5 | Board structure | keep (Phase 6 ledger) |
+| Investors | 6 | Investor enquiry form | **rework** — Contact form primitives: floating labels with drawn underline, enquiry type + range as segmented chips (selects stay as the submitted controls), busy progress, drawn success plate with REF |
+
+**Careers + Investors — landed:** `.dcard` dossier cards (pointer spotlight, oversized hairline numeral, Phase 6 counter suppressed) on Careers benefits and Investors thesis; both collapse to a compact icon ledger under 640px (six reasons now fit one phone screen). Careers openings: loading/error/empty all use the editorial plate (pulse dots while loading, retry as a primary button), posting rows numbered with hover translate. Careers CTA → shared `.cta-band`. Investors enquiry: sticky intro column + form card using the Contact primitives (floating labels, drawn underline, enquiry-type + range chips over hidden selects, counter, busy progress, drawn success plate with REF). `spotlight()` helper in `src/lib/useSpotlight.ts`. Verified `tsc` + `vite build`, 1440 + 390 no overflow.
+
+### Sustainability `/sustainability` + Governance `/governance` — inventory and verdict (Phase 7, pages 6–7)
+
+| Page | # | Section | Verdict → what changes |
+|---|---|---|---|
+| Sustainability | 1 | Hero (teal) | keep |
+| Sustainability | 2 | Targets (4 progress tiles) | keep — bars already animate with a sheen |
+| Sustainability | 3 | SDG alignment (5 cards + 🌱 filler) | **rework** — official-style SDG colour tiles become large numerals with a drawn colour ring; the emoji filler card → editorial notice plate with the page accent; **phones: numbered ledger** instead of six cards |
+| Sustainability | 4 | Environmental commitments (3 cards) | **refine** — `.dcard` spotlight + hairline numeral (same as Careers/Investors) |
+| Sustainability | 5 | Community programs | **rework** — the "Community / Programs in Development" gold box (still generic) → ledger figure band with a drawn accent tick; program cards lose the emoji-in-gradient tile for an outlined index numeral, stat becomes a mono focus-area label; **phones: 2-col compact grid** |
+| Sustainability | 6 | Report (notice band) | keep (Phase 6) |
+| Sustainability | 7 | Inquiries CTA | **refine** — shared `.cta-band` |
+| Governance | 1 | Hero (emerald) | keep |
+| Governance | 2 | Framework (4 pillars) | **refine** — `.dcard` spotlight + numeral; phones: icon ledger |
+| Governance | 3 | Board (notice band) | keep (Phase 6) |
+| Governance | 4 | Policy documents (5 cards w/ "Request policy") | **rework** — cards → numbered filing rows (same language as Investors → Documents): title, one-line description, request link with download arrow; hover translate |
+| Governance | 5 | Board committees (3 cards) | **refine** — `.dcard` treatment; mandate block becomes a mono footer |
+| Governance | 6 | Enquiries CTA (boxed) | **refine** — shared `.cta-band` so the page ends the same way as its siblings |
+
+**Sustainability + Governance — landed:** SDG alignment → `.sdg__tile` goal tiles (oversized numeral in the goal's official hue with a ring that draws on reveal, hairline numeral watermark; ledger under 640px; emoji filler → dashed accent notice "06+"). Programs → `.prog__band` ledger figure with a drawn accent tick, `.prog__card` with index numeral + mono focus-area label and display area name (2-col on phones). Environmental commitments, Governance framework and Board committees → `.dcard` spotlight cards (icon ledger on phones); committee mandate is a mono footer. Policy documents → `.pol__row` numbered filing rows with a pill "Request policy" that fills with the accent on hover. Both closing CTAs → `.cta-band--flush`. Verified `tsc` + `vite build`, 1440 + 390 no overflow.
+
+### Leadership `/leadership` + Global presence `/global-presence` — inventory and verdict (Phase 7, pages 8–9)
+
+| Page | # | Section | Verdict → what changes |
+|---|---|---|---|
+| Leadership | 1 | Hero (indigo) | keep |
+| Leadership | 2 | Chief executive card | **refine** — flat gradient "TRT" tile → drawn monogram ring on an accent-washed plate (same as About/Home); card gets pointer spotlight, corner marks and a hairline "N71" watermark; tags become mono chips |
+| Leadership | 3 | Our team (published) | **refine** — loading/error states are a bare paragraph + yellow button → editorial plate with pulse (shared with Careers openings); profile cards get the accent hairline + hover translate |
+| Leadership | 4 | Board (notice band) | keep (Phase 6) |
+| Leadership | 5 | Join CTA (boxed, centred) | **refine** — shared `.cta-band` |
+| Global | 1 | Hero (sky) | keep |
+| Global | 2 | World map | keep — arcs and HQ pulse already animate |
+| Global | 3 | Counts (3 boxed tiles) | **refine** — boxes → ledger figures on a hairline band with accent ticks; footnote left-aligned |
+| Global | 4 | Regional breakdown (5 dossier cards) | **refine** — `.dcard` spotlight + numeral; phones: cards keep (they carry real content) but tighter |
+| Global | 5 | Principal trade routes | **rework** — boxed rows → corridor ledger: a drawn route line with a travelling particle from origin to destination, mono "via" label on the line, hover reveals the corridor accent |
+| Global | 6 | Key markets by division (10 cards) | **refine** — `.dcard` treatment; phones: icon ledger |
+| Global | 7 | Our locations (published) | **refine** — loading/error → editorial plate with pulse |
+
+**Leadership + Global presence — landed:** `.ceo` plate (accent wash, spotlight, corner marks, N71 watermark, drawn monogram ring, mono-numbered tags) replaces the gradient tile card. New `ContentState` component (`src/components/ContentState.tsx`) gives every CMS section the same loading/error/empty plate — used on published team and locations; team cards get accent hairline + drawn monogram fallback. Join CTA → `.cta-band`. Global counts → `.gcount` ledger band with staggered drawn ticks. Trade routes → `.corr__row` corridor ledger: drawn route line, travelling particle, mono "via" pill, corridor accent on hover; stacks origin/line/destination on phones. Regions + key markets → `.dcard` spotlight (kept as cards on phones via `.dcards__grid--keep`). Verified `tsc` + `vite build`, 1440 + 390 no overflow.
+
+### Projects `/projects` + Timeline `/timeline` — inventory and verdict (Phase 7, pages 10–11)
+
+| Page | # | Section | Verdict → what changes |
+|---|---|---|---|
+| Projects | 1 | Work hero ("Our work, in detail.") | **refine** — kinetic headline + drawn eyebrow rule like every other hero; hairline "N71" watermark |
+| Projects | 2 | Explore toolbar + search | **refine** — search becomes a pill field with a leading icon, drawn accent underline on focus, and the heading carries a live result count when data is present |
+| Projects | 2b | States (loading / error / empty / search-empty) | **refine** — loading was a bare word inside the plate → shared `ContentState` pulse; error/empty use the same plate with primary buttons |
+| Projects | 2c | Work cards | **refine** — status pill takes the page accent, image curtain already reveals; add index numeral + hover translate on title |
+| Projects | 3 | Working together | keep (Phase 7 process line) |
+| Project detail | — | loading / error / not-found in hero | **refine** — `ContentState` inside the hero container instead of a bare h1 |
+| Timeline | 1 | Hero (amber) | keep |
+| Timeline | 2 | Milestones (published) | **refine** — loading was a bare sentence, error/empty were plain plates → `ContentState` with eyebrow; ScrollSpine already draws |
+| Timeline | 3 | Learn more CTA | **refine** — hard-coded gold button + boxed flex → shared `.cta-band` with `.btn` primitive |
+
+**Projects + Timeline — landed:** `.work-page-hero--sig` (KineticText headline, drawn eyebrow rule, N71 watermark). Toolbar: `.work-search` pill with leading icon and drawn underline on focus, live `NN` result count next to the heading, `.btn` primitives. All CMS states (list loading/error, detail loading/error/not-found, timeline loading/error/empty) now render the shared `ContentState` plate. Work cards: index badge on the image, status pill in the page accent, title hover translate. Timeline CTA → `.cta-band`. Verified `tsc` + `vite build`, 1440 + 390 no overflow.
+
+### Press `/press` + Blog `/blog` — inventory and verdict (Phase 7, pages 12–13)
+
+| Page | # | Section | Verdict → what changes |
+|---|---|---|---|
+| Press | 1 | Hero (rose) | keep |
+| Both | 2 | Published articles (news / insights) | **rework** — bare h2 + bare loading/error → editorial head with live count, `ContentState` plates; article cards become `.art` editorial cards: image curtain, date + author as a mono meta row with accent dot, title hover translate, index numeral |
+| Press | 3 | Media kit (3 cards, Phase 6 counter) | **refine** — `.dcard` spotlight; "View resource" becomes the pill CTA used on Policies |
+| Press | 4 | Media briefing areas (3 image rows) | **refine** — rows get an index numeral, the tag takes the page accent, image gets the curtain reveal + gentle zoom, the "Request briefing" arrow already animates |
+| Press | 5 | Information & verification (notice band, Phase 6) | keep |
+| Press | 6 | Press contact (boxed) | **refine** — shared `.cta-band` with `.btn`; the mono eyebrow stays |
+| Blog | 3 | Stay in the loop (subscribe) | **rework** — centred icon block → left-anchored band: floating-label email field with drawn underline, `.btn` submit with busy progress, success becomes an inline REF pill instead of a bare gold sentence |
+
+**Press + Blog — landed:** `PublishedArticles` rebuilt as `.art` editorial cards (accent hairline that grows on hover, index badge, mono date·author meta with accent dot, image zoom, title translate, "Read more" with arrow); head carries eyebrow + live `NN published` count; loading/error/empty via `ContentState`. Media kit → `.dcard` with the `.pol__cta` pill. Briefing rows → index badge, accent `.brief__tag`, image zoom and title translate on hover. Press contact and Blog subscribe → `.cta-band`; subscribe form uses the Contact primitives (floating label, drawn underline, busy progress) and confirms with an inline REF pill. Verified `tsc` + `vite build`, 1440 + 390 no overflow.
+
+### Gallery `/gallery` + Legal `/legal` — inventory and verdict (Phase 7, pages 14–15)
+
+| Page | # | Section | Verdict → what changes |
+|---|---|---|---|
+| Gallery | 1 | Hero (pink) | keep |
+| Gallery | 2 | Filter tabs | **refine** — plain pills → segmented chips with a sliding accent background (same motion as the Contact department chips); count per tab |
+| Gallery | 2b | Grid states | **refine** — loading was a bare word → `ContentState`; error/empty share the plate |
+| Gallery | 2c | Photo cards | **refine** — curtain reveal exists; add index badge, caption slides up on hover, cursor "view" affordance ring |
+| Gallery | 2d | Lightbox | keep (focus-trapped, esc) — add a soft scale-in |
+| Gallery | 3 | Contribute CTA | **refine** — shared `.cta-band` |
+| Legal | 1 | Hero (blue) | keep |
+| Legal | 2 | Contents (sticky TOC) | **refine** — buttons → ledger rows with an accent bar that slides between items (layoutId), numbered `01–04`; reading progress per article via the existing scroll spy |
+| Legal | 3 | Articles (Privacy / Terms / Cookies / Compliance) | **refine** — article head becomes a ledger header (numeral, drawn accent rule, mono "Section 01 / 04"); clause headings get a hairline index; body max-width 68ch for measure |
+| Legal | 4 | Legal inquiries card | **refine** — shared `.cta-band` |
+
+**Gallery + Legal — landed:** Gallery tabs reuse `.cf__chip` with a `layoutId` sliding background and per-tab counts; loading/error → `ContentState`; empty state gets an eyebrow + `.btn`; photo cards get an index badge, a "view" ring that rises on hover, image zoom and an accent caption wash; lightbox image scales in; contribute CTA → `.cta-band`. Legal: `.ltoc` numbered ledger with a spring-sliding accent bar driven by a rAF scroll spy (2-col grid on phones); `.lart__head` ledger header (numeral, drawn accent rule, mono "Section 01 / 04", outlined icon); clause headings carry an accent tick; body measure capped at 72ch; inquiries → `.cta-band--flush`. Verified `tsc` + `vite build`, 1440 + 390 no overflow.
+
+### Brand `/brand` + Ezyify `/ezyify` — inventory and verdict (Phase 7, pages 16–17)
+
+| Page | # | Section | Verdict → what changes |
+|---|---|---|---|
+| Brand | 1 | Hero ("Network71 / Logo System") | **refine** — kinetic headline + drawn red rule; section counter `08 sections`; the page keeps its own red identity (not `--page-accent`) |
+| Brand | 2–7 | Logo variants / icon mark / favicon / palette | **refine** — `SectionHead` numeral 9px slate-700 is below the type floor → 11px mono + display numeral with a rule that draws on reveal; tiles get a soft lift + red hairline on hover; swatches copy their hex on click with a "copied" tick |
+| Brand | 8 | Usage rules | **refine** — clear-space dashed frame pulses once on reveal; "never" list gets numbered ticks |
+| Brand | — | Footer mark | **refine** — 9px caption → 11px |
+| Ezyify | 1 | Hero (gradient wordmark) | keep — already animated |
+| Ezyify | 2–8 | Audience / Features / AI / Revenue / Segments / Ecosystem / Partners / Roadmap | keep — Phase 4 flagship treatment, own purple system |
+| Ezyify | 9 | Waitlist | **refine** — plain input + gradient button → floating-label field with gradient underline, busy progress, REF pill success (gradient stays, matches the page) |
+
+**Brand + Ezyify — landed:** Brand keeps its own red identity: `.bhero` (KineticText, drawn red rule, `08 sections` counter); `.bsec` heads (hairline display numeral, 11px mono index, rule that draws on reveal — the 9px slate-700 numerals were under the type floor); `.btile` lift + red hairline on hover; `.bswatch` copies the hex on click with a COPIED tick; clear-space frame pulses once on reveal; never-list numbered; footer caption 9 → 11px. Ezyify waitlist → `.ezw` floating-label field with a purple→pink→cyan underline, gradient button with busy progress + arrow fly, success as drawn ring/tick + mono REF chip. Custom `.cf__input` / `.ezw__input` fields suppress the global `:focus-visible` outline (their drawn underline is the focus affordance). Verified `tsc` + `vite build`, 1440 + 390 no overflow.

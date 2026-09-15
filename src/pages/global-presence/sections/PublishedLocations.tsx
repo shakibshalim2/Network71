@@ -4,6 +4,7 @@ import {
   usePublicContent,
   type PublishedPage,
 } from "@/lib/publicContent"
+import ContentState from "@/components/ContentState"
 
 export default function PublishedLocations() {
   const { language } = useLanguage()
@@ -23,14 +24,9 @@ export default function PublishedLocations() {
           </h2>
         </div>
         {loading ? (
-          <p role="status">{bn ? "লোড হচ্ছে…" : "Loading…"}</p>
+          <ContentState kind="loading" eyebrow={bn ? "অনুমোদিত তথ্য" : "Approved information"} title={bn ? "লোড হচ্ছে…" : "Loading locations…"} />
         ) : error ? (
-          <div className="public-empty" role="alert">
-            <p>{error}</p>
-            <button className="public-button" onClick={retry}>
-              {bn ? "আবার চেষ্টা করুন" : "Try again"}
-            </button>
-          </div>
+          <ContentState kind="error" eyebrow={bn ? "অনুমোদিত তথ্য" : "Approved information"} title={bn ? "এই মুহূর্তে লোড করা যাচ্ছে না" : "We couldn't load locations right now"} text={error} actionLabel={bn ? "আবার চেষ্টা করুন" : "Try again"} onAction={retry} />
         ) : data?.items.length ? (
           <div className="grid sm:grid-cols-2 gap-5">
             {data.items.map((item) => (
@@ -70,13 +66,7 @@ export default function PublishedLocations() {
             ))}
           </div>
         ) : (
-          <div className="public-empty">
-            <p>
-              {bn
-                ? "অনুমোদিত অফিস বা পরিচালন অবস্থান প্রকাশ হলে এখানে দেখা যাবে।"
-                : "Approved offices and operating locations will appear here when published."}
-            </p>
-          </div>
+          <ContentState kind="empty" eyebrow={bn ? "অনুমোদিত তথ্য" : "Approved information"} title={bn ? "এখনও কোনো অবস্থান প্রকাশিত হয়নি" : "No locations published yet"} text={bn ? "অনুমোদিত অফিস বা পরিচালন অবস্থান প্রকাশ হলে এখানে দেখা যাবে।" : "Approved offices and operating locations will appear here when published."} />
         )}
       </div>
     </section>

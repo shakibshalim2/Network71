@@ -23,12 +23,6 @@
 .work-image-placeholder { height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 18px; background: radial-gradient(ellipse at 70% 10%,var(--brand-wash),transparent 65%),var(--s3); color: var(--brand-fg); }
 .work-image-placeholder>span { font-family: var(--font-display); font-size: 50px; letter-spacing: -.07em; }
 .work-image-placeholder>small { font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em; }
-.work-intro { display: grid; grid-template-columns: 160px 1fr auto; gap: 36px; align-items: center; border: 1px solid var(--line); background: var(--s2); border-radius: 14px; padding: 34px; }
-.work-intro h3 { font-family: var(--font-display); font-size: 25px; margin-bottom: 10px; color: var(--fg-strong); }
-.work-intro p { max-width: 570px; font-size: 14px; line-height: 1.8; color: var(--fg-muted); }
-.work-intro-mark { display: flex; align-items: center; color: var(--brand-fg); }
-.work-intro-mark>span { width: 36px; height: 48px; display: grid; place-items: center; border: 1px solid var(--brand-edge); border-radius: 6px; font-family: var(--font-mono); font-size: 11px; }
-.work-intro-mark>div { flex: 1; height: 1px; background: var(--brand-edge); }
 .working-together { background: var(--s1); border-block: 1px solid var(--line); }
 .working-steps { padding: 0; margin: 0; list-style: none; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 30px; }
 .working-steps li { border-top: 1px solid var(--brand-edge); padding-top: 24px; }
@@ -76,8 +70,6 @@
 .work-enquiry { background: var(--s1); text-align: center; border-top: 1px solid var(--line); }
 .work-enquiry p { font-size: 16px; color: var(--fg-muted); margin: 22px auto 25px; max-width: 480px; line-height: 1.8; }
 @media(max-width:1023px) {
-  .work-intro { grid-template-columns: 1fr auto; gap: 25px; }
-  .work-intro-mark { display: none; }
   .work-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .working-steps { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
@@ -86,8 +78,6 @@
   .public-eyebrow { font-size: 10px; letter-spacing: .12em; margin-bottom: 14px; }
   .public-section-heading p { font-size: 15px; }
   .work-grid { grid-template-columns: minmax(0,1fr); gap: 20px; }
-  .work-intro { grid-template-columns: minmax(0,1fr); padding: 24px; gap: 20px; }
-  .work-intro .public-button { justify-self: start; }
   .work-card-body { padding: 22px; }
   .working-steps { gap: 24px; }
   .working-steps h3 { font-size: 16px; }

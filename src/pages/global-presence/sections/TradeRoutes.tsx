@@ -1,32 +1,46 @@
 import type { GlobalPresenceContent } from '../content/en'
 
+// Tailwind gradient class → corridor accent
+const ROUTE_HEX: Record<string, string> = {
+  'from-gold to-amber-400': 'var(--brand-bright)',
+  'from-blue-400 to-cyan-400': 'var(--accent-cyan)',
+  'from-emerald-400 to-green-400': 'var(--accent-green)',
+}
+
+/**
+ * Corridor ledger: each route is a drawn line from origin to destination with
+ * a particle travelling along it and a mono "via" label sitting on the line.
+ */
 export default function TradeRoutes({ c }: { c: GlobalPresenceContent['routes'] }) {
   return (
-    <section className="py-24 px-6 bg-navy-dark">
-      <div className="max-w-4xl mx-auto">
+    <section className="py-24 px-6 bg-navy-dark corr">
+      <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
           <p className="font-mono text-[11px] tracking-[0.2em] text-gold uppercase font-medium mb-3">{c.eyebrow}</p>
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4 tracking-[-0.02em]">{c.title}</h2>
-          <p className="text-slate-400 max-w-xl mx-auto">
-            {c.lead}
-          </p>
+          <p className="text-slate-400 max-w-xl mx-auto">{c.lead}</p>
         </div>
-        <div className="space-y-4">
-          {c.items.map((r) => (
-            <div key={r.from + r.to} className="grid grid-cols-1 sm:grid-cols-[1fr_1.3fr_1fr] items-center gap-3 bg-navy-light rounded-xl px-5 py-4 border border-white/8">
-              <div className="text-white font-medium text-sm">{r.from}</div>
-              <div className="flex items-center gap-2">
-                <div className={`h-0.5 flex-1 bg-gradient-to-r ${r.color} rounded-full`} />
-                <div className="text-slate-500 text-xs whitespace-nowrap px-2">{r.via}</div>
-                <div className={`h-0.5 flex-1 bg-gradient-to-r ${r.color} rounded-full`} />
-                <svg className={`w-4 h-4 bg-gradient-to-r ${r.color} rounded-full text-navy flex-shrink-0`} style={{ padding: "2px" }} fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                </svg>
-              </div>
-              <div className="text-slate-300 font-medium text-sm sm:text-right">{r.to}</div>
-            </div>
+        <ol className="corr__list">
+          {c.items.map((r, i) => (
+            <li key={r.from + r.to} className="corr__row" style={{ ['--rc' as string]: ROUTE_HEX[r.color] ?? 'var(--pa)', ['--i' as string]: i }}>
+              <span className="corr__idx font-mono">{String(i + 1).padStart(2, '0')}</span>
+              <span className="corr__end corr__end--from">
+                <span className="corr__dot" aria-hidden="true" />
+                <span className="corr__place">{r.from}</span>
+              </span>
+              <span className="corr__line" aria-hidden="true">
+                <span className="corr__base" />
+                <span className="corr__fill" />
+                <span className="corr__particle" />
+                <span className="corr__via font-mono">{r.via}</span>
+              </span>
+              <span className="corr__end corr__end--to">
+                <span className="corr__place">{r.to}</span>
+                <span className="corr__dot corr__dot--to" aria-hidden="true" />
+              </span>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   )

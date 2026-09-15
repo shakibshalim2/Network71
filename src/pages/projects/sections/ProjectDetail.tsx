@@ -16,6 +16,7 @@ import {
 } from "@/lib/publicContent"
 
 import type { ProjectsContent } from "../content/en"
+import ContentState from "@/components/ContentState"
 
 export default function ProjectDetail({
   slug,
@@ -81,29 +82,28 @@ export default function ProjectDetail({
       <main className="public-content">
         {loading ? (
           <section className="work-page-hero">
-            <div className="container-page" role="status">
-              <h1>{c.loading}</h1>
+            <div className="container-page">
+              <ContentState kind="loading" eyebrow={c.unavailableEyebrow} title={c.loading} />
             </div>
           </section>
         ) : error ? (
           <section className="work-page-hero">
             <div className="container-page">
-              <h1>{c.errorTitle}</h1>
-              <p role="alert">{error}</p>
-              <button className="public-button" onClick={retry}>
-                {c.retry}
-              </button>
+              <ContentState kind="error" eyebrow={c.unavailableEyebrow} title={c.errorTitle} text={error} actionLabel={c.retry} onAction={retry} />
             </div>
           </section>
         ) : notFound || !item || !permitted ? (
           <section className="work-page-hero">
             <div className="container-page">
-              <span className="public-eyebrow">{c.unavailableEyebrow}</span>
-              <h1>{c.unavailableTitle}</h1>
-              <p>{c.unavailableText}</p>
-              <Link className="public-button" to="/projects">
-                {c.browse}
-              </Link>
+              <div className="public-empty">
+                <span className="public-eyebrow">{c.unavailableEyebrow}</span>
+                <h3>{c.unavailableTitle}</h3>
+                <p>{c.unavailableText}</p>
+                <Link className="btn btn-primary" to="/projects">
+                  {c.browse}
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M8 7h9v9" /></svg>
+                </Link>
+              </div>
             </div>
           </section>
         ) : (

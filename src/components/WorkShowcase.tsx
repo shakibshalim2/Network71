@@ -9,6 +9,7 @@ import {
   type PublishedPage,
 } from "@/lib/publicContent"
 import { useCompanySettings } from "@/lib/companySettings"
+import ProcessLine from "@/components/motion/ProcessLine"
 
 export function WorkImage({ src, alt }: { src: string; alt: string }) {
   const { t } = useT()
@@ -34,11 +35,12 @@ export function WorkImage({ src, alt }: { src: string; alt: string }) {
   )
 }
 
-export function WorkCard({ item }: { item: PublishedItem }) {
+export function WorkCard({ item, index }: { item: PublishedItem; index?: number }) {
   const { t } = useT()
   return (
     <Link className="work-card" to={`/projects/${item.slug}`}>
       <div className="work-card-image">
+        {index !== undefined && <span className="work-card-idx font-mono" aria-hidden="true">{String(index).padStart(2, "0")}</span>}
         <WorkImage
           src={textField(item, "image")}
           alt={textField(item, "title")}
@@ -93,19 +95,24 @@ export default function WorkShowcase() {
           </div>
         ) : (
           <div className="work-intro">
-            <div className="work-intro-mark" aria-hidden="true">
-              <span>01</span>
-              <div />
-              <span>02</span>
-              <div />
-              <span>03</span>
-            </div>
-            <div>
+            <span className="work-intro-mark" aria-hidden="true">N71</span>
+            <ol className="work-intro-steps" aria-hidden="true">
+              {(["step1", "step2", "step3"] as const).map((k, i) => (
+                <li key={k} style={{ ["--i" as string]: i }}>
+                  <span className="work-intro-steps__idx">0{i + 1}</span>
+                  <span className="work-intro-steps__label">{t(`work.intro.${k}`)}</span>
+                </li>
+              ))}
+            </ol>
+            <div className="work-intro-copy">
               <h3>{t("work.intro.title")}</h3>
               <p>{t("work.intro.body")}</p>
             </div>
-            <Link className="public-button" to="/contact">
-              {t("work.intro.cta")} <span aria-hidden="true">↗</span>
+            <Link className="btn btn-primary work-intro-cta" to="/contact">
+              {t("work.intro.cta")}
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M8 7h9v9" />
+              </svg>
             </Link>
           </div>
         )}
@@ -133,15 +140,17 @@ export function WorkingTogether() {
           </div>
           <p>{t("work.together.lead")}</p>
         </div>
-        <ol className="working-steps">
-          {STEPS.map((step, index) => (
-            <li key={step}>
-              <span className="working-number">0{index + 1}</span>
-              <h3>{t(`work.together.${step}.title`)}</h3>
-              <p>{t(`work.together.${step}.body`)}</p>
-            </li>
-          ))}
-        </ol>
+        <ProcessLine steps={STEPS.length}>
+          <ol className="working-steps">
+            {STEPS.map((step, index) => (
+              <li key={step} style={{ ["--i" as string]: index }}>
+                <span className="working-number">0{index + 1}</span>
+                <h3>{t(`work.together.${step}.title`)}</h3>
+                <p>{t(`work.together.${step}.body`)}</p>
+              </li>
+            ))}
+          </ol>
+        </ProcessLine>
         <div className="working-contact">
           <p>{t("work.together.brief")}</p>
           <a href={`mailto:${generalEmail}`}>

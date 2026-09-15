@@ -194,8 +194,9 @@
     rgb(4 8 14 / 0.78) 55%, rgb(4 8 14 / 0.32) 72%, rgb(4 8 14 / 0.08) 88%, transparent 100%);
   --hero-vignette: linear-gradient(180deg,
     rgb(4 8 14 / 0.55) 0%, transparent 18%, transparent 78%, rgb(4 8 14 / 0.65) 100%);
+  /* Phones: headline zone stays opaque, the globe crescent low-right is left almost clear */
   --hero-fade-y: linear-gradient(180deg,
-    rgb(4 8 14 / 0.97) 0%, rgb(4 8 14 / 0.93) 55%, rgb(4 8 14 / 0.75) 80%, rgb(4 8 14 / 0.55) 100%);
+    rgb(4 8 14 / 0.98) 0%, rgb(4 8 14 / 0.94) 38%, rgb(4 8 14 / 0.62) 60%, rgb(4 8 14 / 0.22) 82%, rgb(4 8 14 / 0.42) 100%);
 
   /* Closing CTA band — full-bleed photo behind centred text */
   --cta-img-dim: brightness(0.28) saturate(0.6);
@@ -295,7 +296,7 @@
   --hero-vignette: linear-gradient(180deg,
     rgb(250 251 253 / 0.60) 0%, transparent 18%, transparent 78%, rgb(250 251 253 / 0.70) 100%);
   --hero-fade-y: linear-gradient(180deg,
-    rgb(250 251 253 / 0.97) 0%, rgb(250 251 253 / 0.93) 55%, rgb(250 251 253 / 0.78) 80%, rgb(250 251 253 / 0.58) 100%);
+    rgb(250 251 253 / 0.98) 0%, rgb(250 251 253 / 0.94) 38%, rgb(250 251 253 / 0.66) 60%, rgb(250 251 253 / 0.28) 82%, rgb(250 251 253 / 0.46) 100%);
 
   /* The CTA band stays a dark cinematic panel in light mode too — it is a
      deliberate contrast moment, so only the photo is lifted slightly. */

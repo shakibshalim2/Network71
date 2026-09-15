@@ -90,7 +90,7 @@ export function GlobeOverlays() {
         }}
       />
 
-      {/* Mobile: heavy overlay for text readability over globe */}
+      {/* Mobile: headline zone opaque, globe crescent left visible low-right */}
       <div
         className="lg:hidden absolute inset-0 pointer-events-none"
         style={{
@@ -98,6 +98,13 @@ export function GlobeOverlays() {
           background: 'var(--hero-fade-y)',
         }}
       />
+      {/* Mobile: atmospheric rim + orbit ring so the phone hero has an "object" even before/without WebGL */}
+      <div className="hero-atmos lg:hidden" aria-hidden="true">
+        <span className="hero-atmos__glow" />
+        <span className="hero-atmos__ring" />
+        <span className="hero-atmos__ring hero-atmos__ring--2" />
+        <span className="hero-atmos__sat" />
+      </div>
 
       {/* ── Subtle dot grid — left portion only on desktop ── */}
       <div
