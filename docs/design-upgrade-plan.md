@@ -494,3 +494,22 @@ Research anchors: Motion "smooth tabs" (sliding `layoutId` pill + directional pa
 | 13 | Opportunities | refine | footer links draw underline |
 | 14 | Roadmap | rework | scroll-drawn `ProcessLine` timeline, 4 phases |
 | 15 | Contact | keep | |
+
+## Phase 8e — Oils & Energy division (section by section)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Split hero | rework | hovered half grows (flex-grow spring) while the other recedes + desaturates; glowing seam follows in that side's accent; side labels fade/shift; centre plate floats with amber→sky hairline; blueprint SVG draws itself; `.btn` + magnetic CTA; drawn scroll cue |
+| 2 | Metrics | keep | |
+| 3 | Overview | refine | twin division cards: accent glow + lift; value chains → mini drawn conveyors |
+| 4 | Edible oils | refine (structural) | |
+| 5 | Energy & fuel | refine | stats count up |
+| 6 | Journey | keep | |
+| 7 | Supply chain | rework | flow discs pop in sequence along a drawn gradient line; DC schematic → live network (hub pulses, spokes draw, amber packets travel plant→DC on staggered loops, DCs grow on hover; light-only rect removed) |
+| 8 | Compliance | refine (structural) | |
+| 9 | Technology | refine (structural) | |
+| 10 | Sustainability | refine | both bar sets → `MeterBar` (amber / sky) |
+| 11 | Markets | refine (structural) | |
+| 12 | Opportunities | refine | footer links draw underline |
+| 13 | Roadmap | rework | vertical scroll-drawn spine (amber→sky) via `ProcessLine`; year tiles fill and cards slide in as the line reaches them |
+| 14 | Contact | keep | |

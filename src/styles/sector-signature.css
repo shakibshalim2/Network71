@@ -660,3 +660,32 @@ html.js-reveal .reveal-target.is-revealed .splan { opacity: 1; translate: none; 
 .snet__dc { transition: r 0.3s; }
 .snet__spoke:hover .snet__dc { r: 14; }
 @media (prefers-reduced-motion: reduce) { .snet__pulse, .snet__packet { animation: none; display: none; } .snet__line { stroke-dashoffset: 0; transition: none; } .snodes__disc { scale: 1; opacity: 1; transition: none; } }
+
+/* ═══ 18 · Vertical scroll-drawn roadmap (spine on the left) ═══ */
+.sroadv { padding-left: 0; }
+.sroadv .pline__base, .sroadv .pline__fill { left: 31px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; }
+.sroadv .pline__base { background: linear-gradient(to bottom, color-mix(in srgb, var(--accent-amber) 25%, transparent), color-mix(in srgb, var(--accent-sky) 25%, transparent)); }
+.sroadv .pline__fill { height: var(--pline-p); background: linear-gradient(to bottom, var(--accent-amber), var(--accent-sky)); }
+.sroadv .pline__node { left: 32px; top: var(--pline-p); }
+.sroadv__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 28px; }
+.sroadv__item { --on: clamp(0, calc(var(--pline-lit) - var(--i) + 1), 1); display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 24px; align-items: start; }
+.sroadv__year {
+  display: grid; place-items: center; width: 64px; height: 64px; border-radius: 14px; font-size: 14px; font-weight: 700; color: var(--s0); position: relative; z-index: 1;
+  background: color-mix(in srgb, var(--pa) calc(var(--on) * 100%), var(--s3));
+  box-shadow: 0 0 0 calc(var(--on) * 6px) color-mix(in srgb, var(--pa) 16%, transparent);
+  transition: background-color 0.5s, box-shadow 0.5s;
+}
+.sroadv__card {
+  padding: 20px; border-radius: 14px; background: var(--fill-2);
+  border: 1px solid color-mix(in srgb, var(--pa) calc(8% + var(--on) * 22%), transparent);
+  translate: calc((1 - var(--on)) * 10px) 0; opacity: calc(0.6 + var(--on) * 0.4);
+  transition: border-color 0.5s, translate 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.5s, box-shadow 0.4s;
+}
+@media (hover: hover) { .sroadv__card:hover { box-shadow: inset 0 2px 0 0 var(--pa), 0 20px 40px -30px var(--pa); } }
+@media (max-width: 639px) {
+  .sroadv .pline__base, .sroadv .pline__fill { left: 23px; }
+  .sroadv .pline__node { left: 24px; }
+  .sroadv__item { grid-template-columns: 48px minmax(0, 1fr); gap: 16px; }
+  .sroadv__year { width: 48px; height: 48px; font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .sroadv__year, .sroadv__card { transition: none; } }

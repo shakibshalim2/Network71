@@ -1,5 +1,6 @@
 import type { OilsEnergyContent } from '../content/en'
 import { AMBER, SKY } from '../theme'
+import MeterBar from '@/components/sector/MeterBar'
 
 export default function Sustainability({ c }: { c: OilsEnergyContent }) {
   return (
@@ -30,20 +31,11 @@ export default function Sustainability({ c }: { c: OilsEnergyContent }) {
                 </div>
                 <h3 className="font-display text-xl text-fg">{c.copy.oilsSustainability}</h3>
               </div>
-              <div className="space-y-5">
-                {c.sustainabilityOils.map((item) => (
+              <div style={{ ['--pa' as string]: AMBER }}>
+                {c.sustainabilityOils.map((item, i) => (
                   <div key={item.label}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <div className="text-sm font-medium text-fg">{item.label}</div>
-                      <div className="text-xs text-slate-500">{item.pct}%</div>
-                    </div>
-                    <div className="h-2 bg-amber-100 rounded-full overflow-hidden mb-1.5">
-                      <div
-                        className="h-full rounded-full transition-all"
-                        style={{ width: `${item.pct}%`, background: AMBER }}
-                      />
-                    </div>
-                    <div className="text-[11px] text-slate-400">{item.target}</div>
+                    <MeterBar label={item.label} value={item.pct} accent={AMBER} index={i} />
+                    <div className="text-[11px] text-slate-400 -mt-3 mb-4">{item.target}</div>
                   </div>
                 ))}
               </div>
@@ -59,20 +51,11 @@ export default function Sustainability({ c }: { c: OilsEnergyContent }) {
                 </div>
                 <h3 className="font-display text-xl text-fg">{c.copy.fuelSustainability}</h3>
               </div>
-              <div className="space-y-5">
-                {c.sustainabilityEnergy.map((item) => (
+              <div style={{ ['--pa' as string]: SKY }}>
+                {c.sustainabilityEnergy.map((item, i) => (
                   <div key={item.label}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <div className="text-sm font-medium text-fg">{item.label}</div>
-                      <div className="text-xs text-slate-500">{item.pct}%</div>
-                    </div>
-                    <div className="h-2 bg-sky-100 rounded-full overflow-hidden mb-1.5">
-                      <div
-                        className="h-full rounded-full transition-all"
-                        style={{ width: `${item.pct}%`, background: SKY }}
-                      />
-                    </div>
-                    <div className="text-[11px] text-slate-400">{item.target}</div>
+                    <MeterBar label={item.label} value={item.pct} accent={SKY} index={i} />
+                    <div className="text-[11px] text-slate-400 -mt-3 mb-4">{item.target}</div>
                   </div>
                 ))}
               </div>
