@@ -540,3 +540,99 @@ html:not(.js-reveal) .about-cta__rule::after { scale: 1 1; }
   .jobs-pulse span { animation: none; opacity: 1; }
   .cta-band__rule::after { transition: none; scale: 1 1; }
 }
+
+/* ═══ 17. Sustainability — SDG tiles ═══ */
+.sdg__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.sdg__tile { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: 18px; align-items: start; padding: 22px; border-radius: 16px; border: 1px solid var(--line); background: var(--s2); transition: border-color 0.3s, translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.sdg__tile::before { content: ''; position: absolute; inset: 0; z-index: -1; opacity: 0; background: linear-gradient(135deg, color-mix(in srgb, var(--sdg) 16%, transparent), transparent 60%); transition: opacity 0.35s; }
+@media (hover: hover) { .sdg__tile:hover { border-color: color-mix(in srgb, var(--sdg) 55%, transparent); translate: 0 -3px; } .sdg__tile:hover::before { opacity: 1; } }
+.sdg__badge { position: relative; width: 64px; height: 64px; display: grid; place-items: center; color: var(--sdg); }
+.sdg__badge svg { position: absolute; inset: 0; width: 100%; height: 100%; rotate: -90deg; }
+.sdg__badge circle { fill: color-mix(in srgb, var(--sdg) 12%, transparent); stroke: var(--sdg); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.3s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.15s + var(--i) * 0.1s); }
+.reveal-target.is-revealed .sdg__badge circle, html:not(.js-reveal) .sdg__badge circle { stroke-dashoffset: 0; }
+.sdg__num { position: relative; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+.sdg__tag { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-subtle); margin-bottom: 6px; }
+.sdg__title { font-size: 16px; font-weight: 600; color: var(--fg-strong); line-height: 1.3; margin-bottom: 8px; }
+.sdg__desc { font-size: 13.5px; line-height: 1.65; color: var(--fg-muted); }
+.sdg__numeral { position: absolute; right: -0.06em; bottom: -0.32em; z-index: -1; pointer-events: none; font-size: 120px; line-height: 1; letter-spacing: -0.06em; font-weight: 700; color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--sdg) 35%, transparent); opacity: 0.6; }
+.sdg__more { position: relative; display: grid; align-content: center; gap: 10px; padding: 22px 24px; border-radius: 16px; border: 1px dashed var(--line-strong); background: linear-gradient(135deg, color-mix(in srgb, var(--pa) 7%, transparent), transparent 60%); }
+.sdg__more-rule { position: absolute; left: 24px; top: 0; width: 44px; height: 2px; background: var(--pa); border-radius: 0 0 2px 2px; }
+.sdg__more-idx { font-size: 22px; letter-spacing: -0.02em; color: var(--pa); }
+.sdg__more p { font-size: 14px; line-height: 1.6; color: var(--fg-muted); max-width: 30ch; }
+@media (max-width: 1023px) { .sdg__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 639px) {
+  .sdg__grid { grid-template-columns: minmax(0, 1fr); gap: 0; border-top: 1px solid var(--line-strong); }
+  .sdg__tile { grid-template-columns: 48px minmax(0, 1fr); column-gap: 14px; padding: 16px 0; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; }
+  .sdg__tile::before, .sdg__numeral { display: none; }
+  .sdg__badge { width: 48px; height: 48px; }
+  .sdg__num { font-size: 20px; }
+  .sdg__title { font-size: 15px; }
+  .sdg__desc { font-size: 13px; }
+  .sdg__more { margin-top: 16px; }
+}
+
+/* ═══ 18. Sustainability — community programs ═══ */
+.prog__band { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 16px 40px; padding: 26px 0 26px 28px; margin-bottom: clamp(28px, 4vw, 48px); border-block: 1px solid var(--line-strong); }
+.prog__tick { position: absolute; left: 0; top: 24px; bottom: 24px; width: 3px; border-radius: 3px; background: var(--pa); transform-origin: top; scale: 1 0; transition: scale 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s; box-shadow: 0 0 14px color-mix(in srgb, var(--pa) 50%, transparent); }
+.reveal-target.is-revealed .prog__tick, html:not(.js-reveal) .prog__tick { scale: 1 1; }
+.prog__figure { display: grid; gap: 4px; }
+.prog__stat--num { font-size: clamp(44px, 5vw, 64px); line-height: 1; letter-spacing: -0.03em; color: var(--pa); }
+.prog__stat--phrase { font-size: clamp(28px, 3vw, 40px); line-height: 1.05; letter-spacing: -0.02em; color: var(--pa); }
+.prog__label { font-size: 15px; font-weight: 600; color: var(--fg-strong); }
+.prog__sub { font-size: 15px; line-height: 1.7; color: var(--fg-muted); max-width: 52ch; }
+.prog__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.prog__card { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; padding: 20px; border-radius: 14px; border: 1px solid var(--line); background: var(--s2); transition: border-color 0.3s, translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (hover: hover) { .prog__card:hover { border-color: color-mix(in srgb, var(--pa) 45%, transparent); translate: 0 -3px; } .prog__card:hover .prog__idx { color: var(--pa); } }
+.prog__idx { font-size: 15px; letter-spacing: 0.04em; color: var(--fg-faint); transition: color 0.3s; margin-bottom: 14px; }
+.prog__icon { position: absolute; right: 16px; top: 14px; font-size: 22px; filter: grayscale(1) opacity(0.55); transition: filter 0.3s; }
+.prog__card:hover .prog__icon { filter: none; }
+.prog__title { font-size: 15.5px; font-weight: 600; color: var(--fg-strong); margin-bottom: 8px; letter-spacing: -0.01em; }
+.prog__desc { font-size: 13.5px; line-height: 1.65; color: var(--fg-muted); margin-bottom: 16px; }
+.prog__foot { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); display: grid; gap: 3px; }
+.prog__focus { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-subtle); }
+.prog__area { font-family: var(--font-display); font-size: 17px; color: var(--pa); letter-spacing: -0.01em; }
+@media (max-width: 1023px) { .prog__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 639px) {
+  .prog__band { grid-template-columns: minmax(0, 1fr); padding-left: 20px; gap: 10px; }
+  .prog__grid { gap: 10px; }
+  .prog__card { padding: 14px; border-radius: 12px; }
+  .prog__icon { display: none; }
+  .prog__title { font-size: 14px; }
+  .prog__desc { font-size: 12.5px; margin-bottom: 12px; }
+  .prog__area { font-size: 15px; }
+}
+
+/* ═══ 19. Governance — policy filing rows ═══ */
+.pol__count { display: inline-flex; align-items: baseline; gap: 10px; font-size: clamp(32px, 4vw, 56px); letter-spacing: -0.03em; color: var(--fg-strong); line-height: 1; }
+.pol__count span { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-subtle); }
+.pol__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-strong); }
+.pol__row { position: relative; isolation: isolate; display: grid; grid-template-columns: 40px 40px minmax(0, 1fr) auto; align-items: center; column-gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.pol__row::before { content: ''; position: absolute; inset: 0 calc(var(--gutter) * -1); z-index: -1; opacity: 0; background: linear-gradient(90deg, color-mix(in srgb, var(--pa) 8%, transparent), transparent 60%); transition: opacity 0.3s; }
+.pol__idx { font-size: 11px; letter-spacing: 0.14em; color: var(--fg-faint); transition: color 0.3s; }
+.pol__icon { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; border: 1px solid color-mix(in srgb, var(--pa) 40%, transparent); color: var(--pa); }
+.pol__icon svg { width: 18px; height: 18px; }
+.pol__title { font-size: 17px; font-weight: 600; color: var(--fg-strong); letter-spacing: -0.01em; transition: translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.pol__desc { font-size: 14px; line-height: 1.55; color: var(--fg-muted); margin-top: 3px; }
+.pol__cta { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--fg-muted); font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: color 0.3s, border-color 0.3s, background-color 0.3s; }
+.pol__cta svg { width: 14px; height: 14px; transition: translate 0.3s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (hover: hover) {
+  .pol__row:hover::before { opacity: 1; }
+  .pol__row:hover .pol__idx { color: var(--pa); }
+  .pol__row:hover .pol__title { translate: 4px 0; }
+  .pol__cta:hover { color: var(--fg-onbrand); background: var(--pa); border-color: var(--pa); }
+  .pol__cta:hover svg { translate: 0 2px; }
+}
+@media (max-width: 639px) {
+  .pol__row { grid-template-columns: 28px 36px minmax(0, 1fr); grid-template-areas: "idx icon body" ". . cta"; row-gap: 10px; column-gap: 12px; }
+  .pol__idx { grid-area: idx; } .pol__icon { grid-area: icon; width: 36px; height: 36px; } .pol__body { grid-area: body; } .pol__cta { grid-area: cta; justify-self: start; }
+  .pol__title { font-size: 16px; }
+}
+.gov-mandate { position: relative; z-index: 1; }
+
+/* cta-band inside sections that already carry horizontal padding */
+.cta-band--flush .cta-band__rule { left: 0; right: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sdg__tile, .sdg__badge circle, .prog__card, .prog__tick, .pol__title, .pol__cta svg { transition: none !important; }
+  .sdg__badge circle { stroke-dashoffset: 0; } .prog__tick { scale: 1 1; }
+}
