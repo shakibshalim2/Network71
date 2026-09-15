@@ -271,3 +271,21 @@ Contact); light theme on Home hero/work/brands; every new animation has a
 | 9 | Join CTA | centred title + two buttons, then the footer signature repeats a CTA right below | same | **refine** — becomes a left-anchored editorial band with drawn hairline, buttons right, so it stops competing with the footer poem |
 
 **About — landed:** Story (drop-cap lead, `2018` hairline watermark, parallax dossier plate with numbered accent division dots, corner marks, count-up figure); Quote (words rise in sequence, quote mark and monogram ring draw as strokes); Values → `.vled` numbered ledger with accent bar, live `01 / 05` counter, compact two-row layout on phones; Leadership placeholder → drawn monogram plate; Join CTA → left-anchored band with a drawn accent rule. Verified `tsc` + `vite build`, 1440 + 390 (no overflow).
+
+### Careers `/careers` + Investors `/investors` — inventory and verdict (Phase 7, pages 4–5)
+
+Both pages share the Phase 6 corporate template, so they are taken together.
+
+| Page | # | Section | Verdict → what changes |
+|---|---|---|---|
+| Careers | 1 | Hero (cyan accent) | keep |
+| Careers | 2 | Why Network71 (6 dossier cards) | **rework** — left-anchored heading with `06 reasons` count; cards get a pointer spotlight and an oversized hairline numeral; **phones: cards collapse to a compact icon ledger** (six tall cards was two screens of scrolling) |
+| Careers | 3 | Current openings | **refine** — loading/error/empty states become the editorial plate (error today is a bare paragraph + yellow button); job cards → posting rows with accent hairline and hover translate |
+| Careers | 4 | How we hire | keep (already a drawn process line) |
+| Careers | 5 | Don't see a fit CTA | **refine** — shared `cta-band` (left-anchored, drawn rule) so it stops repeating the footer's centred call |
+| Investors | 1 | Hero | keep |
+| Investors | 2 | Start with the right information | keep |
+| Investors | 3 | Investment thesis (3 cards) | **refine** — same spotlight + hairline numeral treatment as Careers benefits; title hovers to accent |
+| Investors | 4 | Documents & filings | keep (Phase 6 ledger) |
+| Investors | 5 | Board structure | keep (Phase 6 ledger) |
+| Investors | 6 | Investor enquiry form | **rework** — Contact form primitives: floating labels with drawn underline, enquiry type + range as segmented chips (selects stay as the submitted controls), busy progress, drawn success plate with REF |
