@@ -174,14 +174,50 @@
 .hero-kinetic__word { display: inline-block; will-change: transform; }
 .hero-kinetic__line { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
 
-/* ═══ Hero stats → signal strip on phones ═══ */
+/* ═══ Hero on phones: atmospheric object + 2×2 ledger stats ═══ */
+/* The WebGL globe sits full-bleed behind the copy; on phones we let it show
+   low-right as a lit crescent and add a CSS rim/orbit so the hero has a focal
+   object even while the canvas is still loading (or WebGL is unavailable). */
+.hero-atmos { position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+.hero-atmos__glow {
+  /* Anchored to the copy block (stats + ticker occupy the hero's last ~28%) */
+  position: absolute; right: -30vw; top: 44%; width: 96vw; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 46% 44%, color-mix(in srgb, var(--accent-cyan) 30%, transparent) 0%, color-mix(in srgb, var(--accent-teal) 16%, transparent) 30%, transparent 60%);
+  filter: blur(4px);
+}
+.hero-atmos__ring, .hero-atmos__ring--2 {
+  position: absolute; right: -28vw; top: 46%; width: 92vw; aspect-ratio: 1; border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--brand) 30%, transparent);
+  mask-image: linear-gradient(200deg, #000 30%, transparent 70%);
+  -webkit-mask-image: linear-gradient(200deg, #000 30%, transparent 70%);
+  animation: hero-orbit 46s linear infinite;
+}
+.hero-atmos__ring--2 { width: 108vw; right: -36vw; top: 42%; border-color: color-mix(in srgb, var(--accent-cyan) 20%, transparent); animation-duration: 70s; animation-direction: reverse; }
+.hero-atmos__sat {
+  position: absolute; right: 7vw; top: 66%; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--brand-bright); box-shadow: 0 0 14px var(--brand), 0 0 0 5px color-mix(in srgb, var(--brand) 18%, transparent);
+  animation: pulse-slow 2.6s ease-in-out infinite;
+}
+@keyframes hero-orbit { to { rotate: 360deg; } }
+@media (max-width: 1023px) {
+  .hero-globe { opacity: 0.95; }
+}
 @media (max-width: 767px) {
-  .hero-stats .grid { display: flex; overflow-x: auto; scroll-snap-type: x proximity; gap: 10px; padding: 12px var(--gutter); margin-inline: calc(var(--gutter) * -1); scrollbar-width: none; }
-  .hero-stats .grid::-webkit-scrollbar { display: none; }
+  /* 2×2 hairline ledger: nothing clips, each stat gets a full cell */
+  .hero-stats .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding: 0; margin: 0; }
   .hero-stats .grid > * {
-    flex: 0 0 auto; scroll-snap-align: start; border: 1px solid var(--line) !important; border-radius: 14px;
-    background: var(--fill-1); padding: 12px 14px !important; min-width: 170px;
+    padding: 14px 12px !important; gap: 12px !important; align-items: flex-start;
+    border: 0 !important; border-bottom: 1px solid var(--line) !important; border-radius: 0; background: transparent;
   }
+  .hero-stats .grid > :nth-child(odd) { border-right: 1px solid var(--line) !important; padding-left: 0 !important; }
+  .hero-stats .grid > :nth-child(even) { padding-right: 0 !important; }
+  .hero-stats .grid > :nth-child(n + 3) { border-bottom: 0 !important; }
+  .hero-stats .grid > * > div:first-child { margin-top: 2px; }
+  .hero-stats .grid > * .font-display { font-size: 22px !important; }
+  .hero-stats .grid > * .text-\[11px\] { white-space: normal; letter-spacing: 0.12em !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-atmos__ring, .hero-atmos__ring--2, .hero-atmos__sat { animation: none; }
 }
 
 /* ═══ Rail card depth on scroll ═══ */

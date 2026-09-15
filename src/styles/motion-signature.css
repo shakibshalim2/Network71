@@ -133,7 +133,7 @@ html.js-reveal .public-content section.reveal-target.is-revealed blockquote { op
 
 /* ═══ Rails on phones: edge fades hint at more content ═══ */
 @media (max-width: 767px) {
-  .public-content :is(.card-rail, .dix__rail, .hero-stats .grid) {
+  .public-content :is(.card-rail, .dix__rail) {
     mask-image: linear-gradient(90deg, transparent 0, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent 100%);
     -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent 100%);
   }
