@@ -93,19 +93,24 @@ export default function WorkShowcase() {
           </div>
         ) : (
           <div className="work-intro">
-            <div className="work-intro-mark" aria-hidden="true">
-              <span>01</span>
-              <div />
-              <span>02</span>
-              <div />
-              <span>03</span>
-            </div>
-            <div>
+            <span className="work-intro-mark" aria-hidden="true">N71</span>
+            <ol className="work-intro-steps" aria-hidden="true">
+              {(["step1", "step2", "step3"] as const).map((k, i) => (
+                <li key={k} style={{ ["--i" as string]: i }}>
+                  <span className="work-intro-steps__idx">0{i + 1}</span>
+                  <span className="work-intro-steps__label">{t(`work.intro.${k}`)}</span>
+                </li>
+              ))}
+            </ol>
+            <div className="work-intro-copy">
               <h3>{t("work.intro.title")}</h3>
               <p>{t("work.intro.body")}</p>
             </div>
-            <Link className="public-button" to="/contact">
-              {t("work.intro.cta")} <span aria-hidden="true">↗</span>
+            <Link className="btn btn-primary work-intro-cta" to="/contact">
+              {t("work.intro.cta")}
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M8 7h9v9" />
+              </svg>
             </Link>
           </div>
         )}

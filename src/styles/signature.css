@@ -437,3 +437,66 @@
   .foot-sig__actions { flex-direction: column; }
   .foot-sig__actions .btn { width: 100%; }
 }
+
+/* ═══ Our Work → enquiry plate (empty state) ═══ */
+/* Editorial plate instead of a generic bordered card: hairline N71 watermark,
+   left-anchored display title, and a three-step hairline strip whose nodes
+   light up in sequence once the section reveals. */
+.work-intro {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); grid-template-areas: "steps copy" "cta copy";
+  align-items: start; gap: 28px clamp(32px, 5vw, 72px);
+  padding: clamp(28px, 4.5vw, 56px) clamp(22px, 4vw, 56px);
+  border: 1px solid var(--line); border-radius: 22px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand) 7%, transparent), transparent 55%), var(--s2);
+}
+.work-intro::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px; opacity: 0.35;
+  mask-image: radial-gradient(ellipse at 80% 20%, #000 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 80% 20%, #000 0%, transparent 70%);
+}
+.work-intro-mark {
+  position: absolute; right: -0.04em; bottom: -0.34em; z-index: -1; pointer-events: none; user-select: none;
+  font-family: var(--font-display); font-size: clamp(120px, 20vw, 240px); line-height: 1; letter-spacing: -0.05em;
+  color: transparent; -webkit-text-stroke: 1px var(--line-strong);
+}
+.work-intro-steps {
+  grid-area: steps; list-style: none; margin: 0; padding: 0; display: flex; align-items: flex-start; gap: 0; position: relative;
+}
+.work-intro-steps li { position: relative; flex: 1 1 0; display: grid; gap: 12px; padding-top: 18px; }
+.work-intro-steps li::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--line-strong);
+}
+.work-intro-steps li::after {
+  content: ''; position: absolute; left: 0; top: 0; height: 1px; width: 100%; background: var(--brand);
+  transform-origin: left; scale: 0 1; transition: scale 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.15s + var(--i) * 0.22s);
+}
+.work-intro-steps__idx {
+  display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--line-strong); font-family: var(--font-mono); font-size: 11px; color: var(--fg-subtle);
+  transition: border-color 0.4s, color 0.4s, background-color 0.4s, box-shadow 0.4s; transition-delay: calc(0.35s + var(--i) * 0.22s);
+}
+.work-intro-steps__label { font-family: var(--font-display); font-size: 19px; letter-spacing: -0.01em; color: var(--fg-muted); transition: color 0.4s; transition-delay: calc(0.35s + var(--i) * 0.22s); }
+.reveal-target.is-revealed .work-intro-steps li::after { scale: 1 1; }
+.reveal-target.is-revealed .work-intro-steps__idx { border-color: var(--brand); color: var(--brand-fg); background: var(--brand-wash); box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 10%, transparent); }
+.reveal-target.is-revealed .work-intro-steps__label { color: var(--fg-strong); }
+html:not(.js-reveal) .work-intro-steps li::after { scale: 1 1; }
+.work-intro-copy { grid-area: copy; }
+.work-intro-copy h3 { font-family: var(--font-display); font-size: clamp(24px, 2.4vw, 32px); line-height: 1.15; letter-spacing: -0.02em; color: var(--fg-strong); margin-bottom: 12px; max-width: 18ch; }
+.work-intro-copy p { font-size: 15px; line-height: 1.75; color: var(--fg-muted); max-width: 46ch; }
+.work-intro-cta { grid-area: cta; justify-self: start; align-self: end; }
+@media (max-width: 1023px) {
+  .work-intro { grid-template-columns: minmax(0, 1fr); grid-template-areas: "copy" "steps" "cta"; gap: 24px; }
+  .work-intro-copy h3 { max-width: none; }
+}
+@media (max-width: 479px) {
+  .work-intro { padding: 24px 18px; border-radius: 18px; }
+  .work-intro-steps__label { font-size: 16px; }
+  .work-intro-cta { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .work-intro-steps li::after { scale: 1 1; transition: none; }
+  .work-intro-steps__idx, .work-intro-steps__label { transition: none; }
+}
