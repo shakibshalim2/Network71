@@ -34,28 +34,21 @@ export default function Vision({ c }: { c: AgricultureContent["vision"] }) {
             </p>
           </div>
 
-          {/* Right — values */}
-          <div className="space-y-4">
-            {c.values.map((v) => (
-              <div
-                key={v.label}
-                className="flex gap-5 items-start p-5 bg-surface-2 rounded-xl border border-slate-100 hover:border-green-200 transition-colors"
-              >
-                <div
-                  className="w-2 h-2 rounded-full flex-shrink-0 mt-1.5"
-                  style={{ background: GREEN, color: "var(--s0)" }}
-                />
-                <div>
-                  <h3 className="font-display text-lg text-fg mb-1">
-                    {v.label}
-                  </h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">
-                    {v.desc}
-                  </p>
+          {/* Right — numbered value ledger */}
+          <ol className="svals" style={{ ["--pa" as string]: GREEN }}>
+            {c.values.map((v, i) => (
+              <li key={v.label} className="svals__row" style={{ ["--i" as string]: i }}>
+                <span className="svals__idx font-mono">0{i + 1}</span>
+                <div className="svals__body">
+                  <h3 className="font-display text-lg text-fg mb-1">{v.label}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">{v.desc}</p>
                 </div>
-              </div>
+                <span className="svals__arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M8 7h9v9" /></svg>
+                </span>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </div>
     </section>
