@@ -346,3 +346,15 @@ Both pages share the Phase 6 corporate template, so they are taken together.
 | Timeline | 3 | Learn more CTA | **refine** — hard-coded gold button + boxed flex → shared `.cta-band` with `.btn` primitive |
 
 **Projects + Timeline — landed:** `.work-page-hero--sig` (KineticText headline, drawn eyebrow rule, N71 watermark). Toolbar: `.work-search` pill with leading icon and drawn underline on focus, live `NN` result count next to the heading, `.btn` primitives. All CMS states (list loading/error, detail loading/error/not-found, timeline loading/error/empty) now render the shared `ContentState` plate. Work cards: index badge on the image, status pill in the page accent, title hover translate. Timeline CTA → `.cta-band`. Verified `tsc` + `vite build`, 1440 + 390 no overflow.
+
+### Press `/press` + Blog `/blog` — inventory and verdict (Phase 7, pages 12–13)
+
+| Page | # | Section | Verdict → what changes |
+|---|---|---|---|
+| Press | 1 | Hero (rose) | keep |
+| Both | 2 | Published articles (news / insights) | **rework** — bare h2 + bare loading/error → editorial head with live count, `ContentState` plates; article cards become `.art` editorial cards: image curtain, date + author as a mono meta row with accent dot, title hover translate, index numeral |
+| Press | 3 | Media kit (3 cards, Phase 6 counter) | **refine** — `.dcard` spotlight; "View resource" becomes the pill CTA used on Policies |
+| Press | 4 | Media briefing areas (3 image rows) | **refine** — rows get an index numeral, the tag takes the page accent, image gets the curtain reveal + gentle zoom, the "Request briefing" arrow already animates |
+| Press | 5 | Information & verification (notice band, Phase 6) | keep |
+| Press | 6 | Press contact (boxed) | **refine** — shared `.cta-band` with `.btn`; the mono eyebrow stays |
+| Blog | 3 | Stay in the loop (subscribe) | **rework** — centred icon block → left-anchored band: floating-label email field with drawn underline, `.btn` submit with busy progress, success becomes an inline REF pill instead of a bare gold sentence |
