@@ -22,9 +22,10 @@ export default function Overview({ c }: { c: OilsEnergyContent }) {
           <div className="grid lg:grid-cols-2 gap-8">
             {/* {c.overview.oilsTitle} card */}
             <div
-              className="rounded-2xl p-8 bg-surface-2 border hover:shadow-2xl transition-all duration-300 group"
-              style={{ borderColor: `color-mix(in srgb, ${AMBER} 15%, transparent)` }}
+              className="rounded-2xl p-8 bg-surface-2 border group stwin"
+              style={{ ['--pa' as string]: AMBER, borderColor: `color-mix(in srgb, ${AMBER} 15%, transparent)` }}
             >
+              <span className="stwin__glow" aria-hidden="true" />
               <div className="flex items-start gap-4 mb-6">
                 <div
                   className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
@@ -58,22 +59,20 @@ export default function Overview({ c }: { c: OilsEnergyContent }) {
 
               <div className="border-t pt-5" style={{ borderColor: `color-mix(in srgb, ${AMBER} 9%, transparent)` }}>
                 <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400 mb-3">{c.copy.valueChain}</div>
-                <div className="flex items-center gap-1.5 text-xs text-slate-500 flex-wrap">
-                  {['Sourcing', 'Refining', 'Blending', '{c.copy.packaging}', 'Distribution'].map((s, i, arr) => (
-                    <span key={s} className="flex items-center gap-1.5">
-                      <span>{s}</span>
-                      {i < arr.length - 1 && <span className="font-bold" style={{ color: AMBER }}>›</span>}
-                    </span>
+                <ol className="schainmini">
+                  {['Sourcing', 'Refining', 'Blending', c.copy.packaging, 'Distribution'].map((s, i) => (
+                    <li key={s} style={{ ['--i' as string]: i }}><span className="schainmini__dot" />{s}</li>
                   ))}
-                </div>
+                </ol>
               </div>
             </div>
 
             {/* Energy & Fuel card */}
             <div
-              className="rounded-2xl p-8 bg-surface-2 border hover:shadow-2xl transition-all duration-300 group"
-              style={{ borderColor: `color-mix(in srgb, ${SKY} 15%, transparent)` }}
+              className="rounded-2xl p-8 bg-surface-2 border group stwin"
+              style={{ ['--pa' as string]: SKY, borderColor: `color-mix(in srgb, ${SKY} 15%, transparent)` }}
             >
+              <span className="stwin__glow" aria-hidden="true" />
               <div className="flex items-start gap-4 mb-6">
                 <div
                   className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
@@ -107,14 +106,11 @@ export default function Overview({ c }: { c: OilsEnergyContent }) {
 
               <div className="border-t pt-5" style={{ borderColor: `color-mix(in srgb, ${SKY} 9%, transparent)` }}>
                 <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400 mb-3">{c.copy.valueChain}</div>
-                <div className="flex items-center gap-1.5 text-xs text-slate-500 flex-wrap">
-                  {['Procurement', 'Storage', 'Distribution', 'Logistics', 'Client Delivery'].map((s, i, arr) => (
-                    <span key={s} className="flex items-center gap-1.5">
-                      <span>{s}</span>
-                      {i < arr.length - 1 && <span className="font-bold" style={{ color: SKY }}>›</span>}
-                    </span>
+                <ol className="schainmini">
+                  {['Procurement', 'Storage', 'Distribution', 'Logistics', 'Client Delivery'].map((s, i) => (
+                    <li key={s} style={{ ['--i' as string]: i }}><span className="schainmini__dot" />{s}</li>
                   ))}
-                </div>
+                </ol>
               </div>
             </div>
           </div>

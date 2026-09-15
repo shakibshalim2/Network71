@@ -622,3 +622,41 @@ html.js-reveal .reveal-target.is-revealed .splan { opacity: 1; translate: none; 
   .oil-seam { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .oil-plate, .energy-blueprint path:first-child { animation: none; stroke-dashoffset: 0; } }
+
+/* ═══ 16 · Twin division cards + mini value-chain conveyor ═══ */
+.stwin { position: relative; isolation: isolate; overflow: hidden; transition: translate 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.35s, box-shadow 0.45s; }
+.stwin__glow { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--pa) 12%, transparent), transparent 60%); transition: opacity 0.4s; }
+@media (hover: hover) {
+  .stwin:hover { translate: 0 -5px; border-color: color-mix(in srgb, var(--pa) 38%, transparent) !important; box-shadow: 0 30px 60px -34px color-mix(in srgb, var(--pa) 50%, transparent), inset 0 2px 0 0 var(--pa); }
+  .stwin:hover .stwin__glow { opacity: 1; }
+}
+.schainmini { position: relative; list-style: none; margin: 0; padding: 14px 0 0; display: flex; flex-wrap: wrap; gap: 10px 18px; font-size: 12px; color: var(--fg-muted); }
+.schainmini::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--line); }
+.schainmini::after { content: ''; position: absolute; left: 0; top: 0; height: 1px; width: 100%; background: var(--pa); transform-origin: left; scale: 0 1; transition: scale 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 0.4s; }
+.reveal-target.is-revealed .schainmini::after, html:not(.js-reveal) .schainmini::after { scale: 1 1; }
+.schainmini li { display: inline-flex; align-items: center; gap: 7px; opacity: 0.5; translate: 0 4px; transition: opacity 0.5s calc(0.5s + var(--i) * 0.16s), translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.5s + var(--i) * 0.16s), color 0.3s; }
+.reveal-target.is-revealed .schainmini li, html:not(.js-reveal) .schainmini li { opacity: 1; translate: none; }
+.schainmini__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pa); box-shadow: 0 0 8px var(--pa); flex-shrink: 0; }
+@media (hover: hover) { .schainmini li:hover { color: var(--fg-strong); } }
+@media (prefers-reduced-motion: reduce) { .schainmini::after, .schainmini li { transition: none; } }
+
+/* ═══ 17 · Node flow + network schematic ═══ */
+.snodes { position: relative; }
+.snodes__line { position: absolute; top: 40px; left: 0; right: 0; height: 1px; background: linear-gradient(to right, #f59e0b60, #10b98160, #0ea5e960); transform-origin: left; scale: 0 1; transition: scale 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s; }
+.reveal-target.is-revealed .snodes__line, html:not(.js-reveal) .snodes__line { scale: 1 1; }
+.snodes__disc {
+  display: grid; place-items: center; width: 80px; height: 80px; border-radius: 50%; margin-bottom: 16px; position: relative; z-index: 1;
+  font-size: 18px; font-weight: 700; color: var(--s0); background: var(--nc); border: 4px solid var(--s2);
+  box-shadow: 0 10px 30px -12px var(--nc);
+  scale: 0.6; opacity: 0; transition: scale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) calc(0.35s + var(--i) * 0.22s), opacity 0.4s calc(0.35s + var(--i) * 0.22s), box-shadow 0.4s;
+}
+.reveal-target.is-revealed .snodes__disc, html:not(.js-reveal) .snodes__disc { scale: 1; opacity: 1; }
+@media (hover: hover) { .snodes__item:hover .snodes__disc { box-shadow: 0 0 0 8px color-mix(in srgb, var(--nc) 18%, transparent), 0 14px 34px -12px var(--nc); } }
+.snet__pulse { transform-origin: 400px 130px; transform-box: view-box; animation: snet-pulse 2.6s ease-out infinite; }
+@keyframes snet-pulse { 0% { transform: scale(0.6); opacity: 0.35; } 100% { transform: scale(1.8); opacity: 0; } }
+.snet__line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.3s + var(--i) * 0.12s); }
+.reveal-target.is-revealed .snet__line, html:not(.js-reveal) .snet__line { stroke-dashoffset: 0; }
+.snet__packet { filter: drop-shadow(0 0 4px var(--accent-amber)); }
+.snet__dc { transition: r 0.3s; }
+.snet__spoke:hover .snet__dc { r: 14; }
+@media (prefers-reduced-motion: reduce) { .snet__pulse, .snet__packet { animation: none; display: none; } .snet__line { stroke-dashoffset: 0; transition: none; } .snodes__disc { scale: 1; opacity: 1; transition: none; } }
