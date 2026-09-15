@@ -35,7 +35,9 @@ void main(){
   float band = smoothstep(0.25, 0.85, n1) * (0.55 + 0.45 * sin(uv.x * 3.0 + t * 2.0));
   vec3 col = u_a * band + u_b * smoothstep(0.35, 0.9, n2) * 0.7;
   float vignette = smoothstep(1.15, 0.25, distance(uv, vec2(0.62, 0.3)));
-  gl_FragColor = vec4(col * vignette, u_alpha * vignette * (band + n2) * 0.5);
+  float a = clamp(u_alpha * vignette * (band + n2) * 0.5, 0.0, 1.0);
+  // Premultiplied output: rgb never exceeds alpha, so compositors can't white-wash it.
+  gl_FragColor = vec4(col * vignette * a, a);
 }
 `
 
@@ -78,7 +80,8 @@ export default function AuroraCanvas({
     const gl = canvas.getContext("webgl", {
       alpha: true,
       antialias: false,
-      premultipliedAlpha: false,
+      premultipliedAlpha: true,
+      preserveDrawingBuffer: false,
     })
     if (!gl) return
 
@@ -112,7 +115,8 @@ export default function AuroraCanvas({
     gl.uniform3fv(gl.getUniformLocation(prog, "u_b"), hexToRgb(secondary))
     gl.uniform1f(gl.getUniformLocation(prog, "u_alpha"), intensity)
     gl.enable(gl.BLEND)
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA)
+    gl.clearColor(0, 0, 0, 0)
 
     let frame = 0
     let visible = true
@@ -134,6 +138,7 @@ export default function AuroraCanvas({
       if (!visible) return
       resize()
       gl.uniform1f(uT, (performance.now() - start) / 1000)
+      gl.clear(gl.COLOR_BUFFER_BIT)
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
       frame = requestAnimationFrame(draw)
     }
@@ -147,12 +152,22 @@ export default function AuroraCanvas({
       if (visible && !frame) frame = requestAnimationFrame(draw)
     }
     document.addEventListener("visibilitychange", onVis)
+    // A lost context (GPU reset, too many contexts) can leave garbage in the
+    // backing store on some compositors; hide rather than risk a white wash.
+    const onLost = (e: Event) => {
+      e.preventDefault()
+      if (frame) cancelAnimationFrame(frame)
+      frame = 0
+      canvas.style.visibility = "hidden"
+    }
+    canvas.addEventListener("webglcontextlost", onLost)
     frame = requestAnimationFrame(draw)
 
     return () => {
       if (frame) cancelAnimationFrame(frame)
       io.disconnect()
       document.removeEventListener("visibilitychange", onVis)
+      canvas.removeEventListener("webglcontextlost", onLost)
       gl.getExtension("WEBGL_lose_context")?.loseContext()
     }
   }, [color, secondary, intensity])

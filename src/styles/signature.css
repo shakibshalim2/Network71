@@ -196,8 +196,22 @@
 @keyframes rail-parallax { from { object-position: 30% center; } to { object-position: 70% center; } }
 
 /* ═══ Connect portal ═══ */
-.portal { position: relative; overflow: hidden; background: var(--s0); border-top: 1px solid var(--line); }
-.portal .aurora-canvas { opacity: 1; }
+/* Deliberately dark in both themes. Background is a literal so legibility never
+   depends on token cascade or on the WebGL canvas painting correctly. */
+.portal { position: relative; isolation: isolate; overflow: hidden; background: #04080E; border-top: 1px solid rgb(255 255 255 / 0.08); }
+.portal::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 50% 0%, color-mix(in srgb, var(--brand) 22%, transparent), transparent 70%),
+    radial-gradient(40% 40% at 85% 90%, rgb(13 148 136 / 0.16), transparent 70%);
+}
+.portal .aurora-canvas { opacity: 0.9; z-index: 0; }
+.portal__grid { z-index: 0; }
+.portal__title { color: #fff; }
+.portal__desc { color: #E2E8F0; }
+.portal__tabs { background: rgb(255 255 255 / 0.05); border-color: rgb(255 255 255 / 0.16); }
+.portal__tab { color: #B0BDCF; }
+.portal__direct { border-top-color: rgb(255 255 255 / 0.1); }
 .portal__grid {
   position: absolute; inset: 0; pointer-events: none; opacity: 0.35;
   background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
