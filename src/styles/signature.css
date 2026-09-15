@@ -513,3 +513,41 @@ html:not(.js-reveal) .work-intro-steps li::after { scale: 1 1; }
   .work-intro-steps li::after { scale: 1 1; transition: none; }
   .work-intro-steps__idx, .work-intro-steps__label { transition: none; }
 }
+
+/* ═══ Process line (Working together) ═══ */
+/* Horizontal on wide screens: the line runs along the top of the step row and a
+   node travels with scroll; steps light as it passes. Phones: vertical spine. */
+.pline { position: relative; --pline-p: 0%; --pline-lit: 0; }
+.pline__base, .pline__fill { position: absolute; pointer-events: none; border-radius: 2px; }
+.pline__base { left: 0; right: 0; top: 0; height: 2px; background: var(--line-strong); }
+.pline__fill { left: 0; top: 0; height: 2px; width: var(--pline-p); background: var(--pline-accent); box-shadow: 0 0 14px color-mix(in srgb, var(--pline-accent) 50%, transparent); }
+.pline__node {
+  position: absolute; top: 1px; left: var(--pline-p); translate: -50% -50%; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--pline-accent); box-shadow: 0 0 0 5px color-mix(in srgb, var(--pline-accent) 18%, transparent), 0 0 18px var(--pline-accent);
+  pointer-events: none;
+}
+.pline .working-steps li { border-top: 0; padding-top: 28px; --on: clamp(0, calc(var(--pline-lit) - var(--i) + 1), 1); }
+.pline .working-number {
+  display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  border: 1px solid var(--line-strong); background: var(--s1); color: var(--fg-subtle);
+  transition: border-color 0.4s, color 0.4s, background-color 0.4s;
+  border-color: color-mix(in srgb, var(--pline-accent) calc(var(--on) * 100%), var(--line-strong));
+  color: color-mix(in srgb, var(--brand-fg) calc(var(--on) * 100%), var(--fg-subtle));
+  background: color-mix(in srgb, var(--brand-wash) calc(var(--on) * 100%), var(--s1));
+}
+.pline .working-steps h3 { transition: color 0.4s; color: color-mix(in srgb, var(--fg-strong) calc(40% + var(--on) * 60%), transparent); }
+.pline .working-steps p { transition: opacity 0.4s; opacity: calc(0.55 + var(--on) * 0.45); }
+@media (max-width: 767px) {
+  .pline { padding-left: 34px; }
+  .pline__base, .pline__fill { left: 14px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; }
+  .pline__fill { height: var(--pline-p); width: 2px; }
+  .pline__node { left: 15px; top: var(--pline-p); }
+  .pline .working-steps { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .pline .working-steps li { padding-top: 0; position: relative; }
+  .pline .working-number { position: absolute; left: -34px; top: -2px; margin: 0; }
+  .pline .working-steps h3 { margin-top: 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pline__node { display: none; }
+  .pline .working-number, .pline .working-steps h3, .pline .working-steps p { transition: none; }
+}

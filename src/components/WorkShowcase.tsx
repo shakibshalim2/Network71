@@ -9,6 +9,7 @@ import {
   type PublishedPage,
 } from "@/lib/publicContent"
 import { useCompanySettings } from "@/lib/companySettings"
+import ProcessLine from "@/components/motion/ProcessLine"
 
 export function WorkImage({ src, alt }: { src: string; alt: string }) {
   const { t } = useT()
@@ -138,15 +139,17 @@ export function WorkingTogether() {
           </div>
           <p>{t("work.together.lead")}</p>
         </div>
-        <ol className="working-steps">
-          {STEPS.map((step, index) => (
-            <li key={step}>
-              <span className="working-number">0{index + 1}</span>
-              <h3>{t(`work.together.${step}.title`)}</h3>
-              <p>{t(`work.together.${step}.body`)}</p>
-            </li>
-          ))}
-        </ol>
+        <ProcessLine steps={STEPS.length}>
+          <ol className="working-steps">
+            {STEPS.map((step, index) => (
+              <li key={step} style={{ ["--i" as string]: index }}>
+                <span className="working-number">0{index + 1}</span>
+                <h3>{t(`work.together.${step}.title`)}</h3>
+                <p>{t(`work.together.${step}.body`)}</p>
+              </li>
+            ))}
+          </ol>
+        </ProcessLine>
         <div className="working-contact">
           <p>{t("work.together.brief")}</p>
           <a href={`mailto:${generalEmail}`}>
