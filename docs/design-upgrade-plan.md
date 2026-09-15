@@ -330,3 +330,17 @@ Both pages share the Phase 6 corporate template, so they are taken together.
 | Global | 7 | Our locations (published) | **refine** — loading/error → editorial plate with pulse |
 
 **Leadership + Global presence — landed:** `.ceo` plate (accent wash, spotlight, corner marks, N71 watermark, drawn monogram ring, mono-numbered tags) replaces the gradient tile card. New `ContentState` component (`src/components/ContentState.tsx`) gives every CMS section the same loading/error/empty plate — used on published team and locations; team cards get accent hairline + drawn monogram fallback. Join CTA → `.cta-band`. Global counts → `.gcount` ledger band with staggered drawn ticks. Trade routes → `.corr__row` corridor ledger: drawn route line, travelling particle, mono "via" pill, corridor accent on hover; stacks origin/line/destination on phones. Regions + key markets → `.dcard` spotlight (kept as cards on phones via `.dcards__grid--keep`). Verified `tsc` + `vite build`, 1440 + 390 no overflow.
+
+### Projects `/projects` + Timeline `/timeline` — inventory and verdict (Phase 7, pages 10–11)
+
+| Page | # | Section | Verdict → what changes |
+|---|---|---|---|
+| Projects | 1 | Work hero ("Our work, in detail.") | **refine** — kinetic headline + drawn eyebrow rule like every other hero; hairline "N71" watermark |
+| Projects | 2 | Explore toolbar + search | **refine** — search becomes a pill field with a leading icon, drawn accent underline on focus, and the heading carries a live result count when data is present |
+| Projects | 2b | States (loading / error / empty / search-empty) | **refine** — loading was a bare word inside the plate → shared `ContentState` pulse; error/empty use the same plate with primary buttons |
+| Projects | 2c | Work cards | **refine** — status pill takes the page accent, image curtain already reveals; add index numeral + hover translate on title |
+| Projects | 3 | Working together | keep (Phase 7 process line) |
+| Project detail | — | loading / error / not-found in hero | **refine** — `ContentState` inside the hero container instead of a bare h1 |
+| Timeline | 1 | Hero (amber) | keep |
+| Timeline | 2 | Milestones (published) | **refine** — loading was a bare sentence, error/empty were plain plates → `ContentState` with eyebrow; ScrollSpine already draws |
+| Timeline | 3 | Learn more CTA | **refine** — hard-coded gold button + boxed flex → shared `.cta-band` with `.btn` primitive |
