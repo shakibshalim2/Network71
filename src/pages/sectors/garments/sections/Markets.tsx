@@ -31,31 +31,22 @@ export default function Markets({
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-          {c.markets.map((market) => (
-            <div
+        <ul className="smkt mb-6" style={{ ["--pa" as string]: ACCENT }}>
+          {c.markets.map((market, i) => (
+            <li
               key={market.region}
-              className="p-5 rounded-2xl bg-surface-2 border border-slate-100 hover:border-rose-100 hover:shadow-md transition-all text-center group"
+              className={`smkt__tile${market.tier === "primary" ? " is-primary" : ""}`}
+              style={{ ["--i" as string]: i }}
             >
-              <div className="text-3xl mb-3">{market.flag}</div>
-              <h3 className="font-semibold text-fg text-sm mb-1">
-                {market.region}
-              </h3>
-              <p className="text-slate-400 text-xs">{market.note}</p>
-              {market.tier === "primary" && (
-                <div
-                  className="mt-2.5 px-2 py-0.5 rounded-full text-[10px] font-semibold inline-block"
-                  style={{
-                    background: `color-mix(in srgb, ${ACCENT} 7%, transparent)`,
-                    color: ACCENT,
-                  }}
-                >
-                  {c.primary}
-                </div>
-              )}
-            </div>
+              <span className="smkt__idx font-mono">0{i + 1}</span>
+              <span className="smkt__flag">{market.flag}</span>
+              <h3 className="smkt__region">{market.region}</h3>
+              <p className="smkt__note">{market.note}</p>
+              {market.tier === "primary" && <span className="smkt__tier font-mono">{c.primary}</span>}
+              <span className="smkt__rule" aria-hidden="true" />
+            </li>
           ))}
-        </div>
+        </ul>
 
         <div className="p-5 rounded-xl bg-surface-2 border border-slate-100 text-center">
           <p className="text-slate-400 text-sm">

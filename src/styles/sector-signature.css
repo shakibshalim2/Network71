@@ -152,3 +152,123 @@ html.js-reveal .sector-page section.reveal-target.is-revealed .grid > :is(.round
   .sflow__node { position: absolute; left: -26px; top: 50%; translate: 0 -50%; }
 }
 @media (prefers-reduced-motion: reduce) { .sflow__line::after, .sflow__node, .sflow__label { transition: none; } }
+
+/* ═══ 5 · Roadmap timeline (drawn with scroll via ProcessLine) ═══ */
+.sroad { padding-top: 30px; }
+.sroad .pline__base, .sroad .pline__fill { top: 30px; }
+.sroad .pline__node { top: 31px; }
+.sroad__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.sroad__item {
+  --on: clamp(0, calc(var(--pline-lit) - var(--i) + 1), 1);
+  position: relative; isolation: isolate; display: grid; gap: 8px; padding-top: 20px;
+}
+.sroad__node {
+  display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; margin-bottom: 6px;
+  font-size: 20px; font-weight: 700; color: var(--s0);
+  background: color-mix(in srgb, var(--pa) calc(var(--on) * 100%), var(--s3));
+  box-shadow: 0 0 0 calc(4px + var(--on) * 2px) color-mix(in srgb, var(--pa) calc(var(--on) * 16%), transparent);
+  transition: background-color 0.5s, box-shadow 0.5s;
+}
+.sroad__year { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-subtle); }
+.sroad__title { transition: color 0.4s; color: color-mix(in srgb, var(--fg-strong) calc(45% + var(--on) * 55%), transparent); }
+.sroad__desc { transition: opacity 0.4s; opacity: calc(0.55 + var(--on) * 0.45); }
+.sroad__ghost {
+  position: absolute; right: 8px; top: 6px; z-index: -1; pointer-events: none; user-select: none;
+  font-size: 110px; line-height: 1; letter-spacing: -0.05em; color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--pa) calc(var(--on) * 40%), var(--line));
+  opacity: calc(0.4 + var(--on) * 0.6); translate: 0 calc((1 - var(--on)) * 16px);
+  transition: opacity 0.6s, translate 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), -webkit-text-stroke-color 0.6s;
+}
+@media (max-width: 1023px) {
+  .sroad { padding-left: 34px; padding-top: 0; }
+  .sroad .pline__base, .sroad .pline__fill { left: 14px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; }
+  .sroad .pline__fill { height: var(--pline-p); }
+  .sroad .pline__node { left: 15px; top: var(--pline-p); }
+  .sroad__list { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .sroad__item { padding-top: 0; }
+  .sroad__node { width: 44px; height: 44px; font-size: 16px; translate: 0; }
+  .sroad__ghost { font-size: 80px; }
+}
+@media (prefers-reduced-motion: reduce) { .sroad__node, .sroad__title, .sroad__desc, .sroad__ghost { transition: none; } }
+
+/* ═══ 6 · Supply chain corridor ═══ */
+.schain {
+  position: relative; list-style: none; margin: 0 0 48px; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 6vw, 96px);
+}
+.schain__line {
+  position: absolute; left: 8%; right: 8%; top: 44px; height: 1px; background: var(--line-strong); pointer-events: none; overflow: visible;
+}
+.schain__line::after {
+  content: ''; position: absolute; inset: 0; background: var(--pa); transform-origin: left; scale: 0 1;
+  transition: scale 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s;
+}
+.reveal-target.is-revealed .schain__line::after, html:not(.js-reveal) .schain__line::after { scale: 1 1; }
+.schain__particle {
+  position: absolute; top: -3px; left: 0; width: 7px; height: 7px; border-radius: 50%; background: var(--pa);
+  box-shadow: 0 0 12px var(--pa), 0 0 0 4px color-mix(in srgb, var(--pa) 18%, transparent);
+  opacity: 0; animation: schain-travel 5.5s cubic-bezier(0.45, 0, 0.55, 1) 1.8s infinite;
+}
+@keyframes schain-travel { 0% { left: 0; opacity: 0; } 6% { opacity: 1; } 94% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+.schain__node {
+  position: relative; isolation: isolate; display: grid; justify-items: center; text-align: center; gap: 6px;
+  padding: 24px 22px 26px; border-radius: 18px; background: var(--s2); border: 1px solid var(--line);
+  transition: translate 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.35s, box-shadow 0.45s;
+}
+.schain__idx { position: absolute; top: 14px; right: 16px; font-size: 11px; letter-spacing: 0.14em; color: var(--fg-faint); transition: color 0.3s; }
+.schain__icon {
+  display: grid; place-items: center; width: 56px; height: 56px; border-radius: 16px; font-size: 26px; margin-bottom: 8px;
+  background: color-mix(in srgb, var(--pa) 7%, transparent); border: 1px solid color-mix(in srgb, var(--pa) 18%, transparent);
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s, background-color 0.35s;
+}
+.schain__items { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; justify-items: center; }
+.schain__items li { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--fg-muted); }
+.schain__dot { width: 4px; height: 4px; border-radius: 50%; background: var(--pa); flex-shrink: 0; }
+@media (hover: hover) {
+  .schain__node:hover { translate: 0 -5px; border-color: color-mix(in srgb, var(--pa) 32%, transparent); box-shadow: 0 28px 56px -32px color-mix(in srgb, var(--pa) 45%, transparent), inset 0 2px 0 0 var(--pa); }
+  .schain__node:hover .schain__idx { color: var(--pa); }
+  .schain__node:hover .schain__icon { transform: translateY(-3px) scale(1.05); background: color-mix(in srgb, var(--pa) 14%, transparent); box-shadow: 0 12px 28px -12px var(--pa); }
+}
+.schain__note { position: relative; overflow: hidden; }
+.schain__note::after {
+  content: ''; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: var(--pa);
+  transform-origin: left; scale: 0 1; transition: scale 1s cubic-bezier(0.2, 0.7, 0.2, 1) 1.2s;
+}
+.reveal-target.is-revealed .schain__note::after, html:not(.js-reveal) .schain__note::after { scale: 1 1; }
+.schain__flag { transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.schain__note:hover .schain__flag { transform: rotate(-6deg) scale(1.1); }
+@media (max-width: 767px) {
+  .schain { grid-template-columns: minmax(0, 1fr); gap: 14px; padding-left: 26px; }
+  .schain__line { left: 7px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; }
+  .schain__line::after { transform-origin: top; scale: 1 0; }
+  .reveal-target.is-revealed .schain__line::after, html:not(.js-reveal) .schain__line::after { scale: 1 1; }
+  .schain__particle { display: none; }
+  .schain__node { justify-items: start; text-align: left; }
+  .schain__items { justify-items: start; }
+}
+@media (prefers-reduced-motion: reduce) { .schain__particle { animation: none; } .schain__line::after, .schain__note::after { transition: none; } }
+
+/* ═══ 7 · Export markets tiles ═══ */
+.smkt { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.smkt__tile {
+  position: relative; isolation: isolate; overflow: hidden; display: grid; justify-items: center; text-align: center; gap: 4px;
+  padding: 24px 18px 22px; border-radius: 18px; background: var(--s2); border: 1px solid var(--line);
+  transition: translate 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.35s, box-shadow 0.45s;
+}
+.smkt__tile.is-primary { border-color: color-mix(in srgb, var(--pa) 22%, transparent); background: color-mix(in srgb, var(--pa) 3%, var(--s2)); }
+.smkt__idx { position: absolute; top: 12px; left: 14px; font-size: 10.5px; letter-spacing: 0.14em; color: var(--fg-faint); transition: color 0.3s; }
+.smkt__flag { font-size: 34px; line-height: 1; margin-bottom: 8px; transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); filter: drop-shadow(0 6px 14px rgb(0 0 0 / 0.25)); }
+.smkt__region { font-size: 14px; font-weight: 600; color: var(--fg-strong); }
+.smkt__note { font-size: 12px; color: var(--fg-subtle); }
+.smkt__tier {
+  margin-top: 8px; padding: 3px 9px; border-radius: 999px; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--pa); background: color-mix(in srgb, var(--pa) 9%, transparent); border: 1px solid color-mix(in srgb, var(--pa) 25%, transparent);
+}
+.smkt__rule { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--pa); transform-origin: left; scale: 0 1; transition: scale 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (hover: hover) {
+  .smkt__tile:hover { translate: 0 -5px; border-color: color-mix(in srgb, var(--pa) 35%, transparent); box-shadow: 0 24px 48px -28px color-mix(in srgb, var(--pa) 45%, transparent); }
+  .smkt__tile:hover .smkt__idx { color: var(--pa); }
+  .smkt__tile:hover .smkt__flag { transform: translateY(-4px) rotate(-6deg) scale(1.12); }
+  .smkt__tile:hover .smkt__rule { scale: 1 1; }
+}
+@media (max-width: 767px) { .smkt { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
