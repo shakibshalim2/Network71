@@ -1,8 +1,10 @@
+import { useRef } from "react"
 import { useDhakaTime } from "@/lib/useDhakaTime"
 import { Link } from "react-router-dom"
-import { motion } from "motion/react"
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react"
 import { useT } from "@/i18n"
 import { EASE_OUT } from "@/lib/motion"
+import Magnetic from "@/components/motion/Magnetic"
 
 const rise = {
   hidden: { opacity: 0, y: 22 },
@@ -19,9 +21,14 @@ export default function FooterCta() {
   const { t } = useT()
   const time = useDhakaTime()
   const lines = [t("about.title1"), t("about.title2"), t("about.title3")]
+  const reduce = useReducedMotion()
+  // Wordmark slides sideways with scroll so the footer reads as one long strip.
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] })
+  const markX = useTransform(scrollYProgress, [0, 1], [reduce ? "0%" : "-6%", "0%"])
 
   return (
-    <div className="foot-sig">
+    <div className="foot-sig" ref={ref}>
       <div className="container-page foot-sig__inner">
         <motion.div
           className="foot-sig__grid"
@@ -54,24 +61,28 @@ export default function FooterCta() {
           <motion.div variants={rise} className="foot-sig__side">
             <p className="foot-sig__lead">{t("footer.lead")}</p>
             <div className="foot-sig__actions">
-              <Link to="/contact" className="btn btn-primary">
-                {t("footer.ctaContact")}
-                <svg
-                  fill="none"
-                  viewBox="0 0 16 16"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3 8h10M8 3l5 5-5 5"
-                  />
-                </svg>
-              </Link>
-              <Link to="/about" className="btn btn-secondary">
-                {t("footer.ctaAbout")}
-              </Link>
+              <Magnetic strength={10}>
+                <Link to="/contact" className="btn btn-primary">
+                  {t("footer.ctaContact")}
+                  <svg
+                    fill="none"
+                    viewBox="0 0 16 16"
+                    stroke="currentColor"
+                    strokeWidth="2.2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 8h10M8 3l5 5-5 5"
+                    />
+                  </svg>
+                </Link>
+              </Magnetic>
+              <Magnetic strength={8}>
+                <Link to="/about" className="btn btn-secondary">
+                  {t("footer.ctaAbout")}
+                </Link>
+              </Magnetic>
             </div>
             <dl className="foot-sig__meta">
               <div>
@@ -100,6 +111,7 @@ export default function FooterCta() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 1.1, ease: EASE_OUT }}
           className="font-display"
+          style={{ x: markX }}
         >
           Network71
         </motion.span>

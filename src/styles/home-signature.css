@@ -421,3 +421,16 @@
   .esg__card, .esg__media img, .esg__badge, .esg__link, .esg__rule, .lead__tag { transition: none; }
   .reveal-target .esg__media img { clip-path: none; }
 }
+
+/* ═══ 10 · Connect portal ═══ */
+.portal__email { position: relative; display: inline-grid; justify-items: center; }
+.portal__email:hover { text-decoration: none; }
+.portal__email-line {
+  display: block; height: 2px; width: 100%; margin-top: 4px; border-radius: 1px;
+  background: var(--tab-accent, var(--brand)); transform: scaleX(0); transform-origin: center;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), background-color 0.5s;
+}
+.portal__email:hover .portal__email-line, .portal__email:focus-visible .portal__email-line { transform: scaleX(1); }
+.portal__tab { transition: color 0.25s, translate 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (hover: hover) { .portal__tab:not(.is-active):hover { color: #fff; translate: 0 -1px; } }
+.portal__cta { transition: background-color 0.5s, box-shadow 0.5s, transform 0.2s; }
