@@ -806,3 +806,96 @@ html:not(.js-reveal) .tr-map__label, html:not(.js-reveal) .tr-map__label + text,
 }
 @media (prefers-reduced-motion: reduce) { .slane__dash { scale: 1 1; transition: none; } .reveal-target.is-revealed .slane__ship { animation: none; left: 50%; } }
 .sector-page section .grid > .slane::before { content: none; }
+
+/* ═══ 22 · Trading per-section identities ═══ */
+/* shared: suppress the generic running counter where a section supplies its own index */
+.sector-page section .grid > :is(.spill, .sfreight, .sfin, .ssus)::before { content: none !important; }
+.sector-page section .grid > :is(.spill, .sfreight) > :not(.spill__ghost):not(.sfreight__ghost) { position: relative; z-index: 1; }
+.sector-page section .grid > :is(.spill, .scat, .ssvc, .sfreight, .sfin, .ssus) { position: relative; isolation: isolate; overflow: hidden; }
+
+/* Overview pillars */
+.spill__ghost { position: absolute; right: 12px; top: 2px; z-index: 0; font-size: 72px; line-height: 1; letter-spacing: -0.05em; color: transparent; -webkit-text-stroke: 1px var(--line); transition: -webkit-text-stroke-color 0.4s, translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.spill__rule { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--pa); transform-origin: left; scale: 0 1; transition: scale 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.spill__icon { transition: background-color 0.3s, color 0.3s, transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (hover: hover) {
+  .spill:hover .spill__ghost { -webkit-text-stroke-color: color-mix(in srgb, var(--pa) 45%, transparent); translate: -4px -3px; }
+  .spill:hover .spill__rule { scale: 1 1; }
+  .spill:hover .spill__icon { background: var(--pa) !important; color: var(--s0) !important; transform: translateY(-2px) rotate(-6deg); }
+}
+
+/* Categories */
+.scat { border: 1px solid var(--line); }
+.scat__bar { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; z-index: 2; background: var(--pa); transform-origin: top; scale: 1 0; transition: scale 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.2s + var(--i) * 0.1s); border-radius: 0 2px 2px 0; }
+.reveal-target.is-revealed .scat__bar, html:not(.js-reveal) .scat__bar { scale: 1 1; }
+.scat__idx { position: absolute; top: 16px; right: 18px; font-size: 11px; letter-spacing: 0.14em; color: var(--fg-faint); transition: color 0.3s; }
+.scat__icon { transition: background-color 0.3s, color 0.3s, transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.scat__route { display: flex; align-items: center; gap: 8px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-subtle); }
+.scat__route-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pa); box-shadow: 0 0 8px var(--pa); flex-shrink: 0; }
+@media (hover: hover) { .scat:hover .scat__icon { background: var(--pa) !important; color: var(--s0) !important; transform: translateY(-2px) scale(1.05); } .scat:hover .scat__route { color: var(--fg); } }
+
+/* Services + spec ticks */
+.ssvc__rule { display: inline-block; height: 2px; width: 40px; border-radius: 1px; background: var(--pa); transform-origin: left; scale: 0 1; transition: scale 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.2s + var(--i) * 0.12s); }
+.reveal-target.is-revealed .ssvc__rule, html:not(.js-reveal) .ssvc__rule { scale: 1 1; }
+.ssvc__idx { font-size: 11px; letter-spacing: 0.14em; color: var(--fg-faint); }
+.ssvc__tick { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 5px; background: color-mix(in srgb, var(--pa) 10%, transparent); color: var(--pa); flex-shrink: 0; }
+.ssvc__tick svg { width: 11px; height: 11px; }
+.ssvc__tick path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.5s + var(--i, 0) * 0.12s + var(--j, 0) * 0.07s); }
+.reveal-target.is-revealed .ssvc__tick path, html:not(.js-reveal) .ssvc__tick path { stroke-dashoffset: 0; }
+.ssvc__item { opacity: 0.55; translate: 0 4px; transition: opacity 0.4s calc(0.45s + var(--i, 0) * 0.12s + var(--j, 0) * 0.07s), translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.45s + var(--i, 0) * 0.12s + var(--j, 0) * 0.07s); }
+.reveal-target.is-revealed .ssvc__item, html:not(.js-reveal) .ssvc__item { opacity: 1; translate: none; }
+
+/* Compliance seals */
+.sseal { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.sseal__item { position: relative; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--pa) 15%, transparent); background: color-mix(in srgb, var(--pa) 3%, transparent); transition: border-color 0.3s, translate 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.sseal__mark { position: relative; width: 30px; height: 30px; display: grid; place-items: center; flex-shrink: 0; color: var(--pa); }
+.sseal__mark > svg:first-child { position: absolute; inset: 0; width: 100%; height: 100%; rotate: -90deg; }
+.sseal__mark circle { fill: none; stroke: var(--pa); stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.3s + var(--i) * 0.12s); }
+.sseal__tick { width: 13px; height: 13px; }
+.sseal__tick path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) calc(1s + var(--i) * 0.12s); }
+.reveal-target.is-revealed .sseal__mark circle, .reveal-target.is-revealed .sseal__tick path, html:not(.js-reveal) .sseal__mark circle, html:not(.js-reveal) .sseal__tick path { stroke-dashoffset: 0; }
+.sseal__label { font-size: 12.5px; font-weight: 500; color: rgb(226 232 240 / 0.85); }
+.sseal__idx { margin-left: auto; font-size: 10px; letter-spacing: 0.12em; color: rgb(255 255 255 / 0.25); }
+@media (hover: hover) { .sseal__item:hover { border-color: color-mix(in srgb, var(--pa) 45%, transparent); translate: 0 -2px; } }
+
+/* Freight modes */
+.sfreight { border: 1px solid var(--line); }
+.sfreight__bar { position: absolute; left: 0; right: 0; top: 0; height: 4px; z-index: 2; background: var(--pa); transform-origin: left; scale: 0 1; transition: scale 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.2s + var(--i) * 0.15s); }
+.reveal-target.is-revealed .sfreight__bar, html:not(.js-reveal) .sfreight__bar { scale: 1 1; }
+.sfreight__ghost { position: absolute; right: 16px; top: 8px; z-index: 0; font-size: 96px; line-height: 1; letter-spacing: -0.06em; color: transparent; -webkit-text-stroke: 1px var(--line); transition: -webkit-text-stroke-color 0.4s, translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.sfreight__icon { transition: background-color 0.3s, color 0.3s, transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (hover: hover) { .sfreight:hover .sfreight__ghost { -webkit-text-stroke-color: color-mix(in srgb, var(--pa) 40%, transparent); translate: -4px -4px; } .sfreight:hover .sfreight__icon { background: var(--pa) !important; color: var(--s0) !important; transform: translateY(-3px) scale(1.05); } }
+
+/* Finance instruments */
+.sfin { background: var(--fill-2); border: 1px solid color-mix(in srgb, var(--pa) 13%, transparent); }
+.sfin__ghost { position: absolute; left: 22px; top: 14px; font-size: 40px; line-height: 1; letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--pa) 45%, transparent); transition: -webkit-text-stroke-color 0.4s; }
+.sfin__rule { position: absolute; left: 28px; top: 62px; height: 2px; width: 32px; border-radius: 1px; background: var(--pa); transform-origin: left; scale: 0 1; transition: scale 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.3s + var(--i) * 0.12s); }
+.reveal-target.is-revealed .sfin__rule, html:not(.js-reveal) .sfin__rule { scale: 1 1; }
+.sfin__corner { position: absolute; right: 0; bottom: 0; width: 0; height: 0; border-style: solid; border-width: 0 0 28px 28px; border-color: transparent transparent color-mix(in srgb, var(--pa) 14%, transparent) transparent; transition: border-width 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (hover: hover) { .sfin:hover .sfin__ghost { -webkit-text-stroke-color: var(--pa); } .sfin:hover .sfin__corner { border-width: 0 0 44px 44px; } }
+
+/* Risk shields */
+.srisk { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.srisk__item { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 14px; align-items: start; padding: 18px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--pa) 9%, transparent); background: color-mix(in srgb, var(--pa) 2%, transparent); transition: border-color 0.3s, translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.4s; }
+.srisk__shield { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; color: var(--pa); background: color-mix(in srgb, var(--pa) 8%, transparent); }
+.srisk__shield svg { width: 22px; height: 22px; }
+.srisk__shield path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.3s + var(--i) * 0.15s); }
+.srisk__shield .srisk__check { transition-delay: calc(1.1s + var(--i) * 0.15s); transition-duration: 0.4s; }
+.reveal-target.is-revealed .srisk__shield path, html:not(.js-reveal) .srisk__shield path { stroke-dashoffset: 0; }
+@media (hover: hover) { .srisk__item:hover { translate: 0 -3px; border-color: color-mix(in srgb, var(--pa) 35%, transparent); box-shadow: inset 0 2px 0 0 var(--pa); } }
+
+/* Sustainability */
+.ssus { border: 1px solid var(--line); }
+.ssus__pulse { width: 10px; height: 10px; border-radius: 50%; background: var(--pa); box-shadow: 0 0 0 0 color-mix(in srgb, var(--pa) 40%, transparent); animation: sdash-ping 2.4s ease-out calc(var(--i) * 0.5s) infinite; }
+.ssus__idx { font-size: 11px; letter-spacing: 0.14em; color: var(--fg-faint); }
+.ssus__rule { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--pa); transform-origin: left; scale: 0 1; transition: scale 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.3s + var(--i) * 0.15s); }
+.reveal-target.is-revealed .ssus__rule, html:not(.js-reveal) .ssus__rule { scale: 1 1; }
+
+@media (max-width: 639px) { .sseal, .srisk { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) {
+  .ssus__pulse { animation: none; }
+  .scat__bar, .ssvc__rule, .ssvc__tick path, .ssvc__item, .sseal__mark circle, .sseal__tick path, .sfreight__bar, .sfin__rule, .srisk__shield path, .ssus__rule { transition: none; scale: 1 1; stroke-dashoffset: 0; opacity: 1; translate: none; }
+}
+/* Decorative layers inside structural cards must stay absolute (structural rule makes children relative) */
+.sector-page section .grid > * > :is(.spill__ghost, .spill__rule, .scat__bar, .sfreight__bar, .sfreight__ghost, .sfin__ghost, .sfin__corner, .ssus__rule, .splan__glow, .splan__idx, .splan__flag, .stwin__glow, .esg__glow) { position: absolute !important; }
+.sector-page section .grid > * > :is(.spill__ghost, .sfreight__ghost, .splan__glow, .stwin__glow) { z-index: 0 !important; }
+.sector-page section .grid > * > :is(.spill__rule, .scat__bar, .sfreight__bar, .sfin__corner, .ssus__rule) { z-index: 2 !important; }

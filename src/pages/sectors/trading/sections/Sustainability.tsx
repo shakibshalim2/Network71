@@ -15,15 +15,19 @@ export default function Sustainability({ c }: { c: TradingContent }) {
             <p className="text-slate-500 text-sm max-w-xl mx-auto">{c.copy.sustainabilityLead}</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {c.sustainabilityItems.map((s) => (
+            {c.sustainabilityItems.map((s, i) => (
               <div
                 key={s.title}
-                className="bg-surface-2 p-7 rounded-2xl border hover:shadow-lg transition-all"
-                style={{ borderColor: `color-mix(in srgb, ${BLUE} 8%, transparent)` }}
+                className="bg-surface-2 p-7 rounded-2xl ssus"
+                style={{ ['--pa' as string]: 'var(--accent-green)', ['--i' as string]: i }}
               >
-                <div className="w-2 h-2 rounded-full mb-4" style={{ background: 'var(--accent-green)' }} />
+                <div className="flex items-center justify-between mb-4">
+                  <span className="ssus__pulse" aria-hidden="true" />
+                  <span className="ssus__idx font-mono">0{i + 1}</span>
+                </div>
                 <h3 className="font-semibold text-fg mb-3">{s.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{s.desc}</p>
+                <span className="ssus__rule" aria-hidden="true" />
               </div>
             ))}
           </div>

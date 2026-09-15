@@ -1,5 +1,6 @@
 import { BLUE } from '../theme'
 import type { TradingContent } from '../content/en'
+import ScrollWords from '@/components/motion/ScrollWords'
 
 export default function Overview({ c }: { c: TradingContent }) {
   return (
@@ -13,7 +14,7 @@ export default function Overview({ c }: { c: TradingContent }) {
                 <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: BLUE }}>{c.copy.overviewEyebrow}</span>
               </div>
               <h2 className="font-display text-4xl lg:text-5xl text-fg leading-tight mb-6">{c.copy.overviewTitle}</h2>
-              <p className="text-slate-500 leading-relaxed mb-5">{c.copy.overviewLead1}</p>
+              <ScrollWords className="text-slate-500 leading-relaxed mb-5 sov__lead" text={c.copy.overviewLead1} />
               <p className="text-slate-500 leading-relaxed mb-5">{c.copy.overviewLead2}</p>
               <p className="text-slate-500 leading-relaxed">{c.copy.overviewLead3}</p>
             </div>
@@ -49,20 +50,19 @@ export default function Overview({ c }: { c: TradingContent }) {
                     </svg>
                   ),
                 },
-              ].map((icon, i) => ({ ...icon, ...c.overviewPillars[i] })).map((pillar) => (
+              ].map((icon, i) => ({ ...icon, ...c.overviewPillars[i], i })).map((pillar) => (
                 <div
                   key={pillar.title}
-                  className="p-6 rounded-2xl border"
-                  style={{ borderColor: `color-mix(in srgb, ${BLUE} 13%, transparent)`, background: `color-mix(in srgb, ${BLUE} 2%, transparent)` }}
+                  className="p-6 rounded-2xl border spill"
+                  style={{ ['--pa' as string]: BLUE, ['--i' as string]: pillar.i, borderColor: `color-mix(in srgb, ${BLUE} 13%, transparent)`, background: `color-mix(in srgb, ${BLUE} 2%, transparent)` }}
                 >
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                    style={{ background: `color-mix(in srgb, ${BLUE} 8%, transparent)`, color: BLUE }}
-                  >
+                  <span className="spill__ghost font-display" aria-hidden="true">0{pillar.i + 1}</span>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 spill__icon" style={{ background: `color-mix(in srgb, ${BLUE} 8%, transparent)`, color: BLUE }}>
                     {pillar.icon}
                   </div>
                   <h3 className="font-display text-base text-fg mb-2">{pillar.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed">{pillar.desc}</p>
+                  <span className="spill__rule" aria-hidden="true" />
                 </div>
               ))}
             </div>

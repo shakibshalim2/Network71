@@ -544,10 +544,16 @@ instant under reduced motion).
 |---|---|---|---|
 | 1 | Hero | refine | HeroMotion + "07"; decorative routes drift with travelling dots; `.btn` + magnetic; stat badges → numbered glass list sliding in with CountUp |
 | 2 | Metrics | keep | |
-| 3 | Overview / Categories / Services | refine (structural) | |
+| 3 | Overview | rework | lead → reading-light paragraph; pillars → ghost-numeral cards with icon fill + drawn rule |
+| 3b | Categories | rework | drawn accent bar per card, lane route with glowing dot |
+| 3c | Services | rework | drawn rule, ticks draw in sequence, items rise |
 | 4 | Trade network map | rework | routes draw out from HQ in sequence then settle into drifting dashes; hubs ping; cargo dots travel each lane; labels fade in after routes |
 | 5 | Journey | keep | |
-| 6 | Compliance / Infrastructure / Finance / Risk / Sustainability | refine (structural) | |
+| 6 | Compliance | rework | documents → seals: ring draws, tick stamps in, numbered |
+| 6b | Infrastructure | rework | freight cards: drawn top bar, ghost numeral, spec ticks draw |
+| 6c | Finance | rework | instrument plates: outlined numeral, corner tab grows on hover |
+| 6d | Risk | rework | shield gates: outline then check draws in |
+| 6e | Sustainability | rework | green pulse, numbered, drawn accent rule |
 | 7 | Technology | refine | capabilities → numbered ledger |
 | 8 | Trade lanes | rework | corridor cards: dashed lane draws, a ship sails back and forth on its own phase, flags lean apart on hover |
 | 9 | Opportunities | refine | links draw underline |

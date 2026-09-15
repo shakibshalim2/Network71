@@ -37,27 +37,26 @@ export default function Infrastructure({ c }: { c: TradingContent }) {
                   </svg>
                 ),
               },
-            ].map((icon, i) => ({ ...icon, ...c.freightModes[i] })).map((t) => (
+            ].map((icon, i) => ({ ...icon, ...c.freightModes[i], i })).map((t) => (
               <div
                 key={t.mode}
-                className="bg-surface-2 rounded-2xl p-8 border-t-4 hover:shadow-xl transition-all"
-                style={{ borderColor: BLUE }}
+                className="bg-surface-2 rounded-2xl p-8 sfreight"
+                style={{ ['--pa' as string]: BLUE, ['--i' as string]: t.i }}
               >
-                <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"
-                  style={{ background: `color-mix(in srgb, ${BLUE} 7%, transparent)`, color: BLUE }}
-                >
+                <span className="sfreight__bar" aria-hidden="true" />
+                <span className="sfreight__ghost font-display" aria-hidden="true">0{t.i + 1}</span>
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 sfreight__icon" style={{ background: `color-mix(in srgb, ${BLUE} 7%, transparent)`, color: BLUE }}>
                   {t.icon}
                 </div>
                 <div className="mb-1">
-                  <span className="text-[11px] font-semibold tracking-[0.14em] uppercase" style={{ color: BLUE }}>{t.tag}</span>
+                  <span className="text-[11px] font-semibold tracking-[0.14em] uppercase font-mono" style={{ color: BLUE }}>{t.tag}</span>
                 </div>
                 <h3 className="font-display text-2xl text-fg mb-4">{t.mode}</h3>
                 <ul className="space-y-2.5 mb-5">
-                  {t.specs.map((s) => (
-                    <li key={s} className="flex items-start gap-2.5 text-sm text-slate-500">
-                      <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ background: BLUE, color: 'var(--s0)' }} />
-                      {s}
+                  {t.specs.map((sp, j) => (
+                    <li key={sp} className="flex items-start gap-2.5 text-sm text-slate-500 ssvc__item" style={{ ['--j' as string]: j }}>
+                      <span className="ssvc__tick mt-0.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path pathLength="1" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg></span>
+                      {sp}
                     </li>
                   ))}
                 </ul>
