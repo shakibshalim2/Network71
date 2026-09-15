@@ -255,3 +255,17 @@ Every task: `tsc --noEmit`, 1440 + 390 check, `prefers-reduced-motion` static pa
 Verified: `tsc --noEmit` + `vite build`; 1440 and 390 (no horizontal overflow on Home or
 Contact); light theme on Home hero/work/brands; every new animation has a
 `prefers-reduced-motion` static path.
+
+### About `/about` — inventory and verdict (Phase 7, page 3)
+
+| # | Section | Desktop | Mobile | Verdict → what changes |
+|---|---|---|---|---|
+| 1 | Page hero + vision panel | accent chrome, count-up facts | stacks cleanly | keep |
+| 2 | Story ("From Dhaka to the World") | three grey paragraphs + a photo card with a plain bullet list | same, stacked | **refine** — first paragraph gets a display drop-cap and a hairline "2018" watermark; the photo card becomes a dossier plate: division dots take their own accent, active-divisions figure counts up, image parallaxes |
+| 3 | Purpose (Vision / Mission) | two dossier cards (Phase 6) | fine | keep |
+| 4 | Founder quote | static block, huge decorative quote mark | fine | **refine** — quote reveals line-by-line (KineticText), quote mark draws as a stroke, attribution monogram gets the ring |
+| 5 | Core values | five small centred icon cards, 11.5px copy | five stacked cards, long | **rework** — numbered value ledger: rows with accent bar + hover expand (same language as the divisions index); on phones a compact stacked ledger, not five cards |
+| 6 | Leadership | grey placeholder portrait icon | same | **refine** — portrait placeholder → drawn monogram ring on an accent-washed plate; hover translate on the name |
+| 7 | Our Journey timeline | scroll spine (Phase 5) | left spine | keep |
+| 8 | Testimonials (published) | CMS-driven | — | keep |
+| 9 | Join CTA | centred title + two buttons, then the footer signature repeats a CTA right below | same | **refine** — becomes a left-anchored editorial band with drawn hairline, buttons right, so it stops competing with the footer poem |
