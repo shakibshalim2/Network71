@@ -169,3 +169,28 @@ in `src/admin/admin.css` plus small markup fixes; the public site's styles are u
 Verified with a mock API (`.hoplite/artifacts/mock-api.mjs`, not committed — PHP is not
 available in the sandbox) at 1440 and 390: dashboard, content, projects list + form, inbox,
 applications, media, team access, website pages, more, login. `tsc --noEmit` + `vite build` pass.
+
+## Phase 6 — editorial density on corporate pages + per-page accent
+
+Divisions had earned a "dossier" identity; corporate pages (Investors, Sustainability,
+Governance, Leadership, Careers, Global presence, Contact) still read as one gold template of
+3-up icon cards and flat placeholder boxes. Everything below is in `src/styles/editorial.css`,
+`src/lib/usePageAccent.ts` and a route→accent map in `PageHero`; no content files touched.
+
+| Surface | Now |
+|---|---|
+| **Per-page accent** | `PageHero` maps routes to an accent + aurora hue (Sustainability teal, Careers cyan, Global sky, Leadership indigo, Governance emerald, Press rose, Blog purple, Gallery pink, Timeline amber, Legal blue; brand pages stay gold). `usePageAccent` publishes it as `--page-accent` on `<html>` (falls back to a division's ledger accent) |
+| **Chrome follows the accent** | Reading-progress hairline, section rail, eyebrow rules, card hairlines, footer poem italic line + Dhaka clock all take `--page-accent` |
+| **Section rail** | Now mounts on every long page (≥4 sections, not Home), not just divisions |
+| **Icon-card grids** | Running counter top-right, accent hairline along the top edge that grows on hover, icon tiles become outlined accent marks, titles hover to the page accent, soft accent wash at the top of each card |
+| **Investors → Board structure** | Four "pending" tiles → a numbered ledger list with a mono "TO BE PUBLISHED" pill |
+| **Investors → Documents** | Boxed request cards → numbered filing rows with a hairline, amber availability dot and inline request link |
+| **Placeholder boxes** (Leadership board, Governance board, Sustainability report) | Center-stacked icon + badge + copy → left-anchored notice band with accent bar, outlined icon and display title |
+| **Centered section headers** | Eyebrow gets a drawn rule pair in the accent (scales in on reveal); corporate H2s adopt the division editorial scale |
+| **Sustainability targets** | Tiles that already carry a display figure skip the running number |
+| **Programs headline figure** | Gold box → ledger figure on surface with an accent tick |
+| **Project stories / openings empty states** | Left-aligned editorial plate with a hairline "N71" watermark and accent wash |
+
+Verified `tsc --noEmit` + `vite build`; sweeps at 1440 and 390 (no horizontal overflow) for
+Investors, Sustainability, Leadership, Governance, Careers, Global presence, About, Projects;
+light theme checked on Investors; division pages still read their ledger accent (rail + progress).

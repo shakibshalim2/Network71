@@ -6,6 +6,7 @@
 @import './styles/header.css';
 @import './styles/signature.css';
 @import './styles/motion-signature.css';
+@import './styles/editorial.css';
 
 @theme {
   /* ── Brand depths ── */

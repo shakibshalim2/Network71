@@ -10,8 +10,8 @@
 /* ═══ Reading progress hairline ═══ */
 .read-progress {
   position: fixed; top: 0; left: 0; right: 0; z-index: 60; height: 2px; pointer-events: none;
-  transform-origin: left center; background: linear-gradient(90deg, var(--brand), var(--brand-bright));
-  box-shadow: 0 0 12px color-mix(in srgb, var(--brand) 55%, transparent);
+  transform-origin: left center; background: linear-gradient(90deg, var(--page-accent, var(--brand)), color-mix(in srgb, var(--page-accent, var(--brand-bright)) 70%, #fff));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--page-accent, var(--brand)) 55%, transparent);
 }
 
 /* ═══ Header: hides on scroll-down, returns on scroll-up ═══ */
@@ -166,7 +166,7 @@ html.js-reveal .public-content section.reveal-target.is-revealed blockquote { op
 
 /* ═══ Section rail (division pages, ≥1280px) ═══ */
 .srail {
-  --srail-accent: var(--brand);
+  --srail-accent: var(--page-accent, var(--brand));
   position: fixed; right: 18px; top: 50%; translate: 0 -50%; z-index: 40;
   display: grid; gap: 6px; justify-items: end;
 }

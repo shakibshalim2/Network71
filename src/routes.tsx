@@ -9,6 +9,7 @@ import {
 import RouteExperience from "@/components/RouteExperience"
 import ReadProgress from "@/components/motion/ReadProgress"
 import SectionRail from "@/components/motion/SectionRail"
+import { usePageAccent } from "@/lib/usePageAccent"
 import { useT } from "@/i18n"
 import { useSectionReveal } from "@/lib/useSectionReveal"
 import { useKineticHeadlines } from "@/lib/useKineticHeadlines"
@@ -61,6 +62,7 @@ function Root() {
   const { pathname } = useLocation()
   useSectionReveal()
   useKineticHeadlines()
+  usePageAccent()
   return (
     <>
       <a className="skip-link" href="#main-content">
@@ -68,7 +70,7 @@ function Root() {
       </a>
       <RouteExperience />
       {!pathname.startsWith("/admin") && <ReadProgress />}
-      {pathname.startsWith("/divisions/") && <SectionRail />}
+      {!pathname.startsWith("/admin") && <SectionRail />}
       <ScrollRestoration />
       <Suspense fallback={<PageLoader />}>
         <div id="main-content" tabIndex={-1} className={pathname.startsWith("/admin") ? undefined : "route-enter"} key={pathname}>

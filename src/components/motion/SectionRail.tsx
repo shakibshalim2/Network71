@@ -9,7 +9,7 @@ interface Entry {
 }
 
 const LABEL_SELECTOR =
-  ".font-mono.uppercase, .journey__eyebrow, .ledger__idx ~ dt, h2"
+  ".font-mono.uppercase, .journey__eyebrow, .public-eyebrow, .eyebrow-rule ~ span, .ledger__idx ~ dt, h2, h3"
 
 /**
  * Sticky index for long division pages: one dot per section, the active dot
@@ -21,7 +21,6 @@ export default function SectionRail() {
   const [entries, setEntries] = useState<Entry[]>([])
   const [active, setActive] = useState<string | null>(null)
   const [visible, setVisible] = useState(false)
-  const [accent, setAccent] = useState<string | undefined>()
 
   useEffect(() => {
     if (!window.matchMedia("(min-width: 1280px)").matches) return
@@ -31,10 +30,11 @@ export default function SectionRail() {
       raf = 0
       const sections = Array.from(
         document.querySelectorAll<HTMLElement>(
-          ".sector-page main.public-content > section, .sector-page main.public-content > div > section",
+          "main.public-content > section, main.public-content > div > section",
         ),
-      ).filter((s) => !s.classList.contains("sector-hero"))
-      if (sections.length < 4) return
+      ).filter((s) => !s.classList.contains("sector-hero") && !s.classList.contains("page-hero"))
+      // Home has its own navigation rhythm; short pages don't need an index.
+      if (pathname === "/" || sections.length < 4) return
       const list: Entry[] = []
       sections.forEach((s, i) => {
         const labelEl = s.querySelector<HTMLElement>(LABEL_SELECTOR)
@@ -44,10 +44,6 @@ export default function SectionRail() {
         list.push({ id: s.id, label: label.length > 28 ? `${label.slice(0, 26)}…` : label })
       })
       setEntries(list)
-      // Borrow the division accent from the ledger strip so the rail matches the page.
-      const ledger = document.querySelector<HTMLElement>(".ledger")
-      const hex = ledger ? getComputedStyle(ledger).getPropertyValue("--ledger-accent").trim() : ""
-      setAccent(hex || undefined)
       io?.disconnect()
       io = new IntersectionObserver(
         (obs) => {
@@ -87,7 +83,6 @@ export default function SectionRail() {
         <motion.nav
           className="srail"
           aria-label="Page sections"
-          style={accent ? { ["--srail-accent" as string]: accent } : undefined}
           initial={{ opacity: 0, x: 12 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 12 }}

@@ -1,0 +1,230 @@
+/* ── Phase 6: editorial density on corporate pages ─────────────────────────
+   Division pages earned a "dossier" identity (ledger strip, numbered cards,
+   journey line). Corporate pages (Investors, Sustainability, Governance,
+   Leadership, Careers, Global presence, Contact) were still generic 3-up
+   icon cards and flat placeholder boxes. Everything here is structural:
+   no content files, no per-page markup edits beyond a few class hooks.
+   Scoped to .public-content and excluded from .sector-page. */
+
+/* ═══ 1. Page accent ═══
+   usePageAccent publishes --page-accent from the hero/ledger; chrome reads it. */
+.public-content:not(.sector-page *) { --pa: var(--page-accent, var(--brand)); }
+
+/* ═══ 2. Corporate icon-card grids → numbered dossier cards ═══
+   Targets bordered cards inside a .grid on non-division pages. Adds a running
+   counter (top-right), a top hairline that draws from the accent, and turns the
+   icon tile into a quieter outlined mark so the number leads the eye. */
+.public-content:not(.sector-page *) section .grid { counter-reset: dossier; }
+.public-content:not(.sector-page *) section .grid > :is(.rounded-2xl, .rounded-xl)[class*="border-white/"][class*="p-"] {
+  counter-increment: dossier;
+  border-radius: 14px;
+  background-image: linear-gradient(180deg, color-mix(in srgb, var(--pa) 5%, transparent), transparent 42%);
+}
+.public-content:not(.sector-page *) section .grid > :is(.rounded-2xl, .rounded-xl)[class*="border-white/"][class*="p-"]::before {
+  content: counter(dossier, decimal-leading-zero);
+  position: absolute; top: 18px; right: 20px; z-index: 2;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--fg-faint);
+  transition: color 0.3s;
+}
+/* Accent hairline along the top edge; grows on hover. */
+.public-content:not(.sector-page *) section .grid > :is(.rounded-2xl, .rounded-xl)[class*="border-white/"][class*="p-"] > :first-child:not(.absolute)::before {
+  content: ''; position: absolute; left: 0; top: 0; height: 2px; width: 28px;
+  background: var(--pa); opacity: 0.85; border-radius: 0 2px 2px 0;
+  transition: width 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* pull to the card's padding-box edge */
+  translate: 0 calc(-1 * var(--card-pad, 24px));
+}
+.public-content:not(.sector-page *) section .grid > .p-8[class*="border-white/"] { --card-pad: 32px; }
+.public-content:not(.sector-page *) section .grid > .p-6[class*="border-white/"] { --card-pad: 24px; }
+.public-content:not(.sector-page *) section .grid > .p-5[class*="border-white/"] { --card-pad: 20px; }
+.public-content:not(.sector-page *) section .grid > .p-4[class*="border-white/"] { --card-pad: 16px; }
+@media (hover: hover) {
+  .public-content:not(.sector-page *) section .grid > :is(.rounded-2xl, .rounded-xl)[class*="border-white/"][class*="p-"]:hover > :first-child:not(.absolute)::before { width: 64px; }
+  .public-content:not(.sector-page *) section .grid > :is(.rounded-2xl, .rounded-xl)[class*="border-white/"][class*="p-"]:hover::before { color: var(--pa); }
+}
+/* Tiles whose header row already carries a display figure (Sustainability targets)
+   don't need a running number too. */
+.public-content:not(.sector-page *) section .grid > [class*="border-white/"][class*="p-"]:has(> .flex.justify-between:first-child)::before { content: none; }
+/* Icon tiles inside those cards: outlined, accent-tinted, smaller footprint. */
+.public-content:not(.sector-page *) section .grid > [class*="border-white/"][class*="p-"] > :is(.w-12.h-12, .w-10.h-10, .w-16.h-16):first-child {
+  background: transparent !important;
+  border: 1px solid color-mix(in srgb, var(--pa) 40%, transparent);
+  color: var(--pa);
+  border-radius: 12px;
+}
+.public-content:not(.sector-page *) section .grid > [class*="border-white/"][class*="p-"] > :is(.w-12.h-12, .w-10.h-10):first-child svg { color: var(--pa); }
+/* Card titles hover to the page accent instead of hard-coded gold. */
+.public-content:not(.sector-page *) section .grid > [class*="border-white/"][class*="p-"].group:hover h3 { color: var(--pa) !important; }
+/* Give cards a consistent inner rhythm: title tighter to body. */
+.public-content:not(.sector-page *) section .grid > [class*="border-white/"][class*="p-"] > h3 { letter-spacing: -0.015em; }
+.public-content:not(.sector-page *) section .grid > [class*="border-white/"][class*="p-"] > p:last-child { color: var(--fg-muted); }
+
+/* ═══ 3. Two-column "pending" tiles (Investors → Governance bodies) → ledger rows ═══ */
+.public-content:not(.sector-page *) section .grid.grid-cols-2.gap-5 {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 0;
+  border-top: 1px solid var(--line);
+}
+.public-content:not(.sector-page *) section .grid.grid-cols-2.gap-5 > .rounded-xl {
+  display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; column-gap: 18px;
+  padding: 18px 4px 18px 0 !important;
+  border: 0 !important; border-bottom: 1px solid var(--line) !important; border-radius: 0 !important;
+  background: transparent !important; background-image: none !important;
+}
+.public-content:not(.sector-page *) section .grid.grid-cols-2.gap-5 > .rounded-xl::before { position: static; grid-column: 1; margin: 0; }
+.public-content:not(.sector-page *) section .grid.grid-cols-2.gap-5 > .rounded-xl > :first-child { display: none; }
+.public-content:not(.sector-page *) section .grid.grid-cols-2.gap-5 > .rounded-xl > h3 { grid-column: 2; margin: 0 !important; font-size: 15px !important; }
+.public-content:not(.sector-page *) section .grid.grid-cols-2.gap-5 > .rounded-xl > p {
+  grid-column: 3; margin: 0; font-family: var(--font-mono); font-size: 10.5px !important; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--fg-subtle) !important; white-space: nowrap;
+}
+@media (max-width: 479px) {
+  .public-content:not(.sector-page *) section .grid.grid-cols-2.gap-5 > .rounded-xl { grid-template-columns: 24px minmax(0, 1fr); row-gap: 8px; }
+  .public-content:not(.sector-page *) section .grid.grid-cols-2.gap-5 > .rounded-xl > p { grid-column: 2; justify-self: start; }
+}
+
+/* ═══ 4. Document / filing rows (Investors → Resources) ═══ */
+.public-content .space-y-4 > .document-request-card { position: relative; counter-increment: filing; }
+.public-content .space-y-4:has(.document-request-card) { counter-reset: filing; --tw-space-y-reverse: 0; }
+.public-content .space-y-4 > .document-request-card {
+  margin-top: 0 !important; border-radius: 0 !important; border-inline: 0 !important; border-top: 0 !important;
+  background: transparent !important; padding-inline: 4px !important;
+}
+.public-content .space-y-4 > .document-request-card:first-child { border-top: 1px solid var(--line) !important; }
+.public-content .space-y-4 > .document-request-card > div:first-child { gap: 20px !important; }
+.public-content .space-y-4 > .document-request-card > div:first-child > div:first-child {
+  width: auto !important; height: auto !important; background: transparent !important; border-radius: 0 !important;
+  display: grid !important; grid-auto-flow: column; align-items: center; gap: 14px;
+}
+.public-content .space-y-4 > .document-request-card > div:first-child > div:first-child::before {
+  content: counter(filing, decimal-leading-zero); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--pa);
+}
+.public-content .space-y-4 > .document-request-card > div:first-child > div:first-child svg { width: 18px; height: 18px; color: var(--fg-subtle); }
+.public-content .space-y-4 > .document-request-card p:first-child { font-size: 15px !important; font-weight: 500 !important; }
+.public-content .space-y-4 > .document-request-card p + p {
+  display: inline-flex; align-items: center; gap: 7px; margin-top: 4px; font-size: 12px !important; color: var(--fg-subtle) !important;
+}
+.public-content .space-y-4 > .document-request-card p + p::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-amber); opacity: 0.8; }
+@media (hover: hover) { .public-content .space-y-4 > .document-request-card:hover { background: var(--fill-1) !important; } }
+
+/* ═══ 5. "Coming soon" placeholder cards → editorial notice band ═══
+   Leadership board mandate, Sustainability report. Center-stacked icon +
+   amber badge + copy becomes a left-anchored notice with a soft accent bar. */
+.public-content:not(.sector-page *) section .max-w-5xl > .rounded-2xl.text-center[class*="border-white/"],
+.public-content:not(.sector-page *) section .max-w-3xl > .rounded-2xl[class*="border-white/"]:has(> .flex-1) {
+  position: relative; text-align: left; border-radius: 16px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--pa) 7%, transparent), transparent 55%), var(--s2) !important;
+  border-color: var(--line) !important;
+}
+.public-content:not(.sector-page *) section .max-w-5xl > .rounded-2xl.text-center[class*="border-white/"]::before,
+.public-content:not(.sector-page *) section .max-w-3xl > .rounded-2xl[class*="border-white/"]:has(> .flex-1)::before {
+  content: ''; position: absolute; left: 0; top: 24px; bottom: 24px; width: 3px; border-radius: 0 3px 3px 0; background: var(--pa); opacity: 0.85;
+}
+.public-content:not(.sector-page *) section .max-w-5xl > .rounded-2xl.text-center[class*="border-white/"] {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 28px; align-items: start; padding: 32px 36px !important;
+}
+.public-content:not(.sector-page *) section .max-w-5xl > .rounded-2xl.text-center > * { justify-self: start; }
+.public-content:not(.sector-page *) section .max-w-5xl > .rounded-2xl.text-center > .w-16 { grid-row: 1 / span 3; margin: 0 !important; width: 56px; height: 56px; border-color: color-mix(in srgb, var(--pa) 35%, transparent) !important; background: transparent !important; }
+.public-content:not(.sector-page *) section .max-w-5xl > .rounded-2xl.text-center > .w-16 svg { color: var(--pa); width: 26px; height: 26px; }
+.public-content:not(.sector-page *) section .max-w-5xl > .rounded-2xl.text-center > h3 { margin-bottom: 8px !important; font-family: var(--font-display); font-size: 24px !important; letter-spacing: -0.015em; }
+.public-content:not(.sector-page *) section .max-w-5xl > .rounded-2xl.text-center > p { margin: 0 !important; max-width: 56ch !important; }
+@media (max-width: 639px) {
+  .public-content:not(.sector-page *) section .max-w-5xl > .rounded-2xl.text-center[class*="border-white/"] { grid-template-columns: minmax(0, 1fr); padding: 26px 22px !important; }
+  .public-content:not(.sector-page *) section .max-w-5xl > .rounded-2xl.text-center > .w-16 { grid-row: auto; margin-bottom: 18px !important; }
+}
+/* Governance → Board: dashed placeholder box becomes the same notice band. */
+.public-content:not(.sector-page *) section .border-dashed.rounded-2xl.flex-col.items-center {
+  position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 28px; align-items: start; justify-items: start;
+  padding: 32px 36px !important; border-style: solid !important; border-color: var(--line) !important; border-radius: 16px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--pa) 7%, transparent), transparent 55%), var(--s2) !important;
+}
+.public-content:not(.sector-page *) section .border-dashed.rounded-2xl.flex-col.items-center::before {
+  content: ''; position: absolute; left: 0; top: 24px; bottom: 24px; width: 3px; border-radius: 0 3px 3px 0; background: var(--pa); opacity: 0.85;
+}
+.public-content:not(.sector-page *) section .border-dashed.rounded-2xl.flex-col.items-center > .w-20 {
+  grid-row: 1 / span 3; width: 56px; height: 56px; margin: 0 !important; border-radius: 14px;
+  background: transparent !important; border-color: color-mix(in srgb, var(--pa) 35%, transparent) !important;
+}
+.public-content:not(.sector-page *) section .border-dashed.rounded-2xl.flex-col.items-center > .w-20 svg { width: 26px; height: 26px; color: var(--pa); opacity: 1; }
+.public-content:not(.sector-page *) section .border-dashed.rounded-2xl.flex-col.items-center > span {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.12em; padding: 6px 12px; margin-bottom: 12px !important;
+  display: inline-flex; align-items: center; gap: 7px; border: 1px solid color-mix(in srgb, var(--pa) 35%, transparent); background: transparent !important; color: var(--pa) !important;
+}
+.public-content:not(.sector-page *) section .border-dashed.rounded-2xl.flex-col.items-center > span::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.8; }
+.public-content:not(.sector-page *) section .border-dashed.rounded-2xl.flex-col.items-center > p { text-align: left !important; max-width: 56ch !important; }
+.public-content:not(.sector-page *) section .border-dashed.rounded-2xl.flex-col.items-center > p.font-display { font-size: 24px !important; letter-spacing: -0.015em; margin-bottom: 8px !important; }
+@media (max-width: 639px) {
+  .public-content:not(.sector-page *) section .border-dashed.rounded-2xl.flex-col.items-center { grid-template-columns: minmax(0, 1fr); padding: 26px 22px !important; }
+  .public-content:not(.sector-page *) section .border-dashed.rounded-2xl.flex-col.items-center > .w-20 { grid-row: auto; margin-bottom: 18px !important; }
+}
+/* Left-aligned section headers on Governance: add the accent rule above the title */
+.public-content:not(.sector-page *) section > div > .mb-12 > h2.font-display:first-child,
+.public-content:not(.sector-page *) section > div > h2.font-display.mb-12 { position: relative; padding-top: 18px; }
+.public-content:not(.sector-page *) section > div > .mb-12 > h2.font-display:first-child::before,
+.public-content:not(.sector-page *) section > div > h2.font-display.mb-12::before { content: ''; position: absolute; left: 0; top: 0; width: 40px; height: 2px; background: var(--pa); border-radius: 2px; }
+
+/* Amber "coming soon" pills: readable size, shared shape. */
+.public-content :is(.bg-amber-500\/15, .bg-amber-500\/10)[class*="font-mono"] {
+  font-size: 10.5px !important; letter-spacing: 0.12em; padding: 6px 12px; display: inline-flex; align-items: center; gap: 7px;
+}
+.public-content :is(.bg-amber-500\/15, .bg-amber-500\/10)[class*="font-mono"]::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.8; }
+
+/* ═══ 6. Centered section headers → editorial header with running rule ═══
+   Corporate sections open with eyebrow + title centered above a grid. Give the
+   eyebrow a drawn rule pair in the page accent and pull the title tighter. */
+.public-content:not(.sector-page *) section .text-center > p.font-mono.uppercase,
+.public-content:not(.sector-page *) section .text-center > p.font-mono.uppercase + h2 { position: relative; }
+.public-content:not(.sector-page *) section .text-center > p.font-mono.uppercase {
+  display: inline-flex; align-items: center; gap: 14px; color: var(--pa) !important;
+}
+.public-content:not(.sector-page *) section .text-center > p.font-mono.uppercase::before,
+.public-content:not(.sector-page *) section .text-center > p.font-mono.uppercase::after {
+  content: ''; width: 28px; height: 1px; background: var(--pa); opacity: 0.7; transform-origin: center;
+}
+html.js-reveal .public-content:not(.sector-page *) section.reveal-target .text-center > p.font-mono.uppercase::before,
+html.js-reveal .public-content:not(.sector-page *) section.reveal-target .text-center > p.font-mono.uppercase::after { scale: 0 1; transition: scale 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s; }
+html.js-reveal .public-content:not(.sector-page *) section.reveal-target.is-revealed .text-center > p.font-mono.uppercase::before,
+html.js-reveal .public-content:not(.sector-page *) section.reveal-target.is-revealed .text-center > p.font-mono.uppercase::after { scale: 1 1; }
+/* Left-aligned Eyebrow component (Investors) and Careers rule pairs inherit the accent */
+.public-content:not(.sector-page *) section :is(.h-px.w-12.bg-gold, .w-12.h-px.bg-gold) { background: var(--pa) !important; }
+.public-content:not(.sector-page *) section .flex.items-center.gap-3 > span.font-mono.uppercase { color: var(--pa) !important; }
+/* Section H2 rhythm on corporate pages: same editorial scale as divisions */
+.public-content:not(.sector-page *) section h2.font-display:not(.foot-sig__poem):not(.page-hero__title) { font-size: clamp(30px, 4.2vw, 52px); letter-spacing: -0.03em; line-height: 1.06; }
+.public-content:not(.sector-page *) section .text-center > h2 + p { margin-top: 14px; }
+
+/* ═══ 7. Gradient-number stat headline (Sustainability → Programs) → ledger figure ═══ */
+.public-content:not(.sector-page *) section .inline-flex.flex-col.items-center[class*="bg-gold/10"] {
+  position: relative; border-radius: 16px; padding: 30px 44px !important;
+  background: var(--s2) !important; border-color: var(--line) !important;
+  background-image: radial-gradient(120% 140% at 50% 120%, color-mix(in srgb, var(--pa) 14%, transparent), transparent 60%) !important;
+}
+.public-content:not(.sector-page *) section .inline-flex.flex-col.items-center[class*="bg-gold/10"]::before {
+  content: ''; position: absolute; left: 50%; top: 0; translate: -50% 0; width: 56px; height: 2px; background: var(--pa); border-radius: 0 0 2px 2px;
+}
+.public-content:not(.sector-page *) section .inline-flex.flex-col.items-center[class*="bg-gold/10"] > span:first-child { color: var(--fg-strong) !important; }
+
+/* ═══ 8. Project stories empty state → editorial plate ═══ */
+.public-content .public-empty {
+  position: relative; overflow: hidden; align-items: flex-start; text-align: left;
+  padding: clamp(36px, 5vw, 64px) clamp(24px, 4vw, 56px);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--pa) 6%, transparent), transparent 60%), var(--s2);
+  border-radius: 18px;
+}
+.public-content .public-empty::after {
+  content: 'N71'; position: absolute; right: -0.06em; bottom: -0.32em; z-index: 0; pointer-events: none;
+  font-family: var(--font-display); font-size: clamp(120px, 22vw, 260px); line-height: 1; letter-spacing: -0.05em;
+  color: transparent; -webkit-text-stroke: 1px var(--line-strong);
+}
+.public-content .public-empty > * { position: relative; z-index: 1; }
+.public-content .public-empty h3 { max-width: 22ch; }
+.public-content .public-empty p { margin-left: 0; max-width: 52ch; }
+.public-content .public-empty .public-eyebrow { color: var(--pa); }
+@media (max-width: 639px) { .public-content .public-empty::after { font-size: 34vw; } }
+
+/* ═══ 9. Footer poem picks up the page accent for the italic line ═══ */
+.foot-sig__line--1 { color: var(--page-accent, var(--brand-fg)); }
+.foot-sig__clock { color: var(--page-accent, var(--brand-fg)); }
+/* Light theme: accent vars are already darkened per theme, no override needed. */
+
+@media (prefers-reduced-motion: reduce) {
+  .public-content:not(.sector-page *) section .grid > :is(.rounded-2xl, .rounded-xl)[class*="border-white/"][class*="p-"] > :first-child:not(.absolute)::before { transition: none; }
+}
