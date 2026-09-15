@@ -150,3 +150,26 @@
 /* ═══ 4 · Divisions rail: unlayered `.dix__rail{display:flex}` beats Tailwind's
    layered `md:hidden`, so the desktop hide has to live here, after it. ═══ */
 @media (min-width: 768px) { .dix__rail, .dix__rail-hint { display: none; } }
+
+/* ═══ 5 · Statement band: reading-light paragraph + value cards ═══ */
+.sw__word { display: inline-block; margin-right: 0.28em; }
+.stmt__value { isolation: isolate; }
+.stmt__value-ghost {
+  position: absolute; right: 10px; top: 4px; z-index: -1; pointer-events: none; user-select: none;
+  font-size: 84px; line-height: 1; letter-spacing: -0.05em;
+  color: transparent; -webkit-text-stroke: 1px var(--line);
+  transition: -webkit-text-stroke-color 0.5s, translate 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.stmt__value-rule {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: linear-gradient(90deg, var(--brand), color-mix(in srgb, var(--brand) 20%, transparent));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@media (hover: hover) {
+  .stmt__value { transition: border-color 0.3s, background-color 0.3s, translate 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .stmt__value:hover { translate: 0 -4px; }
+  .stmt__value:hover .stmt__value-ghost { -webkit-text-stroke-color: var(--brand-edge); translate: -4px -4px; }
+  .stmt__value:hover .stmt__value-rule { transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: reduce) { .stmt__value, .stmt__value-ghost, .stmt__value-rule { transition: none; } }
