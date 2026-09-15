@@ -585,3 +585,40 @@ html.js-reveal .reveal-target.is-revealed .splan { opacity: 1; translate: none; 
 .sqc__label { font-size: 12.5px; font-weight: 600; color: var(--fg); }
 @media (hover: hover) { .sqc__gate:hover { border-color: color-mix(in srgb, var(--pa) 35%, transparent); translate: 0 -3px; } }
 @media (prefers-reduced-motion: reduce) { .sqc__ring circle, .sqc__dot { transition: none; stroke-dashoffset: 0; scale: 1; } }
+
+/* ═══ 15 · Oils & Energy split hero ═══ */
+.oil-half { flex: 1 1 0; min-width: 0; }
+.oil-half img { transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.8s; transform: scale(1.02); }
+.oil-hero.is-a .oil-half:first-child img { transform: scale(1.08); filter: saturate(1.1); }
+.oil-hero.is-b .oil-half:first-child img { filter: saturate(0.6) brightness(0.8); }
+.oil-seam {
+  position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; z-index: 5; pointer-events: none;
+  background: linear-gradient(to bottom, transparent, rgb(255 255 255 / 0.35) 30%, rgb(255 255 255 / 0.35) 70%, transparent);
+  transition: left 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), background 0.6s, box-shadow 0.6s;
+}
+.oil-hero.is-a .oil-seam { left: calc(100% * 1.35 / 2); background: linear-gradient(to bottom, transparent, var(--accent-amber) 30%, var(--accent-amber) 70%, transparent); box-shadow: 0 0 24px var(--accent-amber); }
+.oil-hero.is-b .oil-seam { left: calc(100% * 0.65 / 2); background: linear-gradient(to bottom, transparent, var(--accent-sky) 30%, var(--accent-sky) 70%, transparent); box-shadow: 0 0 24px var(--accent-sky); }
+.oil-side { transition: opacity 0.6s, translate 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.oil-hero.is-a .oil-side--b, .oil-hero.is-b .oil-side--a { opacity: 0.35; }
+.oil-hero.is-a .oil-side--a { translate: 12px 0; }
+.oil-hero.is-b .oil-side--b { translate: -12px 0; }
+.oil-plate {
+  position: relative; background: rgba(10,20,50,0.82); border: var(--border-strong); backdrop-filter: blur(18px);
+  box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.7), inset 0 1px 0 rgb(255 255 255 / 0.1);
+  animation: oil-float 7s ease-in-out 1.2s infinite;
+}
+.oil-plate::before {
+  content: ''; position: absolute; left: 24px; right: 24px; top: -1px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-amber), var(--accent-sky), transparent);
+}
+@keyframes oil-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+/* Blueprint draws itself */
+.energy-blueprint path:first-child { stroke-dasharray: 1; stroke-dashoffset: 1; animation: oil-draw 3.2s cubic-bezier(0.2, 0.7, 0.2, 1) 0.4s both; }
+@keyframes oil-draw { to { stroke-dashoffset: 0; } }
+.oil-cue { bottom: 18px; z-index: 20; }
+.oil-cue__label { font-size: 9.5px; letter-spacing: 0.24em; text-transform: uppercase; color: rgb(255 255 255 / 0.55); margin-top: 2px; }
+@media (max-width: 1023px) {
+  .oil-half { flex: 1 1 0 !important; }
+  .oil-seam { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .oil-plate, .energy-blueprint path:first-child { animation: none; stroke-dashoffset: 0; } }
