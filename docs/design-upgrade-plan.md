@@ -269,3 +269,5 @@ Contact); light theme on Home hero/work/brands; every new animation has a
 | 7 | Our Journey timeline | scroll spine (Phase 5) | left spine | keep |
 | 8 | Testimonials (published) | CMS-driven | — | keep |
 | 9 | Join CTA | centred title + two buttons, then the footer signature repeats a CTA right below | same | **refine** — becomes a left-anchored editorial band with drawn hairline, buttons right, so it stops competing with the footer poem |
+
+**About — landed:** Story (drop-cap lead, `2018` hairline watermark, parallax dossier plate with numbered accent division dots, corner marks, count-up figure); Quote (words rise in sequence, quote mark and monogram ring draw as strokes); Values → `.vled` numbered ledger with accent bar, live `01 / 05` counter, compact two-row layout on phones; Leadership placeholder → drawn monogram plate; Join CTA → left-anchored band with a drawn accent rule. Verified `tsc` + `vite build`, 1440 + 390 (no overflow).
