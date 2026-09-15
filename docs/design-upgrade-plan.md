@@ -445,3 +445,27 @@ apply to all nine pages):
 | 15 | Contact | keep | Phase 4 |
 
 Verified `tsc`, `vite build`, 1440 + 390 (no overflow).
+
+## Phase 8c — Agriculture division (section by section)
+
+New shared pieces: `components/sector/HeroMotion.tsx` (copy parallax-fade + drifting numeral for
+any division hero), `components/sector/MeterBar.tsx` (CSS-revealed meter with CountUp, tick and
+sheen — replaces the per-page `AnimatedBar` + `useInView` copies), `.svals` numbered value ledger,
+`.sdash` telemetry plate, `.schain--triptych`, `.smkt--5`, `.sflags`.
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | HeroMotion; wave breathes; `.btn` CTAs + magnetic; stat badge → glass plate with accent hairline + CountUp |
+| 2 | Metrics | keep | |
+| 3 | Vision | rework | value cards → numbered hairline ledger (accent bar + wash slide in, arrow reveals, staggered rise) |
+| 4 | Crops | refine | stray dot removed; icon tile fills on hover (structural) |
+| 5 | Technology | rework | dashboard → telemetry plate: pinging live dot, scan-line, per-metric sparklines that draw in, CountUp |
+| 6 | Journey | keep | |
+| 7 | Value chain | rework | triptych → corridor with solid hub node + chips, travelling particle |
+| 8 | Quality | rework | certifications → ledger; bars → `MeterBar` |
+| 9 | Sustainability | refine | pillars → ledger; bars → `MeterBar`; community stat counts up; SDG chips |
+| 10 | Markets | rework | 5-up numbered region tiles (own accent per region); flag strip wakes in colour on hover, staggers in |
+| 11 | Opportunities | refine | card footer link draws underline + arrow slides |
+| 12 | Farmer program | refine | CTA on `.btn` + magnetic; benefit icons in tiles |
+| 13 | Roadmap | rework | scroll-drawn `ProcessLine` timeline, 4 columns, ghost numerals |
+| 14 | Contact | keep | |

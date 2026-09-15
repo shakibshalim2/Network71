@@ -1,63 +1,15 @@
-import { useEffect, useRef, useState } from "react"
 import { GREEN } from "../theme"
 import type { AgricultureContent } from "../content/en"
-
-function AnimatedBar({
-  label,
-  value,
-  triggered,
-}: {
-  label: string
-  value: number
-  triggered: boolean
-}) {
-  return (
-    <div className="mb-5">
-      <div className="flex justify-between items-center mb-1.5">
-        <span className="text-sm font-medium text-slate-700">{label}</span>
-        <span className="text-sm font-bold" style={{ color: GREEN }}>
-          {value}%
-        </span>
-      </div>
-      <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-        <div
-          className="h-full rounded-full transition-all duration-1000 ease-out"
-          style={{
-            width: triggered ? `${value}%` : "0%",
-            background: GREEN,
-            transitionDelay: "200ms",
-          }}
-        />
-      </div>
-    </div>
-  )
-}
-function useInView(threshold = 0.25) {
-  const ref = useRef<HTMLElement>(null)
-  const [inView, setInView] = useState(false)
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setInView(true)
-      },
-      { threshold },
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [threshold])
-  return { ref, inView }
-}
+import MeterBar from "@/components/sector/MeterBar"
+import CountUp from "@/components/motion/CountUp"
 
 export default function Sustainability({
   c,
 }: {
   c: AgricultureContent["sustainability"]
 }) {
-  const view = useInView()
   return (
-    <section className="py-24 bg-surface-2" ref={view.ref}>
+    <section className="py-24 bg-surface-2">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left — story */}
@@ -90,7 +42,7 @@ export default function Sustainability({
                 className="font-display text-4xl text-fg"
                 style={{ color: GREEN }}
               >
-                {c.community}
+                <CountUp value={c.community} />
               </div>
               <div>
                 <div className="text-fg font-semibold text-sm">
@@ -103,24 +55,20 @@ export default function Sustainability({
             </div>
 
             {/* Three pillars */}
-            <div className="space-y-5">
-              {c.pillars.map((p) => (
-                <div key={p.title} className="flex gap-4 items-start">
-                  <div
-                    className="w-1 h-16 rounded-full flex-shrink-0"
-                    style={{ background: GREEN, color: "var(--s0)" }}
-                  />
-                  <div>
-                    <h3 className="font-semibold text-fg text-sm mb-1">
-                      {p.title}
-                    </h3>
-                    <p className="text-slate-500 text-sm leading-relaxed">
-                      {p.desc}
-                    </p>
+            <ol className="svals" style={{ ["--pa" as string]: GREEN }}>
+              {c.pillars.map((p, i) => (
+                <li key={p.title} className="svals__row" style={{ ["--i" as string]: i }}>
+                  <span className="svals__idx font-mono">0{i + 1}</span>
+                  <div className="svals__body">
+                    <h3 className="font-semibold text-fg text-[15px] mb-1">{p.title}</h3>
+                    <p className="text-slate-500 text-sm leading-relaxed">{p.desc}</p>
                   </div>
-                </div>
+                  <span className="svals__arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M8 7h9v9" /></svg>
+                  </span>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
 
           {/* Right — progress bars */}
@@ -128,13 +76,8 @@ export default function Sustainability({
             <h3 className="font-display text-xl text-fg mb-6">
               {c.progressTitle}
             </h3>
-            {c.bars.map((bar) => (
-              <AnimatedBar
-                key={bar.label}
-                label={bar.label}
-                value={bar.value}
-                triggered={view.inView}
-              />
+            {c.bars.map((bar, i) => (
+              <MeterBar key={bar.label} label={bar.label} value={bar.value} accent={GREEN} index={i} />
             ))}
             <p className="text-slate-400 text-xs mt-2 mb-8">{c.footnote}</p>
 
@@ -145,14 +88,7 @@ export default function Sustainability({
               </div>
               <div className="flex flex-wrap gap-2">
                 {c.sdgs.map((sdg) => (
-                  <span
-                    key={sdg}
-                    className="px-2.5 py-1 text-[10px] font-semibold rounded-full"
-                    style={{
-                      background: `color-mix(in srgb, ${GREEN} 8%, transparent)`,
-                      color: "var(--accent-green)",
-                    }}
-                  >
+                  <span key={sdg} className="schain__chip font-mono text-[11px]" style={{ ["--pa" as string]: GREEN, color: GREEN }}>
                     {sdg}
                   </span>
                 ))}

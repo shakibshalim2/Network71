@@ -1,5 +1,6 @@
 import { GREEN } from "../theme"
 import type { AgricultureContent } from "../content/en"
+import ProcessLine from "@/components/motion/ProcessLine"
 
 export default function Roadmap({ c }: { c: AgricultureContent["roadmap"] }) {
   return (
@@ -27,46 +28,22 @@ export default function Roadmap({ c }: { c: AgricultureContent["roadmap"] }) {
           </h2>
         </div>
 
-        {/* Horizontal timeline */}
-        <div className="relative">
-          {/* Connector line */}
-          <div
-            className="hidden lg:block absolute top-6 left-0 right-0 h-px"
-            style={{
-              background: `color-mix(in srgb, ${GREEN} 19%, transparent)`,
-            }}
-          />
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Timeline — draws with scroll */}
+        <ProcessLine steps={c.items.length} accent={GREEN} className="sroad">
+          <ol className="sroad__list" style={{ ["--cols" as string]: c.items.length }}>
             {c.items.map((r, i) => (
-              <div key={r.year} className="relative">
-                <div className="flex lg:flex-col items-start gap-4 lg:gap-0">
-                  {/* Year bubble */}
-                  <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center font-display text-sm font-bold text-fg flex-shrink-0 lg:mb-6 relative z-10"
-                    style={{ background: GREEN, color: "var(--s0)" }}
-                  >
-                    {r.year.slice(2)}
-                  </div>
-                  <div>
-                    <div
-                      className="font-bold text-fg text-sm mb-1"
-                      style={{ color: GREEN }}
-                    >
-                      {r.year}
-                    </div>
-                    <h3 className="font-display text-lg text-fg mb-2 leading-tight">
-                      {r.milestone}
-                    </h3>
-                    <p className="text-slate-500 text-xs leading-relaxed">
-                      {r.desc}
-                    </p>
-                  </div>
+              <li key={r.year} className="sroad__item" style={{ ["--i" as string]: i }}>
+                <div className="sroad__node sroad__node--sm font-display" style={{ ["--pa" as string]: GREEN }}>
+                  {r.year.slice(2)}
                 </div>
-              </div>
+                <div className="sroad__year font-mono">{r.year}</div>
+                <h3 className="font-display text-lg text-fg sroad__title leading-tight">{r.milestone}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed sroad__desc">{r.desc}</p>
+                <span className="sroad__ghost font-display" aria-hidden="true">{r.year.slice(2)}</span>
+              </li>
             ))}
-          </div>
-        </div>
+          </ol>
+        </ProcessLine>
       </div>
     </section>
   )
