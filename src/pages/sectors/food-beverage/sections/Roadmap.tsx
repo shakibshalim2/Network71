@@ -1,5 +1,6 @@
 import type { FoodBeverageContent } from '../content/en'
 import { ORANGE } from '../theme'
+import ProcessLine from '@/components/motion/ProcessLine'
 
 export default function Roadmap({ c }: { c: FoodBeverageContent }) {
   return (
@@ -14,25 +15,19 @@ export default function Roadmap({ c }: { c: FoodBeverageContent }) {
             <h2 className="font-display text-4xl lg:text-5xl text-white mb-4">{c.roadmapCopy.title}</h2>
             <p className="text-slate-400 max-w-lg mx-auto text-sm leading-relaxed">{c.roadmapCopy.lead}</p>
           </div>
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="hidden lg:block absolute top-7 left-0 right-0 h-px" style={{ background: `color-mix(in srgb, ${ORANGE} 15%, transparent)` }} />
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          <ProcessLine steps={c.roadmap.length} accent={ORANGE} className="sroad">
+            <ol className="sroad__list" style={{ ['--cols' as string]: c.roadmap.length }}>
               {c.roadmap.map((item, i) => (
-                <div key={item.year} className="relative">
-                  <div className="hidden lg:flex w-14 h-14 rounded-full items-center justify-center mx-auto mb-6 font-display text-fg font-bold text-sm z-10 relative" style={{ background: ORANGE, color: 'var(--s0)' }}>
-                    {item.year}
-                  </div>
-                  <div className="p-6 rounded-2xl border border-white/6 hover:border-orange-500/20 transition-all" style={{ background: 'var(--fill-2)' }}>
-                    <div className="lg:hidden font-display text-2xl mb-3" style={{ color: ORANGE }}>{item.year}</div>
-                    <div className="text-[11px] font-bold tracking-[0.14em] uppercase mb-2 text-slate-500">Phase {i + 1}</div>
-                    <h3 className="font-display text-lg text-white mb-3">{item.milestone}</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed">{item.detail}</p>
-                  </div>
-                </div>
+                <li key={item.year} className="sroad__item" style={{ ['--i' as string]: i }}>
+                  <div className="sroad__node sroad__node--sm font-display" style={{ ['--pa' as string]: ORANGE }}>{String(item.year).slice(2)}</div>
+                  <div className="sroad__year font-mono">Phase {i + 1} · {item.year}</div>
+                  <h3 className="font-display text-lg text-white sroad__title">{item.milestone}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed sroad__desc">{item.detail}</p>
+                  <span className="sroad__ghost font-display" aria-hidden="true">{String(item.year).slice(2)}</span>
+                </li>
               ))}
-            </div>
-          </div>
+            </ol>
+          </ProcessLine>
         </div>
       </section>
   )

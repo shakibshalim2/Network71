@@ -437,3 +437,127 @@ html.js-reveal .reveal-target.is-revealed .sflags__flag { opacity: 1; translate:
   .group:hover .scard-link svg, .scard-link:hover svg { translate: 4px 0; }
   .group:hover .scard-link::after, .scard-link:hover::after { scale: 1 1; }
 }
+
+/* Hero extras: warm rim + scroll cue */
+.shero__warm { background: radial-gradient(70% 45% at 55% 100%, color-mix(in srgb, var(--pa) 18%, transparent), transparent 70%); animation: shero-warm 7s ease-in-out infinite; }
+@keyframes shero-warm { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+.shero__cue { position: absolute; left: 50%; bottom: 28px; translate: -50% 0; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.shero__cue-line { width: 1px; height: 48px; background: linear-gradient(to bottom, transparent, var(--pa)); transform-origin: top; animation: shero-cue-line 2.2s cubic-bezier(0.2, 0.7, 0.2, 1) infinite; }
+.shero__cue-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pa); box-shadow: 0 0 10px var(--pa); animation: shero-cue-dot 2.2s cubic-bezier(0.2, 0.7, 0.2, 1) infinite; }
+@keyframes shero-cue-line { 0% { scale: 1 0; opacity: 0; } 30% { opacity: 1; } 70% { scale: 1 1; opacity: 1; } 100% { scale: 1 1; opacity: 0; } }
+@keyframes shero-cue-dot { 0%, 60% { opacity: 0; translate: 0 -6px; } 75% { opacity: 1; translate: 0 0; } 100% { opacity: 0; translate: 0 8px; } }
+@media (prefers-reduced-motion: reduce) { .shero__warm, .shero__cue-line, .shero__cue-dot { animation: none; } }
+
+/* ═══ 12 · Segmented control + product panel (F&B) ═══ */
+.sseg {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin: 0 auto 40px; padding: 5px; width: fit-content; max-width: 100%;
+  border-radius: 999px; background: var(--s2); border: 1px solid var(--line);
+}
+.sseg__tab {
+  position: relative; isolation: isolate; display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px;
+  font-size: 13.5px; font-weight: 600; color: var(--fg-muted); background: transparent; border: 0; cursor: pointer;
+  transition: color 0.25s;
+}
+.sseg__tab:hover { color: var(--fg-strong); }
+.sseg__tab.is-on { color: var(--s0); }
+.sseg__pill { position: absolute; inset: 0; z-index: -1; border-radius: 999px; background: var(--pa); box-shadow: 0 8px 24px -10px var(--pa); }
+.sseg__icon { font-size: 15px; line-height: 1; }
+.sprod {
+  position: relative; isolation: isolate; overflow: hidden; padding: 32px; border-radius: 20px;
+  background: var(--s2); border: 1px solid var(--line);
+}
+.sprod__ghost {
+  position: absolute; right: 12px; top: 2px; z-index: -1; pointer-events: none; user-select: none;
+  font-size: 150px; line-height: 1; letter-spacing: -0.06em; color: transparent; -webkit-text-stroke: 1px var(--line);
+}
+.sprod__icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; font-size: 24px; background: color-mix(in srgb, var(--pa) 9%, transparent); border: 1px solid color-mix(in srgb, var(--pa) 20%, transparent); }
+.sprod__items { list-style: none; margin: 0; padding: 0; display: grid; }
+.sprod__items li { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px; font-weight: 500; color: var(--fg); }
+.sprod__items li:last-child { border-bottom: 0; }
+.sprod__check { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 7px; background: color-mix(in srgb, var(--pa) 10%, transparent); color: var(--pa); flex-shrink: 0; }
+.sprod__check svg { width: 14px; height: 14px; }
+.sprod__check path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: sprod-tick 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) 0.25s both; }
+@keyframes sprod-tick { to { stroke-dashoffset: 0; } }
+.sprod__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.sprod__tile {
+  position: relative; isolation: isolate; display: grid; justify-items: start; gap: 6px; padding: 22px 20px; border-radius: 16px; text-align: left;
+  background: var(--s2); border: 1px solid var(--line); cursor: pointer; color: inherit;
+  transition: translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.3s, box-shadow 0.4s;
+}
+.sprod__ring { position: absolute; inset: -1px; z-index: -1; border-radius: 16px; border: 1.5px solid var(--pa); background: color-mix(in srgb, var(--pa) 6%, transparent); box-shadow: 0 20px 40px -28px var(--pa); }
+.sprod__tile-idx { position: absolute; top: 12px; right: 14px; font-size: 10.5px; letter-spacing: 0.14em; color: var(--fg-faint); transition: color 0.3s; }
+.sprod__tile.is-on .sprod__tile-idx { color: var(--pa); }
+.sprod__tile-icon { font-size: 26px; line-height: 1; margin-bottom: 6px; transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.sprod__tile-label { font-size: 14.5px; font-weight: 600; color: var(--fg-strong); }
+.sprod__tile-meta { font-size: 11px; letter-spacing: 0.06em; color: var(--fg-subtle); }
+@media (hover: hover) {
+  .sprod__tile:hover { translate: 0 -3px; border-color: color-mix(in srgb, var(--pa) 30%, transparent); }
+  .sprod__tile:hover .sprod__tile-icon { transform: translateY(-2px) rotate(-6deg) scale(1.1); }
+}
+@media (max-width: 639px) {
+  .sseg { border-radius: 16px; }
+  .sseg__tab { padding: 9px 14px; font-size: 13px; }
+  .sseg__pill { border-radius: 12px; }
+  .sprod { padding: 22px; }
+  .sprod__ghost { font-size: 96px; }
+}
+@media (prefers-reduced-motion: reduce) { .sprod__check path { animation: none; stroke-dashoffset: 0; } }
+
+/* ═══ 13 · Brand model plans (spotlight card pattern) ═══ */
+.splans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
+.splan {
+  position: relative; isolation: isolate; overflow: hidden; padding: 32px; border-radius: 22px;
+  background: var(--fill-2); border: 1px solid rgb(255 255 255 / 0.08); color: #fff;
+  transition: translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.35s, box-shadow 0.5s;
+}
+.splan.is-hot {
+  background: linear-gradient(160deg, color-mix(in srgb, var(--pa) 92%, #fff) 0%, var(--pa) 55%, color-mix(in srgb, var(--pa) 80%, #000) 100%);
+  border-color: transparent; color: var(--s0);
+  box-shadow: 0 30px 70px -30px color-mix(in srgb, var(--pa) 70%, transparent), inset 0 1px 0 rgb(255 255 255 / 0.35);
+  scale: 1.03;
+}
+.splan__idx { position: absolute; top: 16px; right: 20px; font-size: 11px; letter-spacing: 0.14em; color: rgb(255 255 255 / 0.35); }
+.splan.is-hot .splan__idx { color: rgb(0 0 0 / 0.45); }
+.splan__flag {
+  display: inline-block; margin-bottom: 12px; margin-right: 8px; padding: 4px 10px; border-radius: 999px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  background: rgb(0 0 0 / 0.16); color: inherit;
+}
+.splan__tag {
+  display: inline-block; margin-bottom: 16px; padding: 4px 10px; border-radius: 999px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  background: color-mix(in srgb, var(--pa) 12%, transparent); color: var(--pa);
+}
+.splan.is-hot .splan__tag { background: rgb(0 0 0 / 0.1); color: inherit; }
+.splan__desc { color: rgb(226 232 240 / 0.7); }
+.splan.is-hot .splan__desc { color: rgb(0 0 0 / 0.7); }
+.splan__points { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.splan__points li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: rgb(226 232 240 / 0.78); }
+.splan.is-hot .splan__points li { color: rgb(0 0 0 / 0.78); }
+.splan__check { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; margin-top: 1px; flex-shrink: 0; background: color-mix(in srgb, var(--pa) 14%, transparent); color: var(--pa); }
+.splan.is-hot .splan__check { background: rgb(0 0 0 / 0.14); color: inherit; }
+.splan__check svg { width: 12px; height: 12px; }
+.splan__check path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.5s + var(--i) * 0.15s + var(--j) * 0.08s); }
+.reveal-target.is-revealed .splan__check path, html:not(.js-reveal) .splan__check path { stroke-dashoffset: 0; }
+.splan__glow {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0;
+  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--pa) 12%, transparent), transparent 60%);
+  transition: opacity 0.4s;
+}
+.splan.is-hot .splan__glow { background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.22), transparent 60%); }
+@media (hover: hover) {
+  .splan:hover { translate: 0 -6px; border-color: color-mix(in srgb, var(--pa) 35%, transparent); box-shadow: 0 30px 60px -34px color-mix(in srgb, var(--pa) 55%, transparent); }
+  .splan.is-hot:hover { scale: 1.04; }
+  .splan:hover .splan__glow { opacity: 1; }
+}
+html.js-reveal .reveal-target .splan { opacity: 0; translate: 0 26px; transition: opacity 0.7s ease calc(var(--i) * 0.1s), translate 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i) * 0.1s); }
+html.js-reveal .reveal-target.is-revealed .splan { opacity: 1; translate: none; transition: opacity 0.7s, translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.35s, box-shadow 0.5s; }
+@media (max-width: 1023px) { .splans { grid-template-columns: minmax(0, 1fr); } .splan.is-hot { scale: 1; } }
+@media (prefers-reduced-motion: reduce) { .splan__check path { transition: none; stroke-dashoffset: 0; } html.js-reveal .reveal-target .splan { opacity: 1; translate: none; transition: none; } }
+
+/* Ledger with badge column */
+.svals__row--badge { grid-template-columns: 56px minmax(0, 1fr) 18px; }
+.svals__badge {
+  display: grid; place-items: center; width: 56px; height: 44px; border-radius: 10px; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-align: center; line-height: 1.2;
+  color: var(--pa); background: color-mix(in srgb, var(--pa) 12%, transparent); border: 1px solid color-mix(in srgb, var(--pa) 22%, transparent);
+  transition: background-color 0.3s, color 0.3s, transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@media (hover: hover) { .svals__row:hover .svals__badge { background: var(--pa); color: var(--s0); transform: translateY(-2px); } }
