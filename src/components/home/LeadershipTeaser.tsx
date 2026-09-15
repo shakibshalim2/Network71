@@ -1,5 +1,13 @@
+import type { PointerEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { useT } from '@/i18n'
+
+const spot = (e: PointerEvent<HTMLDivElement>) => {
+  const el = e.currentTarget
+  const r = el.getBoundingClientRect()
+  el.style.setProperty('--mx', `${((e.clientX - r.left) / r.width) * 100}%`)
+  el.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`)
+}
 
 const TAGS = ['home.leadership.tag1', 'home.leadership.tag2', 'home.leadership.tag3'] as const
 
@@ -10,7 +18,7 @@ export default function LeadershipTeaser() {
       <div className="container-page">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
 
-          <div className="founder-card"><span className="public-eyebrow">{t('home.leadership.cardEyebrow')}</span><div className="founder-monogram" aria-hidden="true">N71</div><h3>{t('home.leadership.founder')}</h3><p>{t('home.leadership.role')}</p><Link to="/leadership">{t('home.leadership.cardLink')}</Link></div>
+          <div className="founder-card" onPointerMove={spot}><span className="founder-card__spot" aria-hidden="true" /><span className="public-eyebrow">{t('home.leadership.cardEyebrow')}</span><div className="founder-monogram" aria-hidden="true"><svg viewBox="0 0 100 100" className="founder-monogram__ring"><circle cx="50" cy="50" r="48.5" pathLength="1" /></svg><span>N71</span></div><h3>{t('home.leadership.founder')}</h3><p>{t('home.leadership.role')}</p><Link to="/leadership">{t('home.leadership.cardLink')}</Link></div>
 
           {/* Text */}
           <div>
