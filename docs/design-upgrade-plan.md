@@ -194,3 +194,46 @@ Governance, Leadership, Careers, Global presence, Contact) still read as one gol
 Verified `tsc --noEmit` + `vite build`; sweeps at 1440 and 390 (no horizontal overflow) for
 Investors, Sustainability, Leadership, Governance, Careers, Global presence, About, Projects;
 light theme checked on Investors; division pages still read their ledger accent (rail + progress).
+
+## Phase 7 — second full audit: section-by-section push toward top-tier
+
+Re-audited every Home and Contact section in the running app at 1440 and 390 (dark), after
+Phases 1–6. Verdicts below are against the Apple / Stripe / Linear / Vercel / Maersk bar: a
+section is **keep** only if it already has a signature move *and* holds up on a phone.
+
+### Home `/` — inventory and verdict
+
+| # | Section | Desktop | Mobile | Verdict → what changes |
+|---|---|---|---|---|
+| 1 | Hero (globe + kinetic H1 + CTAs) | strong | globe is faded to black; the phone sees a plain dark field under the headline | **refine mobile** — reposition the globe as a lit crescent low-right behind the CTAs with a lighter top fade so the phone hero has the same "object" desktop has; scroll cue actually animates |
+| 2 | Hero stats strip | fine | horizontal rail clips the second card mid-word ("BUSINESS DIVIS…") | **rework mobile** — 2×2 hairline grid (no clipping), value + label only |
+| 3 | Division ticker | fine | fine | keep |
+| 4 | Our Work (empty state plate) | generic bordered card, 01–02–03 mark duplicates the process section beneath | same, stacked | **rework** — editorial enquiry plate: hairline "N71" watermark, left-anchored display title, CTA with magnetic hover; the numeric mark becomes a live "brief → scope → people" hairline strip |
+| 5 | Divisions index | signature (cursor preview, accent bar) | dossier rail good, but "swipe to browse" is a static hint | **refine** — desktop row gets an accent wash that follows the active row; mobile rail gets a live position indicator (dots + `01 / 10` counter) that tracks scroll-snap, replacing the static hint |
+| 6 | Working together (4 steps) | static numbered columns | 2-col stack | **rework motion** — steps sit on a scroll-drawn process line with a travelling node (horizontal on desktop, vertical spine on mobile); numbers rise in sequence |
+| 7 | Statement band | marquee + spotlight values | fine | **refine** — marquee speed/skew reacts to scroll velocity (Linear/Stripe move); pauses on hover already |
+| 8 | Ezyify flagship | strong | strong | keep |
+| 9 | Brands strip | one thin marquee, small labels, weak centred heading | same | **rework** — two-row counter-scrolling brand wall with larger marks, hairline frame and accent on hover; heading becomes a proper eyebrow + count |
+| 10 | Media + eSHIPe | good | good | keep |
+| 11 | Leadership teaser | founder card is flat | fine | **refine** — monogram ring draws on reveal, card gets pointer spotlight like the value cards |
+| 12 | Sustainability teaser | good | good | keep |
+| 13 | Connect portal | good | good | keep |
+| 14 | Footer | signature | good | keep |
+
+### Contact `/contact` — inventory and verdict
+
+| # | Section | Verdict → what changes |
+|---|---|---|
+| 1 | Page hero | keep (accent chrome from Phase 6) |
+| 2 | Methods (3 dossier cards) | keep |
+| 3 | Contact form | **rework** — floating labels with an accent underline that draws on focus, department as segmented chips (select stays for a11y fallback), message counter, submit button shows progress and a success plate; sidebar division list gets accent arrows and hover translate |
+| 4 | Sidebar (offices + by division) | **refine** — office card gets a live Dhaka clock; by-division rows become ledger rows |
+
+### Other pages
+Everything below Home and Contact inherits the shared motion primitives added here (process
+line, brand wall, floating-label form). Per-page passes are logged as they land.
+
+### Execution order
+Hero mobile → stats grid → Work plate → Divisions indicator → Process line → Brand wall →
+Statement velocity → Leadership polish → Contact form → Contact sidebar → remaining pages.
+Every task: `tsc --noEmit`, 1440 + 390 check, `prefers-reduced-motion` static path, one commit.
