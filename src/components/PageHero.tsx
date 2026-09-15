@@ -1,5 +1,5 @@
 import type { ReactNode } from "react"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { motion } from "motion/react"
 import { EASE_OUT } from "@/lib/motion"
 import AuroraCanvas from "@/components/AuroraCanvas"
@@ -7,6 +7,25 @@ import AuroraCanvas from "@/components/AuroraCanvas"
 const rise = {
   hidden: { opacity: 0, y: 22 },
   show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: EASE_OUT } },
+}
+
+/**
+ * Per-page accent so corporate pages stop reading as one gold template. The
+ * accent flows to the eyebrow, glow, orbs, reading progress, section rail,
+ * card hairlines and the footer poem via usePageAccent. Gold stays for the
+ * brand-facing pages (About, Investors, Contact, Brand).
+ */
+const ROUTE_ACCENTS: Record<string, { accent: string; aurora: string }> = {
+  "/sustainability": { accent: "var(--accent-teal)", aurora: "#0D9488" },
+  "/careers": { accent: "var(--accent-cyan)", aurora: "#0891B2" },
+  "/global-presence": { accent: "var(--accent-sky)", aurora: "#0284C7" },
+  "/leadership": { accent: "var(--accent-indigo)", aurora: "#4F46E5" },
+  "/governance": { accent: "var(--accent-emerald)", aurora: "#059669" },
+  "/press": { accent: "var(--accent-rose)", aurora: "#BE123C" },
+  "/blog": { accent: "var(--accent-purple)", aurora: "#7E22CE" },
+  "/gallery": { accent: "var(--accent-pink)", aurora: "#BE185D" },
+  "/timeline": { accent: "var(--accent-amber)", aurora: "#B45309" },
+  "/legal": { accent: "var(--accent-blue)", aurora: "#1D4ED8" },
 }
 
 interface Crumb {
@@ -45,13 +64,17 @@ export default function PageHero({
   kicker,
   breadcrumb,
   align = "start",
-  accent = "var(--brand-fg)",
-  auroraHex = "#C8962A",
+  accent,
+  auroraHex,
   children,
   aside,
   className = "",
 }: PageHeroProps) {
   const centered = align === "center"
+  const { pathname } = useLocation()
+  const routeAccent = ROUTE_ACCENTS[pathname] ?? ROUTE_ACCENTS[`/${pathname.split("/")[1]}`]
+  accent ??= routeAccent?.accent ?? "var(--brand-fg)"
+  auroraHex ??= routeAccent?.aurora ?? "#C8962A"
   return (
     <section
       className={`page-hero relative overflow-hidden ${className}`}

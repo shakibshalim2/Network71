@@ -110,3 +110,87 @@ Shared chrome carries the identity to all nine division pages at once.
 | `ProcessFlow` → **Journey line** | One accent line draws itself with scroll progress (`useScroll` + spring); nodes light and scale as the line reaches them. Horizontal on desktop, vertical rail on phones |
 | Every card grid on division pages | Structural editorial identity: running counter (`counter()`), pointer-tracking spotlight via one delegated listener, tighter H2 scale — no per-file edits |
 | Ezyify page hero | Staggered entrance, gradient headline shimmers slowly |
+
+## Phase 5 — site-wide motion signature (every page, section by section)
+
+Audit of what Phases 1–4 left untouched: corporate-page H2s were static; timelines drew
+nothing; stat numbers appeared instantly; Careers "How we hire" was a plain card grid;
+photos on About/Facilities/Blog popped in; the header never got out of the way; nothing
+indicated reading position; theme flips were a hard colour swap. All fixed structurally
+in `src/styles/motion-signature.css` + four small components — no content files touched.
+
+| Surface | Now |
+|---|---|
+| **Every section H2** (all pages) | `useKineticHeadlines` now also stages section headlines: words rise from a clipped line the moment the heading enters view. Headings already on screen never flash hidden; after the animation the original text nodes are restored so language switch / CMS overrides stay live |
+| **Reading progress** | `ReadProgress`: 2px brand hairline at the very top tracks scroll (spring-smoothed); hidden for admin and reduced motion |
+| **Header** | Slides away when scrolling down, returns on scroll-up; never hides while a menu, drawer or search is open |
+| **Division section rail** (≥1280px) | `SectionRail`: sticky dot index on the right, active dot stretches into an accent bar (`layoutId`), hover/active reveals the section eyebrow with running number; click smooth-scrolls. Accent borrowed from the division's ledger strip |
+| **Stats** | `CountUp`: About facts, Global-presence counts, hero stats and division ledger values tick up on first view; years roll from a nearby value; non-numeric values unchanged |
+| **Timelines** (About, /timeline) | `ScrollSpine`: the spine draws itself with scroll progress (spring) on desktop and mobile |
+| **Careers → How we hire** | Uses the division **Journey line** (`ProcessFlow`, now accepts `eyebrow` + display title) |
+| **Images** | Any framed photo in a revealed section uncovers with a clip-path curtain + settle-zoom |
+| **Heroes** | Scroll-driven parallax (`animation-timeline: scroll(root)`): sector hero photo drifts, PageHero orb lifts and aurora fades as you leave the fold |
+| **Eyebrow rules** | Hairline draws in from the left as the section reveals |
+| **Corporate card grids** | Inherit the sector identity: pointer spotlight + soft accent depth edge on hover |
+| **Primary buttons** | Light sweep on hover; text links draw an underline left→right |
+| **Quotes** | Blur-in settle |
+| **Progress bars** | Moving sheen after the width animates |
+| **Mobile rails** | Edge fades hint at more content on hero-stat strip, division dossier rail, card rails |
+| **Theme flip** | Brief surface-coloured veil crossfades the switch (skipped on first paint) |
+| **Footer links** | Nudge right on hover |
+
+All honour `prefers-reduced-motion`; verified `tsc --noEmit` + `vite build`, 1440/390 sweeps
+for horizontal overflow and hidden headlines, EN→BN switch mid-page, dark + light.
+
+## Admin workspace — static visual polish (no motion by design)
+
+The admin (`src/admin/`) is a separate light-only design system and stays **static**: no
+reveals, no transitions, no parallax. Only the loading spinner animates. Everything below is
+in `src/admin/admin.css` plus small markup fixes; the public site's styles are untouched.
+
+| Surface | Before → After |
+|---|---|
+| **Tokens** | Added `--adm-faint`, `--adm-line-strong`, `--adm-green-soft`, `--adm-gold`, `--adm-radius`, `--adm-shadow`; base ink/muted darkened for contrast |
+| **Type floor** | 8–11px labels (eyebrows, breadcrumb, nav labels, stat labels, dl terms, footer) lifted to 10.5–13.5px; headings 650 → 600 weight |
+| **Sidebar** | Off-white surface, 248px, active item gets a green edge marker + tinted icon; added **Website pages** entry and proper icons for Applications, Company settings, Navigation, Team access |
+| **Top bar** | Sticky + blurred; "View website" is now a bordered pill |
+| **Page heading** | Hairline under the title; role pill has a gold status dot |
+| **Stats** | 5-up grid (was 4 + orphan), icon in a tinted tile, tabular numerals |
+| **Status tags** | Pill with leading dot; semantic colours for every state (published/approved/active · draft/in review/in progress/reviewing · new/interview · archived/closed/withdrawn/inactive · rejected). Inbox, Applications, Users and Content list now pass the state class |
+| **Record rows** | Symbol in a tinted tile, primary action (Edit) tinted green, disabled actions clearly muted, 36px compact buttons |
+| **Notices** | Left accent bar on info / success / error |
+| **Inbox & Applications** | Message quote has a left rule; meta `dl` is a 2-column grid with uppercase terms |
+| **Media cards** | Title + Archive on one row, URL field in mono, footer pinned to bottom |
+| **Forms** | Sticky blurred action bar at the bottom of collection forms; focus ring + hover border on inputs; readonly inputs mono |
+| **Website pages editor** | Selectors sit in cards; nested fieldsets alternate surface; legends uppercase; row actions are proper buttons; sticky action bar with "View public page / Preview draft" pushed right; help text moved under the buttons |
+| **Login** | Story panel gets a faded grid + gold orbit rings (static), larger eyebrows/notes |
+| **Mobile** | Search input no longer stretches to 300px tall (flex-basis fix); stat grid 2-up; sticky bars clear the bottom nav |
+
+Verified with a mock API (`.hoplite/artifacts/mock-api.mjs`, not committed — PHP is not
+available in the sandbox) at 1440 and 390: dashboard, content, projects list + form, inbox,
+applications, media, team access, website pages, more, login. `tsc --noEmit` + `vite build` pass.
+
+## Phase 6 — editorial density on corporate pages + per-page accent
+
+Divisions had earned a "dossier" identity; corporate pages (Investors, Sustainability,
+Governance, Leadership, Careers, Global presence, Contact) still read as one gold template of
+3-up icon cards and flat placeholder boxes. Everything below is in `src/styles/editorial.css`,
+`src/lib/usePageAccent.ts` and a route→accent map in `PageHero`; no content files touched.
+
+| Surface | Now |
+|---|---|
+| **Per-page accent** | `PageHero` maps routes to an accent + aurora hue (Sustainability teal, Careers cyan, Global sky, Leadership indigo, Governance emerald, Press rose, Blog purple, Gallery pink, Timeline amber, Legal blue; brand pages stay gold). `usePageAccent` publishes it as `--page-accent` on `<html>` (falls back to a division's ledger accent) |
+| **Chrome follows the accent** | Reading-progress hairline, section rail, eyebrow rules, card hairlines, footer poem italic line + Dhaka clock all take `--page-accent` |
+| **Section rail** | Now mounts on every long page (≥4 sections, not Home), not just divisions |
+| **Icon-card grids** | Running counter top-right, accent hairline along the top edge that grows on hover, icon tiles become outlined accent marks, titles hover to the page accent, soft accent wash at the top of each card |
+| **Investors → Board structure** | Four "pending" tiles → a numbered ledger list with a mono "TO BE PUBLISHED" pill |
+| **Investors → Documents** | Boxed request cards → numbered filing rows with a hairline, amber availability dot and inline request link |
+| **Placeholder boxes** (Leadership board, Governance board, Sustainability report) | Center-stacked icon + badge + copy → left-anchored notice band with accent bar, outlined icon and display title |
+| **Centered section headers** | Eyebrow gets a drawn rule pair in the accent (scales in on reveal); corporate H2s adopt the division editorial scale |
+| **Sustainability targets** | Tiles that already carry a display figure skip the running number |
+| **Programs headline figure** | Gold box → ledger figure on surface with an accent tick |
+| **Project stories / openings empty states** | Left-aligned editorial plate with a hairline "N71" watermark and accent wash |
+
+Verified `tsc --noEmit` + `vite build`; sweeps at 1440 and 390 (no horizontal overflow) for
+Investors, Sustainability, Leadership, Governance, Careers, Global presence, About, Projects;
+light theme checked on Investors; division pages still read their ledger accent (rail + progress).

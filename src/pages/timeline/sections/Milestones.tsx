@@ -1,4 +1,5 @@
 import type { TimelineContent } from '../content/en'
+import ScrollSpine from '@/components/motion/ScrollSpine'
 
 type Entry = TimelineContent['timeline']['entries'][number]
 
@@ -34,10 +35,7 @@ export default function Milestones({ c }: { c: TimelineContent['timeline'] }) {
   const { entries } = c
   return (
     <section className="max-w-5xl mx-auto px-6 lg:px-8 py-24">
-      <div className="relative">
-        {/* Vertical line — desktop */}
-        <div className="hidden md:block absolute left-1/2 -translate-x-px top-0 bottom-0 w-px bg-white/10" />
-
+      <ScrollSpine left="var(--spine-md, 28px)" className="relative timeline-spine">
         <div className="space-y-0">
           {entries.map((entry, i) => (
             <div key={entry.year} className="relative flex md:items-center mb-12 md:mb-0">
@@ -47,7 +45,6 @@ export default function Milestones({ c }: { c: TimelineContent['timeline'] }) {
                   <div className="w-14 h-14 rounded-full bg-gold flex items-center justify-center flex-shrink-0 shadow-lg shadow-gold/20">
                     <span className="text-on-brand font-display font-bold text-xs leading-tight text-center">{entry.year}</span>
                   </div>
-                  {i < entries.length - 1 && <div className="flex-1 w-px bg-white/10 mt-2 min-h-[40px]" />}
                 </div>
                 <div className="bg-navy-light border border-white/8 rounded-xl p-5 mb-6 flex-1">
                   <h3 className="text-white font-semibold text-lg mb-2">{entry.title}</h3>
@@ -78,7 +75,7 @@ export default function Milestones({ c }: { c: TimelineContent['timeline'] }) {
             </div>
           ))}
         </div>
-      </div>
+      </ScrollSpine>
     </section>
   )
 }

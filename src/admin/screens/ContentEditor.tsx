@@ -232,7 +232,7 @@ export function ContentEditor({
                             /{record.slug} · Updated {time(record.updated_at)}
                           </p>
                         </div>
-                        <span className={`adm-tag ${record.status}`}>
+                        <span className={`adm-tag ${record.status} ${record.review_state}`}>
                           {record.review_state === "in_review" ? "in review" : record.review_state === "approved" ? "approved" : record.status}
                         </span>
                         <div className="adm-record-actions">

@@ -137,7 +137,7 @@ export function Users({ user }: { user: User }) {
                   </h3>
                   <p>{account.email}</p>{Number(account.active) === 1 && <button type="button" className="adm-button secondary" disabled={busy} onClick={() => resetAccount(account.id)}>Reset password</button>}
                 </div>
-                <span className="adm-tag">
+                <span className={`adm-tag ${Number(account.active) ? "active" : "inactive"}`}>
                   {account.role} ·{" "}
                   {Number(account.active) ? "active" : "inactive"}
                 </span>

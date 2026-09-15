@@ -196,8 +196,22 @@
 @keyframes rail-parallax { from { object-position: 30% center; } to { object-position: 70% center; } }
 
 /* ═══ Connect portal ═══ */
-.portal { position: relative; overflow: hidden; background: var(--s0); border-top: 1px solid var(--line); }
-.portal .aurora-canvas { opacity: 1; }
+/* Deliberately dark in both themes. Background is a literal so legibility never
+   depends on token cascade or on the WebGL canvas painting correctly. */
+.portal { position: relative; isolation: isolate; overflow: hidden; background: #04080E; border-top: 1px solid rgb(255 255 255 / 0.08); }
+.portal::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 50% 0%, color-mix(in srgb, var(--brand) 22%, transparent), transparent 70%),
+    radial-gradient(40% 40% at 85% 90%, rgb(13 148 136 / 0.16), transparent 70%);
+}
+.portal .aurora-canvas { opacity: 0.9; z-index: 0; }
+.portal__grid { z-index: 0; }
+.portal__title { color: #fff; }
+.portal__desc { color: #E2E8F0; }
+.portal__tabs { background: rgb(255 255 255 / 0.05); border-color: rgb(255 255 255 / 0.16); }
+.portal__tab { color: #B0BDCF; }
+.portal__direct { border-top-color: rgb(255 255 255 / 0.1); }
 .portal__grid {
   position: absolute; inset: 0; pointer-events: none; opacity: 0.35;
   background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
@@ -248,6 +262,7 @@
   font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--journey-accent);
 }
 .journey__count { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-subtle); }
+.journey__title { margin-top: 14px; font-size: clamp(30px, 4.2vw, 52px); letter-spacing: -0.03em; line-height: 1.04; color: var(--fg-strong); }
 .journey__track { position: relative; }
 .journey__line { position: absolute; background: var(--line-strong); border-radius: 2px; }
 .journey__line--fill { background: var(--journey-accent); box-shadow: 0 0 18px color-mix(in srgb, var(--journey-accent) 45%, transparent); }
@@ -325,6 +340,9 @@
   .sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"]:hover::before { color: var(--fg-muted); }
 }
 .sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"] > * { position: relative; z-index: 1; }
+/* Compact tiles (p-4) carry display numerals; give the counter its own lane. */
+.sector-page section .grid > :is(.rounded-2xl, .rounded-xl).p-4 > :first-child { padding-right: 28px; }
+.sector-page section .grid > :is(.rounded-2xl, .rounded-xl).p-4::before { top: 14px; right: 14px; }
 
 /* Section headings on division pages: tighter editorial scale */
 .sector-page section h2.font-display { font-size: clamp(30px, 4.2vw, 52px); letter-spacing: -0.03em; line-height: 1.04; }
