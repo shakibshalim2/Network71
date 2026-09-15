@@ -415,3 +415,33 @@ a drawer/dialog locks the body, steps aside for nested scrollers). New shared mo
 | 12 | Footer | refine | wordmark slides with scroll; magnetic CTAs |
 
 Verified: `tsc --noEmit`, `vite build`, 1440 + 390 sweeps (no horizontal overflow), reduced motion paths.
+
+## Phase 8b — Divisions mega menu + Garments division (section by section)
+
+**Mega menu** (`DivisionsMega`): two panes — numbered division list with a sliding accent bar
+(`layoutId`) and revealed arrow; live preview pane crossfades the hovered division's photo, tag,
+name and description under an outlined index numeral; panel glow re-tints to the division colour.
+Preview pane hides under 900px.
+
+**Garments `/divisions/garments`** (first division; structural rules in `src/styles/sector-signature.css`
+apply to all nine pages):
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | copy parallax-fades; outlined "01" watermark drifts with scroll; eyebrow rule + ampersand animate in; CTAs on `.btn` with accent shadow + magnetic pull; tags → numbered glass ledger |
+| 2 | Metrics ledger | keep | Phase 4 |
+| 3 | Overview | refine (structural) | pillar cards lift with accent border + inset hairline, icon tile fills, staggered rise; chips lift |
+| 4 | Products | refine (structural) | same card identity |
+| 5 | Manufacturing | rework | production flow → drawn conveyor: accent line draws through numbered nodes, labels rise in sequence; vertical rail on phones |
+| 6 | Process (journey line) | keep | Phase 4 |
+| 7 | Technology | refine (structural) | card identity |
+| 8 | Facilities | keep | Phase 5 image curtain |
+| 9 | Quality | refine (structural) | card identity |
+| 10 | Sustainability | keep | bars + sheen from Phase 5 |
+| 11 | Supply chain | rework | corridor: numbered nodes on a drawn line with a travelling particle; Bangladesh note draws an accent rule |
+| 12 | Markets | rework | numbered flag tiles: lift, flag tilt, drawn rule, PRIMARY chip |
+| 13 | Opportunity | refine (structural) | card identity |
+| 14 | Roadmap | rework | scroll-drawn timeline via `ProcessLine`: year discs fill and outlined ghost numerals light as the line reaches them; vertical spine ≤1023px |
+| 15 | Contact | keep | Phase 4 |
+
+Verified `tsc`, `vite build`, 1440 + 390 (no overflow).
