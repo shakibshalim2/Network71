@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import type { ITContent } from "../content/en"
+import ProcessLine from "@/components/motion/ProcessLine"
 import { ACCENT, PURPLE, BG_DEEP, BG_ALT } from "../theme"
 
 export default function Roadmap({ c }: { c: ITContent }) {
@@ -21,55 +22,19 @@ export default function Roadmap({ c }: { c: ITContent }) {
         <p className="text-slate-400 text-sm mb-14 max-w-xl leading-relaxed">
           {c.copy.Roadmap.lead}
         </p>
-        <div className="relative">
-          {/* connector line */}
-          <div
-            className="absolute left-8 top-0 bottom-0 w-px hidden lg:block"
-            style={{
-              background: `linear-gradient(to bottom, color-mix(in srgb, ${ACCENT} 38%, transparent), color-mix(in srgb, ${PURPLE} 25%, transparent), transparent)`,
-            }}
-          />
-          <div className="space-y-6">
+        <ProcessLine steps={c.roadmapItems.length} accent={ACCENT} className="sroadv sroadv--it">
+          <ol className="sroadv__list">
             {c.roadmapItems.map((item, i) => (
-              <div
-                key={item.year}
-                className="grid lg:grid-cols-[4rem_1fr] gap-6 lg:gap-10 items-start"
-              >
-                <div className="relative flex items-center justify-center">
-                  <div
-                    className="w-16 h-16 rounded-2xl flex flex-col items-center justify-center text-center flex-shrink-0 relative z-10"
-                    style={{
-                      background:
-                        i === 0
-                          ? ACCENT
-                          : `color-mix(in srgb, ${ACCENT} 8%, transparent)`,
-                      border: `1px solid color-mix(in srgb, ${ACCENT} 25%, transparent)`,
-                      color: i === 0 ? BG_DEEP : ACCENT,
-                    }}
-                  >
-                    <span className="font-display text-sm font-bold">
-                      {item.year}
-                    </span>
-                  </div>
+              <li key={item.year} className="sroadv__item" style={{ ["--i" as string]: i, ["--pa" as string]: i < 2 ? ACCENT : PURPLE }}>
+                <div className="sroadv__year font-display">{item.year}</div>
+                <div className="sroadv__card">
+                  <h3 className="font-semibold text-white mb-2">{item.title}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
                 </div>
-                <div
-                  className="p-6 rounded-2xl"
-                  style={{
-                    background: "var(--fill-1)",
-                    border: "var(--border-subtle)",
-                  }}
-                >
-                  <h3 className="font-semibold text-white mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-              </div>
+              </li>
             ))}
-          </div>
-        </div>
+          </ol>
+        </ProcessLine>
       </div>
     </section>
   )

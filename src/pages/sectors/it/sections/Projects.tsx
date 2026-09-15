@@ -70,7 +70,7 @@ export default function Projects({ c }: { c: ITContent }) {
           {c.showcaseProjects.map((project, index) => (
             <article
               key={project.title}
-              className="group rounded-2xl overflow-hidden transition-transform duration-300 hover:-translate-y-1"
+              className="group rounded-2xl overflow-hidden it-proj"
               style={{
                 background: "var(--fill-1)",
                 border: "var(--border-subtle)",

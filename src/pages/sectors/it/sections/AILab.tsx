@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import type { ITContent } from "../content/en"
+import Typewriter from "@/components/motion/Typewriter"
 import { ACCENT, PURPLE, BG_DEEP, BG_ALT } from "../theme"
 
 export default function AILab({ c }: { c: ITContent }) {
@@ -34,25 +35,21 @@ export default function AILab({ c }: { c: ITContent }) {
             <p className="text-slate-300 leading-relaxed mb-8 text-sm">
               {c.copy.AILab.title}
             </p>
-            <div className="space-y-5">
-              {c.copy.AILab.areas.map((a) => (
-                <div key={a.title} className="flex gap-4">
-                  <div
-                    className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0"
-                    style={{ background: PURPLE }}
-                  />
-                  <div>
-                    <span
-                      className="text-white font-semibold text-sm"
-                      dangerouslySetInnerHTML={{ __html: a.title }}
-                    />
+            <ol className="svals" style={{ ["--pa" as string]: PURPLE }}>
+              {c.copy.AILab.areas.map((a, i) => (
+                <li key={a.title} className="svals__row" style={{ ["--i" as string]: i }}>
+                  <span className="svals__idx font-mono">0{i + 1}</span>
+                  <div className="svals__body">
+                    <span className="text-white font-semibold text-sm" dangerouslySetInnerHTML={{ __html: a.title }} />
                     <span className="text-slate-400 text-sm"> — {a.desc}</span>
                   </div>
-                </div>
+                  <span className="svals__arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M8 7h9v9" /></svg>
+                  </span>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
-
           {/* right: model grid */}
           <div>
             <div
@@ -65,7 +62,7 @@ export default function AILab({ c }: { c: ITContent }) {
               {c.aiModels.map((m) => (
                 <div
                   key={m.name}
-                  className="p-3.5 rounded-xl text-center"
+                  className="p-3.5 rounded-xl text-center it-model"
                   style={{
                     background: "rgba(168,85,247,0.05)",
                     border: `1px solid color-mix(in srgb, ${m.color} 15%, transparent)`,
@@ -83,30 +80,19 @@ export default function AILab({ c }: { c: ITContent }) {
                 </div>
               ))}
             </div>
-            <div
-              className="mt-5 p-4 rounded-xl"
-              style={{
-                background: "rgba(168,85,247,0.07)",
-                border: "1px solid rgba(168,85,247,0.2)",
-                fontFamily: "monospace",
-                fontSize: "11px",
-                color: PURPLE,
-                lineHeight: 1.9,
-              }}
-            >
-              <div style={{ color: "var(--accent-cyan)" }}>
-                {">"} model.train(dataset=commerce_signals)
-              </div>
-              <div style={{ color: "var(--accent-emerald)" }}>
-                epoch 1/50 — loss: 0.3412 — acc: 0.8870
-              </div>
-              <div style={{ color: "var(--accent-emerald)" }}>
-                epoch 50/50 — loss: 0.0182 — acc: 0.9940
-              </div>
-              <div>{c.copy.AILab.detailSecondary}</div>
-              <div style={{ color: "var(--accent-emerald)" }}>
-                &#10003; deployed — latency 18ms p99
-              </div>
+            <div className="mt-5 it-term it-term--inline" aria-hidden="true">
+              <div className="it-term__bar"><span /><span /><span /></div>
+              <Typewriter
+                className="it-term__body"
+                startDelay={400}
+                lines={[
+                  { text: "> model.train(dataset=commerce_signals)", color: "var(--accent-cyan)" },
+                  { text: "epoch 1/50 — loss: 0.3412 — acc: 0.8870", color: "var(--accent-emerald)" },
+                  { text: "epoch 50/50 — loss: 0.0182 — acc: 0.9940", color: "var(--accent-emerald)" },
+                  { text: c.copy.AILab.detailSecondary, color: PURPLE },
+                  { text: "✓ deployed — latency 18ms p99", color: "var(--accent-emerald)" },
+                ]}
+              />
             </div>
           </div>
         </div>

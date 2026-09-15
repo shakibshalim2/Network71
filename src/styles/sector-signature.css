@@ -723,3 +723,34 @@ html.js-reveal .reveal-target.is-revealed .splan { opacity: 1; translate: none; 
 .tw__cursor--idle { margin-left: 14px; }
 @keyframes tw-blink { 50% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .it-hero__word, .it-term, .tw__cursor, .it-hero__stat::before { animation: none; } }
+
+/* IT: inline terminal, feature + model tiles */
+.it-term--inline { position: static; width: auto; animation: none; right: auto; bottom: auto; }
+.it-feat, .it-model { transition: translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.3s, box-shadow 0.4s, background-color 0.3s; }
+@media (hover: hover) {
+  .it-feat:hover { translate: 0 -4px; border-color: rgba(168,85,247,0.45) !important; box-shadow: 0 20px 40px -28px rgba(168,85,247,0.6), inset 0 2px 0 0 #a855f7; }
+  .it-model:hover { translate: 0 -3px; background: rgba(168,85,247,0.12) !important; }
+}
+html.js-reveal .reveal-target :is(.it-feat, .it-model) { opacity: 0; translate: 0 14px; }
+html.js-reveal .reveal-target.is-revealed :is(.it-feat, .it-model) { opacity: 1; translate: none; transition: opacity 0.6s ease, translate 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.3s, box-shadow 0.4s, background-color 0.3s; }
+html.js-reveal .reveal-target.is-revealed :is(.it-feat, .it-model):nth-child(2) { transition-delay: 0.06s; }
+html.js-reveal .reveal-target.is-revealed :is(.it-feat, .it-model):nth-child(3) { transition-delay: 0.12s; }
+html.js-reveal .reveal-target.is-revealed :is(.it-feat, .it-model):nth-child(4) { transition-delay: 0.18s; }
+html.js-reveal .reveal-target.is-revealed :is(.it-feat, .it-model):nth-child(5) { transition-delay: 0.24s; }
+html.js-reveal .reveal-target.is-revealed :is(.it-feat, .it-model):nth-child(n + 6) { transition-delay: 0.3s; }
+@media (prefers-reduced-motion: reduce) { html.js-reveal .reveal-target :is(.it-feat, .it-model) { opacity: 1; translate: none; transition: none; } }
+.sroadv--it .pline__base { background: linear-gradient(to bottom, color-mix(in srgb, var(--accent-cyan) 25%, transparent), color-mix(in srgb, var(--accent-purple) 25%, transparent)); }
+.sroadv--it .pline__fill { background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-purple)); }
+.it-badge { transition: translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.3s, box-shadow 0.4s; }
+.it-badge > :first-child { transition: background-color 0.3s, color 0.3s, transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (hover: hover) {
+  .it-badge:hover { translate: 0 -3px; border-color: color-mix(in srgb, var(--pa) 35%, transparent) !important; box-shadow: 0 18px 36px -26px var(--pa); }
+  .it-badge:hover > :first-child { background: var(--pa) !important; color: var(--s0) !important; transform: rotate(-6deg) scale(1.06); }
+}
+html.js-reveal .reveal-target .it-badge { opacity: 0; translate: 0 12px; }
+html.js-reveal .reveal-target.is-revealed .it-badge { opacity: 1; translate: none; transition: opacity 0.5s ease calc(var(--i, 0) * 0.04s), translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i, 0) * 0.04s), border-color 0.3s, box-shadow 0.4s; }
+@media (prefers-reduced-motion: reduce) { html.js-reveal .reveal-target .it-badge { opacity: 1; translate: none; transition: none; } }
+.it-proj { transition: translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.35s, box-shadow 0.5s; }
+@media (hover: hover) { .it-proj:hover { translate: 0 -6px; border-color: color-mix(in srgb, var(--accent-cyan) 32%, transparent) !important; box-shadow: 0 34px 70px -40px color-mix(in srgb, var(--accent-cyan) 55%, transparent), inset 0 2px 0 0 var(--accent-cyan); } }
+/* Compact tiles carry their own labels — no running counter */
+.sector-page section .grid > .it-model::before { content: none; }

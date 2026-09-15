@@ -513,3 +513,27 @@ Research anchors: Motion "smooth tabs" (sliding `layoutId` pill + directional pa
 | 12 | Opportunities | refine | footer links draw underline |
 | 13 | Roadmap | rework | vertical scroll-drawn spine (amber→sky) via `ProcessLine`; year tiles fill and cards slide in as the line reaches them |
 | 14 | Contact | keep | |
+
+## Phase 8f — IT & Software division (section by section)
+
+New primitive: `components/motion/Typewriter.tsx` (types lines with a blinking block cursor;
+instant under reduced motion).
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | rework | HeroMotion + drifting "06"; dot grid lights under the pointer; wordmark shimmers; `.btn` + magnetic; stats → numbered hairline ledger with CountUp; terminal decoration → glass terminal that types itself out |
+| 2 | Metrics | keep | |
+| 3 | Overview | refine (structural) | |
+| 4 | Services | refine (structural) | |
+| 5 | Ezyify | refine | stats count up; CTAs on `.btn` (gradient `ezy-cta`) + magnetic; feature cards lift with purple hairline, stagger in |
+| 6 | AI Lab | rework | areas → numbered ledger; model tiles stagger + lift (running counter suppressed); training log → typing terminal |
+| 7 | Technology | refine | badges lose inline mouse handlers; tile fills + rotates on hover; staggered rise |
+| 8 | Projects | refine | showcase cards lift with cyan hairline + glow |
+| 9 | Journey | keep | |
+| 10 | Clients | refine (structural) | |
+| 11 | Delivery | refine (structural) | |
+| 12 | Quality | refine | link draws underline |
+| 13 | Global reach | refine | stats count up; tiles lift |
+| 14 | Opportunities | refine (structural) | |
+| 15 | Roadmap | rework | vertical cyan→purple scroll-drawn spine via `ProcessLine` |
+| 16 | Contact | keep | |
