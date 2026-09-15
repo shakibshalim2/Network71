@@ -1,4 +1,5 @@
 import type { GlobalPresenceContent } from '../content/en'
+import { spotlight } from '@/lib/useSpotlight'
 
 export default function Regions({ c }: { c: GlobalPresenceContent['regions'] }) {
   return (
@@ -12,9 +13,11 @@ export default function Regions({ c }: { c: GlobalPresenceContent['regions'] }) 
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {c.items.map((r) => (
-            <div key={r.name} className="bg-navy-dark rounded-xl p-6 border border-white/8 hover:border-gold/20 transition-colors">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 dcards__grid dcards__grid--keep">
+          {c.items.map((r, i) => (
+            <div key={r.name} className="bg-navy-dark rounded-xl p-6 border border-white/8 hover:border-gold/20 transition-colors dcard group" onPointerMove={spotlight}>
+              <span className="dcard__spot" aria-hidden="true" />
+              <span className="dcard__numeral font-display" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               <div className="flex items-start gap-3 mb-4">
                 <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl flex-shrink-0">
                   {r.icon}

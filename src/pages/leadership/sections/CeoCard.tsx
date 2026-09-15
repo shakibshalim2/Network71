@@ -1,5 +1,5 @@
 import type { LeadershipContent } from "../content/en";
-import Avatar from "./Avatar";
+import { spotlight } from "@/lib/useSpotlight";
 
 export default function CeoCard({ c }: { c: LeadershipContent["ceo"] }) {
   return (
@@ -11,16 +11,20 @@ export default function CeoCard({ c }: { c: LeadershipContent["ceo"] }) {
         </div>
 
         {/* CEO Card — prominent, gold accent border */}
-        <div className="relative rounded-2xl p-8 sm:p-10 border-2 border-gold/40 bg-navy-dark overflow-hidden shadow-2xl shadow-gold/5">
-          {/* Gold glow */}
-          <div className="absolute top-0 right-0 w-64 h-64 rounded-full blur-[80px] opacity-8 pointer-events-none" style={{ background: "radial-gradient(circle, #E6B800, transparent)" }} />
-          <div className="absolute top-0 right-0 w-48 h-px bg-gradient-to-l from-gold/60 to-transparent" />
-          <div className="absolute bottom-0 left-0 w-48 h-px bg-gradient-to-r from-gold/60 to-transparent" />
+        <div className="ceo relative rounded-2xl p-8 sm:p-10 bg-navy-dark overflow-hidden" onPointerMove={spotlight}>
+          <span className="ceo__spot" aria-hidden="true" />
+          <span className="ceo__grid" aria-hidden="true" />
+          <span className="about-plate__corner about-plate__corner--tl" aria-hidden="true" />
+          <span className="about-plate__corner about-plate__corner--br" aria-hidden="true" />
+          <span className="ceo__mark font-display" aria-hidden="true">N71</span>
 
           <div className="relative z-10 flex flex-col sm:flex-row gap-8">
-            {/* Avatar */}
+            {/* Monogram: drawn ring instead of a gradient tile */}
             <div className="flex flex-col items-center sm:items-start gap-4">
-              <Avatar initials={c.initials} gradient={c.gradient} size="lg" />
+              <span className="ceo__mono" aria-hidden="true">
+                <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" pathLength="1" /></svg>
+                <span className="font-display">{c.initials}</span>
+              </span>
               <div className="text-center sm:text-left">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-gold/15 border border-gold/30 rounded-full text-gold text-xs font-semibold">
                   <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
@@ -55,8 +59,8 @@ export default function CeoCard({ c }: { c: LeadershipContent["ceo"] }) {
               </div>
 
               <div className="mt-5 flex flex-wrap gap-2">
-                {c.tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-slate-300 text-xs">{tag}</span>
+                {c.tags.map((tag, i) => (
+                  <span key={tag} className="ceo__tag"><span>{String(i + 1).padStart(2, "0")}</span>{tag}</span>
                 ))}
               </div>
             </div>
