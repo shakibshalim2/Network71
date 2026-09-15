@@ -30,7 +30,7 @@ export default function Network({ c }: { c: TradingContent }) {
           >
             <svg
               viewBox="0 0 900 480"
-              className="w-full"
+              className="w-full tr-map"
               style={{ minHeight: '340px' }}
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -58,63 +58,65 @@ export default function Network({ c }: { c: TradingContent }) {
 
               {/* ── Trade route lines (dashed blue) ── */}
               {/* South Asia → Middle East */}
-              <line x1="600" y1="192" x2="522" y2="155" stroke={BLUE} strokeWidth="1.5" strokeDasharray="6 5" opacity="0.7" />
+              <line className="tr-map__route" pathLength="1" style={{ ["--i" as string]: 0 }} x1="600" y1="192" x2="522" y2="155" stroke={BLUE} strokeWidth="1.5" strokeDasharray="6 5" opacity="0.7" />
               {/* South Asia → Europe */}
-              <line x1="600" y1="192" x2="430" y2="88" stroke={BLUE} strokeWidth="1.5" strokeDasharray="6 5" opacity="0.6" />
+              <line className="tr-map__route" pathLength="1" style={{ ["--i" as string]: 1 }} x1="600" y1="192" x2="430" y2="88" stroke={BLUE} strokeWidth="1.5" strokeDasharray="6 5" opacity="0.6" />
               {/* South Asia → Southeast Asia */}
-              <line x1="600" y1="192" x2="710" y2="193" stroke={BLUE} strokeWidth="1.5" strokeDasharray="6 5" opacity="0.7" />
+              <line className="tr-map__route" pathLength="1" style={{ ["--i" as string]: 2 }} x1="600" y1="192" x2="710" y2="193" stroke={BLUE} strokeWidth="1.5" strokeDasharray="6 5" opacity="0.7" />
               {/* South Asia → Africa */}
-              <line x1="600" y1="192" x2="425" y2="215" stroke={BLUE} strokeWidth="1.5" strokeDasharray="6 5" opacity="0.5" />
+              <line className="tr-map__route" pathLength="1" style={{ ["--i" as string]: 3 }} x1="600" y1="192" x2="425" y2="215" stroke={BLUE} strokeWidth="1.5" strokeDasharray="6 5" opacity="0.5" />
               {/* Middle East → Europe */}
-              <line x1="522" y1="155" x2="430" y2="88" stroke={BLUE} strokeWidth="1" strokeDasharray="4 6" opacity="0.4" />
+              <line className="tr-map__route" pathLength="1" style={{ ["--i" as string]: 4 }} x1="522" y1="155" x2="430" y2="88" stroke={BLUE} strokeWidth="1" strokeDasharray="4 6" opacity="0.4" />
               {/* Middle East → Africa */}
-              <line x1="522" y1="155" x2="425" y2="215" stroke={BLUE} strokeWidth="1" strokeDasharray="4 6" opacity="0.35" />
+              <line className="tr-map__route" pathLength="1" style={{ ["--i" as string]: 5 }} x1="522" y1="155" x2="425" y2="215" stroke={BLUE} strokeWidth="1" strokeDasharray="4 6" opacity="0.35" />
 
-              {/* Animated pulse dots along routes (decorative) */}
-              <circle cx="560" cy="175" r="2" fill={BLUE} opacity="0.6" />
-              <circle cx="515" cy="120" r="2" fill={BLUE} opacity="0.5" />
-              <circle cx="655" cy="192" r="2" fill={BLUE} opacity="0.6" />
+              {/* Cargo dots travel the lanes from HQ */}
+              {[['522,155', 0], ['430,88', 1.1], ['710,193', 2.2], ['425,215', 3.3]].map(([to, d]) => (
+                <circle key={String(to)} className="tr-map__cargo" r="2.6" fill="#fff">
+                  <animateMotion dur="4.4s" begin={`${2 + Number(d)}s`} repeatCount="indefinite" path={`M600,192 L${to}`} />
+                </circle>
+              ))}
 
               {/* ── Hub markers ── */}
 
               {/* 1. South Asia Hub (HQ) — cx=600 cy=192 */}
-              <circle cx="600" cy="192" r="12" fill={BLUE} opacity="0.2" />
+              <circle className="tr-map__ping" style={{ ["--cx" as string]: "600px", ["--cy" as string]: "192px" }} cx="600" cy="192" r="12" fill={BLUE} opacity="0.2" />
               <circle cx="600" cy="192" r="7" fill={BLUE} opacity="0.5" />
               <circle cx="600" cy="192" r="4" fill={BLUE} />
               {/* HQ label */}
-              <rect x="610" y="178" width="82" height="28" rx="5" fill="rgba(10,20,45,0.92)" stroke={BLUE} strokeWidth="0.8" />
+              <rect className="tr-map__label" style={{ ["--i" as string]: 0 }} x="610" y="178" width="82" height="28" rx="5" fill="rgba(10,20,45,0.92)" stroke={BLUE} strokeWidth="0.8" />
               <text x="651" y="196" textAnchor="middle" fill="white" fontSize="9" fontFamily="system-ui" fontWeight="600">{c.copy.networkSouthAsia}</text>
               <text x="651" y="205" textAnchor="middle" fill={BLUE} fontSize="7.5" fontFamily="system-ui">{c.copy.networkHeadquarters}</text>
 
               {/* 2. Middle East Hub — cx=522 cy=155 */}
-              <circle cx="522" cy="155" r="10" fill={BLUE} opacity="0.18" />
+              <circle className="tr-map__ping" style={{ ["--cx" as string]: "522px", ["--cy" as string]: "155px" }} cx="522" cy="155" r="10" fill={BLUE} opacity="0.18" />
               <circle cx="522" cy="155" r="6" fill={BLUE} opacity="0.4" />
               <circle cx="522" cy="155" r="3.5" fill={BLUE} />
-              <rect x="530" y="143" width="80" height="26" rx="5" fill="rgba(10,20,45,0.92)" stroke={BLUE} strokeWidth="0.7" />
+              <rect className="tr-map__label" style={{ ["--i" as string]: 1 }} x="530" y="143" width="80" height="26" rx="5" fill="rgba(10,20,45,0.92)" stroke={BLUE} strokeWidth="0.7" />
               <text x="570" y="159" textAnchor="middle" fill="white" fontSize="9" fontFamily="system-ui" fontWeight="600">{c.copy.networkMiddleEast}</text>
               <text x="570" y="167" textAnchor="middle" fill={BLUE} fontSize="7.5" fontFamily="system-ui">{c.copy.networkGccHub}</text>
 
               {/* 3. Europe Hub — cx=430 cy=88 */}
-              <circle cx="430" cy="88" r="10" fill={BLUE} opacity="0.18" />
+              <circle className="tr-map__ping" style={{ ["--cx" as string]: "430px", ["--cy" as string]: "88px" }} cx="430" cy="88" r="10" fill={BLUE} opacity="0.18" />
               <circle cx="430" cy="88" r="6" fill={BLUE} opacity="0.4" />
               <circle cx="430" cy="88" r="3.5" fill={BLUE} />
-              <rect x="438" y="77" width="78" height="26" rx="5" fill="rgba(10,20,45,0.92)" stroke={BLUE} strokeWidth="0.7" />
+              <rect className="tr-map__label" style={{ ["--i" as string]: 2 }} x="438" y="77" width="78" height="26" rx="5" fill="rgba(10,20,45,0.92)" stroke={BLUE} strokeWidth="0.7" />
               <text x="477" y="92" textAnchor="middle" fill="white" fontSize="9" fontFamily="system-ui" fontWeight="600">{c.copy.networkEurope}</text>
               <text x="477" y="100" textAnchor="middle" fill={BLUE} fontSize="7.5" fontFamily="system-ui">{c.copy.networkPremium}</text>
 
               {/* 4. Southeast Asia Hub — cx=710 cy=193 */}
-              <circle cx="710" cy="193" r="10" fill={BLUE} opacity="0.18" />
+              <circle className="tr-map__ping" style={{ ["--cx" as string]: "710px", ["--cy" as string]: "193px" }} cx="710" cy="193" r="10" fill={BLUE} opacity="0.18" />
               <circle cx="710" cy="193" r="6" fill={BLUE} opacity="0.4" />
               <circle cx="710" cy="193" r="3.5" fill={BLUE} />
-              <rect x="718" y="181" width="82" height="26" rx="5" fill="rgba(10,20,45,0.92)" stroke={BLUE} strokeWidth="0.7" />
+              <rect className="tr-map__label" style={{ ["--i" as string]: 3 }} x="718" y="181" width="82" height="26" rx="5" fill="rgba(10,20,45,0.92)" stroke={BLUE} strokeWidth="0.7" />
               <text x="759" y="197" textAnchor="middle" fill="white" fontSize="9" fontFamily="system-ui" fontWeight="600">{c.copy.networkSoutheastAsia}</text>
               <text x="759" y="205" textAnchor="middle" fill={BLUE} fontSize="7.5" fontFamily="system-ui">{c.copy.networkDistribution}</text>
 
               {/* 5. Africa Hub — cx=425 cy=215 */}
-              <circle cx="425" cy="215" r="10" fill={BLUE} opacity="0.18" />
+              <circle className="tr-map__ping" style={{ ["--cx" as string]: "425px", ["--cy" as string]: "215px" }} cx="425" cy="215" r="10" fill={BLUE} opacity="0.18" />
               <circle cx="425" cy="215" r="6" fill={BLUE} opacity="0.4" />
               <circle cx="425" cy="215" r="3.5" fill={BLUE} />
-              <rect x="433" y="204" width="76" height="26" rx="5" fill="rgba(10,20,45,0.92)" stroke={BLUE} strokeWidth="0.7" />
+              <rect className="tr-map__label" style={{ ["--i" as string]: 4 }} x="433" y="204" width="76" height="26" rx="5" fill="rgba(10,20,45,0.92)" stroke={BLUE} strokeWidth="0.7" />
               <text x="471" y="219" textAnchor="middle" fill="white" fontSize="9" fontFamily="system-ui" fontWeight="600">{c.copy.networkAfrica}</text>
               <text x="471" y="227" textAnchor="middle" fill={BLUE} fontSize="7.5" fontFamily="system-ui">{c.copy.networkEmerging}</text>
 

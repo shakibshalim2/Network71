@@ -754,3 +754,34 @@ html.js-reveal .reveal-target.is-revealed .it-badge { opacity: 1; translate: non
 @media (hover: hover) { .it-proj:hover { translate: 0 -6px; border-color: color-mix(in srgb, var(--accent-cyan) 32%, transparent) !important; box-shadow: 0 34px 70px -40px color-mix(in srgb, var(--accent-cyan) 55%, transparent), inset 0 2px 0 0 var(--accent-cyan); } }
 /* Compact tiles carry their own labels — no running counter */
 .sector-page section .grid > .it-model::before { content: none; }
+
+/* ═══ 20 · Trading: hero routes + badges, animated trade map ═══ */
+.tr-routes line { animation: tr-dash 6s linear infinite; }
+@keyframes tr-dash { to { stroke-dashoffset: -140; } }
+.tr-badges { position: absolute; right: 32px; bottom: 48px; list-style: none; margin: 0; padding: 0; flex-direction: column; gap: 10px; z-index: 2; }
+.tr-badge {
+  display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 12px;
+  background: rgb(10 20 45 / 0.8); border: 1px solid color-mix(in srgb, var(--pa) 22%, transparent); backdrop-filter: blur(8px);
+  transition: border-color 0.3s, translate 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.tr-badge__idx { font-size: 10px; letter-spacing: 0.12em; color: rgb(255 255 255 / 0.3); }
+@media (hover: hover) { .tr-badge:hover { border-color: color-mix(in srgb, var(--pa) 55%, transparent); translate: -4px 0; } }
+.tr-map__route { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.4s + var(--i) * 0.18s); }
+.reveal-target.is-revealed .tr-map__route, html:not(.js-reveal) .tr-map__route { stroke-dashoffset: 0; }
+/* After drawing, restore the dashed look with a slow drift */
+.reveal-target.is-revealed .tr-map__route { animation: tr-map-dash 2s linear 2.6s both, tr-dash 8s linear 2.6s infinite; }
+@keyframes tr-map-dash { from { stroke-dasharray: 1; } to { stroke-dasharray: 6 5; } }
+.reveal-target.is-revealed .tr-map__route { opacity: 0.9 !important; }
+.tr-map__cargo { filter: drop-shadow(0 0 4px var(--accent-blue)); opacity: 0; }
+.reveal-target.is-revealed .tr-map__cargo { opacity: 0.95; transition: opacity 0.4s 2.2s; }
+.tr-map__ping { transform-origin: var(--cx) var(--cy); transform-box: view-box; animation: tr-ping 2.8s ease-out infinite; }
+.tr-map__ping:nth-of-type(odd) { animation-delay: 1.2s; }
+@keyframes tr-ping { 0% { transform: scale(0.5); opacity: 0.45; } 100% { transform: scale(2.2); opacity: 0; } }
+.tr-map__label { opacity: 0; transition: opacity 0.5s calc(1.6s + var(--i) * 0.15s); }
+.tr-map__label + text, .tr-map__label + text + text { opacity: 0; transition: opacity 0.5s calc(1.7s + var(--i, 0) * 0.15s); }
+.reveal-target.is-revealed .tr-map__label, .reveal-target.is-revealed .tr-map__label + text, .reveal-target.is-revealed .tr-map__label + text + text,
+html:not(.js-reveal) .tr-map__label, html:not(.js-reveal) .tr-map__label + text, html:not(.js-reveal) .tr-map__label + text + text { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .tr-routes line, .tr-map__ping, .reveal-target.is-revealed .tr-map__route { animation: none; stroke-dasharray: 6 5; }
+  .tr-map__route { stroke-dashoffset: 0; transition: none; } .tr-map__cargo { display: none; } .tr-map__label, .tr-map__label + text, .tr-map__label + text + text { opacity: 1; transition: none; }
+}
