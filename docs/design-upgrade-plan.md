@@ -391,3 +391,27 @@ Both pages share the Phase 6 corporate template, so they are taken together.
 | Ezyify | 9 | Waitlist | **refine** — plain input + gradient button → floating-label field with gradient underline, busy progress, REF pill success (gradient stays, matches the page) |
 
 **Brand + Ezyify — landed:** Brand keeps its own red identity: `.bhero` (KineticText, drawn red rule, `08 sections` counter); `.bsec` heads (hairline display numeral, 11px mono index, rule that draws on reveal — the 9px slate-700 numerals were under the type floor); `.btile` lift + red hairline on hover; `.bswatch` copies the hex on click with a COPIED tick; clear-space frame pulses once on reveal; never-list numbered; footer caption 9 → 11px. Ezyify waitlist → `.ezw` floating-label field with a purple→pink→cyan underline, gradient button with busy progress + arrow fly, success as drawn ring/tick + mono REF chip. Custom `.cf__input` / `.ezw__input` fields suppress the global `:focus-visible` outline (their drawn underline is the focus affordance). Verified `tsc` + `vite build`, 1440 + 390 no overflow.
+
+## Phase 8 — Home, section by section (second pass)
+
+Installed `lenis` (inertial wheel scrolling, public routes only; native on touch, paused while
+a drawer/dialog locks the body, steps aside for nested scrollers). New shared motion primitives:
+`Magnetic` (pointer-pull CTA), `Tilt` (3D tilt + `--tx/--ty` for layered parallax), `ScrollWords`
+(reading-light paragraph). All in `src/components/motion/`; styles in `src/styles/home-signature.css`.
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | copy parallax-fades as the fold leaves; magnetic CTAs; stats → numbered hairline ledger (staggered entrance, accent hairline + icon fill on hover); ticker → linked marquee, speeds with scroll velocity, per-division accent on hover |
+| 2 | Our Work | refine | enquiry plate tilts in 3D with pointer glow, N71 watermark drifts, step rings ping on reveal; work cards lift |
+| 3 | Working together | refine | outlined ghost numerals light with the journey line; steps lift |
+| 4 | Divisions | fix | mobile dossier rail was rendering under the desktop list (unlayered `display:flex` beat Tailwind `md:hidden`) |
+| 5 | Statement band | refine | lead paragraph becomes a scroll-driven reading light; value cards get ghost numerals, drawn accent rule, lift |
+| 6 | Ezyify | rework | tab switcher → sliding accent plate with numbered rows + timed progress hairline; auto-rotate pauses off-screen/hover; features crossfade; phone tilts with pointer specular, drifts on scroll, screens crossfade; glows + badge re-tint to active tab |
+| 7 | Brand wall | refine | rows speed with scroll velocity |
+| 8 | Media + eSHIPe | rework | photo parallax-zoom + broadcast scan-line on reveal; stories → numbered ledger; marketplace plate tilts, ship drifts on hover, ledger hairlines draw in sequence |
+| 9 | Leadership | refine | founder card tilts; tags → numbered chips that stagger in; CTA on `.btn` |
+| 10 | Sustainability | rework | pillar cards are links; photos uncover top-down on reveal; monogram fills on hover; pointer glow; drawn rule; 7px labels → 10.5px |
+| 11 | Connect | refine | magnetic CTA, arrow-key tabs, email underline tinted by the chosen path |
+| 12 | Footer | refine | wordmark slides with scroll; magnetic CTAs |
+
+Verified: `tsc --noEmit`, `vite build`, 1440 + 390 sweeps (no horizontal overflow), reduced motion paths.
