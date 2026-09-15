@@ -10,6 +10,8 @@ import {
 } from "@/lib/publicContent"
 import { useCompanySettings } from "@/lib/companySettings"
 import ProcessLine from "@/components/motion/ProcessLine"
+import Tilt from "@/components/motion/Tilt"
+import Magnetic from "@/components/motion/Magnetic"
 
 export function WorkImage({ src, alt }: { src: string; alt: string }) {
   const { t } = useT()
@@ -94,8 +96,9 @@ export default function WorkShowcase() {
             ))}
           </div>
         ) : (
-          <div className="work-intro">
+          <Tilt className="work-intro" max={3} perspective={1600}>
             <span className="work-intro-mark" aria-hidden="true">N71</span>
+            <span className="work-intro-glow" aria-hidden="true" />
             <ol className="work-intro-steps" aria-hidden="true">
               {(["step1", "step2", "step3"] as const).map((k, i) => (
                 <li key={k} style={{ ["--i" as string]: i }}>
@@ -108,13 +111,15 @@ export default function WorkShowcase() {
               <h3>{t("work.intro.title")}</h3>
               <p>{t("work.intro.body")}</p>
             </div>
-            <Link className="btn btn-primary work-intro-cta" to="/contact">
-              {t("work.intro.cta")}
-              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M8 7h9v9" />
-              </svg>
-            </Link>
-          </div>
+            <Magnetic strength={10} className="work-intro-cta">
+              <Link className="btn btn-primary" to="/contact">
+                {t("work.intro.cta")}
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M8 7h9v9" />
+                </svg>
+              </Link>
+            </Magnetic>
+          </Tilt>
         )}
       </div>
     </section>
@@ -147,15 +152,18 @@ export function WorkingTogether() {
                 <span className="working-number">0{index + 1}</span>
                 <h3>{t(`work.together.${step}.title`)}</h3>
                 <p>{t(`work.together.${step}.body`)}</p>
+                <span className="working-ghost font-display" aria-hidden="true">0{index + 1}</span>
               </li>
             ))}
           </ol>
         </ProcessLine>
         <div className="working-contact">
           <p>{t("work.together.brief")}</p>
-          <a href={`mailto:${generalEmail}`}>
-            {generalEmail} <span aria-hidden="true">↗</span>
-          </a>
+          <Magnetic strength={6}>
+            <a href={`mailto:${generalEmail}`}>
+              {generalEmail} <span aria-hidden="true">↗</span>
+            </a>
+          </Magnetic>
         </div>
       </div>
     </section>
