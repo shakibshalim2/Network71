@@ -46,3 +46,109 @@
 .shero__tag-dot { width: 6px; height: 6px; border-radius: 50%; box-shadow: 0 0 10px currentColor; }
 .shero__tag-label { font-size: 12px; color: rgb(226 232 240 / 0.85); letter-spacing: 0.02em; }
 @media (prefers-reduced-motion: reduce) { .shero__mark, .shero__rule, .shero__amp { animation: none; } }
+
+/* ═══ 2 · Section heads (all division pages) ═══ */
+/* Eyebrow rule draws in; H2 already kinetic via useKineticHeadlines. */
+.sector-page section > div > :is(.flex, .text-center, .grid) .h-px[style*="background"] { transform-origin: left; }
+html.js-reveal .sector-page section.reveal-target .h-px[style*="background"] { scale: 0 1; transition: scale 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s; }
+html.js-reveal .sector-page section.reveal-target.is-revealed .h-px[style*="background"] { scale: 1 1; }
+
+/* ═══ 3 · Card grids (all division pages) ═══ */
+/* Cards already carry a running counter + pointer spotlight (signature.css).
+   Add: lift, accent hairline that draws along the top, icon tile fill, and a
+   staggered rise on reveal. */
+.sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"] {
+  transition: translate 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.35s, box-shadow 0.45s, background-color 0.35s;
+}
+.sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"] > .h-px:last-child { display: none; }
+.sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"]::before { transition: color 0.3s, translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"] > :is(.w-12.h-12, .w-11.h-11, .w-14.h-14, .w-10.h-10):first-child,
+.sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"] > .flex > :is(.w-12.h-12, .w-11.h-11, .w-14.h-14, .w-10.h-10) {
+  transition: background-color 0.35s, color 0.35s, transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s !important;
+}
+@media (hover: hover) {
+  .sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"]:hover {
+    translate: 0 -5px !important;
+    border-color: color-mix(in srgb, var(--pa) 32%, transparent) !important;
+    box-shadow: 0 28px 56px -32px color-mix(in srgb, var(--pa) 45%, transparent), inset 0 2px 0 0 var(--pa);
+  }
+  .sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"]:hover::before { color: var(--pa); translate: -2px 0; }
+  .sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"]:hover > :is(.w-12.h-12, .w-11.h-11, .w-14.h-14, .w-10.h-10):first-child {
+    background: var(--pa) !important; color: var(--s0) !important; transform: translateY(-2px) scale(1.04) !important;
+    box-shadow: 0 10px 24px -10px var(--pa);
+  }
+  .sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"]:hover h3 { color: var(--pa); }
+}
+.sector-page section .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"] h3 { transition: color 0.3s; }
+/* Staggered rise on reveal (sector grids were excluded from the global stagger) */
+html.js-reveal .sector-page section.reveal-target .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"] {
+  opacity: 0; translate: 0 22px;
+  transition: opacity 0.7s ease, translate 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+html.js-reveal .sector-page section.reveal-target.is-revealed .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"] { opacity: 1; translate: none; }
+html.js-reveal .sector-page section.reveal-target.is-revealed .grid > :nth-child(2) { transition-delay: 0.07s; }
+html.js-reveal .sector-page section.reveal-target.is-revealed .grid > :nth-child(3) { transition-delay: 0.14s; }
+html.js-reveal .sector-page section.reveal-target.is-revealed .grid > :nth-child(4) { transition-delay: 0.21s; }
+html.js-reveal .sector-page section.reveal-target.is-revealed .grid > :nth-child(5) { transition-delay: 0.28s; }
+html.js-reveal .sector-page section.reveal-target.is-revealed .grid > :nth-child(6) { transition-delay: 0.35s; }
+html.js-reveal .sector-page section.reveal-target.is-revealed .grid > :nth-child(n + 7) { transition-delay: 0.4s; }
+/* After reveal, hand translate back to the hover rule */
+html.js-reveal .sector-page section.reveal-target.is-revealed .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"] {
+  transition: opacity 0.7s ease, translate 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.35s, box-shadow 0.45s, background-color 0.35s;
+}
+
+/* Tag chips (overview) */
+.sector-page section .flex-wrap > .rounded-full.border { transition: translate 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), background-color 0.3s, box-shadow 0.3s; }
+@media (hover: hover) { .sector-page section .flex-wrap > .rounded-full.border:hover { translate: 0 -2px; background: color-mix(in srgb, var(--pa) 12%, transparent) !important; box-shadow: 0 8px 18px -10px var(--pa); } }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js-reveal .sector-page section.reveal-target .grid > :is(.rounded-2xl, .rounded-xl)[class*="p-"] { opacity: 1; translate: none; transition: none; }
+  html.js-reveal .sector-page section.reveal-target .h-px[style*="background"] { scale: 1 1; transition: none; }
+}
+
+/* ═══ 4 · Production flow conveyor ═══ */
+.sflow__track {
+  position: relative; list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px 8px;
+}
+.sflow__line {
+  position: absolute; left: 0; right: 0; top: 7px; height: 1px; background: rgb(255 255 255 / 0.1);
+}
+.sflow__line::after {
+  content: ''; position: absolute; inset: 0; background: var(--pa); transform-origin: left; scale: 0 1;
+  box-shadow: 0 0 12px var(--pa);
+  transition: scale 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s;
+}
+.reveal-target.is-revealed .sflow__line::after, html:not(.js-reveal) .sflow__line::after { scale: 1 1; }
+.sflow__stage { position: relative; display: grid; gap: 14px; padding-top: 0; }
+.sflow__node {
+  width: 15px; height: 15px; border-radius: 50%; margin-left: 0;
+  background: var(--s1); border: 1.5px solid rgb(255 255 255 / 0.25);
+  transition: border-color 0.4s, background-color 0.4s, box-shadow 0.4s, scale 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(0.3s + var(--i) * 0.22s);
+}
+.reveal-target.is-revealed .sflow__node, html:not(.js-reveal) .sflow__node { border-color: var(--pa); box-shadow: 0 0 0 4px color-mix(in srgb, var(--pa) 14%, transparent); }
+.sflow__stage.is-end .sflow__node { background: var(--pa); border-color: var(--pa); }
+.sflow__label {
+  display: inline-block; justify-self: start; padding: 8px 12px; border-radius: 8px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.01em; color: var(--fg);
+  background: rgb(255 255 255 / 0.05); border: 1px solid rgb(255 255 255 / 0.1);
+  opacity: 0.5; translate: 0 6px;
+  transition: opacity 0.5s, translate 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), background-color 0.3s, border-color 0.3s, color 0.3s;
+  transition-delay: calc(0.4s + var(--i) * 0.22s);
+}
+.reveal-target.is-revealed .sflow__label, html:not(.js-reveal) .sflow__label { opacity: 1; translate: none; }
+.sflow__stage.is-end .sflow__label { background: var(--pa); border-color: var(--pa); color: var(--s0); }
+@media (hover: hover) {
+  .sflow__stage:hover .sflow__node { scale: 1.25; transition-delay: 0s; }
+  .sflow__stage:not(.is-end):hover .sflow__label { background: color-mix(in srgb, var(--pa) 14%, transparent); border-color: color-mix(in srgb, var(--pa) 40%, transparent); color: #fff; transition-delay: 0s; }
+}
+@media (max-width: 639px) {
+  .sflow__track { grid-template-columns: minmax(0, 1fr); gap: 10px; padding-left: 26px; }
+  .sflow__line { left: 7px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; }
+  .sflow__line::after { transform-origin: top; scale: 1 0; }
+  .reveal-target.is-revealed .sflow__line::after, html:not(.js-reveal) .sflow__line::after { scale: 1 1; }
+  .sflow__stage { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 0; }
+  .sflow__node { position: absolute; left: -26px; top: 50%; translate: 0 -50%; }
+}
+@media (prefers-reduced-motion: reduce) { .sflow__line::after, .sflow__node, .sflow__label { transition: none; } }
