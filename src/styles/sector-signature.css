@@ -896,6 +896,98 @@ html:not(.js-reveal) .tr-map__label, html:not(.js-reveal) .tr-map__label + text,
   .scat__bar, .ssvc__rule, .ssvc__tick path, .ssvc__item, .sseal__mark circle, .sseal__tick path, .sfreight__bar, .sfin__rule, .srisk__shield path, .ssus__rule { transition: none; scale: 1 1; stroke-dashoffset: 0; opacity: 1; translate: none; }
 }
 /* Decorative layers inside structural cards must stay absolute (structural rule makes children relative) */
-.sector-page section .grid > * > :is(.spill__ghost, .spill__rule, .scat__bar, .sfreight__bar, .sfreight__ghost, .sfin__ghost, .sfin__corner, .ssus__rule, .splan__glow, .splan__idx, .splan__flag, .stwin__glow, .esg__glow) { position: absolute !important; }
-.sector-page section .grid > * > :is(.spill__ghost, .sfreight__ghost, .splan__glow, .stwin__glow) { z-index: 0 !important; }
-.sector-page section .grid > * > :is(.spill__rule, .scat__bar, .sfreight__bar, .sfin__corner, .ssus__rule) { z-index: 2 !important; }
+.sector-page section .grid > * > :is(.spill__ghost, .spill__rule, .scat__bar, .sfreight__bar, .sfreight__ghost, .sfin__ghost, .sfin__corner, .ssus__rule, .splan__glow, .splan__idx, .splan__flag, .stwin__glow, .esg__glow, .mdesk__ghost, .mdesk__rule, .mchan__rule, .madv__glow, .madv__rule, .mgal__frame, .mgal__rec, .mgal__idx) { position: absolute !important; }
+.sector-page section .grid > * > :is(.spill__ghost, .sfreight__ghost, .splan__glow, .stwin__glow, .mdesk__ghost, .madv__glow) { z-index: 0 !important; }
+.sector-page section .grid > * > :is(.spill__rule, .scat__bar, .sfreight__bar, .sfin__corner, .ssus__rule, .mdesk__rule, .mchan__rule, .madv__rule) { z-index: 2 !important; }
+
+/* ═══ 23 · Media division (broadcast identity) ═══ */
+.med-hero__scan { background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(239,68,68,0.02) 3px, rgba(239,68,68,0.02) 4px); animation: med-scan 9s linear infinite; }
+@keyframes med-scan { to { background-position: 0 40px; } }
+.med-hero__glow { animation: shero-warm 6s ease-in-out infinite; }
+.med-hero__word {
+  background: linear-gradient(135deg, var(--accent-red) 0%, #F97316 45%, #fff 52%, #F97316 60%, var(--accent-red) 100%); background-size: 250% 100%;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; animation: it-shimmer 7s ease-in-out infinite;
+}
+.med-strip { padding: 0; overflow: hidden; display: block; mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.med-strip__track { display: flex; width: max-content; animation: marquee 36s linear infinite; }
+.med-strip__item { display: inline-flex; align-items: center; gap: 10px; padding: 12px 28px; white-space: nowrap; }
+.med-strip__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-red); box-shadow: 0 0 8px var(--accent-red); animation: pulse-slow 2s ease-in-out infinite; }
+.med-live { display: flex; align-items: center; gap: 10px; }
+.med-live__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent-red); box-shadow: 0 0 10px var(--accent-red); animation: sdash-ping 1.8s ease-out infinite; }
+.med-live::before { background: var(--accent-red); }
+
+/* Channels */
+.mchan { position: relative; isolation: isolate; overflow: hidden; transition: translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.3s !important, box-shadow 0.4s; }
+.mchan__bars { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; }
+.mchan__bars i { width: 3px; border-radius: 1px; background: var(--pa); opacity: 0.35; transform-origin: bottom; scale: 1 0.3; transition: scale 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.4s; }
+.mchan__bars i:nth-child(1) { height: 4px; transition-delay: calc(0.3s + var(--i) * 0.1s); } .mchan__bars i:nth-child(2) { height: 7px; transition-delay: calc(0.4s + var(--i) * 0.1s); } .mchan__bars i:nth-child(3) { height: 10px; transition-delay: calc(0.5s + var(--i) * 0.1s); } .mchan__bars i:nth-child(4) { height: 12px; transition-delay: calc(0.6s + var(--i) * 0.1s); }
+.reveal-target.is-revealed .mchan__bars i, html:not(.js-reveal) .mchan__bars i { scale: 1 1; opacity: 1; }
+.mchan__rule { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--pa); transform-origin: left; scale: 0 1; transition: scale 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (hover: hover) { .mchan:hover { translate: 0 -3px; border-color: color-mix(in srgb, var(--pa) 40%, transparent) !important; box-shadow: 0 20px 40px -30px var(--pa); } .mchan:hover .mchan__rule { scale: 1 1; } .mchan:hover .mchan__bars i { animation: mchan-eq 0.9s ease-in-out infinite alternate; } .mchan:hover .mchan__bars i:nth-child(2) { animation-delay: 0.15s; } .mchan:hover .mchan__bars i:nth-child(3) { animation-delay: 0.3s; } .mchan:hover .mchan__bars i:nth-child(4) { animation-delay: 0.45s; } }
+@keyframes mchan-eq { to { scale: 1 0.45; } }
+
+/* Desks */
+.mdesk { position: relative; isolation: isolate; overflow: hidden; transition: translate 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.3s, box-shadow 0.45s; }
+.mdesk__ghost { position: absolute; right: 14px; top: 8px; z-index: 0; font-size: 72px; line-height: 1; letter-spacing: -0.05em; color: transparent; -webkit-text-stroke: 1px rgb(255 255 255 / 0.08); transition: -webkit-text-stroke-color 0.4s, translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.mdesk__icon { transition: background-color 0.3s, color 0.3s, transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s; }
+.mdesk__rule { position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: var(--pa); transform-origin: left; scale: 0.12 1; transition: scale 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (hover: hover) {
+  .mdesk:hover { translate: 0 -5px; border-color: color-mix(in srgb, var(--pa) 35%, transparent) !important; box-shadow: 0 26px 50px -32px var(--pa); }
+  .mdesk:hover .mdesk__ghost { -webkit-text-stroke-color: color-mix(in srgb, var(--pa) 50%, transparent); translate: -4px -4px; }
+  .mdesk:hover .mdesk__icon { background: var(--pa) !important; color: var(--s0) !important; transform: translateY(-2px) rotate(-8deg); box-shadow: 0 10px 24px -10px var(--pa); }
+  .mdesk:hover .mdesk__rule { scale: 1 1; }
+}
+.sector-page section .grid > .mdesk > :not(.mdesk__ghost) { position: relative; z-index: 1; }
+.sector-page section .grid > .mdesk::before { content: none !important; }
+
+/* TV signals + EPG */
+.mtv__status { display: inline-flex; align-items: center; gap: 5px; }
+.mtv__status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--pa); animation: sdash-ping 2.2s ease-out infinite; }
+.mepg { position: relative; list-style: none; margin: 0; padding: 0 0 0 0; display: grid; gap: 2px; border-top: 1px solid var(--line); }
+.mepg__now { position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: linear-gradient(90deg, var(--accent-red), transparent); z-index: 2; animation: mepg-now 14s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate; box-shadow: 0 0 10px var(--accent-red); pointer-events: none; }
+@keyframes mepg-now { from { top: -1px; } to { top: calc(100% - 1px); } }
+.mepg__row { position: relative; isolation: isolate; display: grid; grid-template-columns: 120px 14px minmax(0, 1fr) 24px; align-items: center; gap: 14px; padding: 14px 10px; border-bottom: 1px solid var(--line); transition: padding-left 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.mepg__row::after { content: ''; position: absolute; inset: 0 -8px; z-index: -1; border-radius: 10px; opacity: 0; background: linear-gradient(90deg, color-mix(in srgb, var(--pa) 10%, transparent), transparent 70%); transition: opacity 0.3s; }
+.mepg__time { font-size: 10.5px; letter-spacing: 0.06em; color: var(--pa); }
+.mepg__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--pa); box-shadow: 0 0 0 0 color-mix(in srgb, var(--pa) 35%, transparent); transition: box-shadow 0.35s; }
+.mepg__title { transition: translate 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.mepg__idx { font-size: 10px; letter-spacing: 0.12em; color: var(--fg-faint); text-align: right; }
+html.js-reveal .reveal-target .mepg__row { opacity: 0; translate: 0 8px; transition: opacity 0.5s ease calc(0.2s + var(--i) * 0.07s), translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.2s + var(--i) * 0.07s); }
+html.js-reveal .reveal-target.is-revealed .mepg__row { opacity: 1; translate: none; transition: opacity 0.5s, translate 0.5s, padding-left 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (hover: hover) { .mepg__row:hover { padding-left: 16px; } .mepg__row:hover::after { opacity: 1; } .mepg__row:hover .mepg__dot { box-shadow: 0 0 0 5px color-mix(in srgb, var(--pa) 25%, transparent); } .mepg__row:hover .mepg__title { translate: 3px 0; } }
+@media (max-width: 639px) { .mepg__row { grid-template-columns: 14px minmax(0, 1fr) 24px; } .mepg__time { grid-column: 2; order: 3; } }
+
+/* Advertising */
+.madv { position: relative; isolation: isolate; overflow: hidden; transition: translate 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.3s, box-shadow 0.45s; }
+.madv__glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--pa) 14%, transparent), transparent 60%); transition: opacity 0.4s; }
+.madv__idx { font-size: 11px; letter-spacing: 0.14em; color: var(--fg-faint); }
+.madv__rule { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--pa); transform-origin: left; scale: 0 1; transition: scale 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.2s + var(--i) * 0.15s); }
+.reveal-target.is-revealed .madv__rule, html:not(.js-reveal) .madv__rule { scale: 1 1; }
+@media (hover: hover) { .madv:hover { translate: 0 -5px; border-color: color-mix(in srgb, var(--pa) 40%, transparent) !important; box-shadow: 0 26px 50px -32px var(--pa); } .madv:hover .madv__glow { opacity: 1; } }
+.sector-page section .grid > .madv > :not(.madv__glow):not(.madv__rule) { position: relative; z-index: 1; }
+.sector-page section .grid > .madv::before { content: none !important; }
+
+/* Gallery viewfinder */
+.mgal { transition: translate 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.mgal__img { transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.5s; filter: saturate(0.85); }
+.mgal__frame i { position: absolute; width: 18px; height: 18px; border: 1.5px solid rgb(255 255 255 / 0.7); opacity: 0; transition: opacity 0.3s, translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.mgal__frame i:nth-child(1) { top: 12px; left: 12px; border-right: 0; border-bottom: 0; translate: -6px -6px; }
+.mgal__frame i:nth-child(2) { top: 12px; right: 12px; border-left: 0; border-bottom: 0; translate: 6px -6px; }
+.mgal__frame i:nth-child(3) { bottom: 12px; left: 12px; border-right: 0; border-top: 0; translate: -6px 6px; }
+.mgal__frame i:nth-child(4) { bottom: 12px; right: 12px; border-left: 0; border-top: 0; translate: 6px 6px; }
+.mgal__rec { position: absolute; top: 14px; left: 16px; display: inline-flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 0.16em; color: #fff; opacity: 0; transition: opacity 0.3s; }
+.mgal__rec i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-red); animation: pulse-slow 1.2s ease-in-out infinite; }
+.mgal__idx { position: absolute; top: 14px; right: 16px; font-size: 10.5px; letter-spacing: 0.14em; color: rgb(255 255 255 / 0.55); }
+@media (hover: hover) {
+  .mgal:hover { translate: 0 -4px; }
+  .mgal:hover .mgal__img { transform: scale(1.06); filter: saturate(1.05); }
+  .mgal:hover .mgal__frame i { opacity: 1; translate: 0 0; }
+  .mgal:hover .mgal__rec { opacity: 1; }
+}
+html.js-reveal .reveal-target .mgal { opacity: 0; translate: 0 18px; }
+html.js-reveal .reveal-target.is-revealed .mgal { opacity: 1; translate: none; transition: opacity 0.6s ease calc(var(--i) * 0.08s), translate 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i) * 0.08s); }
+@media (prefers-reduced-motion: reduce) {
+  .med-hero__scan, .med-hero__glow, .med-hero__word, .med-strip__track, .med-strip__dot, .med-live__dot, .mtv__status-dot, .mepg__now, .mgal__rec i { animation: none; }
+  html.js-reveal .reveal-target :is(.mepg__row, .mgal) { opacity: 1; translate: none; transition: none; }
+  .mchan__bars i, .madv__rule { transition: none; scale: 1 1; opacity: 1; }
+}

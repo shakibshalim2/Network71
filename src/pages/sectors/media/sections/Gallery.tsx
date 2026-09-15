@@ -18,11 +18,13 @@ export default function Gallery({ c }: { c: MediaContent['gallery'] }) {
           <ArrowLink to="/gallery" color={RED} className="font-medium">{c.cta}</ArrowLink>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {c.items.map((item) => (
-            <button type="button" onClick={() => setSelected(item)} key={item.img} className="group relative text-left rounded-xl overflow-hidden aspect-[3/2]" aria-label={item.label}>
-              <img src={item.img} alt={item.label} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          {c.items.map((item, i) => (
+            <button type="button" onClick={() => setSelected(item)} key={item.img} className="group relative text-left rounded-xl overflow-hidden aspect-[3/2] mgal" style={{ ['--i' as string]: i }} aria-label={item.label}>
+              <img src={item.img} alt={item.label} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover mgal__img" />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(175deg, transparent 40%, rgba(3,6,8,0.88) 100%)' }} />
-              <div className="absolute inset-0 rounded-xl border border-white/[0.06] group-hover:border-white/20 transition-colors duration-300" />
+              <span className="mgal__frame" aria-hidden="true"><i /><i /><i /><i /></span>
+              <span className="mgal__rec font-mono" aria-hidden="true"><i />REC</span>
+              <span className="mgal__idx font-mono" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               <div className="absolute bottom-0 left-0 right-0 p-4">
                 <div className="font-mono text-[10px] tracking-wider uppercase" style={{ color: 'rgba(239,68,68,0.75)' }}>{c.brand}</div>
                 <div className="text-white text-sm font-semibold">{item.label}</div>

@@ -559,3 +559,17 @@ instant under reduced motion).
 | 9 | Opportunities | refine | links draw underline |
 | 10 | Roadmap | rework | scroll-drawn 4-column timeline with ghost numerals |
 | 11 | Contact | keep | |
+
+## Phase 8h — Media division (every section)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | rework | broadcast strip → marquee with pulsing dots; scanlines drift; wordmark shimmers; "09" watermark; `.btn` + magnetic; LIVE ledger + CountUp stats; terminal types itself |
+| 2 | Metrics | keep | |
+| 3 | Overview | rework | lead → reading light; platforms → channel tiles with signal bars that rise on reveal and equalise on hover, drawn rule |
+| 4 | Desks | rework | ghost numerals, monogram fills + rotates, rule extends |
+| 5 | Television | rework | signal statuses ping; schedule → programme guide with a sweeping "now" cursor, numbered rows slide in |
+| 6 | Charter | rework | items → green seals (ring draws, tick stamps) in a hairline ledger |
+| 7 | Advertising | rework | plates with own-accent drawn top rule, pointer glow, numbered |
+| 8 | Gallery | rework | viewfinder corners + REC badge on hover, indexed, staggered rise |
+| 9 | Contact | keep | |

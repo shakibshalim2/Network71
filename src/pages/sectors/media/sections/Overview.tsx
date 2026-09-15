@@ -1,6 +1,7 @@
 import SectionEyebrow from '@/components/sector/SectionEyebrow'
 import type { MediaContent } from '../content/en'
 import { RED, BG_ALT } from '../theme'
+import ScrollWords from '@/components/motion/ScrollWords'
 
 export default function Overview({ c }: { c: MediaContent['overview'] }) {
   return (
@@ -10,18 +11,22 @@ export default function Overview({ c }: { c: MediaContent['overview'] }) {
         <div className="grid lg:grid-cols-2 gap-14 items-start">
           <div>
             <h2 className="font-display text-4xl lg:text-5xl text-white mb-6 leading-tight">{c.title}</h2>
-            <p className="text-slate-300 leading-relaxed mb-5 text-sm">{c.p1}</p>
+            <ScrollWords className="text-slate-300 leading-relaxed mb-5 text-sm" text={c.p1} />
             <p className="text-slate-400 leading-relaxed text-sm">{c.p2}</p>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            {c.platforms.map((p) => (
+            {c.platforms.map((p, i) => (
               <div
                 key={p.name}
-                className="p-5 rounded-xl"
-                style={{ background: `color-mix(in srgb, ${p.color} 2%, transparent)`, border: `1px solid color-mix(in srgb, ${p.color} 9%, transparent)` }}
+                className="p-5 rounded-xl mchan"
+                style={{ ['--pa' as string]: p.color, ['--i' as string]: i, background: `color-mix(in srgb, ${p.color} 2%, transparent)`, border: `1px solid color-mix(in srgb, ${p.color} 9%, transparent)` }}
               >
-                <div className="text-xs font-bold mb-3" style={{ color: p.color }}>◻ {p.name}</div>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="text-xs font-bold" style={{ color: p.color }}>{p.name}</div>
+                  <span className="mchan__bars" aria-hidden="true"><i /><i /><i /><i /></span>
+                </div>
                 <p className="text-slate-400 text-xs leading-relaxed">{p.desc}</p>
+                <span className="mchan__rule" aria-hidden="true" />
               </div>
             ))}
           </div>

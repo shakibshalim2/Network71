@@ -13,14 +13,19 @@ export default function Advertising({ c }: { c: MediaContent['advertising'] }) {
           <p className="text-slate-400 max-w-xl mx-auto text-sm leading-relaxed">{c.lead}</p>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
-          {c.items.map((opt) => (
-            <div key={opt.title} className="p-7 rounded-2xl flex flex-col" style={{ background: 'var(--fill-1)', border: `1px solid color-mix(in srgb, ${opt.color} 15%, transparent)` }}>
-              <div className="inline-block self-start px-3 py-1 rounded-full text-[10px] font-semibold mb-5" style={{ background: `color-mix(in srgb, ${opt.color} 8%, transparent)`, color: opt.color }}>
-                {opt.tag}
+          {c.items.map((opt, i) => (
+            <div key={opt.title} className="p-7 rounded-2xl flex flex-col madv" style={{ ['--pa' as string]: opt.color, ['--i' as string]: i, background: 'var(--fill-1)', border: `1px solid color-mix(in srgb, ${opt.color} 15%, transparent)` }}>
+              <span className="madv__glow" aria-hidden="true" />
+              <div className="flex items-center justify-between mb-5">
+                <div className="inline-block px-3 py-1 rounded-full text-[10.5px] font-semibold font-mono tracking-[0.12em] uppercase" style={{ background: `color-mix(in srgb, ${opt.color} 10%, transparent)`, color: opt.color }}>
+                  {opt.tag}
+                </div>
+                <span className="madv__idx font-mono">0{i + 1}</span>
               </div>
               <h3 className="font-display text-xl text-white mb-4">{opt.title}</h3>
               <p className="text-slate-400 text-xs leading-relaxed flex-1 mb-7">{opt.desc}</p>
               <ArrowLink to="#sector-contact" color={opt.color}>{c.cta}</ArrowLink>
+              <span className="madv__rule" aria-hidden="true" />
             </div>
           ))}
         </div>
