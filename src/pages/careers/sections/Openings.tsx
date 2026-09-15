@@ -70,26 +70,37 @@ export default function Openings({
           </h2>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
-          {loading && <p role="status">{c.loading}</p>}
+          {loading && (
+            <div className="public-empty md:col-span-2 is-loading" role="status">
+              <span className="public-eyebrow">{c.eyebrow}</span>
+              <h3>{c.loading}</h3>
+              <span className="jobs-pulse" aria-hidden="true"><span /><span /><span /></span>
+            </div>
+          )}
           {error && (
-            <div role="alert">
+            <div className="public-empty md:col-span-2" role="alert">
+              <span className="public-eyebrow">{c.eyebrow}</span>
+              <h3>{c.emptyTitle}</h3>
               <p>{error}</p>
-              <button className="public-button" onClick={retry}>
+              <button className="btn btn-primary" onClick={retry}>
                 {c.retry}
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
               </button>
             </div>
           )}
           {!loading && !error && !openings.length && (
             <div className="public-empty md:col-span-2">
+              <span className="public-eyebrow">{c.eyebrow}</span>
               <h3>{c.emptyTitle}</h3>
               <p>{c.emptyText}</p>
             </div>
           )}
-          {openings.map((job) => (
+          {openings.map((job, i) => (
             <div
               key={job.id}
-              className="bg-navy-dark border border-white/8 rounded-2xl p-8 flex flex-col sm:flex-row items-start justify-between gap-6 hover:border-gold/25 transition-colors duration-300 group"
+              className="bg-navy-dark border border-white/8 rounded-2xl p-8 flex flex-col sm:flex-row items-start justify-between gap-6 hover:border-gold/25 transition-colors duration-300 group job-post"
             >
+              <span className="job-post__idx font-mono" aria-hidden="true">{String(i + 1 + (page - 1) * 20).padStart(2, '0')}</span>
               <div className="flex-1 min-w-0">
                 <h3 className="font-display text-xl text-white mb-2 group-hover:text-gold transition-colors">
                   {job.title}

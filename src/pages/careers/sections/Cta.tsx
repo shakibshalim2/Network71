@@ -10,11 +10,14 @@ export default function Cta({
   return (
     <section className="bg-navy-dark py-20 relative overflow-hidden">
       <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
-      <div className="relative max-w-3xl mx-auto px-6 lg:px-8 text-center">
-        <h2 className="font-display text-4xl sm:text-5xl text-white mb-4 tracking-[-0.02em]">
-          {c.title}
-        </h2>
-        <p className="text-slate-400 text-lg mb-8">{c.text}</p>
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 cta-band">
+        <span className="cta-band__rule" aria-hidden="true" />
+        <div>
+          <h2 className="font-display text-white mb-3 tracking-[-0.02em]" style={{ fontSize: 'clamp(26px, 5vw, 44px)' }}>
+            {c.title}
+          </h2>
+          <p className="text-slate-400" style={{ fontSize: 'clamp(14.5px, 3.6vw, 17px)', maxWidth: '44ch' }}>{c.text}</p>
+        </div>
         <button
           type="button"
           onClick={onApply}
