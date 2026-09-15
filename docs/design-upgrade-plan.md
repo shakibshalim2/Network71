@@ -237,3 +237,21 @@ line, brand wall, floating-label form). Per-page passes are logged as they land.
 Hero mobile → stats grid → Work plate → Divisions indicator → Process line → Brand wall →
 Statement velocity → Leadership polish → Contact form → Contact sidebar → remaining pages.
 Every task: `tsc --noEmit`, 1440 + 390 check, `prefers-reduced-motion` static path, one commit.
+
+### Phase 7 — landed (Home + Contact)
+
+| Task | Commit scope |
+|---|---|
+| Hero (mobile) | `--hero-fade-y` rebalanced so the globe shows as a lit crescent low-right; `.hero-atmos` CSS rim + two counter-rotating orbit rings + pulsing satellite give the phone hero a focal object even before WebGL paints. Stats strip → 2×2 hairline ledger (no more clipped "BUSINESS DIVIS…") |
+| Our Work plate | `.work-intro` is now an editorial plate: faint 64px grid + N71 hairline watermark, left-anchored display title, three-step **Brief → Scope → People** strip whose hairlines draw and nodes light in sequence on reveal |
+| Divisions index | Mobile rail: live accent indicator (dots + `01 / 10`) tracks scroll-snap via rAF; desktop active row gets a gutter-bleed accent wash |
+| Working together | New `ProcessLine` motion primitive (`src/components/motion/ProcessLine.tsx`): scroll-driven fill + travelling node; horizontal across the step row on desktop, vertical spine on phones; steps light via `--pline-lit` |
+| Brand wall | `TrustedPartners` → two counter-scrolling rows of numbered marks in hairline frames, brand-accent hover, eyebrow + count heading. CMS brands still replace the built-ins |
+| Statement band | Marquee speed and skew follow scroll velocity (`useVelocity`), spring-smoothed; static under reduced motion |
+| Leadership teaser | Founder monogram ring draws on reveal (`pathLength`), pointer spotlight, N71 watermark |
+| Contact form | Floating labels with accent underline that draws on focus, department as segmented radio chips (hidden `<select>` remains the submitted control), message counter, busy-state progress bar + arrow "fly", success plate with drawn ring/tick and mono REF pill. Fields use `autocomplete`/`inputmode` |
+| Contact sidebar | Office card: accent hairline, pulsing dot, live Dhaka clock (`useDhakaTime`, shared with footer), display city, N71 watermark. Division list → numbered ledger rows with hover translate + arrow |
+
+Verified: `tsc --noEmit` + `vite build`; 1440 and 390 (no horizontal overflow on Home or
+Contact); light theme on Home hero/work/brands; every new animation has a
+`prefers-reduced-motion` static path.
