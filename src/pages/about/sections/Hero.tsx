@@ -1,4 +1,5 @@
 import PageHero from '@/components/PageHero'
+import CountUp from '@/components/motion/CountUp'
 import type { AboutContent } from '../content/en'
 
 export default function Hero({ c }: { c: AboutContent['hero'] }) {
@@ -38,7 +39,7 @@ function VisionPanel({ c }: { c: AboutContent['hero'] }) {
       <dl className="grid grid-cols-3 gap-3 mt-6 pt-5" style={{ borderTop: '1px solid var(--line)' }}>
         {c.facts.map((f) => (
           <div key={f.label} className="min-w-0">
-            <dd className="font-display text-xl sm:text-2xl" style={{ color: 'var(--fg-strong)' }}>{f.value}</dd>
+            <dd className="font-display text-xl sm:text-2xl" style={{ color: 'var(--fg-strong)' }}><CountUp value={f.value} /></dd>
             <dt className="text-[12px] sm:text-[13px] mt-1 leading-snug" style={{ color: 'var(--fg-subtle)' }}>{f.label}</dt>
           </div>
         ))}

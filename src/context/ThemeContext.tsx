@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, useRef, type ReactNode } from 'react'
 
 export type ThemeMode = 'light' | 'dark' | 'system'
 /** The theme actually painted on screen — 'system' always resolves to one of these. */
@@ -39,6 +39,7 @@ const resolve = (mode: ThemeMode): ResolvedTheme =>
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mode, setModeState] = useState<ThemeMode>(readStoredMode)
   const [theme, setTheme] = useState<ResolvedTheme>(() => resolve(readStoredMode()))
+  const lastPainted = useRef<ResolvedTheme | null>(null)
 
   // Paint the resolved theme onto <html> and keep browser UI in sync.
   useEffect(() => {
@@ -52,11 +53,22 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     root.classList.add('theme-switching')
     const release = window.setTimeout(() => root.classList.remove('theme-switching'), 320)
 
+    // A brief surface-coloured veil softens the flip; only on a real change,
+    // never on first paint (or StrictMode's double-run).
+    let veil: HTMLDivElement | null = null
+    if (lastPainted.current && lastPainted.current !== next) {
+      veil = document.createElement('div')
+      veil.className = 'theme-veil'
+      document.body.appendChild(veil)
+      window.setTimeout(() => veil?.remove(), 600)
+    }
+    lastPainted.current = next
+
     // Match the browser chrome (address bar) to the surface colour.
     const meta = document.querySelector('meta[name="theme-color"]')
     if (meta) meta.setAttribute('content', next === 'light' ? '#FAFBFD' : '#04080E')
 
-    return () => window.clearTimeout(release)
+    return () => { window.clearTimeout(release); veil?.remove() }
   }, [theme])
 
   // Follow the OS when the user is on 'system'.

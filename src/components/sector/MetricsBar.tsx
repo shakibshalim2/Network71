@@ -1,5 +1,6 @@
 import { motion } from "motion/react"
 import { EASE_OUT } from "@/lib/motion"
+import CountUp from "@/components/motion/CountUp"
 
 interface Metric {
   value: string
@@ -46,7 +47,7 @@ export default function MetricsBar({
               <span className="ledger__idx">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <dd className="ledger__value font-display">{m.value}</dd>
+              <dd className="ledger__value font-display"><CountUp value={m.value} /></dd>
               <dt className="ledger__label">{m.label}</dt>
               {m.desc && <p className="ledger__desc">{m.desc}</p>}
               <motion.span

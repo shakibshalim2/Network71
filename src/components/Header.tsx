@@ -15,11 +15,11 @@ import { springSnappy } from '@/lib/motion'
 export default function Header() {
   const s = useHeaderState()
   const navigation = usePublishedNavigation()
-  const { pathname, t, glassy, mobileOpen, setMobileOpen, searchOpen, setSearchOpen } = s
+  const { pathname, t, glassy, headerHidden, mobileOpen, setMobileOpen, searchOpen, setSearchOpen } = s
 
   return (
     <>
-      <header role="banner" className={`site-header${glassy ? ' is-glassy' : ''}`}>
+      <header role="banner" className={`site-header${glassy ? ' is-glassy' : ''}${headerHidden ? ' is-hidden' : ''}`}>
         <div className="container-page site-header__row">
 
           {/* Logo */}

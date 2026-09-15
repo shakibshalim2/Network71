@@ -95,7 +95,10 @@ export function MediaLibrary({ user }: { user: User }) {
                       loading="lazy"
                     />
                     <div>
-                      <h3>{item.alt}</h3>{user.role === "owner" && <button className="adm-button secondary" disabled={busy} onClick={() => archive(item.id)}>Archive image</button>}
+                      <div className="adm-media-card-head">
+                        <h3>{item.alt}</h3>
+                        {user.role === "owner" && <button className="adm-button secondary" disabled={busy} onClick={() => archive(item.id)}>Archive</button>}
+                      </div>
                       <p>
                         {item.width} × {item.height} ·{" "}
                         {Math.round(item.bytes / 1024)} KB
