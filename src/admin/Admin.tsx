@@ -58,6 +58,32 @@ export function Icon({ name, size = 20 }: { name: string; size?: number }) {
         <path d="m3 17 5-5 4 4 4-6 5 7" />
       </>
     ),
+    users: (
+      <>
+        <circle cx="9" cy="8" r="3.5" />
+        <path d="M3 20a6 6 0 0 1 12 0M16 4.5a3.5 3.5 0 0 1 0 7M21 20a6 6 0 0 0-4-5.6" />
+      </>
+    ),
+    settings: (
+      <>
+        <circle cx="12" cy="12" r="3" />
+        <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1" />
+      </>
+    ),
+    pages: (
+      <>
+        <path d="M6 3h9l4 4v14H6Z" />
+        <path d="M15 3v4h4M9 12h6M9 16h6" />
+      </>
+    ),
+    applications: (
+      <>
+        <path d="M7 3h7l4 4v14H7Z" />
+        <path d="M14 3v4h4" />
+        <circle cx="12" cy="12.5" r="2" />
+        <path d="M8.5 19a3.5 3.5 0 0 1 7 0" />
+      </>
+    ),
     arrow: <path d="M5 12h14m-5-5 5 5-5 5" />,
     plus: <path d="M12 5v14M5 12h14" />,
     check: <path d="m5 12 4 4L19 6" />,
@@ -223,7 +249,7 @@ const primary = [
   { key: "content", label: "Content", icon: "content" },
   { key: "projects", label: "Projects", icon: "projects" },
   { key: "inquiries", label: "Inbox", icon: "inbox" },
-  { key: "applications", label: "Applications", icon: "inbox" },
+  { key: "applications", label: "Applications", icon: "applications" },
 ]
 
 export default function Admin() {
@@ -330,6 +356,7 @@ export default function Admin() {
       applications: "Job applications",
       media: "Media library",
       users: "Team access",
+      pages: "Website pages",
       more: "Workspace tools",
     } as Record<string, string>)[section] ||
     "Page not found"
@@ -394,11 +421,20 @@ export default function Admin() {
               <span className="adm-nav-label">WORKSPACE</span>
               {primary.map((item) => nav(item.key, item.label, item.icon))}
               <span className="adm-nav-label">MANAGE WEBSITE</span>
+              {nav("pages", "Website pages", "pages")}
               {Object.entries(modules)
                 .filter(([key]) => key !== "projects")
-                .map(([key, mod]) => nav(key, mod.label))}
+                .map(([key, mod]) =>
+                  nav(
+                    key,
+                    mod.label,
+                    key === "settings" || key === "navigation"
+                      ? "settings"
+                      : "content",
+                  ),
+                )}
               {nav("media", "Media library", "media")}
-              {user.role === "owner" && nav("users", "Team access")}
+              {user.role === "owner" && nav("users", "Team access", "users")}
             </nav>
             <div className="adm-sidebar-foot">
               <div className="adm-avatar">{user.name.slice(0, 1)}</div>
@@ -488,16 +524,36 @@ export default function Admin() {
                       ))}
                     {section === "more" && (
                       <>
+                        <Link className="adm-module-card" to="/admin/pages">
+                          <span className="adm-module-icon">
+                            <Icon name="pages" />
+                          </span>
+                          <h3>Website pages</h3>
+                          <p>Edit hero, story and section copy per page.</p>
+                          <span className="adm-card-arrow">
+                            <Icon name="arrow" />
+                          </span>
+                        </Link>
                         <Link className="adm-module-card" to="/admin/media">
-                          <Icon name="media" />
+                          <span className="adm-module-icon">
+                            <Icon name="media" />
+                          </span>
                           <h3>Media library</h3>
                           <p>Upload and reuse approved public images.</p>
+                          <span className="adm-card-arrow">
+                            <Icon name="arrow" />
+                          </span>
                         </Link>
                         {user.role === "owner" && (
                           <Link className="adm-module-card" to="/admin/users">
-                            <Icon name="content" />
+                            <span className="adm-module-icon">
+                              <Icon name="users" />
+                            </span>
                             <h3>Team access</h3>
                             <p>Invite owners and editors, and manage access.</p>
+                            <span className="adm-card-arrow">
+                              <Icon name="arrow" />
+                            </span>
                           </Link>
                         )}
                       </>

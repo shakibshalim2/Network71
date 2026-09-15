@@ -56,7 +56,7 @@ export function Inbox() {
                       <span className="adm-eyebrow">{item.reference} · {time(item.created_at)}</span>
                       <h2>{item.subject}</h2>
                     </div>
-                    <span className="adm-tag">{item.status.replace(/_/g, " ")}</span>
+                    <span className={`adm-tag ${item.status}`}>{item.status.replace(/_/g, " ")}</span>
                   </div>
                   <p className="adm-message">{item.message}</p>
                   <dl>

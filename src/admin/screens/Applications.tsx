@@ -75,7 +75,7 @@ export function Applications() {
                         </span>
                         <h2>{item.job_title}</h2>
                       </div>
-                      <span className="adm-tag">{item.status}</span>
+                      <span className={`adm-tag ${item.status}`}>{item.status}</span>
                     </div>
                     {item.cover_letter && (
                       <p className="adm-message">{item.cover_letter}</p>

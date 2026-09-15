@@ -141,3 +141,31 @@ in `src/styles/motion-signature.css` + four small components — no content file
 
 All honour `prefers-reduced-motion`; verified `tsc --noEmit` + `vite build`, 1440/390 sweeps
 for horizontal overflow and hidden headlines, EN→BN switch mid-page, dark + light.
+
+## Admin workspace — static visual polish (no motion by design)
+
+The admin (`src/admin/`) is a separate light-only design system and stays **static**: no
+reveals, no transitions, no parallax. Only the loading spinner animates. Everything below is
+in `src/admin/admin.css` plus small markup fixes; the public site's styles are untouched.
+
+| Surface | Before → After |
+|---|---|
+| **Tokens** | Added `--adm-faint`, `--adm-line-strong`, `--adm-green-soft`, `--adm-gold`, `--adm-radius`, `--adm-shadow`; base ink/muted darkened for contrast |
+| **Type floor** | 8–11px labels (eyebrows, breadcrumb, nav labels, stat labels, dl terms, footer) lifted to 10.5–13.5px; headings 650 → 600 weight |
+| **Sidebar** | Off-white surface, 248px, active item gets a green edge marker + tinted icon; added **Website pages** entry and proper icons for Applications, Company settings, Navigation, Team access |
+| **Top bar** | Sticky + blurred; "View website" is now a bordered pill |
+| **Page heading** | Hairline under the title; role pill has a gold status dot |
+| **Stats** | 5-up grid (was 4 + orphan), icon in a tinted tile, tabular numerals |
+| **Status tags** | Pill with leading dot; semantic colours for every state (published/approved/active · draft/in review/in progress/reviewing · new/interview · archived/closed/withdrawn/inactive · rejected). Inbox, Applications, Users and Content list now pass the state class |
+| **Record rows** | Symbol in a tinted tile, primary action (Edit) tinted green, disabled actions clearly muted, 36px compact buttons |
+| **Notices** | Left accent bar on info / success / error |
+| **Inbox & Applications** | Message quote has a left rule; meta `dl` is a 2-column grid with uppercase terms |
+| **Media cards** | Title + Archive on one row, URL field in mono, footer pinned to bottom |
+| **Forms** | Sticky blurred action bar at the bottom of collection forms; focus ring + hover border on inputs; readonly inputs mono |
+| **Website pages editor** | Selectors sit in cards; nested fieldsets alternate surface; legends uppercase; row actions are proper buttons; sticky action bar with "View public page / Preview draft" pushed right; help text moved under the buttons |
+| **Login** | Story panel gets a faded grid + gold orbit rings (static), larger eyebrows/notes |
+| **Mobile** | Search input no longer stretches to 300px tall (flex-basis fix); stat grid 2-up; sticky bars clear the bottom nav |
+
+Verified with a mock API (`.hoplite/artifacts/mock-api.mjs`, not committed — PHP is not
+available in the sandbox) at 1440 and 390: dashboard, content, projects list + form, inbox,
+applications, media, team access, website pages, more, login. `tsc --noEmit` + `vite build` pass.

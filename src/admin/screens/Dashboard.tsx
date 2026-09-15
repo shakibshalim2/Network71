@@ -83,7 +83,7 @@ export function Dashboard() {
           {
             label: "New applications",
             value: data.applications,
-            icon: "inbox",
+            icon: "applications",
             to: "applications",
           },
         ].map((item) => (
