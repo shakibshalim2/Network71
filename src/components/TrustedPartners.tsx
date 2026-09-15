@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { motion, useScroll, useVelocity, useSpring, useTransform, useReducedMotion } from 'motion/react'
 import { useT, type TKey } from '@/i18n'
 import { safeContentUrl, textField, usePublicContent, type PublishedPage } from '@/lib/publicContent'
 
@@ -75,8 +76,19 @@ export default function TrustedPartners() {
   const rowA = list.slice(0, half)
   const rowB = list.length > 1 ? list.slice(half) : list
 
+  // Scroll velocity speeds both rows up; they relax back to idle speed.
+  const reduce = useReducedMotion()
+  const { scrollY } = useScroll()
+  const velocity = useVelocity(scrollY)
+  const smooth = useSpring(velocity, { stiffness: 200, damping: 40, mass: 0.8 })
+  const rate = useTransform(smooth, (v) => `${Math.max(0.3, 1 - Math.min(Math.abs(v), 2400) / 3000)}`)
+
   return (
-    <section className="bwall section-y" aria-label={t('partners.title')}>
+    <motion.section
+      className="bwall section-y"
+      aria-label={t('partners.title')}
+      style={reduce ? undefined : { ['--mq-rate' as string]: rate }}
+    >
       <div className="container-page">
         <div className="bwall__head">
           <p className="public-eyebrow" style={{ marginBottom: 0 }}>
@@ -91,6 +103,6 @@ export default function TrustedPartners() {
         <Row items={rowA} />
         <Row items={rowB} reverse />
       </div>
-    </section>
+    </motion.section>
   )
 }
