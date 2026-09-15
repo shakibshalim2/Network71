@@ -35,11 +35,12 @@ export function WorkImage({ src, alt }: { src: string; alt: string }) {
   )
 }
 
-export function WorkCard({ item }: { item: PublishedItem }) {
+export function WorkCard({ item, index }: { item: PublishedItem; index?: number }) {
   const { t } = useT()
   return (
     <Link className="work-card" to={`/projects/${item.slug}`}>
       <div className="work-card-image">
+        {index !== undefined && <span className="work-card-idx font-mono" aria-hidden="true">{String(index).padStart(2, "0")}</span>}
         <WorkImage
           src={textField(item, "image")}
           alt={textField(item, "title")}

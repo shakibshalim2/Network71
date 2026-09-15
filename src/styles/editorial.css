@@ -715,3 +715,26 @@ html:not(.js-reveal) .about-cta__rule::after { scale: 1 1; }
   .dcards__grid--keep > .dcard { display: block; padding: 18px !important; border: 1px solid var(--line) !important; border-radius: 14px; background: var(--s2) !important; }
   .dcards__grid--keep > .dcard::before { right: 18px; }
 }
+
+/* ═══ 22. Projects list ═══ */
+.work-page-hero--sig { position: relative; overflow: hidden; isolation: isolate; }
+.work-page-hero__mark { position: absolute; right: -0.04em; bottom: -0.36em; z-index: -1; pointer-events: none; font-size: clamp(160px, 24vw, 340px); line-height: 1; letter-spacing: -0.05em; color: transparent; -webkit-text-stroke: 1px var(--line-strong); opacity: 0.55; }
+.work-page-hero__eyebrow { display: inline-flex; align-items: center; gap: 12px; }
+.work-page-hero h1.hero-kinetic em { color: var(--pa); font-style: italic; }
+.work-list-toolbar h2 { display: inline-flex; align-items: baseline; gap: 12px; }
+.work-list-toolbar__count { font-size: 0.6em; color: var(--pa); letter-spacing: -0.02em; }
+.work-search { align-items: center; }
+.work-search__field { position: relative; flex: 1; display: flex; align-items: center; min-width: 0; }
+.work-search__field svg { position: absolute; left: 14px; width: 16px; height: 16px; color: var(--fg-subtle); pointer-events: none; transition: color 0.25s; }
+.work-search__field:focus-within svg { color: var(--pa); }
+.work-list-toolbar .work-search__field input { padding: 12px 14px 12px 40px; border-radius: 999px; background: var(--fill-1); border-color: var(--line); transition: background-color 0.25s, border-color 0.25s; }
+.work-list-toolbar .work-search__field input:focus { outline: none; background: var(--fill-2); border-color: color-mix(in srgb, var(--pa) 40%, var(--line)); }
+.work-search__line { position: absolute; left: 18px; right: 18px; bottom: 0; height: 2px; border-radius: 2px 2px 0 0; background: var(--pa); transform-origin: left; scale: 0 1; transition: scale 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.work-search__field:focus-within .work-search__line { scale: 1 1; }
+.work-card { position: relative; }
+.work-card-idx { position: absolute; top: 14px; right: 14px; z-index: 1; padding: 4px 8px; border-radius: 6px; background: rgb(4 8 14 / 0.55); color: rgb(255 255 255 / 0.75); font-size: 11px; letter-spacing: 0.12em; backdrop-filter: blur(6px); }
+.work-status { border-color: color-mix(in srgb, var(--pa) 40%, var(--line)) !important; color: var(--pa) !important; }
+.work-card h3 { transition: translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), color 0.3s; }
+@media (hover: hover) { .work-card:hover h3 { translate: 4px 0; color: var(--pa); } }
+@media (max-width: 639px) { .work-list-toolbar { flex-direction: column; align-items: stretch; gap: 14px; } .work-list-toolbar form { max-width: none; } }
+@media (prefers-reduced-motion: reduce) { .work-search__line, .work-card h3 { transition: none; } }
