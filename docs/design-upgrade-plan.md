@@ -377,3 +377,15 @@ Both pages share the Phase 6 corporate template, so they are taken together.
 | Legal | 4 | Legal inquiries card | **refine** — shared `.cta-band` |
 
 **Gallery + Legal — landed:** Gallery tabs reuse `.cf__chip` with a `layoutId` sliding background and per-tab counts; loading/error → `ContentState`; empty state gets an eyebrow + `.btn`; photo cards get an index badge, a "view" ring that rises on hover, image zoom and an accent caption wash; lightbox image scales in; contribute CTA → `.cta-band`. Legal: `.ltoc` numbered ledger with a spring-sliding accent bar driven by a rAF scroll spy (2-col grid on phones); `.lart__head` ledger header (numeral, drawn accent rule, mono "Section 01 / 04", outlined icon); clause headings carry an accent tick; body measure capped at 72ch; inquiries → `.cta-band--flush`. Verified `tsc` + `vite build`, 1440 + 390 no overflow.
+
+### Brand `/brand` + Ezyify `/ezyify` — inventory and verdict (Phase 7, pages 16–17)
+
+| Page | # | Section | Verdict → what changes |
+|---|---|---|---|
+| Brand | 1 | Hero ("Network71 / Logo System") | **refine** — kinetic headline + drawn red rule; section counter `08 sections`; the page keeps its own red identity (not `--page-accent`) |
+| Brand | 2–7 | Logo variants / icon mark / favicon / palette | **refine** — `SectionHead` numeral 9px slate-700 is below the type floor → 11px mono + display numeral with a rule that draws on reveal; tiles get a soft lift + red hairline on hover; swatches copy their hex on click with a "copied" tick |
+| Brand | 8 | Usage rules | **refine** — clear-space dashed frame pulses once on reveal; "never" list gets numbered ticks |
+| Brand | — | Footer mark | **refine** — 9px caption → 11px |
+| Ezyify | 1 | Hero (gradient wordmark) | keep — already animated |
+| Ezyify | 2–8 | Audience / Features / AI / Revenue / Segments / Ecosystem / Partners / Roadmap | keep — Phase 4 flagship treatment, own purple system |
+| Ezyify | 9 | Waitlist | **refine** — plain input + gradient button → floating-label field with gradient underline, busy progress, REF pill success (gradient stays, matches the page) |
