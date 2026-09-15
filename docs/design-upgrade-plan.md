@@ -344,3 +344,5 @@ Both pages share the Phase 6 corporate template, so they are taken together.
 | Timeline | 1 | Hero (amber) | keep |
 | Timeline | 2 | Milestones (published) | **refine** — loading was a bare sentence, error/empty were plain plates → `ContentState` with eyebrow; ScrollSpine already draws |
 | Timeline | 3 | Learn more CTA | **refine** — hard-coded gold button + boxed flex → shared `.cta-band` with `.btn` primitive |
+
+**Projects + Timeline — landed:** `.work-page-hero--sig` (KineticText headline, drawn eyebrow rule, N71 watermark). Toolbar: `.work-search` pill with leading icon and drawn underline on focus, live `NN` result count next to the heading, `.btn` primitives. All CMS states (list loading/error, detail loading/error/not-found, timeline loading/error/empty) now render the shared `ContentState` plate. Work cards: index badge on the image, status pill in the page accent, title hover translate. Timeline CTA → `.cta-band`. Verified `tsc` + `vite build`, 1440 + 390 no overflow.
