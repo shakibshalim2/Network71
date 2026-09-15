@@ -30,6 +30,13 @@
   transition: padding 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), background-color 0.3s;
 }
 .dix__row:hover, .dix__row.is-active { padding-block: 30px; }
+.dix__row::before {
+  content: ''; position: absolute; inset: 0 calc(var(--gutter) * -1); z-index: -1; pointer-events: none; opacity: 0;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--row-accent) 9%, transparent), transparent 55%);
+  transition: opacity 0.4s;
+}
+.dix__row.is-active::before { opacity: 1; }
+.dix__row { isolation: isolate; }
 .dix__num { font-size: 15px; color: var(--fg-faint); letter-spacing: 0.04em; transition: color 0.3s; }
 .dix__name {
   font-size: clamp(22px, 2.3vw, 32px); line-height: 1.1; letter-spacing: -0.02em; color: var(--fg);
@@ -116,12 +123,18 @@
 }
 .dix__card-cta svg { width: 14px; height: 14px; }
 .dix__rail-hint {
-  display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 14px;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px 16px; margin-top: 16px;
   font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-faint);
 }
-.dix__rail-hint span { width: 18px; height: 2px; border-radius: 2px; background: var(--brand-edge); }
-.dix__rail-hint span:first-child { width: 6px; }
-.dix__rail-hint span:nth-child(2) { width: 6px; }
+.dix__rail-dots { display: flex; align-items: center; gap: 5px; min-width: 0; }
+.dix__rail-dot {
+  flex: 0 1 auto; width: 6px; height: 4px; border-radius: 2px; background: var(--line-strong);
+  transition: width 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), background-color 0.35s;
+}
+.dix__rail-dot.is-on { width: 26px; background: var(--row-accent); box-shadow: 0 0 10px color-mix(in srgb, var(--row-accent) 55%, transparent); }
+.dix__rail-count { color: var(--fg-subtle); letter-spacing: 0.1em; font-variant-numeric: tabular-nums; }
+.dix__rail-count-cur { font-size: 13px; transition: color 0.35s; }
+.dix__rail-swipe { grid-column: 1 / -1; color: var(--fg-faint); }
 @media (max-width: 767px) {
   .dix__head { grid-template-columns: minmax(0, 1fr); }
   .dix__hint { display: none; }
