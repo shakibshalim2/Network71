@@ -537,3 +537,19 @@ instant under reduced motion).
 | 14 | Opportunities | refine (structural) | |
 | 15 | Roadmap | rework | vertical cyan→purple scroll-drawn spine via `ProcessLine` |
 | 16 | Contact | keep | |
+
+## Phase 8g — Global Trading division (section by section)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | HeroMotion + "07"; decorative routes drift with travelling dots; `.btn` + magnetic; stat badges → numbered glass list sliding in with CountUp |
+| 2 | Metrics | keep | |
+| 3 | Overview / Categories / Services | refine (structural) | |
+| 4 | Trade network map | rework | routes draw out from HQ in sequence then settle into drifting dashes; hubs ping; cargo dots travel each lane; labels fade in after routes |
+| 5 | Journey | keep | |
+| 6 | Compliance / Infrastructure / Finance / Risk / Sustainability | refine (structural) | |
+| 7 | Technology | refine | capabilities → numbered ledger |
+| 8 | Trade lanes | rework | corridor cards: dashed lane draws, a ship sails back and forth on its own phase, flags lean apart on hover |
+| 9 | Opportunities | refine | links draw underline |
+| 10 | Roadmap | rework | scroll-drawn 4-column timeline with ghost numerals |
+| 11 | Contact | keep | |

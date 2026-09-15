@@ -25,7 +25,7 @@ export default function Opportunities({ c }: { c: TradingContent }) {
                 <p className="text-slate-400 text-sm leading-relaxed mb-6">{o.desc}</p>
                 <a
                   href="#sector-contact"
-                  className="flex items-center gap-2 text-sm font-semibold"
+                  className="scard-link"
                   style={{ color: BLUE }}
                 >
                   {o.cta}

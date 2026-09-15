@@ -785,3 +785,24 @@ html:not(.js-reveal) .tr-map__label, html:not(.js-reveal) .tr-map__label + text,
   .tr-routes line, .tr-map__ping, .reveal-target.is-revealed .tr-map__route { animation: none; stroke-dasharray: 6 5; }
   .tr-map__route { stroke-dashoffset: 0; transition: none; } .tr-map__cargo { display: none; } .tr-map__label, .tr-map__label + text, .tr-map__label + text + text { opacity: 1; transition: none; }
 }
+
+/* ═══ 21 · Trade lane cards ═══ */
+.slane { position: relative; isolation: isolate; overflow: hidden; transition: translate 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.35s, box-shadow 0.45s; }
+.slane__idx { position: absolute; top: 14px; right: 18px; font-size: 11px; letter-spacing: 0.14em; color: var(--fg-faint); transition: color 0.3s; }
+.slane__row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.slane__flag { font-size: 26px; line-height: 1; transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.slane__track { position: relative; flex: 1; height: 20px; display: flex; align-items: center; }
+.slane__dash { flex: 1; height: 0; border-top: 1px dashed color-mix(in srgb, var(--pa) 55%, transparent); transform-origin: left; scale: 0 1; transition: scale 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.3s + var(--i) * 0.15s); }
+.reveal-target.is-revealed .slane__dash, html:not(.js-reveal) .slane__dash { scale: 1 1; }
+.slane__ship { position: absolute; top: 50%; left: 0; translate: -50% -50%; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; color: var(--pa); background: var(--s2); box-shadow: 0 0 0 1px color-mix(in srgb, var(--pa) 40%, transparent), 0 0 12px color-mix(in srgb, var(--pa) 40%, transparent); }
+.slane__ship svg { width: 12px; height: 12px; }
+.reveal-target.is-revealed .slane__ship, html:not(.js-reveal) .slane__ship { animation: slane-sail 6s cubic-bezier(0.45, 0, 0.55, 1) calc(1.4s + var(--i) * 0.6s) infinite alternate; }
+@keyframes slane-sail { from { left: 8%; } to { left: 92%; } }
+@media (hover: hover) {
+  .slane:hover { translate: 0 -4px; border-color: color-mix(in srgb, var(--pa) 32%, transparent) !important; box-shadow: 0 24px 48px -30px color-mix(in srgb, var(--pa) 45%, transparent), inset 0 2px 0 0 var(--pa); }
+  .slane:hover .slane__idx { color: var(--pa); }
+  .slane:hover .slane__flag:first-child { transform: translateX(-3px) rotate(-6deg) scale(1.1); }
+  .slane:hover .slane__flag:last-child { transform: translateX(3px) rotate(6deg) scale(1.1); }
+}
+@media (prefers-reduced-motion: reduce) { .slane__dash { scale: 1 1; transition: none; } .reveal-target.is-revealed .slane__ship { animation: none; left: 50%; } }
+.sector-page section .grid > .slane::before { content: none; }
