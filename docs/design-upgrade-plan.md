@@ -311,3 +311,20 @@ Both pages share the Phase 6 corporate template, so they are taken together.
 | Governance | 6 | Enquiries CTA (boxed) | **refine** — shared `.cta-band` so the page ends the same way as its siblings |
 
 **Sustainability + Governance — landed:** SDG alignment → `.sdg__tile` goal tiles (oversized numeral in the goal's official hue with a ring that draws on reveal, hairline numeral watermark; ledger under 640px; emoji filler → dashed accent notice "06+"). Programs → `.prog__band` ledger figure with a drawn accent tick, `.prog__card` with index numeral + mono focus-area label and display area name (2-col on phones). Environmental commitments, Governance framework and Board committees → `.dcard` spotlight cards (icon ledger on phones); committee mandate is a mono footer. Policy documents → `.pol__row` numbered filing rows with a pill "Request policy" that fills with the accent on hover. Both closing CTAs → `.cta-band--flush`. Verified `tsc` + `vite build`, 1440 + 390 no overflow.
+
+### Leadership `/leadership` + Global presence `/global-presence` — inventory and verdict (Phase 7, pages 8–9)
+
+| Page | # | Section | Verdict → what changes |
+|---|---|---|---|
+| Leadership | 1 | Hero (indigo) | keep |
+| Leadership | 2 | Chief executive card | **refine** — flat gradient "TRT" tile → drawn monogram ring on an accent-washed plate (same as About/Home); card gets pointer spotlight, corner marks and a hairline "N71" watermark; tags become mono chips |
+| Leadership | 3 | Our team (published) | **refine** — loading/error states are a bare paragraph + yellow button → editorial plate with pulse (shared with Careers openings); profile cards get the accent hairline + hover translate |
+| Leadership | 4 | Board (notice band) | keep (Phase 6) |
+| Leadership | 5 | Join CTA (boxed, centred) | **refine** — shared `.cta-band` |
+| Global | 1 | Hero (sky) | keep |
+| Global | 2 | World map | keep — arcs and HQ pulse already animate |
+| Global | 3 | Counts (3 boxed tiles) | **refine** — boxes → ledger figures on a hairline band with accent ticks; footnote left-aligned |
+| Global | 4 | Regional breakdown (5 dossier cards) | **refine** — `.dcard` spotlight + numeral; phones: cards keep (they carry real content) but tighter |
+| Global | 5 | Principal trade routes | **rework** — boxed rows → corridor ledger: a drawn route line with a travelling particle from origin to destination, mono "via" label on the line, hover reveals the corridor accent |
+| Global | 6 | Key markets by division (10 cards) | **refine** — `.dcard` treatment; phones: icon ledger |
+| Global | 7 | Our locations (published) | **refine** — loading/error → editorial plate with pulse |
