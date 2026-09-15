@@ -31,11 +31,11 @@ export default function Opportunities({ c }: { c: FoodBeverageContent }) {
                 <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-1">{opp.desc}</p>
                 <a
                   href="#sector-contact"
-                  className="flex items-center gap-2 text-sm font-semibold transition-colors group-hover:opacity-90"
+                  className="scard-link"
                   style={{ color: ORANGE }}
                 >
                   {opp.cta}
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
                 </a>

@@ -68,16 +68,18 @@ export default function QualityLab({ c }: { c: FoodBeverageContent }) {
                 <h3 className="font-display text-2xl text-fg mb-3">{c.facilitiesCopy.qcTitle}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{c.facilitiesCopy.qcLead}</p>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                {c.facilitiesCopy.qcItems.map((item) => (
-                  <div key={item} className="p-4 rounded-xl text-center border border-slate-100" style={{ background: `color-mix(in srgb, ${ORANGE} 2%, transparent)` }}>
-                    <div className="w-8 h-8 rounded-full mx-auto mb-2 flex items-center justify-center" style={{ background: `color-mix(in srgb, ${ORANGE} 8%, transparent)` }}>
-                      <div className="w-2.5 h-2.5 rounded-full" style={{ background: ORANGE, color: 'var(--s0)' }} />
-                    </div>
-                    <div className="text-xs font-semibold text-fg">{item}</div>
-                  </div>
+              <ol className="sqc" style={{ ['--pa' as string]: ORANGE }}>
+                {c.facilitiesCopy.qcItems.map((item, i) => (
+                  <li key={item} className="sqc__gate" style={{ ['--i' as string]: i }}>
+                    <span className="sqc__ring" aria-hidden="true">
+                      <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" pathLength="1" /></svg>
+                      <span className="sqc__dot" />
+                    </span>
+                    <span className="sqc__idx font-mono">0{i + 1}</span>
+                    <span className="sqc__label">{item}</span>
+                  </li>
                 ))}
-              </div>
+              </ol>
             </div>
           </div>
         </div>

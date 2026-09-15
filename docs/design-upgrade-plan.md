@@ -469,3 +469,28 @@ sheen — replaces the per-page `AnimatedBar` + `useInView` copies), `.svals` nu
 | 12 | Farmer program | refine | CTA on `.btn` + magnetic; benefit icons in tiles |
 | 13 | Roadmap | rework | scroll-drawn `ProcessLine` timeline, 4 columns, ghost numerals |
 | 14 | Contact | keep | |
+
+## Phase 8d — Food & Beverage division (section by section)
+
+Research anchors: Motion "smooth tabs" (sliding `layoutId` pill + directional panel transition,
+`AnimatePresence mode="wait"` with easeIn exit / easeOut enter); spotlight pricing-card pattern
+(highlighted plan scaled + ring + shadow, checks stagger in); Awwwards scroll-driven storytelling
+(elements draw as the reader arrives, never all at once).
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | HeroMotion; warm rim light breathes from the counter; scroll cue draws down and drops; `.btn` + magnetic |
+| 2 | Metrics | keep | |
+| 3 | Overview | refine (structural) | |
+| 4 | Product portfolio | rework | segmented control with sliding pill, directional blur-crossfade detail panel, staggered checklist with drawn ticks, ghost numeral, sliding ring on the category grid, arrow-key tabs |
+| 5 | Brand models | rework | spotlight plan pattern: highlighted plan scaled with gradient + ring glow, checks draw in sequence, pointer glow |
+| 6 | Standards | refine | list → badge ledger; lab plate keeps |
+| 7 | Facilities (units) | refine (structural) | QC panel → four checkpoint gates whose rings draw and dots pop in sequence |
+| 8 | Journey | keep | |
+| 9 | Quality & compliance | refine | certifications → badge ledger; targets → `MeterBar` with display override (`<2%`) |
+| 10 | Sustainability | refine | stat counts up; cards structural |
+| 11 | Supply chain | rework | flow → conveyor |
+| 12 | Export markets | rework | rows → flag ledger with priority chips, CTA on `.btn` + magnetic |
+| 13 | Opportunities | refine | footer links draw underline |
+| 14 | Roadmap | rework | scroll-drawn `ProcessLine` timeline, 4 phases |
+| 15 | Contact | keep | |
