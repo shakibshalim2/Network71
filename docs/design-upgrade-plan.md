@@ -291,3 +291,21 @@ Both pages share the Phase 6 corporate template, so they are taken together.
 | Investors | 6 | Investor enquiry form | **rework** — Contact form primitives: floating labels with drawn underline, enquiry type + range as segmented chips (selects stay as the submitted controls), busy progress, drawn success plate with REF |
 
 **Careers + Investors — landed:** `.dcard` dossier cards (pointer spotlight, oversized hairline numeral, Phase 6 counter suppressed) on Careers benefits and Investors thesis; both collapse to a compact icon ledger under 640px (six reasons now fit one phone screen). Careers openings: loading/error/empty all use the editorial plate (pulse dots while loading, retry as a primary button), posting rows numbered with hover translate. Careers CTA → shared `.cta-band`. Investors enquiry: sticky intro column + form card using the Contact primitives (floating labels, drawn underline, enquiry-type + range chips over hidden selects, counter, busy progress, drawn success plate with REF). `spotlight()` helper in `src/lib/useSpotlight.ts`. Verified `tsc` + `vite build`, 1440 + 390 no overflow.
+
+### Sustainability `/sustainability` + Governance `/governance` — inventory and verdict (Phase 7, pages 6–7)
+
+| Page | # | Section | Verdict → what changes |
+|---|---|---|---|
+| Sustainability | 1 | Hero (teal) | keep |
+| Sustainability | 2 | Targets (4 progress tiles) | keep — bars already animate with a sheen |
+| Sustainability | 3 | SDG alignment (5 cards + 🌱 filler) | **rework** — official-style SDG colour tiles become large numerals with a drawn colour ring; the emoji filler card → editorial notice plate with the page accent; **phones: numbered ledger** instead of six cards |
+| Sustainability | 4 | Environmental commitments (3 cards) | **refine** — `.dcard` spotlight + hairline numeral (same as Careers/Investors) |
+| Sustainability | 5 | Community programs | **rework** — the "Community / Programs in Development" gold box (still generic) → ledger figure band with a drawn accent tick; program cards lose the emoji-in-gradient tile for an outlined index numeral, stat becomes a mono focus-area label; **phones: 2-col compact grid** |
+| Sustainability | 6 | Report (notice band) | keep (Phase 6) |
+| Sustainability | 7 | Inquiries CTA | **refine** — shared `.cta-band` |
+| Governance | 1 | Hero (emerald) | keep |
+| Governance | 2 | Framework (4 pillars) | **refine** — `.dcard` spotlight + numeral; phones: icon ledger |
+| Governance | 3 | Board (notice band) | keep (Phase 6) |
+| Governance | 4 | Policy documents (5 cards w/ "Request policy") | **rework** — cards → numbered filing rows (same language as Investors → Documents): title, one-line description, request link with download arrow; hover translate |
+| Governance | 5 | Board committees (3 cards) | **refine** — `.dcard` treatment; mandate block becomes a mono footer |
+| Governance | 6 | Enquiries CTA (boxed) | **refine** — shared `.cta-band` so the page ends the same way as its siblings |
