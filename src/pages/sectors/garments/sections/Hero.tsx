@@ -1,16 +1,28 @@
+import { useRef } from "react"
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react"
 import { ACCENT } from "../theme"
 import type { GarmentsContent } from "../content/en"
-import { useState } from "react"
+import Magnetic from "@/components/motion/Magnetic"
 
 export default function Hero({
   c,
 }: {
   c: GarmentsContent["hero"]
 }) {
-  const [activeStat, setActiveStat] = useState(0)
+  const ref = useRef<HTMLElement>(null)
+  const reduce = useReducedMotion()
+  // Copy drifts up and fades as the hero scrolls out; the photo lags behind it.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -120])
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.7], [1, reduce ? 1 : 0])
+  const tagsOpacity = useTransform(scrollYProgress, [0, 0.4], [1, reduce ? 1 : 0])
 
   return (
-    <section className="force-dark sector-hero relative min-h-screen flex items-center overflow-hidden">
+    <section
+      ref={ref}
+      className="force-dark sector-hero shero relative min-h-screen flex items-center overflow-hidden"
+      style={{ ["--pa" as string]: ACCENT }}
+    >
       <div className="absolute inset-0">
         <img decoding="async"
           src={c.image}
@@ -34,7 +46,7 @@ export default function Hero({
 
       {/* Decorative grid overlay */}
       <div
-        className="absolute inset-0 opacity-5"
+        className="absolute inset-0 opacity-5 shero__grid"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
@@ -42,11 +54,14 @@ export default function Hero({
         }}
       />
 
+      {/* Division numeral watermark */}
+      <span className="shero__mark font-display" aria-hidden="true">01</span>
+
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
-        <div className="max-w-3xl">
+        <motion.div className="max-w-3xl" style={{ y: copyY, opacity: copyOpacity }}>
           {/* Eyebrow */}
           <div className="flex items-center gap-3 mb-8">
-            <div className="h-px w-12" style={{ background: ACCENT }} />
+            <div className="h-px w-12 shero__rule" style={{ background: ACCENT }} />
             <span
               className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium"
               style={{ color: ACCENT }}
@@ -58,7 +73,7 @@ export default function Hero({
           <h1 className="font-display text-6xl lg:text-7xl xl:text-8xl text-white leading-[0.95] tracking-[-0.02em] mb-8">
             {c.title1}
             <br />
-            <span style={{ color: ACCENT }}>&</span> {c.title2}
+            <span className="shero__amp" style={{ color: ACCENT }}>&</span> {c.title2}
           </h1>
 
           <p className="text-slate-300 text-lg lg:text-xl leading-relaxed mb-4 max-w-xl">
@@ -69,38 +84,49 @@ export default function Hero({
           </p>
 
           <div className="flex flex-wrap gap-4">
-            <a
-              href="#sector-contact"
-              className="px-8 py-4 font-semibold text-sm text-white rounded-lg transition-all hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5"
-              style={{ background: ACCENT, color: "var(--s0)" }}
-            >
-              {c.ctaPrimary}
-            </a>
-            <a
-              href="#overview"
-              className="px-8 py-4 border border-white/25 text-white text-sm font-medium rounded-lg hover:bg-white/8 transition-all"
-            >
-              {c.ctaSecondary}
-            </a>
+            <Magnetic strength={10}>
+              <a
+                href="#sector-contact"
+                className="btn btn-primary shero__cta"
+                style={{ background: ACCENT, color: "var(--s0)" }}
+              >
+                {c.ctaPrimary}
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+            </Magnetic>
+            <Magnetic strength={8}>
+              <a
+                href="#overview"
+                className="btn btn-secondary shero__cta--ghost"
+              >
+                {c.ctaSecondary}
+              </a>
+            </Magnetic>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Hero bottom stat strip */}
-        <div className="absolute bottom-10 right-8 hidden lg:flex items-center gap-8">
-          {c.tags.map(
-            (tag) => (
-              <div key={tag} className="flex items-center gap-2">
-                <div
-                  className="w-1.5 h-1.5 rounded-full"
-                  style={{ background: ACCENT, color: "var(--s0)" }}
-                />
-                <span className="text-slate-400 text-xs tracking-wide">
-                  {tag}
-                </span>
-              </div>
-            ),
-          )}
-        </div>
+        {/* Hero bottom tag ledger */}
+        <motion.ul
+          className="shero__tags hidden lg:flex"
+          style={{ opacity: tagsOpacity }}
+          initial="hidden"
+          animate="show"
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12, delayChildren: 0.9 } } }}
+        >
+          {c.tags.map((tag, i) => (
+            <motion.li
+              key={tag}
+              className="shero__tag"
+              variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
+            >
+              <span className="shero__tag-idx font-mono">0{i + 1}</span>
+              <span className="shero__tag-dot" style={{ background: ACCENT }} />
+              <span className="shero__tag-label">{tag}</span>
+            </motion.li>
+          ))}
+        </motion.ul>
       </div>
     </section>
   )
