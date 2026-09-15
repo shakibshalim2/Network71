@@ -360,3 +360,18 @@ Both pages share the Phase 6 corporate template, so they are taken together.
 | Blog | 3 | Stay in the loop (subscribe) | **rework** — centred icon block → left-anchored band: floating-label email field with drawn underline, `.btn` submit with busy progress, success becomes an inline REF pill instead of a bare gold sentence |
 
 **Press + Blog — landed:** `PublishedArticles` rebuilt as `.art` editorial cards (accent hairline that grows on hover, index badge, mono date·author meta with accent dot, image zoom, title translate, "Read more" with arrow); head carries eyebrow + live `NN published` count; loading/error/empty via `ContentState`. Media kit → `.dcard` with the `.pol__cta` pill. Briefing rows → index badge, accent `.brief__tag`, image zoom and title translate on hover. Press contact and Blog subscribe → `.cta-band`; subscribe form uses the Contact primitives (floating label, drawn underline, busy progress) and confirms with an inline REF pill. Verified `tsc` + `vite build`, 1440 + 390 no overflow.
+
+### Gallery `/gallery` + Legal `/legal` — inventory and verdict (Phase 7, pages 14–15)
+
+| Page | # | Section | Verdict → what changes |
+|---|---|---|---|
+| Gallery | 1 | Hero (pink) | keep |
+| Gallery | 2 | Filter tabs | **refine** — plain pills → segmented chips with a sliding accent background (same motion as the Contact department chips); count per tab |
+| Gallery | 2b | Grid states | **refine** — loading was a bare word → `ContentState`; error/empty share the plate |
+| Gallery | 2c | Photo cards | **refine** — curtain reveal exists; add index badge, caption slides up on hover, cursor "view" affordance ring |
+| Gallery | 2d | Lightbox | keep (focus-trapped, esc) — add a soft scale-in |
+| Gallery | 3 | Contribute CTA | **refine** — shared `.cta-band` |
+| Legal | 1 | Hero (blue) | keep |
+| Legal | 2 | Contents (sticky TOC) | **refine** — buttons → ledger rows with an accent bar that slides between items (layoutId), numbered `01–04`; reading progress per article via the existing scroll spy |
+| Legal | 3 | Articles (Privacy / Terms / Cookies / Compliance) | **refine** — article head becomes a ledger header (numeral, drawn accent rule, mono "Section 01 / 04"); clause headings get a hairline index; body max-width 68ch for measure |
+| Legal | 4 | Legal inquiries card | **refine** — shared `.cta-band` |
