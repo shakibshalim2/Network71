@@ -5,6 +5,8 @@ import Footer from "@/components/Footer"
 import { WorkCard, WorkingTogether } from "@/components/WorkShowcase"
 import { usePublicContent, type PublishedPage } from "@/lib/publicContent"
 import type { ProjectsContent } from "../content/en"
+import ContentState from "@/components/ContentState"
+import KineticText from "@/components/motion/KineticText"
 
 export default function ProjectList({ c }: { c: ProjectsContent["list"] }) {
   const [params, setParams] = useSearchParams()
@@ -25,18 +27,18 @@ export default function ProjectList({ c }: { c: ProjectsContent["list"] }) {
     <div className="public-work-page">
       <Header />
       <main className="public-content">
-        <section className="work-page-hero">
+        <section className="work-page-hero work-page-hero--sig">
+          <span className="work-page-hero__mark font-display" aria-hidden="true">N71</span>
           <div className="container-page">
             <nav className="public-breadcrumb" aria-label="Breadcrumb">
               <Link to="/">{c.breadcrumbHome}</Link>
               <span aria-hidden="true">/</span>
               <span aria-current="page">{c.breadcrumbCurrent}</span>
             </nav>
-            <span className="public-eyebrow">{c.eyebrow}</span>
-            <h1>
-              {c.titleLine1}
-              <br />
-              <em>{c.titleLine2}</em>
+            <span className="public-eyebrow work-page-hero__eyebrow"><span className="eyebrow-rule" />{c.eyebrow}</span>
+            <h1 className="hero-kinetic">
+              <KineticText text={c.titleLine1} delay={0.15} />
+              <KineticText text={c.titleLine2} delay={0.3} as="em" />
             </h1>
             <p>
               {c.lead}
@@ -46,9 +48,15 @@ export default function ProjectList({ c }: { c: ProjectsContent["list"] }) {
         <section className="section-y">
           <div className="container-page">
             <div className="work-list-toolbar">
-              <h2>{c.heading}</h2>
+              <h2>
+                {c.heading}
+                {!loading && !error && items.length > 0 && (
+                  <span className="work-list-toolbar__count font-display" aria-hidden="true">{String(data?.total ?? items.length).padStart(2, "0")}</span>
+                )}
+              </h2>
               <form
                 role="search"
+                className="work-search"
                 onSubmit={(event) => {
                   event.preventDefault()
                   setParams(input.trim() ? { q: input.trim() } : {})
@@ -57,34 +65,30 @@ export default function ProjectList({ c }: { c: ProjectsContent["list"] }) {
                 <label className="sr-only" htmlFor="project-search">
                   {c.searchLabel}
                 </label>
-                <input
-                  id="project-search"
-                  type="search"
-                  value={input}
-                  onChange={(event) => setInput(event.target.value)}
-                  placeholder={c.searchPlaceholder}
-                  maxLength={150}
-                />
-                <button className="public-button">{c.searchButton}</button>
+                <span className="work-search__field">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path strokeLinecap="round" d="M20 20l-3.5-3.5" /></svg>
+                  <input
+                    id="project-search"
+                    type="search"
+                    value={input}
+                    onChange={(event) => setInput(event.target.value)}
+                    placeholder={c.searchPlaceholder}
+                    maxLength={150}
+                  />
+                  <span className="work-search__line" aria-hidden="true" />
+                </span>
+                <button className="btn btn-primary btn-sm">{c.searchButton}</button>
               </form>
             </div>
             {loading ? (
-              <div className="public-empty" role="status">
-                {c.loading}
-              </div>
+              <ContentState kind="loading" eyebrow={c.emptyEyebrow} title={c.loading} />
             ) : error ? (
-              <div className="public-empty" role="alert">
-                <h3>{c.errorTitle}</h3>
-                <p>{error}</p>
-                <button className="public-button" onClick={retry}>
-                  {c.retry}
-                </button>
-              </div>
+              <ContentState kind="error" eyebrow={c.emptyEyebrow} title={c.errorTitle} text={error} actionLabel={c.retry} onAction={retry} />
             ) : items.length ? (
               <>
                 <div className="work-grid">
-                  {items.map((item) => (
-                    <WorkCard key={item.id} item={item} />
+                  {items.map((item, i) => (
+                    <WorkCard key={item.id} item={item} index={i + 1 + (page - 1) * items.length} />
                   ))}
                 </div>
                 <nav className="work-pagination" aria-label={c.paginationAria}>
@@ -124,7 +128,7 @@ export default function ProjectList({ c }: { c: ProjectsContent["list"] }) {
                 </p>
                 {query ? (
                   <button
-                    className="public-button"
+                    className="btn btn-secondary"
                     onClick={() => {
                       setInput("")
                       setParams({})
@@ -133,8 +137,9 @@ export default function ProjectList({ c }: { c: ProjectsContent["list"] }) {
                     {c.clearSearch}
                   </button>
                 ) : (
-                  <Link className="public-button" to="/contact">
+                  <Link className="btn btn-primary" to="/contact">
                     {c.talkCta}
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M8 7h9v9" /></svg>
                   </Link>
                 )}
               </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useDhakaTime } from "@/lib/useDhakaTime"
 import { Link } from "react-router-dom"
 import { motion } from "motion/react"
 import { useT } from "@/i18n"
@@ -9,21 +9,6 @@ const rise = {
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE_OUT } },
 }
 
-function useDhakaTime() {
-  const [time, setTime] = useState("")
-  useEffect(() => {
-    const fmt = new Intl.DateTimeFormat("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "Asia/Dhaka",
-    })
-    const tick = () => setTime(fmt.format(new Date()))
-    tick()
-    const id = window.setInterval(tick, 15_000)
-    return () => window.clearInterval(id)
-  }, [])
-  return time
-}
 
 /**
  * Closing signature: an oversized wordmark that reveals on scroll, the brand

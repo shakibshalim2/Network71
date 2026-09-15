@@ -1,4 +1,4 @@
-import { useRef, useState, type PointerEvent } from "react"
+import { useEffect, useRef, useState, type PointerEvent } from "react"
 import { Link } from "react-router-dom"
 import {
   motion,
@@ -35,6 +35,44 @@ export default function DivisionsIndex() {
   const [active, setActive] = useState<DivisionId>(ORDER[0])
   const [hovering, setHovering] = useState(false)
   const listRef = useRef<HTMLDivElement>(null)
+  const railRef = useRef<HTMLDivElement>(null)
+  const [railIdx, setRailIdx] = useState(0)
+
+  // Mobile rail: track which card is snapped so the indicator follows the thumb.
+  useEffect(() => {
+    const rail = railRef.current
+    if (!rail) return
+    let raf = 0
+    const update = () => {
+      raf = 0
+      const cards = Array.from(rail.children).filter((c) =>
+        c.classList.contains("dix__card"),
+      ) as HTMLElement[]
+      if (!cards.length) return
+      const rr = rail.getBoundingClientRect()
+      const mid = rr.left + rr.width / 2
+      let best = 0
+      let bestD = Infinity
+      cards.forEach((c, i) => {
+        const cr = c.getBoundingClientRect()
+        const d = Math.abs(cr.left + cr.width / 2 - mid)
+        if (d < bestD) {
+          bestD = d
+          best = i
+        }
+      })
+      setRailIdx(best)
+    }
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update)
+    }
+    rail.addEventListener("scroll", onScroll, { passive: true })
+    update()
+    return () => {
+      rail.removeEventListener("scroll", onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [])
 
   // Preview card tracks the pointer with a spring so it lags a touch behind.
   const rawX = useMotionValue(0)
@@ -177,7 +215,7 @@ export default function DivisionsIndex() {
         </div>
 
         {/* ── Mobile dossier rail ── */}
-        <div className="dix__rail no-scrollbar md:hidden">
+        <div ref={railRef} className="dix__rail no-scrollbar md:hidden">
           {ORDER.map((id, i) => (
             <Link
               key={id}
@@ -224,10 +262,22 @@ export default function DivisionsIndex() {
           ))}
         </div>
         <div className="dix__rail-hint md:hidden" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          {t("divisions.swipe")}
+          <span className="dix__rail-dots">
+            {ORDER.map((id, i) => (
+              <span
+                key={id}
+                className={`dix__rail-dot${i === railIdx ? " is-on" : ""}`}
+                style={{ ["--row-accent" as string]: DIVISION_COLOR[id] }}
+              />
+            ))}
+          </span>
+          <span className="dix__rail-count">
+            <span className="dix__rail-count-cur" style={{ color: DIVISION_COLOR[ORDER[railIdx]] }}>
+              {String(railIdx + 1).padStart(2, "0")}
+            </span>
+            <span> / {String(ORDER.length).padStart(2, "0")}</span>
+          </span>
+          <span className="dix__rail-swipe">{t("divisions.swipe")}</span>
         </div>
       </div>
     </section>

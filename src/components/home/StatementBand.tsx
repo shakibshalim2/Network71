@@ -1,6 +1,6 @@
 import { useRef, type PointerEvent } from "react"
 import { Link } from "react-router-dom"
-import { motion } from "motion/react"
+import { motion, useScroll, useVelocity, useSpring, useTransform, useReducedMotion } from "motion/react"
 import { useT, type TKey } from "@/i18n"
 import { EASE_OUT } from "@/lib/motion"
 
@@ -20,6 +20,15 @@ const rise = {
 export default function StatementBand() {
   const { t } = useT()
   const words = [...WORDS, ...WORDS, ...WORDS]
+  const reduce = useReducedMotion()
+
+  // Scroll velocity drives the marquee: faster scrolling speeds it up and
+  // skews the words slightly in the scroll direction (Linear/Stripe move).
+  const { scrollY } = useScroll()
+  const velocity = useVelocity(scrollY)
+  const smooth = useSpring(velocity, { stiffness: 220, damping: 40, mass: 0.8 })
+  const skew = useTransform(smooth, [-2400, 0, 2400], [-8, 0, 8])
+  const rate = useTransform(smooth, (v) => `${Math.max(0.35, 1 - Math.min(Math.abs(v), 2400) / 3200)}`)
 
   const onMove = (e: PointerEvent<HTMLDivElement>) => {
     const el = e.currentTarget
@@ -30,7 +39,11 @@ export default function StatementBand() {
 
   return (
     <section id="about" className="stmt">
-      <div className="stmt__marquee" aria-hidden="true">
+      <motion.div
+        className="stmt__marquee"
+        aria-hidden="true"
+        style={reduce ? undefined : { skewX: skew, ["--mq-rate" as string]: rate }}
+      >
         <div className="stmt__marquee-track">
           {words.map((k, i) => (
             <span className="stmt__word" key={i}>
@@ -45,7 +58,7 @@ export default function StatementBand() {
             </span>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       <div className="container-page section-y">
         <div className="stmt__grid">

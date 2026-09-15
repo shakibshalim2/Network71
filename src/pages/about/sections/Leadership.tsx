@@ -22,21 +22,22 @@ export default function Leadership({ c }: { c: AboutContent['leadership'] }) {
         </div>
         <div className="grid min-[420px]:grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-start">
           {c.people.map((person) => (
-            <div key={person.title} className="bg-navy-light border border-white/8 rounded-2xl overflow-hidden group hover:border-gold/25 transition-colors duration-300">
-              {/* Placeholder portrait — uses fill tokens so it reads in both themes */}
-              <div
-                className="w-full h-40 sm:h-48 lg:h-52 flex items-center justify-center"
-                style={{ background: 'var(--fill-2)' }}
-              >
-                <svg className="w-12 h-12 sm:w-16 sm:h-16" fill="currentColor" viewBox="0 0 24 24" style={{ color: 'var(--fg-faint)' }}>
-                  <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                </svg>
+            <Link to="/leadership" key={person.title} className="about-person group">
+              {/* Portrait placeholder → drawn monogram ring on an accent-washed plate (no stock silhouette) */}
+              <div className="about-person__plate">
+                <span className="about-person__grid" aria-hidden="true" />
+                <span className="about-person__mono" aria-hidden="true">
+                  <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" pathLength="1" /></svg>
+                  <span className="font-display">{person.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('')}</span>
+                </span>
+                <span className="about-person__mark font-display" aria-hidden="true">N71</span>
               </div>
-              <div className="p-4 sm:p-5 lg:p-6">
-                <h3 className="font-display text-base sm:text-lg text-white mb-1 group-hover:text-gold transition-colors">{person.name}</h3>
+              <div className="p-4 sm:p-5 lg:p-6 about-person__body">
+                <h3 className="font-display text-base sm:text-lg text-white mb-1">{person.name}</h3>
                 <p className="text-gold text-[11px] sm:text-xs tracking-wide">{person.title}</p>
+                <span className="about-person__arrow" aria-hidden="true">→</span>
               </div>
-            </div>
+            </Link>
           ))}
           <p className="min-[420px]:col-span-1 sm:col-span-2 self-center text-[13px] sm:text-sm leading-relaxed" style={{ color: 'var(--fg-subtle)' }}>
             {c.note}

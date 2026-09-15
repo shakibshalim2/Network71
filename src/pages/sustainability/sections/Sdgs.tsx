@@ -1,37 +1,56 @@
 import type { SustainabilityContent } from '../content/en'
 
+// Tailwind bg-* utility → concrete hex so the ring/numeral can use the goal colour directly.
+const SDG_HEX: Record<string, string> = {
+  'bg-amber-600': '#D97706',
+  'bg-orange-600': '#EA580C',
+  'bg-yellow-700': '#A16207',
+  'bg-green-700': '#15803D',
+  'bg-blue-800': '#1E40AF',
+  'bg-red-600': '#DC2626',
+  'bg-sky-600': '#0284C7',
+  'bg-emerald-600': '#059669',
+  'bg-rose-600': '#E11D48',
+}
+
+/**
+ * SDG alignment as goal tiles: oversized numeral with a drawn colour ring in
+ * the goal's official hue, title, one-line description. The filler card is an
+ * editorial notice in the page accent. Phones: numbered ledger.
+ */
 export default function Sdgs({ c }: { c: SustainabilityContent['sdgs'] }) {
   return (
-    <section className="py-24 px-6 bg-navy-dark">
+    <section className="py-24 px-6 bg-navy-dark sdg">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-14">
           <p className="font-mono text-[11px] tracking-[0.2em] text-gold uppercase font-medium mb-3">{c.eyebrow}</p>
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4 tracking-[-0.02em]">{c.title}</h2>
           <p className="text-slate-400 max-w-xl mx-auto">{c.lead}</p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {c.items.map((sdg) => (
-            <div key={sdg.color} className="bg-navy rounded-xl p-6 border border-white/8 hover:border-gold/20 transition-colors group">
-              <div className="flex items-start gap-4 mb-4">
-                <div className={`w-12 h-12 rounded-xl ${sdg.color} flex items-center justify-center flex-shrink-0`}>
-                  <span className="text-[#fff] font-display font-bold text-lg">{sdg.number}</span>
+        <ol className="sdg__grid">
+          {c.items.map((sdg, i) => {
+            const hex = SDG_HEX[sdg.color] ?? 'var(--pa)'
+            return (
+              <li key={sdg.number} className="sdg__tile" style={{ ['--sdg' as string]: hex, ['--i' as string]: i }}>
+                <span className="sdg__badge" aria-hidden="true">
+                  <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="47" pathLength="1" /></svg>
+                  <span className="sdg__num font-display">{sdg.number}</span>
+                </span>
+                <div className="sdg__body">
+                  <span className="sdg__tag">{c.tagPrefix} {sdg.number}</span>
+                  <h3 className="sdg__title">{sdg.title}</h3>
+                  <p className="sdg__desc">{sdg.desc}</p>
                 </div>
-                <div>
-                  <div className="text-xs text-slate-500 font-semibold uppercase tracking-widest mb-1">{c.tagPrefix} {sdg.number}</div>
-                  <h3 className="text-white font-semibold text-sm leading-snug">{sdg.title}</h3>
-                </div>
-              </div>
-              <p className="text-slate-400 text-sm leading-relaxed">{sdg.desc}</p>
-            </div>
-          ))}
-          {/* Filler card to balance grid */}
-          <div className="bg-navy rounded-xl p-6 border border-white/5 flex items-center justify-center">
-            <div className="text-center">
-              <div className="text-4xl mb-3">{c.fillerEmoji}</div>
-              <p className="text-slate-400 text-sm">{c.filler}</p>
-            </div>
-          </div>
-        </div>
+                <span className="sdg__numeral font-display" aria-hidden="true">{sdg.number}</span>
+              </li>
+            )
+          })}
+          <li className="sdg__more" aria-label={c.filler}>
+            <span className="sdg__more-rule" aria-hidden="true" />
+            <span className="sdg__more-idx font-mono">{String(c.items.length + 1).padStart(2, '0')}+</span>
+            <p>{c.filler}</p>
+          </li>
+        </ol>
       </div>
     </section>
   )

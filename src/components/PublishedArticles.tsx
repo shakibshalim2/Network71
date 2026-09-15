@@ -7,7 +7,9 @@ import {
   type PublishedPage,
 } from "@/lib/publicContent"
 import { WorkImage } from "./WorkShowcase"
+import ContentState from "./ContentState"
 
+/** Editorial article grid shared by Blog (posts) and Press (news). */
 export default function PublishedArticles({
   module,
 }: {
@@ -21,63 +23,61 @@ export default function PublishedArticles({
   )
   useEffect(() => setPage(1), [language])
   const path = module === "posts" ? "/blog" : "/press"
+  const title =
+    module === "posts"
+      ? bn ? "সাম্প্রতিক লেখা" : "Latest insights"
+      : bn ? "সংবাদ ও ঘোষণা" : "News & announcements"
+  const eyebrow = module === "posts" ? (bn ? "ব্লগ" : "Journal") : (bn ? "প্রেস" : "Newsroom")
+  const count = data?.total ?? data?.items.length ?? 0
   return (
-    <section className="section-y">
+    <section className="section-y art">
       <div className="container-page">
-        <h2 className="font-display text-3xl mb-8">
-          {module === "posts"
-            ? bn
-              ? "সাম্প্রতিক লেখা"
-              : "Latest insights"
-            : bn
-              ? "সংবাদ ও ঘোষণা"
-              : "News & announcements"}
-        </h2>
-        {loading ? (
-          <p role="status">{bn ? "লোড হচ্ছে…" : "Loading…"}</p>
-        ) : error ? (
-          <div role="alert">
-            <p>{error}</p>
-            <button className="public-button" onClick={retry}>
-              {bn ? "আবার চেষ্টা করুন" : "Try again"}
-            </button>
+        <div className="art__head">
+          <div>
+            <p className="public-eyebrow" style={{ marginBottom: 12 }}><span className="eyebrow-rule" />{eyebrow}</p>
+            <h2 className="font-display art__title">{title}</h2>
           </div>
+          {!loading && !error && count > 0 && (
+            <span className="art__count font-display" aria-hidden="true">
+              {String(count).padStart(2, "0")}<span>{bn ? "প্রকাশনা" : "published"}</span>
+            </span>
+          )}
+        </div>
+        {loading ? (
+          <ContentState kind="loading" eyebrow={eyebrow} title={bn ? "লোড হচ্ছে…" : "Loading articles…"} />
+        ) : error ? (
+          <ContentState kind="error" eyebrow={eyebrow} title={bn ? "এই মুহূর্তে লোড করা যাচ্ছে না" : "We couldn't load this right now"} text={error} actionLabel={bn ? "আবার চেষ্টা করুন" : "Try again"} onAction={retry} />
         ) : data?.items.length ? (
-          <div className="work-grid">
-            {data.items.map((item) => (
-              <article className="work-card" key={item.id}>
-                <Link to={`${path}/${item.slug}`}>
-                  <WorkImage
-                    src={textField(item, "image")}
-                    alt={textField(item, "title")}
-                  />
-                </Link>
-                <div className="p-6">
-                  <p className="text-sm text-slate-400 mb-3">
-                    {textField(item, "date")} {textField(item, "author")}
-                  </p>
-                  <h3>
-                    <Link to={`${path}/${item.slug}`}>
-                      {textField(item, "title")}
-                    </Link>
-                  </h3>
-                  <p>{textField(item, "summary")}</p>
-                  <Link
-                    className="public-text-link"
-                    to={`${path}/${item.slug}`}
-                  >
-                    {bn ? "বিস্তারিত পড়ুন" : "Read more"} ↗
+          <div className="art__grid">
+            {data.items.map((item, i) => {
+              const href = `${path}/${item.slug}`
+              return (
+                <article className="art__card" key={item.id}>
+                  <Link to={href} className="art__media" aria-hidden="true" tabIndex={-1}>
+                    <WorkImage src={textField(item, "image")} alt="" />
+                    <span className="art__idx font-mono">{String(i + 1 + (page - 1) * 20).padStart(2, "0")}</span>
                   </Link>
-                </div>
-              </article>
-            ))}
+                  <div className="art__body">
+                    <p className="art__meta">
+                      <span className="art__dot" aria-hidden="true" />
+                      <time>{textField(item, "date")}</time>
+                      {textField(item, "author") && <span className="art__author">{textField(item, "author")}</span>}
+                    </p>
+                    <h3 className="art__h font-display">
+                      <Link to={href}>{textField(item, "title")}</Link>
+                    </h3>
+                    <p className="art__summary">{textField(item, "summary")}</p>
+                    <Link className="art__more" to={href}>
+                      {bn ? "বিস্তারিত পড়ুন" : "Read more"}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M8 7h9v9" /></svg>
+                    </Link>
+                  </div>
+                </article>
+              )
+            })}
           </div>
         ) : (
-          <p className="public-empty">
-            {bn
-              ? "প্রকাশের জন্য অনুমোদিত লেখা এখানে দেখা যাবে।"
-              : "Approved updates will appear here when published."}
-          </p>
+          <ContentState kind="empty" eyebrow={eyebrow} title={bn ? "এখনও কিছু প্রকাশিত হয়নি" : "Nothing published yet"} text={bn ? "প্রকাশের জন্য অনুমোদিত লেখা এখানে দেখা যাবে।" : "Approved updates will appear here when published."} />
         )}
         {(data?.pages || 1) > 1 && (
           <nav
