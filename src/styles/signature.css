@@ -217,20 +217,6 @@
 @media (max-width: 1023px) {
   .hero-globe { opacity: 0.95; }
 }
-@media (max-width: 767px) {
-  /* 2×2 hairline ledger: nothing clips, each stat gets a full cell */
-  .hero-stats .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding: 0; margin: 0; }
-  .hero-stats .grid > * {
-    padding: 14px 12px !important; gap: 12px !important; align-items: flex-start;
-    border: 0 !important; border-bottom: 1px solid var(--line) !important; border-radius: 0; background: transparent;
-  }
-  .hero-stats .grid > :nth-child(odd) { border-right: 1px solid var(--line) !important; padding-left: 0 !important; }
-  .hero-stats .grid > :nth-child(even) { padding-right: 0 !important; }
-  .hero-stats .grid > :nth-child(n + 3) { border-bottom: 0 !important; }
-  .hero-stats .grid > * > div:first-child { margin-top: 2px; }
-  .hero-stats .grid > * .font-display { font-size: 22px !important; }
-  .hero-stats .grid > * .text-\[11px\] { white-space: normal; letter-spacing: 0.12em !important; }
-}
 @media (prefers-reduced-motion: reduce) {
   .hero-atmos__ring, .hero-atmos__ring--2, .hero-atmos__sat { animation: none; }
 }

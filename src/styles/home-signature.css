@@ -1,0 +1,97 @@
+/* ── Home · signature pass 2 ──────────────────────────────────────────────────
+   Section-by-section refinements for the home page: hero ledger + ticker,
+   Working-together journey, Ezyify stage, brand wall, media/marketplace,
+   leadership, sustainability, connect. Everything honours reduced motion. */
+
+/* ═══ 1 · Hero stats ledger ═══ */
+.hero-stats {
+  position: relative; z-index: 10;
+  background: var(--header-bg);
+  border-top: 1px solid var(--line);
+  backdrop-filter: blur(20px);
+}
+.hstat__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.hstat {
+  --hs-accent: var(--brand);
+  position: relative; isolation: isolate;
+  display: flex; align-items: center; gap: 16px;
+  padding: 22px 22px 22px 26px;
+  border-right: 1px solid var(--line);
+  transition: background-color 0.4s;
+}
+.hstat:last-child { border-right: 0; }
+.hstat::before {
+  /* accent hairline draws along the top on hover */
+  content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 1px;
+  background: linear-gradient(90deg, var(--hs-accent), transparent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.hstat::after {
+  content: ''; position: absolute; inset: 0; z-index: -1; opacity: 0; pointer-events: none;
+  background: radial-gradient(120% 90% at 0% 100%, var(--brand-wash), transparent 60%);
+  transition: opacity 0.4s;
+}
+@media (hover: hover) {
+  .hstat:hover::before { transform: scaleX(1); }
+  .hstat:hover::after { opacity: 1; }
+  .hstat:hover .hstat__icon { color: var(--fg-onbrand); background: var(--brand); border-color: var(--brand); transform: translateY(-2px); }
+  .hstat:hover .hstat__idx { color: var(--brand-fg); }
+}
+.hstat__idx {
+  position: absolute; top: 10px; left: 10px;
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em;
+  color: var(--fg-faint); transition: color 0.3s;
+}
+.hstat__icon {
+  display: grid; place-items: center; flex-shrink: 0;
+  width: 44px; height: 44px; border-radius: 12px;
+  background: var(--brand-wash); border: 1px solid var(--brand-edge); color: var(--brand-fg);
+  transition: background-color 0.35s, color 0.35s, border-color 0.35s, transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.hstat__value { font-size: 24px; line-height: 1; letter-spacing: -0.02em; color: var(--fg-strong); }
+.hstat__label {
+  margin-top: 5px; font-family: var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand-fg);
+}
+.hstat__sub { margin-top: 3px; font-size: 12.5px; color: var(--fg-subtle); }
+@media (max-width: 767px) {
+  .hstat__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hstat { padding: 14px 12px 14px 12px; gap: 12px; align-items: flex-start; border-right: 0; border-bottom: 1px solid var(--line); }
+  .hstat:nth-child(odd) { border-right: 1px solid var(--line); padding-left: 0; }
+  .hstat:nth-child(even) { padding-right: 0; }
+  .hstat:nth-child(n + 3) { border-bottom: 0; }
+  .hstat__idx { display: none; }
+  .hstat__icon { width: 36px; height: 36px; border-radius: 10px; margin-top: 2px; }
+  .hstat__icon svg { width: 17px; height: 17px; }
+  .hstat__value { font-size: 22px; }
+  .hstat__label { white-space: normal; letter-spacing: 0.12em; }
+}
+
+/* ═══ 1b · Division ticker ═══ */
+.hticker {
+  --mq-rate: 1;
+  position: relative; z-index: 10; overflow: hidden;
+  padding: 12px 0; background: var(--s-inset); border-top: 1px solid var(--fill-1);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.hticker__track {
+  display: flex; white-space: nowrap; width: max-content;
+  animation: marquee-third calc(42s * var(--mq-rate)) linear infinite;
+}
+.hticker:hover .hticker__track { animation-play-state: paused; }
+.hticker__item {
+  --tk-accent: var(--brand);
+  display: inline-flex; align-items: center; gap: 14px; padding: 4px 22px;
+  font-family: var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--fg-subtle); text-decoration: none; transition: color 0.3s;
+}
+.hticker__item:hover { color: var(--tk-accent); }
+.hticker__dot {
+  width: 4px; height: 4px; border-radius: 50%; background: var(--brand-edge); flex-shrink: 0;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+.hticker__item:hover .hticker__dot { background: var(--tk-accent); box-shadow: 0 0 10px var(--tk-accent); }
+@keyframes marquee-third { from { transform: translateX(0); } to { transform: translateX(-33.3333%); } }
+@media (max-width: 639px) { .hticker__item { padding: 4px 14px; gap: 10px; } }
+@media (prefers-reduced-motion: reduce) { .hticker__track { animation: none; } }
