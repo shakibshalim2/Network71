@@ -34,21 +34,13 @@ export default function Waitlist({ c }: { c: EzyifyContent["waitlist"] }) {
         </p>
 
         {inquiry.reference ? (
-          <div className="inline-flex items-center gap-3 px-8 py-4 rounded-xl border border-purple-500/40 bg-purple-500/10 text-purple-300">
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-            {c.success.replace('{ref}', inquiry.reference)}
+          <div role="status" className="ezw__ok inline-flex items-center gap-3 px-6 py-3.5 rounded-xl border border-purple-500/40 bg-purple-500/10 text-purple-200">
+            <span className="ezw__ok-mark" aria-hidden="true">
+              <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" pathLength="1" /></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" pathLength="1" /></svg>
+            </span>
+            <span className="text-sm">{c.success.replace('{ref}', '').replace(/[:：]\s*$/, '')}</span>
+            <strong className="font-mono text-[12px] tracking-[0.1em] px-2.5 py-1 rounded-md border border-purple-400/40">{inquiry.reference}</strong>
           </div>
         ) : (
           <form
@@ -56,26 +48,31 @@ export default function Waitlist({ c }: { c: EzyifyContent["waitlist"] }) {
               e.preventDefault()
               void inquiry.submit({ name: email, email, subject: c.subject, message: c.lead })
             }}
-            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+            className="ezw__form max-w-md mx-auto"
           >
-            <input
-              type="email"
-              aria-label={c.emailLabel}
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder={c.placeholder}
-              className="flex-1 px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 text-sm focus:outline-none focus:border-purple-500/50"
-            />
+            <div className={`ezw__field${email ? ' has-value' : ''}`}>
+              <input
+                id="ezw-email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder=" "
+                autoComplete="email"
+                inputMode="email"
+                className="ezw__input"
+              />
+              <label htmlFor="ezw-email" className="ezw__label">{c.placeholder}</label>
+              <span className="ezw__line" aria-hidden="true" />
+            </div>
             <button
               type="submit"
               disabled={inquiry.busy}
-              className="px-7 py-3.5 rounded-xl font-semibold text-white text-sm whitespace-nowrap hover:opacity-90 transition-opacity"
-              style={{
-                background: "linear-gradient(135deg, #7C3AED, #EC4899)",
-              }}
+              className={`ezw__btn${inquiry.busy ? ' is-busy' : ''}`}
             >
-              {inquiry.busy ? `${c.join}…` : c.join}
+              <span>{inquiry.busy ? `${c.join}…` : c.join}</span>
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+              <span className="ezw__progress" aria-hidden="true" />
             </button>
           </form>
         )}
