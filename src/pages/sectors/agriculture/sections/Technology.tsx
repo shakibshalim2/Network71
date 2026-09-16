@@ -1,5 +1,14 @@
 import { GREEN } from "../theme"
 import type { AgricultureContent } from "../content/en"
+import CountUp from "@/components/motion/CountUp"
+
+// Decorative sparklines behind each metric (not data-bound).
+const SPARKS = [
+  "0,26 14,22 28,24 42,14 56,18 70,9 84,12 100,4",
+  "0,20 14,24 28,16 42,19 56,10 70,14 84,6 100,8",
+  "0,28 14,20 28,22 42,12 56,16 70,8 84,10 100,2",
+  "0,18 14,22 28,12 42,16 56,8 70,12 84,4 100,6",
+]
 
 export default function Technology({
   c,
@@ -61,43 +70,22 @@ export default function Technology({
           ))}
         </div>
 
-        {/* Data dashboard mockup */}
-        <div
-          className="rounded-2xl p-8 border"
-          style={{
-            background: "var(--fill-1)",
-            borderColor: "rgba(255,255,255,0.06)",
-          }}
-        >
-          <div className="flex items-center gap-2 mb-6">
-            <div
-              className="w-3 h-3 rounded-full"
-              style={{ background: GREEN, color: "var(--s0)" }}
-            />
-            <span className="text-white text-sm font-semibold">
-              {c.dashboard.title}
-            </span>
-            <span
-              className="ml-auto text-[10px] font-medium px-2 py-0.5 rounded-full"
-              style={{
-                background: `color-mix(in srgb, ${GREEN} 13%, transparent)`,
-                color: GREEN,
-              }}
-            >
-              {c.dashboard.status}
-            </span>
+        {/* Data dashboard — reads as live telemetry */}
+        <div className="sdash" style={{ ["--pa" as string]: GREEN }}>
+          <span className="sdash__scan" aria-hidden="true" />
+          <div className="sdash__head">
+            <span className="sdash__live" aria-hidden="true" />
+            <span className="text-white text-sm font-semibold">{c.dashboard.title}</span>
+            <span className="sdash__status font-mono">{c.dashboard.status}</span>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {c.dashboard.metrics.map((d) => (
-              <div
-                key={d.label}
-                className="p-4 rounded-xl"
-                style={{ background: "var(--fill-2)" }}
-              >
-                <div className="font-display text-2xl text-white mb-1">
-                  {d.val}
-                </div>
-                <div className="text-slate-500 text-[11px]">{d.label}</div>
+          <div className="sdash__grid">
+            {c.dashboard.metrics.map((d, i) => (
+              <div key={d.label} className="sdash__cell" style={{ ["--i" as string]: i }}>
+                <svg className="sdash__spark" viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true">
+                  <polyline pathLength="1" points={SPARKS[i % SPARKS.length]} />
+                </svg>
+                <div className="font-display text-2xl text-white mb-1 sdash__val"><CountUp value={d.val} /></div>
+                <div className="text-slate-500 text-[11px] font-mono tracking-[0.08em] uppercase">{d.label}</div>
               </div>
             ))}
           </div>

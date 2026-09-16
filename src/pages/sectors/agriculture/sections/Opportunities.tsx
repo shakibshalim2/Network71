@@ -40,11 +40,7 @@ export default function Opportunities({
               key={o.title}
               className="group relative flex flex-col p-8 rounded-2xl bg-surface-2 border border-slate-100 hover:border-green-300 hover:shadow-xl transition-all duration-300"
             >
-              <div
-                className="absolute top-0 left-8 w-16 h-0.5 rounded-full"
-                style={{ background: GREEN, color: "var(--s0)" }}
-              />
-              <h3 className="font-display text-xl text-fg mt-4 mb-3 leading-tight">
+              <h3 className="font-display text-xl text-fg mb-3 leading-tight">
                 {o.title}
               </h3>
               <p className="text-slate-500 text-sm leading-relaxed mb-8 flex-1">
@@ -52,12 +48,12 @@ export default function Opportunities({
               </p>
               <a
                 href="#sector-contact"
-                className="flex items-center gap-2 text-sm font-bold transition-all"
+                className="scard-link"
                 style={{ color: GREEN }}
               >
                 {o.cta}
                 <svg
-                  className="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                  className="w-4 h-4"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"

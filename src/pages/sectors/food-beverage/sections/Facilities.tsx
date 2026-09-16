@@ -1,5 +1,6 @@
 import type { FoodBeverageContent } from '../content/en'
 import { ORANGE } from '../theme'
+import MeterBar from '@/components/sector/MeterBar'
 
 export default function Facilities({ c }: { c: FoodBeverageContent }) {
   return (
@@ -14,25 +15,20 @@ export default function Facilities({ c }: { c: FoodBeverageContent }) {
               </div>
               <h2 className="font-display text-4xl text-fg mb-6">{c.quality.title}</h2>
               <p className="text-slate-500 text-sm leading-relaxed mb-8">{c.quality.lead}</p>
-              <div className="grid grid-cols-1 gap-3">
-                {c.certifications.map((cert) => (
-                  <div key={cert.name} className="flex items-center gap-4 p-4 rounded-xl border border-slate-100 hover:border-orange-200 transition-all">
-                    <div
-                      className="w-14 h-10 rounded-lg flex items-center justify-center flex-shrink-0 text-[10px] font-bold tracking-wide text-center"
-                      style={{ background: `color-mix(in srgb, ${ORANGE} 7%, transparent)`, color: ORANGE }}
-                    >
-                      {cert.name}
+              <ol className="svals" style={{ ['--pa' as string]: ORANGE }}>
+                {c.certifications.map((cert, i) => (
+                  <li key={cert.name} className="svals__row svals__row--badge" style={{ ['--i' as string]: i }}>
+                    <span className="svals__badge font-mono">{cert.name}</span>
+                    <div className="svals__body">
+                      <h3 className="font-semibold text-sm text-fg mb-0.5">{cert.name}</h3>
+                      <p className="text-xs text-slate-400">{cert.body}</p>
                     </div>
-                    <div>
-                      <div className="font-semibold text-sm text-fg">{cert.name}</div>
-                      <div className="text-xs text-slate-400">{cert.body}</div>
-                    </div>
-                    <div className="ml-auto">
-                      <div className="w-2 h-2 rounded-full" style={{ background: ORANGE, color: 'var(--s0)' }} />
-                    </div>
-                  </div>
+                    <span className="svals__arrow" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    </span>
+                  </li>
                 ))}
-              </div>
+              </ol>
               <p className="text-xs text-slate-400 mt-4">{c.quality.note}</p>
             </div>
 
@@ -43,23 +39,9 @@ export default function Facilities({ c }: { c: FoodBeverageContent }) {
                 <span className="font-mono text-[11px] tracking-[0.2em] uppercase font-medium" style={{ color: ORANGE }}>{c.quality.targetsEyebrow}</span>
               </div>
               <h2 className="font-display text-4xl text-fg mb-6">{c.quality.targetsTitle1}<br />{c.quality.targetsTitle2}</h2>
-              <div className="space-y-8">
-                {c.qualityMetrics.map((m) => (
-                  <div key={m.label}>
-                    <div className="flex items-end justify-between mb-2">
-                      <div>
-                        <div className="font-semibold text-sm text-fg">{m.label}</div>
-                        <div className="text-[11px] text-slate-400">{m.note}</div>
-                      </div>
-                      <div className="font-display text-2xl" style={{ color: ORANGE }}>{m.value}</div>
-                    </div>
-                    <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all"
-                        style={{ width: `${m.target}%`, background: ORANGE }}
-                      />
-                    </div>
-                  </div>
+              <div className="smeters" style={{ ['--pa' as string]: ORANGE }}>
+                {c.qualityMetrics.map((m, i) => (
+                  <MeterBar key={m.label} label={m.label} value={m.target} display={m.value} accent={ORANGE} index={i} caption={m.note} />
                 ))}
               </div>
               <div className="mt-10 p-5 rounded-xl" style={{ background: `color-mix(in srgb, ${ORANGE} 3%, transparent)`, border: `1px solid color-mix(in srgb, ${ORANGE} 9%, transparent)` }}>

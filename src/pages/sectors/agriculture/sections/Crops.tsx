@@ -36,19 +36,13 @@ export default function Crops({ c }: { c: AgricultureContent["crops"] }) {
               key={c.name}
               className="group p-7 rounded-2xl border border-slate-100 hover:border-green-300 bg-surface-2 hover:shadow-xl transition-all duration-300"
             >
-              <div className="flex items-start gap-4 mb-4">
-                <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
-                  style={{
-                    background: `color-mix(in srgb, ${GREEN} 7%, transparent)`,
-                  }}
-                >
-                  {c.emoji}
-                </div>
-                <div
-                  className="mt-2 w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ background: GREEN, color: "var(--s0)" }}
-                />
+              <div
+                className="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 mb-4"
+                style={{
+                  background: `color-mix(in srgb, ${GREEN} 7%, transparent)`,
+                }}
+              >
+                {c.emoji}
               </div>
               <h3 className="font-display text-xl text-fg mb-2 leading-tight">
                 {c.name}

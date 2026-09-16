@@ -14,42 +14,29 @@ export default function BrandModels({ c }: { c: FoodBeverageContent }) {
             <h2 className="font-display text-4xl lg:text-5xl text-white mb-4">{c.brandModelsCopy.title1}<br />{c.brandModelsCopy.title2}</h2>
             <p className="text-slate-400 max-w-xl mx-auto text-sm leading-relaxed">{c.brandModelsCopy.lead}</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {c.brandModels.map((model) => (
+          <div className="splans" style={{ ['--pa' as string]: ORANGE }}>
+            {c.brandModels.map((model, i) => (
               <div
                 key={model.title}
-                className="relative rounded-2xl p-8 transition-all"
-                style={
-                  model.highlight
-                    ? { background: ORANGE, color: 'var(--s0)' }
-                    : { background: 'var(--fill-2)', border: 'var(--border-subtle)' }
-                }
+                className={`splan${model.highlight ? ' is-hot' : ''}`}
+                style={{ ['--i' as string]: i }}
               >
-                {model.highlight && (
-                  <div className="inline-block mb-4 px-2.5 py-1 rounded-full text-[10px] font-bold bg-black/10 text-inherit tracking-wider uppercase">{c.brandModelsCopy.highlightTag}</div>
-                )}
-                <div
-                  className="inline-block px-3 py-1 rounded-full text-[11px] font-bold tracking-[0.14em] uppercase mb-4"
-                  style={model.highlight ? { background: 'rgba(0,0,0,0.08)', color: 'inherit' } : { background: `color-mix(in srgb, ${ORANGE} 9%, transparent)`, color: ORANGE }}
-                >
-                  {model.tag}
-                </div>
-                <h3 className={`font-display text-2xl mb-3 ${model.highlight ? 'text-inherit' : 'text-white'}`}>{model.title}</h3>
-                <p className={`text-sm leading-relaxed mb-6 ${model.highlight ? 'text-inherit' : 'text-slate-400'}`}>{model.desc}</p>
-                <ul className="space-y-2.5">
-                  {model.points.map((pt) => (
-                    <li key={pt} className="flex items-start gap-2.5 text-sm">
-                      <svg
-                        className="w-4 h-4 flex-shrink-0 mt-0.5"
-                        style={{ color: model.highlight ? 'inherit' : ORANGE }}
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className={model.highlight ? 'text-inherit' : 'text-slate-400'}>{pt}</span>
+                <span className="splan__idx font-mono">0{i + 1}</span>
+                {model.highlight && <span className="splan__flag font-mono">{c.brandModelsCopy.highlightTag}</span>}
+                <span className="splan__tag font-mono">{model.tag}</span>
+                <h3 className="font-display text-2xl mb-3 splan__title">{model.title}</h3>
+                <p className="text-sm leading-relaxed mb-6 splan__desc">{model.desc}</p>
+                <ul className="splan__points">
+                  {model.points.map((pt, j) => (
+                    <li key={pt} style={{ ['--j' as string]: j }}>
+                      <span className="splan__check">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path pathLength="1" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                      </span>
+                      <span>{pt}</span>
                     </li>
                   ))}
                 </ul>
+                <span className="splan__glow" aria-hidden="true" />
               </div>
             ))}
           </div>

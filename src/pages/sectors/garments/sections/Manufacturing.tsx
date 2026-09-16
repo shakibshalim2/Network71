@@ -66,52 +66,23 @@ export default function Manufacturing({
           ))}
         </div>
 
-        {/* Production process visual diagram */}
-        <div className="mt-16 pt-12 border-t border-white/8">
-          <p className="text-slate-500 text-[10px] tracking-[0.2em] uppercase mb-8">
+        {/* Production flow conveyor — one accent line draws through the stages */}
+        <div className="mt-16 pt-12 border-t border-white/8 sflow" style={{ ["--pa" as string]: ACCENT }}>
+          <p className="font-mono text-[11px] tracking-[0.2em] uppercase mb-8" style={{ color: "var(--fg-subtle)" }}>
             {c.flowLabel}
           </p>
-          <div className="flex flex-wrap items-center gap-0">
-            {c.stages.map((stage, i, arr) => (
-              <div key={stage} className="flex items-center">
-                <div
-                  className="px-4 py-2.5 rounded-lg text-[11px] font-semibold text-white"
-                  style={{
-                    color:
-                      i === 0 || i === arr.length - 1
-                        ? "var(--s0)"
-                        : "var(--fg)",
-                    background:
-                      i === 0 || i === arr.length - 1
-                        ? ACCENT
-                        : "rgba(255,255,255,0.06)",
-                    border: `1px solid ${
-                      i === 0 || i === arr.length - 1
-                        ? ACCENT
-                        : "rgba(255,255,255,0.1)"
-                    }`,
-                  }}
-                >
-                  {stage}
-                </div>
-                {i < arr.length - 1 && (
-                  <svg
-                    className="w-5 h-5 mx-1 flex-shrink-0 text-slate-600"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                )}
-              </div>
-            ))}
-          </div>
+          <ol className="sflow__track">
+            <span className="sflow__line" aria-hidden="true" />
+            {c.stages.map((stage, i, arr) => {
+              const end = i === 0 || i === arr.length - 1
+              return (
+                <li key={stage} className={`sflow__stage${end ? " is-end" : ""}`} style={{ ["--i" as string]: i }}>
+                  <span className="sflow__node" aria-hidden="true" />
+                  <span className="sflow__label">{stage}</span>
+                </li>
+              )
+            })}
+          </ol>
         </div>
       </div>
     </section>

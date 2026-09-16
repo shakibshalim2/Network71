@@ -391,3 +391,272 @@ Both pages share the Phase 6 corporate template, so they are taken together.
 | Ezyify | 9 | Waitlist | **refine** — plain input + gradient button → floating-label field with gradient underline, busy progress, REF pill success (gradient stays, matches the page) |
 
 **Brand + Ezyify — landed:** Brand keeps its own red identity: `.bhero` (KineticText, drawn red rule, `08 sections` counter); `.bsec` heads (hairline display numeral, 11px mono index, rule that draws on reveal — the 9px slate-700 numerals were under the type floor); `.btile` lift + red hairline on hover; `.bswatch` copies the hex on click with a COPIED tick; clear-space frame pulses once on reveal; never-list numbered; footer caption 9 → 11px. Ezyify waitlist → `.ezw` floating-label field with a purple→pink→cyan underline, gradient button with busy progress + arrow fly, success as drawn ring/tick + mono REF chip. Custom `.cf__input` / `.ezw__input` fields suppress the global `:focus-visible` outline (their drawn underline is the focus affordance). Verified `tsc` + `vite build`, 1440 + 390 no overflow.
+
+## Phase 8 — Home, section by section (second pass)
+
+Installed `lenis` (inertial wheel scrolling, public routes only; native on touch, paused while
+a drawer/dialog locks the body, steps aside for nested scrollers). New shared motion primitives:
+`Magnetic` (pointer-pull CTA), `Tilt` (3D tilt + `--tx/--ty` for layered parallax), `ScrollWords`
+(reading-light paragraph). All in `src/components/motion/`; styles in `src/styles/home-signature.css`.
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | copy parallax-fades as the fold leaves; magnetic CTAs; stats → numbered hairline ledger (staggered entrance, accent hairline + icon fill on hover); ticker → linked marquee, speeds with scroll velocity, per-division accent on hover |
+| 2 | Our Work | refine | enquiry plate tilts in 3D with pointer glow, N71 watermark drifts, step rings ping on reveal; work cards lift |
+| 3 | Working together | refine | outlined ghost numerals light with the journey line; steps lift |
+| 4 | Divisions | fix | mobile dossier rail was rendering under the desktop list (unlayered `display:flex` beat Tailwind `md:hidden`) |
+| 5 | Statement band | refine | lead paragraph becomes a scroll-driven reading light; value cards get ghost numerals, drawn accent rule, lift |
+| 6 | Ezyify | rework | tab switcher → sliding accent plate with numbered rows + timed progress hairline; auto-rotate pauses off-screen/hover; features crossfade; phone tilts with pointer specular, drifts on scroll, screens crossfade; glows + badge re-tint to active tab |
+| 7 | Brand wall | refine | rows speed with scroll velocity |
+| 8 | Media + eSHIPe | rework | photo parallax-zoom + broadcast scan-line on reveal; stories → numbered ledger; marketplace plate tilts, ship drifts on hover, ledger hairlines draw in sequence |
+| 9 | Leadership | refine | founder card tilts; tags → numbered chips that stagger in; CTA on `.btn` |
+| 10 | Sustainability | rework | pillar cards are links; photos uncover top-down on reveal; monogram fills on hover; pointer glow; drawn rule; 7px labels → 10.5px |
+| 11 | Connect | refine | magnetic CTA, arrow-key tabs, email underline tinted by the chosen path |
+| 12 | Footer | refine | wordmark slides with scroll; magnetic CTAs |
+
+Verified: `tsc --noEmit`, `vite build`, 1440 + 390 sweeps (no horizontal overflow), reduced motion paths.
+
+## Phase 8b — Divisions mega menu + Garments division (section by section)
+
+**Mega menu** (`DivisionsMega`): two panes — numbered division list with a sliding accent bar
+(`layoutId`) and revealed arrow; live preview pane crossfades the hovered division's photo, tag,
+name and description under an outlined index numeral; panel glow re-tints to the division colour.
+Preview pane hides under 900px.
+
+**Garments `/divisions/garments`** (first division; structural rules in `src/styles/sector-signature.css`
+apply to all nine pages):
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | copy parallax-fades; outlined "01" watermark drifts with scroll; eyebrow rule + ampersand animate in; CTAs on `.btn` with accent shadow + magnetic pull; tags → numbered glass ledger |
+| 2 | Metrics ledger | keep | Phase 4 |
+| 3 | Overview | refine (structural) | pillar cards lift with accent border + inset hairline, icon tile fills, staggered rise; chips lift |
+| 4 | Products | refine (structural) | same card identity |
+| 5 | Manufacturing | rework | production flow → drawn conveyor: accent line draws through numbered nodes, labels rise in sequence; vertical rail on phones |
+| 6 | Process (journey line) | keep | Phase 4 |
+| 7 | Technology | refine (structural) | card identity |
+| 8 | Facilities | keep | Phase 5 image curtain |
+| 9 | Quality | refine (structural) | card identity |
+| 10 | Sustainability | keep | bars + sheen from Phase 5 |
+| 11 | Supply chain | rework | corridor: numbered nodes on a drawn line with a travelling particle; Bangladesh note draws an accent rule |
+| 12 | Markets | rework | numbered flag tiles: lift, flag tilt, drawn rule, PRIMARY chip |
+| 13 | Opportunity | refine (structural) | card identity |
+| 14 | Roadmap | rework | scroll-drawn timeline via `ProcessLine`: year discs fill and outlined ghost numerals light as the line reaches them; vertical spine ≤1023px |
+| 15 | Contact | keep | Phase 4 |
+
+Verified `tsc`, `vite build`, 1440 + 390 (no overflow).
+
+## Phase 8c — Agriculture division (section by section)
+
+New shared pieces: `components/sector/HeroMotion.tsx` (copy parallax-fade + drifting numeral for
+any division hero), `components/sector/MeterBar.tsx` (CSS-revealed meter with CountUp, tick and
+sheen — replaces the per-page `AnimatedBar` + `useInView` copies), `.svals` numbered value ledger,
+`.sdash` telemetry plate, `.schain--triptych`, `.smkt--5`, `.sflags`.
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | HeroMotion; wave breathes; `.btn` CTAs + magnetic; stat badge → glass plate with accent hairline + CountUp |
+| 2 | Metrics | keep | |
+| 3 | Vision | rework | value cards → numbered hairline ledger (accent bar + wash slide in, arrow reveals, staggered rise) |
+| 4 | Crops | refine | stray dot removed; icon tile fills on hover (structural) |
+| 5 | Technology | rework | dashboard → telemetry plate: pinging live dot, scan-line, per-metric sparklines that draw in, CountUp |
+| 6 | Journey | keep | |
+| 7 | Value chain | rework | triptych → corridor with solid hub node + chips, travelling particle |
+| 8 | Quality | rework | certifications → ledger; bars → `MeterBar` |
+| 9 | Sustainability | refine | pillars → ledger; bars → `MeterBar`; community stat counts up; SDG chips |
+| 10 | Markets | rework | 5-up numbered region tiles (own accent per region); flag strip wakes in colour on hover, staggers in |
+| 11 | Opportunities | refine | card footer link draws underline + arrow slides |
+| 12 | Farmer program | refine | CTA on `.btn` + magnetic; benefit icons in tiles |
+| 13 | Roadmap | rework | scroll-drawn `ProcessLine` timeline, 4 columns, ghost numerals |
+| 14 | Contact | keep | |
+
+## Phase 8d — Food & Beverage division (section by section)
+
+Research anchors: Motion "smooth tabs" (sliding `layoutId` pill + directional panel transition,
+`AnimatePresence mode="wait"` with easeIn exit / easeOut enter); spotlight pricing-card pattern
+(highlighted plan scaled + ring + shadow, checks stagger in); Awwwards scroll-driven storytelling
+(elements draw as the reader arrives, never all at once).
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | HeroMotion; warm rim light breathes from the counter; scroll cue draws down and drops; `.btn` + magnetic |
+| 2 | Metrics | keep | |
+| 3 | Overview | refine (structural) | |
+| 4 | Product portfolio | rework | segmented control with sliding pill, directional blur-crossfade detail panel, staggered checklist with drawn ticks, ghost numeral, sliding ring on the category grid, arrow-key tabs |
+| 5 | Brand models | rework | spotlight plan pattern: highlighted plan scaled with gradient + ring glow, checks draw in sequence, pointer glow |
+| 6 | Standards | refine | list → badge ledger; lab plate keeps |
+| 7 | Facilities (units) | refine (structural) | QC panel → four checkpoint gates whose rings draw and dots pop in sequence |
+| 8 | Journey | keep | |
+| 9 | Quality & compliance | refine | certifications → badge ledger; targets → `MeterBar` with display override (`<2%`) |
+| 10 | Sustainability | refine | stat counts up; cards structural |
+| 11 | Supply chain | rework | flow → conveyor |
+| 12 | Export markets | rework | rows → flag ledger with priority chips, CTA on `.btn` + magnetic |
+| 13 | Opportunities | refine | footer links draw underline |
+| 14 | Roadmap | rework | scroll-drawn `ProcessLine` timeline, 4 phases |
+| 15 | Contact | keep | |
+
+## Phase 8e — Oils & Energy division (section by section)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Split hero | rework | hovered half grows (flex-grow spring) while the other recedes + desaturates; glowing seam follows in that side's accent; side labels fade/shift; centre plate floats with amber→sky hairline; blueprint SVG draws itself; `.btn` + magnetic CTA; drawn scroll cue |
+| 2 | Metrics | keep | |
+| 3 | Overview | refine | twin division cards: accent glow + lift; value chains → mini drawn conveyors |
+| 4 | Edible oils | refine (structural) | |
+| 5 | Energy & fuel | refine | stats count up |
+| 6 | Journey | keep | |
+| 7 | Supply chain | rework | flow discs pop in sequence along a drawn gradient line; DC schematic → live network (hub pulses, spokes draw, amber packets travel plant→DC on staggered loops, DCs grow on hover; light-only rect removed) |
+| 8 | Compliance | refine (structural) | |
+| 9 | Technology | refine (structural) | |
+| 10 | Sustainability | refine | both bar sets → `MeterBar` (amber / sky) |
+| 11 | Markets | refine (structural) | |
+| 12 | Opportunities | refine | footer links draw underline |
+| 13 | Roadmap | rework | vertical scroll-drawn spine (amber→sky) via `ProcessLine`; year tiles fill and cards slide in as the line reaches them |
+| 14 | Contact | keep | |
+
+## Phase 8f — IT & Software division (section by section)
+
+New primitive: `components/motion/Typewriter.tsx` (types lines with a blinking block cursor;
+instant under reduced motion).
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | rework | HeroMotion + drifting "06"; dot grid lights under the pointer; wordmark shimmers; `.btn` + magnetic; stats → numbered hairline ledger with CountUp; terminal decoration → glass terminal that types itself out |
+| 2 | Metrics | keep | |
+| 3 | Overview | refine (structural) | |
+| 4 | Services | refine (structural) | |
+| 5 | Ezyify | refine | stats count up; CTAs on `.btn` (gradient `ezy-cta`) + magnetic; feature cards lift with purple hairline, stagger in |
+| 6 | AI Lab | rework | areas → numbered ledger; model tiles stagger + lift (running counter suppressed); training log → typing terminal |
+| 7 | Technology | refine | badges lose inline mouse handlers; tile fills + rotates on hover; staggered rise |
+| 8 | Projects | refine | showcase cards lift with cyan hairline + glow |
+| 9 | Journey | keep | |
+| 10 | Clients | refine (structural) | |
+| 11 | Delivery | refine (structural) | |
+| 12 | Quality | refine | link draws underline |
+| 13 | Global reach | refine | stats count up; tiles lift |
+| 14 | Opportunities | refine (structural) | |
+| 15 | Roadmap | rework | vertical cyan→purple scroll-drawn spine via `ProcessLine` |
+| 16 | Contact | keep | |
+
+## Phase 8g — Global Trading division (section by section)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | HeroMotion + "07"; decorative routes drift with travelling dots; `.btn` + magnetic; stat badges → numbered glass list sliding in with CountUp |
+| 2 | Metrics | keep | |
+| 3 | Overview | rework | lead → reading-light paragraph; pillars → ghost-numeral cards with icon fill + drawn rule |
+| 3b | Categories | rework | drawn accent bar per card, lane route with glowing dot |
+| 3c | Services | rework | drawn rule, ticks draw in sequence, items rise |
+| 4 | Trade network map | rework | routes draw out from HQ in sequence then settle into drifting dashes; hubs ping; cargo dots travel each lane; labels fade in after routes |
+| 5 | Journey | keep | |
+| 6 | Compliance | rework | documents → seals: ring draws, tick stamps in, numbered |
+| 6b | Infrastructure | rework | freight cards: drawn top bar, ghost numeral, spec ticks draw |
+| 6c | Finance | rework | instrument plates: outlined numeral, corner tab grows on hover |
+| 6d | Risk | rework | shield gates: outline then check draws in |
+| 6e | Sustainability | rework | green pulse, numbered, drawn accent rule |
+| 7 | Technology | refine | capabilities → numbered ledger |
+| 8 | Trade lanes | rework | corridor cards: dashed lane draws, a ship sails back and forth on its own phase, flags lean apart on hover |
+| 9 | Opportunities | refine | links draw underline |
+| 10 | Roadmap | rework | scroll-drawn 4-column timeline with ghost numerals |
+| 11 | Contact | keep | |
+
+## Phase 8h — Media division (every section)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | rework | broadcast strip → marquee with pulsing dots; scanlines drift; wordmark shimmers; "09" watermark; `.btn` + magnetic; LIVE ledger + CountUp stats; terminal types itself |
+| 2 | Metrics | keep | |
+| 3 | Overview | rework | lead → reading light; platforms → channel tiles with signal bars that rise on reveal and equalise on hover, drawn rule |
+| 4 | Desks | rework | ghost numerals, monogram fills + rotates, rule extends |
+| 5 | Television | rework | signal statuses ping; schedule → programme guide with a sweeping "now" cursor, numbered rows slide in |
+| 6 | Charter | rework | items → green seals (ring draws, tick stamps) in a hairline ledger |
+| 7 | Advertising | rework | plates with own-accent drawn top rule, pointer glow, numbered |
+| 8 | Gallery | rework | viewfinder corners + REC badge on hover, indexed, staggered rise |
+| 9 | Contact | keep | |
+
+## Phase 8i — Ship Marketplace / eSHIPe (every section)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | rework | radar (rings, sweeping beam, fading blips) + rolling sea waves at the foot; anchor badge rocks; wordmark shimmers; "10" watermark; `.btn` + magnetic; numbered stats ledger; terminal types itself |
+| 2 | Metrics | keep | |
+| 3 | Services | rework | icon tiles, ghost numerals, per-service accent rule draws in |
+| 4 | Categories | rework | hexagon outline draws in and fills on hover, numbered, arrow link |
+| 5 | Vessel listings | rework | search plate → console (pulsing dot, live `shown / total` count, focus ring); fleet cards stagger in, lift with accent hairline, image zoom, details button fills |
+| 6 | Journey | keep | |
+| 7 | Recycling | rework | yard cards with pinging status pills + drawn rule |
+| 8 | Why eSHIPe | rework | icon tiles fill on hover, numbered, drawn rule |
+| 9 | Global reach | rework | reading-light lead; regions → sonar tiles (pinging dot), numbered |
+| 10 | Contact | keep | |
+
+## Phase 8j — Strategic Ventures (every section)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | rework | ecosystem grid → **constellation**: 9 divisions orbit an N71 hub on a drawn ring, colour-matched spokes draw in sequence, inner dashed ring rotates, hub breathes; nodes are links that swell + label on hover. Badge dot pings, wordmark shimmers, "08" watermark, `.btn` + magnetic |
+| 2 | Metrics | keep | |
+| 3 | Overview | rework | lead reading-light; principles → plates with diamond that draws in and fills on hover, drawn rule |
+| 4 | Six ways | rework | ghost numerals, icon strokes draw in, own-accent rule, icon fills + rotates on hover |
+| 5 | Journey | keep | |
+| 6 | Partners | rework | profile plates with numbered corner tab that fills on hover, arrow reveals; CTA → `.btn` magnetic |
+| 7 | Disclosure note | rework | gold seal ring draws in, slow sheen sweeps across the plate, CTA nudges |
+| 8 | Contact | keep | |
+
+## Phase 9 — About (every section)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | vision panel tilts with the pointer, corner brackets, pinging label dot, lines rise in sequence, facts stagger, slow sheen |
+| 2 | Origins | keep | dossier plate + ghost year already signature |
+| 3 | Vision & Mission | rework | twin plates: pointer glow, ghost "Vision"/"Mission" word, icon strokes draw in then fill on hover, own-accent rule (gold / teal) |
+| 4 | Founder quote | keep | word-rise + drawn mark already signature |
+| 5 | Values ledger | keep | already signature |
+| 6 | Leadership | keep | monogram rings already signature |
+| 7 | Journey | rework | ghost years, drawn year rules, cards slide in from their own side, nodes pop in sequence, hover lifts + glows node |
+| 8 | Partner perspectives | rework | quote mark draws, left accent hairline grows, lift |
+| 9 | CTA band | keep | drawn rule already signature |
+
+## Phase 9b — Our Work / Projects (every section + feature gaps)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | kinetic type kept; **added** a three-fact ledger (numbered, drawn gold rules, CountUp) so the hero is not copy-only |
+| 2 | Explore | rework | **added** division filter chips (colour dot per division, URL-backed `?division=`, works with search); toolbar count kept |
+| 3 | Results / empty | rework | bare error card → the Home "start with a conversation" tilt plate (brief → scope → people), with **Try again** when the API is unreachable and a filter-aware empty state |
+| 4 | Working together | keep | already signature |
+
+## Phase 9c — Investors (every section)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | **added** three-pillar ledger (divisions / governance bodies / countries) with drawn rules + CountUp |
+| 2 | Investor information | rework | plain box → tilt intro plate with a Brief → Availability → Secure sharing step ledger, N71 mark, glow, magnetic `.btn` CTA (was a full-width button) |
+| 3 | Thesis | keep | dossier cards with numerals + spotlight already signature |
+| 4 | Documents | refine | rows slide on hover, per-row gold rule draws in, arrow link nudges |
+| 5 | Board structure | rework | 2×2 cards → numbered seal ledger (ring draws), "to be published" dots ping; lead reading-light |
+| 6 | Enquiry | keep | chip form already signature |
+
+## Phase 10 — Admin workspace: gap analysis and completion
+
+Audited every screen against the PHP API and the data model. Gaps found and closed (all verified against a local MariaDB + PHP dev server; `http-smoke.php` 61 checks still pass, new `admin-features.php` adds 37):
+
+| Screen | Gap | Now |
+|---|---|---|
+| Inbox | no filtering, no export; email only as a mailto | status chips with live counts · assignee filter · search · CSV export (filter-aware, audited, formula-safe) · copy email · reply subject pre-filled |
+| Applications | no filtering/export; **no internal notes** (Inbox had them) | same filter/export set as Inbox · internal notes (new table `application_notes`) |
+| Content collections | only search + language; no way to see "in review" or "published with changes"; no duplicate | status filter (6 states) · **Duplicate** into a new draft |
+| Media library | alt text could never be corrected after upload; URL only selectable | edit description in place · Copy URL |
+| Team access | only activate/deactivate; no rename, no role change | rename · make owner / make editor with last-owner + self guards; audited |
+| Overview | "failed" mail count shown but no action | owner **Retry N failed** re-queues the outbox |
+
+### Phase 10b — second deep pass
+
+| Screen | Gap | Now |
+|---|---|---|
+| (all) | no way to change your own password — only an owner-issued reset link | **Your account** screen · `POST /auth/change-password` (current password required, other sessions invalidated, audited, throttled) |
+| Overview | audit trail limited to the last 12 events, no filters | **Activity log** (owner) — filter by area / person / action, paginated, colour-coded |
+| Inbox / Applications | notes could never be removed | author or owner can remove a note |
+| Media library | no search | search by description / file name |
+| Content collections | no visibility of whether a record has a bn/en twin; translating meant retyping | *… version* button → shows the twin's status or creates a pre-filled translation with the same slug |
+
+`admin-features.php` now 58 checks; `http-smoke.php` still 61.

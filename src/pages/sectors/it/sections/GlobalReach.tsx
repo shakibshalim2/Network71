@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import type { ITContent } from "../content/en"
+import CountUp from "@/components/motion/CountUp"
 import { ACCENT, PURPLE, BG_DEEP, BG_ALT } from "../theme"
 
 export default function GlobalReach({ c }: { c: ITContent }) {
@@ -34,7 +35,7 @@ export default function GlobalReach({ c }: { c: ITContent }) {
             {c.reachStats.map((s) => (
               <div
                 key={s.label}
-                className="p-6 rounded-xl text-center"
+                className="p-6 rounded-xl text-center it-model"
                 style={{
                   background: "rgba(34,211,238,0.04)",
                   border: "1px solid rgba(34,211,238,0.12)",
@@ -44,7 +45,7 @@ export default function GlobalReach({ c }: { c: ITContent }) {
                   {s.icon}
                 </div>
                 <div className="font-display text-2xl text-white mb-1">
-                  {s.value}
+                  <CountUp value={s.value} />
                 </div>
                 <div className="text-slate-400 text-xs font-medium uppercase tracking-wider">
                   {s.label}

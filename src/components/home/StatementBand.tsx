@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 import { motion, useScroll, useVelocity, useSpring, useTransform, useReducedMotion } from "motion/react"
 import { useT, type TKey } from "@/i18n"
 import { EASE_OUT } from "@/lib/motion"
+import ScrollWords from "@/components/motion/ScrollWords"
+import Magnetic from "@/components/motion/Magnetic"
 
 const VALUES = ["v1", "v2", "v3", "v4"] as const
 const WORDS: TKey[] = ["about.title1", "about.title2", "about.title3"]
@@ -78,29 +80,36 @@ export default function StatementBand() {
             >
               {t("footer.link.about")}
             </motion.p>
-            <motion.p variants={rise} className="stmt__lead">
-              <strong>Network71</strong>
-              {t("about.lead").replace(/^Network71/, "")}
-            </motion.p>
+            <motion.div variants={rise}>
+              <ScrollWords
+                className="stmt__lead"
+                lead={<strong>Network71 </strong>}
+                text={t("about.lead").replace(/^Network71\s*/, "")}
+              />
+            </motion.div>
             <motion.div variants={rise} className="stmt__links">
-              <Link to={t("home.about.href")} className="btn btn-secondary">
-                {t("about.learnMore")}
-              </Link>
-              <Link to="/contact" className="btn btn-primary">
-                {t("about.partner")}
-                <svg
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </Link>
+              <Magnetic strength={8}>
+                <Link to={t("home.about.href")} className="btn btn-secondary">
+                  {t("about.learnMore")}
+                </Link>
+              </Magnetic>
+              <Magnetic strength={10}>
+                <Link to="/contact" className="btn btn-primary">
+                  {t("about.partner")}
+                  <svg
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </Link>
+              </Magnetic>
             </motion.div>
           </motion.div>
 
@@ -124,8 +133,10 @@ export default function StatementBand() {
                 onPointerMove={onMove}
               >
                 <span className="stmt__value-idx">0{i + 1}</span>
+                <span className="stmt__value-ghost font-display" aria-hidden="true">0{i + 1}</span>
                 <h3>{t(`about.${k}.title`)}</h3>
                 <p>{t(`about.${k}.desc`)}</p>
+                <span className="stmt__value-rule" aria-hidden="true" />
               </motion.div>
             ))}
           </motion.div>

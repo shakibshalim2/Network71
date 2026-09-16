@@ -1,6 +1,7 @@
 import type { OilsEnergyContent } from '../content/en'
 import { AMBER, SKY } from '../theme'
 import { icons } from '../icons'
+import CountUp from '@/components/motion/CountUp'
 
 export default function EnergyFuel({ c }: { c: OilsEnergyContent }) {
   return (
@@ -60,7 +61,7 @@ export default function EnergyFuel({ c }: { c: OilsEnergyContent }) {
                   style={{ borderColor: `color-mix(in srgb, ${SKY} 9%, transparent)` }}
                 >
                   <div>
-                    <div className="font-display text-2xl" style={{ color: SKY }}>{cap.stat}</div>
+                    <div className="font-display text-2xl" style={{ color: SKY }}><CountUp value={cap.stat} /></div>
                     <div className="text-slate-500 text-[11px]">{cap.statLabel}</div>
                   </div>
                 </div>

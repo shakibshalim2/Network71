@@ -15,30 +15,18 @@ export default function QualityCompliance({ c }: { c: FoodBeverageContent }) {
             <p className="text-slate-400 max-w-lg mx-auto text-sm leading-relaxed">{c.supplyChain.lead}</p>
           </div>
 
-          {/* Flow */}
-          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
-            {['Supplier', 'Manufacturing', 'QC & Testing', 'Packing', 'Distribution'].map((stage, i) => (
-              <div key={stage} className="relative">
-                <div className="p-5 rounded-xl text-center border border-white/8" style={{ background: 'var(--fill-2)' }}>
-                  <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-xs font-bold text-fg"
-                    style={{ background: ORANGE, color: 'var(--s0)' }}
-                  >
-                    {String(i + 1).padStart(2, '0')}
-                  </div>
-                  <div className="text-white text-xs font-semibold">{stage}</div>
-                </div>
-                {i < 4 && (
-                  <div className="hidden lg:flex absolute top-1/2 -right-2 z-10 w-4 h-4 items-center justify-center -translate-y-1/2">
-                    <svg className="w-4 h-4" style={{ color: ORANGE }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                )}
-              </div>
-            ))}
+          {/* Flow conveyor */}
+          <div className="sflow mb-12" style={{ ['--pa' as string]: ORANGE }}>
+            <ol className="sflow__track">
+              <span className="sflow__line" aria-hidden="true" />
+              {['Supplier', 'Manufacturing', 'QC & Testing', 'Packing', 'Distribution'].map((stage, i, arr) => (
+                <li key={stage} className={`sflow__stage${i === 0 || i === arr.length - 1 ? ' is-end' : ''}`} style={{ ['--i' as string]: i }}>
+                  <span className="sflow__node" aria-hidden="true" />
+                  <span className="sflow__label"><span className="font-mono" style={{ opacity: 0.6, marginRight: 8 }}>{String(i + 1).padStart(2, '0')}</span>{stage}</span>
+                </li>
+              ))}
+            </ol>
           </div>
-
           <div className="grid md:grid-cols-2 gap-6">
             <div className="p-7 rounded-2xl border border-white/6" style={{ background: 'var(--fill-1)' }}>
               <h3 className="font-display text-xl text-white mb-3">{c.supplyChain.sourcingTitle}</h3>

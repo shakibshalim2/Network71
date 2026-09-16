@@ -24,9 +24,10 @@ export default function Timeline({ c }: { c: AboutContent['timeline'] }) {
             {c.entries.map((entry, i) => (
               <li
                 key={entry.year}
-                className={`relative flex items-start gap-4 md:items-center md:gap-6 ${
-                  entry.side === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'
+                className={`relative flex items-start gap-4 md:items-center md:gap-6 about-tl ${
+                  entry.side === 'right' ? 'md:flex-row-reverse about-tl--r' : 'md:flex-row about-tl--l'
                 }`}
+                style={{ ['--i' as string]: i }}
               >
                 <div
                   className="md:hidden relative z-10 flex w-8 h-8 shrink-0 items-center justify-center rounded-full border-2 border-gold bg-navy-dark"
@@ -36,15 +37,16 @@ export default function Timeline({ c }: { c: AboutContent['timeline'] }) {
                 </div>
 
                 <div className="min-w-0 flex-1 md:flex-none md:w-[45%]">
-                  <div className={`bg-navy border border-white/8 rounded-xl p-4 sm:p-5 md:p-6 hover:border-gold/25 transition-colors duration-300 ${entry.side === 'right' ? 'md:text-right' : ''}`}>
-                    <p className="text-gold text-[10.5px] sm:text-xs font-semibold tracking-[0.16em] sm:tracking-widest uppercase mb-2">{entry.year}</p>
+                  <div className={`bg-navy border border-white/8 rounded-xl p-4 sm:p-5 md:p-6 about-tl__card ${entry.side === 'right' ? 'md:text-right' : ''}`}>
+                    <span className="about-tl__ghost font-display" aria-hidden="true">{entry.year}</span>
+                    <p className="text-gold text-[10.5px] sm:text-xs font-semibold tracking-[0.16em] sm:tracking-widest uppercase mb-2 about-tl__year">{entry.year}</p>
                     <h3 className="font-display text-lg sm:text-xl text-white mb-2">{entry.title}</h3>
                     <p className="text-slate-500 text-[13px] sm:text-sm leading-relaxed">{entry.detail}</p>
                   </div>
                 </div>
 
                 <div
-                  className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-navy-dark border-2 border-gold items-center justify-center z-10"
+                  className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-navy-dark border-2 border-gold items-center justify-center z-10 about-tl__node"
                   aria-hidden="true"
                 >
                   <span className="font-display text-gold text-xs">{i + 1}</span>

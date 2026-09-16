@@ -1,5 +1,7 @@
+import { motion } from 'motion/react'
 import { useT } from '@/i18n'
 import CountUp from '@/components/motion/CountUp'
+import { EASE_OUT } from '@/lib/motion'
 
 export const STAT_ICONS = [
   <svg key="a" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: 20, height: 20 }}>
@@ -20,14 +22,12 @@ export const STAT_ICONS = [
   </svg>,
 ]
 
-// Border classes per cell: handles 2-col (mobile) and 4-col (desktop) correctly
-const cls = [
-  'border-r border-b border-[var(--line)] md:border-b-0',
-  'border-b border-[var(--line)] md:border-r md:border-b-0',
-  'border-r border-[var(--line)]',
-  '',
-]
+const cell = {
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE_OUT } },
+}
 
+/** Hairline ledger under the hero: cells rise in sequence, light up on hover. */
 export default function HeroStats() {
   const { t } = useT()
   const stats = ([1, 2, 3, 4] as const).map((n, i) => ({
@@ -38,51 +38,28 @@ export default function HeroStats() {
   }))
 
   return (
-    <div className="hero-stats" style={{
-      background: 'var(--header-bg)',
-      borderTop: '1px solid var(--line)',
-      position: 'relative', zIndex: 10,
-      backdropFilter: 'blur(20px)',
-    }}>
+    <div className="hero-stats">
       <div className="container-page">
-        <div className="grid grid-cols-2 md:grid-cols-4">
+        <motion.div
+          className="grid hstat__grid"
+          initial="hidden"
+          animate="show"
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.09, delayChildren: 0.9 } } }}
+        >
           {stats.map(({ icon, value, label, sub }, i) => (
-            <div
-              key={label}
-              className={`flex items-center gap-3 sm:gap-4 px-2 py-4 sm:px-5 sm:py-5 ${cls[i]}`}
-            >
-              <div
-                className="w-9 h-9 sm:w-11 sm:h-11 rounded-[10px] sm:rounded-xl"
-                style={{
-                  background: 'var(--brand-wash)',
-                  border: '1px solid var(--brand-edge)',
-                  color: 'var(--brand-fg)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  flexShrink: 0,
-                }}>
-                {icon}
-              </div>
+            <motion.div key={label} className="hstat" variants={cell}>
+              <span className="hstat__idx" aria-hidden="true">0{i + 1}</span>
+              <div className="hstat__icon">{icon}</div>
               <div style={{ minWidth: 0 }}>
-                <div
-                  className="font-display text-[21px] sm:text-[24px]"
-                  style={{ color: 'var(--fg-strong)', lineHeight: 1, letterSpacing: '-0.02em' }}>
+                <div className="hstat__value font-display">
                   <CountUp value={value} />
                 </div>
-                <div
-                  className="text-[11px] tracking-[0.14em]"
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    textTransform: 'uppercase',
-                    color: 'var(--brand-fg)', marginTop: 5,
-                  }}>
-                  {label}
-                </div>
-                {/* Sub-caption is noise at phone widths */}
-                <div className="hidden sm:block" style={{ fontSize: 12.5, color: 'var(--fg-subtle)', marginTop: 3 }}>{sub}</div>
+                <div className="hstat__label text-[11px]">{label}</div>
+                <div className="hstat__sub hidden sm:block">{sub}</div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </div>
   )

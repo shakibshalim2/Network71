@@ -15,22 +15,19 @@ export default function Services({ c }: { c: TradingContent }) {
             <p className="text-slate-500 text-sm max-w-lg mx-auto">{c.copy.servicesLead}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
-            {c.tradeServices.map((svc) => (
+            {c.tradeServices.map((svc, i) => (
               <div
                 key={svc.title}
-                className="p-8 rounded-2xl border hover:shadow-lg transition-all"
-                style={{ borderColor: `color-mix(in srgb, ${BLUE} 9%, transparent)` }}
+                className="p-8 rounded-2xl border ssvc"
+                style={{ ['--pa' as string]: BLUE, ['--i' as string]: i, borderColor: `color-mix(in srgb, ${BLUE} 9%, transparent)` }}
               >
-                <div
-                  className="inline-block h-0.5 w-10 mb-5 rounded-full"
-                  style={{ background: BLUE, color: 'var(--s0)' }}
-                />
+                <span className="ssvc__rule mb-5" aria-hidden="true" style={{ display: 'block' }} />
                 <h3 className="font-display text-xl text-fg mb-3">{svc.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed mb-5">{svc.desc}</p>
-                <ul className="grid grid-cols-2 gap-y-2 gap-x-4">
-                  {svc.items.map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-xs text-slate-500">
-                      <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: BLUE, color: 'var(--s0)' }} />
+                <ul className="grid grid-cols-2 gap-y-2.5 gap-x-4">
+                  {svc.items.map((item, j) => (
+                    <li key={item} className="flex items-center gap-2.5 text-xs text-slate-500 ssvc__item" style={{ ['--j' as string]: j }}>
+                      <span className="ssvc__tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path pathLength="1" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg></span>
                       {item}
                     </li>
                   ))}

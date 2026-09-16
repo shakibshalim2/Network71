@@ -15,18 +15,19 @@ export default function Risk({ c }: { c: TradingContent }) {
               <p className="text-slate-500 leading-relaxed mb-5">{c.copy.riskLead1}</p>
               <p className="text-slate-500 leading-relaxed">{c.copy.riskLead2}</p>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              {c.riskItems.map((r) => (
-                <div
-                  key={r.title}
-                  className="p-5 rounded-xl border"
-                  style={{ borderColor: `color-mix(in srgb, ${BLUE} 9%, transparent)`, background: `color-mix(in srgb, ${BLUE} 2%, transparent)` }}
-                >
-                  <h4 className="font-semibold text-fg text-sm mb-2">{r.title}</h4>
-                  <p className="text-slate-500 text-xs leading-relaxed">{r.desc}</p>
-                </div>
+            <ol className="srisk" style={{ ['--pa' as string]: BLUE }}>
+              {c.riskItems.map((r, i) => (
+                <li key={r.title} className="srisk__item" style={{ ['--i' as string]: i }}>
+                  <span className="srisk__shield" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path pathLength="1" strokeLinecap="round" strokeLinejoin="round" d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" /><path pathLength="1" className="srisk__check" strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" /></svg>
+                  </span>
+                  <div>
+                    <h4 className="font-semibold text-fg text-sm mb-1.5">{r.title}</h4>
+                    <p className="text-slate-500 text-xs leading-relaxed">{r.desc}</p>
+                  </div>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
         </div>
       </section>

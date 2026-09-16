@@ -19,19 +19,13 @@ export default function SupplyChain({ c }: { c: OilsEnergyContent }) {
             </p>
           </div>
 
-          {/* Horizontal flow visual */}
-          <div className="relative">
-            {/* Connecting line */}
-            <div className="absolute top-10 left-0 right-0 h-px hidden lg:block" style={{ background: 'linear-gradient(to right, #f59e0b60, #10b98160, #0ea5e960)' }} />
-
+          {/* Horizontal flow — line draws, nodes pop in sequence */}
+          <div className="snodes" style={{ ['--pa' as string]: AMBER }}>
+            <span className="snodes__line hidden lg:block" aria-hidden="true" />
             <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4">
               {c.supplyChainNodes.map((node, i) => (
-                <div key={node.label} className="flex flex-col items-center text-center relative">
-                  {/* Node circle */}
-                  <div
-                    className="w-20 h-20 rounded-full flex items-center justify-center mb-4 z-10 text-white font-bold text-lg font-display shadow-lg"
-                    style={{ background: node.color, color: 'var(--s0)', border: '4px solid var(--s2)' }}
-                  >
+                <div key={node.label} className="snodes__item flex flex-col items-center text-center relative" style={{ ['--i' as string]: i, ['--nc' as string]: node.color }}>
+                  <div className="snodes__disc font-display">
                     {String(i + 1).padStart(2, '0')}
                   </div>
                   <div className="font-semibold text-fg text-sm mb-1">{node.label}</div>
@@ -40,16 +34,12 @@ export default function SupplyChain({ c }: { c: OilsEnergyContent }) {
               ))}
             </div>
           </div>
-
           {/* SVG decorative network map */}
-          <div className="mt-14 rounded-2xl overflow-hidden border border-slate-200 bg-surface-2 p-6">
+          <div className="mt-14 rounded-2xl overflow-hidden border border-[var(--line)] bg-surface-2 p-6">
             <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400 mb-4">{c.copy.supplySchematic}</div>
-            <svg viewBox="0 0 800 260" className="w-full" style={{ maxHeight: 260 }}>
-              {/* Background */}
-              <rect width="800" height="260" fill="#f8fafc" rx="12" />
-
-              {/* Processing hub */}
-              <circle cx="400" cy="130" r="36" fill={AMBER} opacity="0.15" />
+            <svg viewBox="0 0 800 260" className="w-full snet" style={{ maxHeight: 260 }}>
+              {/* Processing hub — pulses */}
+              <circle className="snet__pulse" cx="400" cy="130" r="36" fill={AMBER} opacity="0.15" />
               <circle cx="400" cy="130" r="22" fill={AMBER} />
               <text x="400" y="134" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold">{c.copy.plant}</text>
 
@@ -63,20 +53,23 @@ export default function SupplyChain({ c }: { c: OilsEnergyContent }) {
                 { x: 560, y: 210, label: 'DC 6' },
                 { x: 240, y: 210, label: 'DC 7' },
                 { x: 100, y: 180, label: 'DC 8' },
-              ].map((dc) => (
-                <g key={dc.label}>
-                  <line x1="400" y1="130" x2={dc.x} y2={dc.y} stroke={SKY} strokeWidth="1.5" strokeDasharray="5,4" opacity="0.5" />
-                  <circle cx={dc.x} cy={dc.y} r="18" fill={SKY} opacity="0.15" />
-                  <circle cx={dc.x} cy={dc.y} r="12" fill={SKY} />
+              ].map((dc, i) => (
+                <g key={dc.label} className="snet__spoke" style={{ ['--i' as string]: i }}>
+                  <line className="snet__line" pathLength="1" x1="400" y1="130" x2={dc.x} y2={dc.y} stroke={SKY} strokeWidth="1.5" opacity="0.5" />
+                  <circle className="snet__packet" r="3.5" fill={AMBER}>
+                    <animateMotion dur="3.2s" begin={`${1.6 + i * 0.4}s`} repeatCount="indefinite" path={`M400,130 L${dc.x},${dc.y}`} />
+                  </circle>
+                  <circle className="snet__halo" cx={dc.x} cy={dc.y} r="18" fill={SKY} opacity="0.15" />
+                  <circle className="snet__dc" cx={dc.x} cy={dc.y} r="12" fill={SKY} />
                   <text x={dc.x} y={dc.y + 4} textAnchor="middle" fill="white" fontSize="7" fontWeight="bold">{dc.label}</text>
                 </g>
               ))}
 
               {/* Legend */}
               <circle cx="30" cy="240" r="6" fill={AMBER} />
-              <text x="42" y="244" fill="#64748b" fontSize="9">{c.copy.processingPlant}</text>
+              <text x="42" y="244" fill="var(--fg-subtle)" fontSize="9">{c.copy.processingPlant}</text>
               <circle cx="140" cy="240" r="6" fill={SKY} />
-              <text x="152" y="244" fill="#64748b" fontSize="9">{c.copy.distributionCentres}</text>
+              <text x="152" y="244" fill="var(--fg-subtle)" fontSize="9">{c.copy.distributionCentres}</text>
             </svg>
           </div>
         </div>

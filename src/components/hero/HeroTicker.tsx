@@ -1,36 +1,41 @@
-import { useT, DIVISION_IDS, divKey } from '@/i18n'
+import { Link } from 'react-router-dom'
+import { motion, useScroll, useVelocity, useSpring, useTransform, useReducedMotion } from 'motion/react'
+import { useT, DIVISION_IDS, DIVISION_HREF, DIVISION_COLOR, divKey } from '@/i18n'
 
+/**
+ * Division ticker under the hero. Scroll velocity speeds the marquee up;
+ * each name is a link that lights with its division accent on hover.
+ */
 export default function HeroTicker() {
   const { t } = useT()
-  const ticker = DIVISION_IDS.map(id => t(divKey(id, 'name')))
+  const reduce = useReducedMotion()
+  const { scrollY } = useScroll()
+  const velocity = useVelocity(scrollY)
+  const smooth = useSpring(velocity, { stiffness: 200, damping: 40, mass: 0.8 })
+  const rate = useTransform(smooth, (v) => `${Math.max(0.3, 1 - Math.min(Math.abs(v), 2400) / 3000)}`)
+
+  const items = [...DIVISION_IDS, ...DIVISION_IDS, ...DIVISION_IDS]
 
   return (
-    <div style={{
-      background: 'var(--s-inset)',
-      borderTop: '1px solid var(--fill-1)',
-      padding: '13px 0',
-      overflow: 'hidden',
-      position: 'relative', zIndex: 10,
-      maskImage: 'linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)',
-      WebkitMaskImage: 'linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)',
-    }}>
-      <div style={{ display: 'flex', whiteSpace: 'nowrap', animation: 'marquee 44s linear infinite' }}>
-        {[...ticker, ...ticker, ...ticker].map((name, i) => (
-          <span
-            key={i}
-            className="gap-3 px-4 text-[11px] tracking-[0.16em] sm:gap-4 sm:px-6"
-            style={{
-              display: 'inline-flex', alignItems: 'center',
-              fontFamily: 'var(--font-mono)',
-              color: 'var(--fg-subtle)',
-              textTransform: 'uppercase',
-            }}
+    <motion.div
+      className="hticker"
+      style={reduce ? undefined : { ['--mq-rate' as string]: rate }}
+    >
+      <div className="hticker__track">
+        {items.map((id, i) => (
+          <Link
+            key={`${id}-${i}`}
+            to={DIVISION_HREF[id]}
+            className="hticker__item text-[11px]"
+            style={{ ['--tk-accent' as string]: DIVISION_COLOR[id] }}
+            tabIndex={i < DIVISION_IDS.length ? 0 : -1}
+            aria-hidden={i >= DIVISION_IDS.length || undefined}
           >
-            {name}
-            <span style={{ display: 'inline-block', width: 4, height: 4, borderRadius: '50%', background: 'var(--brand-edge)', flexShrink: 0 }} />
-          </span>
+            {t(divKey(id, 'name'))}
+            <span className="hticker__dot" />
+          </Link>
         ))}
       </div>
-    </div>
+    </motion.div>
   )
 }

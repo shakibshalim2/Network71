@@ -37,7 +37,7 @@ export default function Quality({ c }: { c: ITContent }) {
             </p>
             <a
               href="#sector-contact"
-              className="inline-flex items-center gap-2 text-sm font-semibold"
+              className="scard-link"
               style={{ color: "var(--accent-emerald)" }}
             >
               {c.copy.Quality.ctaPrimary}

@@ -7,6 +7,8 @@
 @import './styles/signature.css';
 @import './styles/motion-signature.css';
 @import './styles/editorial.css';
+@import './styles/home-signature.css';
+@import './styles/sector-signature.css';
 
 @theme {
   /* ── Brand depths ── */

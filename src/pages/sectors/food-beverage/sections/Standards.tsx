@@ -13,24 +13,21 @@ export default function Standards({ c }: { c: FoodBeverageContent }) {
               </div>
               <h2 className="font-display text-4xl lg:text-5xl text-white leading-tight mb-6">{c.standardsCopy.title1}<br />{c.standardsCopy.title2}</h2>
               <p className="text-slate-400 text-sm leading-relaxed mb-8">{c.standardsCopy.lead}</p>
-              <div className="space-y-4">
-                {c.standards.map((s) => (
-                  <div key={s.title} className="flex gap-5 p-5 rounded-xl border border-white/6 hover:border-orange-500/20 transition-all">
-                    <div
-                      className="w-14 h-14 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-bold text-white text-center leading-tight"
-                      style={{ background: `color-mix(in srgb, ${ORANGE} 15%, transparent)`, border: `1px solid color-mix(in srgb, ${ORANGE} 19%, transparent)` }}
-                    >
-                      <span style={{ color: ORANGE }} className="text-[10px] font-bold tracking-wide">{s.badge}</span>
-                    </div>
-                    <div>
+              <ol className="svals" style={{ ['--pa' as string]: ORANGE }}>
+                {c.standards.map((s, i) => (
+                  <li key={s.title} className="svals__row svals__row--badge" style={{ ['--i' as string]: i }}>
+                    <span className="svals__badge font-mono">{s.badge}</span>
+                    <div className="svals__body">
                       <h3 className="font-semibold text-white text-sm mb-1">{s.title}</h3>
                       <p className="text-slate-500 text-xs leading-relaxed">{s.desc}</p>
                     </div>
-                  </div>
+                    <span className="svals__arrow" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    </span>
+                  </li>
                 ))}
-              </div>
+              </ol>
             </div>
-
             {/* Quality Lab */}
             <div className="flex flex-col justify-center">
               <div className="p-8 rounded-2xl border border-white/6" style={{ background: 'var(--fill-1)' }}>

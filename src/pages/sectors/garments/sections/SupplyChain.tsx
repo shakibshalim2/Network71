@@ -30,67 +30,36 @@ export default function SupplyChain({
           </p>
         </div>
 
-        {/* Supply chain flow */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch mb-12">
-          {c.columns
-            .flatMap((col, i) => (i === 0 ? [col] : [null, col]))
-            .map((col, i) => {
-            if (col === null) {
-              return (
-                <div key={i} className="flex items-center justify-center">
-                  <svg
-                    className="w-8 h-8 text-slate-300 hidden md:block"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </div>
-              )
-            }
-            return (
-              <div
-                key={col.title}
-                className="p-6 rounded-2xl border border-slate-100 bg-surface-2 hover:border-rose-100 hover:shadow-lg transition-all text-center"
-              >
-                <div className="text-3xl mb-4">{col.icon}</div>
-                <h3 className="font-display text-base text-fg mb-3">
-                  {col.title}
-                </h3>
-                <ul className="space-y-1.5">
-                  {col.items.map((item) => (
-                    <li
-                      key={item}
-                      className="text-xs text-slate-500 flex items-center gap-2 justify-center"
-                    >
-                      <div
-                        className="w-1 h-1 rounded-full flex-shrink-0"
-                        style={{ background: ACCENT }}
-                      />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )
-          })}
-        </div>
+        {/* Supply chain corridor — a particle travels the drawn line between nodes */}
+        <ol className="schain"  style={{ ["--pa" as string]: ACCENT }}>
+          <span className="schain__line" aria-hidden="true"><span className="schain__particle" /></span>
+          {c.columns.map((col, i) => (
+            <li key={col.title} className="schain__node" style={{ ["--i" as string]: i }}>
+              <span className="schain__idx font-mono">0{i + 1}</span>
+              <span className="schain__icon">{col.icon}</span>
+              <h3 className="font-display text-base text-fg mb-3">{col.title}</h3>
+              <ul className="schain__items">
+                {col.items.map((item) => (
+                  <li key={item}>
+                    <span className="schain__dot" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ol>
 
         {/* Bangladesh context */}
         <div
-          className="p-6 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center gap-5"
+          className="p-6 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center gap-5 schain__note"
           style={{
+            ["--pa" as string]: ACCENT,
             background: `color-mix(in srgb, ${ACCENT} 2%, transparent)`,
             border: `1px solid color-mix(in srgb, ${ACCENT} 8%, transparent)`,
           }}
         >
-          <div className="text-4xl">🇧🇩</div>
+          <div className="text-4xl schain__flag">🇧🇩</div>
           <div className="flex-1">
             <h4 className="font-semibold text-fg text-sm mb-1">
               {c.bangladeshTitle}

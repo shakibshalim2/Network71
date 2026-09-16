@@ -21,15 +21,16 @@ export default function Finance({ c }: { c: TradingContent }) {
             <p className="text-slate-400 text-sm max-w-lg mx-auto">{c.copy.financeLead}</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {c.financeItems.map((f) => (
+            {c.financeItems.map((f, i) => (
               <div
                 key={f.title}
-                className="p-7 rounded-2xl border hover:border-blue-500/40 transition-all"
-                style={{ borderColor: `color-mix(in srgb, ${BLUE} 13%, transparent)`, background: 'var(--fill-2)' }}
+                className="p-7 rounded-2xl sfin"
+                style={{ ['--pa' as string]: BLUE, ['--i' as string]: i }}
               >
-                <div className="h-0.5 w-8 mb-4 rounded-full" style={{ background: BLUE, color: 'var(--s0)' }} />
-                <h3 className="font-display text-lg text-white mb-3">{f.title}</h3>
+                <span className="sfin__ghost font-display" aria-hidden="true">0{i + 1}</span>
+                <h3 className="font-display text-lg text-white mb-3 mt-4">{f.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">{f.desc}</p>
+                <span className="sfin__corner" aria-hidden="true" />
               </div>
             ))}
           </div>

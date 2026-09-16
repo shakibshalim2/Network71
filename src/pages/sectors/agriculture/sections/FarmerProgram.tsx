@@ -1,5 +1,6 @@
 import { GREEN } from "../theme"
 import type { AgricultureContent } from "../content/en"
+import Magnetic from "@/components/motion/Magnetic"
 
 export default function FarmerProgram({
   c,
@@ -30,26 +31,18 @@ export default function FarmerProgram({
             <p className="text-slate-500 text-sm leading-relaxed mb-8">
               {c.description}
             </p>
-            <a
-              href="#sector-contact"
-              className="inline-flex items-center gap-2 px-7 py-3.5 font-bold text-sm text-fg rounded-lg transition-all hover:opacity-90"
-              style={{ background: GREEN, color: "var(--s0)" }}
-            >
-              {c.cta}
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2.5"
+            <Magnetic strength={10}>
+              <a
+                href="#sector-contact"
+                className="btn btn-primary shero__cta"
+                style={{ background: GREEN, color: "var(--s0)", ["--pa" as string]: GREEN }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
+                {c.cta}
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+            </Magnetic>
           </div>
 
           {/* Right — benefit cards */}
@@ -59,7 +52,7 @@ export default function FarmerProgram({
                 key={b.title}
                 className="p-6 rounded-xl border border-slate-100 bg-surface-1 hover:border-green-200 transition-colors"
               >
-                <div className="text-2xl mb-3">{b.icon}</div>
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-3" style={{ background: `color-mix(in srgb, ${GREEN} 8%, transparent)`, border: `1px solid color-mix(in srgb, ${GREEN} 16%, transparent)` }}>{b.icon}</div>
                 <h3 className="font-semibold text-fg text-sm mb-2">
                   {b.title}
                 </h3>

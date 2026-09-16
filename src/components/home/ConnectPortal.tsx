@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useReducedMotion } from "motion/react"
 import { useT, type TKey } from "@/i18n"
 import { useCompanySettings } from "@/lib/companySettings"
 import AuroraCanvas from "@/components/AuroraCanvas"
+import Magnetic from "@/components/motion/Magnetic"
 import { EASE_OUT, springSoft } from "@/lib/motion"
 
 const PATHS = [
@@ -82,6 +83,10 @@ export default function ConnectPortal() {
               className={`portal__tab${i === idx ? " is-active" : ""}`}
               style={{ ["--tab-accent" as string]: p.accent }}
               onClick={() => setIdx(i)}
+              onKeyDown={(e) => {
+                if (e.key === "ArrowRight") setIdx((idx + 1) % PATHS.length)
+                if (e.key === "ArrowLeft") setIdx((idx - 1 + PATHS.length) % PATHS.length)
+              }}
             >
               <span className="portal__tab-idx">0{i + 1}</span>
               <span className="portal__tab-label">
@@ -113,25 +118,27 @@ export default function ConnectPortal() {
               <p className="portal__desc">
                 {t(`cta.${active.key}.desc` as TKey)}
               </p>
-              <Link
-                to={t(active.hrefKey)}
-                className="btn btn-primary portal__cta"
-                style={{ background: active.accent }}
-              >
-                {t(`cta.${active.key}.cta` as TKey)}
-                <svg
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2"
+              <Magnetic strength={12}>
+                <Link
+                  to={t(active.hrefKey)}
+                  className="btn btn-primary portal__cta"
+                  style={{ background: active.accent }}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </Link>
+                  {t(`cta.${active.key}.cta` as TKey)}
+                  <svg
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </Link>
+              </Magnetic>
             </motion.div>
           </AnimatePresence>
 
@@ -140,8 +147,10 @@ export default function ConnectPortal() {
             <a
               href={`mailto:${generalEmail}`}
               className="portal__email wrap-anywhere"
+              style={{ ["--tab-accent" as string]: active.accent }}
             >
-              {generalEmail}
+              <span className="portal__email-text">{generalEmail}</span>
+              <span className="portal__email-line" aria-hidden="true" />
             </a>
           </div>
         </div>

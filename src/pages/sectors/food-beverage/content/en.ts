@@ -55,6 +55,7 @@ const en = {
     pillarsTitle: 'Brand Pillars',
   },
   products: {
+    linesLabel: 'product lines',
     eyebrow: 'Product Portfolio',
     title: 'What We Manufacture',
     lead: 'A comprehensive food and beverage range designed for multiple consumer segments, retail channels, and export markets.',

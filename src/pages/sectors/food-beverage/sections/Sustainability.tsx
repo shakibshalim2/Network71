@@ -1,6 +1,7 @@
 import type { FoodBeverageContent } from '../content/en'
 import { ORANGE } from '../theme'
 import { icons } from '../icons'
+import CountUp from '@/components/motion/CountUp'
 
 export default function Sustainability({ c }: { c: FoodBeverageContent }) {
   return (
@@ -27,7 +28,7 @@ export default function Sustainability({ c }: { c: FoodBeverageContent }) {
                 <h3 className="font-display text-xl text-fg mb-3">{s.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed mb-6">{s.desc}</p>
                 <div className="p-4 rounded-xl" style={{ background: `color-mix(in srgb, ${ORANGE} 3%, transparent)`, border: `1px solid color-mix(in srgb, ${ORANGE} 8%, transparent)` }}>
-                  <div className="font-display text-xl mb-0.5" style={{ color: ORANGE }}>{s.stat}</div>
+                  <div className="font-display text-xl mb-0.5" style={{ color: ORANGE }}><CountUp value={s.stat} /></div>
                   <div className="text-xs text-slate-400">{s.statLabel}</div>
                 </div>
               </div>
