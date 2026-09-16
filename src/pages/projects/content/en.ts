@@ -25,6 +25,17 @@ const en = {
     emptyText: 'Public case studies will appear here as they are approved for sharing. For now, speak with our team about experience relevant to your requirements.',
     clearSearch: 'Clear search',
     talkCta: 'Talk about your requirements ↗',
+    facts: [
+      { v: '10', l: 'Operating divisions' },
+      { v: '15+', l: 'Countries served' },
+      { v: '1971', l: 'Founding spirit' },
+    ],
+    filterLabel: 'Browse by division',
+    filterAll: 'All work',
+    filterClear: 'Clear filter',
+    introEyebrow: 'Start with a conversation',
+    introTitle: 'Public case studies appear as partners approve them.',
+    introBody: 'Until then, tell us what you want to build, source or deliver and we will share relevant experience directly.',
   },
   detail: {
     loading: 'Loading project…',

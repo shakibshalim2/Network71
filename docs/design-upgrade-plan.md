@@ -615,3 +615,12 @@ instant under reduced motion).
 | 7 | Journey | rework | ghost years, drawn year rules, cards slide in from their own side, nodes pop in sequence, hover lifts + glows node |
 | 8 | Partner perspectives | rework | quote mark draws, left accent hairline grows, lift |
 | 9 | CTA band | keep | drawn rule already signature |
+
+## Phase 9b — Our Work / Projects (every section + feature gaps)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | kinetic type kept; **added** a three-fact ledger (numbered, drawn gold rules, CountUp) so the hero is not copy-only |
+| 2 | Explore | rework | **added** division filter chips (colour dot per division, URL-backed `?division=`, works with search); toolbar count kept |
+| 3 | Results / empty | rework | bare error card → the Home "start with a conversation" tilt plate (brief → scope → people), with **Try again** when the API is unreachable and a filter-aware empty state |
+| 4 | Working together | keep | already signature |
