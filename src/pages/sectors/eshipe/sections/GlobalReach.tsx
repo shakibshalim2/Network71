@@ -1,5 +1,6 @@
 import type { EShipeContent } from "../content/en"
 import { BG_ALT, OCEAN } from "../theme"
+import ScrollWords from "@/components/motion/ScrollWords"
 
 export default function GlobalReach({ c }: { c: EShipeContent["reach"] }) {
   return (
@@ -19,31 +20,20 @@ export default function GlobalReach({ c }: { c: EShipeContent["reach"] }) {
             <h2 className="font-display text-4xl lg:text-5xl text-white mb-6 leading-tight">
               {c.title}
             </h2>
-            <p className="text-slate-300 text-sm leading-relaxed mb-6">
-              {c.description}
-            </p>
+            <ScrollWords className="text-slate-300 text-sm leading-relaxed mb-6" text={c.description} />
             <p className="text-slate-500 text-sm leading-relaxed">{c.note}</p>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            {c.regions.map((region) => (
+            {c.regions.map((region, i) => (
               <article
                 key={region.region}
-                className="p-5 rounded-xl"
-                style={{
-                  background: "var(--fill-1)",
-                  border: "var(--border-subtle)",
-                }}
+                className="p-5 rounded-xl es-region"
+                style={{ ["--pa" as string]: region.color, ["--i" as string]: i, background: "var(--fill-1)", border: "var(--border-subtle)" }}
               >
-                <div
-                  className="w-2 h-2 rounded-full mb-3"
-                  style={{ background: region.color }}
-                />
-                <h3 className="text-white font-semibold text-sm mb-1.5">
-                  {region.region}
-                </h3>
-                <p className="text-slate-500 text-xs leading-relaxed">
-                  {region.detail}
-                </p>
+                <span className="es-region__ping" aria-hidden="true"><i /><i /></span>
+                <h3 className="text-white font-semibold text-sm mb-1.5 mt-4">{region.region}</h3>
+                <p className="text-slate-500 text-xs leading-relaxed">{region.detail}</p>
+                <span className="es-region__idx font-mono">0{i + 1}</span>
               </article>
             ))}
           </div>

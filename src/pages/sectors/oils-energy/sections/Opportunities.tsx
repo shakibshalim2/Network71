@@ -37,7 +37,7 @@ export default function Opportunities({ c }: { c: OilsEnergyContent }) {
                 <p className="text-slate-500 text-sm leading-relaxed mb-6">{opp.desc}</p>
                 <a
                   href="#sector-contact"
-                  className="inline-flex items-center gap-2 text-sm font-semibold group-hover:gap-3 transition-all"
+                  className="scard-link"
                   style={{ color: opp.accent }}
                 >
                   {opp.cta}

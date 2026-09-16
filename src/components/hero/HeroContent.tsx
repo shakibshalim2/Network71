@@ -1,14 +1,20 @@
 import { Link } from 'react-router-dom'
-import { motion } from 'motion/react'
+import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react'
 import { useT } from '@/i18n'
 import { EASE_OUT } from '@/lib/motion'
 import KineticText from '@/components/motion/KineticText'
+import Magnetic from '@/components/motion/Magnetic'
 
 const rise = { hidden: { opacity: 0, y: 26 }, show: { opacity: 1, y: 0, transition: { duration: 0.85, ease: EASE_OUT } } }
 
 /** Main text content: eyebrow, H1, lead, CTAs, interaction hints, scroll indicator. */
 export default function HeroContent() {
   const { t } = useT()
+  const reduce = useReducedMotion()
+  // Copy drifts up and fades as the fold scrolls away (depth against the globe).
+  const { scrollY } = useScroll()
+  const y = useTransform(scrollY, [0, 700], [0, reduce ? 0 : -90])
+  const opacity = useTransform(scrollY, [0, 520], [1, reduce ? 1 : 0])
   return (
     <div className="hero-content" style={{ flex: 1, display: 'flex', alignItems: 'center', position: 'relative', zIndex: 10 }}>
       <div
@@ -18,7 +24,7 @@ export default function HeroContent() {
           paddingBottom: 'clamp(36px, 7vw, 52px)',
         }}>
         <motion.div
-          style={{ maxWidth: 560 }}
+          style={{ maxWidth: 560, y, opacity }}
           initial="hidden" animate="show"
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.11, delayChildren: 0.15 } } }}>
 
@@ -71,15 +77,19 @@ export default function HeroContent() {
             variants={rise}
             className="flex flex-col min-[400px]:flex-row min-[400px]:flex-wrap"
             style={{ gap: 12, marginBottom: 'clamp(26px, 6vw, 40px)' }}>
-            <Link to="/projects" className="btn btn-primary btn-stack">
-              {t('hero.ctaWork')}
-              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-            <Link to="/contact" className="btn btn-secondary btn-stack">
-              {t('hero.ctaContact')}
-            </Link>
+            <Magnetic strength={10} className="btn-stack">
+              <Link to="/projects" className="btn btn-primary btn-stack">
+                {t('hero.ctaWork')}
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </Magnetic>
+            <Magnetic strength={8} className="btn-stack">
+              <Link to="/contact" className="btn btn-secondary btn-stack">
+                {t('hero.ctaContact')}
+              </Link>
+            </Magnetic>
           </motion.div>
 
           {/* Interaction hints — desktop only */}

@@ -17,19 +17,43 @@ import {
   type MediaItem,
   type Inquiry,
 } from "./shared"
-export function Dashboard() {
+export function Dashboard({ user }: { user: User }) {
   const { data, error, loading, reload } =
     useResource<DashboardData>("admin/dashboard")
+  const [busy, setBusy] = useState(false)
+  const [notice, setNotice] = useState("")
+  async function retryOutbox() {
+    if (!window.confirm("Re-queue all failed notification emails for delivery?")) return
+    setBusy(true)
+    setNotice("")
+    try {
+      const result = await api<{ requeued: number }>("admin/outbox/retry", { method: "POST" })
+      setNotice(`${result.requeued} email${result.requeued === 1 ? "" : "s"} re-queued. The outbox worker will retry on its next run.`)
+      reload()
+    } catch (caught) {
+      setNotice((caught as Error).message)
+    } finally {
+      setBusy(false)
+    }
+  }
   if (loading) return <Loading />
   if (!data || error) return <ResourceError error={error} retry={reload} />
   return (
     <>
-      <p className="adm-notice">
-        Email notifications: {data.smtp_enabled ? "enabled" : "not configured"}{" "}
-        · {data.mail_pending} pending · {data.mail_failed} failed. Enquiries are
-        stored in Inbox. Failed delivery needs a configuration check by your
-        server administrator.
+      <p className="adm-notice adm-notice--row">
+        <span>
+          Email notifications: {data.smtp_enabled ? "enabled" : "not configured"}{" "}
+          · {data.mail_pending} pending · {data.mail_failed} failed. Enquiries are
+          stored in Inbox. Failed delivery needs a configuration check by your
+          server administrator.
+        </span>
+        {user.role === "owner" && data.mail_failed > 0 && (
+          <button type="button" className="adm-button secondary" disabled={busy} onClick={retryOutbox}>
+            {busy ? "Re-queuing…" : `Retry ${data.mail_failed} failed`}
+          </button>
+        )}
       </p>
+      {notice && <div className="adm-success" role="status">{notice}</div>}
       <section className="adm-welcome">
         <div>
           <span className="adm-eyebrow">YOUR WEBSITE, IN ONE PLACE</span>

@@ -20,24 +20,19 @@ export default function WhyEShipe({ c }: { c: EShipeContent["why"] }) {
           </p>
         </header>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {c.items.map((item) => (
+          {c.items.map((item, i) => (
             <article
               key={item.title}
-              className="p-6 rounded-xl"
-              style={{
-                background: "var(--fill-1)",
-                border: "var(--border-subtle)",
-              }}
+              className="p-6 rounded-xl es-why"
+              style={{ ["--pa" as string]: item.color, ["--i" as string]: i, background: "var(--fill-1)", border: "var(--border-subtle)" }}
             >
-              <div className="text-xl mb-4" style={{ color: item.color }}>
-                {item.icon}
+              <div className="flex items-center justify-between mb-4">
+                <span className="es-why__icon">{item.icon}</span>
+                <span className="es-cat__idx font-mono">0{i + 1}</span>
               </div>
-              <h3 className="text-white font-semibold text-sm mb-2">
-                {item.title}
-              </h3>
-              <p className="text-slate-400 text-xs leading-relaxed">
-                {item.desc}
-              </p>
+              <h3 className="text-white font-semibold text-sm mb-2">{item.title}</h3>
+              <p className="text-slate-400 text-xs leading-relaxed">{item.desc}</p>
+              <span className="es-svc__rule" aria-hidden="true" />
             </article>
           ))}
         </div>

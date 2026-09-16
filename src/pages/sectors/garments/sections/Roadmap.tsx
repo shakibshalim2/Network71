@@ -1,5 +1,6 @@
 import { ACCENT } from "../theme"
 import type { GarmentsContent } from "../content/en"
+import ProcessLine from "@/components/motion/ProcessLine"
 
 export default function Roadmap({
   c,
@@ -34,51 +35,22 @@ export default function Roadmap({
           </p>
         </div>
 
-        {/* Timeline */}
-        <div className="relative">
-          {/* Connecting line */}
-          <div className="hidden lg:block absolute top-8 left-[calc(1/6*100%)] right-[calc(1/6*100%)] h-px bg-slate-100" />
-          <div
-            className="hidden lg:block absolute top-8 left-[calc(1/6*100%)] w-[calc(4/6*100%)] h-px"
-            style={{
-              background: `linear-gradient(90deg, color-mix(in srgb, ${ACCENT} 38%, transparent), color-mix(in srgb, ${ACCENT} 38%, transparent))`,
-            }}
-          />
-
-          <div className="grid lg:grid-cols-3 gap-8">
+        {/* Timeline — line draws with scroll, nodes light as it passes */}
+        <ProcessLine steps={c.items.length} accent={ACCENT} className="sroad">
+          <ol className="sroad__list">
             {c.items.map((item, i) => (
-              <div key={item.year} className="relative">
-                {/* Node */}
-                <div className="flex items-center gap-4 mb-6">
-                  <div
-                    className="w-16 h-16 rounded-full flex items-center justify-center font-display text-xl font-bold relative z-10 flex-shrink-0"
-                    style={{
-                      background: ACCENT,
-                      color: "var(--s0)",
-                      boxShadow: `0 0 0 4px color-mix(in srgb, ${ACCENT} 13%, transparent)`,
-                    }}
-                  >
-                    {item.year.slice(2)}
-                  </div>
-                  <div>
-                    <div className="text-slate-400 text-[10px] tracking-widest uppercase">
-                      {item.year}
-                    </div>
-                    <h3 className="font-display text-lg text-fg">
-                      {item.title}
-                    </h3>
-                  </div>
+              <li key={item.year} className="sroad__item" style={{ ["--i" as string]: i }}>
+                <div className="sroad__node font-display" style={{ ["--pa" as string]: ACCENT }}>
+                  {item.year.slice(2)}
                 </div>
-                <p className="text-slate-500 text-sm leading-relaxed pl-0">
-                  {item.desc}
-                </p>
-                {i < c.items.length - 1 && (
-                  <div className="lg:hidden h-px bg-slate-100 my-8" />
-                )}
-              </div>
+                <div className="sroad__year font-mono">{item.year}</div>
+                <h3 className="font-display text-lg text-fg sroad__title">{item.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed sroad__desc">{item.desc}</p>
+                <span className="sroad__ghost font-display" aria-hidden="true">{item.year.slice(2)}</span>
+              </li>
             ))}
-          </div>
-        </div>
+          </ol>
+        </ProcessLine>
       </div>
     </section>
   )

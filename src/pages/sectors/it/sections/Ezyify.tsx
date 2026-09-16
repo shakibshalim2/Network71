@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom"
+import CountUp from "@/components/motion/CountUp"
+import Magnetic from "@/components/motion/Magnetic"
 import type { ITContent } from "../content/en"
 import { ACCENT, PURPLE, BG_DEEP, BG_ALT } from "../theme"
 
@@ -95,7 +97,7 @@ export default function Ezyify({ c }: { c: ITContent }) {
                   backgroundClip: "text",
                 }}
               >
-                {s.v}
+                <CountUp value={s.v} />
               </div>
               <div className="text-white text-xs font-semibold">{s.l}</div>
               <div className="text-slate-600 text-[11px]">{s.sub}</div>
@@ -108,7 +110,7 @@ export default function Ezyify({ c }: { c: ITContent }) {
           {c.ezyifyFeatures.map((f) => (
             <div
               key={f.label}
-              className="p-5 rounded-xl"
+              className="p-5 rounded-xl it-feat"
               style={{
                 background: "rgba(168,85,247,0.06)",
                 border: "1px solid rgba(168,85,247,0.18)",
@@ -127,13 +129,10 @@ export default function Ezyify({ c }: { c: ITContent }) {
 
         {/* CTAs */}
         <div className="flex flex-wrap justify-center gap-4">
+          <Magnetic strength={10}>
           <Link
             to="/ezyify"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-sm text-white transition-all hover:opacity-90"
-            style={{
-              background: "linear-gradient(135deg, #7c3aed, #ec4899)",
-              boxShadow: "0 0 40px rgba(124,58,237,0.35)",
-            }}
+            className="btn text-white ezy-cta"
           >
             {c.copy.Ezyify.ctaSecondary}
             <svg
@@ -150,15 +149,14 @@ export default function Ezyify({ c }: { c: ITContent }) {
               />
             </svg>
           </Link>
+          </Magnetic>
+          <Magnetic strength={8}>
           <a
             href={c.copy.Ezyify.websiteUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-sm transition-all hover:bg-white/5"
-            style={{
-              border: "1px solid rgba(168,85,247,0.4)",
-              color: "#d8b4fe",
-            }}
+            className="btn btn-secondary"
+            style={{ borderColor: "rgba(168,85,247,0.4)", color: "#d8b4fe" }}
           >
             {c.copy.Ezyify.detailPrimary}
             <svg
@@ -175,6 +173,7 @@ export default function Ezyify({ c }: { c: ITContent }) {
               />
             </svg>
           </a>
+          </Magnetic>
         </div>
       </div>
     </section>

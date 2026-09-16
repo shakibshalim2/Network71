@@ -30,7 +30,7 @@ export function IconChevron({ down, size = 10 }: { down?: boolean; size?: number
 
 export function DivisionIcon({ path, color }: { path: string; color: string }) {
   return (
-    <span style={{
+    <span className="div-icon" style={{
       width: 34, height: 34, borderRadius: 8, flexShrink: 0,
       background: `color-mix(in srgb, ${color} 8%, transparent)`, border: `1px solid color-mix(in srgb, ${color} 16%, transparent)`,
       display: 'flex', alignItems: 'center', justifyContent: 'center',

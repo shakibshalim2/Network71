@@ -1,6 +1,8 @@
 import type { PointerEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { useT } from '@/i18n'
+import Magnetic from '@/components/motion/Magnetic'
+import Tilt from '@/components/motion/Tilt'
 
 const spot = (e: PointerEvent<HTMLDivElement>) => {
   const el = e.currentTarget
@@ -18,18 +20,26 @@ export default function LeadershipTeaser() {
       <div className="container-page">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
 
-          <div className="founder-card" onPointerMove={spot}><span className="founder-card__spot" aria-hidden="true" /><span className="public-eyebrow">{t('home.leadership.cardEyebrow')}</span><div className="founder-monogram" aria-hidden="true"><svg viewBox="0 0 100 100" className="founder-monogram__ring"><circle cx="50" cy="50" r="48.5" pathLength="1" /></svg><span>N71</span></div><h3>{t('home.leadership.founder')}</h3><p>{t('home.leadership.role')}</p><Link to="/leadership">{t('home.leadership.cardLink')}</Link></div>
+          <Tilt max={3} perspective={1600}>
+            <div className="founder-card" onPointerMove={spot}>
+              <span className="founder-card__spot" aria-hidden="true" />
+              <span className="public-eyebrow">{t('home.leadership.cardEyebrow')}</span>
+              <div className="founder-monogram" aria-hidden="true">
+                <svg viewBox="0 0 100 100" className="founder-monogram__ring"><circle cx="50" cy="50" r="48.5" pathLength="1" /></svg>
+                <span>N71</span>
+              </div>
+              <h3>{t('home.leadership.founder')}</h3>
+              <p>{t('home.leadership.role')}</p>
+              <Link to="/leadership">{t('home.leadership.cardLink')}</Link>
+            </div>
+          </Tilt>
 
           {/* Text */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 'clamp(14px, 3vw, 22px)' }}>
-              <div style={{ height: 1, width: 32, background: 'var(--brand-edge)', flexShrink: 0 }} />
-              <span
-                className="text-[8px] tracking-[0.22em] sm:text-[9px] sm:tracking-[0.35em]"
-                style={{ fontFamily: 'var(--font-mono)', textTransform: 'uppercase', color: 'var(--brand-fg)' }}>
-                {t('home.leadership.eyebrow')}
-              </span>
-            </div>
+            <p className="public-eyebrow" style={{ marginBottom: 'clamp(14px, 3vw, 22px)' }}>
+              <span className="eyebrow-rule" />
+              {t('home.leadership.eyebrow')}
+            </p>
             <h2 className="font-display" style={{ fontSize: 'clamp(25px, 5.6vw, 44px)', color: 'var(--fg-strong)', lineHeight: 1.14, letterSpacing: '-0.025em', marginBottom: 16 }}>
               {t('home.leadership.title1')}
               <br />
@@ -43,39 +53,23 @@ export default function LeadershipTeaser() {
             </p>
 
             {/* Attribute badges */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, marginBottom: 24 }}>
-              {TAGS.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-[9.5px] px-2.5 py-1 sm:text-[11px] sm:px-3 sm:py-[5px]"
-                  style={{
-                    display: 'inline-block',
-                    borderRadius: 20, fontWeight: 500,
-                    background: 'var(--brand-wash)', border: '1px solid var(--brand-edge)',
-                    color: 'var(--brand-fg)', fontFamily: 'var(--font-mono)',
-                    letterSpacing: '0.06em', textTransform: 'uppercase',
-                  }}>
+            <div className="lead__tags">
+              {TAGS.map((tag, i) => (
+                <span key={tag} className="lead__tag font-mono text-[11px]" style={{ ['--i' as string]: i }}>
+                  <span className="lead__tag-idx">0{i + 1}</span>
                   {t(tag)}
                 </span>
               ))}
             </div>
 
-            <Link
-              to="/leadership"
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: 8,
-                padding: '12px 26px', fontSize: 13, fontWeight: 600, borderRadius: 8,
-                border: '1px solid var(--brand-edge)', color: 'var(--brand-fg)',
-                textDecoration: 'none', transition: 'all 0.18s',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'var(--brand-wash)'; e.currentTarget.style.borderColor = 'var(--brand-edge)' }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'var(--brand-edge)' }}
-            >
-              {t('home.leadership.cta')}
-              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" style={{ width: 14, height: 14 }}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
+            <Magnetic strength={8}>
+              <Link to="/leadership" className="btn btn-secondary btn-sm">
+                {t('home.leadership.cta')}
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </Magnetic>
           </div>
 
         </div>

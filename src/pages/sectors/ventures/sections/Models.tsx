@@ -21,28 +21,21 @@ export default function Models({ c }: { c: VenturesContent['models'] }) {
           <p className="text-slate-400 max-w-xl mx-auto text-sm leading-relaxed">{c.lead}</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {c.items.map((m) => (
+          {c.items.map((m, i) => (
             <div
               key={m.id}
-              className="group p-7 rounded-2xl cursor-default transition-all duration-300"
-              style={{ background: 'var(--fill-1)', border: 'var(--border-subtle)' }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = `0 0 24px color-mix(in srgb, ${m.color} 14%, transparent)`
-                e.currentTarget.style.borderColor = `color-mix(in srgb, ${m.color} 28%, transparent)`
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = 'none'
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'
-              }}
+              className="group p-7 rounded-2xl cursor-default sv-model"
+              style={{ ['--pa' as string]: m.color, ['--i' as string]: i, background: 'var(--fill-1)', border: 'var(--border-subtle)' }}
             >
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5" style={{ background: `color-mix(in srgb, ${m.color} 8%, transparent)`, border: `1px solid color-mix(in srgb, ${m.color} 20%, transparent)`, color: m.color }}>
+              <span className="sv-model__ghost font-display" aria-hidden="true">0{i + 1}</span>
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 sv-model__icon" style={{ background: `color-mix(in srgb, ${m.color} 8%, transparent)`, border: `1px solid color-mix(in srgb, ${m.color} 20%, transparent)`, color: m.color }}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-                  <path d={ICONS[m.id]} />
+                  <path d={ICONS[m.id]} pathLength="1" />
                 </svg>
               </div>
               <h3 className="font-semibold text-white text-sm mb-3">{m.title}</h3>
               <p className="text-slate-400 text-xs leading-relaxed">{m.desc}</p>
-              <div className="mt-5 h-px w-8 transition-all duration-300 group-hover:w-16" style={{ background: m.color }} />
+              <span className="sv-model__rule" aria-hidden="true" />
             </div>
           ))}
         </div>

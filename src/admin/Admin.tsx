@@ -9,7 +9,9 @@ import {
 import { Link, NavLink, useBlocker, useParams } from "react-router-dom"
 import { api, setCsrf, type Modules, type User } from "./api"
 import {
+  Account,
   Applications,
+  AuditLog,
   ContentEditor,
   Dashboard,
   Inbox,
@@ -82,6 +84,18 @@ export function Icon({ name, size = 20 }: { name: string; size?: number }) {
         <path d="M14 3v4h4" />
         <circle cx="12" cy="12.5" r="2" />
         <path d="M8.5 19a3.5 3.5 0 0 1 7 0" />
+      </>
+    ),
+    audit: (
+      <>
+        <path d="M4 5h16v14H4Z" />
+        <path d="M8 10h8M8 14h5" />
+      </>
+    ),
+    account: (
+      <>
+        <circle cx="12" cy="8" r="3.5" />
+        <path d="M5 20a7 7 0 0 1 14 0" />
       </>
     ),
     arrow: <path d="M5 12h14m-5-5 5 5-5 5" />,
@@ -356,6 +370,8 @@ export default function Admin() {
       applications: "Job applications",
       media: "Media library",
       users: "Team access",
+      audit: "Activity log",
+      account: "Your account",
       pages: "Website pages",
       more: "Workspace tools",
     } as Record<string, string>)[section] ||
@@ -373,6 +389,8 @@ export default function Admin() {
       "metrics",
       "media",
       "users",
+      "audit",
+      "account",
     ]
     const parentActive =
       mobile &&
@@ -435,6 +453,8 @@ export default function Admin() {
                 )}
               {nav("media", "Media library", "media")}
               {user.role === "owner" && nav("users", "Team access", "users")}
+              {user.role === "owner" && nav("audit", "Activity log", "audit")}
+              {nav("account", "Your account", "account")}
             </nav>
             <div className="adm-sidebar-foot">
               <div className="adm-avatar">{user.name.slice(0, 1)}</div>
@@ -484,7 +504,7 @@ export default function Admin() {
               {section === "pages" ? (
                 <PageEditor user={user} onDirty={setDirty} />
               ) : section === "" ? (
-                <Dashboard />
+                <Dashboard user={user} />
               ) : section === "content" || section === "more" ? (
                 <>
                   <p className="adm-intro">
@@ -544,6 +564,28 @@ export default function Admin() {
                             <Icon name="arrow" />
                           </span>
                         </Link>
+                        <Link className="adm-module-card" to="/admin/account">
+                          <span className="adm-module-icon">
+                            <Icon name="account" />
+                          </span>
+                          <h3>Your account</h3>
+                          <p>Change your own password.</p>
+                          <span className="adm-card-arrow">
+                            <Icon name="arrow" />
+                          </span>
+                        </Link>
+                        {user.role === "owner" && (
+                          <Link className="adm-module-card" to="/admin/audit">
+                            <span className="adm-module-icon">
+                              <Icon name="audit" />
+                            </span>
+                            <h3>Activity log</h3>
+                            <p>Who changed what, and when.</p>
+                            <span className="adm-card-arrow">
+                              <Icon name="arrow" />
+                            </span>
+                          </Link>
+                        )}
                         {user.role === "owner" && (
                           <Link className="adm-module-card" to="/admin/users">
                             <span className="adm-module-icon">
@@ -573,11 +615,15 @@ export default function Admin() {
               ) : section === "media" ? (
                 <MediaLibrary user={user} />
               ) : section === "inquiries" ? (
-                <Inbox />
+                <Inbox user={user} />
               ) : section === "applications" ? (
-                <Applications />
+                <Applications user={user} />
               ) : section === "users" ? (
                 <Users user={user} />
+              ) : section === "audit" ? (
+                user.role === "owner" ? <AuditLog /> : <Empty title="Owner access required">Only website owners can view the activity log.</Empty>
+              ) : section === "account" ? (
+                <Account user={user} />
               ) : modules[section] ? (
                 <ContentEditor
                   key={section}

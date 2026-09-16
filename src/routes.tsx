@@ -13,6 +13,7 @@ import { usePageAccent } from "@/lib/usePageAccent"
 import { useT } from "@/i18n"
 import { useSectionReveal } from "@/lib/useSectionReveal"
 import { useKineticHeadlines } from "@/lib/useKineticHeadlines"
+import { useSmoothScroll } from "@/lib/useSmoothScroll"
 
 const Home = lazy(() => import("@/pages/Home"))
 const About = lazy(() => import("@/pages/About"))
@@ -63,6 +64,7 @@ function Root() {
   useSectionReveal()
   useKineticHeadlines()
   usePageAccent()
+  useSmoothScroll(!pathname.startsWith("/admin"))
   return (
     <>
       <a className="skip-link" href="#main-content">

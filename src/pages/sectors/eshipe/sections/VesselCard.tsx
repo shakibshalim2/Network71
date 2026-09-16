@@ -12,8 +12,9 @@ export default function VesselCard({ vessel, c, onOpen }: VesselCardProps) {
   const specs = [vessel.flag, vessel.dwt, vessel.year]
   return (
     <div
-      className="rounded-2xl flex flex-col overflow-hidden transition-all duration-300"
+      className="rounded-2xl flex flex-col overflow-hidden es-vessel"
       style={{
+        ["--pa" as string]: vessel.color,
         background: "var(--fill-1)",
         border: "1px solid rgba(255,255,255,0.07)",
       }}
@@ -29,7 +30,7 @@ export default function VesselCard({ vessel, c, onOpen }: VesselCardProps) {
           decoding="async"
           width="800"
           height="400"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover es-vessel__img"
           style={{ opacity: 0.85 }}
         />
         <div
@@ -84,7 +85,7 @@ export default function VesselCard({ vessel, c, onOpen }: VesselCardProps) {
         <button
           type="button"
           onClick={onOpen}
-          className="block text-center py-2 rounded-lg text-xs font-semibold"
+          className="block text-center py-2 rounded-lg text-xs font-semibold es-vessel__btn"
           style={{
             background: `color-mix(in srgb, ${vessel.color} 8%, transparent)`,
             color: vessel.color,

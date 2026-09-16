@@ -76,6 +76,24 @@ final class Api
         if ($method === 'GET' && $path === '/api/v1/auth/session') Http::json(['user' => $auth->user(false), 'csrf' => $auth->csrf()]);
         if ($method === 'POST' && $path === '/api/v1/auth/login') Http::json($auth->login(Http::body()));
         if ($method === 'POST' && $path === '/api/v1/auth/logout') { $auth->logout(); Http::json(['ok' => true]); }
+        if ($method === 'POST' && $path === '/api/v1/auth/change-password') {
+            $me = $auth->user();
+            $data = Http::body();
+            $current = is_string($data['current_password'] ?? null) ? $data['current_password'] : '';
+            $next = is_string($data['password'] ?? null) ? $data['password'] : '';
+            $this->db->throttle('change-password:' . $me['id'], 10, 900);
+            if (strlen($next) < 12 || strlen($next) > 72) Http::fail(422, 'Use a new password of 12–72 bytes.');
+            if ($next === $current) Http::fail(422, 'Choose a password you have not used just now.');
+            $row = $this->db->query('SELECT password_hash FROM admin_users WHERE id = ?', [$me['id']])->fetch();
+            if (!$row || !password_verify($current, $row['password_hash'])) Http::fail(422, 'Your current password is incorrect.');
+            $hash = password_hash($next, PASSWORD_DEFAULT);
+            $this->db->query('UPDATE admin_users SET password_hash = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$hash, $me['id']]);
+            $this->db->query('UPDATE password_resets SET used_at = UTC_TIMESTAMP() WHERE user_id = ? AND used_at IS NULL', [$me['id']]);
+            // Keep this session valid; every other session for the account is invalidated by the credential version check.
+            $_SESSION['credential_version'] = hash('sha256', $hash);
+            $this->db->audit((int)$me['id'], 'change_password', 'users', (int)$me['id']);
+            Http::json(['ok' => true]);
+        }
         $user = $auth->user();
         if ($method === 'POST' && preg_match('~^/api/v1/admin/users/([0-9]+)/reset-link$~',$path,$match)) {
             $owner=$auth->owner();
@@ -104,6 +122,30 @@ final class Api
             }
         }
         if ($method === 'GET' && $path === '/api/v1/admin/modules') Http::json($this->content->modules);
+        if ($method === 'POST' && $path === '/api/v1/admin/outbox/retry') {
+            $auth->owner();
+            $count = $this->db->query("UPDATE email_outbox SET status='pending', attempts=0, next_attempt_at=UTC_TIMESTAMP(), last_error=NULL WHERE status='failed'")->rowCount();
+            $this->db->audit((int)$user['id'], 'retry_outbox', 'outbox');
+            Http::json(['ok' => true, 'requeued' => $count]);
+        }
+        if ($method === 'GET' && $path === '/api/v1/admin/audit') {
+            $auth->owner();
+            $where = ['1=1']; $params = [];
+            $entity = is_string($_GET['entity'] ?? null) ? $_GET['entity'] : '';
+            if ($entity !== '') { if (!preg_match('/^[a-z_-]{1,60}$/', $entity)) Http::fail(422, 'Invalid entity filter.'); $where[] = 'a.entity = ?'; $params[] = $entity; }
+            $actor = $_GET['actor'] ?? '';
+            if ($actor !== '' && ctype_digit((string)$actor)) { $where[] = 'a.actor_id = ?'; $params[] = (int)$actor; }
+            $q = trim(is_string($_GET['q'] ?? null) ? $_GET['q'] : '');
+            if (strlen($q) > 60) Http::fail(422, 'Search is too long.');
+            if ($q !== '') { $where[] = 'a.action LIKE ?'; $params[] = '%' . str_replace(['%', '_'], ['\\%', '\\_'], $q) . '%'; }
+            $sql = implode(' AND ', $where);
+            $page = max(1, min(100000, (int)($_GET['page'] ?? 1)));
+            $total = (int)$this->db->query("SELECT COUNT(*) FROM audit_logs a WHERE $sql", $params)->fetchColumn();
+            $items = $this->db->query("SELECT a.id, a.action, a.entity, a.entity_id, a.created_at, u.name AS actor_name FROM audit_logs a LEFT JOIN admin_users u ON u.id = a.actor_id WHERE $sql ORDER BY a.id DESC LIMIT 50 OFFSET " . (($page - 1) * 50), $params)->fetchAll();
+            $entities = array_column($this->db->query('SELECT DISTINCT entity FROM audit_logs ORDER BY entity')->fetchAll(), 'entity');
+            $actors = $this->db->query('SELECT id, name FROM admin_users ORDER BY name, id')->fetchAll();
+            Http::json(['items' => $items, 'entities' => $entities, 'actors' => $actors, 'total' => $total, 'page' => $page, 'pages' => max(1, (int)ceil($total / 50))]);
+        }
         if ($method === 'GET' && $path === '/api/v1/admin/dashboard') {
             Http::json([
                 'mail_pending' => (int)$this->db->query("SELECT COUNT(*) FROM email_outbox WHERE status='pending'")->fetchColumn(),
@@ -127,6 +169,14 @@ final class Api
             }
             if (($method === 'POST' && !$id) || ($method === 'PUT' && $id && !isset($match[3]))) Http::json($this->content->save($module, $id, Http::body(), $user), $id ? 200 : 201);
         }
+        if ($method === 'GET' && preg_match('~^/api/v1/admin/content/([a-z-]+)/([0-9]+)/translation$~', $path, $match)) {
+            $this->content->schema($match[1]);
+            $row = $this->db->query('SELECT slug, locale FROM content_records WHERE id = ? AND module = ?', [$match[2], $match[1]])->fetch();
+            if (!$row) Http::fail(404, 'Record not found.');
+            $other = $row['locale'] === 'en' ? 'bn' : 'en';
+            $twin = $this->db->query('SELECT id, slug, locale, status, review_state FROM content_records WHERE module = ? AND slug = ? AND locale = ?', [$match[1], $row['slug'], $other])->fetch();
+            Http::json(['locale' => $other, 'record' => $twin ?: null]);
+        }
         if ($method === 'GET' && preg_match('~^/api/v1/admin/content/([a-z-]+)/([0-9]+)/history$~', $path, $match)) {
             Http::json(['items' => $this->content->history($match[1], (int)$match[2])]);
         }
@@ -136,6 +186,13 @@ final class Api
         if ($method === 'POST' && preg_match('~^/api/v1/admin/content/([a-z-]+)/([0-9]+)/restore$~',$path,$match)) {
             Http::json($this->content->restore($match[1],(int)$match[2],Http::body(),$user));
         }
+        if ($method === 'PATCH' && preg_match('~^/api/v1/admin/media/([0-9]+)$~',$path,$match)) {
+            $alt = Http::string(Http::body(), 'alt', 300, true);
+            if (!$this->db->query('SELECT id FROM media_assets WHERE id = ? AND deleted_at IS NULL', [$match[1]])->fetch()) Http::fail(404, 'Image not found.');
+            $this->db->query('UPDATE media_assets SET alt = ? WHERE id = ?', [$alt, $match[1]]);
+            $this->db->audit((int)$user['id'], 'update_media_alt', 'media', (int)$match[1]);
+            Http::json(['ok' => true]);
+        }
         if ($method === 'DELETE' && preg_match('~^/api/v1/admin/media/([0-9]+)$~',$path,$match)) {
             $this->media->archive((int)$match[1],$auth->owner()); Http::json(['ok'=>true]);
         }
@@ -143,14 +200,24 @@ final class Api
             if ($method === 'POST') Http::json($this->media->upload($user), 201);
             if ($method === 'GET') {
                 $page = max(1, min(100000, (int)($_GET['page'] ?? 1)));
-                $total = (int)$this->db->query('SELECT COUNT(*) FROM media_assets WHERE deleted_at IS NULL')->fetchColumn();
-                Http::json(['items' => $this->db->query('SELECT id, filename, alt, width, height, bytes, created_at FROM media_assets WHERE deleted_at IS NULL ORDER BY id DESC LIMIT 24 OFFSET ' . (($page - 1) * 24))->fetchAll(), 'page' => $page, 'pages' => max(1, (int)ceil($total / 24)), 'total' => $total]);
+                $q = trim(is_string($_GET['q'] ?? null) ? $_GET['q'] : '');
+                if (strlen($q) > 150) Http::fail(422, 'Search is too long.');
+                $where = 'deleted_at IS NULL'; $params = [];
+                if ($q !== '') { $like = '%' . str_replace(['%', '_'], ['\\%', '\\_'], $q) . '%'; $where .= ' AND (alt LIKE ? OR original_name LIKE ? OR filename LIKE ?)'; $params = [$like, $like, $like]; }
+                $total = (int)$this->db->query("SELECT COUNT(*) FROM media_assets WHERE $where", $params)->fetchColumn();
+                Http::json(['items' => $this->db->query("SELECT id, filename, original_name, alt, width, height, bytes, created_at FROM media_assets WHERE $where ORDER BY id DESC LIMIT 24 OFFSET " . (($page - 1) * 24), $params)->fetchAll(), 'page' => $page, 'pages' => max(1, (int)ceil($total / 24)), 'total' => $total]);
             }
         }
-        if ($method === 'GET' && $path === '/api/v1/admin/inquiries') {
+        if ($method === 'GET' && ($path === '/api/v1/admin/inquiries' || $path === '/api/v1/admin/inquiries/export')) {
+            [$where, $params] = $this->inboxFilter('i', ['new', 'in_progress', 'closed'], ['i.name', 'i.email', 'i.company', 'i.subject', 'i.reference']);
+            if ($path === '/api/v1/admin/inquiries/export') {
+                $rows = $this->db->query("SELECT i.reference, i.created_at, i.status, u.name AS assignee, i.name, i.email, i.phone, i.company, i.subject, i.message, i.source FROM inquiries i LEFT JOIN admin_users u ON u.id = i.assigned_to WHERE $where ORDER BY i.id DESC LIMIT 5000", $params)->fetchAll();
+                $this->db->audit((int)$user['id'], 'export_inquiries', 'inquiries');
+                $this->csv('enquiries', ['Reference', 'Received (UTC)', 'Status', 'Assigned to', 'Name', 'Email', 'Phone', 'Company', 'Subject', 'Message', 'Source'], $rows);
+            }
             $page = max(1, min(100000, (int)($_GET['page'] ?? 1)));
-            $total = (int)$this->db->query('SELECT COUNT(*) FROM inquiries')->fetchColumn();
-            $items = $this->db->query('SELECT i.*, u.name AS assignee_name FROM inquiries i LEFT JOIN admin_users u ON u.id = i.assigned_to ORDER BY i.id DESC LIMIT 30 OFFSET ' . (($page - 1) * 30))->fetchAll();
+            $total = (int)$this->db->query("SELECT COUNT(*) FROM inquiries i WHERE $where", $params)->fetchColumn();
+            $items = $this->db->query("SELECT i.*, u.name AS assignee_name FROM inquiries i LEFT JOIN admin_users u ON u.id = i.assigned_to WHERE $where ORDER BY i.id DESC LIMIT 30 OFFSET " . (($page - 1) * 30), $params)->fetchAll();
             $ids = array_map(static fn(array $item): int => (int)$item['id'], $items);
             $notes = [];
             if ($ids) {
@@ -162,7 +229,9 @@ final class Api
             foreach ($items as &$item) $item['notes'] = $notes[(int)$item['id']] ?? [];
             unset($item);
             $assignees = $this->db->query('SELECT id, name FROM admin_users WHERE active = 1 ORDER BY name, id')->fetchAll();
-            Http::json(['items' => $items, 'assignees' => $assignees, 'total' => $total, 'page' => $page, 'pages' => max(1, (int)ceil($total / 30))]);
+            $counts = [];
+            foreach ($this->db->query('SELECT status, COUNT(*) AS n FROM inquiries GROUP BY status')->fetchAll() as $row) $counts[$row['status']] = (int)$row['n'];
+            Http::json(['items' => $items, 'assignees' => $assignees, 'counts' => $counts, 'total' => $total, 'page' => $page, 'pages' => max(1, (int)ceil($total / 30))]);
         }
         if ($method === 'PATCH' && preg_match('~^/api/v1/admin/inquiries/([0-9]+)$~', $path, $match)) {
             $input = Http::body();
@@ -191,7 +260,27 @@ final class Api
             });
             Http::json($created, 201);
         }
-        if ($method === 'GET' && $path === '/api/v1/admin/applications') Http::json($this->applications->listing());
+        if ($method === 'DELETE' && preg_match('~^/api/v1/admin/(inquiries|applications)/([0-9]+)/notes/([0-9]+)$~', $path, $match)) {
+            [$table, $column] = $match[1] === 'inquiries' ? ['inquiry_notes', 'inquiry_id'] : ['application_notes', 'application_id'];
+            $note = $this->db->query("SELECT id, author_id FROM $table WHERE id = ? AND $column = ?", [$match[3], $match[2]])->fetch();
+            if (!$note) Http::fail(404, 'Note not found.');
+            if ((int)$note['author_id'] !== (int)$user['id'] && $user['role'] !== 'owner') Http::fail(403, 'Only the author or an owner can remove a note.');
+            $this->db->query("DELETE FROM $table WHERE id = ?", [$match[3]]);
+            $this->db->audit((int)$user['id'], 'delete_note', $match[1], (int)$match[2]);
+            Http::json(['ok' => true]);
+        }
+        if ($method === 'GET' && ($path === '/api/v1/admin/applications' || $path === '/api/v1/admin/applications/export')) {
+            [$where, $params] = $this->inboxFilter('a', ['new', 'reviewing', 'interview', 'rejected', 'hired', 'withdrawn'], ['a.name', 'a.email', 'a.job_title', 'a.reference']);
+            if ($path === '/api/v1/admin/applications/export') {
+                $rows = $this->db->query("SELECT a.reference, a.created_at, a.status, u.name AS assignee, a.job_title, a.name, a.email, a.phone, a.locale FROM job_applications a LEFT JOIN admin_users u ON u.id = a.assigned_to WHERE $where ORDER BY a.id DESC LIMIT 5000", $params)->fetchAll();
+                $this->db->audit((int)$user['id'], 'export_applications', 'applications');
+                $this->csv('applications', ['Reference', 'Received (UTC)', 'Status', 'Assigned to', 'Vacancy', 'Name', 'Email', 'Phone', 'Language'], $rows);
+            }
+            Http::json($this->applications->listing($where, $params));
+        }
+        if ($method === 'POST' && preg_match('~^/api/v1/admin/applications/([0-9]+)/notes$~', $path, $match)) {
+            $this->applications->addNote((int)$match[1], Http::body(), $user); Http::json(['ok' => true], 201);
+        }
         if ($method === 'PATCH' && preg_match('~^/api/v1/admin/applications/([0-9]+)$~',$path,$match)) {
             $this->applications->update((int)$match[1],Http::body(),$user); Http::json(['ok'=>true]);
         }
@@ -229,18 +318,78 @@ final class Api
             $auth->owner();
             $data = Http::body();
             $id = (int)$match[1];
-            if ($id === (int)$user['id']) Http::fail(422, 'You cannot deactivate your own account.');
-            if (!is_bool($data['active'] ?? null)) Http::fail(422, 'Choose the account access state.');
-            $this->db->transaction(function () use ($id, $data, $user) {
+            $hasActive = array_key_exists('active', $data);
+            $hasRole = array_key_exists('role', $data);
+            $hasName = array_key_exists('name', $data);
+            if (!$hasActive && !$hasRole && !$hasName) Http::fail(422, 'Choose what to change.');
+            if ($hasActive && !is_bool($data['active'])) Http::fail(422, 'Choose the account access state.');
+            if ($hasRole && !in_array($data['role'], ['owner', 'editor'], true)) Http::fail(422, 'Choose a valid role.');
+            $name = $hasName ? Http::string($data, 'name', 120, true) : null;
+            if ($id === (int)$user['id'] && (($hasActive && !$data['active']) || ($hasRole && $data['role'] !== 'owner'))) Http::fail(422, 'You cannot remove your own access.');
+            $this->db->transaction(function () use ($id, $data, $user, $hasActive, $hasRole, $hasName, $name) {
                 $owners = $this->db->query("SELECT id FROM admin_users WHERE role = 'owner' AND active = 1 ORDER BY id FOR UPDATE")->fetchAll();
                 $account = $this->db->query('SELECT id, role, active FROM admin_users WHERE id = ? FOR UPDATE', [$id])->fetch();
                 if (!$account) Http::fail(404, 'Account not found.');
-                if (!$data['active'] && $account['role'] === 'owner' && (int)$account['active'] && count($owners) <= 1) Http::fail(422, 'At least one active owner is required.');
-                $this->db->query('UPDATE admin_users SET active = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$data['active'] ? 1 : 0, $id]);
-                $this->db->audit((int)$user['id'], $data['active'] ? 'activate_user' : 'deactivate_user', 'users', $id);
+                $isLastOwner = $account['role'] === 'owner' && (int)$account['active'] && count($owners) <= 1;
+                if ($hasActive && !$data['active'] && $isLastOwner) Http::fail(422, 'At least one active owner is required.');
+                if ($hasRole && $data['role'] === 'editor' && $isLastOwner) Http::fail(422, 'At least one active owner is required.');
+                if ($hasActive) {
+                    $this->db->query('UPDATE admin_users SET active = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$data['active'] ? 1 : 0, $id]);
+                    $this->db->audit((int)$user['id'], $data['active'] ? 'activate_user' : 'deactivate_user', 'users', $id);
+                }
+                if ($hasRole && $data['role'] !== $account['role']) {
+                    $this->db->query('UPDATE admin_users SET role = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$data['role'], $id]);
+                    $this->db->audit((int)$user['id'], 'change_role_' . $data['role'], 'users', $id);
+                }
+                if ($hasName) {
+                    $this->db->query('UPDATE admin_users SET name = ?, updated_at = UTC_TIMESTAMP() WHERE id = ?', [$name, $id]);
+                    $this->db->audit((int)$user['id'], 'rename_user', 'users', $id);
+                }
             });
             Http::json(['ok' => true]);
         }
         Http::fail(404, 'API endpoint not found.');
+    }
+
+    /** Shared status / assignee / search filter for the two inboxes. Returns [whereSql, params]. */
+    private function inboxFilter(string $alias, array $statuses, array $searchColumns): array
+    {
+        $where = ['1=1'];
+        $params = [];
+        $status = is_string($_GET['status'] ?? null) ? $_GET['status'] : '';
+        if ($status !== '') {
+            if (!in_array($status, $statuses, true)) Http::fail(422, 'Invalid status filter.');
+            $where[] = "$alias.status = ?";
+            $params[] = $status;
+        }
+        $assignee = $_GET['assignee'] ?? '';
+        if ($assignee === 'unassigned') $where[] = "$alias.assigned_to IS NULL";
+        elseif ($assignee !== '' && ctype_digit((string)$assignee)) { $where[] = "$alias.assigned_to = ?"; $params[] = (int)$assignee; }
+        $q = trim(is_string($_GET['q'] ?? null) ? $_GET['q'] : '');
+        if (strlen($q) > 150) Http::fail(422, 'Search is too long.');
+        if ($q !== '') {
+            $like = '%' . str_replace(['%', '_'], ['\%', '\_'], $q) . '%';
+            $where[] = '(' . implode(' OR ', array_map(static fn(string $column): string => "$column LIKE ?", $searchColumns)) . ')';
+            foreach ($searchColumns as $ignored) $params[] = $like;
+        }
+        return [implode(' AND ', $where), $params];
+    }
+
+    private function csv(string $name, array $headers, array $rows): never
+    {
+        http_response_code(200);
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Cache-Control: private, no-store');
+        header('X-Content-Type-Options: nosniff');
+        header('Content-Disposition: attachment; filename="network71-' . $name . '-' . gmdate('Ymd-His') . '.csv"');
+        $out = fopen('php://output', 'w');
+        fwrite($out, "\xEF\xBB\xBF");
+        fputcsv($out, $headers);
+        foreach ($rows as $row) {
+            // Neutralise spreadsheet formula injection on user-supplied cells.
+            fputcsv($out, array_map(static fn($cell): string => preg_replace('/^([=+\-@\t\r])/', "'$1", (string)($cell ?? '')) ?? '', array_values($row)));
+        }
+        fclose($out);
+        exit;
     }
 }

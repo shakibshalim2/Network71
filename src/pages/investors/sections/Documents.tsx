@@ -10,8 +10,8 @@ export default function Documents({ c, email }: { c: InvestorsContent['documents
           <h2 className="font-display text-4xl sm:text-5xl text-white tracking-[-0.02em]">{c.title}</h2>
         </div>
         <div className="space-y-4 max-w-3xl mx-auto">
-          {c.items.map((doc) => (
-            <div key={doc.subject} className="document-request-card flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 bg-navy border border-white/8 rounded-xl px-6 py-5">
+          {c.items.map((doc, i) => (
+            <div key={doc.subject} className="document-request-card inv-doc flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 bg-navy border border-white/8 rounded-xl px-6 py-5" style={{ ['--i' as string]: i }}>
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 bg-gold/10 rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg className="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
@@ -23,7 +23,11 @@ export default function Documents({ c, email }: { c: InvestorsContent['documents
                   <p className="text-slate-500 text-xs">{c.availability}</p>
                 </div>
               </div>
-              <a className="public-text-link" href={`mailto:${email}?subject=${encodeURIComponent(doc.subject)}`}>{c.request}</a>
+              <a className="public-text-link inv-doc__link" href={`mailto:${email}?subject=${encodeURIComponent(doc.subject)}`}>
+                {c.request.replace(' ↗', '')}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M8 7h9v9" /></svg>
+              </a>
+              <span className="inv-doc__rule" aria-hidden="true" />
             </div>
           ))}
         </div>

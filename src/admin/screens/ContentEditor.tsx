@@ -20,8 +20,9 @@ export function ContentEditor({
   const [query, setQuery] = useState("")
   const [search, setSearch] = useState("")
   const [locale, setLocale] = useState("en")
+  const [statusFilter, setStatusFilter] = useState("")
   const { data, loading, error, reload } = useResource<Page<ContentRecord>>(
-    `admin/content/${moduleKey}?locale=${locale}&page=${page}&q=${encodeURIComponent(search)}`,
+    `admin/content/${moduleKey}?locale=${locale}&page=${page}&q=${encodeURIComponent(search)}${statusFilter ? `&status=${statusFilter}` : ""}`,
   )
   const [editing, setEditing] = useState<Partial<ContentRecord> | null>(null)
   const [dirty, setDirty] = useState(false)
@@ -39,6 +40,33 @@ export function ContentEditor({
     if (value) editRevision.current += 1
     setDirty(value)
     onDirty(value)
+  }
+  const [twins, setTwins] = useState<Record<number, { locale: string; record: { id: number; status: string; review_state: string } | null }>>({})
+  async function checkTranslation(record: ContentRecord) {
+    setActionError("")
+    try {
+      const result = await api<{ locale: string; record: { id: number; status: string; review_state: string } | null }>(`admin/content/${moduleKey}/${record.id}/translation`)
+      setTwins((current) => ({ ...current, [record.id]: result }))
+    } catch (error) {
+      setActionError((error as Error).message)
+    }
+  }
+  function translate(record: ContentRecord) {
+    // Same slug in the other language so the public site can pair them; fields start from the source copy.
+    const other = locale === "en" ? "bn" : "en"
+    setLocale(other)
+    setPage(1)
+    setEditing({ slug: record.slug, sort_order: record.sort_order, data: { ...record.data } })
+    setActionError("")
+    setNotice(`Translating into ${other === "bn" ? "বাংলা" : "English"}. Replace the copied text, then save.`)
+    markDirty(true)
+  }
+  function duplicate(record: ContentRecord) {
+    // New unsaved draft carrying the source data; slug is cleared because slugs are unique per module.
+    setEditing({ slug: "", sort_order: record.sort_order, data: { ...record.data, title: `${String(record.data.title ?? "")} (copy)` } })
+    setActionError("")
+    setNotice("Duplicated as a new draft. Give it a slug and save.")
+    markDirty(true)
   }
   function open(record?: ContentRecord) {
     setEditing(
@@ -185,6 +213,7 @@ export function ContentEditor({
       ) : (
         <>
           <div className="adm-toolbar"><label>Language<select aria-label="Collection language" value={locale} onChange={e => { setLocale(e.target.value); setPage(1) }}><option value="en">English</option><option value="bn">বাংলা</option></select></label>
+            <label>Status<select aria-label="Filter by status" value={statusFilter} onChange={e => { setStatusFilter(e.target.value); setPage(1) }}><option value="">All</option><option value="draft">Draft</option><option value="in_review">In review</option><option value="approved">Approved</option><option value="published">Published</option><option value="changes">Published · unpublished changes</option><option value="archived">Archived</option></select></label>
             <form
               className="adm-search"
               onSubmit={(event) => {
@@ -237,12 +266,22 @@ export function ContentEditor({
                         </span>
                         <div className="adm-record-actions">
                           {writable && (
-                            <button
-                              disabled={busy}
-                              onClick={() => open(record)}
-                            >
-                              Edit
-                            </button>
+                            <>
+                              <button
+                                disabled={busy}
+                                onClick={() => open(record)}
+                              >
+                                Edit
+                              </button>
+                              <button disabled={busy} onClick={() => duplicate(record)}>Duplicate</button>
+                              {twins[record.id] === undefined ? (
+                                <button disabled={busy} onClick={() => checkTranslation(record)}>{locale === "en" ? "বাংলা" : "English"} version</button>
+                              ) : twins[record.id].record ? (
+                                <button disabled={busy} onClick={() => { setLocale(twins[record.id].locale); setPage(1) }}>Open {twins[record.id].locale === "bn" ? "বাংলা" : "English"} ({twins[record.id].record!.status})</button>
+                              ) : (
+                                <button disabled={busy} onClick={() => translate(record)}>Create {twins[record.id].locale === "bn" ? "বাংলা" : "English"} version</button>
+                              )}
+                            </>
                           )}
                           <button disabled={busy || ["in_review", "approved"].includes(record.review_state)} onClick={() => transition(record, "request_review")}>Request review</button>
                           <button disabled={busy} onClick={() => loadHistory(record)}>History</button>
@@ -293,13 +332,13 @@ export function ContentEditor({
                 ) : (
                   <Empty
                     title={
-                      search
+                      search || statusFilter
                         ? "No matching content"
                         : `No ${module.label.toLowerCase()} yet`
                     }
                   >
-                    {search
-                      ? "Try another search term."
+                    {search || statusFilter
+                      ? "Try another search term or status."
                       : "Add your first item as a draft. Only approved, published content is available publicly."}
                   </Empty>
                 )}

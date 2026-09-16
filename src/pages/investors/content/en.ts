@@ -5,6 +5,11 @@ const en = {
     eyebrow: 'Investor Relations',
     title: 'Transparent Corporate Governance',
     lead: 'Committed to transparency, accountability, and sustainable long-term value creation for all stakeholders.',
+    pillars: [
+      { v: '10', l: 'Operating divisions' },
+      { v: '4', l: 'Governance bodies' },
+      { v: '15+', l: 'Countries served' },
+    ],
   },
   info: {
     eyebrow: 'INVESTOR INFORMATION',
@@ -15,6 +20,7 @@ const en = {
     introTitle: 'Discuss your due diligence requirements.',
     introText: 'Our team can clarify which documents are available and the appropriate process for sharing them.',
     cta: 'Request information ↗',
+    steps: ['Brief', 'Availability', 'Secure sharing'],
   },
   thesis: {
     eyebrow: 'Why Invest',

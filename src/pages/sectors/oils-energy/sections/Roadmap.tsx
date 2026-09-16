@@ -1,5 +1,6 @@
 import type { OilsEnergyContent } from '../content/en'
 import { AMBER, SKY } from '../theme'
+import ProcessLine from '@/components/motion/ProcessLine'
 
 export default function Roadmap({ c }: { c: OilsEnergyContent }) {
   return (
@@ -18,34 +19,19 @@ export default function Roadmap({ c }: { c: OilsEnergyContent }) {
             </p>
           </div>
 
-          <div className="relative">
-            {/* Timeline line */}
-            <div
-              className="absolute left-8 top-0 bottom-0 w-px hidden sm:block"
-              style={{ background: `linear-gradient(to bottom, ${AMBER}, ${SKY})` }}
-            />
-
-            <div className="space-y-8 sm:pl-20">
+          <ProcessLine steps={c.roadmapItems.length} accent={AMBER} className="sroadv">
+            <ol className="sroadv__list">
               {c.roadmapItems.map((item, i) => (
-                <div key={item.year} className="relative flex gap-6 items-start">
-                  {/* Year bubble */}
-                  <div
-                    className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 font-display font-bold text-white text-sm sm:absolute sm:-left-20"
-                    style={{ color: 'var(--s0)', background: i < 2 ? AMBER : SKY }}
-                  >
-                    {item.year}
+                <li key={item.year} className="sroadv__item" style={{ ['--i' as string]: i, ['--pa' as string]: i < 2 ? AMBER : SKY }}>
+                  <div className="sroadv__year font-display">{item.year}</div>
+                  <div className="sroadv__card">
+                    <h3 className="font-semibold text-white mb-2 sroadv__title">{item.title}</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed sroadv__desc">{item.desc}</p>
                   </div>
-                  <div
-                    className="flex-1 rounded-xl p-5"
-                    style={{ background: 'var(--fill-2)', border: `1px solid color-mix(in srgb, ${i < 2 ? AMBER : SKY} 13%, transparent)` }}
-                  >
-                    <h3 className="font-semibold text-white mb-2">{item.title}</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
+                </li>
               ))}
-            </div>
-          </div>
+            </ol>
+          </ProcessLine>
         </div>
       </section>
 

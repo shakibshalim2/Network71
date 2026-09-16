@@ -23,20 +23,18 @@ export default function Compliance({ c }: { c: TradingContent }) {
             </div>
             {/* Compliance badge grid */}
             <div>
-              <div className="grid grid-cols-2 gap-3">
-                {c.complianceDocs.map((doc) => (
-                  <div
-                    key={doc}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl border"
-                    style={{ borderColor: `color-mix(in srgb, ${BLUE} 15%, transparent)`, background: `color-mix(in srgb, ${BLUE} 3%, transparent)` }}
-                  >
-                    <svg className="w-4 h-4 flex-shrink-0" style={{ color: BLUE }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span className="text-slate-300 text-xs font-medium">{doc}</span>
-                  </div>
+              <ol className="sseal" style={{ ['--pa' as string]: BLUE }}>
+                {c.complianceDocs.map((doc, i) => (
+                  <li key={doc} className="sseal__item" style={{ ['--i' as string]: i }}>
+                    <span className="sseal__mark" aria-hidden="true">
+                      <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" pathLength="1" /></svg>
+                      <svg className="sseal__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path pathLength="1" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    </span>
+                    <span className="sseal__label">{doc}</span>
+                    <span className="sseal__idx font-mono">{String(i + 1).padStart(2, "0")}</span>
+                  </li>
                 ))}
-              </div>
+              </ol>
             </div>
           </div>
         </div>

@@ -59,7 +59,7 @@ export function useSectionReveal() {
 
     // Pointer spotlight for cards: one delegated listener writes --mx/--my on the hovered card.
     const onPointer = (e: PointerEvent) => {
-      const card = (e.target as Element | null)?.closest<HTMLElement>('.public-content section .grid > [class*="rounded-"], .stmt__value')
+      const card = (e.target as Element | null)?.closest<HTMLElement>('.public-content section .grid > [class*="rounded-"], .stmt__value, .esg__card, .splan, .stwin, .madv, .about-pur')
       if (!card) return
       const r = card.getBoundingClientRect()
       card.style.setProperty('--mx', `${((e.clientX - r.left) / r.width) * 100}%`)

@@ -20,37 +20,23 @@ export default function Recycling({ c }: { c: EShipeContent["recycling"] }) {
           </p>
         </header>
         <div className="grid md:grid-cols-2 gap-5">
-          {c.items.map((item) => (
+          {c.items.map((item, i) => (
             <article
               key={item.title}
-              className="p-6 rounded-xl"
-              style={{
-                background: "var(--fill-1)",
-                border: "var(--border-subtle)",
-              }}
+              className="p-6 rounded-xl es-yard"
+              style={{ ["--pa" as string]: item.statusColor, ["--i" as string]: i, background: "var(--fill-1)", border: "var(--border-subtle)" }}
             >
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div>
-                  <h3 className="text-white font-semibold text-sm">
-                    {item.title}
-                  </h3>
-                  <p className="text-slate-600 text-[10px] font-mono mt-0.5">
-                    {item.body}
-                  </p>
+                  <h3 className="text-white font-semibold text-sm">{item.title}</h3>
+                  <p className="text-slate-500 text-[11px] font-mono mt-0.5">{item.body}</p>
                 </div>
-                <span
-                  className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold"
-                  style={{
-                    background: `color-mix(in srgb, ${item.statusColor} 8%, transparent)`,
-                    color: item.statusColor,
-                  }}
-                >
-                  {item.status}
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold mtv__status" style={{ background: `color-mix(in srgb, ${item.statusColor} 8%, transparent)`, color: item.statusColor }}>
+                  <i className="mtv__status-dot" aria-hidden="true" />{item.status}
                 </span>
               </div>
-              <p className="text-slate-400 text-xs leading-relaxed">
-                {item.desc}
-              </p>
+              <p className="text-slate-400 text-xs leading-relaxed">{item.desc}</p>
+              <span className="es-yard__rule" aria-hidden="true" />
             </article>
           ))}
         </div>

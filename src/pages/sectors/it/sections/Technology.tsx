@@ -26,20 +26,15 @@ export default function Technology({ c }: { c: ITContent }) {
           <p className="text-slate-500 text-sm">{c.copy.Technology.lead}</p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {c.techBadges.map((t) => (
+          {c.techBadges.map((t, i) => (
             <div
               key={t.name}
-              className="group flex items-center gap-4 p-4 rounded-xl transition-all duration-200 cursor-default"
+              className="group flex items-center gap-4 p-4 rounded-xl cursor-default it-badge"
               style={{
                 background: "var(--fill-1)",
                 border: "var(--border-subtle)",
-              }}
-              onMouseEnter={(e) => {
-                ;(e.currentTarget as HTMLDivElement).style.borderColor = `color-mix(in srgb, ${ACCENT} 19%, transparent)`
-              }}
-              onMouseLeave={(e) => {
-                ;(e.currentTarget as HTMLDivElement).style.borderColor =
-                  "rgba(255,255,255,0.06)"
+                ["--pa" as string]: ACCENT,
+                ["--i" as string]: i,
               }}
             >
               <div

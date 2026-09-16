@@ -36,8 +36,8 @@ export default function Television({ c }: { c: MediaContent['tv'] }) {
                 {c.signals.map((item) => (
                   <div key={item.label} className="flex items-center justify-between">
                     <span className="text-slate-400 text-xs">{item.label}</span>
-                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ color: item.color, background: `color-mix(in srgb, ${item.color} 8%, transparent)` }}>
-                      {item.status}
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full mtv__status" style={{ ['--pa' as string]: item.color, color: item.color, background: `color-mix(in srgb, ${item.color} 8%, transparent)` }}>
+                      <i className="mtv__status-dot" aria-hidden="true" />{item.status}
                     </span>
                   </div>
                 ))}
@@ -47,26 +47,24 @@ export default function Television({ c }: { c: MediaContent['tv'] }) {
 
           <div>
             <div className="font-mono text-[10px] tracking-widest uppercase mb-5" style={{ color: 'var(--fg-muted)' }}>{c.scheduleTitle}</div>
-            <div className="space-y-2">
-              {c.programmes.map((prog) => (
-                <div
+            <ol className="mepg">
+              <span className="mepg__now" aria-hidden="true" />
+              {c.programmes.map((prog, i) => (
+                <li
                   key={prog.title}
-                  className="flex items-center gap-4 p-4 rounded-xl transition-all duration-200 cursor-default group"
-                  style={{ background: 'var(--fill-1)', border: 'var(--border-subtle)' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = `color-mix(in srgb, ${prog.color} 19%, transparent)` }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)' }}
+                  className="mepg__row"
+                  style={{ ['--pa' as string]: prog.color, ['--i' as string]: i }}
                 >
-                  <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: prog.color }} />
+                  <span className="mepg__time font-mono">{prog.time}</span>
+                  <span className="mepg__dot" aria-hidden="true" />
                   <div className="flex-1 min-w-0">
-                    <div className="text-white text-sm font-semibold">{prog.title}</div>
+                    <div className="text-white text-sm font-semibold mepg__title">{prog.title}</div>
                     <div className="text-slate-500 text-[11px]">{prog.format}</div>
                   </div>
-                  <div className="text-right flex-shrink-0">
-                    <div className="font-mono text-[10px]" style={{ color: prog.color }}>{prog.time}</div>
-                  </div>
-                </div>
+                  <span className="mepg__idx font-mono">{String(i + 1).padStart(2, '0')}</span>
+                </li>
               ))}
-            </div>
+            </ol>
             <div className="mt-4 text-slate-600 text-xs font-mono">{c.scheduleNote}</div>
           </div>
         </div>

@@ -30,46 +30,28 @@ export default function Markets({ c }: { c: AgricultureContent["markets"] }) {
           </p>
         </div>
 
-        {/* World region grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {c.items.map((m) => (
-            <div
-              key={m.region}
-              className="p-5 rounded-2xl border transition-all hover:scale-[1.02] duration-200"
-              style={{
-                background: "var(--fill-1)",
-                borderColor: `color-mix(in srgb, ${m.color} 19%, transparent)`,
-              }}
-            >
-              <div className="text-3xl mb-3">{m.flag}</div>
-              <div
-                className="text-[11px] font-bold tracking-[0.14em] uppercase mb-1"
-                style={{ color: m.color }}
-              >
-                {m.role}
-              </div>
-              <h3 className="font-display text-lg text-white mb-2">
-                {m.region}
-              </h3>
-              <p className="text-slate-500 text-xs leading-relaxed">
-                {m.detail}
-              </p>
-            </div>
+        {/* World region tiles */}
+        <ul className="smkt smkt--5" style={{ ["--pa" as string]: GREEN }}>
+          {c.items.map((m, i) => (
+            <li key={m.region} className="smkt__tile smkt__tile--left" style={{ ["--i" as string]: i, ["--pa" as string]: m.color }}>
+              <span className="smkt__idx font-mono">0{i + 1}</span>
+              <span className="smkt__flag">{m.flag}</span>
+              <span className="smkt__role font-mono">{m.role}</span>
+              <h3 className="font-display text-lg text-white smkt__region">{m.region}</h3>
+              <p className="smkt__note">{m.detail}</p>
+              <span className="smkt__rule" aria-hidden="true" />
+            </li>
           ))}
-        </div>
+        </ul>
 
-        {/* Simple SVG world strip */}
-        <div className="mt-12 flex items-center justify-center gap-3 flex-wrap">
+        {/* Destination flag strip — flags wake in colour as the pointer passes */}
+        <div className="sflags mt-12">
           {c.flags.map((flag, i) => (
-            <span
-              key={i}
-              className="text-2xl grayscale hover:grayscale-0 transition-all duration-200 cursor-default"
-              title={c.destinationMarketLabel}
-            >
+            <span key={i} className="sflags__flag" title={c.destinationMarketLabel} style={{ ["--i" as string]: i }}>
               {flag}
             </span>
           ))}
-          <span className="text-slate-500 text-sm ml-2">{c.moreMarkets}</span>
+          <span className="sflags__more font-mono">{c.moreMarkets}</span>
         </div>
       </div>
     </section>

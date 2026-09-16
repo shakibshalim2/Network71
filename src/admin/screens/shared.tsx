@@ -133,4 +133,5 @@ export type InquiryNote = {
 }
 export type InquiryPage = Page<Inquiry> & {
   assignees: { id: number; name: string }[]
+  counts?: Record<string, number>
 }

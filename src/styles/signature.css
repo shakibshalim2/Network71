@@ -217,20 +217,6 @@
 @media (max-width: 1023px) {
   .hero-globe { opacity: 0.95; }
 }
-@media (max-width: 767px) {
-  /* 2×2 hairline ledger: nothing clips, each stat gets a full cell */
-  .hero-stats .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding: 0; margin: 0; }
-  .hero-stats .grid > * {
-    padding: 14px 12px !important; gap: 12px !important; align-items: flex-start;
-    border: 0 !important; border-bottom: 1px solid var(--line) !important; border-radius: 0; background: transparent;
-  }
-  .hero-stats .grid > :nth-child(odd) { border-right: 1px solid var(--line) !important; padding-left: 0 !important; }
-  .hero-stats .grid > :nth-child(even) { padding-right: 0 !important; }
-  .hero-stats .grid > :nth-child(n + 3) { border-bottom: 0 !important; }
-  .hero-stats .grid > * > div:first-child { margin-top: 2px; }
-  .hero-stats .grid > * .font-display { font-size: 22px !important; }
-  .hero-stats .grid > * .text-\[11px\] { white-space: normal; letter-spacing: 0.12em !important; }
-}
 @media (prefers-reduced-motion: reduce) {
   .hero-atmos__ring, .hero-atmos__ring--2, .hero-atmos__sat { animation: none; }
 }
@@ -568,7 +554,8 @@ html:not(.js-reveal) .work-intro-steps li::after { scale: 1 1; }
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
-.bwall__track { display: flex; gap: 10px; width: max-content; animation: marquee calc(var(--n) * 6.5s) linear infinite; padding-inline: 5px; }
+.bwall { --mq-rate: 1; }
+.bwall__track { display: flex; gap: 10px; width: max-content; animation: marquee calc(var(--n) * 6.5s * var(--mq-rate)) linear infinite; padding-inline: 5px; }
 .bwall__row.is-reverse .bwall__track { animation-direction: reverse; }
 .bwall__rows:hover .bwall__track { animation-play-state: paused; }
 .bwall__mark {
@@ -603,7 +590,7 @@ html:not(.js-reveal) .work-intro-steps li::after { scale: 1 1; }
   .bwall__mark { min-width: 196px; padding: 13px 16px 13px 14px; border-radius: 12px; }
   .bwall__name { font-size: 15px; }
   .bwall__name.is-flagship { font-size: 17px; }
-  .bwall__track { animation-duration: calc(var(--n) * 5s); }
+  .bwall__track { animation-duration: calc(var(--n) * 5s * var(--mq-rate)); }
 }
 @media (prefers-reduced-motion: reduce) {
   .bwall__track { animation: none; flex-wrap: wrap; width: auto; }

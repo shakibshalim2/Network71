@@ -15,26 +15,20 @@ export default function Technology({ c }: { c: TradingContent }) {
               <p className="text-slate-500 leading-relaxed mb-5">{c.copy.technologyLead1}</p>
               <p className="text-slate-500 leading-relaxed">{c.copy.technologyLead2}</p>
             </div>
-            <div className="space-y-5">
+            <ol className="svals" style={{ ['--pa' as string]: BLUE }}>
               {c.techCapabilities.map((t, i) => (
-                <div
-                  key={t.title}
-                  className="flex gap-5 p-6 rounded-2xl border hover:shadow-md transition-all"
-                  style={{ borderColor: `color-mix(in srgb, ${BLUE} 9%, transparent)` }}
-                >
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 font-display font-bold text-sm"
-                    style={{ background: `color-mix(in srgb, ${BLUE} 7%, transparent)`, color: BLUE }}
-                  >
-                    {String(i + 1).padStart(2, '0')}
-                  </div>
-                  <div>
+                <li key={t.title} className="svals__row" style={{ ['--i' as string]: i }}>
+                  <span className="svals__idx font-mono">{String(i + 1).padStart(2, '0')}</span>
+                  <div className="svals__body">
                     <h3 className="font-semibold text-fg mb-1.5">{t.title}</h3>
                     <p className="text-slate-500 text-sm leading-relaxed">{t.desc}</p>
                   </div>
-                </div>
+                  <span className="svals__arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M8 7h9v9" /></svg>
+                  </span>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
         </div>
       </section>
