@@ -14,7 +14,7 @@ export default function Sustainability({ c }: { c: TradingContent }) {
             <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">{c.copy.sustainabilityTitle}</h2>
             <p className="text-slate-500 text-sm max-w-xl mx-auto">{c.copy.sustainabilityLead}</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-5">
             {c.sustainabilityItems.map((s, i) => (
               <div
                 key={s.title}
