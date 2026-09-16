@@ -26,7 +26,7 @@ export default function Globe3D({ className, style, onHotspot, onReady }: GlobeP
   const { webGLOk, error } = useGlobe(containerRef, { onHotspot, onReady })
 
   if (!webGLOk || error) {
-    return <GlobeFallback className={className} style={style} />
+    return <GlobeFallback className={className} style={style} onReady={onReady} />
   }
 
   return (

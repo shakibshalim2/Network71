@@ -16,14 +16,14 @@ export default function PhoneStage({ tabId, color }: { tabId: TabId, color: stri
   const badgeY = useTransform(scrollYProgress, [0, 1], [reduce ? 0 : 70, reduce ? 0 : -70])
 
   return (
-    <div ref={ref} className="force-dark phone-ui flex justify-center items-center relative py-6 sm:py-12">
+    <div ref={ref} className="force-dark phone-ui flex justify-center items-center relative py-10 sm:py-12">
       {/* Ambient glow tied to active tab */}
       <div className="w-[240px] h-[240px] sm:w-[340px] sm:h-[340px]" style={{ position: 'absolute', borderRadius: '50%', background: `color-mix(in srgb, ${color} 9%, transparent)`, filter: 'blur(72px)', transition: 'background 0.6s', pointerEvents: 'none' }} />
 
       {/* Floating notification badge — kept inside bounds on small screens */}
       <motion.div
         className="left-0 sm:-left-[4%] px-2.5 py-1.5 sm:px-3 sm:py-2"
-        style={{ y: badgeY, position: 'absolute', top: '6%', borderRadius: 13, background: 'rgba(9,9,18,0.92)', border: '1px solid rgba(168,85,247,0.25)', backdropFilter: 'blur(14px)', boxShadow: 'var(--shadow-device)', zIndex: 10 }}>
+        style={{ y: badgeY, position: 'absolute', top: 0, borderRadius: 13, background: 'rgba(9,9,18,0.92)', border: '1px solid rgba(168,85,247,0.25)', backdropFilter: 'blur(14px)', boxShadow: 'var(--shadow-device)', zIndex: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, animation: 'floatY 4s ease-in-out infinite' }}>
           <div className="w-6 h-6 sm:w-7 sm:h-7 text-[11px] sm:text-[13px]" style={{ borderRadius: 8, background: 'linear-gradient(135deg,#A855F7,#7C3AED)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>🛍️</div>
           <div>
@@ -36,7 +36,7 @@ export default function PhoneStage({ tabId, color }: { tabId: TabId, color: stri
       {/* Floating AI badge */}
       <motion.div
         className="right-0 sm:-right-[4%] px-2.5 py-1.5 sm:px-3 sm:py-2"
-        style={{ y: badgeY, position: 'absolute', bottom: '8%', borderRadius: 13, background: 'rgba(9,9,18,0.92)', border: '1px solid rgba(236,72,153,0.25)', backdropFilter: 'blur(14px)', boxShadow: 'var(--shadow-device)', zIndex: 10 }}>
+        style={{ y: badgeY, position: 'absolute', bottom: 0, borderRadius: 13, background: 'rgba(9,9,18,0.92)', border: '1px solid rgba(236,72,153,0.25)', backdropFilter: 'blur(14px)', boxShadow: 'var(--shadow-device)', zIndex: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, animation: 'floatY 4s ease-in-out infinite', animationDelay: '2s' }}>
           <div className="w-6 h-6 sm:w-7 sm:h-7 text-[11px] sm:text-[13px]" style={{ borderRadius: 8, background: 'linear-gradient(135deg,#EC4899,#f43f5e)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>✦</div>
           <div>
