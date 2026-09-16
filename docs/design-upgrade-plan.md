@@ -601,3 +601,17 @@ instant under reduced motion).
 | 6 | Partners | rework | profile plates with numbered corner tab that fills on hover, arrow reveals; CTA → `.btn` magnetic |
 | 7 | Disclosure note | rework | gold seal ring draws in, slow sheen sweeps across the plate, CTA nudges |
 | 8 | Contact | keep | |
+
+## Phase 9 — About (every section)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | vision panel tilts with the pointer, corner brackets, pinging label dot, lines rise in sequence, facts stagger, slow sheen |
+| 2 | Origins | keep | dossier plate + ghost year already signature |
+| 3 | Vision & Mission | rework | twin plates: pointer glow, ghost "Vision"/"Mission" word, icon strokes draw in then fill on hover, own-accent rule (gold / teal) |
+| 4 | Founder quote | keep | word-rise + drawn mark already signature |
+| 5 | Values ledger | keep | already signature |
+| 6 | Leadership | keep | monogram rings already signature |
+| 7 | Journey | rework | ghost years, drawn year rules, cards slide in from their own side, nodes pop in sequence, hover lifts + glows node |
+| 8 | Partner perspectives | rework | quote mark draws, left accent hairline grows, lift |
+| 9 | CTA band | keep | drawn rule already signature |
