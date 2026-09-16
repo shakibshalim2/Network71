@@ -1,4 +1,5 @@
-import { motion } from "motion/react"
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react"
+import KineticText from "@/components/motion/KineticText"
 import { GREEN } from "../theme"
 import type { AgricultureContent } from "../content/en"
 import Magnetic from "@/components/motion/Magnetic"
@@ -7,13 +8,17 @@ import { HeroCopy, HeroMark, useSectorHero } from "@/components/sector/HeroMotio
 
 export default function Hero({ c }: { c: AgricultureContent["hero"] }) {
   const { ref, y, opacity, sideOpacity } = useSectorHero()
+  const reduce = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
+  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "18%"])
+  const imgScale = useTransform(scrollYProgress, [0, 1], [reduce ? 1 : 1.12, 1])
   return (
     <section
       ref={ref}
       className="force-dark sector-hero shero relative min-h-screen flex items-center overflow-hidden"
       style={{ ["--pa" as string]: GREEN }}
     >
-      <div className="absolute inset-0">
+      <motion.div className="absolute inset-0 shero__photo" style={{ y: imgY, scale: imgScale }}>
         <img decoding="async"
           src={c.imageUrl}
           alt={c.imageAlt}
@@ -39,7 +44,8 @@ export default function Hero({ c }: { c: AgricultureContent["hero"] }) {
             fill="rgb(10,18,35)"
           />
         </svg>
-      </div>
+      </motion.div>
+      <span className="shero__sweep" aria-hidden="true" />
 
       <HeroMark>02</HeroMark>
 
@@ -54,15 +60,19 @@ export default function Hero({ c }: { c: AgricultureContent["hero"] }) {
               {c.eyebrow}
             </span>
           </div>
-          <h1 className="font-display text-5xl lg:text-7xl text-white leading-tight tracking-[-0.02em] mb-6">
-            {c.title}
-            <br />
-            <span style={{ color: GREEN }}>{c.subtitle}</span>
+          <h1 className="font-display hero-kinetic text-5xl lg:text-7xl text-white leading-tight tracking-[-0.02em] mb-6">
+            <KineticText text={c.title} delay={0.2} />
+            <KineticText text={c.subtitle} delay={0.42} as="em" style={{ color: GREEN, fontStyle: "normal" }} />
           </h1>
           <p className="text-slate-300 text-lg leading-relaxed mb-10 max-w-xl">
             {c.description}
           </p>
-          <div className="flex flex-wrap gap-4">
+          <motion.div
+            className="flex flex-wrap gap-4"
+            initial={reduce ? false : { opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          >
             <Magnetic strength={10}>
               <a
                 href="#sector-contact"
@@ -80,7 +90,7 @@ export default function Hero({ c }: { c: AgricultureContent["hero"] }) {
                 {c.secondaryCta}
               </a>
             </Magnetic>
-          </div>
+          </motion.div>
         </HeroCopy>
       </div>
 
