@@ -588,3 +588,16 @@ instant under reduced motion).
 | 8 | Why eSHIPe | rework | icon tiles fill on hover, numbered, drawn rule |
 | 9 | Global reach | rework | reading-light lead; regions → sonar tiles (pinging dot), numbered |
 | 10 | Contact | keep | |
+
+## Phase 8j — Strategic Ventures (every section)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | rework | ecosystem grid → **constellation**: 9 divisions orbit an N71 hub on a drawn ring, colour-matched spokes draw in sequence, inner dashed ring rotates, hub breathes; nodes are links that swell + label on hover. Badge dot pings, wordmark shimmers, "08" watermark, `.btn` + magnetic |
+| 2 | Metrics | keep | |
+| 3 | Overview | rework | lead reading-light; principles → plates with diamond that draws in and fills on hover, drawn rule |
+| 4 | Six ways | rework | ghost numerals, icon strokes draw in, own-accent rule, icon fills + rotates on hover |
+| 5 | Journey | keep | |
+| 6 | Partners | rework | profile plates with numbered corner tab that fills on hover, arrow reveals; CTA → `.btn` magnetic |
+| 7 | Disclosure note | rework | gold seal ring draws in, slow sheen sweeps across the plate, CTA nudges |
+| 8 | Contact | keep | |
