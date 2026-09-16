@@ -484,7 +484,7 @@ export default function Admin() {
               {section === "pages" ? (
                 <PageEditor user={user} onDirty={setDirty} />
               ) : section === "" ? (
-                <Dashboard />
+                <Dashboard user={user} />
               ) : section === "content" || section === "more" ? (
                 <>
                   <p className="adm-intro">

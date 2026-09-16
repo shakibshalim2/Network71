@@ -635,3 +635,16 @@ instant under reduced motion).
 | 4 | Documents | refine | rows slide on hover, per-row gold rule draws in, arrow link nudges |
 | 5 | Board structure | rework | 2×2 cards → numbered seal ledger (ring draws), "to be published" dots ping; lead reading-light |
 | 6 | Enquiry | keep | chip form already signature |
+
+## Phase 10 — Admin workspace: gap analysis and completion
+
+Audited every screen against the PHP API and the data model. Gaps found and closed (all verified against a local MariaDB + PHP dev server; `http-smoke.php` 61 checks still pass, new `admin-features.php` adds 37):
+
+| Screen | Gap | Now |
+|---|---|---|
+| Inbox | no filtering, no export; email only as a mailto | status chips with live counts · assignee filter · search · CSV export (filter-aware, audited, formula-safe) · copy email · reply subject pre-filled |
+| Applications | no filtering/export; **no internal notes** (Inbox had them) | same filter/export set as Inbox · internal notes (new table `application_notes`) |
+| Content collections | only search + language; no way to see "in review" or "published with changes"; no duplicate | status filter (6 states) · **Duplicate** into a new draft |
+| Media library | alt text could never be corrected after upload; URL only selectable | edit description in place · Copy URL |
+| Team access | only activate/deactivate; no rename, no role change | rename · make owner / make editor with last-owner + self guards; audited |
+| Overview | "failed" mail count shown but no action | owner **Retry N failed** re-queues the outbox |

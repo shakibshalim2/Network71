@@ -11,6 +11,18 @@ export function MediaLibrary({ user }: { user: User }) {
   const [busy, setBusy] = useState(false)
   const [actionError, setActionError] = useState("")
   const [notice, setNotice] = useState("")
+  const [editingAlt, setEditingAlt] = useState<{ id: number; alt: string } | null>(null)
+  const [copied, setCopied] = useState<number | null>(null)
+  function copyUrl(id: number, filename: string) {
+    void navigator.clipboard?.writeText(`${window.location.origin}/api/v1/media/${filename}`).then(() => { setCopied(id); window.setTimeout(() => setCopied(null), 1600) })
+  }
+  async function saveAlt(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (!editingAlt) return
+    setBusy(true); setActionError('')
+    try { await api('admin/media/'+editingAlt.id, {method:'PATCH', body: JSON.stringify({ alt: editingAlt.alt })}); setEditingAlt(null); reload(); setNotice('Image description updated.') }
+    catch(e) {setActionError((e as Error).message)} finally {setBusy(false)}
+  }
   async function archive(id: number) {
     if (!window.confirm('Archive this unused image? Referenced images cannot be archived.')) return
     setBusy(true); setActionError('')
@@ -96,8 +108,21 @@ export function MediaLibrary({ user }: { user: User }) {
                     />
                     <div>
                       <div className="adm-media-card-head">
-                        <h3>{item.alt}</h3>
-                        {user.role === "owner" && <button className="adm-button secondary" disabled={busy} onClick={() => archive(item.id)}>Archive</button>}
+                        {editingAlt?.id === item.id ? (
+                          <form className="adm-alt-form" onSubmit={saveAlt}>
+                            <input aria-label="Image description" value={editingAlt.alt} maxLength={300} required autoFocus onChange={(event) => setEditingAlt({ id: item.id, alt: event.target.value })} />
+                            <button className="adm-button" disabled={busy}>Save</button>
+                            <button type="button" className="adm-button secondary" onClick={() => setEditingAlt(null)}>Cancel</button>
+                          </form>
+                        ) : (
+                          <>
+                            <h3>{item.alt}</h3>
+                            <div className="adm-media-actions">
+                              <button className="adm-button secondary" disabled={busy} onClick={() => setEditingAlt({ id: item.id, alt: item.alt })}>Edit description</button>
+                              {user.role === "owner" && <button className="adm-button secondary" disabled={busy} onClick={() => archive(item.id)}>Archive</button>}
+                            </div>
+                          </>
+                        )}
                       </div>
                       <p>
                         {item.width} × {item.height} ·{" "}
@@ -105,11 +130,14 @@ export function MediaLibrary({ user }: { user: User }) {
                       </p>
                       <label>
                         Image URL
-                        <input
-                          readOnly
-                          value={`/api/v1/media/${item.filename}`}
-                          onFocus={(event) => event.target.select()}
-                        />
+                        <span className="adm-copy-row">
+                          <input
+                            readOnly
+                            value={`/api/v1/media/${item.filename}`}
+                            onFocus={(event) => event.target.select()}
+                          />
+                          <button type="button" className="adm-button secondary" onClick={() => copyUrl(item.id, item.filename)}>{copied === item.id ? "Copied" : "Copy"}</button>
+                        </span>
                       </label>
                     </div>
                   </article>

@@ -64,6 +64,13 @@ final class Content
         $q = trim(is_string($_GET['q'] ?? null) ? $_GET['q'] : '');
         if (strlen($q) > 150) Http::fail(422, 'Search is too long.');
         if ($q !== '') { $where .= $public ? ' AND (published_json LIKE ? OR slug LIKE ?)' : ' AND (draft_json LIKE ? OR slug LIKE ?)'; $params[] = '%' . $q . '%'; $params[] = '%' . $q . '%'; }
+        $status = !$public && is_string($_GET['status'] ?? null) ? $_GET['status'] : '';
+        if ($status !== '') {
+            if (!in_array($status, ['draft', 'published', 'archived', 'in_review', 'approved', 'changes'], true)) Http::fail(422, 'Invalid status filter.');
+            if ($status === 'in_review' || $status === 'approved') $where .= " AND review_state = '$status'";
+            elseif ($status === 'changes') $where .= " AND status = 'published' AND draft_json <> published_json";
+            else $where .= " AND status = '$status'";
+        }
         $count = (int)$this->db->query("SELECT COUNT(*) FROM content_records WHERE $where", $params)->fetchColumn();
         $column = $public ? 'published_json' : 'draft_json';
         $order = $public ? 'published_sort_order' : 'sort_order';

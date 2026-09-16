@@ -61,13 +61,36 @@ final class JobApplications
         return ['reference'=>$reference, 'message'=>'Your application has been received.'];
     }
 
-    public function listing(): array
+    public function listing(string $where = '1=1', array $params = []): array
     {
         $page = max(1, min(100000, (int)($_GET['page'] ?? 1)));
-        $total = (int)$this->db->query('SELECT COUNT(*) FROM job_applications')->fetchColumn();
-        $items = $this->db->query('SELECT a.id,a.reference,a.job_slug,a.job_title,a.locale,a.name,a.email,a.phone,a.cover_letter,a.resume_original_name,a.resume_bytes,a.status,a.assigned_to,a.created_at,u.name AS assignee_name FROM job_applications a LEFT JOIN admin_users u ON u.id=a.assigned_to ORDER BY a.id DESC LIMIT 30 OFFSET '.(($page-1)*30))->fetchAll();
+        $total = (int)$this->db->query("SELECT COUNT(*) FROM job_applications a WHERE $where", $params)->fetchColumn();
+        $items = $this->db->query("SELECT a.id,a.reference,a.job_slug,a.job_title,a.locale,a.name,a.email,a.phone,a.cover_letter,a.resume_original_name,a.resume_bytes,a.status,a.assigned_to,a.created_at,u.name AS assignee_name FROM job_applications a LEFT JOIN admin_users u ON u.id=a.assigned_to WHERE $where ORDER BY a.id DESC LIMIT 30 OFFSET ".(($page-1)*30), $params)->fetchAll();
+        $ids = array_map(static fn(array $item): int => (int)$item['id'], $items);
+        $notes = [];
+        if ($ids) {
+            $placeholders = implode(',', array_fill(0, count($ids), '?'));
+            foreach ($this->db->query("SELECT n.id, n.application_id, n.note, n.created_at, u.name AS author_name FROM application_notes n JOIN admin_users u ON u.id = n.author_id WHERE n.application_id IN ($placeholders) ORDER BY n.id", $ids)->fetchAll() as $note) {
+                $notes[(int)$note['application_id']][] = $note;
+            }
+        }
+        foreach ($items as &$item) $item['notes'] = $notes[(int)$item['id']] ?? [];
+        unset($item);
         $assignees = $this->db->query('SELECT id,name FROM admin_users WHERE active=1 ORDER BY name,id')->fetchAll();
-        return ['items'=>$items,'assignees'=>$assignees,'total'=>$total,'page'=>$page,'pages'=>max(1,(int)ceil($total/30))];
+        $counts = [];
+        foreach ($this->db->query('SELECT status, COUNT(*) AS n FROM job_applications GROUP BY status')->fetchAll() as $row) $counts[$row['status']] = (int)$row['n'];
+        return ['items'=>$items,'assignees'=>$assignees,'counts'=>$counts,'total'=>$total,'page'=>$page,'pages'=>max(1,(int)ceil($total/30))];
+    }
+
+    public function addNote(int $id, array $input, array $user): void
+    {
+        $note = Http::string($input, 'note', 2000, true);
+        $this->db->transaction(function () use ($id, $note, $user): void {
+            if (!$this->db->query('SELECT id FROM job_applications WHERE id=? FOR UPDATE', [$id])->fetch()) Http::fail(404, 'Application not found.');
+            $this->db->query('INSERT INTO application_notes (application_id, author_id, note, created_at) VALUES (?, ?, ?, UTC_TIMESTAMP())', [$id, $user['id'], $note]);
+            $this->db->query('UPDATE job_applications SET updated_at=UTC_TIMESTAMP() WHERE id=?', [$id]);
+            $this->db->audit((int)$user['id'], 'note_application', 'applications', $id);
+        });
     }
 
     public function update(int $id, array $input, array $user): void

@@ -1,13 +1,15 @@
-import { useState } from "react"
+import { useState, type FormEvent } from "react"
 import { api, type Page } from "../api"
 import { Empty, ErrorNotice, Loading } from "../Admin"
-import { Pager, ResourceError, time, useResource } from "./shared"
+import { Pager, ResourceError, time, useResource, type InquiryNote } from "./shared"
+import { InboxFilters, emptyQuery, queryString, type InboxQuery } from "./InboxFilters"
 
 type Application = {
   id: number
   reference: string
   job_title: string
   locale: string
+  notes: InquiryNote[]
   name: string
   email: string
   phone: string
@@ -20,13 +22,41 @@ type Application = {
 }
 type ApplicationPage = Page<Application> & {
   assignees: { id: number; name: string }[]
+  counts?: Record<string, number>
 }
+
+const STATUSES = [
+  { value: "new", label: "New" },
+  { value: "reviewing", label: "Reviewing" },
+  { value: "interview", label: "Interview" },
+  { value: "hired", label: "Hired" },
+  { value: "rejected", label: "Rejected" },
+  { value: "withdrawn", label: "Withdrawn" },
+]
 
 export function Applications() {
   const [page, setPage] = useState(1)
+  const [query, setQuery] = useState<InboxQuery>(emptyQuery)
   const { data, error, loading, reload } = useResource<ApplicationPage>(
-    `admin/applications?page=${page}`,
+    `admin/applications?${queryString(query, page)}`,
   )
+  async function addNote(event: FormEvent<HTMLFormElement>, id: number) {
+    event.preventDefault()
+    const form = event.currentTarget
+    const note = new FormData(form).get("note")
+    if (typeof note !== "string" || !note.trim()) return
+    setBusyId(id)
+    setActionError("")
+    try {
+      await api(`admin/applications/${id}/notes`, { method: "POST", body: JSON.stringify({ note }) })
+      form.reset()
+      reload()
+    } catch (caught) {
+      setActionError((caught as Error).message)
+    } finally {
+      setBusyId(null)
+    }
+  }
   const [busyId, setBusyId] = useState<number | null>(null)
   const [actionError, setActionError] = useState("")
 
@@ -55,6 +85,7 @@ export function Applications() {
         Review applications and download CVs. CV files stay in private storage
         and require an active admin session.
       </p>
+      <InboxFilters statuses={STATUSES} counts={data?.counts} assignees={data?.assignees ?? []} query={query} onChange={(next) => { setQuery(next); setPage(1) }} exportPath="admin/applications/export" noun="applications" />
       <ErrorNotice message={actionError} />
       <ResourceError error={error} retry={reload} />
       {loading ? (
@@ -149,14 +180,28 @@ export function Applications() {
                         </select>
                       </label>
                     </div>
+                    <div className="adm-inquiry-notes">
+                      <h3>Internal notes</h3>
+                      {item.notes?.length ? (
+                        <ul>{item.notes.map((note) => <li key={note.id}><p>{note.note}</p><span>{note.author_name} · {time(note.created_at)}</span></li>)}</ul>
+                      ) : <p className="adm-help">No internal notes yet.</p>}
+                      <form onSubmit={(event) => addNote(event, item.id)}>
+                        <label>Add a note<textarea name="note" maxLength={2000} required rows={3} /></label>
+                        <button className="adm-button secondary" disabled={busyId === item.id}>{busyId === item.id ? "Saving…" : "Add note"}</button>
+                      </form>
+                    </div>
                   </article>
                 ))}
               </div>
             ) : (
+              query.q || query.status || query.assignee ? (
+                <Empty title="No matching applications">Try another status, assignee or search term.</Empty>
+              ) : (
               <Empty title="No applications yet">
                 Applications submitted from a published vacancy or the general
                 application form will appear here.
               </Empty>
+              )
             )}
             <Pager {...data} change={setPage} />
           </>
