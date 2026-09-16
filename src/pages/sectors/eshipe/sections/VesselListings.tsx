@@ -199,14 +199,11 @@ export default function VesselListings({ c }: { c: Listings }) {
           )}
         </div>
         {filtered.length ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {filtered.map((vessel) => (
-              <VesselCard
-                key={vessel.name}
-                vessel={vessel}
-                c={c}
-                onOpen={() => setSelected(vessel)}
-              />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 es-fleet">
+            {filtered.map((vessel, i) => (
+              <div key={vessel.name} className="es-fleet__item" style={{ ["--i" as string]: i }}>
+                <VesselCard vessel={vessel} c={c} onOpen={() => setSelected(vessel)} />
+              </div>
             ))}
           </div>
         ) : (

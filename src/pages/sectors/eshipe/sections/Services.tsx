@@ -24,23 +24,17 @@ export default function Services({ c }: { c: EShipeContent["services"] }) {
           </p>
         </header>
         <div className="grid md:grid-cols-2 gap-5">
-          {c.items.map((item) => (
+          {c.items.map((item, i) => (
             <article
               key={item.title}
-              className="p-7 rounded-2xl"
-              style={{
-                background: "var(--fill-1)",
-                border: "var(--border-subtle)",
-              }}
+              className="p-7 rounded-2xl es-svc"
+              style={{ ["--pa" as string]: item.color, ["--i" as string]: i, background: "var(--fill-1)", border: "var(--border-subtle)" }}
             >
-              <div className="text-3xl mb-5">{item.icon}</div>
-              <h3 className="text-white font-semibold text-lg mb-3">
-                {item.title}
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                {item.desc}
-              </p>
-              <div className="h-px mt-6" style={{ background: item.color }} />
+              <span className="es-svc__ghost font-display" aria-hidden="true">0{i + 1}</span>
+              <div className="es-svc__icon">{item.icon}</div>
+              <h3 className="text-white font-semibold text-lg mb-3">{item.title}</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+              <span className="es-svc__rule" aria-hidden="true" />
             </article>
           ))}
         </div>

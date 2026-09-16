@@ -573,3 +573,18 @@ instant under reduced motion).
 | 7 | Advertising | rework | plates with own-accent drawn top rule, pointer glow, numbered |
 | 8 | Gallery | rework | viewfinder corners + REC badge on hover, indexed, staggered rise |
 | 9 | Contact | keep | |
+
+## Phase 8i — Ship Marketplace / eSHIPe (every section)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | rework | radar (rings, sweeping beam, fading blips) + rolling sea waves at the foot; anchor badge rocks; wordmark shimmers; "10" watermark; `.btn` + magnetic; numbered stats ledger; terminal types itself |
+| 2 | Metrics | keep | |
+| 3 | Services | rework | icon tiles, ghost numerals, per-service accent rule draws in |
+| 4 | Categories | rework | hexagon outline draws in and fills on hover, numbered, arrow link |
+| 5 | Vessel listings | rework | search plate → console (pulsing dot, live `shown / total` count, focus ring); fleet cards stagger in, lift with accent hairline, image zoom, details button fills |
+| 6 | Journey | keep | |
+| 7 | Recycling | rework | yard cards with pinging status pills + drawn rule |
+| 8 | Why eSHIPe | rework | icon tiles fill on hover, numbered, drawn rule |
+| 9 | Global reach | rework | reading-light lead; regions → sonar tiles (pinging dot), numbered |
+| 10 | Contact | keep | |
