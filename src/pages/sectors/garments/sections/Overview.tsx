@@ -1,5 +1,14 @@
+import type { PointerEvent } from "react"
 import { ACCENT } from "../theme"
 import type { GarmentsContent } from "../content/en"
+import ScrollWords from "@/components/motion/ScrollWords"
+
+const spot = (e: PointerEvent<HTMLDivElement>) => {
+  const el = e.currentTarget
+  const r = el.getBoundingClientRect()
+  el.style.setProperty("--mx", `${((e.clientX - r.left) / r.width) * 100}%`)
+  el.style.setProperty("--my", `${((e.clientY - r.top) / r.height) * 100}%`)
+}
 
 export default function Overview({
   c,
@@ -7,7 +16,7 @@ export default function Overview({
   c: GarmentsContent['overview']
 }) {
   return (
-    <section id="overview" className="py-24 bg-surface-2">
+    <section id="overview" className="py-24 bg-surface-2 sover" style={{ ["--pa" as string]: ACCENT }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left — rich text */}
@@ -26,9 +35,7 @@ export default function Overview({
               <br />
               {c.title2}
             </h2>
-            <p className="text-slate-600 leading-relaxed mb-5">
-              {c.p1}
-            </p>
+            <ScrollWords className="sover__lead" text={c.p1} />
             <p className="text-slate-600 leading-relaxed mb-5">
               {c.p2}
             </p>
@@ -53,11 +60,11 @@ export default function Overview({
           </div>
 
           {/* Right — value pillars grid */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 sover__pillars" onPointerMove={spot}>
             {c.pillars.map((pillar) => (
               <div
                 key={pillar.title}
-                className="p-6 rounded-2xl border border-slate-100 bg-surface-2 hover:border-rose-100 hover:shadow-lg transition-all group"
+                className="p-6 rounded-2xl border border-slate-100 bg-surface-2 hover:border-rose-100 hover:shadow-lg transition-all group sover__pillar"
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:scale-105 transition-transform"

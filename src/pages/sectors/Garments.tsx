@@ -19,6 +19,8 @@ import SupplyChain from "./garments/sections/SupplyChain"
 import Markets from "./garments/sections/Markets"
 import Opportunity from "./garments/sections/Opportunity"
 import Roadmap from "./garments/sections/Roadmap"
+import BuyerFacts from "./garments/sections/BuyerFacts"
+import Faq from "./garments/sections/Faq"
 
 const loaders = { bn: () => import("./garments/content/bn") }
 
@@ -31,6 +33,7 @@ export default function Garments() {
         <Hero c={c.hero} />
         <MetricsBar metrics={c.metrics} accentHex={ACCENT} />
         <Overview c={c.overview} />
+        <BuyerFacts c={c.buyerFacts} />
         <Products c={c.products} />
         <Manufacturing c={c.manufacturing} />
         <ProcessFlow
@@ -46,6 +49,7 @@ export default function Garments() {
         <Markets c={c.markets} />
         <Opportunity c={c.opportunity} />
         <Roadmap c={c.roadmap} />
+        <Faq c={c.faq} />
         <SectorContact
           divisionName={c.divisionName}
           accentHex={ACCENT}
