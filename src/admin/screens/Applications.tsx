@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react"
-import { api, type Page } from "../api"
+import { api, type Page, type User } from "../api"
 import { Empty, ErrorNotice, Loading } from "../Admin"
 import { Pager, ResourceError, time, useResource, type InquiryNote } from "./shared"
 import { InboxFilters, emptyQuery, queryString, type InboxQuery } from "./InboxFilters"
@@ -34,12 +34,25 @@ const STATUSES = [
   { value: "withdrawn", label: "Withdrawn" },
 ]
 
-export function Applications() {
+export function Applications({ user }: { user: User }) {
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState<InboxQuery>(emptyQuery)
   const { data, error, loading, reload } = useResource<ApplicationPage>(
     `admin/applications?${queryString(query, page)}`,
   )
+  async function removeNote(id: number, noteId: number) {
+    if (!window.confirm("Remove this internal note?")) return
+    setBusyId(id)
+    setActionError("")
+    try {
+      await api(`admin/applications/${id}/notes/${noteId}`, { method: "DELETE" })
+      reload()
+    } catch (caught) {
+      setActionError((caught as Error).message)
+    } finally {
+      setBusyId(null)
+    }
+  }
   async function addNote(event: FormEvent<HTMLFormElement>, id: number) {
     event.preventDefault()
     const form = event.currentTarget
@@ -183,7 +196,7 @@ export function Applications() {
                     <div className="adm-inquiry-notes">
                       <h3>Internal notes</h3>
                       {item.notes?.length ? (
-                        <ul>{item.notes.map((note) => <li key={note.id}><p>{note.note}</p><span>{note.author_name} · {time(note.created_at)}</span></li>)}</ul>
+                        <ul>{item.notes.map((note) => <li key={note.id}><p>{note.note}</p><span>{note.author_name} · {time(note.created_at)}{(user.role === "owner" || note.author_name === user.name) && <button type="button" className="adm-inline-btn" disabled={busyId === item.id} onClick={() => removeNote(item.id, note.id)}>Remove</button>}</span></li>)}</ul>
                       ) : <p className="adm-help">No internal notes yet.</p>}
                       <form onSubmit={(event) => addNote(event, item.id)}>
                         <label>Add a note<textarea name="note" maxLength={2000} required rows={3} /></label>

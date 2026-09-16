@@ -356,3 +356,13 @@
 .adm-alt-form input { flex: 1 1 200px; }
 .adm-notice--row { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 @media (max-width: 720px) { .adm-export { margin-left: 0; width: 100%; justify-content: center; } }
+
+/* ── Activity log, account, media search ── */
+.adm-audit { padding: 0; overflow-x: auto; }
+.adm-audit table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.adm-audit th { text-align: left; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #6b7d87; padding: 12px 16px; border-bottom: 1px solid var(--adm-line); background: #f7f9fa; }
+.adm-audit td { padding: 11px 16px; border-bottom: 1px solid var(--adm-line); color: #2f4650; white-space: nowrap; }
+.adm-audit tr:last-child td { border-bottom: 0; }
+.adm-audit tr:hover td { background: #fbfcfd; }
+.adm-media-search { margin: 0 0 18px; max-width: 560px; }
+.adm-inquiry-notes li span .adm-inline-btn { margin-left: 10px; }

@@ -648,3 +648,15 @@ Audited every screen against the PHP API and the data model. Gaps found and clos
 | Media library | alt text could never be corrected after upload; URL only selectable | edit description in place · Copy URL |
 | Team access | only activate/deactivate; no rename, no role change | rename · make owner / make editor with last-owner + self guards; audited |
 | Overview | "failed" mail count shown but no action | owner **Retry N failed** re-queues the outbox |
+
+### Phase 10b — second deep pass
+
+| Screen | Gap | Now |
+|---|---|---|
+| (all) | no way to change your own password — only an owner-issued reset link | **Your account** screen · `POST /auth/change-password` (current password required, other sessions invalidated, audited, throttled) |
+| Overview | audit trail limited to the last 12 events, no filters | **Activity log** (owner) — filter by area / person / action, paginated, colour-coded |
+| Inbox / Applications | notes could never be removed | author or owner can remove a note |
+| Media library | no search | search by description / file name |
+| Content collections | no visibility of whether a record has a bn/en twin; translating meant retyping | *… version* button → shows the twin's status or creates a pre-filled translation with the same slug |
+
+`admin-features.php` now 58 checks; `http-smoke.php` still 61.

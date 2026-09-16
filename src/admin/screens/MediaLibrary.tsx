@@ -5,8 +5,10 @@ import { Empty, ErrorNotice, Icon, Loading } from '../Admin'
 import { useResource, ResourceError, Pager, time, type DashboardData, type MediaItem, type Inquiry } from './shared'
 export function MediaLibrary({ user }: { user: User }) {
   const [page, setPage] = useState(1)
+  const [search, setSearch] = useState("")
+  const [draft, setDraft] = useState("")
   const { data, error, loading, reload } = useResource<Page<MediaItem>>(
-    `admin/media?page=${page}`,
+    `admin/media?page=${page}${search ? `&q=${encodeURIComponent(search)}` : ""}`,
   )
   const [busy, setBusy] = useState(false)
   const [actionError, setActionError] = useState("")
@@ -90,6 +92,11 @@ export function MediaLibrary({ user }: { user: User }) {
           <Icon name="plus" size={18} />
         </button>
       </form>
+      <form className="adm-search adm-media-search" role="search" onSubmit={(event) => { event.preventDefault(); setSearch(draft.trim()); setPage(1) }}>
+        <input aria-label="Search images" placeholder="Search by description or file name…" value={draft} maxLength={150} onChange={(event) => setDraft(event.target.value)} />
+        <button className="adm-button secondary">Search</button>
+        {search && <button type="button" className="adm-button secondary" onClick={() => { setDraft(""); setSearch(""); setPage(1) }}>Clear</button>}
+      </form>
       <ResourceError error={error} retry={reload} />
       {loading ? (
         <Loading />
@@ -144,10 +151,14 @@ export function MediaLibrary({ user }: { user: User }) {
                 ))}
               </div>
             ) : (
+              search ? (
+                <Empty title="No matching images">Try another description or file name.</Empty>
+              ) : (
               <Empty title="Your image library starts here">
                 Upload real company, team and project photos approved for public
                 use.
               </Empty>
+              )
             )}
             <Pager {...data} change={setPage} />
           </>

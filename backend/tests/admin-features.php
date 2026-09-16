@@ -107,6 +107,47 @@ try {
     $editor->login("$prefix@example.com", 'EditorPassword123!');
     check($editor->send('POST', 'admin/outbox/retry')['status'] === 403, 'Editors cannot retry the outbox.');
     check($editor->send('GET', 'admin/inquiries/export')['status'] === 200, 'Editors can export enquiries.');
+    // ── Notes: delete by author / owner / stranger
+    $owner->send('POST', 'admin/inquiries/' . $inquiryIds[1] . '/notes', ['note' => 'owner note']);
+    $editor->send('POST', 'admin/inquiries/' . $inquiryIds[1] . '/notes', ['note' => 'editor note']);
+    $notes = $owner->send('GET', 'admin/inquiries?q=' . urlencode($prefix))['data']['items'];
+    $target = null; foreach ($notes as $item) if ((int)$item['id'] === $inquiryIds[1]) $target = $item['notes'];
+    check(is_array($target) && count($target) === 2, 'Both notes should be listed.');
+    $ownerNote = $target[0]['id']; $editorNote = $target[1]['id'];
+    check($editor->send('DELETE', 'admin/inquiries/' . $inquiryIds[1] . '/notes/' . $ownerNote)['status'] === 403, 'Editor cannot delete another author\'s note.');
+    check($editor->send('DELETE', 'admin/inquiries/' . $inquiryIds[1] . '/notes/' . $editorNote)['status'] === 200, 'Editor deletes own note.');
+    check($owner->send('DELETE', 'admin/inquiries/' . $inquiryIds[1] . '/notes/' . $ownerNote)['status'] === 200, 'Owner deletes any note.');
+    check($owner->send('DELETE', 'admin/inquiries/' . $inquiryIds[1] . '/notes/' . $ownerNote)['status'] === 404, 'Deleted note is gone.');
+
+    // ── Media search
+    check($owner->send('GET', 'admin/media?q=' . urlencode($prefix))['data']['total'] === 0, 'Media search should return no fixtures.');
+    check($owner->send('GET', 'admin/media?q=' . str_repeat('a', 151))['status'] === 422, 'Overlong media search rejected.');
+
+    // ── Translation lookup
+    $tr = $owner->send('GET', "admin/content/testimonials/$recordId/translation");
+    check($tr['status'] === 200 && $tr['data']['locale'] === 'bn' && $tr['data']['record'] === null, 'No bn twin yet.');
+    $bn = $owner->send('POST', 'admin/content/testimonials?locale=bn', ['slug' => $prefix, 'sort_order' => 0, 'locale' => 'bn', 'data' => ['title' => "$prefix bn", 'quote' => 'চমৎকার', 'position' => 'CEO', 'permission' => true]]);
+    check($bn['status'] === 201, 'bn twin should save: ' . $bn['raw']);
+    $bnId = (int)$bn['data']['id'];
+    $tr = $owner->send('GET', "admin/content/testimonials/$recordId/translation");
+    check((int)($tr['data']['record']['id'] ?? 0) === $bnId, 'Translation lookup should find the bn twin by slug.');
+    $db->query('DELETE FROM content_revisions WHERE record_id = ?', [$bnId]); $db->query('DELETE FROM content_records WHERE id = ?', [$bnId]);
+
+    // ── Audit log (owner only, filters)
+    check($editor->send('GET', 'admin/audit')['status'] === 403, 'Editors cannot read the audit log.');
+    $audit = $owner->send('GET', 'admin/audit?entity=users&actor=' . $me['id'] . '&q=rename');
+    check($audit['status'] === 200 && count($audit['data']['items']) >= 1 && $audit['data']['items'][0]['action'] === 'rename_user', 'Audit filters should isolate rename events.');
+    check($owner->send('GET', 'admin/audit?entity=bad%20value')['status'] === 422, 'Invalid audit entity rejected.');
+
+    // ── Self-service password change (editor), other sessions invalidated, new password works
+    check($editor->send('POST', 'auth/change-password', ['current_password' => 'wrong-password-123', 'password' => 'EditorPassword456!'])['status'] === 422, 'Wrong current password rejected.');
+    check($editor->send('POST', 'auth/change-password', ['current_password' => 'EditorPassword123!', 'password' => 'short'])['status'] === 422, 'Short new password rejected.');
+    $second = new Client($base, $config['origin']); $second->login("$prefix@example.com", 'EditorPassword123!');
+    check($editor->send('POST', 'auth/change-password', ['current_password' => 'EditorPassword123!', 'password' => 'EditorPassword456!'])['status'] === 200, 'Password change should succeed.');
+    check($editor->send('GET', 'auth/session')['data']['user'] !== null, 'Changing session stays signed in.');
+    check($second->send('GET', 'auth/session')['data']['user'] === null, 'Other sessions are invalidated after a password change.');
+    $third = new Client($base, $config['origin']); $third->login("$prefix@example.com", 'EditorPassword456!');
+    check($db->query("SELECT COUNT(*) FROM audit_logs WHERE action='change_password' AND actor_id=?", [$editorId])->fetchColumn() >= 1, 'Password change is audited.');
     echo "$checks admin feature checks passed.\n";
 } finally {
     if ($inquiryIds) $db->query('DELETE FROM inquiries WHERE id IN (' . implode(',', array_fill(0, count($inquiryIds), '?')) . ')', $inquiryIds);

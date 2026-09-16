@@ -41,6 +41,26 @@ export function ContentEditor({
     setDirty(value)
     onDirty(value)
   }
+  const [twins, setTwins] = useState<Record<number, { locale: string; record: { id: number; status: string; review_state: string } | null }>>({})
+  async function checkTranslation(record: ContentRecord) {
+    setActionError("")
+    try {
+      const result = await api<{ locale: string; record: { id: number; status: string; review_state: string } | null }>(`admin/content/${moduleKey}/${record.id}/translation`)
+      setTwins((current) => ({ ...current, [record.id]: result }))
+    } catch (error) {
+      setActionError((error as Error).message)
+    }
+  }
+  function translate(record: ContentRecord) {
+    // Same slug in the other language so the public site can pair them; fields start from the source copy.
+    const other = locale === "en" ? "bn" : "en"
+    setLocale(other)
+    setPage(1)
+    setEditing({ slug: record.slug, sort_order: record.sort_order, data: { ...record.data } })
+    setActionError("")
+    setNotice(`Translating into ${other === "bn" ? "বাংলা" : "English"}. Replace the copied text, then save.`)
+    markDirty(true)
+  }
   function duplicate(record: ContentRecord) {
     // New unsaved draft carrying the source data; slug is cleared because slugs are unique per module.
     setEditing({ slug: "", sort_order: record.sort_order, data: { ...record.data, title: `${String(record.data.title ?? "")} (copy)` } })
@@ -254,6 +274,13 @@ export function ContentEditor({
                                 Edit
                               </button>
                               <button disabled={busy} onClick={() => duplicate(record)}>Duplicate</button>
+                              {twins[record.id] === undefined ? (
+                                <button disabled={busy} onClick={() => checkTranslation(record)}>{locale === "en" ? "বাংলা" : "English"} version</button>
+                              ) : twins[record.id].record ? (
+                                <button disabled={busy} onClick={() => { setLocale(twins[record.id].locale); setPage(1) }}>Open {twins[record.id].locale === "bn" ? "বাংলা" : "English"} ({twins[record.id].record!.status})</button>
+                              ) : (
+                                <button disabled={busy} onClick={() => translate(record)}>Create {twins[record.id].locale === "bn" ? "বাংলা" : "English"} version</button>
+                              )}
                             </>
                           )}
                           <button disabled={busy || ["in_review", "approved"].includes(record.review_state)} onClick={() => transition(record, "request_review")}>Request review</button>

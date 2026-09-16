@@ -102,7 +102,7 @@ Do not upload the repository wholesale. Database data, config, credentials, logs
 
 `pnpm run build` checks TypeScript and the production bundle. PHP syntax can be checked with `php -l` on each source file.
 
-For real HTTP/database integration checks, start the development API, set `N71_TEST_EMAIL` and `N71_TEST_PASSWORD` to a development owner, then run `php backend/tests/http-smoke.php` and `php backend/tests/admin-features.php` (inbox filters/exports/notes, media descriptions, role changes, content status filter, outbox retry). Optionally set `N71_TEST_BASE_URL` to a loopback API address. The suite refuses non-development configurations and non-loopback URLs; it creates random fixtures and deletes only those fixtures in `finally`. It consumes normal rate-limit attempts, so avoid repeatedly running it against a shared development login within 15 minutes.
+For real HTTP/database integration checks, start the development API, set `N71_TEST_EMAIL` and `N71_TEST_PASSWORD` to a development owner, then run `php backend/tests/http-smoke.php` and `php backend/tests/admin-features.php` (inbox filters/exports/notes, media descriptions + search, role changes, content status filter, translation lookup, outbox retry, audit log, self-service password change). Optionally set `N71_TEST_BASE_URL` to a loopback API address. The suite refuses non-development configurations and non-loopback URLs; it creates random fixtures and deletes only those fixtures in `finally`. It consumes normal rate-limit attempts, so avoid repeatedly running it against a shared development login within 15 minutes.
 
 Production PHP 8.2 or newer, a modern MySQL/MariaDB host, Apache/LiteSpeed rewrites, real SMTP and backup recovery require staging verification; local tests alone do not establish those deployment guarantees.
 
@@ -149,3 +149,8 @@ For project social metadata, deploy the project.php example and its matching rew
 - **Media library**: edit an image description in place (`PATCH /admin/media/{id}`), copy the absolute image URL.
 - **Team access**: owners can rename accounts and switch roles (`PATCH /admin/users/{id}` accepts `name`, `role`, `active`); self-demotion and removing the last active owner are refused; every change is audited.
 - **Overview**: owners can re-queue failed notification emails (`POST /admin/outbox/retry`).
+- **Your account**: any signed-in user can change their own password (`POST /auth/change-password`, requires the current password; other sessions for the account are invalidated, the current one stays signed in; audited; throttled).
+- **Activity log** (owner): browse the immutable audit trail with area / person / action filters (`GET /admin/audit`).
+- **Internal notes**: the author or an owner can remove a note (`DELETE /admin/{inquiries|applications}/{id}/notes/{noteId}`).
+- **Media library**: search by description or file name (`GET /admin/media?q=`).
+- **Translations**: `GET /admin/content/{module}/{id}/translation` reports whether the same slug exists in the other language; the list offers *Open … version* or *Create … version* (pre-filled from the source record, same slug).
