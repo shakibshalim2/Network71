@@ -624,3 +624,14 @@ instant under reduced motion).
 | 2 | Explore | rework | **added** division filter chips (colour dot per division, URL-backed `?division=`, works with search); toolbar count kept |
 | 3 | Results / empty | rework | bare error card → the Home "start with a conversation" tilt plate (brief → scope → people), with **Try again** when the API is unreachable and a filter-aware empty state |
 | 4 | Working together | keep | already signature |
+
+## Phase 9c — Investors (every section)
+
+| # | Section | Verdict | Now |
+|---|---|---|---|
+| 1 | Hero | refine | **added** three-pillar ledger (divisions / governance bodies / countries) with drawn rules + CountUp |
+| 2 | Investor information | rework | plain box → tilt intro plate with a Brief → Availability → Secure sharing step ledger, N71 mark, glow, magnetic `.btn` CTA (was a full-width button) |
+| 3 | Thesis | keep | dossier cards with numerals + spotlight already signature |
+| 4 | Documents | refine | rows slide on hover, per-row gold rule draws in, arrow link nudges |
+| 5 | Board structure | rework | 2×2 cards → numbered seal ledger (ring draws), "to be published" dots ping; lead reading-light |
+| 6 | Enquiry | keep | chip form already signature |

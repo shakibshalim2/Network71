@@ -517,3 +517,19 @@ html.js-reveal .reveal-target.is-revealed .about-tl__card { opacity: 1; translat
 .work-intro--page .public-eyebrow { display: block; margin-bottom: 10px; }
 @media (max-width: 639px) { .work-hero-facts__item { flex-basis: 100%; margin-right: 0; } .work-hero-facts__item + .work-hero-facts__item { padding-left: 0; border-left: 0; } .work-hero-facts__item + .work-hero-facts__item::before { left: 0; width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .work-hero-facts__item::before { animation: none; scale: 1 1; } .work-chip { transition: none; } }
+
+/* ═══ Investors page ═══ */
+.page-hero .work-hero-facts { max-width: 640px; }
+.page-hero .work-hero-facts dd { font-size: clamp(26px, 3vw, 36px); line-height: 1; color: var(--fg-strong); letter-spacing: -0.02em; font-family: var(--font-display); }
+.page-hero .work-hero-facts dt { font-size: 12.5px; color: var(--fg-subtle); margin-top: 6px; }
+.inv-doc { position: relative; overflow: hidden; transition: background-color 0.3s, padding-left 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) !important; }
+.inv-doc__rule { position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--pa); transform-origin: left; scale: 0 1; transition: scale 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.2s + var(--i) * 0.15s); }
+.reveal-target.is-revealed .inv-doc__rule, html:not(.js-reveal) .inv-doc__rule { scale: 1 1; }
+.inv-doc__link { display: inline-flex; align-items: center; gap: 6px; }
+.inv-doc__link svg { width: 14px; height: 14px; transition: translate 0.3s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (hover: hover) { .inv-doc:hover { padding-left: 14px !important; } .inv-doc:hover .inv-doc__link svg { translate: 2px -2px; } }
+.inv-body .sseal__mark { display: grid; place-items: center; }
+.inv-body__idx { position: relative; z-index: 1; font-size: 11px; letter-spacing: 0.1em; color: var(--pa); }
+.inv-body__pending { display: inline-flex; align-items: center; gap: 7px; }
+.inv-body__pending i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-amber); animation: sdash-ping 2.6s ease-out calc(var(--i) * 0.4s) infinite; }
+@media (prefers-reduced-motion: reduce) { .inv-doc__rule { transition: none; scale: 1 1; } .inv-body__pending i { animation: none; } }
