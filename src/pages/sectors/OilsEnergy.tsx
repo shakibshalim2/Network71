@@ -18,12 +18,16 @@ import Sustainability from './oils-energy/sections/Sustainability'
 import Markets from './oils-energy/sections/Markets'
 import Opportunities from './oils-energy/sections/Opportunities'
 import Roadmap from './oils-energy/sections/Roadmap'
+import OilSpecs from './oils-energy/sections/OilSpecs'
+import OilTerms from './oils-energy/sections/OilTerms'
+import FuelModels from './oils-energy/sections/FuelModels'
+import Faq from './oils-energy/sections/Faq'
 
 const loaders = { bn: () => import('./oils-energy/content/bn') }
 
 export default function OilsEnergy() {
   const c = useLocalizedContent(en, loaders, { page: 'divisions/oils-energy' })
   return <div className="sector-page min-h-full bg-navy"><SectorHeader divisionName={c.divisionName} accentClass={c.accentClass} /><ManagedContent content={c} className="public-content">
-    <Hero c={c} /><MetricsBar metrics={c.metrics} accentHex={AMBER} /><Overview c={c} /><EdibleOils c={c} /><EnergyFuel c={c} /><ProcessFlow steps={c.oilProcessSteps} accentHex={AMBER} label={c.copy.oilProcessLabel} /><SupplyChain c={c} /><Compliance c={c} /><Technology c={c} /><Sustainability c={c} /><Markets c={c} /><Opportunities c={c} /><Roadmap c={c} /><SectorContact divisionName={c.divisionName} accentHex={AMBER} inquiryTypes={c.inquiryTypes} />
+    <Hero c={c} /><MetricsBar metrics={c.metrics} accentHex={AMBER} /><Overview c={c} /><EdibleOils c={c} /><OilSpecs c={c} /><OilTerms c={c} /><EnergyFuel c={c} /><FuelModels c={c} /><ProcessFlow steps={c.oilProcessSteps} accentHex={AMBER} label={c.copy.oilProcessLabel} /><SupplyChain c={c} /><Compliance c={c} /><Technology c={c} /><Sustainability c={c} /><Markets c={c} /><Opportunities c={c} /><Roadmap c={c} /><Faq c={c} /><SectorContact divisionName={c.divisionName} accentHex={AMBER} inquiryTypes={c.inquiryTypes} />
   </ManagedContent><Footer /></div>
 }
