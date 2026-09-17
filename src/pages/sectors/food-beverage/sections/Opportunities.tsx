@@ -15,7 +15,7 @@ export default function Opportunities({ c }: { c: FoodBeverageContent }) {
             <h2 className="font-display text-4xl lg:text-5xl text-fg mb-4">{c.opportunitiesCopy.title1}<br />{c.opportunitiesCopy.title2}</h2>
             <p className="text-slate-500 max-w-lg mx-auto text-sm leading-relaxed">{c.opportunitiesCopy.lead}</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-5">
             {c.opportunities.map((opp) => (
               <div
                 key={opp.title}

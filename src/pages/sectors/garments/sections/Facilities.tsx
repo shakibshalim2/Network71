@@ -1,13 +1,23 @@
+import { useRef } from "react"
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react"
 import { ACCENT } from "../theme"
 import type { GarmentsContent } from "../content/en"
+import Magnetic from "@/components/motion/Magnetic"
 
 export default function Facilities({
   c,
 }: {
   c: GarmentsContent['facilities']
 }) {
+  const ref = useRef<HTMLElement>(null)
+  const reduce = useReducedMotion()
+  // Three plates drift at different rates so the gallery has depth on scroll.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
+  const y1 = useTransform(scrollYProgress, [0, 1], [reduce ? 0 : 40, reduce ? 0 : -40])
+  const y2 = useTransform(scrollYProgress, [0, 1], [reduce ? 0 : 70, reduce ? 0 : -30])
+  const y3 = useTransform(scrollYProgress, [0, 1], [reduce ? 0 : 20, reduce ? 0 : -60])
   return (
-    <section className="py-24 bg-surface-2 overflow-hidden">
+    <section ref={ref} className="py-24 bg-surface-2 overflow-hidden sfac" style={{ ["--pa" as string]: ACCENT }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-14 items-center">
           <div>
@@ -50,34 +60,33 @@ export default function Facilities({
               ))}
             </div>
 
-            <p className="text-xs text-slate-400 italic">
+            <p className="text-xs text-slate-400 italic mb-6">
               {c.note}
             </p>
+            <Magnetic strength={8}>
+              <a href="#sector-contact" className="btn btn-secondary btn-sm">
+                {c.deckCta}
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
+                </svg>
+              </a>
+            </Magnetic>
           </div>
 
           {/* Image grid */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="col-span-2 rounded-2xl overflow-hidden h-52">
-              <img decoding="async" loading="lazy"
-                src={c.images[0]}
-                alt={c.alts[0]}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-              />
-            </div>
-            <div className="rounded-2xl overflow-hidden h-44">
-              <img decoding="async" loading="lazy"
-                src={c.images[1]}
-                alt={c.alts[1]}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-              />
-            </div>
-            <div className="rounded-2xl overflow-hidden h-44">
-              <img decoding="async" loading="lazy"
-                src={c.images[2]}
-                alt={c.alts[2]}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-              />
-            </div>
+          <div className="grid grid-cols-2 gap-3 sfac__gallery">
+            <motion.figure className="col-span-2 sfac__plate h-56 sm:h-64" style={{ y: y1 }}>
+              <img decoding="async" loading="lazy" src={c.images[0]} alt={c.alts[0]} />
+              <figcaption className="font-mono">01 — {c.alts[0]}</figcaption>
+            </motion.figure>
+            <motion.figure className="sfac__plate h-44 sm:h-52" style={{ y: y2 }}>
+              <img decoding="async" loading="lazy" src={c.images[1]} alt={c.alts[1]} />
+              <figcaption className="font-mono">02 — {c.alts[1]}</figcaption>
+            </motion.figure>
+            <motion.figure className="sfac__plate h-44 sm:h-52" style={{ y: y3 }}>
+              <img decoding="async" loading="lazy" src={c.images[2]} alt={c.alts[2]} />
+              <figcaption className="font-mono">03 — {c.alts[2]}</figcaption>
+            </motion.figure>
           </div>
         </div>
       </div>

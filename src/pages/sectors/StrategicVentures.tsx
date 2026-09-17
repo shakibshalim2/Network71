@@ -12,6 +12,11 @@ import Overview from './ventures/sections/Overview'
 import Models from './ventures/sections/Models'
 import Partners from './ventures/sections/Partners'
 import Status from './ventures/sections/Status'
+import Structures from './ventures/sections/Structures'
+import DealTimeline from './ventures/sections/DealTimeline'
+import Readiness from './ventures/sections/Readiness'
+import FactsLedger from '@/components/sector/FactsLedger'
+import FaqAccordion from '@/components/sector/FaqAccordion'
 
 const loaders = { bn: () => import('./ventures/content/bn') }
 
@@ -24,9 +29,14 @@ export default function StrategicVentures() {
         <Hero c={c.hero} />
         <MetricsBar metrics={c.metrics} accentHex={INDIGO} dark />
         <Overview c={c.overview} />
+        <FactsLedger c={c.mandate} accent={INDIGO} id="mandate" dark />
         <Models c={c.models} />
+        <Structures c={c.structures} />
         <ProcessFlow steps={c.process} accentHex={INDIGO} label={c.processLabel} />
+        <DealTimeline c={c.timeline} />
+        <Readiness c={c.readiness} />
         <Partners c={c.partners} />
+        <FaqAccordion c={c.faq} accent={INDIGO} dark />
         <Status c={c.status} />
         <SectorContact divisionName={c.divisionName} accentHex={INDIGO} inquiryTypes={c.inquiryTypes} />
       </ManagedContent>

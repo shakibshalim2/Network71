@@ -28,7 +28,7 @@ export default function Quality({
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+        <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-12">
           {c.certifications.map((cert) => (
             <div
               key={cert.code}

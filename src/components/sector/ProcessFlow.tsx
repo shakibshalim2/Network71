@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion, useScroll, useSpring, useTransform } from "motion/react"
 import { useT } from "@/i18n"
 import { EASE_OUT } from "@/lib/motion"
@@ -44,11 +44,20 @@ export default function ProcessFlow({
     damping: 28,
     mass: 0.6,
   })
-  const isDesktop =
-    typeof window !== "undefined" &&
-    window.matchMedia("(min-width: 1024px)").matches
-  const scaleX = useTransform(progress, (v) => (isDesktop ? v : 1))
-  const scaleY = useTransform(progress, (v) => (isDesktop ? 1 : v))
+  // Horizontal only when each step has room (~170px); 7 steps need ~1280px.
+  const minW = Math.max(1024, steps.length * 170 + 80)
+  const [horizontal, setHorizontal] = useState(
+    () => typeof window !== "undefined" && window.matchMedia(`(min-width: ${minW}px)`).matches,
+  )
+  useEffect(() => {
+    const mq = window.matchMedia(`(min-width: ${minW}px)`)
+    const sync = () => setHorizontal(mq.matches)
+    sync()
+    mq.addEventListener("change", sync)
+    return () => mq.removeEventListener("change", sync)
+  }, [minW])
+  const scaleX = useTransform(progress, (v) => (horizontal ? v : 1))
+  const scaleY = useTransform(progress, (v) => (horizontal ? 1 : v))
 
   return (
     <section
@@ -76,7 +85,7 @@ export default function ProcessFlow({
           </span>
         </div>
 
-        <div className="journey__track">
+        <div className="journey__track" data-orient={horizontal ? "h" : "v"}>
           {/* Base + drawn line */}
           <span className="journey__line" aria-hidden="true" />
           <motion.span

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom"
 import { motion, AnimatePresence, useReducedMotion } from "motion/react"
 import { useT, type TKey } from "@/i18n"
 import { useCompanySettings } from "@/lib/companySettings"
-import AuroraCanvas from "@/components/AuroraCanvas"
 import Magnetic from "@/components/motion/Magnetic"
 import { EASE_OUT, springSoft } from "@/lib/motion"
 
@@ -30,8 +29,10 @@ const PATHS = [
 
 /**
  * Closing "portal": a tabbed chooser instead of three equal cards. The chosen
- * path recolours the aurora backdrop and swaps the copy, so the section reads
- * as one conversation rather than a menu.
+ * path recolours the CSS aurora backdrop and swaps the copy, so the section
+ * reads as one conversation rather than a menu. Deliberately no WebGL here:
+ * a white-washed canvas over the dark band made the section unreadable in
+ * light mode on some compositors.
  */
 export default function ConnectPortal() {
   const { t } = useT()
@@ -41,13 +42,12 @@ export default function ConnectPortal() {
   const active = PATHS[idx]
 
   return (
-    <section className="portal force-dark section-y" id="connect">
-      <AuroraCanvas
-        key={active.hex}
-        color={active.hex}
-        secondary="#0D9488"
-        intensity={0.85}
-      />
+    <section
+      className="portal force-dark section-y"
+      id="connect"
+      style={{ ["--portal-accent" as string]: active.hex }}
+    >
+      <div className="portal__aurora" aria-hidden="true" />
       <div className="portal__grid" aria-hidden="true" />
       <div className="container-page portal__inner">
         <motion.p

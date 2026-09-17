@@ -17,7 +17,7 @@ export default function Categories({ c }: { c: EShipeContent["categories"] }) {
           </h2>
           <p className="text-slate-400 text-sm">{c.description}</p>
         </header>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
           {c.items.map((item, i) => (
             <article
               key={item.name}

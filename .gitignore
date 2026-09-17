@@ -29,3 +29,6 @@ logs/
 
 /backend/vendor/
 /artifacts/
+
+# Hoplite scratch (screenshot harness)
+.hoplite/tmp/

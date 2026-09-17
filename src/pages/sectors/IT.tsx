@@ -20,6 +20,10 @@ import Quality from "./it/sections/Quality"
 import GlobalReach from "./it/sections/GlobalReach"
 import Opportunities from "./it/sections/Opportunities"
 import Roadmap from "./it/sections/Roadmap"
+import EngagementFacts from "./it/sections/EngagementFacts"
+import SupportTiers from "./it/sections/SupportTiers"
+import WaysOfWorking from "./it/sections/WaysOfWorking"
+import Faq from "./it/sections/Faq"
 
 const loaders = { bn: () => import("./it/content/bn") }
 
@@ -42,8 +46,8 @@ export default function IT() {
           label={c.processLabel}
         />{" "}
         <Clients c={c} />
-        <Delivery c={c} /> <Quality c={c} /> <GlobalReach c={c} />{" "}
-        <Opportunities c={c} /> <Roadmap c={c} />
+        <Delivery c={c} /> <EngagementFacts c={c} /> <WaysOfWorking c={c} /> <Quality c={c} /> <SupportTiers c={c} /> <GlobalReach c={c} />{" "}
+        <Opportunities c={c} /> <Roadmap c={c} /> <Faq c={c} />
         <SectorContact
           divisionName={c.divisionName}
           accentHex={ACCENT}

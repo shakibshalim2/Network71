@@ -14,7 +14,7 @@ export default function Opportunities({ c }: { c: TradingContent }) {
             <h2 className="font-display text-4xl lg:text-5xl text-white mb-4">{c.copy.opportunitiesTitle}</h2>
             <p className="text-slate-400 text-sm max-w-lg mx-auto">{c.copy.opportunitiesLead}</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-5">
             {c.opportunityCards.map((o) => (
               <div
                 key={o.title}

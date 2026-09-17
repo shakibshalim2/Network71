@@ -12,6 +12,6 @@ export default function Projects() {
   return slug ? (
     <ProjectDetail key={slug} slug={slug} c={c.detail} />
   ) : (
-    <ProjectList c={c.list} />
+    <ProjectList c={c.list} extra={{ capabilities: c.capabilities, standard: c.standard, faq: c.faq }} />
   )
 }
