@@ -14,7 +14,7 @@ export interface FaqContent {
 }
 
 /** Buyer FAQ: single-open accordion with height/blur transitions and a rotating plus. Shared across division pages. */
-export default function FaqAccordion({ c, accent, dark = false }: { c: FaqContent; accent: string; dark?: boolean }) {
+export default function FaqAccordion({ c, accent, dark = false, href = "#sector-contact" }: { c: FaqContent; accent: string; dark?: boolean; href?: string }) {
   const ACCENT = accent
   const [open, setOpen] = useState(0)
   const reduce = useReducedMotion()
@@ -42,7 +42,7 @@ export default function FaqAccordion({ c, accent, dark = false }: { c: FaqConten
               )}
             </h2>
             {lead && <p className={`${dark ? "text-slate-400" : "text-slate-500"} text-sm leading-relaxed mb-8 max-w-md`}>{lead}</p>}
-            <a href="#sector-contact" className="scard-link" style={{ color: ACCENT }}>
+            <a href={href} className="scard-link" style={{ color: ACCENT }}>
               {c.cta}
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />

@@ -25,7 +25,7 @@ export interface FactsContent {
  * Commercial facts buyers screen on before opening a conversation: MOQ,
  * lead times, payment terms, incoterms. Shared across division pages.
  */
-export default function FactsLedger({ c, accent, id = "buyer-facts", dark = false }: { c: FactsContent; accent: string; id?: string; dark?: boolean }) {
+export default function FactsLedger({ c, accent, id = "buyer-facts", dark = false, href = "#sector-contact" }: { c: FactsContent; accent: string; id?: string; dark?: boolean; href?: string }) {
   const ACCENT = accent
   const lead = c.lead ?? c.description
   const note = c.note ?? c.footnote
@@ -77,7 +77,7 @@ export default function FactsLedger({ c, accent, id = "buyer-facts", dark = fals
         <div className="sfacts__foot">
           {note && <p className="text-slate-500 text-xs italic">{note}</p>}
           <Magnetic strength={8}>
-            <a href="#sector-contact" className="btn btn-primary btn-sm shero__cta" style={{ background: ACCENT, color: "var(--s0)" }}>
+            <a href={href} className="btn btn-primary btn-sm shero__cta" style={{ background: ACCENT, color: "var(--s0)" }}>
               {c.cta}
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
