@@ -18,6 +18,10 @@ import Markets from "./agriculture/sections/Markets"
 import Opportunities from "./agriculture/sections/Opportunities"
 import FarmerProgram from "./agriculture/sections/FarmerProgram"
 import Roadmap from "./agriculture/sections/Roadmap"
+import SeasonCalendar from "./agriculture/sections/SeasonCalendar"
+import ExportSpecs from "./agriculture/sections/ExportSpecs"
+import TradeTerms from "./agriculture/sections/TradeTerms"
+import Faq from "./agriculture/sections/Faq"
 
 const loaders = { bn: () => import("./agriculture/content/bn") }
 
@@ -34,6 +38,8 @@ export default function Agriculture() {
         <MetricsBar metrics={c.metrics} accentHex={GREEN} dark />
         <Vision c={c.vision} />
         <Crops c={c.crops} />
+        <SeasonCalendar c={c.calendar} />
+        <ExportSpecs c={c.specs} />
         <Technology c={c.technology} />
         <ProcessFlow
           steps={c.processSteps}
@@ -42,11 +48,13 @@ export default function Agriculture() {
         />
         <Certifications c={c.supplyChain} />
         <Quality c={c.quality} />
+        <TradeTerms c={c.terms} />
         <Sustainability c={c.sustainability} />
         <Markets c={c.markets} />
         <Opportunities c={c.opportunities} />
         <FarmerProgram c={c.farmerProgram} />
         <Roadmap c={c.roadmap} />
+        <Faq c={c.faq} />
         <SectorContact
           divisionName={c.divisionName}
           accentHex={GREEN}

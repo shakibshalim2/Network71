@@ -14,6 +14,10 @@ import VesselListings from "./eshipe/sections/VesselListings"
 import Recycling from "./eshipe/sections/Recycling"
 import WhyEShipe from "./eshipe/sections/WhyEShipe"
 import GlobalReach from "./eshipe/sections/GlobalReach"
+import DealTerms from "./eshipe/sections/DealTerms"
+import ClosingDocs from "./eshipe/sections/ClosingDocs"
+import ListVessel from "./eshipe/sections/ListVessel"
+import Faq from "./eshipe/sections/Faq"
 
 const loaders = { bn: () => import("./eshipe/content/bn") }
 
@@ -36,9 +40,13 @@ export default function EShipe() {
           accentHex={OCEAN}
           label={c.processLabel}
         />
+        <DealTerms c={c.dealTerms} />
+        <ClosingDocs c={c.closingDocs} />
         <Recycling c={c.recycling} />
+        <ListVessel c={c.listVessel} />
         <WhyEShipe c={c.why} />
         <GlobalReach c={c.reach} />
+        <Faq c={c.faq} />
         <SectorContact
           divisionName={c.divisionName}
           accentHex={OCEAN}

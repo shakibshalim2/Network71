@@ -12,8 +12,11 @@ import { motion } from "motion/react"
 import type { ProjectsContent } from "../content/en"
 import ContentState from "@/components/ContentState"
 import KineticText from "@/components/motion/KineticText"
+import Capabilities from "./Capabilities"
+import Standard from "./Standard"
+import FaqAccordion from "@/components/sector/FaqAccordion"
 
-export default function ProjectList({ c }: { c: ProjectsContent["list"] }) {
+export default function ProjectList({ c, extra }: { c: ProjectsContent["list"]; extra: Pick<ProjectsContent, "capabilities" | "standard" | "faq"> }) {
   const [params, setParams] = useSearchParams()
   const page = Math.min(
     10000,
@@ -207,7 +210,10 @@ export default function ProjectList({ c }: { c: ProjectsContent["list"] }) {
             )}
           </div>
         </section>
+        <Capabilities c={extra.capabilities} />
+        <Standard c={extra.standard} />
         <WorkingTogether />
+        <FaqAccordion c={extra.faq} accent="var(--brand)" dark href="/contact" />
       </main>
       <Footer />
     </div>

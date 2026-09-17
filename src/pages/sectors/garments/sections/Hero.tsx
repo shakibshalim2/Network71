@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from "motion/react"
 import { ACCENT } from "../theme"
 import type { GarmentsContent } from "../content/en"
 import Magnetic from "@/components/motion/Magnetic"
+import KineticText from "@/components/motion/KineticText"
 
 export default function Hero({
   c,
@@ -16,6 +17,9 @@ export default function Hero({
   const copyY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -120])
   const copyOpacity = useTransform(scrollYProgress, [0, 0.7], [1, reduce ? 1 : 0])
   const tagsOpacity = useTransform(scrollYProgress, [0, 0.4], [1, reduce ? 1 : 0])
+  // Photo scrolls slower than the copy and zooms out slightly (depth).
+  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "18%"])
+  const imgScale = useTransform(scrollYProgress, [0, 1], [reduce ? 1 : 1.12, 1])
 
   return (
     <section
@@ -23,7 +27,7 @@ export default function Hero({
       className="force-dark sector-hero shero relative min-h-screen flex items-center overflow-hidden"
       style={{ ["--pa" as string]: ACCENT }}
     >
-      <div className="absolute inset-0">
+      <motion.div className="absolute inset-0 shero__photo" style={{ y: imgY, scale: imgScale }}>
         <img decoding="async"
           src={c.image}
           alt={c.alt}
@@ -42,7 +46,9 @@ export default function Hero({
             background: `linear-gradient(to top, color-mix(in srgb, ${ACCENT} 9%, transparent) 0%, transparent 40%)`,
           }}
         />
-      </div>
+      </motion.div>
+      {/* Accent light sweep across the photo, once, on load */}
+      <span className="shero__sweep" aria-hidden="true" />
 
       {/* Decorative grid overlay */}
       <div
@@ -70,10 +76,12 @@ export default function Hero({
             </span>
           </div>
 
-          <h1 className="font-display text-6xl lg:text-7xl xl:text-8xl text-white leading-[0.95] tracking-[-0.02em] mb-8">
-            {c.title1}
-            <br />
-            <span className="shero__amp" style={{ color: ACCENT }}>&</span> {c.title2}
+          <h1 className="font-display hero-kinetic text-6xl lg:text-7xl xl:text-8xl text-white leading-[0.95] tracking-[-0.02em] mb-8">
+            <KineticText text={c.title1} delay={0.2} />
+            <span className="hero-kinetic__line shero__line2">
+              <span className="shero__amp" style={{ color: ACCENT }}>&</span>{" "}
+              <KineticText text={c.title2} delay={0.42} className="shero__inline" />
+            </span>
           </h1>
 
           <p className="text-slate-300 text-lg lg:text-xl leading-relaxed mb-4 max-w-xl">
@@ -83,7 +91,12 @@ export default function Hero({
             {c.description}
           </p>
 
-          <div className="flex flex-wrap gap-4">
+          <motion.div
+            className="flex flex-wrap gap-4"
+            initial={reduce ? false : { opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          >
             <Magnetic strength={10}>
               <a
                 href="#sector-contact"
@@ -104,8 +117,14 @@ export default function Hero({
                 {c.ctaSecondary}
               </a>
             </Magnetic>
-          </div>
+          </motion.div>
         </motion.div>
+
+        {/* Scroll cue */}
+        <a href="#overview" className="shero__cue shero__cue--side hidden lg:flex" aria-label={c.ctaSecondary}>
+          <span className="shero__cue-line"><span /></span>
+          <span className="shero__cue-label font-mono">scroll</span>
+        </a>
 
         {/* Hero bottom tag ledger */}
         <motion.ul
@@ -127,6 +146,18 @@ export default function Hero({
             </motion.li>
           ))}
         </motion.ul>
+      </div>
+
+      {/* Capability ticker along the fold */}
+      <div className="shero__ticker" aria-hidden="true">
+        <div className="shero__ticker-track">
+          {[...c.ticker, ...c.ticker, ...c.ticker].map((item, i) => (
+            <span key={i} className="shero__ticker-item font-mono">
+              {item}
+              <span className="shero__ticker-dot" style={{ background: ACCENT }} />
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   )

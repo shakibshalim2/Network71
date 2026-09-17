@@ -32,9 +32,10 @@ export default function Crops({ c }: { c: AgricultureContent["crops"] }) {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {c.items.map((c) => (
-            <div
+            <a
               key={c.name}
-              className="group p-7 rounded-2xl border border-slate-100 hover:border-green-300 bg-surface-2 hover:shadow-xl transition-all duration-300"
+              href="#export-specs"
+              className="group p-7 rounded-2xl border border-slate-100 hover:border-green-300 bg-surface-2 hover:shadow-xl transition-all duration-300 scrop"
             >
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 mb-4"
@@ -48,7 +49,8 @@ export default function Crops({ c }: { c: AgricultureContent["crops"] }) {
                 {c.name}
               </h3>
               <p className="text-slate-500 text-sm leading-relaxed">{c.desc}</p>
-            </div>
+              <span className="scrop__link font-mono" aria-hidden="true">SPEC →</span>
+            </a>
           ))}
         </div>
       </div>

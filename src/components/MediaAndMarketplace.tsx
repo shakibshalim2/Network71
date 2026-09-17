@@ -21,7 +21,7 @@ export default function MediaAndMarketplace() {
   return (
     <section className="section-y mm" style={{ background: 'var(--s0)', borderTop: '1px solid var(--line)' }}>
       <div className="container-page">
-        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-4 sm:gap-5 xl:gap-6">
+        <div className="grid xl:grid-cols-[1.2fr_1fr] gap-4 sm:gap-5 xl:gap-6">
 
           {/* ── MEDIA FEATURE ─────────────────────────────── */}
           <div className="mm__plate">

@@ -13,6 +13,11 @@ import Television from './media/sections/Television'
 import Standards from './media/sections/Standards'
 import Advertising from './media/sections/Advertising'
 import Gallery from './media/sections/Gallery'
+import AdSpecs from './media/sections/AdSpecs'
+import Audience from './media/sections/Audience'
+import Production from './media/sections/Production'
+import PressDesk from './media/sections/PressDesk'
+import Faq from './media/sections/Faq'
 
 const loaders = { bn: () => import('./media/content/bn') }
 
@@ -29,7 +34,12 @@ export default function Media() {
         <Television c={c.tv} />
         <Standards c={c.standards} />
         <Advertising c={c.advertising} />
+        <Audience c={c.audience} />
+        <AdSpecs c={c.adSpecs} />
+        <Production c={c.production} />
         <Gallery c={c.gallery} />
+        <PressDesk c={c.pressDesk} />
+        <Faq c={c.faq} />
         <SectorContact divisionName={c.divisionName} accentHex={RED} inquiryTypes={c.inquiryTypes} />
       </ManagedContent>
       <Footer />

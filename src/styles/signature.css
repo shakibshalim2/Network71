@@ -62,7 +62,7 @@
   background: linear-gradient(135deg, #A855F7 0%, #EC4899 60%, #22D3EE 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-.dix__bar { position: absolute; left: 0; top: -1px; height: calc(100% + 1px); width: 3px; background: var(--row-accent); border-radius: 0 3px 3px 0; }
+.dix__bar { position: absolute; left: calc(var(--gutter) * -1); top: -1px; height: calc(100% + 1px); width: 3px; background: var(--row-accent); border-radius: 0 3px 3px 0; box-shadow: 0 0 18px color-mix(in srgb, var(--row-accent) 60%, transparent); }
 
 .dix__preview {
   position: absolute; left: 0; top: 0; z-index: 5; pointer-events: none;
@@ -80,8 +80,17 @@
   font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
 }
 @media (max-width: 1279px) {
+  .dix__row { grid-template-columns: 48px minmax(0, 1fr) minmax(0, 0.9fr) 44px; gap: 18px; }
+  .dix__tag { display: block; grid-column: 2; margin-top: 8px; }
+  .dix__name { grid-column: 2; }
+  .dix__num { grid-row: 1 / span 2; align-self: start; padding-top: 6px; }
+  .dix__desc { grid-column: 3; grid-row: 1 / span 2; opacity: 0.7; }
+  .dix__arrow { grid-column: 4; grid-row: 1 / span 2; }
+}
+@media (max-width: 899px) {
   .dix__row { grid-template-columns: 48px minmax(0, 1fr) 44px; }
-  .dix__tag, .dix__desc { display: none; }
+  .dix__desc { display: none; }
+  .dix__arrow { grid-column: 3; }
 }
 
 /* Mobile dossier rail */
@@ -233,16 +242,34 @@
 @keyframes rail-parallax { from { object-position: 30% center; } to { object-position: 70% center; } }
 
 /* ═══ Connect portal ═══ */
-/* Deliberately dark in both themes. Background is a literal so legibility never
-   depends on token cascade or on the WebGL canvas painting correctly. */
-.portal { position: relative; isolation: isolate; overflow: hidden; background: #04080E; border-top: 1px solid rgb(255 255 255 / 0.08); }
+/* Deliberately dark in both themes. Background is a literal and the aurora is
+   pure CSS, so legibility never depends on token cascade or a WebGL canvas. */
+@property --portal-accent { syntax: '<color>'; inherits: true; initial-value: #C8962A; }
+.portal { position: relative; isolation: isolate; overflow: hidden; background: #04080E; border-top: 1px solid rgb(255 255 255 / 0.08); transition: --portal-accent 0.8s ease; }
 .portal::before {
-  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  content: ''; position: absolute; inset: -20%; z-index: 0; pointer-events: none;
   background:
-    radial-gradient(60% 50% at 50% 0%, color-mix(in srgb, var(--brand) 22%, transparent), transparent 70%),
-    radial-gradient(40% 40% at 85% 90%, rgb(13 148 136 / 0.16), transparent 70%);
+    radial-gradient(38% 42% at 50% 12%, color-mix(in srgb, var(--portal-accent) 34%, transparent), transparent 70%),
+    radial-gradient(30% 36% at 18% 70%, rgb(13 148 136 / 0.22), transparent 70%),
+    radial-gradient(28% 34% at 84% 78%, color-mix(in srgb, var(--portal-accent) 16%, transparent), transparent 70%);
+  filter: blur(30px);
+  animation: portal-drift 26s ease-in-out infinite alternate;
 }
-.portal .aurora-canvas { opacity: 0.9; z-index: 0; }
+.portal__aurora {
+  position: absolute; inset: -30%; z-index: 0; pointer-events: none; opacity: 0.55;
+  background:
+    conic-gradient(from 210deg at 50% 45%, transparent 0 18%, color-mix(in srgb, var(--portal-accent) 22%, transparent) 30%, transparent 44%, rgb(13 148 136 / 0.18) 58%, transparent 70%, color-mix(in srgb, var(--portal-accent) 14%, transparent) 84%, transparent 100%);
+  filter: blur(46px) saturate(1.2);
+  animation: portal-spin 48s linear infinite;
+  mask-image: radial-gradient(ellipse at 50% 45%, #000 30%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 30%, transparent 78%);
+}
+@keyframes portal-drift {
+  from { transform: translate3d(-3%, -2%, 0) scale(1); }
+  to   { transform: translate3d(3%, 3%, 0) scale(1.08); }
+}
+@keyframes portal-spin { to { transform: rotate(1turn); } }
+@media (prefers-reduced-motion: reduce) { .portal::before, .portal__aurora { animation: none; } }
 .portal__grid { z-index: 0; }
 .portal__title { color: #fff; }
 .portal__desc { color: #E2E8F0; }
@@ -312,21 +339,22 @@
 .journey__body h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: var(--fg-strong); margin-bottom: 8px; }
 .journey__body p { font-size: 14px; line-height: 1.65; color: var(--fg-muted); }
 
-/* Desktop: horizontal */
-@media (min-width: 1024px) {
-  .journey__line { top: 21px; left: 0; right: 0; height: 2px; }
-  .journey__line--fill { transform-origin: left center; scale: var(--_sx, 1) 1; }
-  .journey__steps { display: grid; grid-template-columns: repeat(var(--steps, 4), minmax(0, 1fr)); gap: 24px; }
-  .journey__step { display: grid; gap: 20px; }
-  .journey__body { padding-right: 12px; }
-}
-/* Mobile: vertical */
-@media (max-width: 1023px) {
-  .journey__line { left: 21px; top: 0; bottom: 0; width: 2px; }
-  .journey__line--fill { transform-origin: center top; }
-  .journey__steps { display: grid; gap: 28px; }
-  .journey__step { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 18px; align-items: start; }
-  .journey__body { padding-top: 8px; }
+/* Horizontal when every step gets >= ~170px; otherwise the vertical spine.
+   The component sets data-orient from a matchMedia on the same query. */
+.journey__track[data-orient="h"] .journey__line { top: 21px; left: 0; right: 0; height: 2px; }
+.journey__track[data-orient="h"] .journey__line--fill { transform-origin: left center; }
+.journey__track[data-orient="h"] .journey__steps { display: grid; grid-template-columns: repeat(var(--steps, 4), minmax(0, 1fr)); gap: 24px; }
+.journey__track[data-orient="h"] .journey__step { display: grid; gap: 20px; }
+.journey__track[data-orient="h"] .journey__body { padding-right: 12px; }
+.journey__track[data-orient="v"] .journey__line { left: 21px; top: 0; bottom: 0; width: 2px; }
+.journey__track[data-orient="v"] .journey__line--fill { transform-origin: center top; }
+.journey__track[data-orient="v"] .journey__steps { display: grid; gap: 28px; }
+.journey__track[data-orient="v"] .journey__step { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 18px; align-items: start; }
+.journey__track[data-orient="v"] .journey__body { padding-top: 8px; }
+/* Tablet with a vertical spine: two columns of steps share the width. */
+@media (min-width: 640px) {
+  .journey__track[data-orient="v"] .journey__steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 40px; }
+  .journey__track[data-orient="v"] .journey__line { display: none; }
 }
 
 /* ═══ Ledger strip (MetricsBar) ═══ */
@@ -525,6 +553,9 @@ html:not(.js-reveal) .work-intro-steps li::after { scale: 1 1; }
 }
 .pline .working-steps h3 { transition: color 0.4s; color: color-mix(in srgb, var(--fg-strong) calc(40% + var(--on) * 60%), transparent); }
 .pline .working-steps p { transition: opacity 0.4s; opacity: calc(0.55 + var(--on) * 0.45); }
+@media (min-width: 768px) and (max-width: 1279px) {
+  .pline .working-steps li:nth-child(n + 3) { border-top: 1px solid var(--line); padding-top: 24px; }
+}
 @media (max-width: 767px) {
   .pline { padding-left: 34px; }
   .pline__base, .pline__fill { left: 14px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; }
@@ -574,7 +605,8 @@ html:not(.js-reveal) .work-intro-steps li::after { scale: 1 1; }
   content: ''; position: absolute; left: 18px; right: 18px; bottom: 0; height: 2px; background: var(--bw-accent); border-radius: 2px 2px 0 0;
   transform-origin: left; scale: 0 1; transition: scale 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
-.bwall__idx { grid-area: idx; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--fg-faint); align-self: start; padding-top: 3px; transition: color 0.35s; }
+.bwall__idx { grid-area: idx; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: color-mix(in srgb, var(--bw-accent) 75%, var(--fg-faint)); align-self: start; padding-top: 3px; transition: color 0.35s; }
+.bwall__mark { border-left: 2px solid color-mix(in srgb, var(--bw-accent) 55%, transparent); }
 .bwall__name { grid-area: name; font-size: 17px; font-weight: 800; letter-spacing: 0.06em; line-height: 1.1; color: var(--fg); white-space: nowrap; transition: color 0.35s; }
 .bwall__name.is-flagship { font-size: 20px; letter-spacing: -0.01em; }
 .bwall__sub { grid-area: sub; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-subtle); white-space: nowrap; transition: color 0.35s; }

@@ -19,6 +19,10 @@ import Sustainability from './food-beverage/sections/Sustainability'
 import ExportMarkets from './food-beverage/sections/ExportMarkets'
 import Opportunities from './food-beverage/sections/Opportunities'
 import Roadmap from './food-beverage/sections/Roadmap'
+import PartnerTerms from './food-beverage/sections/PartnerTerms'
+import NpdStages from './food-beverage/sections/NpdStages'
+import Formats from './food-beverage/sections/Formats'
+import Faq from './food-beverage/sections/Faq'
 
 const loaders = { bn: () => import('./food-beverage/content/bn') }
 
@@ -27,9 +31,9 @@ export default function FoodBeverage() {
   return <div className="sector-page min-h-full" style={{ background: BG_DEEP }}>
     <SectorHeader divisionName={c.divisionName} accentClass="text-orange-400" />
     <ManagedContent content={c} className="public-content"><Hero c={c} /><MetricsBar metrics={c.metrics} accentHex={ORANGE} dark />
-      <Overview c={c} /><ProductPortfolio c={c} /><BrandModels c={c} /><Standards c={c} /><QualityLab c={c} />
+      <Overview c={c} /><ProductPortfolio c={c} /><BrandModels c={c} /><PartnerTerms c={c} /><NpdStages c={c} /><Formats c={c} /><Standards c={c} /><QualityLab c={c} />
       <ProcessFlow steps={c.processSteps} accentHex={ORANGE} label={c.processLabel} /><Facilities c={c} /><QualityCompliance c={c} />
-      <Sustainability c={c} /><ExportMarkets c={c} /><Opportunities c={c} /><Roadmap c={c} />
+      <Sustainability c={c} /><ExportMarkets c={c} /><Opportunities c={c} /><Roadmap c={c} /><Faq c={c} />
       <SectorContact divisionName={c.divisionName} accentHex={ORANGE} inquiryTypes={c.inquiryTypes} />
     </ManagedContent><Footer />
   </div>

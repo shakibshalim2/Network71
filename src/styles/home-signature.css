@@ -519,7 +519,7 @@ html.js-reveal .reveal-target.is-revealed .about-tl__card { opacity: 1; translat
 @media (prefers-reduced-motion: reduce) { .work-hero-facts__item::before { animation: none; scale: 1 1; } .work-chip { transition: none; } }
 
 /* ═══ Investors page ═══ */
-.page-hero .work-hero-facts { max-width: 640px; }
+.page-hero .work-hero-facts { max-width: 640px; flex: 1 1 100%; width: 100%; margin-top: 0; }
 .page-hero .work-hero-facts dd { font-size: clamp(26px, 3vw, 36px); line-height: 1; color: var(--fg-strong); letter-spacing: -0.02em; font-family: var(--font-display); }
 .page-hero .work-hero-facts dt { font-size: 12.5px; color: var(--fg-subtle); margin-top: 6px; }
 .inv-doc { position: relative; overflow: hidden; transition: background-color 0.3s, padding-left 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) !important; }
