@@ -86,7 +86,7 @@ export default function Enquiry({ c, email }: { c: InvestorsContent['enquiry']; 
   const label = (s: string) => (/\*\s*$/.test(s) ? <>{strip(s)}<span className="cf__req" aria-hidden="true"> *</span></> : strip(s))
 
   return (
-    <section className="bg-navy-dark py-24 cf inv-enquiry">
+    <section id="investor-enquiry" className="bg-navy-dark py-24 cf inv-enquiry">
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         <div className="inv-enquiry__grid">
           <div className="inv-enquiry__intro">
